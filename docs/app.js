@@ -1,6 +1,12 @@
 const STORAGE_KEY = "warhammer-tactical-assistant-settings";
 const DB_NAME = "warhammer-tactical-assistant-v1";
 const DB_STORE = "library";
+const BUILTIN_LIBRARY_FILES = [
+  "data/11版核心规则简中.pdf",
+  "data/帝皇禁军10版中文老湿腐版1.07.pdf",
+  "data/分遣队速查表.pdf",
+  "data/星际战士11版中文1.0.pdf",
+];
 const DEFAULT_SETTINGS = {
   mode: "direct",
   key: "",
@@ -91,6 +97,34 @@ async function addLibraryFile(file) {
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
   });
+}
+
+async function importBuiltinLibraryFiles() {
+  try {
+    const existing = await getLibraryFiles();
+    const existingNames = new Set(existing.map((file) => file.name));
+    const imported = [];
+    for (const path of BUILTIN_LIBRARY_FILES) {
+      const name = path.split("/").pop();
+      if (existingNames.has(name)) continue;
+      try {
+        const response = await fetch(path);
+        if (!response.ok) continue;
+        const blob = await response.blob();
+        const file = new File([blob], name, { type: blob.type || "application/pdf" });
+        await addLibraryFile(file);
+        imported.push(name);
+      } catch {
+        // 本地 file:// 预览无法 fetch，跳过即可
+      }
+    }
+    if (imported.length) {
+      renderLibrary();
+      showToast(`已默认导入 ${imported.length} 份规则资料`);
+    }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 async function clearLibrary() {
@@ -441,6 +475,7 @@ $$('.quick-prompts button').forEach((button) => button.addEventListener("click",
 
 loadSettingsForm();
 renderLibrary();
+importBuiltinLibraryFiles();
 renderScenarioJson();
 try {
   renderCalculation(simulateScenario(1000));

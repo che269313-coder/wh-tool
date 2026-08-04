@@ -24,7 +24,8 @@ git push
 
 - 手机端对局、资料库、规则计算器和设置页。
 - 计算器和资料库默认在浏览器本地运行。
-- 军表、数据卡、规则书导入后保存在当前手机浏览器的 IndexedDB 中。
+- 核心规则、阵营规则、分遣队速查表（`docs/data/`）会在页面打开时自动导入资料库；你只需导入自己的军表。
+- 军表、数据卡导入后保存在当前手机浏览器的 IndexedDB 中。
 - 文本资料可作为 AI 上下文；PDF 会先保存，当前版本尚未做页面内 PDF 检索。
 - DeepSeek 可以在设置页直接调用，也可以使用 `worker/` 中的 Cloudflare Worker 代理。
 - 外部 Wathammer 校验接口通过 Worker 代理接入，地址格式为 `/api/wathammer-round`。
