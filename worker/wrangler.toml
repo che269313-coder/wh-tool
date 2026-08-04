@@ -1,0 +1,8 @@
+name = "warhammer-tactical-assistant-api"
+main = "pages-proxy.js"
+compatibility_date = "2026-08-04"
+
+[vars]
+ALLOWED_ORIGIN = "*"
+# Optional: set a fixed model here, or let the frontend send one.
+# DEEPSEEK_MODEL = "deepseek-v4-flash"

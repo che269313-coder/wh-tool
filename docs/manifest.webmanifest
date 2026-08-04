@@ -1,0 +1,9 @@
+{
+  "name": "战术助手",
+  "short_name": "战术助手",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0d141d",
+  "theme_color": "#101722",
+  "lang": "zh-CN"
+}

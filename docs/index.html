@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#101722" />
+    <meta name="description" content="手机端战锤 40,000 对局与规则助手" />
+    <title>战术助手 · Warhammer 40,000</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">WARHAMMER 40,000 · 11E</div>
+          <h1>战术助手</h1>
+        </div>
+        <div class="topbar-actions">
+          <span id="connectionStatus" class="status-pill muted">本地预览</span>
+          <button class="icon-button" data-view="settings" aria-label="打开设置">⚙</button>
+        </div>
+      </header>
+
+      <main>
+        <section id="view-battle" class="view is-active">
+          <div class="battle-heading">
+            <div>
+              <p class="eyebrow">第 1 轮 · 射击阶段</p>
+              <h2>帝皇禁军 <span>vs</span> 白色疤痕</h2>
+            </div>
+            <button id="importShortcut" class="secondary-button">＋ 导入资料</button>
+          </div>
+
+          <div class="phase-strip" aria-label="当前阶段">
+            <span>部署</span><span>移动</span><span class="active">射击</span><span>冲锋</span><span>近战</span>
+          </div>
+
+          <section class="hero-grid">
+            <article class="result-card">
+              <div class="card-label">一轮射击预估</div>
+              <div class="result-value"><strong id="killChance">73.3%</strong><span>击杀概率</span></div>
+              <div class="result-subline"><strong id="averageDamage">11.05</strong> 平均有效伤害</div>
+              <div class="meter"><span id="killMeter" style="width: 73.3%"></span></div>
+              <p class="muted-copy">示例：神鸟 + 剑锋冠军联合盾卫 → 冲击者突击艇</p>
+            </article>
+            <article class="scenario-card">
+              <div class="card-label">当前场景</div>
+              <div class="scenario-row"><span>进攻方</span><strong>神鸟 + 盾卫</strong></div>
+              <div class="scenario-row"><span>防御方</span><strong>冲击者突击艇</strong></div>
+              <div class="scenario-row"><span>盾卫战术</span><strong class="accent">枪林弹雨 · 已开</strong></div>
+              <div class="scenario-row"><span>保持警戒</span><strong>仅近战</strong></div>
+            </article>
+          </section>
+
+          <section class="section-block">
+            <div class="section-title"><h3>对局单位</h3><button class="text-button" data-view="calculator">打开计算器 →</button></div>
+            <div class="units-grid">
+              <article class="unit-card attacker">
+                <div class="unit-top"><span class="faction-dot gold"></span><span class="unit-role">进攻方 · 载具</span><span class="unit-menu">•••</span></div>
+                <h4>神鸟反重力坦克</h4>
+                <p>并联拉斯托姆型爆弹炮 · 并联阿拉克努斯重型爆炎炮</p>
+                <div class="stat-row"><span>剩余伤口</span><strong>14 / 14</strong></div>
+                <div class="health-bar"><span style="width: 100%"></span></div>
+              </article>
+              <article class="unit-card attacker">
+                <div class="unit-top"><span class="faction-dot gold"></span><span class="unit-role">进攻方 · 联合单位</span><span class="unit-menu">•••</span></div>
+                <h4>剑锋冠军 + 禁军盾卫</h4>
+                <p>3 把卫士之矛 · 一次性再次射击：开启</p>
+                <div class="stat-row"><span>模型状态</span><strong>4 / 4</strong></div>
+                <div class="health-bar"><span style="width: 100%"></span></div>
+              </article>
+              <article class="unit-card defender">
+                <div class="unit-top"><span class="faction-dot red"></span><span class="unit-role">防御方 · 载具</span><span class="unit-menu">•••</span></div>
+                <h4>冲击者突击艇</h4>
+                <p>T9 · 11W · 3+ · 护盾穹顶 5++</p>
+                <div class="stat-row"><span>剩余伤口</span><strong id="targetWounds">11 / 11</strong></div>
+                <div class="health-bar red"><span id="targetHealth" style="width: 100%"></span></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="assistant-card">
+            <div class="section-title"><div><span class="ai-mark">AI</span><h3>战术询问</h3></div><span class="muted-copy">会先查资料，再调用计算器</span></div>
+            <div id="chatMessages" class="chat-messages">
+              <div class="message assistant"><span class="avatar">⚔</span><p>告诉我你想做什么，例如：<br />“神鸟和盾卫开枪打冲击者突击艇，盾卫开一次性再次射击。”</p></div>
+            </div>
+            <form id="chatForm" class="chat-form">
+              <textarea id="chatInput" rows="1" placeholder="描述你的诉求……" aria-label="输入战术诉求"></textarea>
+              <button type="submit" class="send-button" aria-label="发送">↑</button>
+            </form>
+            <div class="quick-prompts"><button data-prompt="计算神鸟和盾卫一轮射击打冲击者突击艇的击杀概率">算一轮射击</button><button data-prompt="查一下这次攻击能开的战略计谋和限制">查可用计谋</button><button data-prompt="解释为什么保持警戒不影响本次射击">解释规则</button></div>
+          </section>
+        </section>
+
+        <section id="view-library" class="view">
+          <div class="page-heading"><p class="eyebrow">LOCAL VAULT</p><h2>资料库</h2><p>资料留在这台手机的浏览器中。文本资料可立即作为 AI 上下文，PDF 先保存，后续接入解析与检索。</p></div>
+          <label class="upload-card" for="libraryFiles"><span class="upload-icon">＋</span><strong>导入军表、数据卡或规则书</strong><small>支持 TXT、MD、JSON、PDF</small><input id="libraryFiles" type="file" multiple accept=".txt,.md,.json,.pdf" /></label>
+          <div class="section-title"><h3>已导入资料</h3><button id="clearLibrary" class="text-button">清空</button></div>
+          <div id="libraryList" class="library-list"></div>
+          <div class="info-box"><strong>建议的资料优先级</strong><p>① 当前版本数据卡　② 军表　③ 核心规则　④ 阵营与编制规则　⑤ FAQ / 勘误</p></div>
+        </section>
+
+        <section id="view-calculator" class="view">
+          <div class="page-heading"><p class="eyebrow">DICE ENGINE</p><h2>规则计算器</h2><p>AI 只负责理解诉求；命中、造伤、豁免、伤害与击杀概率由规则引擎计算。</p></div>
+          <div class="form-card">
+            <label>进攻组合<input value="神鸟反重力坦克 + 剑锋冠军联合禁军盾卫" /></label>
+            <label>防御目标<input value="冲击者突击艇" /></label>
+            <div class="toggle-row"><div><strong>枪林弹雨</strong><small>盾卫射击后，一次性再次射击</small></div><label class="switch"><input id="shootAgain" type="checkbox" checked /><span></span></label></div>
+            <div class="rule-chip-row"><span class="rule-chip">保持警戒：近战</span><span class="rule-chip">护盾穹顶：5++</span><span class="rule-chip">不计掩体</span></div>
+            <div class="button-row"><button id="runCalc" class="secondary-button">本地模拟 1,000 次</button><button id="runExternalCalc" class="primary-button">外部基准计算</button></div>
+          </div>
+          <details class="advanced-config">
+            <summary>高级场景配置（全部计算器字段）</summary>
+            <p>这里的 JSON 与公开计算器的 weaponGroups / defenderGroups 请求格式一致；可配置模型数、攻击表达式、命中/造伤、AP、伤害，以及全部重掷、修正、暴击、连击、致命命中、毁灭性伤口、FNP、一次性特保和抵消伤害字段。</p>
+            <textarea id="scenarioJson" spellcheck="false" aria-label="高级场景 JSON"></textarea>
+            <div class="button-row"><button id="loadScenarioJson" type="button" class="secondary-button">载入此 JSON</button><button id="resetScenarioJson" type="button" class="secondary-button">恢复示例</button></div>
+          </details>
+          <div class="calculation-result">
+            <div><span class="card-label">模拟结果</span><strong id="calcChance">73.3%</strong><small>击杀概率</small></div>
+            <div><span class="card-label">平均有效伤害</span><strong id="calcDamage">11.05</strong><small>目标 11W</small></div>
+            <div><span class="card-label">说明</span><p id="calcNote">已计入神鸟全部射击武器与盾卫再次射击；保持警戒未计入射击。</p></div>
+          </div>
+          <div class="external-check" id="externalResult"><div><span class="card-label">外部基准校验</span><strong id="externalChance">—</strong><small id="externalNote">配置计算器代理后运行</small></div><div><span class="card-label">外部平均伤害</span><strong id="externalDamage">—</strong><small>wathammer /simulate-round</small></div></div>
+          <details class="assumption-details"><summary>查看计算假设</summary><p>神鸟：阿拉克努斯重型爆炎炮、拉斯托姆型爆弹炮；盾卫：3 把卫士之矛；冲击者：T9、11W、3+，护盾穹顶 5++。实际结果以你导入的数据卡与规则为准。</p></details>
+        </section>
+
+        <section id="view-settings" class="view">
+          <div class="page-heading"><p class="eyebrow">CONFIGURATION</p><h2>连接设置</h2><p>个人测试版可以直接在手机浏览器里配置；配置只写入本机，不会进入 GitHub 文件。</p></div>
+          <form id="settingsForm" class="form-card settings-form">
+            <label>调用方式<select id="apiMode"><option value="direct">直接调用 DeepSeek</option><option value="proxy">使用 Worker 代理</option></select></label>
+            <label>DeepSeek API Key<input id="apiKey" type="password" autocomplete="off" placeholder="粘贴 sk-…" /></label>
+            <label>API 地址<input id="apiEndpoint" value="https://api.deepseek.com/chat/completions" /></label>
+            <label>模型<input id="apiModel" value="deepseek-v4-flash" /></label>
+            <label>外部计算器代理地址<input id="calculatorEndpoint" placeholder="https://你的-worker.workers.dev/api/wathammer-round" /></label>
+            <label class="check-row"><input id="rememberKey" type="checkbox" /> <span>记住在本机浏览器</span></label>
+            <button class="primary-button" type="submit">保存设置</button>
+            <p class="form-hint">AI 代理地址填写 Worker 的 <code>/api/chat</code>；计算器代理地址填写 Worker 的 <code>/api/wathammer-round</code>。本地页面不能直接读取 wathammer 的接口响应。</p>
+          </form>
+          <div class="info-box"><strong>当前版本的边界</strong><p>本地引擎已覆盖公开计算器的请求字段与特效开关；军表、数据卡和规则书仍需整理成结构化资料，AI 才能可靠地从资料中选择这些参数。高级 JSON 可先直接导入任意武器组与防御组。</p></div>
+        </section>
+      </main>
+
+      <nav class="bottom-nav" aria-label="主导航">
+        <button class="nav-item is-active" data-view="battle"><span>◈</span>对局</button>
+        <button class="nav-item" data-view="library"><span>▤</span>资料</button>
+        <button class="nav-item" data-view="calculator"><span>⌁</span>计算</button>
+        <button class="nav-item" data-view="settings"><span>⚙</span>设置</button>
+      </nav>
+    </div>
+    <div id="toast" class="toast" role="status"></div>
+    <script src="engine.js" defer></script>
+    <script src="app.js" defer></script>
+  </body>
+</html>
