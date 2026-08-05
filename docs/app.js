@@ -67,6 +67,7 @@ const state = {
   datasheetCache: {},
   calculatorCards: [],
   calculatorSelection: { attacker: "", defender: "" },
+  calculatorSearch: { attacker: "", defender: "" },
   calculatorDrafts: { attacker: null, defender: null },
   externalCalculatorEnabled: true,
   attackMode: "ranged",
@@ -290,10 +291,18 @@ function renderCalculatorSelectors() {
     if (!select) return;
     const rosterOptions = calculatorRosterOptions(side);
     const cardOptions = calculatorCardNames().map((card) => ({ key: `card:${card.faction}:${card.page || card.name}`, name: card.name, label: `${card.name} · ${card.faction || "数据卡"}`, card }));
-    select.innerHTML = `<option value="">请选择已导入单位或数据卡</option><optgroup label="当前军表">${rosterOptions.map((option) => `<option value="${escapeHtml(option.key)}">${escapeHtml(option.label)}</option>`).join("")}</optgroup><optgroup label="已收录数据卡">${cardOptions.map((option) => `<option value="${escapeHtml(option.key)}">${escapeHtml(option.label)}</option>`).join("")}</optgroup>`;
-    const validKeys = new Set([...rosterOptions, ...cardOptions].map((option) => option.key));
+    const allOptions = [...rosterOptions, ...cardOptions];
+    const validKeys = new Set(allOptions.map((option) => option.key));
     if (!validKeys.has(state.calculatorSelection[side])) state.calculatorSelection[side] = "";
+    const search = String(state.calculatorSearch[side] || "").trim().toLocaleLowerCase();
+    const matchesSearch = (option) => !search || `${option.name} ${option.label}`.toLocaleLowerCase().includes(search);
+    const filterOptions = (options) => options.filter((option) => matchesSearch(option) || option.key === state.calculatorSelection[side]);
+    const filteredRoster = filterOptions(rosterOptions);
+    const filteredCards = filterOptions(cardOptions);
+    select.innerHTML = `<option value="">${search ? "未选择（搜索结果）" : "请选择已导入单位或数据卡"}</option><optgroup label="当前军表">${filteredRoster.map((option) => `<option value="${escapeHtml(option.key)}">${escapeHtml(option.label)}</option>`).join("") || "<option disabled>没有匹配单位</option>"}</optgroup><optgroup label="已收录数据卡">${filteredCards.map((option) => `<option value="${escapeHtml(option.key)}">${escapeHtml(option.label)}</option>`).join("") || "<option disabled>没有匹配数据卡</option>"}</optgroup>`;
     select.value = state.calculatorSelection[side];
+    const searchInput = $(`#calculator${side === "attacker" ? "Attacker" : "Defender"}Search`);
+    if (searchInput && searchInput.value !== state.calculatorSearch[side]) searchInput.value = state.calculatorSearch[side];
   });
   renderCalculatorDetails();
 }
@@ -305,6 +314,10 @@ function renderCalculatorSelectors() {
     state.calculatorDrafts[side] = null;
     $("#calcNote").textContent = "已选择单位；请确认双方后开始计算。";
     renderCalculatorDetails();
+  });
+  $(`#calculator${side === "attacker" ? "Attacker" : "Defender"}Search`)?.addEventListener("input", (event) => {
+    state.calculatorSearch[side] = event.target.value;
+    renderCalculatorSelectors();
   });
 });
 $("#calculatorAttackMode")?.addEventListener("change", (event) => {
@@ -456,12 +469,16 @@ function getCalculatorDraft(side) {
     const role = /领导|主将|领袖|character|leader/i.test(String(member.role || "")) ? "角色" : /护卫|bodyguard/i.test(String(member.role || "")) ? "护卫" : (explicitGuard && !explicitLeader ? "角色" : (memberIndex === 0 ? "角色" : "护卫"));
     return { id: member.id, name: member.name, role, unit: memberUnit, weapons: memberWeapons, modelCount: activeModels(member).length };
   }).sort((a, b) => (a.role === "角色" ? 0 : 1) - (b.role === "角色" ? 0 : 1)) : [];
-  state.calculatorDrafts[side] = { key, entry, data, unit: baseUnit, weapons, modelCount: Math.max(1, modelCount || 1), source: calculatorSource(entry), joinedMembers, martialKatah: "none" };
+  state.calculatorDrafts[side] = { key, entry, data, unit: baseUnit, weapons, modelCount: Math.max(1, modelCount || 1), source: calculatorSource(entry), joinedMembers, martialKatah: "none", oathOfMoment: false };
   return state.calculatorDrafts[side];
 }
 
 function calculatorStat(unit, name, fallback = "") {
   return unit?.[name] ?? fallback;
+}
+
+function unitHasOathOfMoment(unit, faction = "") {
+  return /破敌重誓|oath\s+of\s+moment/i.test(String(unit?.abilities || "")) || /星际战士|阿斯塔特|白色疤痕/i.test(String(faction || ""));
 }
 
 function calculatorAbilityMarkup(draft, side) {
@@ -489,7 +506,9 @@ function calculatorAbilityMarkup(draft, side) {
   ].filter(([pattern]) => pattern.test(passiveRules)).map(([, label]) => label);
   const hasMartialKatah = side === "attacker" && /禁军武艺/.test([unit.abilities, ...(draft.joinedMembers || []).map((member) => member.unit?.abilities)].join(" "));
   const martialControl = hasMartialKatah ? `<label class="calculator-martial-control">禁军武艺（仅近战）<select data-calc-side="${side}" data-calc-martial><option value="none" ${draft.martialKatah === "none" ? "selected" : ""}>不启用</option><option value="sustained" ${draft.martialKatah === "sustained" ? "selected" : ""}>连击 1</option><option value="lethal" ${draft.martialKatah === "lethal" ? "selected" : ""}>致命一击</option></select></label>` : "";
-  return `<div class="calculator-abilities"><div class="calculator-ability"><strong>可用被动（默认不启用）</strong><p>${escapeHtml(passive || "未解析到单位被动")}</p>${weaponAbilities.length ? `<small>武器关键词：${escapeHtml(weaponAbilities.join("、"))}</small>` : ""}<small>可识别关键词：${escapeHtml(detected.join("、") || "无；其余被动仅列出")}</small>${martialControl}</div><div class="calculator-ability is-active"><strong>主动/一次性（当前不启用）</strong><p>${escapeHtml(active)}</p><small>本版本只显示并明确标注，不会自动加入骰子计算。</small></div></div>`;
+  const hasOathOfMoment = side === "attacker" && unitHasOathOfMoment(unit, draft.entry?.faction);
+  const oathControl = hasOathOfMoment ? `<label class="calculator-oath-control check-row"><input type="checkbox" data-calc-side="${side}" data-calc-oath ${draft.oathOfMoment ? "checked" : ""} /><span>破敌重誓（基础）：对当前目标重投全部命中骰</span></label>` : "";
+  return `<div class="calculator-abilities"><div class="calculator-ability"><strong>可用被动（默认不启用）</strong><p>${escapeHtml(passive || "未解析到单位被动")}</p>${weaponAbilities.length ? `<small>武器关键词：${escapeHtml(weaponAbilities.join("、"))}</small>` : ""}<small>可识别关键词：${escapeHtml(detected.join("、") || "无；其余被动仅列出")}</small>${martialControl}${oathControl}</div><div class="calculator-ability is-active"><strong>主动/一次性（当前不启用）</strong><p>${escapeHtml(active)}</p><small>本版本只显示并明确标注，不会自动加入骰子计算。</small></div></div>`;
 }
 
 function calculatorWeaponMarkup(draft, side) {
@@ -547,6 +566,7 @@ function updateCalculatorDraftFromControl(control) {
   const value = control.type === "checkbox" || control.type === "radio" ? control.checked : control.value;
   if (control.dataset.calcModelCount !== undefined) draft.modelCount = Math.max(1, Number(value) || 1);
   if (control.dataset.calcMartial !== undefined) draft.martialKatah = value;
+  if (control.dataset.calcOath !== undefined) draft.oathOfMoment = Boolean(value);
   if (control.dataset.calcStat) {
     const field = control.dataset.calcStat;
     draft.unit[field] = ["movement", "toughness", "save", "invulnerableSave", "woundsPerModel", "objectiveControl"].includes(field) ? Math.max(0, Number(value) || 0) : value;
@@ -664,6 +684,7 @@ function buildSelectedRoundPayload() {
     : [{ name: attacker.name, unit: attackerUnit, weapons: attackerDraft.weapons, modelCount: attackerDraft.modelCount }];
   const weaponGroups = attackerSources.flatMap((source) => {
     const martialKatah = state.attackMode === "melee" && /禁军武艺/.test(String(source.unit?.abilities || "")) ? attackerDraft.martialKatah : "none";
+    const oathOfMoment = Boolean(attackerDraft.oathOfMoment && unitHasOathOfMoment(source.unit, attacker.faction));
     return (source.weapons || []).filter((weapon) => weapon.enabled !== false && weapon.type === state.attackMode && Number(weapon.modelCount ?? source.modelCount ?? 1) > 0).map((weapon) => ({
       name: `${source.name} · ${weapon.name}`,
       modelCount: Number(weapon.modelCount ?? source.modelCount ?? 1),
@@ -672,7 +693,7 @@ function buildSelectedRoundPayload() {
       wound: woundTarget(Number(weapon.strength || 0), toughness),
       ap: Math.abs(Number(weapon.ap || 0)),
       damage: weapon.damage,
-      effects: weaponEffectsFromKeywords(weapon, martialKatah),
+      effects: weaponEffectsFromKeywords(weapon, martialKatah, oathOfMoment),
     }));
   });
   if (!weaponGroups.length) throw new Error(`进攻单位“${attacker.name}”没有${state.attackMode === "ranged" ? "远程" : "近战"}武器`);
@@ -1228,7 +1249,7 @@ function emptyDefenderEffects() {
   };
 }
 
-function weaponEffectsFromKeywords(weapon, martialKatah = "none") {
+function weaponEffectsFromKeywords(weapon, martialKatah = "none", oathOfMoment = false) {
   const keywords = (weapon?.abilities || []).join(" ");
   const sustained = keywords.match(/连击\s*(d3|\d+)?|sustained\s*hits?\s*(d3|\d+)?/i);
   const sustainedValue = sustained?.[1] || sustained?.[2] || "1";
@@ -1237,6 +1258,8 @@ function weaponEffectsFromKeywords(weapon, martialKatah = "none") {
   const hasDevastating = /毁灭性伤口|毁灭性伤害|毁灭伤害|devastating/i.test(keywords);
   const hasTwinLinked = /双联|twin-?linked/i.test(keywords);
   return emptyWeaponEffects({
+    hitRerollAllEnabled: oathOfMoment,
+    hitRerollAllType: "failed",
     sustainedHitsEnabled: hasSustained || martialKatah === "sustained",
     sustainedHitsValue: sustainedValue,
     lethalHitsEnabled: hasLethal || martialKatah === "lethal",

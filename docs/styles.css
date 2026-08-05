@@ -223,7 +223,7 @@ h4 { font-size: 16px; letter-spacing: -.02em; }
 .calculator-ability strong { font-size: 11px; }
 .calculator-ability p { margin-top: 5px; color: #d4dcdf; font-size: 11px; line-height: 1.45; }
 .calculator-ability small, .weapon-keywords { display: block; margin-top: 5px; color: var(--muted); font-size: 10px; line-height: 1.4; }
-.calculator-martial-control { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; color: #e8d39a; font-size: 10px; }
+.calculator-martial-control, .calculator-oath-control { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; color: #e8d39a; font-size: 10px; }
 .calculator-martial-control select { border: 1px solid rgba(211,163,74,.45); border-radius: 7px; background: rgba(5,12,19,.55); color: var(--text); padding: 5px 7px; font-size: 11px; }
 .calculator-weapons { margin-top: 13px; }
 .calculator-section-heading { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
