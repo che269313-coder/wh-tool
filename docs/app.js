@@ -92,7 +92,7 @@ const UNIT_PROFILE_OVERRIDES = {
   "图拉真元帅": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 7, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；不知疼痛 5+；禁军武艺；禁军元帅", activeAbilities: "时间锁（每场游戏一次，近战阶段开始时）", weapons: [{ name: "雄鹰咆哮", type: "ranged", attacks: "2", skill: "2+", strength: 5, ap: -2, damage: "3", abilities: ["突击"] }, { name: "守望者战斧", type: "melee", attacks: "6", skill: "2+", strength: 10, ap: -2, damage: "3", abilities: [] }] },
   "瓦雷利安连长": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；不知疼痛 6+；禁军武艺", activeAbilities: "狮门英杰（一次性）", weapons: [{ name: "真知战矛", type: "ranged", attacks: "3", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "真知战矛", type: "melee", attacks: "7", skill: "2+", strength: 8, ap: -3, damage: "2", abilities: [] }] },
   "盾卫连长": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；禁军武艺", activeAbilities: "武艺大师（每场游戏一次）", weapons: [{ name: "堡主战斧", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "热熔长矛", type: "ranged", attacks: "2", skill: "2+", strength: 9, ap: -4, damage: "d6", abilities: ["热熔 2"] }, { name: "哨兵之剑", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击", "手枪"] }, { name: "堡主战斧", type: "melee", attacks: "6", skill: "2+", strength: 9, ap: -1, damage: "3", abilities: [] }, { name: "卫士之矛", type: "melee", attacks: "7", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }, { name: "热熔长矛", type: "melee", attacks: "7", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }, { name: "哨兵之剑", type: "melee", attacks: "7", skill: "2+", strength: 6, ap: -2, damage: "1", abilities: [] }] },
-  "剑锋冠军": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；禁军武艺", activeAbilities: "剑锋姿态（选择一种武器配置）", weapons: [{ name: "宝库之剑（斩首）", type: "melee", attacks: "6", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: ["精准"] }, { name: "宝库之剑（疾风）", type: "melee", attacks: "9", skill: "2+", strength: 5, ap: -1, damage: "1", abilities: ["连击 1"] }, { name: "宝库之剑（炫光）", type: "melee", attacks: "5", skill: "2+", strength: 6, ap: -3, damage: "3", abilities: ["毁灭伤害"] }] },
+  "剑锋冠军": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；禁军武艺", activeAbilities: "剑锋姿态（选择一种武器配置）", weapons: [{ name: "宝库之剑（斩首）", selectionGroup: "宝库之剑", type: "melee", attacks: "6", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: ["精准"] }, { name: "宝库之剑（疾风）", selectionGroup: "宝库之剑", type: "melee", attacks: "9", skill: "2+", strength: 5, ap: -1, damage: "1", abilities: ["连击 1"] }, { name: "宝库之剑（炫光）", selectionGroup: "宝库之剑", type: "melee", attacks: "5", skill: "2+", strength: 6, ap: -3, damage: "3", abilities: ["毁灭伤害"] }] },
   "终结者盾卫连长": { movement: 5, toughness: 7, save: 2, invulnerableSave: 4, woundsPerModel: 7, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；不知疼痛 5+；禁军武艺", activeAbilities: "武艺大师（每场游戏一次）", weapons: [{ name: "堡主战斧", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "强势榴弹发射器", type: "ranged", attacks: "d6", skill: "2+", strength: 4, ap: -1, damage: "1", abilities: ["爆炸"] }, { name: "堡主战斧", type: "melee", attacks: "6", skill: "2+", strength: 9, ap: -1, damage: "3", abilities: [] }, { name: "卫士之矛", type: "melee", attacks: "7", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }] },
   "摩托盾卫连长": { movement: 12, toughness: 7, save: 2, invulnerableSave: 4, woundsPerModel: 6, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；禁军武艺", activeAbilities: "武艺大师（每场游戏一次）", weapons: [{ name: "晨鹰风暴爆弹枪", type: "ranged", attacks: "3", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["速射 3", "双联"] }, { name: "集束导弹", type: "ranged", attacks: "1", skill: "2+", strength: 10, ap: -3, damage: "d6+1", abilities: ["双联"] }, { name: "拦截者骑枪", type: "melee", attacks: "6", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: ["迅猛冲锋"] }] },
   "禁军盾卫": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 3, models: 4, leadership: "6+", objectiveControl: 2, abilities: "深入打击；禁军武艺", activeAbilities: "坚守阵地（按数据卡选择）", weapons: [{ name: "卫士之矛", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "哨兵之剑", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击", "手枪"] }, { name: "卫士之矛", type: "melee", attacks: "5", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }, { name: "誓约匕首", type: "melee", attacks: "5", skill: "2+", strength: 5, ap: -2, damage: "1", abilities: [] }, { name: "哨兵之剑", type: "melee", attacks: "5", skill: "2+", strength: 6, ap: -2, damage: "1", abilities: [] }] },
@@ -383,6 +383,37 @@ function weaponMatchesEquipmentText(weapon, equipmentText) {
   return name && source.includes(name);
 }
 
+function applyExclusiveWeaponDefaults(weapons) {
+  const groups = new Map();
+  weapons.forEach((weapon, index) => {
+    const group = String(weapon.selectionGroup || "").trim();
+    if (!group) return;
+    if (!groups.has(group)) groups.set(group, []);
+    groups.get(group).push({ weapon, index });
+  });
+  groups.forEach((members) => {
+    if (members.length < 2) return;
+    const selected = members.find(({ weapon }) => weapon.enabled && weapon.defaultSelected)
+      || members.find(({ weapon }) => weapon.enabled)
+      || members.find(({ weapon }) => weapon.defaultSelected)
+      || members[0];
+    members.forEach(({ weapon }) => { weapon.enabled = weapon === selected.weapon; });
+  });
+  return weapons;
+}
+
+function setCalculatorWeaponEnabled(weapons, index, enabled) {
+  const weapon = weapons?.[Number(index)];
+  if (!weapon) return;
+  weapon.enabled = Boolean(enabled);
+  const group = String(weapon.selectionGroup || "").trim();
+  if (weapon.enabled && group) {
+    weapons.forEach((candidate, candidateIndex) => {
+      if (candidateIndex !== Number(index) && String(candidate.selectionGroup || "").trim() === group) candidate.enabled = false;
+    });
+  }
+}
+
 function enabledCalculatorWeapons(data, entryName, rosterUnit) {
   const baseUnit = data?.unit || {};
   const baseWeapons = Array.isArray(data?.weapons) ? cloneCalculatorValue(data.weapons) : [];
@@ -392,11 +423,11 @@ function enabledCalculatorWeapons(data, entryName, rosterUnit) {
     ? baseWeapons.map((weapon) => weaponMatchesRoster(weapon, rosterUnit))
     : baseWeapons.map((weapon) => weaponMatchesEquipmentText(weapon, defaultEquipment));
   const anyMatching = matching.some(Boolean);
-  return baseWeapons.map((weapon, index) => ({
+  return applyExclusiveWeaponDefaults(baseWeapons.map((weapon, index) => ({
     ...weapon,
     enabled: anyMatching ? matching[index] : true,
     modelCount: weapon.modelCount ?? (rosterUnit ? weaponModelCount(weapon, rosterUnit, defaultModels) : defaultModels),
-  }));
+  })));
 }
 
 function getCalculatorDraft(side) {
@@ -470,7 +501,11 @@ function calculatorWeaponControlMarkup(weapon, side, index, groupIndex = null) {
   const scope = groupIndex === null
     ? `data-calc-weapon-index="${index}"`
     : `data-calc-group-index="${groupIndex}" data-calc-group-weapon-index="${index}"`;
-  return `<div class="calculator-weapon ${weapon.type === state.attackMode ? "is-current" : ""}"><label class="check-row"><input type="checkbox" data-calc-side="${side}" ${scope} data-calc-weapon-enabled ${weapon.enabled !== false ? "checked" : ""} /><span>${escapeHtml(weapon.name || `武器 ${index + 1}`)} · ${weapon.type === "melee" ? "近战" : "远程"}</span></label><div class="calculator-weapon-fields"><label>数量<input type="number" min="0" data-calc-side="${side}" ${scope} data-calc-weapon-count value="${escapeHtml(weapon.modelCount ?? 1)}" /></label><label>攻击<input data-calc-side="${side}" ${scope} data-calc-weapon-field="attacks" value="${escapeHtml(weapon.attacks ?? "1")}" /></label><label>命中<input data-calc-side="${side}" ${scope} data-calc-weapon-field="skill" value="${escapeHtml(weapon.skill ?? "4+")}" /></label><label>力量<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="strength" value="${escapeHtml(weapon.strength ?? "0")}" /></label><label>AP<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="ap" value="${escapeHtml(weapon.ap ?? "0")}" /></label><label>伤害<input data-calc-side="${side}" ${scope} data-calc-weapon-field="damage" value="${escapeHtml(weapon.damage ?? "1")}" /></label></div><small class="weapon-keywords">${escapeHtml((weapon.abilities || []).join("、") || "无关键词")}</small></div>`;
+  const selectionGroup = String(weapon.selectionGroup || "").trim();
+  const inputType = selectionGroup ? "radio" : "checkbox";
+  const selectionName = selectionGroup ? ` name="calc-weapon-${side}-${groupIndex ?? "unit"}-${escapeHtml(selectionGroup)}"` : "";
+  const selectionNote = selectionGroup ? ` · 配装：${escapeHtml(selectionGroup)}（单选）` : "";
+  return `<div class="calculator-weapon ${weapon.type === state.attackMode ? "is-current" : ""}"><label class="check-row"><input type="${inputType}"${selectionName} data-calc-side="${side}" ${scope} data-calc-weapon-enabled ${weapon.enabled !== false ? "checked" : ""} /><span>${escapeHtml(weapon.name || `武器 ${index + 1}`)} · ${weapon.type === "melee" ? "近战" : "远程"}${selectionNote}</span></label><div class="calculator-weapon-fields"><label>数量<input type="number" min="0" data-calc-side="${side}" ${scope} data-calc-weapon-count value="${escapeHtml(weapon.modelCount ?? 1)}" /></label><label>攻击<input data-calc-side="${side}" ${scope} data-calc-weapon-field="attacks" value="${escapeHtml(weapon.attacks ?? "1")}" /></label><label>命中<input data-calc-side="${side}" ${scope} data-calc-weapon-field="skill" value="${escapeHtml(weapon.skill ?? "4+")}" /></label><label>力量<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="strength" value="${escapeHtml(weapon.strength ?? "0")}" /></label><label>AP<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="ap" value="${escapeHtml(weapon.ap ?? "0")}" /></label><label>伤害<input data-calc-side="${side}" ${scope} data-calc-weapon-field="damage" value="${escapeHtml(weapon.damage ?? "1")}" /></label></div><small class="weapon-keywords">${escapeHtml((weapon.abilities || []).join("、") || "无关键词")}</small></div>`;
 }
 
 function calculatorJoinedMembersMarkup(draft, side) {
@@ -509,7 +544,7 @@ function updateCalculatorDraftFromControl(control) {
   const side = control.dataset.calcSide;
   const draft = state.calculatorDrafts[side];
   if (!draft) return;
-  const value = control.type === "checkbox" ? control.checked : control.value;
+  const value = control.type === "checkbox" || control.type === "radio" ? control.checked : control.value;
   if (control.dataset.calcModelCount !== undefined) draft.modelCount = Math.max(1, Number(value) || 1);
   if (control.dataset.calcMartial !== undefined) draft.martialKatah = value;
   if (control.dataset.calcStat) {
@@ -531,7 +566,7 @@ function updateCalculatorDraftFromControl(control) {
       if (control.dataset.calcGroupWeaponIndex !== undefined) {
         const weapon = member.weapons?.[Number(control.dataset.calcGroupWeaponIndex)];
         if (weapon) {
-          if (control.dataset.calcWeaponEnabled !== undefined) weapon.enabled = Boolean(value);
+          if (control.dataset.calcWeaponEnabled !== undefined) setCalculatorWeaponEnabled(member.weapons, Number(control.dataset.calcGroupWeaponIndex), value);
           if (control.dataset.calcWeaponCount !== undefined) weapon.modelCount = Math.max(0, Number(value) || 0);
           if (control.dataset.calcWeaponField) weapon[control.dataset.calcWeaponField] = value;
         }
@@ -541,7 +576,7 @@ function updateCalculatorDraftFromControl(control) {
   if (control.dataset.calcWeaponIndex !== undefined) {
     const weapon = draft.weapons[Number(control.dataset.calcWeaponIndex)];
     if (!weapon) return;
-    if (control.dataset.calcWeaponEnabled !== undefined) weapon.enabled = Boolean(value);
+    if (control.dataset.calcWeaponEnabled !== undefined) setCalculatorWeaponEnabled(draft.weapons, Number(control.dataset.calcWeaponIndex), value);
     if (control.dataset.calcWeaponCount !== undefined) weapon.modelCount = Math.max(0, Number(value) || 0);
     if (control.dataset.calcWeaponField) weapon[control.dataset.calcWeaponField] = value;
   }
@@ -637,12 +672,7 @@ function buildSelectedRoundPayload() {
       wound: woundTarget(Number(weapon.strength || 0), toughness),
       ap: Math.abs(Number(weapon.ap || 0)),
       damage: weapon.damage,
-      effects: emptyWeaponEffects({
-        sustainedHitsEnabled: martialKatah === "sustained",
-        sustainedHitsValue: "1",
-        lethalHitsEnabled: martialKatah === "lethal",
-        devastatingWoundsEnabled: false,
-      }),
+      effects: weaponEffectsFromKeywords(weapon, martialKatah),
     }));
   });
   if (!weaponGroups.length) throw new Error(`进攻单位“${attacker.name}”没有${state.attackMode === "ranged" ? "远程" : "近战"}武器`);
@@ -849,7 +879,7 @@ async function importBuiltinLibraryFiles() {
 
 async function loadCalculatorCards() {
   const cards = new Map();
-  const categoryNames = new Set(["传奇英雄人物", "通用人物", "战术小队", "其他步兵", "军表构成", "3", "骑乘", "机甲", "载具", "运输载具", "空降仓", "飞行载具", "工事"]);
+  const categoryNames = new Set(["传奇英雄人物", "通用人物", "战术小队", "其他步兵", "军表构成", "3", "骑乘", "终结者", "机甲", "载具", "运输载具", "飞行载具", "工事"]);
   for (const path of CALCULATOR_CARD_FILES) {
     try {
       const response = await fetch(path);
@@ -859,7 +889,7 @@ async function loadCalculatorCards() {
       for (const card of parsed.cards || []) {
         if (!card.name || categoryNames.has(card.name) || card.name.startsWith("⚫") || /爆弹枪|复合武器|雷霆锤/.test(card.name)) continue;
         const key = `${parsed.faction}:${card.name}`;
-        if (!cards.has(key)) cards.set(key, { faction: parsed.faction, name: card.name, page: card.page, structured: false, data: null });
+        if (!cards.has(key)) cards.set(key, { faction: parsed.faction, name: card.name, page: card.page, structured: Boolean(card.unit), data: card.unit ? card : null });
       }
     } catch {
       // 本地 file:// 预览可能禁止 fetch；军表选项仍然可用。
@@ -874,7 +904,12 @@ async function loadCalculatorCards() {
       const response = await fetch(source.path);
       if (!response.ok) continue;
       const parsed = parseDigitalDatasheets(await response.text(), source.faction);
-      state.calculatorCards = state.calculatorCards.map((card) => parsed.get(`${card.faction}:${card.page}`) ? { ...card, structured: true, data: parsed.get(`${card.faction}:${card.page}`) } : card);
+      // The JSON catalogue is extracted directly from the source PDF and is
+      // authoritative when present.  Keep the Markdown parser only as a
+      // fallback for old/unstructured entries.
+      state.calculatorCards = state.calculatorCards.map((card) => !card.data?.unit && parsed.get(`${card.faction}:${card.page}`)
+        ? { ...card, structured: true, data: parsed.get(`${card.faction}:${card.page}`) }
+        : card);
       for (const [page, names] of Object.entries(DIGITAL_UNIT_ALIASES[source.faction] || {})) {
         const data = parsed.get(`${source.faction}:${page}`);
         names.forEach((name) => {
@@ -1191,6 +1226,24 @@ function emptyDefenderEffects() {
     saveRerollAllEnabled: false, saveRerollAllType: "ones", saveRerollAllValues: [], feelNoPainEnabled: false,
     feelNoPainThreshold: 6, feelNoPainMortalEnabled: false, feelNoPainMortalThreshold: 6, oneUseInvulnerableEnabled: false, oneUseInvulnerableSave: 2,
   };
+}
+
+function weaponEffectsFromKeywords(weapon, martialKatah = "none") {
+  const keywords = (weapon?.abilities || []).join(" ");
+  const sustained = keywords.match(/连击\s*(d3|\d+)?|sustained\s*hits?\s*(d3|\d+)?/i);
+  const sustainedValue = sustained?.[1] || sustained?.[2] || "1";
+  const hasSustained = Boolean(sustained);
+  const hasLethal = /致命命中|致命一击|lethal/i.test(keywords);
+  const hasDevastating = /毁灭性伤口|毁灭性伤害|毁灭伤害|devastating/i.test(keywords);
+  const hasTwinLinked = /双联|twin-?linked/i.test(keywords);
+  return emptyWeaponEffects({
+    sustainedHitsEnabled: hasSustained || martialKatah === "sustained",
+    sustainedHitsValue: sustainedValue,
+    lethalHitsEnabled: hasLethal || martialKatah === "lethal",
+    devastatingWoundsEnabled: hasDevastating,
+    woundRerollAllEnabled: hasTwinLinked,
+    woundRerollAllType: "failed",
+  });
 }
 
 function buildExternalRoundPayload() {
