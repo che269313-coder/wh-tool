@@ -13,12 +13,10 @@ const BUILTIN_LIBRARY_FILES = [
   "data/帝皇禁军/帝皇禁军10版中文老湿腐版1.07.pdf",
   "data/帝皇禁军/数据卡-OCR-可检索.md",
   "data/帝皇禁军/帝皇禁军-全部数据卡.json",
-  "data/帝皇禁军/禁军盾卫.数据卡.json",
   "data/星际战士/星际战士11版中文1.0.pdf",
   "data/星际战士/分遣队规则-可检索.md",
   "data/星际战士/数据卡-可检索.md",
   "data/星际战士/星际战士-全部数据卡.json",
-  "data/星际战士/冲击者突击艇.数据卡.json",
 ];
 const DEFAULT_SETTINGS = {
   mode: "direct",
@@ -38,11 +36,9 @@ const BUILTIN_FILE_METADATA = {
   "AI-战斗规则摘要.md": { faction: "规则书", kind: "rulebook", builtin: true },
   "数据卡-OCR-可检索.md": { faction: "帝皇禁军", kind: "datasheet", builtin: true },
   "帝皇禁军-全部数据卡.json": { faction: "帝皇禁军", kind: "datasheet", builtin: true },
-  "禁军盾卫.数据卡.json": { faction: "帝皇禁军", kind: "datasheet", builtin: true },
   "分遣队规则-可检索.md": { faction: "星际战士", kind: "detachment", builtin: true },
   "数据卡-可检索.md": { faction: "星际战士", kind: "datasheet", builtin: true },
   "星际战士-全部数据卡.json": { faction: "星际战士", kind: "datasheet", builtin: true },
-  "冲击者突击艇.数据卡.json": { faction: "星际战士", kind: "datasheet", builtin: true },
 };
 
 const KIND_LABELS = {
@@ -122,9 +118,7 @@ const PROFILE_DEFAULT_EQUIPMENT = {
   "警戒者": "处决者巨剑",
 };
 const CALCULATOR_CARD_FILES = [
-  "data/帝皇禁军/禁军盾卫.数据卡.json",
   "data/帝皇禁军/帝皇禁军-全部数据卡.json",
-  "data/星际战士/冲击者突击艇.数据卡.json",
   "data/星际战士/星际战士-全部数据卡.json",
 ];
 const DIGITAL_UNIT_ALIASES = {
