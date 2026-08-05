@@ -364,6 +364,18 @@ function weaponMatchesRoster(weapon, rosterUnit) {
   });
 }
 
+function weaponModelCount(weapon, rosterUnit, fallback = 1) {
+  const models = activeModels(rosterUnit || {});
+  if (!models.length) return 0;
+  const name = String(weapon?.name || "").replace(/[（(].*?[）)]/g, "").trim();
+  if (!name) return models.length;
+  const count = models.filter((model) => model.equipment.some((item) => {
+    const normalized = String(item.name || "").replace(/[（(].*?[）)]/g, "").trim();
+    return normalized && (name.includes(normalized) || normalized.includes(name));
+  })).length;
+  return count || (Object.keys(countEquipment(rosterUnit || {})).length ? 0 : fallback);
+}
+
 function weaponMatchesEquipmentText(weapon, equipmentText) {
   const source = String(equipmentText || "");
   if (!source.trim()) return true;
@@ -375,11 +387,16 @@ function enabledCalculatorWeapons(data, entryName, rosterUnit) {
   const baseUnit = data?.unit || {};
   const baseWeapons = Array.isArray(data?.weapons) ? cloneCalculatorValue(data.weapons) : [];
   const defaultEquipment = baseUnit.defaultEquipment || PROFILE_DEFAULT_EQUIPMENT[entryName] || "";
+  const defaultModels = Math.max(1, Number(rosterUnit ? activeModels(rosterUnit).length : baseUnit.models || baseUnit.defaultModels || 1) || 1);
   const matching = rosterUnit
     ? baseWeapons.map((weapon) => weaponMatchesRoster(weapon, rosterUnit))
     : baseWeapons.map((weapon) => weaponMatchesEquipmentText(weapon, defaultEquipment));
   const anyMatching = matching.some(Boolean);
-  return baseWeapons.map((weapon, index) => ({ ...weapon, enabled: anyMatching ? matching[index] : true }));
+  return baseWeapons.map((weapon, index) => ({
+    ...weapon,
+    enabled: anyMatching ? matching[index] : true,
+    modelCount: weapon.modelCount ?? (rosterUnit ? weaponModelCount(weapon, rosterUnit, defaultModels) : defaultModels),
+  }));
 }
 
 function getCalculatorDraft(side) {
@@ -407,7 +424,7 @@ function getCalculatorDraft(side) {
     const memberIndex = entry.group.units.indexOf(member);
     const role = /领导|主将|领袖|character|leader/i.test(String(member.role || "")) ? "角色" : /护卫|bodyguard/i.test(String(member.role || "")) ? "护卫" : (explicitGuard && !explicitLeader ? "角色" : (memberIndex === 0 ? "角色" : "护卫"));
     return { id: member.id, name: member.name, role, unit: memberUnit, weapons: memberWeapons, modelCount: activeModels(member).length };
-  }) : [];
+  }).sort((a, b) => (a.role === "角色" ? 0 : 1) - (b.role === "角色" ? 0 : 1)) : [];
   state.calculatorDrafts[side] = { key, entry, data, unit: baseUnit, weapons, modelCount: Math.max(1, modelCount || 1), source: calculatorSource(entry), joinedMembers, martialKatah: "none" };
   return state.calculatorDrafts[side];
 }
@@ -441,7 +458,7 @@ function calculatorAbilityMarkup(draft, side) {
   ].filter(([pattern]) => pattern.test(passiveRules)).map(([, label]) => label);
   const hasMartialKatah = side === "attacker" && /禁军武艺/.test([unit.abilities, ...(draft.joinedMembers || []).map((member) => member.unit?.abilities)].join(" "));
   const martialControl = hasMartialKatah ? `<label class="calculator-martial-control">禁军武艺（仅近战）<select data-calc-side="${side}" data-calc-martial><option value="none" ${draft.martialKatah === "none" ? "selected" : ""}>不启用</option><option value="sustained" ${draft.martialKatah === "sustained" ? "selected" : ""}>连击 1</option><option value="lethal" ${draft.martialKatah === "lethal" ? "selected" : ""}>致命一击</option></select></label>` : "";
-  return `<div class="calculator-abilities"><div class="calculator-ability"><strong>被动（本次会尝试启用）</strong><p>${escapeHtml(passive || "未解析到单位被动")}</p>${weaponAbilities.length ? `<small>武器关键词：${escapeHtml(weaponAbilities.join("、"))}</small>` : ""}<small>规则引擎已识别：${escapeHtml(detected.join("、") || "无；其余被动仅标注")}</small>${martialControl}</div><div class="calculator-ability is-active"><strong>主动/一次性（当前不启用）</strong><p>${escapeHtml(active)}</p><small>本版本只显示并明确标注，不会自动加入骰子计算。</small></div></div>`;
+  return `<div class="calculator-abilities"><div class="calculator-ability"><strong>可用被动（默认不启用）</strong><p>${escapeHtml(passive || "未解析到单位被动")}</p>${weaponAbilities.length ? `<small>武器关键词：${escapeHtml(weaponAbilities.join("、"))}</small>` : ""}<small>可识别关键词：${escapeHtml(detected.join("、") || "无；其余被动仅列出")}</small>${martialControl}</div><div class="calculator-ability is-active"><strong>主动/一次性（当前不启用）</strong><p>${escapeHtml(active)}</p><small>本版本只显示并明确标注，不会自动加入骰子计算。</small></div></div>`;
 }
 
 function calculatorWeaponMarkup(draft, side) {
@@ -453,15 +470,22 @@ function calculatorWeaponControlMarkup(weapon, side, index, groupIndex = null) {
   const scope = groupIndex === null
     ? `data-calc-weapon-index="${index}"`
     : `data-calc-group-index="${groupIndex}" data-calc-group-weapon-index="${index}"`;
-  return `<div class="calculator-weapon ${weapon.type === state.attackMode ? "is-current" : ""}"><label class="check-row"><input type="checkbox" data-calc-side="${side}" ${scope} data-calc-weapon-enabled ${weapon.enabled !== false ? "checked" : ""} /><span>${escapeHtml(weapon.name || `武器 ${index + 1}`)} · ${weapon.type === "melee" ? "近战" : "远程"}</span></label><div class="calculator-weapon-fields"><label>攻击<input data-calc-side="${side}" ${scope} data-calc-weapon-field="attacks" value="${escapeHtml(weapon.attacks ?? "1")}" /></label><label>命中<input data-calc-side="${side}" ${scope} data-calc-weapon-field="skill" value="${escapeHtml(weapon.skill ?? "4+")}" /></label><label>力量<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="strength" value="${escapeHtml(weapon.strength ?? "0")}" /></label><label>AP<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="ap" value="${escapeHtml(weapon.ap ?? "0")}" /></label><label>伤害<input data-calc-side="${side}" ${scope} data-calc-weapon-field="damage" value="${escapeHtml(weapon.damage ?? "1")}" /></label></div><small class="weapon-keywords">${escapeHtml((weapon.abilities || []).join("、") || "无关键词")}</small></div>`;
+  return `<div class="calculator-weapon ${weapon.type === state.attackMode ? "is-current" : ""}"><label class="check-row"><input type="checkbox" data-calc-side="${side}" ${scope} data-calc-weapon-enabled ${weapon.enabled !== false ? "checked" : ""} /><span>${escapeHtml(weapon.name || `武器 ${index + 1}`)} · ${weapon.type === "melee" ? "近战" : "远程"}</span></label><div class="calculator-weapon-fields"><label>数量<input type="number" min="0" data-calc-side="${side}" ${scope} data-calc-weapon-count value="${escapeHtml(weapon.modelCount ?? 1)}" /></label><label>攻击<input data-calc-side="${side}" ${scope} data-calc-weapon-field="attacks" value="${escapeHtml(weapon.attacks ?? "1")}" /></label><label>命中<input data-calc-side="${side}" ${scope} data-calc-weapon-field="skill" value="${escapeHtml(weapon.skill ?? "4+")}" /></label><label>力量<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="strength" value="${escapeHtml(weapon.strength ?? "0")}" /></label><label>AP<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="ap" value="${escapeHtml(weapon.ap ?? "0")}" /></label><label>伤害<input data-calc-side="${side}" ${scope} data-calc-weapon-field="damage" value="${escapeHtml(weapon.damage ?? "1")}" /></label></div><small class="weapon-keywords">${escapeHtml((weapon.abilities || []).join("、") || "无关键词")}</small></div>`;
 }
 
 function calculatorJoinedMembersMarkup(draft, side) {
   if (!draft.joinedMembers?.length) return "";
   const note = side === "defender" ? "护卫先承伤，角色最后承伤；可分别调整属性" : "联合单位中的角色和护卫都会参与本次攻击；可分别调整数量";
   const selectedId = draft.entry?.rosterUnit?.id;
-  const members = draft.joinedMembers.map((member, index) => `<div class="calculator-joined-member"><div class="calculator-joined-member-heading"><strong>${escapeHtml(member.name)} · ${escapeHtml(member.role || "组成模型")}</strong><label>模型数量<input type="number" min="1" data-calc-side="${side}" data-calc-group-index="${index}" data-calc-group-model-count value="${escapeHtml(member.modelCount)}" /></label></div><div class="calculator-stats">${[["toughness", "坚韧"], ["save", "护甲"], ["invulnerableSave", "特殊保护"], ["woundsPerModel", "W/模型"]].map(([field, title]) => `<label>${title}<input data-calc-side="${side}" data-calc-group-index="${index}" data-calc-group-stat="${field}" value="${escapeHtml(calculatorStat(member.unit, field, field === "invulnerableSave" ? 0 : ""))}" /></label>`).join("")}</div>${member.id === selectedId ? `<small class="weapon-keywords">武器参数见上方“武器与攻击参数”。</small>` : member.weapons?.length ? `<div class="calculator-member-weapons"><strong>成员武器</strong>${member.weapons.map((weapon, weaponIndex) => calculatorWeaponControlMarkup(weapon, side, weaponIndex, index)).join("")}</div>` : `<small class="weapon-keywords">武器：未结构化提取</small>`}</div>`).join("");
-  return `<div class="calculator-joined-members"><div class="calculator-section-heading"><strong>联合单位组成</strong><small>${note}</small></div>${members}</div>`;
+  const members = draft.joinedMembers.map((member, index) => {
+    const selected = member.id === selectedId;
+    const weapons = selected ? draft.weapons : member.weapons;
+    const weaponMarkup = weapons?.length
+      ? `<div class="calculator-member-weapons"><strong>武器</strong>${weapons.map((weapon, weaponIndex) => calculatorWeaponControlMarkup(weapon, side, weaponIndex, selected ? null : index)).join("")}</div>`
+      : `<small class="weapon-keywords">武器：未结构化提取</small>`;
+    return `<div class="calculator-joined-member"><div class="calculator-joined-member-heading"><strong>${escapeHtml(member.name)} · ${escapeHtml(member.role || "组成模型")}</strong><label>模型数量<input type="number" min="1" data-calc-side="${side}" data-calc-group-index="${index}" data-calc-group-model-count value="${escapeHtml(member.modelCount)}" /></label></div><div class="calculator-stats">${[["toughness", "坚韧"], ["save", "护甲"], ["invulnerableSave", "特殊保护"], ["woundsPerModel", "W/模型"]].map(([field, title]) => `<label>${title}<input data-calc-side="${side}" data-calc-group-index="${index}" data-calc-group-stat="${field}" value="${escapeHtml(calculatorStat(member.unit, field, field === "invulnerableSave" ? 0 : ""))}" /></label>`).join("")}</div>${weaponMarkup}</div>`;
+  }).join("");
+  return `<div class="calculator-joined-members"><div class="calculator-section-heading"><strong>联合单位成员</strong><small>${note}</small></div>${members}${calculatorAbilityMarkup(draft, side)}</div>`;
 }
 
 function calculatorDetailMarkup(side) {
@@ -469,9 +493,10 @@ function calculatorDetailMarkup(side) {
   const label = side === "attacker" ? "进攻方" : "防守方";
   if (!draft) return `<article class="calculator-side is-empty"><h3>${label}</h3><p>请选择${label}单位。</p></article>`;
   const unit = draft.unit || {};
-  const combined = side === "defender" && draft.entry.rosterUnit && draft.joinedMembers?.length;
+  const combined = Boolean(draft.entry.rosterUnit && draft.joinedMembers?.length);
+  if (combined) return `<article class="calculator-side ${side}"><div class="calculator-side-heading"><div><span>${label} · ${draft.source}</span><h3>联合单位</h3></div></div>${calculatorJoinedMembersMarkup(draft, side)}</article>`;
   const stats = [["movement", "移速"], ["toughness", "坚韧"], ["save", "护甲"], ["invulnerableSave", "特殊保护"], ["woundsPerModel", "W/模型"], ["leadership", "领导"], ["objectiveControl", "OC"]];
-  return `<article class="calculator-side ${side}"><div class="calculator-side-heading"><div><span>${label} · ${draft.source}</span><h3>${escapeHtml(draft.entry.name)}</h3></div><label>模型数量<input type="number" min="1" data-calc-side="${side}" data-calc-model-count value="${escapeHtml(draft.modelCount)}" /></label></div><div class="calculator-stats">${stats.map(([field, title]) => `<label>${title}<input data-calc-side="${side}" data-calc-stat="${field}" value="${escapeHtml(calculatorStat(unit, field, field === "invulnerableSave" ? 0 : ""))}" /></label>`).join("")}</div>${combined ? `<div class="calculator-joined-note">这是联合单位：规则引擎会按“护卫模型先承伤、角色模型后承伤”的顺序结算，并分别使用各自的 W、护甲和特殊保护。</div>` : ""}${calculatorJoinedMembersMarkup(draft, side)}${calculatorAbilityMarkup(draft, side)}${calculatorWeaponMarkup(draft, side)}</article>`;
+  return `<article class="calculator-side ${side}"><div class="calculator-side-heading"><div><span>${label} · ${draft.source}</span><h3>${escapeHtml(draft.entry.name)}</h3></div><label>模型数量<input type="number" min="1" data-calc-side="${side}" data-calc-model-count value="${escapeHtml(draft.modelCount)}" /></label></div><div class="calculator-stats">${stats.map(([field, title]) => `<label>${title}<input data-calc-side="${side}" data-calc-stat="${field}" value="${escapeHtml(calculatorStat(unit, field, field === "invulnerableSave" ? 0 : ""))}" /></label>`).join("")}</div>${calculatorAbilityMarkup(draft, side)}${calculatorWeaponMarkup(draft, side)}</article>`;
 }
 
 function renderCalculatorDetails() {
@@ -507,6 +532,7 @@ function updateCalculatorDraftFromControl(control) {
         const weapon = member.weapons?.[Number(control.dataset.calcGroupWeaponIndex)];
         if (weapon) {
           if (control.dataset.calcWeaponEnabled !== undefined) weapon.enabled = Boolean(value);
+          if (control.dataset.calcWeaponCount !== undefined) weapon.modelCount = Math.max(0, Number(value) || 0);
           if (control.dataset.calcWeaponField) weapon[control.dataset.calcWeaponField] = value;
         }
       }
@@ -516,6 +542,7 @@ function updateCalculatorDraftFromControl(control) {
     const weapon = draft.weapons[Number(control.dataset.calcWeaponIndex)];
     if (!weapon) return;
     if (control.dataset.calcWeaponEnabled !== undefined) weapon.enabled = Boolean(value);
+    if (control.dataset.calcWeaponCount !== undefined) weapon.modelCount = Math.max(0, Number(value) || 0);
     if (control.dataset.calcWeaponField) weapon[control.dataset.calcWeaponField] = value;
   }
 }
@@ -537,9 +564,8 @@ function activeAbilityText(value) {
 }
 
 function defenderEffectsFromUnit(unit) {
-  const text = String(unit?.abilities || "");
-  const fnp = text.match(/不知疼痛\s*(\d)\s*\+/);
-  return emptyDefenderEffects(fnp ? { feelNoPainEnabled: true, feelNoPainThreshold: Number(fnp[1]) } : {});
+  // 被动规则只在详情中列出，当前版本默认不启用；后续可在这里接入逐项开关。
+  return emptyDefenderEffects();
 }
 
 function calculatorDataForUnit(unit, faction) {
@@ -602,21 +628,20 @@ function buildSelectedRoundPayload() {
       : member)
     : [{ name: attacker.name, unit: attackerUnit, weapons: attackerDraft.weapons, modelCount: attackerDraft.modelCount }];
   const weaponGroups = attackerSources.flatMap((source) => {
-    const unitAbilities = passiveAbilityText(source.unit?.abilities);
     const martialKatah = state.attackMode === "melee" && /禁军武艺/.test(String(source.unit?.abilities || "")) ? attackerDraft.martialKatah : "none";
-    return (source.weapons || []).filter((weapon) => weapon.enabled !== false && weapon.type === state.attackMode).map((weapon) => ({
+    return (source.weapons || []).filter((weapon) => weapon.enabled !== false && weapon.type === state.attackMode && Number(weapon.modelCount ?? source.modelCount ?? 1) > 0).map((weapon) => ({
       name: `${source.name} · ${weapon.name}`,
-      modelCount: source.modelCount,
+      modelCount: Number(weapon.modelCount ?? source.modelCount ?? 1),
       attacks: weapon.attacks,
       hit: String(weapon.skill || "").toLowerCase() === "torrent" ? "torrent" : parseSkill(weapon.skill),
       wound: woundTarget(Number(weapon.strength || 0), toughness),
       ap: Math.abs(Number(weapon.ap || 0)),
       damage: weapon.damage,
       effects: emptyWeaponEffects({
-        sustainedHitsEnabled: martialKatah === "sustained" || [...(weapon.abilities || []), unitAbilities].some((item) => /连击|sustained/i.test(item)) || false,
-        sustainedHitsValue: ([...(weapon.abilities || []), unitAbilities].join(" ").match(/(?:连击|sustained\s*hits?)\s*(\d+)/i)?.[1] || "1"),
-        lethalHitsEnabled: martialKatah === "lethal" || [...(weapon.abilities || []), unitAbilities].some((item) => /致命命中|致命一击|lethal/i.test(item)) || false,
-        devastatingWoundsEnabled: [...(weapon.abilities || []), unitAbilities].some((item) => /毁灭性伤口|毁灭伤害|devastating/i.test(item)) || false,
+        sustainedHitsEnabled: martialKatah === "sustained",
+        sustainedHitsValue: "1",
+        lethalHitsEnabled: martialKatah === "lethal",
+        devastatingWoundsEnabled: false,
       }),
     }));
   });
@@ -1255,7 +1280,7 @@ function renderCalculation(result) {
   const passive = passiveAbilityText(attackerDraft?.unit?.abilities);
   const active = attackerDraft?.unit?.activeAbilities || attackerDraft?.unit?.active || "未结构化提取";
   const joined = Boolean(defenderDraft?.joinedMembers?.length);
-  $("#calcNote").textContent = `结果来自当前选择的单位和可调参数（${state.attackMode === "ranged" ? "远程射击" : "近战"}；全歼概率按整个目标单位模型全部被摧毁计算；被动${passive ? "已标注并尝试启用" : "未解析"}；主动/一次性未启用${active ? "，已标注" : ""}${joined ? "；联合单位按护卫→角色分配伤害" : ""}）。`;
+  $("#calcNote").textContent = `结果来自当前选择的单位和可调参数（${state.attackMode === "ranged" ? "远程射击" : "近战"}；全歼概率按整个目标单位模型全部被摧毁计算；被动${passive ? "已列出，默认未启用" : "未解析"}；主动/一次性未启用${active ? "，已标注" : ""}${joined ? "；联合单位按护卫→角色分配伤害" : ""}）。`;
   $("#calcTargetWounds").textContent = defenderDraft?.unit?.woundsPerModel ? `${defenderDraft.unit.woundsPerModel}W / 模型${joined ? "（护卫先承伤）" : ""}` : "已按所选目标数据卡结算";
 }
 
