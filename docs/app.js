@@ -532,10 +532,17 @@ function calculatorWeaponRerollMarkup(weapon, draft, side, sourceName, sourceKey
   if (side !== "attacker") return "";
   const sections = [];
   const hitThreshold = String(weapon.skill || "").toLowerCase() === "torrent" ? 0 : parseSkill(weapon.skill);
+  const sourceRules = resolvedRuleEffects(draft, sourceName).attack || {};
+  if (sourceRules.hitReroll && hitThreshold > 0) {
+    const rerollRule = window.WarhammerRuleResolver?.rulesForUnit(draft.entry?.faction, sourceName).unit.find((rule) => rule.effects?.some((effect) => effect.type === "space-hit-reroll"));
+    sections.push(rerollFacesMarkup(draft, side, {
+      kind: "rule-hit", sourceKey, weaponIndex, threshold: hitThreshold,
+      title: `${rerollRule?.name || "命中重投"} · 命中重投`, locked: sourceRules.hitReroll === "ones",
+    }));
+  }
   if (unitHasOathOfMoment(draft.unit, draft.entry?.faction) && hitThreshold > 0) {
     sections.push(rerollFacesMarkup(draft, side, { kind: "oath-hit", sourceKey, weaponIndex, threshold: hitThreshold, title: "破敌重誓 · 命中重投" }));
   }
-  const sourceRules = resolvedRuleEffects(draft, sourceName).attack || {};
   if (sourceRules.woundReroll) {
     const defenderDraft = getCalculatorDraft("defender");
     const woundThreshold = defenderDraft?.unit?.toughness ? woundTarget(Number(weapon.strength || 0), Number(defenderDraft.unit.toughness)) : 4;
@@ -772,7 +779,8 @@ function buildSelectedRoundPayload() {
       incomingHitModifier: Math.min(result.incomingHitModifier, Number(effects.incomingHitModifier || 0)),
       incomingWoundModifier: Math.min(result.incomingWoundModifier, Number(effects.incomingWoundModifier || 0)),
       incomingWoundWhenStrengthGreater: Math.min(result.incomingWoundWhenStrengthGreater, Number(effects.incomingWoundWhenStrengthGreater || 0)),
-    }), { incomingApModifier: 0, incomingHitModifier: 0, incomingWoundModifier: 0, incomingWoundWhenStrengthGreater: 0 });
+      incomingWoundWhenStrengthGreaterOrEqual: Math.min(result.incomingWoundWhenStrengthGreaterOrEqual, Number(effects.incomingWoundWhenStrengthGreaterOrEqual || 0)),
+    }), { incomingApModifier: 0, incomingHitModifier: 0, incomingWoundModifier: 0, incomingWoundWhenStrengthGreater: 0, incomingWoundWhenStrengthGreaterOrEqual: 0 });
   const attackerSources = attackerDraft.joinedMembers?.length
     ? attackerDraft.joinedMembers.map((member) => member.id === attacker.rosterUnit?.id
       ? {
@@ -797,9 +805,14 @@ function buildSelectedRoundPayload() {
   const sharedJoinedRules = sourceRuleEntries.reduce((result, entry) => ({
     hitModifier: result.hitModifier + Number(entry.effects.hitModifier || 0),
     woundModifier: result.woundModifier + Number(entry.effects.woundModifier || 0),
+    hitReroll: result.hitReroll || entry.effects.hitReroll || null,
+    sustainedHits: Math.max(result.sustainedHits, Number(entry.effects.sustainedHits || 0)),
+    lethalHits: result.lethalHits || Boolean(entry.effects.lethalHits),
+    devastating: result.devastating || Boolean(entry.effects.devastating),
+    attackModifier: result.attackModifier + Number(entry.effects.attackModifier || 0),
     ignoreHitModifiers: result.ignoreHitModifiers || Boolean(entry.effects.ignoreHitModifiers),
     martialChoices: [...new Set([...result.martialChoices, ...(entry.effects.martialChoices || [])])],
-  }), { hitModifier: 0, woundModifier: 0, ignoreHitModifiers: false, martialChoices: [] });
+  }), { hitModifier: 0, woundModifier: 0, hitReroll: null, sustainedHits: 0, lethalHits: false, devastating: false, attackModifier: 0, ignoreHitModifiers: false, martialChoices: [] });
   const weaponGroups = attackerSources.flatMap((source) => {
     const sourceRules = sourceRuleEntries.find((entry) => entry.source === source)?.effects || {};
     const sourceKey = !attackerDraft.joinedMembers.length || (source.id && source.id === attacker.rosterUnit?.id) ? "unit" : `member-${attackerDraft.joinedMembers.indexOf(source)}`;
@@ -811,15 +824,28 @@ function buildSelectedRoundPayload() {
     const groups = (source.weapons || []).map((weapon, weaponIndex) => ({ weapon, weaponIndex }))
       .filter(({ weapon }) => weapon.enabled !== false && weapon.type === state.attackMode && Number(weapon.modelCount ?? source.modelCount ?? 1) > 0)
       .map(({ weapon, weaponIndex }) => {
-      const attackOverride = sourceRules.weaponAttackOverride?.name === weapon.name ? sourceRules.weaponAttackOverride.value : weapon.attacks;
+      const attackOverride = sourceRules.weaponAttackOverride?.name === weapon.name
+        ? sourceRules.weaponAttackOverride.value
+        : (Number(sourceRules.attackModifier || sharedJoinedRules.attackModifier || 0) && Number.isFinite(Number(weapon.attacks))
+          ? String(Number(weapon.attacks) + Number(sourceRules.attackModifier || sharedJoinedRules.attackModifier || 0))
+          : weapon.attacks);
       const hitModifier = sharedJoinedRules.hitModifier + (sharedJoinedRules.ignoreHitModifiers ? 0 : defenderRuleEffects.incomingHitModifier);
-      const conditionalWoundModifier = Number(weapon.strength || 0) > toughness ? defenderRuleEffects.incomingWoundWhenStrengthGreater : 0;
+      const conditionalWoundModifier = Number(weapon.strength || 0) >= toughness
+        ? defenderRuleEffects.incomingWoundWhenStrengthGreaterOrEqual
+        : (Number(weapon.strength || 0) > toughness ? defenderRuleEffects.incomingWoundWhenStrengthGreater : 0);
       const woundModifier = sharedJoinedRules.woundModifier + defenderRuleEffects.incomingWoundModifier + conditionalWoundModifier;
       const hitThreshold = String(weapon.skill || "").toLowerCase() === "torrent" ? 7 : parseSkill(weapon.skill);
       const woundThreshold = woundTarget(Number(weapon.strength || 0), toughness);
       const oathReroll = unitHasOathOfMoment(source.unit, attacker.faction) && hitThreshold <= 6
         ? resolvedRerollSelection(attackerDraft, "oath-hit", sourceKey, weaponIndex, hitThreshold)
         : { type: "none", values: [] };
+      const ruleHitMode = sourceRules.hitReroll || sharedJoinedRules.hitReroll;
+      const ruleHitReroll = ruleHitMode === "ones"
+        ? { type: "specific", values: [1] }
+        : ruleHitMode === "failed"
+          ? resolvedRerollSelection(attackerDraft, "rule-hit", sourceKey, weaponIndex, hitThreshold)
+          : { type: "none", values: [] };
+      const effectiveHitReroll = ruleHitReroll.type !== "none" ? ruleHitReroll : oathReroll;
       const guardReroll = sourceRules.woundReroll === "failed"
         ? resolvedRerollSelection(attackerDraft, "guard-wound", sourceKey, weaponIndex, woundThreshold)
         : { type: sourceRules.woundReroll || "", values: [] };
@@ -831,7 +857,7 @@ function buildSelectedRoundPayload() {
         wound: woundThreshold,
         ap: Math.max(0, Math.abs(Number(weapon.ap || 0)) + defenderRuleEffects.incomingApModifier),
         damage: weapon.damage,
-        effects: weaponEffectsFromKeywords(weapon, martialKatah, { ...oathOfMoment, hitReroll: oathReroll }, { ...sourceRules, woundReroll: guardReroll.type, woundRerollValues: guardReroll.values }, { hitModifier, woundModifier }),
+        effects: weaponEffectsFromKeywords(weapon, martialKatah, { ...oathOfMoment, hitReroll: effectiveHitReroll }, { ...sourceRules, sustainedHits: sharedJoinedRules.sustainedHits, lethalHits: sharedJoinedRules.lethalHits, devastating: sharedJoinedRules.devastating, woundReroll: guardReroll.type, woundRerollValues: guardReroll.values }, { hitModifier, woundModifier }),
       };
     });
     return sourceRules.repeatRanged ? [...groups, ...groups.map((group) => ({ ...group, name: `${group.name}（枪林弹雨）` }))] : groups;
@@ -1390,21 +1416,21 @@ function emptyDefenderEffects() {
 function weaponEffectsFromKeywords(weapon, martialKatah = [], oathOfMoment = {}, ruleEffects = {}, modifiers = {}) {
   const keywords = (weapon?.abilities || []).join(" ");
   const sustained = keywords.match(/连击\s*(d3|\d+)?|sustained\s*hits?\s*(d3|\d+)?/i);
-  const sustainedValue = sustained?.[1] || sustained?.[2] || "1";
-  const hasSustained = Boolean(sustained);
-  const hasLethal = /致命命中|致命一击|lethal/i.test(keywords);
-  const hasDevastating = /毁灭性伤口|毁灭性伤害|毁灭伤害|devastating/i.test(keywords);
+  const sustainedValue = sustained?.[1] || sustained?.[2] || String(ruleEffects.sustainedHits || 1);
+  const hasSustained = Boolean(sustained) || Number(ruleEffects.sustainedHits || 0) > 0;
+  const hasLethal = /致命命中|致命一击|lethal/i.test(keywords) || Boolean(ruleEffects.lethalHits);
+  const hasDevastating = /毁灭性伤口|毁灭性伤害|毁灭伤害|devastating/i.test(keywords) || Boolean(ruleEffects.devastating);
   const hasTwinLinked = /双联|twin-?linked/i.test(keywords);
-  const oathReroll = oathOfMoment?.hitReroll || { type: "none", values: [] };
-  const oathHitValues = [...new Set((oathReroll.values || []).map(Number).filter((value) => value >= 1 && value <= 6))];
+  const hitReroll = oathOfMoment?.hitReroll || { type: "none", values: [] };
+  const hitValues = [...new Set((hitReroll.values || []).map(Number).filter((value) => value >= 1 && value <= 6))];
   const oathWoundBonus = Boolean(oathOfMoment?.woundBonus);
   const martialChoices = Array.isArray(martialKatah) ? martialKatah : [martialKatah];
   const ruleWoundReroll = ruleEffects.woundReroll || "";
   const ruleWoundRerollValues = [...new Set((ruleEffects.woundRerollValues || []).map(Number).filter((value) => value >= 1 && value <= 6))];
   return emptyWeaponEffects({
-    hitRerollAllEnabled: oathReroll.type && oathReroll.type !== "none",
-    hitRerollAllType: oathReroll.type || "ones",
-    hitRerollAllValues: oathHitValues,
+    hitRerollAllEnabled: hitReroll.type && hitReroll.type !== "none",
+    hitRerollAllType: hitReroll.type || "ones",
+    hitRerollAllValues: hitValues,
     hitModifierEnabled: Boolean(modifiers.hitModifier),
     hitModifierValue: Number(modifiers.hitModifier || 0),
     woundModifierEnabled: oathWoundBonus || Boolean(modifiers.woundModifier),
