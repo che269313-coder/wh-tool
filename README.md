@@ -28,16 +28,15 @@ git push
 - 军表、数据卡导入后保存在当前手机浏览器的 IndexedDB 中。
 - 文本资料可作为 AI 上下文；PDF 会先保存，当前版本尚未做页面内 PDF 检索。
 - DeepSeek 可以在设置页直接调用，也可以使用 `worker/` 中的 Cloudflare Worker 代理。
-- 外部 Wathammer 校验接口通过 Worker 代理接入，地址格式为 `/api/wathammer-round`。
+- 外部基准使用固定的 Wathammer 页面，不再要求用户填写地址；计算页会提供手机直达链接：`https://wathammer.com/round`。GitHub Pages 直接请求其接口时可能受到跨域限制，遇到限制时请在该固定页面中完成外部校验。
 
 ## DeepSeek 设置
 
 在页面的“设置”中选择直接调用或 Worker 代理，并填写模型和地址。默认模型为 `deepseek-v4-flash`。
 
-如果直接调用遇到浏览器 CORS 错误，部署 `worker/pages-proxy.js`，然后填写：
+如果 AI 直接调用遇到浏览器 CORS 错误，部署 `worker/pages-proxy.js`，然后填写：
 
 - AI 地址：`https://你的-worker.workers.dev/api/chat`
-- 计算器地址：`https://你的-worker.workers.dev/api/wathammer-round`
 
 API Key 不写入本压缩包，也不会写入 GitHub 文件；页面只有在你主动保存时才会保存到当前浏览器。
 
