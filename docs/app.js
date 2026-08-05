@@ -469,7 +469,7 @@ function getCalculatorDraft(side) {
     const role = /领导|主将|领袖|character|leader/i.test(String(member.role || "")) ? "角色" : /护卫|bodyguard/i.test(String(member.role || "")) ? "护卫" : (explicitGuard && !explicitLeader ? "角色" : (memberIndex === 0 ? "角色" : "护卫"));
     return { id: member.id, name: member.name, role, unit: memberUnit, weapons: memberWeapons, modelCount: activeModels(member).length };
   }).sort((a, b) => (a.role === "角色" ? 0 : 1) - (b.role === "角色" ? 0 : 1)) : [];
-  state.calculatorDrafts[side] = { key, entry, data, unit: baseUnit, weapons, modelCount: Math.max(1, modelCount || 1), source: calculatorSource(entry), joinedMembers, martialKatah: "none", oathOfMoment: false };
+  state.calculatorDrafts[side] = { key, entry, data, unit: baseUnit, weapons, modelCount: Math.max(1, modelCount || 1), source: calculatorSource(entry), joinedMembers, martialKatah: "none", oathHitValues: [], oathWoundBonus: false };
   return state.calculatorDrafts[side];
 }
 
@@ -507,7 +507,8 @@ function calculatorAbilityMarkup(draft, side) {
   const hasMartialKatah = side === "attacker" && /禁军武艺/.test([unit.abilities, ...(draft.joinedMembers || []).map((member) => member.unit?.abilities)].join(" "));
   const martialControl = hasMartialKatah ? `<label class="calculator-martial-control">禁军武艺（仅近战）<select data-calc-side="${side}" data-calc-martial><option value="none" ${draft.martialKatah === "none" ? "selected" : ""}>不启用</option><option value="sustained" ${draft.martialKatah === "sustained" ? "selected" : ""}>连击 1</option><option value="lethal" ${draft.martialKatah === "lethal" ? "selected" : ""}>致命一击</option></select></label>` : "";
   const hasOathOfMoment = side === "attacker" && unitHasOathOfMoment(unit, draft.entry?.faction);
-  const oathControl = hasOathOfMoment ? `<label class="calculator-oath-control check-row"><input type="checkbox" data-calc-side="${side}" data-calc-oath ${draft.oathOfMoment ? "checked" : ""} /><span>破敌重誓（基础）：对当前目标重投全部命中骰</span></label>` : "";
+  const oathValues = new Set((draft.oathHitValues || []).map(Number));
+  const oathControl = hasOathOfMoment ? `<div class="calculator-oath-control"><strong>破敌重誓（手动选择）</strong><small>重投命中骰结果（可多选）</small><div class="calculator-oath-faces">${[1, 2, 3, 4, 5, 6].map((face) => `<label><input type="checkbox" value="${face}" data-calc-side="${side}" data-calc-oath-hit ${oathValues.has(face) ? "checked" : ""} />${face}</label>`).join("")}</div><label class="check-row"><input type="checkbox" data-calc-side="${side}" data-calc-oath-wound ${draft.oathWoundBonus ? "checked" : ""} /><span>造伤 +1</span></label></div>` : "";
   return `<div class="calculator-abilities"><div class="calculator-ability"><strong>可用被动（默认不启用）</strong><p>${escapeHtml(passive || "未解析到单位被动")}</p>${weaponAbilities.length ? `<small>武器关键词：${escapeHtml(weaponAbilities.join("、"))}</small>` : ""}<small>可识别关键词：${escapeHtml(detected.join("、") || "无；其余被动仅列出")}</small>${martialControl}${oathControl}</div><div class="calculator-ability is-active"><strong>主动/一次性（当前不启用）</strong><p>${escapeHtml(active)}</p><small>本版本只显示并明确标注，不会自动加入骰子计算。</small></div></div>`;
 }
 
@@ -566,7 +567,14 @@ function updateCalculatorDraftFromControl(control) {
   const value = control.type === "checkbox" || control.type === "radio" ? control.checked : control.value;
   if (control.dataset.calcModelCount !== undefined) draft.modelCount = Math.max(1, Number(value) || 1);
   if (control.dataset.calcMartial !== undefined) draft.martialKatah = value;
-  if (control.dataset.calcOath !== undefined) draft.oathOfMoment = Boolean(value);
+  if (control.dataset.calcOathHit !== undefined) {
+    const face = Number(control.value);
+    const selected = new Set((draft.oathHitValues || []).map(Number));
+    if (control.checked) selected.add(face);
+    else selected.delete(face);
+    draft.oathHitValues = [...selected].filter((item) => item >= 1 && item <= 6).sort((a, b) => a - b);
+  }
+  if (control.dataset.calcOathWound !== undefined) draft.oathWoundBonus = Boolean(value);
   if (control.dataset.calcStat) {
     const field = control.dataset.calcStat;
     draft.unit[field] = ["movement", "toughness", "save", "invulnerableSave", "woundsPerModel", "objectiveControl"].includes(field) ? Math.max(0, Number(value) || 0) : value;
@@ -684,7 +692,9 @@ function buildSelectedRoundPayload() {
     : [{ name: attacker.name, unit: attackerUnit, weapons: attackerDraft.weapons, modelCount: attackerDraft.modelCount }];
   const weaponGroups = attackerSources.flatMap((source) => {
     const martialKatah = state.attackMode === "melee" && /禁军武艺/.test(String(source.unit?.abilities || "")) ? attackerDraft.martialKatah : "none";
-    const oathOfMoment = Boolean(attackerDraft.oathOfMoment && unitHasOathOfMoment(source.unit, attacker.faction));
+    const oathOfMoment = unitHasOathOfMoment(source.unit, attacker.faction)
+      ? { hitValues: attackerDraft.oathHitValues || [], woundBonus: Boolean(attackerDraft.oathWoundBonus) }
+      : {};
     return (source.weapons || []).filter((weapon) => weapon.enabled !== false && weapon.type === state.attackMode && Number(weapon.modelCount ?? source.modelCount ?? 1) > 0).map((weapon) => ({
       name: `${source.name} · ${weapon.name}`,
       modelCount: Number(weapon.modelCount ?? source.modelCount ?? 1),
@@ -1249,7 +1259,7 @@ function emptyDefenderEffects() {
   };
 }
 
-function weaponEffectsFromKeywords(weapon, martialKatah = "none", oathOfMoment = false) {
+function weaponEffectsFromKeywords(weapon, martialKatah = "none", oathOfMoment = {}) {
   const keywords = (weapon?.abilities || []).join(" ");
   const sustained = keywords.match(/连击\s*(d3|\d+)?|sustained\s*hits?\s*(d3|\d+)?/i);
   const sustainedValue = sustained?.[1] || sustained?.[2] || "1";
@@ -1257,9 +1267,14 @@ function weaponEffectsFromKeywords(weapon, martialKatah = "none", oathOfMoment =
   const hasLethal = /致命命中|致命一击|lethal/i.test(keywords);
   const hasDevastating = /毁灭性伤口|毁灭性伤害|毁灭伤害|devastating/i.test(keywords);
   const hasTwinLinked = /双联|twin-?linked/i.test(keywords);
+  const oathHitValues = [...new Set((oathOfMoment?.hitValues || []).map(Number).filter((value) => value >= 1 && value <= 6))];
+  const oathWoundBonus = Boolean(oathOfMoment?.woundBonus);
   return emptyWeaponEffects({
-    hitRerollAllEnabled: oathOfMoment,
-    hitRerollAllType: "failed",
+    hitRerollAllEnabled: oathHitValues.length > 0,
+    hitRerollAllType: "specific",
+    hitRerollAllValues: oathHitValues,
+    woundModifierEnabled: oathWoundBonus,
+    woundModifierValue: oathWoundBonus ? 1 : 0,
     sustainedHitsEnabled: hasSustained || martialKatah === "sustained",
     sustainedHitsValue: sustainedValue,
     lethalHitsEnabled: hasLethal || martialKatah === "lethal",
