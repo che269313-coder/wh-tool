@@ -567,9 +567,10 @@ function calculatorWeaponRerollMarkup(weapon, draft, side, sourceName, sourceKey
   if (sourceRules.woundReroll) {
     const defenderDraft = getCalculatorDraft("defender");
     const woundThreshold = defenderDraft?.unit?.toughness ? woundTarget(Number(weapon.strength || 0), Number(defenderDraft.unit.toughness)) : 4;
+    const rerollRule = window.WarhammerRuleResolver?.rulesForUnit(draft.entry?.faction, sourceName).unit.find((rule) => ["guard-wound-reroll", "elite-wound-reroll"].includes(rule.effect?.type));
     sections.push(rerollFacesMarkup(draft, side, {
       kind: "guard-wound", sourceKey, weaponIndex, threshold: woundThreshold,
-      title: "保持警戒 · 造伤重投", locked: sourceRules.woundReroll === "ones",
+      title: `${rerollRule?.name || "造伤重投"} · 造伤重投`, locked: sourceRules.woundReroll === "ones",
     }));
   }
   return sections.join("");

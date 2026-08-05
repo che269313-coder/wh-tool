@@ -47,7 +47,8 @@
     rules.forEach((rule) => {
       const effect = rule.effect;
       if (!effect) return;
-      if (effect.requiresJoined && !context.isJoined) return;
+      const forceLeader = enabled(selections, rule, "forceLeader");
+      if (effect.requiresJoined && !context.isJoined && !forceLeader) return;
       if (effect.phase && effect.phase !== context.phase) return;
       switch (effect.type) {
         case "fnp":
@@ -77,8 +78,8 @@
           if (enabled(selections, rule, "psychic")) defend.feelNoPain = Math.max(defend.feelNoPain, 3);
           break;
         case "under-strength-bonuses":
-          if (context.underStartingStrength) attack.hitModifier += 1;
-          if (context.belowHalfStrength) attack.woundModifier += 1;
+          if (context.underStartingStrength || forceLeader) attack.hitModifier += 1;
+          if (context.belowHalfStrength || selected(selections, rule, "belowHalf", false)) attack.woundModifier += 1;
           break;
         case "incoming-melee-hit-minus": if (context.phase === "melee") defend.incomingHitModifier -= 1; break;
         case "anti-psyker-weapons": if (enabled(selections, rule, "targetPsychic")) attack.devastating = true; break;

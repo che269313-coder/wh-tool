@@ -57,7 +57,7 @@
     ]),
     unit("禁军守望者", [
       common("wardens-core", "【核心技能】：深入打击"),
-      { id: "custodes-wardens-will", name: "坚定意志", text: "坚定意志：当人物领导本单位时，对本单位的攻击如果 S 大于本单位的 T 值，则造伤结果减 1", status: supported, effect: { type: "high-strength-wound-minus", requiresJoined: true } },
+      { id: "custodes-wardens-will", name: "坚定意志", text: "坚定意志：当人物领导本单位时，对本单位的攻击如果 S 大于本单位的 T 值，则造伤结果减 1", status: supported, controls: [{ id: "forceLeader", type: "checkbox", label: "纯数据卡：强行按角色已领导本单位" }], effect: { type: "high-strength-wound-minus", requiresJoined: true } },
       { id: "custodes-wardens-fortress", name: "人形要塞", text: "人形要塞：一次性技能，在任意阶段开始时，本单位可以在本阶段中获得【不知疼痛 4+】技能", status: supported, controls: [{ id: "enabled", type: "checkbox", label: "本次获得【不知疼痛 4+】技能" }], effect: { type: "fnp", threshold: 4 } },
     ]),
     unit("晨鹰摩托队", [
@@ -84,7 +84,7 @@
       common("aleya-core", "【核心技能】：领袖，斥候 6，不知疼痛 5+", { type: "fnp", threshold: 5 }),
       common("aleya-insight", "战术洞察：本模型所领导的单位，其中的模型获得【先攻】"),
       { id: "custodes-aleya-deep", name: "深渊之女", text: "深渊之女：本模型在对抗【灵能】攻击和致命伤害时算作拥有【不知疼痛 3+】", status: supported, controls: [{ id: "psychic", type: "checkbox", label: "来袭攻击具有【灵能】关键词" }], effect: { type: "deep-daughter" } },
-      { id: "custodes-aleya-soul", name: "坚毅灵魂", text: "坚毅灵魂：本模型所领导的单位如果低于起始数量，则攻击命中结果+1，如果低于半数则造伤结果也+1", status: supported, effect: { type: "under-strength-bonuses", requiresJoined: true } },
+      { id: "custodes-aleya-soul", name: "坚毅灵魂", text: "坚毅灵魂：本模型所领导的单位如果低于起始数量，则攻击命中结果+1，如果低于半数则造伤结果也+1", status: supported, controls: [{ id: "forceLeader", type: "checkbox", label: "纯数据卡：强行按角色已领导本单位" }, { id: "belowHalf", type: "checkbox", label: "同时按本单位低于半数处理" }], effect: { type: "under-strength-bonuses", requiresJoined: true } },
     ]),
     unit("控诉者", [
       { id: "custodes-prosecutors-purge", name: "净化处决", text: "净化处决：本单位模型射击攻击灵能者单位时算作拥有【精准】和【毁灭伤害】技能", status: supported, controls: [{ id: "targetPsychic", type: "checkbox", label: "目标是灵能者单位" }], effect: { type: "anti-psyker-weapons" } },
