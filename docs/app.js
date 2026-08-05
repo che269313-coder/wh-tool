@@ -66,6 +66,7 @@ const state = {
   datasheetCache: {},
   calculatorCards: [],
   calculatorSelection: { attacker: "", defender: "" },
+  calculatorDrafts: { attacker: null, defender: null },
   attackMode: "ranged",
 };
 
@@ -85,24 +86,37 @@ const DATASHEET_ALIASES = {
   },
 };
 const UNIT_PROFILE_OVERRIDES = {
-  "图拉真元帅": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 7, leadership: "6+", objectiveControl: 2 },
-  "瓦雷利安连长": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, leadership: "6+", objectiveControl: 2, weapons: [{ name: "真知战矛（射击）", type: "ranged", attacks: "3", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "真知战矛（近战）", type: "melee", attacks: "7", skill: "2+", strength: 8, ap: -3, damage: "2", abilities: [] }] },
-  "盾卫连长": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, leadership: "6+", objectiveControl: 2, weapons: [{ name: "堡主战斧（射击）", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛（射击）", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛（近战）", type: "melee", attacks: "7", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }] },
-  "剑锋冠军": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, leadership: "6+", objectiveControl: 2, weapons: [{ name: "宝库之剑", type: "melee", attacks: "6", skill: "2+", strength: 6, ap: -3, damage: "2", abilities: [] }] },
-  "终结者盾卫连长": { movement: 5, toughness: 7, save: 2, invulnerableSave: 4, woundsPerModel: 7, leadership: "6+", objectiveControl: 2, weapons: [{ name: "卫士之矛（射击）", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛（近战）", type: "melee", attacks: "6", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }] },
-  "摩托盾卫连长": { movement: 12, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 7, leadership: "6+", objectiveControl: 2 },
-  "禁军盾卫": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 3, leadership: "6+", objectiveControl: 2 },
-  "阿拉鲁斯终结者": { movement: 5, toughness: 7, save: 2, invulnerableSave: 4, woundsPerModel: 4, leadership: "6+", objectiveControl: 2 },
-  "禁军守望者": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 3, leadership: "6+", objectiveControl: 2 },
-  "晨鹰摩托队": { movement: 12, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 3, leadership: "6+", objectiveControl: 2 },
-  "神圣蔑视者无畏机甲": { movement: 8, toughness: 9, save: 2, invulnerableSave: 5, woundsPerModel: 9, leadership: "6+", objectiveControl: 3 },
-  "神圣兰德掠袭者坦克": { movement: 10, toughness: 12, save: 2, invulnerableSave: 0, woundsPerModel: 16, leadership: "6+", objectiveControl: 5 },
-  "灭魔教团百夫长": { movement: 6, toughness: 3, save: 3, invulnerableSave: 4, woundsPerModel: 4, leadership: "6+", objectiveControl: 1 },
-  "艾雷雅": { movement: 6, toughness: 3, save: 3, invulnerableSave: 4, woundsPerModel: 4, leadership: "6+", objectiveControl: 1 },
-  "控诉者": { movement: 6, toughness: 3, save: 3, invulnerableSave: 0, woundsPerModel: 1, leadership: "6+", objectiveControl: 1 },
-  "戒卫者": { movement: 6, toughness: 3, save: 3, invulnerableSave: 0, woundsPerModel: 1, leadership: "6+", objectiveControl: 1 },
-  "猎巫者": { movement: 6, toughness: 3, save: 3, invulnerableSave: 0, woundsPerModel: 1, leadership: "6+", objectiveControl: 1 },
-  "灭魔教团犀牛装甲车": { movement: 12, toughness: 9, save: 3, invulnerableSave: 0, woundsPerModel: 10, leadership: "6+", objectiveControl: 2 },
+  // 扫描版禁军卡的结构化 OCR 只保留了单位名；这些是对照原卡录入的基础属性、默认模型数和武器。
+  "图拉真元帅": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 7, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；不知疼痛 5+；禁军武艺；禁军元帅", activeAbilities: "时间锁（每场游戏一次，近战阶段开始时）", weapons: [{ name: "雄鹰咆哮", type: "ranged", attacks: "2", skill: "2+", strength: 5, ap: -2, damage: "3", abilities: ["突击"] }, { name: "守望者战斧", type: "melee", attacks: "6", skill: "2+", strength: 10, ap: -2, damage: "3", abilities: [] }] },
+  "瓦雷利安连长": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；不知疼痛 6+；禁军武艺", activeAbilities: "狮门英杰（一次性）", weapons: [{ name: "真知战矛", type: "ranged", attacks: "3", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "真知战矛", type: "melee", attacks: "7", skill: "2+", strength: 8, ap: -3, damage: "2", abilities: [] }] },
+  "盾卫连长": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；禁军武艺", activeAbilities: "武艺大师（每场游戏一次）", weapons: [{ name: "堡主战斧", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "堡主战斧", type: "melee", attacks: "4", skill: "2+", strength: 9, ap: -1, damage: "3", abilities: [] }, { name: "卫士之矛", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛", type: "melee", attacks: "5", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }] },
+  "剑锋冠军": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；禁军武艺", activeAbilities: "剑锋姿态（选择一种武器配置）", weapons: [{ name: "宝库之剑（精确）", type: "melee", attacks: "6", skill: "2+", strength: 6, ap: -3, damage: "2", abilities: ["毁灭性伤口"] }, { name: "宝库之剑（横扫）", type: "melee", attacks: "12", skill: "2+", strength: 5, ap: -2, damage: "1", abilities: [] }] },
+  "终结者盾卫连长": { movement: 5, toughness: 7, save: 2, invulnerableSave: 4, woundsPerModel: 7, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；不知疼痛 5+；禁军武艺", activeAbilities: "武艺大师（每场游戏一次）", weapons: [{ name: "卫士之矛", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛", type: "melee", attacks: "5", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }, { name: "堡主战斧", type: "melee", attacks: "4", skill: "2+", strength: 9, ap: -1, damage: "3", abilities: [] }] },
+  "摩托盾卫连长": { movement: 12, toughness: 7, save: 2, invulnerableSave: 4, woundsPerModel: 6, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；禁军武艺", activeAbilities: "武艺大师（每场游戏一次）", weapons: [{ name: "晨鹰风暴爆弹枪", type: "ranged", attacks: "3", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["速射 3"] }, { name: "拦截者骑枪", type: "melee", attacks: "5", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: ["迅猛冲锋"] }] },
+  "禁军盾卫": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 3, models: 4, leadership: "6+", objectiveControl: 2, abilities: "深入打击；禁军武艺", activeAbilities: "坚守阵地（按数据卡选择）", weapons: [{ name: "堡主战斧", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "堡主战斧", type: "melee", attacks: "4", skill: "2+", strength: 9, ap: -1, damage: "3", abilities: [] }, { name: "卫士之矛", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛", type: "melee", attacks: "5", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }, { name: "誓约匕首", type: "melee", attacks: "5", skill: "2+", strength: 5, ap: -2, damage: "1", abilities: [] }] },
+  "阿拉鲁斯终结者": { movement: 5, toughness: 7, save: 2, invulnerableSave: 4, woundsPerModel: 4, models: 2, leadership: "6+", objectiveControl: 2, abilities: "深入打击；不知疼痛 4+；终结者协议", activeAbilities: "暴君冲击（选择武器配置）", weapons: [{ name: "堡主战斧", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "堡主战斧", type: "melee", attacks: "4", skill: "2+", strength: 9, ap: -1, damage: "3", abilities: [] }, { name: "卫士之矛", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛", type: "melee", attacks: "5", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }, { name: "强势榴弹发射器", type: "ranged", attacks: "d6", skill: "2+", strength: 4, ap: -1, damage: "1", abilities: ["爆炸"] }, { name: "誓约匕首", type: "melee", attacks: "5", skill: "2+", strength: 5, ap: -2, damage: "1", abilities: [] }] },
+  "禁军守望者": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 3, models: 4, leadership: "6+", objectiveControl: 2, abilities: "深入打击；禁军武艺；坚定意志", activeAbilities: "坚守阵地（按数据卡选择）", weapons: [{ name: "堡主战斧", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "堡主战斧", type: "melee", attacks: "4", skill: "2+", strength: 9, ap: -1, damage: "3", abilities: [] }, { name: "卫士之矛", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛", type: "melee", attacks: "5", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }] },
+  "晨鹰摩托队": { movement: 12, toughness: 7, save: 2, invulnerableSave: 4, woundsPerModel: 5, models: 2, leadership: "6+", objectiveControl: 2, abilities: "禁军武艺", activeAbilities: "涡轮加速（本单位加速时）", weapons: [{ name: "晨鹰风暴爆弹枪", type: "ranged", attacks: "3", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["速射 3", "双联"] }, { name: "集束导弹", type: "ranged", attacks: "1", skill: "2+", strength: 10, ap: -3, damage: "d6+1", abilities: ["双联"] }, { name: "拦截者骑枪", type: "melee", attacks: "5", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: ["迅猛冲锋"] }] },
+  "神圣蔑视者无畏机甲": { movement: 6, toughness: 9, save: 2, invulnerableSave: 5, woundsPerModel: 10, models: 1, leadership: "6+", objectiveControl: 3, abilities: "致命破坏；无畏机甲协议", activeAbilities: "自动修复（每回合一次）", weapons: [{ name: "并联爆弹枪", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: 0, damage: "1", abilities: ["速射 2"] }, { name: "可瑞斯斩击炮", type: "ranged", attacks: "6", skill: "2+", strength: 7, ap: -1, damage: "1", abilities: ["毁灭性伤口"] }, { name: "多管热熔", type: "ranged", attacks: "2", skill: "2+", strength: 9, ap: -4, damage: "d6", abilities: ["热熔 2"] }, { name: "蔑视者铁拳", type: "melee", attacks: "5", skill: "2+", strength: 12, ap: -2, damage: "3", abilities: [] }] },
+  "神圣兰德掠袭者坦克": { movement: 10, toughness: 12, save: 2, invulnerableSave: 0, woundsPerModel: 16, models: 1, leadership: "6+", objectiveControl: 5, abilities: "致命破坏；坚固装甲", activeAbilities: "自动修复（每回合一次）", weapons: [{ name: "风暴爆弹枪", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: 0, damage: "1", abilities: ["速射 2"] }, { name: "猎杀飞弹", type: "ranged", attacks: "1", skill: "2+", strength: 14, ap: -3, damage: "d6", abilities: ["一次性"] }, { name: "双联重型爆弹枪", type: "ranged", attacks: "3", skill: "2+", strength: 5, ap: -1, damage: "2", abilities: ["连击 1", "双联"] }, { name: "神锤激光炮", type: "ranged", attacks: "2", skill: "2+", strength: 12, ap: -3, damage: "d6+1", abilities: [] }, { name: "精金履带", type: "melee", attacks: "6", skill: "4+", strength: 8, ap: 0, damage: "1", abilities: [] }] },
+  "灭魔教团百夫长": { movement: 6, toughness: 3, save: 3, invulnerableSave: 5, woundsPerModel: 4, models: 1, leadership: "6+", objectiveControl: 1, abilities: "领袖；扩候；不知疼痛 5+", activeAbilities: "处决协议（一次性）", weapons: [{ name: "精工爆弹枪", type: "ranged", attacks: "1", skill: "2+", strength: 4, ap: 0, damage: "2", abilities: ["速射 1"] }, { name: "猎巫喷火器", type: "ranged", attacks: "d6", skill: "torrent", strength: 4, ap: 0, damage: "1", abilities: ["torrent"] }, { name: "格斗武器", type: "melee", attacks: "3", skill: "2+", strength: 3, ap: 0, damage: "1", abilities: [] }, { name: "处决者巨剑", type: "melee", attacks: "3", skill: "2+", strength: 5, ap: -2, damage: "2", abilities: ["反灵能者 5+", "毁灭性伤口"] }] },
+  "艾雷雅": { movement: 6, toughness: 3, save: 3, invulnerableSave: 5, woundsPerModel: 4, models: 1, leadership: "6+", objectiveControl: 1, abilities: "领袖；慰候 6+；不知疼痛 5+", activeAbilities: "战术洞察（一次性）", weapons: [{ name: "安眠", type: "melee", attacks: "4", skill: "2+", strength: 6, ap: -3, damage: "3", abilities: ["反灵能者 5+", "毁灭性伤口"] }] },
+  "控诉者": { movement: 6, toughness: 3, save: 3, invulnerableSave: 0, woundsPerModel: 1, models: 3, leadership: "6+", objectiveControl: 2, abilities: "净化处决；拥有精准和毁灭性伤口", activeAbilities: "灵能猎杀（条件性）", weapons: [{ name: "爆弹枪", type: "ranged", attacks: "1", skill: "3+", strength: 4, ap: 0, damage: "1", abilities: ["速射 1"] }, { name: "格斗武器", type: "melee", attacks: "2", skill: "3+", strength: 3, ap: 0, damage: "1", abilities: [] }] },
+  "戒卫者": { movement: 6, toughness: 3, save: 3, invulnerableSave: 0, woundsPerModel: 1, models: 3, leadership: "6+", objectiveControl: 1, abilities: "迅捷格挡；深沉之女", activeAbilities: "反灵能者姿态（条件性）", weapons: [{ name: "处决者巨剑", type: "melee", attacks: "2", skill: "3+", strength: 5, ap: -2, damage: "2", abilities: ["反灵能者 5+", "毁灭性伤口"] }] },
+  "猎巫者": { movement: 6, toughness: 3, save: 3, invulnerableSave: 0, woundsPerModel: 1, models: 3, leadership: "6+", objectiveControl: 1, abilities: "斥候 6；猎巫者", activeAbilities: "利刃烈焰（条件性）", weapons: [{ name: "猎巫喷火器", type: "ranged", attacks: "d6", skill: "torrent", strength: 4, ap: 0, damage: "1", abilities: ["torrent"] }, { name: "格斗武器", type: "melee", attacks: "2", skill: "3+", strength: 3, ap: 0, damage: "1", abilities: [] }] },
+  "灭魔教团犀牛装甲车": { movement: 12, toughness: 9, save: 3, invulnerableSave: 0, woundsPerModel: 10, models: 1, leadership: "6+", objectiveControl: 2, abilities: "致命破坏；自行修理", activeAbilities: "烟幕（一次性）", weapons: [{ name: "风暴爆弹枪", type: "ranged", attacks: "2", skill: "3+", strength: 4, ap: 0, damage: "1", abilities: ["速射 2"] }, { name: "猎杀飞弹", type: "ranged", attacks: "1", skill: "2+", strength: 14, ap: -3, damage: "d6", abilities: ["一次性"] }, { name: "装甲履带", type: "melee", attacks: "3", skill: "4+", strength: 6, ap: 0, damage: "1", abilities: [] }] },
+  "神鸟反重力坦克": { movement: 10, toughness: 10, save: 2, invulnerableSave: 5, woundsPerModel: 14, models: 1, leadership: "6+", objectiveControl: 4, abilities: "致命破坏 D3；悬浮", activeAbilities: "高级火力（目标类型条件性致命命中）", weapons: [{ name: "并联拉斯托姆型爆弹炮", type: "ranged", attacks: "3", skill: "2+", strength: 6, ap: -1, damage: "1", abilities: ["连击 1"] }, { name: "并联阿拉克努斯重型爆炎炮", type: "ranged", attacks: "4", skill: "2+", strength: 12, ap: -3, damage: "d6+2", abilities: ["双联"] }, { name: "装甲外壳", type: "melee", attacks: "4", skill: "4+", strength: 6, ap: 0, damage: "1", abilities: [] }] },
+  "警戒者": { movement: 6, toughness: 3, save: 3, invulnerableSave: 0, woundsPerModel: 1, models: 4, leadership: "6+", objectiveControl: 1, abilities: "迅捷格挡；深沉之女", activeAbilities: "反灵能者姿态（条件性）", weapons: [{ name: "处决者巨剑", type: "melee", attacks: "2", skill: "3+", strength: 5, ap: -2, damage: "2", abilities: ["反灵能者 5+", "毁灭性伤口"] }] },
+};
+const PROFILE_DEFAULT_EQUIPMENT = {
+  "盾卫连长": "卫士之矛",
+  "终结者盾卫连长": "卫士之矛",
+  "禁军盾卫": "卫士之矛",
+  "阿拉鲁斯终结者": "卫士之矛",
+  "禁军守望者": "卫士之矛",
+  "晨鹰摩托队": "晨鹰风暴爆弹枪",
+  "神鸟反重力坦克": "并联拉斯托姆型爆弹炮 并联阿拉克努斯重型爆炎炮",
+  "警戒者": "处决者巨剑",
 };
 const CALCULATOR_CARD_FILES = [
   "data/帝皇禁军/禁军盾卫.数据卡.json",
@@ -259,7 +273,7 @@ function findUnit(side, groupId, unitId) {
 }
 
 function calculatorCardNames() {
-  return [...new Map(state.calculatorCards.filter((card) => card.name).map((card) => [card.name, card])).values()];
+  return [...new Map(state.calculatorCards.filter((card) => card.name).map((card) => [`${card.faction || ""}:${card.name}:${card.page || ""}`, card])).values()];
 }
 
 function calculatorRosterOptions(side) {
@@ -273,24 +287,28 @@ function renderCalculatorSelectors() {
     const select = $(`#calculator${side === "attacker" ? "Attackers" : "Defenders"}`);
     if (!select) return;
     const rosterOptions = calculatorRosterOptions(side);
-    const cardOptions = calculatorCardNames().map((card) => ({ key: `card:${card.faction}:${card.page || card.name}`, name: card.name, label: `${card.name} · 数据卡`, card }));
+    const cardOptions = calculatorCardNames().map((card) => ({ key: `card:${card.faction}:${card.page || card.name}`, name: card.name, label: `${card.name} · ${card.faction || "数据卡"}`, card }));
     select.innerHTML = `<option value="">请选择已导入单位或数据卡</option><optgroup label="当前军表">${rosterOptions.map((option) => `<option value="${escapeHtml(option.key)}">${escapeHtml(option.label)}</option>`).join("")}</optgroup><optgroup label="已收录数据卡">${cardOptions.map((option) => `<option value="${escapeHtml(option.key)}">${escapeHtml(option.label)}</option>`).join("")}</optgroup>`;
     const validKeys = new Set([...rosterOptions, ...cardOptions].map((option) => option.key));
     if (!validKeys.has(state.calculatorSelection[side])) state.calculatorSelection[side] = "";
     select.value = state.calculatorSelection[side];
   });
+  renderCalculatorDetails();
 }
 
 ["attacker", "defender"].forEach((side) => {
   const select = $(`#calculator${side === "attacker" ? "Attackers" : "Defenders"}`);
   select?.addEventListener("change", (event) => {
     state.calculatorSelection[side] = event.target.value;
+    state.calculatorDrafts[side] = null;
     $("#calcNote").textContent = "已选择单位；请确认双方后开始计算。";
+    renderCalculatorDetails();
   });
 });
 $("#calculatorAttackMode")?.addEventListener("change", (event) => {
   state.attackMode = event.target.value;
   $("#calcNote").textContent = `已选择${state.attackMode === "ranged" ? "远程射击" : "近战"}；请确认双方后开始计算。`;
+  renderCalculatorDetails();
 });
 
 function getCalculatorEntry(side) {
@@ -299,7 +317,7 @@ function getCalculatorEntry(side) {
   if (key.startsWith("roster:")) {
     const [, rosterSide, groupId, unitId] = key.split(":");
     const found = findUnit(rosterSide, groupId, unitId);
-    return found.unit ? { key, name: found.unit.name, rosterUnit: found.unit, faction: state.rosters[rosterSide].faction } : null;
+    return found.unit ? { key, name: found.unit.name, rosterUnit: found.unit, group: found.group, groupId, unitId, faction: state.rosters[rosterSide].faction } : null;
   }
   return calculatorCardNames().find((card) => `card:${card.faction}:${card.page || card.name}` === key) || null;
 }
@@ -310,11 +328,153 @@ function findStructuredCalculatorCard(name) {
 }
 
 function getCalculatorCardData(entry) {
-  if (entry?.data?.unit) return entry.data;
+  if (entry?.data?.unit) {
+    const profile = getUnitProfile(entry.data.unit.name || entry.name);
+    if (!profile) return entry.data;
+    const { weapons: profileWeapons, ...profileUnit } = profile;
+    return { ...entry.data, unit: { ...profileUnit, ...entry.data.unit }, weapons: entry.data.weapons?.length ? entry.data.weapons : (profileWeapons || []) };
+  }
   const profile = getUnitProfile(entry?.name);
   if (!profile) return null;
-  return { faction: entry.faction || "帝皇禁军", kind: "datasheet-profile", unit: { name: entry.name, ...profile }, weapons: profile.weapons || [] };
+  const { weapons, ...unitProfile } = profile;
+  return { faction: entry.faction || "帝皇禁军", kind: "datasheet-profile", unit: { name: entry.name, ...unitProfile }, weapons: weapons || [] };
 }
+
+function cloneCalculatorValue(value) {
+  return value === undefined ? value : JSON.parse(JSON.stringify(value));
+}
+
+function calculatorSource(entry) {
+  return entry?.rosterUnit ? "军表" : "数据卡";
+}
+
+function weaponMatchesRoster(weapon, rosterUnit) {
+  const equipment = Object.keys(countEquipment(rosterUnit || {}));
+  if (!equipment.length) return true;
+  const name = String(weapon?.name || "").replace(/[（(].*?[）)]/g, "").trim();
+  return equipment.some((item) => {
+    const normalized = String(item).replace(/[（(].*?[）)]/g, "").trim();
+    return normalized && (name.includes(normalized) || normalized.includes(name));
+  });
+}
+
+function weaponMatchesEquipmentText(weapon, equipmentText) {
+  const source = String(equipmentText || "");
+  if (!source.trim()) return true;
+  const name = String(weapon?.name || "").replace(/[（(].*?[）)]/g, "").trim();
+  return name && source.includes(name);
+}
+
+function getCalculatorDraft(side) {
+  const entry = getCalculatorEntry(side);
+  const key = state.calculatorSelection[side];
+  if (!entry || !key) {
+    state.calculatorDrafts[side] = null;
+    return null;
+  }
+  if (state.calculatorDrafts[side]?.key === key) return state.calculatorDrafts[side];
+  const card = entry.structured ? entry : findStructuredCalculatorCard(entry.name);
+  const data = getCalculatorCardData(card || entry);
+  const baseUnit = cloneCalculatorValue(data?.unit || {});
+  const baseWeapons = Array.isArray(data?.weapons) ? cloneCalculatorValue(data.weapons) : [];
+  const rosterUnit = entry.rosterUnit;
+  const modelCount = rosterUnit ? activeModels(rosterUnit).length : Math.max(1, Number(baseUnit.models || baseUnit.defaultModels || 1) || 1);
+  const defaultEquipment = baseUnit.defaultEquipment || "";
+  const profileDefaults = defaultEquipment || PROFILE_DEFAULT_EQUIPMENT[entry.name] || "";
+  const matching = rosterUnit
+    ? baseWeapons.map((weapon) => weaponMatchesRoster(weapon, rosterUnit))
+    : baseWeapons.map((weapon) => weaponMatchesEquipmentText(weapon, profileDefaults));
+  const anyMatching = matching.some(Boolean);
+  const weapons = baseWeapons.map((weapon, index) => ({ ...weapon, enabled: anyMatching ? matching[index] : true }));
+  const joined = side === "defender" && rosterUnit && entry.group?.category === "联合单位";
+  const joinedMembers = joined ? entry.group.units.map((member) => {
+    const memberData = member.id === rosterUnit.id ? data : calculatorDataForUnit(member, entry.faction);
+    const memberUnit = cloneCalculatorValue(memberData?.unit || {});
+    const memberWeapons = Array.isArray(memberData?.weapons) ? cloneCalculatorValue(memberData.weapons).map((weapon) => ({ ...weapon, enabled: true })) : [];
+    const explicitLeader = entry.group.units.some((candidate) => /领导|主将|领袖|character|leader/i.test(String(candidate.role || "")));
+    const explicitGuard = entry.group.units.some((candidate) => /护卫|bodyguard/i.test(String(candidate.role || "")));
+    const memberIndex = entry.group.units.indexOf(member);
+    const role = /领导|主将|领袖|character|leader/i.test(String(member.role || "")) ? "角色" : /护卫|bodyguard/i.test(String(member.role || "")) ? "护卫" : (explicitGuard && !explicitLeader ? "角色" : (memberIndex === 0 ? "角色" : "护卫"));
+    return { id: member.id, name: member.name, role, unit: memberUnit, weapons: memberWeapons, modelCount: activeModels(member).length };
+  }) : [];
+  state.calculatorDrafts[side] = { key, entry, data, unit: baseUnit, weapons, modelCount: Math.max(1, modelCount || 1), source: calculatorSource(entry), joinedMembers };
+  return state.calculatorDrafts[side];
+}
+
+function calculatorStat(unit, name, fallback = "") {
+  return unit?.[name] ?? fallback;
+}
+
+function calculatorAbilityMarkup(draft) {
+  const unit = draft.unit || {};
+  const passive = passiveAbilityText(unit.abilities);
+  const active = unit.activeAbilities || unit.active || "未从数据卡结构化提取";
+  const weaponAbilities = [...new Set((draft.weapons || []).flatMap((weapon) => weapon.abilities || []).filter(Boolean))];
+  const passiveRules = [passive, ...weaponAbilities].join(" ");
+  const detected = [
+    [/连击|sustained/i, "连击"],
+    [/致命命中|致命一击|lethal/i, "致命命中"],
+    [/毁灭性伤口|毁灭伤害|devastating/i, "毁灭性伤口"],
+  ].filter(([pattern]) => pattern.test(passiveRules)).map(([, label]) => label);
+  return `<div class="calculator-abilities"><div class="calculator-ability"><strong>被动（本次会尝试启用）</strong><p>${escapeHtml(passive || "未解析到单位被动")}</p>${weaponAbilities.length ? `<small>武器关键词：${escapeHtml(weaponAbilities.join("、"))}</small>` : ""}<small>规则引擎已识别：${escapeHtml(detected.join("、") || "无；其余被动仅标注")}</small></div><div class="calculator-ability is-active"><strong>主动/一次性（当前不启用）</strong><p>${escapeHtml(active)}</p><small>本版本只显示并明确标注，不会自动加入骰子计算。</small></div></div>`;
+}
+
+function calculatorWeaponMarkup(draft, side) {
+  if (!draft.weapons?.length) return `<p class="calculator-missing">这张数据卡还没有结构化武器字段，暂时无法计算。请补充数据卡 JSON 后再试。</p>`;
+  return `<div class="calculator-weapons"><div class="calculator-section-heading"><strong>武器与攻击参数</strong><small>当前模式：${state.attackMode === "ranged" ? "远程射击" : "近战"}；可勾选参与计算的武器</small></div>${draft.weapons.map((weapon, index) => `<div class="calculator-weapon ${weapon.type === state.attackMode ? "is-current" : ""}"><label class="check-row"><input type="checkbox" data-calc-side="${side}" data-calc-weapon-index="${index}" data-calc-weapon-enabled ${weapon.enabled !== false ? "checked" : ""} /><span>${escapeHtml(weapon.name || `武器 ${index + 1}`)} · ${weapon.type === "melee" ? "近战" : "远程"}</span></label><div class="calculator-weapon-fields"><label>攻击<input data-calc-side="${side}" data-calc-weapon-index="${index}" data-calc-weapon-field="attacks" value="${escapeHtml(weapon.attacks ?? "1")}" /></label><label>命中<input data-calc-side="${side}" data-calc-weapon-index="${index}" data-calc-weapon-field="skill" value="${escapeHtml(weapon.skill ?? "4+")}" /></label><label>力量<input type="number" data-calc-side="${side}" data-calc-weapon-index="${index}" data-calc-weapon-field="strength" value="${escapeHtml(weapon.strength ?? "0")}" /></label><label>AP<input type="number" data-calc-side="${side}" data-calc-weapon-index="${index}" data-calc-weapon-field="ap" value="${escapeHtml(weapon.ap ?? "0")}" /></label><label>伤害<input data-calc-side="${side}" data-calc-weapon-index="${index}" data-calc-weapon-field="damage" value="${escapeHtml(weapon.damage ?? "1")}" /></label></div><small class="weapon-keywords">${escapeHtml((weapon.abilities || []).join("、") || "无关键词")}</small></div>`).join("")}</div>`;
+}
+
+function calculatorJoinedMembersMarkup(draft, side) {
+  if (side !== "defender" || !draft.joinedMembers?.length) return "";
+  return `<div class="calculator-joined-members"><div class="calculator-section-heading"><strong>联合单位组成</strong><small>护卫先承伤，角色最后承伤；可分别调整属性</small></div>${draft.joinedMembers.map((member, index) => `<div class="calculator-joined-member"><div class="calculator-joined-member-heading"><strong>${escapeHtml(member.name)} · ${escapeHtml(member.role || "组成模型")}</strong><label>模型数量<input type="number" min="1" data-calc-side="${side}" data-calc-group-index="${index}" data-calc-group-model-count value="${escapeHtml(member.modelCount)}" /></label></div><div class="calculator-stats">${[["toughness", "坚韧"], ["save", "护甲"], ["invulnerableSave", "特殊保护"], ["woundsPerModel", "W/模型"]].map(([field, title]) => `<label>${title}<input data-calc-side="${side}" data-calc-group-index="${index}" data-calc-group-stat="${field}" value="${escapeHtml(calculatorStat(member.unit, field, field === "invulnerableSave" ? 0 : ""))}" /></label>`).join("")}</div><small class="weapon-keywords">武器：${escapeHtml(member.weapons.map((weapon) => weapon.name).join("、") || "未结构化提取")}</small></div>`).join("")}</div>`;
+}
+
+function calculatorDetailMarkup(side) {
+  const draft = getCalculatorDraft(side);
+  const label = side === "attacker" ? "进攻方" : "防守方";
+  if (!draft) return `<article class="calculator-side is-empty"><h3>${label}</h3><p>请选择${label}单位。</p></article>`;
+  const unit = draft.unit || {};
+  const combined = side === "defender" && draft.entry.rosterUnit && draft.entry.group?.category === "联合单位";
+  const stats = [["movement", "移速"], ["toughness", "坚韧"], ["save", "护甲"], ["invulnerableSave", "特殊保护"], ["woundsPerModel", "W/模型"], ["leadership", "领导"], ["objectiveControl", "OC"]];
+  return `<article class="calculator-side ${side}"><div class="calculator-side-heading"><div><span>${label} · ${draft.source}</span><h3>${escapeHtml(draft.entry.name)}</h3></div><label>模型数量<input type="number" min="1" data-calc-side="${side}" data-calc-model-count value="${escapeHtml(draft.modelCount)}" /></label></div><div class="calculator-stats">${stats.map(([field, title]) => `<label>${title}<input data-calc-side="${side}" data-calc-stat="${field}" value="${escapeHtml(calculatorStat(unit, field, field === "invulnerableSave" ? 0 : ""))}" /></label>`).join("")}</div>${combined ? `<div class="calculator-joined-note">这是联合单位：规则引擎会按“护卫模型先承伤、角色模型后承伤”的顺序结算，并分别使用各自的 W、护甲和特殊保护。</div>` : ""}${calculatorJoinedMembersMarkup(draft, side)}${calculatorAbilityMarkup(draft)}${calculatorWeaponMarkup(draft, side)}</article>`;
+}
+
+function renderCalculatorDetails() {
+  const container = $("#calculatorDetails");
+  if (!container) return;
+  container.innerHTML = `<div class="calculator-detail-grid">${calculatorDetailMarkup("attacker")}${calculatorDetailMarkup("defender")}</div>`;
+}
+
+function updateCalculatorDraftFromControl(control) {
+  const side = control.dataset.calcSide;
+  const draft = state.calculatorDrafts[side];
+  if (!draft) return;
+  const value = control.type === "checkbox" ? control.checked : control.value;
+  if (control.dataset.calcModelCount !== undefined) draft.modelCount = Math.max(1, Number(value) || 1);
+  if (control.dataset.calcStat) {
+    const field = control.dataset.calcStat;
+    draft.unit[field] = ["movement", "toughness", "save", "invulnerableSave", "woundsPerModel", "objectiveControl"].includes(field) ? Math.max(0, Number(value) || 0) : value;
+  }
+  if (control.dataset.calcGroupIndex !== undefined) {
+    const member = draft.joinedMembers?.[Number(control.dataset.calcGroupIndex)];
+    if (member) {
+      if (control.dataset.calcGroupModelCount !== undefined) member.modelCount = Math.max(1, Number(value) || 1);
+      if (control.dataset.calcGroupStat) {
+        const field = control.dataset.calcGroupStat;
+        member.unit[field] = Math.max(0, Number(value) || 0);
+      }
+    }
+  }
+  if (control.dataset.calcWeaponIndex !== undefined) {
+    const weapon = draft.weapons[Number(control.dataset.calcWeaponIndex)];
+    if (!weapon) return;
+    if (control.dataset.calcWeaponEnabled !== undefined) weapon.enabled = Boolean(value);
+    if (control.dataset.calcWeaponField) weapon[control.dataset.calcWeaponField] = value;
+  }
+}
+
+$("#calculatorDetails")?.addEventListener("input", (event) => updateCalculatorDraftFromControl(event.target));
+$("#calculatorDetails")?.addEventListener("change", (event) => { updateCalculatorDraftFromControl(event.target); renderCalculatorDetails(); });
 
 function parseSkill(value, fallback = 7) {
   const number = Number(String(value ?? "").replace("+", ""));
@@ -325,25 +485,77 @@ function passiveAbilityText(value) {
   return String(value ?? "").split(/⚫|•/).filter((part) => !/(每场|每回合|一次性|使用时机|使用对象|使用本技能|消耗\s*\d*CP)/.test(part)).join(" ");
 }
 
+function activeAbilityText(value) {
+  return String(value ?? "").split(/⚫|•/).filter((part) => /(每场|每回合|一次性|使用时机|使用对象|消耗\s*\d*CP)/.test(part)).join(" ");
+}
+
+function defenderEffectsFromUnit(unit) {
+  const text = String(unit?.abilities || "");
+  const fnp = text.match(/不知疼痛\s*(\d)\s*\+/);
+  return emptyDefenderEffects(fnp ? { feelNoPainEnabled: true, feelNoPainThreshold: Number(fnp[1]) } : {});
+}
+
+function calculatorDataForUnit(unit, faction) {
+  const card = findStructuredCalculatorCard(unit.name);
+  return getCalculatorCardData(card || { name: unit.name, faction });
+}
+
+function buildDefenderGroups(defender, draft) {
+  const group = defender?.group;
+  const joined = defender?.rosterUnit && group && (group.category === "联合单位" || /^联合单位/.test(group.title || ""));
+  if (!joined) {
+    return [{
+      name: defender.name,
+      modelCount: draft.modelCount,
+      wounds: Number(draft.unit.woundsPerModel || 1),
+      save: Number(draft.unit.save || 7),
+      invulnerableSave: Number(draft.unit.invulnerableSave || 0),
+      allocationOrder: 1,
+      effects: defenderEffectsFromUnit(draft.unit),
+    }];
+  }
+  const explicitLeader = group.units.some((unit) => /领导|主将|领袖|character|leader/i.test(String(unit.role || "")));
+  const explicitGuard = group.units.some((unit) => /护卫|bodyguard/i.test(String(unit.role || "")));
+  return group.units.filter((unit) => activeModels(unit).length).map((unit, index) => {
+    const isSelected = unit.id === defender.rosterUnit.id;
+    const member = draft.joinedMembers?.find((candidate) => candidate.id === unit.id);
+    const data = isSelected ? draft.data : calculatorDataForUnit(unit, defender.faction);
+    const unitData = isSelected ? draft.unit : (member?.unit || data?.unit || {});
+    const roleText = String(unit.role || "");
+    const isLeader = /领导|主将|领袖|character|leader/i.test(roleText);
+    const role = isLeader ? "角色" : /护卫|bodyguard/i.test(roleText) ? "护卫" : (explicitGuard && !explicitLeader ? "角色" : (index === 0 ? "角色" : "护卫"));
+    return {
+      name: `${unit.name}（${role}）`,
+      modelCount: isSelected ? draft.modelCount : (member?.modelCount || activeModels(unit).length),
+      wounds: Number(unitData.woundsPerModel || 1),
+      save: Number(unitData.save || 7),
+      invulnerableSave: Number(unitData.invulnerableSave || 0),
+      allocationOrder: role === "护卫" ? 1 : 2,
+      effects: defenderEffectsFromUnit(unitData),
+    };
+  }).sort((a, b) => a.allocationOrder - b.allocationOrder);
+}
+
 function buildSelectedRoundPayload() {
   const attacker = getCalculatorEntry("attacker");
   const defender = getCalculatorEntry("defender");
   if (!attacker || !defender) throw new Error("请先选择进攻单位和防御目标");
-  const attackerCard = attacker.structured ? attacker : findStructuredCalculatorCard(attacker.name);
-  const defenderCard = defender.structured ? defender : findStructuredCalculatorCard(defender.name);
-  const attackerData = getCalculatorCardData(attackerCard || attacker);
-  const defenderData = getCalculatorCardData(defenderCard || defender);
+  const attackerDraft = getCalculatorDraft("attacker");
+  const defenderDraft = getCalculatorDraft("defender");
+  const attackerData = attackerDraft?.data || {};
+  const defenderData = defenderDraft?.data || {};
+  const attackerUnit = attackerDraft?.unit || {};
+  const defenderUnit = defenderDraft?.unit || {};
   if (!attackerData?.unit || !Array.isArray(attackerData.weapons) || !attackerData.weapons.length) throw new Error(`进攻单位“${attacker.name}”没有可计算的结构化武器数据`);
-  if (!defenderData?.unit) throw new Error(`防御单位“${defender.name}”没有可计算的属性数据`);
-  const attackerModels = attacker.rosterUnit ? activeModels(attacker.rosterUnit).length : Number(attackerData.unit.models || 1);
-  const defenderModels = defender.rosterUnit ? activeModels(defender.rosterUnit).length : Number(defenderData.unit.models || 1);
-  const toughness = Number(defenderData.unit.toughness || 0);
-  const unitAbilities = passiveAbilityText(attackerData.unit.abilities);
-  const weaponGroups = attackerData.weapons.filter((weapon) => weapon.type === state.attackMode).map((weapon) => ({
+  if (!defenderData?.unit || !defenderUnit.woundsPerModel) throw new Error(`防御单位“${defender.name}”没有可计算的属性数据`);
+  const attackerModels = attackerDraft.modelCount;
+  const toughness = Number(defenderUnit.toughness || 0);
+  const unitAbilities = passiveAbilityText(attackerUnit.abilities);
+  const weaponGroups = attackerDraft.weapons.filter((weapon) => weapon.enabled !== false && weapon.type === state.attackMode).map((weapon) => ({
     name: `${attacker.name} · ${weapon.name}`,
     modelCount: attackerModels,
     attacks: weapon.attacks,
-    hit: parseSkill(weapon.skill),
+    hit: String(weapon.skill || "").toLowerCase() === "torrent" ? "torrent" : parseSkill(weapon.skill),
     wound: woundTarget(Number(weapon.strength || 0), toughness),
     ap: Math.abs(Number(weapon.ap || 0)),
     damage: weapon.damage,
@@ -355,7 +567,7 @@ function buildSelectedRoundPayload() {
     }),
   }));
   if (!weaponGroups.length) throw new Error(`进攻单位“${attacker.name}”没有${state.attackMode === "ranged" ? "远程" : "近战"}武器`);
-  return { simulations: 1000, weaponGroups, defenderGroups: [{ name: defender.name, modelCount: defenderModels, wounds: Number(defenderData.unit.woundsPerModel || 1), save: Number(defenderData.unit.save || 7), invulnerableSave: Number(defenderData.unit.invulnerableSave || 0), allocationOrder: 1, effects: emptyDefenderEffects() }] };
+  return { simulations: 1000, weaponGroups, defenderGroups: buildDefenderGroups(defender, defenderDraft) };
 }
 
 function unitOverviewMarkup(unit, side, groupId) {
@@ -566,7 +778,7 @@ async function loadCalculatorCards() {
       const parsed = await response.json();
       if (parsed.unit?.name) cards.set(`${parsed.faction}:${parsed.unit.name}`, { faction: parsed.faction, name: parsed.unit.name, structured: true, data: parsed });
       for (const card of parsed.cards || []) {
-        if (!card.name || categoryNames.has(card.name) || card.name.startsWith("⚫")) continue;
+        if (!card.name || categoryNames.has(card.name) || card.name.startsWith("⚫") || /爆弹枪|复合武器|雷霆锤/.test(card.name)) continue;
         const key = `${parsed.faction}:${card.name}`;
         if (!cards.has(key)) cards.set(key, { faction: parsed.faction, name: card.name, page: card.page, structured: false, data: null });
       }
@@ -598,6 +810,10 @@ async function loadCalculatorCards() {
       // 页面离线时仍保留已经加载的军表和 JSON 数据卡。
     }
   }
+  Object.keys(UNIT_PROFILE_OVERRIDES).forEach((name) => {
+    if (state.calculatorCards.some((card) => card.name === name)) return;
+    state.calculatorCards.push({ faction: "帝皇禁军", name, page: `profile-${name}`, structured: false, data: null, profileOnly: true });
+  });
   applyDatasheetWoundsToRosters();
   renderCalculatorSelectors();
 }
@@ -619,6 +835,14 @@ function combatNumber(value, fallback = 0) {
   return numbers?.length ? Number(numbers.at(-1)) : fallback;
 }
 
+function datasheetModelCount(composition) {
+  const text = String(composition || "").replace(/<br\s*\/?\s*>/gi, " ").trim();
+  const number = text.match(/^\s*(\d+)/)?.[1] || [...text.matchAll(/\b(\d+)\b/g)].map((match) => Number(match[1])).find((value) => value > 0 && value <= 20);
+  if (number) return Math.max(1, Number(number));
+  if (/一个|一名|单个|唯一的独特模型|唯一的独特人物|唯一的独特单位/.test(text)) return 1;
+  return 1;
+}
+
 function parseDigitalDatasheets(markdown, faction) {
   const result = new Map();
   const headings = [...markdown.matchAll(/## 第 ([0-9]+) 页：([^\n]+)/g)].map((match, index, all) => ({ page: Number(match[1]), name: match[2].trim(), start: match.index, end: all[index + 1]?.index ?? markdown.length }));
@@ -636,6 +860,9 @@ function parseDigitalDatasheets(markdown, faction) {
     if (values.length < 4) return;
     const stat = values.slice(0, 6);
     const saveParts = String(stat[2] || "7").split("/").map((value) => Number(value.replace("+", ""))).filter(Number.isFinite);
+    const compositionText = lines.filter((line) => /^\|\s*单位构成/.test(line)).map((line) => markdownCells(line).slice(1).join(" ")).join(" ");
+    const equipmentText = lines.filter((line) => /^\|\s*单位装备/.test(line)).map((line) => markdownCells(line).slice(1).join(" ")).join(" ");
+    const abilityText = lines.filter((line) => /^\|\s*(?:核心技能|阵营技能|技能|能力|特殊规则)/.test(line)).map((line) => markdownCells(line).slice(1).join(" ")).join(" ");
     const unit = {
       name: heading.name,
       movement: Number(String(stat[0] || "0").replace(/[^0-9]/g, "")) || 0,
@@ -645,7 +872,10 @@ function parseDigitalDatasheets(markdown, faction) {
       woundsPerModel: Number(String(stat[3] || "1").replace(/[^0-9]/g, "")) || 1,
       leadership: stat[4] || "6+",
       objectiveControl: Number(String(stat[5] || "0").replace(/[^0-9]/g, "")) || 0,
-      abilities: passiveAbilityText(lines.filter((line) => /^\|\s*技/.test(line)).map((line) => markdownCells(line).slice(1).join(" ")).join(" ")),
+      models: datasheetModelCount(compositionText),
+      defaultEquipment: equipmentText,
+      abilities: passiveAbilityText(abilityText),
+      activeAbilities: activeAbilityText(abilityText),
     };
     const weapons = [];
     let weaponType = "ranged";
@@ -889,11 +1119,42 @@ function buildExternalRoundPayload() {
   return payload;
 }
 
+function normalizeCalculatorEndpoint(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+  const url = new URL(raw, window.location.href);
+  if (url.hostname === "wathammer.com" && ["", "/", "/round"].includes(url.pathname)) url.pathname = "/simulate-round";
+  return url.toString();
+}
+
+function calculatorEndpointError(endpoint) {
+  try {
+    const target = new URL(endpoint, window.location.href);
+    const current = new URL(window.location.href);
+    if (target.hostname === "wathammer.com" && target.origin !== current.origin) {
+      return "不能从 GitHub Pages 直接调用 wathammer.com：接口未开放跨域。请部署 worker/pages-proxy.js，并填写 Worker 的 /api/wathammer-round 地址。";
+    }
+  } catch {
+    return "外部计算器地址格式不正确";
+  }
+  return "外部计算器请求失败";
+}
+
 async function runExternalCalculator() {
-  const endpoint = state.settings.calculatorEndpoint.trim();
+  const endpoint = normalizeCalculatorEndpoint(state.settings.calculatorEndpoint);
   if (!endpoint) throw new Error("请先在设置中配置外部计算器代理地址");
+  const directError = calculatorEndpointError(endpoint);
+  if (directError.includes("不能从 GitHub Pages")) throw new Error(directError);
   const response = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(buildExternalRoundPayload()) });
-  if (!response.ok) throw new Error(`${response.status} ${await response.text()}`);
+  const contentType = response.headers?.get?.("content-type") || "";
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`${response.status || "请求失败"} ${text.slice(0, 240) || calculatorEndpointError(endpoint)}`);
+  }
+  if (!contentType.includes("json")) {
+    const text = await response.text();
+    throw new Error(`外部计算器返回的不是 JSON（${contentType || "无 Content-Type"}）：${text.slice(0, 180)}`);
+  }
   const data = await response.json();
   const summary = data.roundSummary || {};
   const weapons = summary.weaponGroups || [];
@@ -930,11 +1191,13 @@ function renderCalculation(result) {
   $("#averageDamage").textContent = damage;
   $("#calcDamage").textContent = damage;
   $("#killMeter").style.width = `${result.chance * 100}%`;
-  $("#calcNote").textContent = `结果来自当前选择的单位和数据卡属性（${state.attackMode === "ranged" ? "远程射击" : "近战"}，未启用主动一次性技能）。`;
-  const defender = getCalculatorEntry("defender");
-  const defenderCard = defender?.structured ? defender : findStructuredCalculatorCard(defender?.name);
-  const defenderData = getCalculatorCardData(defenderCard || defender);
-  $("#calcTargetWounds").textContent = defenderData?.unit?.woundsPerModel ? `${defenderData.unit.woundsPerModel}W / 模型` : "已按所选目标数据卡结算";
+  const attackerDraft = getCalculatorDraft("attacker");
+  const defenderDraft = getCalculatorDraft("defender");
+  const passive = passiveAbilityText(attackerDraft?.unit?.abilities);
+  const active = attackerDraft?.unit?.activeAbilities || attackerDraft?.unit?.active || "未结构化提取";
+  const joined = defenderDraft?.entry?.group?.category === "联合单位";
+  $("#calcNote").textContent = `结果来自当前选择的单位和可调参数（${state.attackMode === "ranged" ? "远程射击" : "近战"}；被动${passive ? "已标注并尝试启用" : "未解析"}；主动/一次性未启用${active ? "，已标注" : ""}${joined ? "；联合单位按护卫→角色分配伤害" : ""}）。`;
+  $("#calcTargetWounds").textContent = defenderDraft?.unit?.woundsPerModel ? `${defenderDraft.unit.woundsPerModel}W / 模型${joined ? "（护卫先承伤）" : ""}` : "已按所选目标数据卡结算";
 }
 
 $("#runCalc").addEventListener("click", () => {

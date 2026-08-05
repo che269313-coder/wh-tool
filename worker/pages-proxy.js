@@ -30,7 +30,13 @@ export default {
           headers: { "content-type": "application/json" },
           body: JSON.stringify(body),
         });
-        const payload = await upstream.json();
+        const raw = await upstream.text();
+        let payload;
+        try {
+          payload = JSON.parse(raw);
+        } catch {
+          payload = { error: `wathammer.com 返回了非 JSON 响应（HTTP ${upstream.status}）`, details: raw.slice(0, 300) };
+        }
         return json(payload, request, env, upstream.status);
       } catch (error) {
         return json({ error: error instanceof Error ? error.message : "Invalid calculator request" }, request, env, 400);
