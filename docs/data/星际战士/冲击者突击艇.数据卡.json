@@ -1,0 +1,28 @@
+{
+  "faction": "星际战士",
+  "kind": "datasheet",
+  "unit": {
+    "name": "冲击者突击艇",
+    "englishName": "Impulsor",
+    "source": "星际战士11版中文1.0.pdf，第141页",
+    "models": 1,
+    "woundsPerModel": 11,
+    "movement": "12\"",
+    "toughness": 9,
+    "save": 3,
+    "invulnerableSave": null,
+    "leadership": "6+",
+    "objectiveControl": 2,
+    "keywords": ["载具", "运输工具", "专属运输", "帝国", "冲击者突击艇"],
+    "optionalWargear": { "护盾穹顶": { "invulnerableSave": 5 } }
+  },
+  "weapons": [
+    { "name": "风暴爆弹枪", "type": "ranged", "range": "24\"", "attacks": "2", "skill": "3+", "strength": 4, "ap": 0, "damage": "1", "abilities": ["速射2"] },
+    { "name": "破片风暴雷", "type": "ranged", "range": "18\"", "attacks": "D6", "skill": "3+", "strength": 4, "ap": 0, "damage": "1", "abilities": ["爆炸"] },
+    { "name": "铁雨重机枪", "type": "ranged", "range": "36\"", "attacks": "3", "skill": "3+", "strength": 4, "ap": 0, "damage": "1", "abilities": ["速射3"] },
+    { "name": "铁雨天爪阵列", "type": "ranged", "range": "36\"", "attacks": "8", "skill": "3+", "strength": 4, "ap": 0, "damage": "1", "abilities": ["反飞行4+", "连击1"] },
+    { "name": "多管热熔", "type": "ranged", "range": "18\"", "attacks": "2", "skill": "3+", "strength": 9, "ap": -4, "damage": "D6", "abilities": ["热熔2"] },
+    { "name": "装甲车体", "type": "melee", "attacks": "3", "skill": "4+", "strength": 6, "ap": 0, "damage": "1", "abilities": [] }
+  ],
+  "verification": "数值来自数字版 PDF 第141页的原表格单元格；护盾穹顶为可选装备，配置后才有5+无敌豁免。"
+}

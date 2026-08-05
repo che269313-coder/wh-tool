@@ -1,0 +1,736 @@
+{
+  "faction": "星际战士",
+  "kind": "datasheet-catalog",
+  "source": "星际战士11版中文1.0.pdf",
+  "description": "按数据卡索引 PDF 页码整理的单位目录；完整表格原文保留在数据卡-可检索.md。",
+  "cards": [
+    {
+      "page": 47,
+      "name": "传奇英雄人物",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-47-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 48,
+      "name": "装备安提洛科斯装甲的卡尔加",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-48-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 49,
+      "name": "首席智库底格里斯",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-49-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 50,
+      "name": "西卡留斯卫队长",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-50-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 51,
+      "name": "文崔斯连长",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-51-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 52,
+      "name": "泰图斯连长",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-52-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 53,
+      "name": "奥特拉马守护者",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-53-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 54,
+      "name": "莱山德连长",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-54-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 55,
+      "name": "托尔连长",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-55-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 56,
+      "name": "铁父费罗斯",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-56-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 57,
+      "name": "坎托战团长",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-57-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 58,
+      "name": "凯万史瑞克",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-58-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 59,
+      "name": "艾索·沙恩",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-59-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 60,
+      "name": "伏尔甘·赫斯坦",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-60-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 61,
+      "name": "阿加通连长",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-61-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 62,
+      "name": "阔萨罗可汗",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-62-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 63,
+      "name": "速不台可汗",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-63-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 64,
+      "name": "卡诺克.瓦",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-64-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 65,
+      "name": "通用人物",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-65-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 66,
+      "name": "⚫ 战术小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-66-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 67,
+      "name": "先锋军连长",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-67-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 68,
+      "name": "终结者连长",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-68-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 69,
+      "name": "跳跃背包连长",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-69-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 70,
+      "name": "副官",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-70-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 71,
+      "name": "劫掠者副官",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-71-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 72,
+      "name": "先锋军副官",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-72-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 73,
+      "name": "装备复合武器的先锋军副官",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-73-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 74,
+      "name": "智库",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-74-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 75,
+      "name": "先锋军智库",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-75-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 76,
+      "name": "终结者智库",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-76-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 77,
+      "name": "牧师",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-77-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 78,
+      "name": "终结者牧师",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-78-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 79,
+      "name": "摩托牧师",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-79-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 80,
+      "name": "跳跃背包牧师",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-80-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 81,
+      "name": "技术军士",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-81-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 82,
+      "name": "药剂师",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-82-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 83,
+      "name": "生物学药剂师",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-83-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 84,
+      "name": "旗手",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-84-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 85,
+      "name": "终结者旗手",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-85-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 86,
+      "name": "剑卫旗手",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-86-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 87,
+      "name": "裁决士",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-87-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 88,
+      "name": "战术护甲步兵",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-88-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 89,
+      "name": "常胜荣誉卫队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-89-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 90,
+      "name": "仲裁者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-90-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 91,
+      "name": "跳跃背包突击仲裁者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-91-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 92,
+      "name": "突击仲裁者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-92-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 93,
+      "name": "焚狱者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-93-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 94,
+      "name": "剑卫老兵小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-94-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 95,
+      "name": "肃卫老兵小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-95-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 96,
+      "name": "地狱轰击者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-96-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 97,
+      "name": "寂灭者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-97-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 98,
+      "name": "重装护甲步兵",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-98-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 99,
+      "name": "侵略者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-99-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 100,
+      "name": "根除者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-100-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 101,
+      "name": "重爆弹根除者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-101-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 102,
+      "name": "拦截者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-102-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 103,
+      "name": "福波斯护甲步兵",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-103-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 104,
+      "name": "入侵者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-104-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 105,
+      "name": "劫掠者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-105-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 106,
+      "name": "歼灭者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-106-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 107,
+      "name": "终结者",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-107-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 108,
+      "name": "终结者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-108-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 109,
+      "name": "其他步兵",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-109-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 110,
+      "name": "军表构成",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-110-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 111,
+      "name": "侦查小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-111-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 112,
+      "name": "破坏者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-112-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 113,
+      "name": "爆弹枪 复合武器 雷霆锤",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-113-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 114,
+      "name": "百夫长突击小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-114-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 115,
+      "name": "百夫长破坏小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-115-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 116,
+      "name": "跳跃背包先锋老兵小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-116-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 117,
+      "name": "压制者小队",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-117-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 118,
+      "name": "3",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-118-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 119,
+      "name": "骑乘",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-119-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 120,
+      "name": "ATV 突击车",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-120-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 121,
+      "name": "机甲",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-121-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 122,
+      "name": "无畏机甲",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-122-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 123,
+      "name": "救赎者型无畏机甲",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-123-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 124,
+      "name": "蛮兽型无畏机甲",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-124-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 125,
+      "name": "射手型无畏机甲",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-125-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 126,
+      "name": "载具",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-126-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 127,
+      "name": "旋风火箭炮",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-127-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 128,
+      "name": "破坏者型猎食者坦克",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-128-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 129,
+      "name": "歼灭者型猎食者坦克",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-129-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 130,
+      "name": "维护者突击炮",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-130-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 131,
+      "name": "枪骑兵型角斗者坦克",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-131-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 132,
+      "name": "死神型角斗者坦克",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-132-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 133,
+      "name": "豪侠型角斗者坦克",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-133-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 134,
+      "name": "运输载具",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-134-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 135,
+      "name": "十字军型兰德掠袭者坦克",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-135-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 136,
+      "name": "救赎者型兰德掠袭者坦克",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-136-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 137,
+      "name": "反击者突击艇",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-137-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 138,
+      "name": "处决者型反击者坦克",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-138-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 139,
+      "name": "犀牛装甲车",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-139-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 140,
+      "name": "豪猪装甲车",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-140-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 141,
+      "name": "冲击者突击艇",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-141-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 142,
+      "name": "空降仓",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-142-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 143,
+      "name": "飞行载具",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-143-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 144,
+      "name": "雷霆型风暴速攻艇",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-144-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 145,
+      "name": "落锤型风暴速攻艇",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-145-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 146,
+      "name": "兰德速攻艇",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-146-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 147,
+      "name": "风暴隼拦截机",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-147-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 148,
+      "name": "风暴爪炮艇",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-148-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 149,
+      "name": "风暴鸦炮艇",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-149-页",
+      "extraction": "page-boundary-table"
+    },
+    {
+      "page": 150,
+      "name": "工事",
+      "source": "星际战士11版中文1.0.pdf",
+      "markdownSection": "数据卡-可检索.md#第-150-页",
+      "extraction": "page-boundary-table"
+    }
+  ]
+}

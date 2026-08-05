@@ -1,0 +1,188 @@
+{
+  "faction": "帝皇禁军",
+  "kind": "datasheet-catalog",
+  "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+  "description": "禁军 PDF 中所有数据卡的逐卡目录；每张卡保留页码和完整 OCR 文本，便于按单位检索。",
+  "cards": [
+    {
+      "name": "图拉真元帅",
+      "englishName": "TRAJANN VALORIS",
+      "page": 14,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-14-页",
+      "ocrText": "。 [和 核 [ 技 能 ] : 领 昌 ， 深 入 打击 ， 不 类 证 痛 54\ne。【 阵 党 技能 】: 禁军 武艺 ES\ne。 禁军 元 加: 本 模型 所 领导 的 单位 攻击 时 可 以 忽视 任 RS\n意 或 全 部 对 本 单位 BS，WS， 命 中 结果 的 修正\ne。 时 间 棚 锁 :每 场 游戏 一 次 ， 近 战 阶段 开始 时 ， 你 可 YA\n以 进 择 以 下 效果 之 一 生效 ， 持 续 本 阶段 于 生 ) 辣\n。 本 模型 的 守望 者 战 作 A 变 为 12 5 攻\n理 。 本 模型 获得 2+ 特 殊 保护 六\n汉人 SS 光\n20 二\n内\n射击 武器\n[和 |8Ei|A| 卜 |s|Ap|D|\n| 上 | 24 |2|a15|2l3m\n| 名 | 改 贞 国 | A |ws|s [Ap|pl 能 |\n守望 者 战 芽 | ii |6|a2rl1l2l3l 五\n| “时 营 关 争 局 | 市 和 禁军 CC\n步兵 ， 人 物 ， 传 奇 英雄 ， 帝 国 ， 图 拉 真 元 帅\n单位 构成 | 图 拉 机 元帅 是 全 军 唯一 的 独特 模型 ，140 分 ， 并 且 本 模型 必须 作为 主将\n单位 装备 | 守望 者 战 芭 we\n核心 技能 : 领 峭 “| 本 单位 可 以 作为 领 往 科 入 以 下 划 位 :\ne” 禁 军 盾 卫 忆\n”禁军 守望 者 “人\nRXC\nRN",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "瓦雷利安连长",
+      "englishName": "VALERIAN",
+      "page": 15,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-15-页",
+      "ocrText": "瓦 雷 利 安 连 长\n[| VarmN 和 |\n[6 | 6|arhrl clerl 2 | 由\n@ 【核心 技能 】: 领袖 ， 深 入 打击 ， 不 知 疼痛 6+ 赎\ne。【 阵 各 撤 能 】: 棕 军 武 艺 BR wa\n@ 黄金 桂冠 : 本 模型 所 领导 的 单位 ， 受 到 的 近战 攻击 9) 7 ERe\nAP 减弱 1 点 本 闪光 要\ne@ 。 狮 门 英杰 : 一 次 性 技能 ， 本 模型 投掷 一 颗 命中 , 造 上 VS)\n伤 ， 保 护 之 后 ， 可 以 将 本 次 结果 改 为 未 修正 的 6 RS\nJU 六 全\n1 泛 R\n汪 通 兴\nEu\n射击 武器\n| [WTATB ISTAp[D[ 二 GE |\nga | 2 salary 闪 ，|\n| ae [KBTA [WwW|S[Ap[bl EL |\n一 时 | 捉 [7 haheahzh 天 |\n| EXE 辣 [es 曙 |\n步兵 ， 人 物 ， 传 奇 英雄 ， 帝 国 ， 盾 卫 连 长 ，. 瓦 雷 利安 连 长\n单 们 构成 | 互 和 安 连 长 是 全 宇 叭 -的 名 村 ti 1 分 |\n单 们 装 千 [Hz\n核心 技能 : 领袖 “| 本 单位 可 以 作为 领袖 加 入 儿 A 1\n@ 禁军 盾 卫 一\ne。 蔡 军 村 望 者\n去\nRN",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "盾卫连长",
+      "englishName": "SHIELD CAPTAIN",
+      "page": 16,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-16-页",
+      "ocrText": "盾 卫 连 长\n六 MTT TSwmvTwTItDToc |\n\nee 【核心 技能 】: 领 桩 ， 深 入 打击 SS 。 ， 丙\n\ne 【阵营 技 能 】: 禁军 武艺 了 权\n\n武艺 大 师 : 每 场 游戏 一 次 性 ， 当 本 模型 所 在 单位 被 5 i 休\n\n壕 择 进行 近战 攻击 时 ， 可 以 在 本 轮 近 战 中 同时 生效 AR\n\n两 种 武艺 人\nee 精 玫 战 略 ; 每 个 游戏 大 回合 一 次 ， 全 军 中 一 个 拥有 二 二 ON\n\n此 技能 的 模型 所 在 的 单位 被 使 用 一 个 战略 技能 时 ， 本\n\nCpP 消耗 减少 1 点 Vs 本 -\n\ne 守护 之 盾 : 装备 者 W 值 +1 [RS 了 ，\n|\n[名 | Ki 国 | A | BS | SAp[D[ 二 和 能 |\n[Etz 矛 | 24 | 2 | 41 2 有 |\n[1 12 9|4|p6l es2 |\n| 名 | 攻击 交 图 |` 人 | WSs|S |Ap|D| 二 能 |\n[生生 战 俐 。，，， | 近 战 6 | 2+|9|-1|3| 无， |\n[Etz 矛 |- 话 战 \\| 7 | 2+|7|-2[2| 无 |\n[RE2 创 YYW 上 [|7|2+| 56562171 元 |\n| “单位 装备 “|Etzz |\n\nee 可 以 将 卫士 之 欢 为 以 下 组 合 之 一\n下。 堡 主 战 荐\n田 。 哨兵 之 剑\n田村 护 之 盾 和 狼 熔 长 巴\n下。 守护 之 盾 和 哨兵 之 剑\nee 禁军 盾 卫\ne。 禁军 守望 者",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "剑锋冠军",
+      "englishName": "BLADE CHAMPION",
+      "page": 17,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-17-页",
+      "ocrText": "剑 锋 玩 军\n一\nNM TT TswsvTwTDPDTec | | |\n[6 | 6 [azr4rl| 6|6r| 2 | 有 失\n。。【 核 技能 】: 领 由 ， 深 入 打击 有 攻\ne。 【阵营 技能 】: 禁军 武艺 2 1 着\n昌 。 迅 拖 冲锋: 本 模型 所 领导 的 单位 可 以 重 投 冲锋 结果 人 RN 王\n武艺 绝伦 : 一 次 性 能 力 ， 本 模型 所 在 单位 即使 本 回 ae\n合 进 行 过 加 速 ， 依 然 是 可 冲锋 单位 RS\n上 且 到 RS 二\nRE\n[名 | 玫 机 和 国 [ A |] ws | s | Ap [| D | 二 8 能 |\n[宝库 z 亿 | 为 本 武器 选择 攻击 目标 之 前 ， 选 择 以 下 属性 之 |\n[全 曾 ，，  | ji 片 [6[2r17[-2[2 丰 三 人 |\n[人 (GRR) | 这 贱 |9|2+|5|-1|mN 过 HT |\n[0 | 和]|5|a2r|6|-3 下 | 眶 浆 伤 害\n| 阵营 关键 司 | 帝 皇 茜 军 -|\n步兵 ， 人 物 ， 帝 国 ， 剑 锋 冠 军 |\n单位 构成\n单位 装备 | 宝库 zZ 亿 信人 |\n入 层 能 : 领情 “| 本 单位 可 以 作为 领 入 有 入 以 下 芝 位 T\nee 禁军 盾 卫 了\n荣军 村 望 者\n女 《 和\nRN",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "终结者盾卫连长",
+      "englishName": "SHIELD CAPTAIN IN ALLARUS TERMINATOR ARMOUR",
+      "page": 18,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-18-页",
+      "ocrText": "终结 者 盾 卫 连 长\nTERMINATOR ARMOUR 人\n六 MTT TSwsv woec 让\n[5 | 7 [2r4r| 7 [6r | 2 | 国 半\ne 【核心 技 能 ] : 领 得 ， 深 入 打击 人 (人\n时 ” 【阵营 技能 】: 茶 军 武艺 晴 则\ne。 金光 战 甲 : 每 场 游戏 一 次 性 ， 任 意 阶段 开始 时 ， 可 2 人 人\n以 使 用 本 技能 ， 分 配给 本 模型 的 攻击 D 变 为 1， SS pr\n持续 到 本 阶段 结束 时 NS |\ne。 精 雪 战略 : 每 个 游戏 大 回合 一 次 ， 全 军 中 一 个 拥有 入 AS\n此 技能 的 模型 所 在 的 单位 被 使 用 一 个 战略 技能 时 ， 中 SA\nCP 消耗 减少 1 点 - 局 -7\n语 咏 从 半\n[和 |xH 图 | A | 上 | SAp|pD 人 4，\n| 了 Etz 巴 | 2 224 有\n[和 | 18 [plzrl 4 FF |\n[ES 忒 红 名 Si 攻击 范围 AIEWSEIESSIOARECDIEEEE 起 汪 技能 Sa\n[全 战 从 | ji 战 | 6 | 2 9 -3 无\n[LaRtzz | 和 屋 |7 27|2l2| 元\n| 村 关 鱼 词 | 帝 S 林 时 -2 |\n| ” 关 银 届 | 步兵， 人物， 帝国 终结 者 , 盾 P 迁 长 |\n| ”单位 构成 | 一 个 终结 者 盾 了 连 长 , 13 分 |\n| 升 8 襄 硕 。| 可 人 尾 卫 士 之 也 换 ) 人 于 战 和 |\ne。 阿拉 琉 斯 终结 者\n记",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "摩托盾卫连长",
+      "englishName": "SHIELD CAPTAIN ON DAWNEAGLE JETBIKE",
+      "page": 19,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-19-页",
+      "ocrText": "摩托 盾 卫 连 长\n3\nJETBIKE EN ed\nMT ss woc | 区 22 AAA\n。。【 核 有 能 ] : 领 和 2\n下 这 风 ] ， 各 了 ee 国 队 >\n扫荡 进军 : 每 场 游戏 一 次 性 ， 近 战 阶段 结束 时 ， 如 RSS 人\n果 本 模型 所 在 单位 在 本 阶段 中 已 经 进行 过 近战 ， 人 2\n和 SG\n相 。 其 接 战 范 转 内 仍 有 至 少 一 个 政 方 单位 ， 则 本 TANSS 三\n单位 可 以 进行 插 进 es\n相 。 其 接 战 范 转 内 没有 天 方 单位 ， 则 本 单位 可 以\n进行 一 次 标准 移 动 2 国\n。。 靖 和 战 略 : 每 个 游戏 大 回合 一 次 ， 全 军 中 一 个 拥有 人\n此 技能 的 模型 所 在 的 单位 被 使 用 一 个 战略 技能 时 ， 本\nCP 消减 少 1 点\n4\n[名 | Xi 国 | A | 8 | Ss |Ap| Da 能 |\n| 展 柄 册 R 保 漳 伦 | 18 | 3 | 2+ 4] 一通 村 3 8 隐 |\n[车 | 2 11arlil3lessl 下\n[ES 不 呆 名 Si 攻 击 范围 UA ENWSEIESXCASARIEDIEE 武器 技能 El\n| # 狂 者 哺 的 | ji 眠 |6|2rj7|2| 2 | il 锋 |\n| “国营 关 刍 词 | 帝 持 划 军 rr\n| “_ 关 鲁 辣 | 骑 乳 人物， 飞行 帝国 ,, 层 隐 谓 托 , 盾 P 过 长 |\n| “单位 装备 | 集束 导弹 ,拦截 者 哇 从\n@ 属 语 RN，",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "禁军盾卫",
+      "englishName": "CUSTODIAN GUARD",
+      "page": 20,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-20-页",
+      "ocrText": "2\n蒜 军\n等 军 店 王\n用\nERIEZESEEEECES3 多\n[2\nED ES\n9 汪 二 二 下 TS\nER 区 二 上 二 人 证 后 划 证 的 了 民 人\n1 人保 二 仙 的 目标 直 沾 司 册 尖 可 E\n由本 迁 尾 结 昌 人\n”枪林弹雨 : 一 次 性 技能 ， 你 的 射击 阶段 中 ， 本 单位 本 人\n二 十 志 证 本 届 遇 直 所 着 二 电\n守护 之 盾 : 装备 者 W 值 +1 LA\n| WP\nre\n和\n射击 武器 CS\n[ERERSGEEEIK 击 范 国 SAEESEIESRIAEINCSIREEE 武 误 技能 SS\n[了 Btzz | 2 2|a2+ 4 着 |\n[RE 人 RIZR ER RE 从 晤 全 本\n[ERRRSRREEERK 击 范 国 jl|ENSXRSRIEAEIEDRREEE 二 技 佣 SEE\n[ 广 了 tz 矛 | 近 或 | 5 | 2 了 |-2[ 2 无， |\n| 匠 的 k 首 | 和 光 上 | 5 at 5|-2|1| 无 |\n[AASJ AR IESS 人 > ca\n| 语 关 本 惠 Es  x\n[EEEE 关 适 词 E | 线 兵 二 战线 各 S 后 ial\n单位 构成 “| 4 个 盾 卫 战 七 > 170 分， 可 以 花费 45 分 为 本 单位 增加 一 个 盾 忆 战士\n单位 装 和 iSCSINNSSZaag\ne。 任 高 模型 可 以 和 卫 士 之 巴 换 为 哨兵 之 创 和 村 护 之 后\n全 代 和 让 作 天 | 上 元 痪 为 风 下 组 窜 过 二\n全 全\n本 用 基 二 二 证 至 的 区 兰 和 本 汪汪",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "阿拉鲁斯终结者",
+      "englishName": "ALLARUS CUSTODIANS",
+      "page": 21,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-21-页",
+      "ocrText": "阿拉 琉 斯 终结 者\n[MTT swsv wpToc 了\n[5 7 24 4 co 2 Rn\nee 【核心 技能 】: 深入 打击 了 人 3 庆\nES 王 下 二 本 Si 区\ne。 暴君 杀手 : 本 单位 模型 攻击 人 物 ， 巨 兽 或 载 具 时 ， 2 ”大 代\n可 以 重 投 造 伤 结果 加 人\ne。 自 金光 降下 : 一 次 性 技能 ， 在 对 手 的 回合 结束 时 ， 2\n如 果 本 单位 不 在 收 方 接 战 范围 内 ， 则 你 可 以 将 其 移 沽 NE 出 =\n除 出 场 放 入 战略 预备 队 AR\ne。 禁军 座 旗 : 装备 者 所 在 单位 中 模型 OC 值 +1 NO\nAN\n和\n[和 |xH 图 | A | 上 国 [SAp|p 人 |\n[EM 划 | 2 | 2 24\n[Btz 巴 | 2 2 2 4 着\n[| 1 |plarl4Tl 用 |\n[ER 误 红 名 Si 攻击 范围 AIEWSAIESEIDARECORR 起 汪 技能 SEE\n| 全 战 谷 | 近 瞩 | 4 | 2t9 -13 无\n| Ptz 矛 | 光 | 5 | 2 了 |-2 2| 无 |\n上 ES 5 Xi 52\n[EE 多 词 E 此 兵 二 市 国 二 终结 洗 AW 拉 琉 基 终结 者 al\n|\n(单位 模型 数 不 能 为 4 人 )\n| 单位 装备 -| 卫 二 之 矛 - 强 竺 情 弹 & 和 器 |\n单位 中 最 多 一 个 模型 可 以 将 卫士 之 矛 换 为 禁军 磨 旗 和 匠 约 考 首",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "禁军守望者",
+      "englishName": "CUSTODIAN WARDENS",
+      "page": 22,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-22-页",
+      "ocrText": "禁军 守望 者\n6 | 6 |2r4t| 3 |6r| 2 | 全、 到 s5 人\n@ 【核心 技能 】: 深入 打击 SR AS\ne。 【阵营 技能 】: 禁军 武艺 ES\n@ 坚定 意志 : 当 人 物 领 导 本 单位 时 ， 对 本 单位 的 攻击 人 轴 油 的 |\n如 果 S 大 于 本 单位 的 T 值 ， 则 造 伤 结果 减 1 | 是\n@ 。 人形 要 塞 : 一 次 性 技能 ， 在 任意 阶段 开始 时 ， 本 单 几 La 短 二\n位 可 以 在 本 阶段 中 获得 【不 知 疼痛 4+】 技 能 册 2 < 刘 y 村:\n@ 禁军 座 旗 : 装备 者 所 在 单位 中 模型 CC 值 +1 中 人 hs 0 扑 、\n到 辐 SR\nAN 1 中\n所 党 和\n| 帮会 - 三\n[和 名 | 攻击 革 国 | A | BS | s | Ap 下 p| 二 能 |\n| SHE 虐 人 | 24 | 2|2+ 4| 丰 2 天\n[Htzz | 24 1212+14r2l 让 |\n| 堡 寺 战 任 | 近战 | 4 | 24cl9 |-1|3| 无 |\nEtz 巴 | 由 |5 ar71-2l2| 元 |\n| 关 鲁 己 | 步兵， 帝国 ， 禁 军 守 让 者 |\n| 单位 构成 | 4 个 守望 者 ，210 分 < 可 以 花费 50 分 为 本 单位 增加 一 个 守望 者 |\n| 单位 装备 | 了 +z 矛 so\n|\n单位 中 最 多 一 个 模型 可 以 额外 装备 禁军 座 旗",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "晨鹰摩托队",
+      "englishName": "VERTUS PRAETORS",
+      "page": 23,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-23-页",
+      "ocrText": "晨 麻 摩托 队\n六 MTT TswsTwTDToc |\n[人 7 24 5 | 6 | 2 | SS ，\ne。【 际 这 技能 】: 荣军 武艺 S 0\ne。 涡轮 加 速 : 本 单位 加 速 时 无 需 投掷 而 是 本 阶段 中 NS S ES\nM+6 SN 、 >\n日 。 炉 击 杀 : 一 次 性 技能 ， 本 单位 结束 慰 人 或 加 速 移 EN 刀 |\n动 后 ， 你 可 以 选择 本 次 移动 经 过 的 一 个 政 方 单位 er\n(不 能 是 载 具 或 巨 兽 单位 ) ， 本 单位 每 有 一 个 模型 和\n就 投 一 颗 D6， 每 个 为 2+ 的 结果 就 对 那个 收 方 音 SS\n位 造成 2 点 致命 伤 害 1\n和 ER <\n昌 起 二 专人 二\n|\n身 二 二 且\n[名 | 攻击 范 轩 | A | BE | s |AP| D | 〇 武技 能 |\n层 大 风 风 爆 漳 从 | 18 | 3 | 2+ | 4 | -| 2. 一 通 寺 3 双 联\n| 蒜 听 | 2 1Lari0l3lp 下\n[名 | 区 力 [ A | ws | Ss |Ap[D | 二 3 技 生 |\n拉 瑟 者 骑 枪 | 由 |51a7 PH 2 下 必 |\n骑 胰 飞行, 帝国 ， 蝴 应 库 队 -Zr |\n单位 构成 “| 两 个 摩托 骑手 ，150 分 ， 可 以 消耗 75 分 再 添加 一 个 摩托 薪 皇\n单位 装备 | 集束 导弹， 拦 夫 者 骑 检 CO |\n| 下 基 种 页 。 | 。 《本 可 以 将 集 来 本 绊 换 为 RE |\nAs\nRN",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "神圣蔑视者无畏机甲",
+      "englishName": "VENERABLE CONTEMPTOR DREADNOUGHT",
+      "page": 25,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-25-页",
+      "ocrText": "神圣 蕊 视 者 无 黑 机 甲\n二\nNTT TS WwWw TD Toc| 4\n-es [as osel al 和合 扣 省\ne 【核心 技能 ] : 致命 破灭 1 全\n@ 【阵营 技能 】: 禁军 武艺 二 的 <\n@ 。 不 倒 旗帜 : 当 本 模型 第 一 次 被 消灭 时 ， 不 结算 致命 破灭 技 ev 通 认 人\n能 ， 直 接 移 除 ， 在 本 阶段 结束 时 投 D6，2+ 则 将 本 模型 尽 Je\n可 能 接近 原 位 置 而 放 回 战场 ， 但 不 能 进入 政 方 单位 的 接 战 亿 沁 量 汉\n范围 内 ， 这 样 复活 时 恢复 D6 点 W 值 可 人\n有\n射击 武器\n| XGA[BS TSTAT DT |\n和 6 | 24 22243410 ia |\n[一 fi | 24 | 62 7 TV\n一 sg 内 | ia [zi2rhahhpsley as\n| AGE |XtETATwTS|AT bo Eee |\n训 Ws5 芝 | ii [5|2r| 1 za 天\n载 只， 机 肌 ， 斋 国术 至 项 放 ER 和 |\n单位 构 记 | 一 合生 入 才 天 茧 Ji, 17 人 |\n单位 凌 备 | 罗 信 党 ， 并 红 尺 剖 人 WaS |\n长 升级 |。 可 以 本 从 所 从 次 gj |\n入 SN\nRN",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "神圣兰德掠袭者坦克",
+      "englishName": "VENERABLE LAND RAIDER",
+      "page": 26,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-26-页",
+      "ocrText": "神圣 兰 德 掠 效 者 坦克\n-MTT TSTWwTDTec es\n[io ialarlielel 5 | ac\ne。 【核心 技能 】: 至 下 灭 56 有\ne。 【阵营 技能 ] : 荣军 武艺 NS\n。。 关机 载 上 :本 模型 进行 标 信 B 多 动 后 ， 从 中 脱离 的 单位 本 日 | AS 人\n合 依然 可 以 发 动 冲锋 人 Rs\n。。 严重 损伤 : 本 模型 W 信 为 1-5 时 ， 攻 击 命中 结果 -1 AN/ 交\n本 让 二 本\n射击 哉\n| 名 | 攻 #i 国 | A |BS TS |Ap| D| 二 |\n[FRR | 24 | 2 |2+| 4|0|1| ii |\n| 猎 漂 弹 | 4 |1|2+|14|-3|p6| 一 -次 性 |\n双 联 重型 操 漳 枪 | 36 | 3 | 2+ | 5 | -1 | 2 | ”和 连 击 1 双 联\n| 神 本 网 | 4 | 11221123lpsl~ 人、 天 |\n| 起 吕 名 | 攻击 汪 围 | A |Ws| S |Ap| D | 了 二 能 |\n| 精 eR 带 | ij 战 |6|4+|18jol11 OO 硬\n载 具 ， 烟 才 弹 ,运输 工 具 ， 帝 国 ， 神 圣 兰 德 掠 区 者 lE 训 |\n单位 构成 -| 一 辆 神圣 兰 德 掠 袭 者 坦克 ， 240 分\n单位 装备 -| 双 联 重型 提 阐 耸 ， 两 门神 手 激 ;起 精 全 民 沉 |\n装备 升级 | e 可 以 额外 装备 一 发 猎 亲 飞弹\ne。 可 以 新 外 装备 一 把 风暴 捍 弹 检",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "灭魔教团百夫长",
+      "englishName": "KNIGHT-CENTURA",
+      "page": 27,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-27-页",
+      "ocrText": "灭 魔 教 团\n百 骑 长\nM [T TSwsTWwWTIpDTec |\n6 | 3 |3r5r| 4 |6r| 1 | 下\nee 【核心 技能 ] : 领 笠 ， 扩 候 6 和\ne。 追 际 本 能 : 本 模型 所 领导 的 单位 ， 其 中 的 模型 人\nM+2， 加 速 和 冲锋 结果 +2 du\nee 深 训 之 女 : 本 模型 在 对 抗 【 灵 能 】 攻 击 和 致命 伤害 OO\n时 算 作 拥有 【不 知 疼痛 3+] 用 上\ne。 追 杀 殖 尽 : 每 当 本 模型 所 在 单位 接 战 范围 内 的 政 广 小\n单位 《不 能 是 巨 兽 和 载 具 单位 ) 进 行 搬 退 时 必须 进\n行 -次 绝望 撤退 测试 ， 如 果 这 个 天 方 单位 本 身 已 经\n被 震 人 则 这 次 测试 结果 再 减 1\n[和 | 攻击 攻 转 | A | BS | s |Ap|D 人 .二 喇 能 |\n| 精 TJ8 松 | 24 | 1 | 2+|4|0|2、 iT |\n[多 k 器 | 24 |p6| -| 40 ap 殉 林 上 吕  |\n| 二 别 各 | 攻击 区 围 | A | WS | SAp|D [| 二 缴 能 |\n[和 HB | ii 战 |3|2+r|3 0|1| 无 |\n| bj 者 E 促 | 庆 战 | 3 | 2+ 寺 5 | -2| 2 | 反 嫩 能 者 5+, 毁灭 人 害 |\n| 卫 营 关 链 词 | 帝 皇 禁军 CA |\n| “ 关 鲁 词 | 步兵， 人物 ， 帝 国 ， 灭 魔 教 团 'E 罗 长 |\n| ”单位 装备 | 处 决 者 E 公 2 |\nee 可 以 将 旭 项 为 以 下 组 合 之 一\n下。 精工 井 弹 枪 和 格斗 武器\n下 猎 正 陵 火 器 和 属 斗 武器\n核心 技能 : 领袖 “| 未 单位 可 以 作为 领袖 加 入 以 下 单位 :\n和 @ 控诉 者\ne 警戒 者\ne。 猎 亚 者",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "艾雷雅",
+      "englishName": "ALEYA",
+      "page": 28,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-28-页",
+      "ocrText": "艾 雷 雅\n| ArmmAa |\n六 MTT TswsTwTDToc | 使\n[6 | 3 |3r5t| 4 |6r | 1 | 1\n【核心 技能 ] : 领 笠 ， 慰 候 6， 不 知 络 痛 5+ <\ne。 战术 洞察 : 本 模型 所 领导 的 单位 ， 其 中 的 模型 获得 Ni\n[ 先 攻 ] 本\ne。 深 必 之 女 : 本 模型 在 对 抗 【 灵 能 】 攻 击 和 致命 伤害 引 趟\n时 算 作 拥有 【不 知 疼痛 3+ 】 上 记\ne。 坚 才 灵魂 : 本 模型 所 领导 的 单位 如 果 低 于 起 始 数 >。 | 和 六\n量 ， 则 攻击 命中 结果 + 1， 如 果 低 于 半数 则 造 伤 结 人\n时 和\n[名 |M 本 证 国 | A | WwWs | s |Ap|D| 二 缴 能 |\n由 | 二 |141a+r161-3|3| 反 员 甬 才 5+, 毁 交 伤害\n步兵 ， 人 物 ， 传 奇 英雄 ， 帝 国 ， 灭 六 示 团 , 艾 革 区  TVY  |\n单位 构成 艾 苹 雅 是 全 军 唯一 的 独特 模型 ，65 分 ANNG |\n单位 装备 | 灾 限\n核心 技能 : 领 梢 “| 本 单位 可 以 作为 领 入 加 入 以 下 单位 : cq\ne@ ”控诉 者 <\ne 罗 台 者\ne_ 猎 亚 者 NAXK\n习 芍\nSR\nRN",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "控诉者",
+      "englishName": "PROSECUTORS",
+      "page": 29,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-29-页",
+      "ocrText": "控诉 者\nET swwvw Fahec mn\n6 忆\ne 净化 处 决 : 本 单位 模型 射击 攻击 灵 能 者 单位 时 算 作 NS 2\n拥有 【精准 】 和 【 岳 灭 伤害 】 技 能 NS 四 民\ne。 深 囊 之 女 : 本 模型 在 对 抗 【 灵 能 】 攻 击 和 致命 伤害 0 As\n时 算 作 拥有 【不 知 疼痛 3+】 Mi\nAs wd\nYa\nRS 2\n司 丰 5 站 站\nCN\n射击 或 器 \\\n[RAT STATE |\nae | aiar4rorr ai |\n[RNTTA [wsSTAe[ol |\n一 三 [Llarlalor 天 |\nEX [Was |\n上 甸 RS |\n单位 构成 一 个 家 静 修女 队长 ，3 个 控诉 者 ，40 分 ， 可 以 增加 1，5 或 6 个 控诉 者 ， 每 个 模型 10 分\net | We fa",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "戒卫者",
+      "englishName": "VIGILATORS",
+      "page": 30,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-30-页",
+      "ocrText": "痘 戒 者\nFrTswwv woool\nEREEEEZIEOIEISEEESE 全 半 四 AN\n@ 迅捷 格 挡 : 对 本 单位 模型 的 近战 攻击 命中 结果 减 1 1 。 最\ne@ 。 深 训 之 女 : 本 模型 在 对 抗 【 灵 能 】 攻 击 和 致命 伤害 4 光 和 3\n时 算 作 拥有 【不 知 疼痛 3+】 本 RE\n2 ,人 ，\n2\nCS 是\nCR |\n7 >\n|\n[ae [wa Alws| sf[alol He |\n者 E 人 | i 吉 | 2 | 3+ 5 | -六 | > 寺 计 本 者 5+， 上 K 人 二\n步 半 这 加 元 本 训 园 区 着\n单位 构成 一 个 宁静 修 女 队长 ，3 个 警戒 者 二 共 50 分 ， 可 以 选择 以 下 之 一 : 消耗 15 分 增加 1 个 警戒\n者 ， 消 耗 65 分 增加 5 个 警 万 者 ， 或 消 不 75 分 增加 6 个 警 式 者\n草本 香 | 处 匡 者 E 创 AR\nAN\nRN",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "猎巫者",
+      "englishName": "WITCHSEEKERS",
+      "page": 31,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-31-页",
+      "ocrText": "猎 巫 者\nNM TT TswsvTwTDPDTec |\n6 |3 |3- | 1 |6r| 1 | 和\nee 【 核 必 技能】 : 斥 候 6 3\ne。 利和 烈 攀 : 本 单位 射击 后 ， 选 择 被 命中 过 的 一 个 政 。 SN\n方 单位 ， 那 个 单位 必须 进行 一 次 震 慨 测试 1 人\nee 深 昼 之 女 : 本 模型 在 对 抗 【 灵 能 】 攻 击 和 致命 伤害 必 ，\n时 算 作 拥有 【不 知 阁 痛 3+】 下\n了 站 人\nNO SS\n人\n必\nCN\n射击 武吉 王\n|。 名 | 攻击 基 轩 | A | 8 | S |AP|D| 技能 |\n| 芒 m 师 X 器 | 12 |p|l -40 忽视 拓 体 ， 喷 射\n| 起 吕 名 | 攻击 范围 | A | Ws | s |AP|D| 8 技能 |\n| 格 HHa 踢 | 和 成 | 2 |3x3a|ol1l 天 |\n| 阵营 关 刍 局 。 | 帝 皇 禁军 2\n步兵 ， 帝 国 ， 灭 亢 教 团 > 措 Z 才 |\n单位 梅 成 央 | 款 修 世 大 | 让 考 50 TI 汪汪 本 (SHI ES\n者 ， 消 耗 65 分 增加 .5 个 猎 正 者 ， 或 消耗 75 分 增加 6 个 漠 巫 者\n单 们 装备。 | 持 m 质 X 器 ,]3E",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    },
+    {
+      "name": "灭魔教团犀牛装甲车",
+      "englishName": "ANATHEMA PSYKANA RHINO",
+      "page": 32,
+      "source": "帝皇禁军10版中文老湿腐版1.07.pdf",
+      "markdownSection": "数据卡-OCR-可检索.md#第-32-页",
+      "ocrText": "灭 魔 教 团 犀 牛 装甲 车\nTwo 一\nee\n\ne 【核心 技能 】: 致命 破 灭 D3， 开 火 口 2 NA 本 PS\n\n全 ”自行 修理 : 在 每 个 你 的 指 提 阶段 结束 时 ， 本 模型 疏 复 -点 | 时 时 半 洁 电 家 至 皇 -\n\n失去 的 W 值 1 和\ne 深圳 之 女 : 本 模型 在 对 抗 【 灵 能 】 攻 击 和 致命 伤害 时 算 作 本 且 、 一 窜\n拥有 【不 知 疼痛 3+] Sa 后\n射击 武器\n\n| ATS [AD |\n一 | 2 | za 4 To ii\n一 内 人 _ 4 aoles xs\nETA[wTS|ATDT ae |\n一 al | it 34lslolriry 无\n载 具 ， 运 输 工具 ， 专 属 运输 ， 烟 用 弹 ， 帝 国 ， 灭 魔 教 团 ， 犀 牛 装甲 车\n\n间 人 本 | 一 本 和 着 生 75 分 AVI\n\n单位 装备 | 风暴 爆 弹 枪 ， 装 甲 履带 已\n\n装备 升级 | 。 可 以 者 外 装备 一 发 港 条 |\n5\n\nxs\nah\nRN",
+      "extraction": "page-boundary-ocr",
+      "numericVerification": "OCR 字段需与原 PDF 视觉表格核对；不可直接作为精确计算数值。"
+    }
+  ]
+}

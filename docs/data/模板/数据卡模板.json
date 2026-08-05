@@ -1,0 +1,37 @@
+{
+  "faction": "示例阵营",
+  "kind": "datasheet",
+  "unit": {
+    "name": "示例单位",
+    "models": 5,
+    "woundsPerModel": 3,
+    "toughness": 5,
+    "save": 2,
+    "invulnerableSave": null,
+    "feelNoPain": null,
+    "keywords": []
+  },
+  "weapons": [
+    {
+      "name": "示例远程武器",
+      "type": "ranged",
+      "attacks": "2",
+      "skill": 2,
+      "strength": 5,
+      "ap": 1,
+      "damage": "2",
+      "abilities": []
+    },
+    {
+      "name": "示例近战武器",
+      "type": "melee",
+      "attacks": "3",
+      "skill": 2,
+      "strength": 6,
+      "ap": 2,
+      "damage": "2",
+      "abilities": []
+    }
+  ],
+  "source": "请填写规则版本、页码或官方来源"
+}
