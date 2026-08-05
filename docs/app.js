@@ -504,7 +504,15 @@ function calculatorRuleControlMarkup(draft, side, rule) {
 
 function calculatorRuleMarkup(draft, side, rules, heading) {
   if (!rules.length) return "";
-  return `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>${heading}</strong></div>${rules.map((rule) => `<div class="calculator-ability"><strong>${escapeHtml(rule.unitName ? `${rule.unitName} · ${rule.name}` : rule.name)}</strong><p>${escapeHtml(rule.text)}</p><small>${escapeHtml(rule.status || "仅供查阅")}</small>${calculatorRuleControlMarkup(draft, side, rule)}</div>`).join("")}</section>`;
+  const statusFor = (rule) => {
+    if (!rule.controls?.length) return rule.status || "仅供查阅";
+    const active = rule.controls.some((control) => {
+      const value = draft.ruleSelections?.[`${rule.id}.${control.id}`];
+      return control.type === "checkbox" ? Boolean(value) : Boolean(value && value !== "none");
+    });
+    return active ? "本次已启用并计入骰子" : "可选效果：默认未启用";
+  };
+  return `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>${heading}</strong></div>${rules.map((rule) => `<div class="calculator-ability"><strong>${escapeHtml(rule.unitName ? `${rule.unitName} · ${rule.name}` : rule.name)}</strong><p>${escapeHtml(rule.text)}</p><small>${escapeHtml(statusFor(rule))}</small>${calculatorRuleControlMarkup(draft, side, rule)}</div>`).join("")}</section>`;
 }
 
 function calculatorAbilityMarkup(draft, side) {

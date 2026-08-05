@@ -5,7 +5,7 @@
  * 依赖任何阵营或单位名称。新增阵营 / 分遣队时，按同一结构增加数据即可。
  */
 (function (root) {
-  const supported = "已纳入本次计算";
+  const supported = "计算支持（满足条件时自动结算）";
   const displayOnly = "已显示，暂不改变本次骰子";
   const common = (id, text, effect) => ({ id: `custodes-${id}`, name: String(text).split(/[：:。]/)[0], text, status: effect ? supported : displayOnly, effect });
   const unit = (name, rules) => [name, rules];
