@@ -66,6 +66,7 @@ const state = {
   datasheetCache: {},
   calculatorCards: [],
   calculatorSelection: { attacker: "", defender: "" },
+  attackMode: "ranged",
 };
 
 const DATASHEET_FILES = {
@@ -83,15 +84,46 @@ const DATASHEET_ALIASES = {
     "苏博登可汗(主将)": ["速不台可汗"],
   },
 };
+const UNIT_PROFILE_OVERRIDES = {
+  "图拉真元帅": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 7, leadership: "6+", objectiveControl: 2 },
+  "瓦雷利安连长": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, leadership: "6+", objectiveControl: 2, weapons: [{ name: "真知战矛（射击）", type: "ranged", attacks: "3", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "真知战矛（近战）", type: "melee", attacks: "7", skill: "2+", strength: 8, ap: -3, damage: "2", abilities: [] }] },
+  "盾卫连长": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, leadership: "6+", objectiveControl: 2, weapons: [{ name: "堡主战斧（射击）", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛（射击）", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛（近战）", type: "melee", attacks: "7", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }] },
+  "剑锋冠军": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, leadership: "6+", objectiveControl: 2, weapons: [{ name: "宝库之剑", type: "melee", attacks: "6", skill: "2+", strength: 6, ap: -3, damage: "2", abilities: [] }] },
+  "终结者盾卫连长": { movement: 5, toughness: 7, save: 2, invulnerableSave: 4, woundsPerModel: 7, leadership: "6+", objectiveControl: 2, weapons: [{ name: "卫士之矛（射击）", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛（近战）", type: "melee", attacks: "6", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }] },
+  "摩托盾卫连长": { movement: 12, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 7, leadership: "6+", objectiveControl: 2 },
+  "禁军盾卫": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 3, leadership: "6+", objectiveControl: 2 },
+  "阿拉鲁斯终结者": { movement: 5, toughness: 7, save: 2, invulnerableSave: 4, woundsPerModel: 4, leadership: "6+", objectiveControl: 2 },
+  "禁军守望者": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 3, leadership: "6+", objectiveControl: 2 },
+  "晨鹰摩托队": { movement: 12, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 3, leadership: "6+", objectiveControl: 2 },
+  "神圣蔑视者无畏机甲": { movement: 8, toughness: 9, save: 2, invulnerableSave: 5, woundsPerModel: 9, leadership: "6+", objectiveControl: 3 },
+  "神圣兰德掠袭者坦克": { movement: 10, toughness: 12, save: 2, invulnerableSave: 0, woundsPerModel: 16, leadership: "6+", objectiveControl: 5 },
+  "灭魔教团百夫长": { movement: 6, toughness: 3, save: 3, invulnerableSave: 4, woundsPerModel: 4, leadership: "6+", objectiveControl: 1 },
+  "艾雷雅": { movement: 6, toughness: 3, save: 3, invulnerableSave: 4, woundsPerModel: 4, leadership: "6+", objectiveControl: 1 },
+  "控诉者": { movement: 6, toughness: 3, save: 3, invulnerableSave: 0, woundsPerModel: 1, leadership: "6+", objectiveControl: 1 },
+  "戒卫者": { movement: 6, toughness: 3, save: 3, invulnerableSave: 0, woundsPerModel: 1, leadership: "6+", objectiveControl: 1 },
+  "猎巫者": { movement: 6, toughness: 3, save: 3, invulnerableSave: 0, woundsPerModel: 1, leadership: "6+", objectiveControl: 1 },
+  "灭魔教团犀牛装甲车": { movement: 12, toughness: 9, save: 3, invulnerableSave: 0, woundsPerModel: 10, leadership: "6+", objectiveControl: 2 },
+};
 const CALCULATOR_CARD_FILES = [
   "data/帝皇禁军/禁军盾卫.数据卡.json",
   "data/帝皇禁军/帝皇禁军-全部数据卡.json",
   "data/星际战士/冲击者突击艇.数据卡.json",
   "data/星际战士/星际战士-全部数据卡.json",
 ];
+const DIGITAL_UNIT_ALIASES = {
+  "星际战士": {
+    65: ["连长"],
+    119: ["先遣者摩托小队"],
+  },
+};
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+function getUnitProfile(name) {
+  const candidates = [name, String(name || "").replace(/\([^)]*\)/g, "").trim(), ...(DATASHEET_ALIASES["帝皇禁军"]?.[name] || [])];
+  return candidates.map((candidate) => UNIT_PROFILE_OVERRIDES[candidate]).find(Boolean) || null;
+}
 
 function loadSettings() {
   try {
@@ -137,12 +169,29 @@ function normalizeModel(model, unitName) {
     name: model.name || unitName,
     maximumWounds,
     currentWounds: Math.min(maximumWounds, Math.max(0, Number(model.currentWounds ?? maximumWounds))),
+    woundsSource: model.woundsSource || "",
     equipment: Array.isArray(model.equipment) ? model.equipment.map((item) => ({ name: item.name || String(item), count: Math.max(1, Number(item.count || 1)) })) : [],
   };
 }
 
 function normalizeRosterUnit(unit) {
-  const models = Array.isArray(unit.models) && unit.models.length ? unit.models.map((model) => normalizeModel(model, unit.name)) : Array.from({ length: Math.max(1, Number(unit.models || unit.modelCount || 1)) }, () => normalizeModel({ wounds: unit.wounds, currentWounds: unit.currentWounds, equipment: unit.equipment || [] }, unit.name));
+  const profile = getUnitProfile(unit.name);
+  const datasheetWounds = Number(profile?.woundsPerModel || 0);
+  const models = Array.isArray(unit.models) && unit.models.length ? unit.models.map((model) => {
+    const normalized = normalizeModel(model, unit.name);
+    if (datasheetWounds && normalized.woundsSource !== "manual" && normalized.maximumWounds === 1) {
+      normalized.maximumWounds = datasheetWounds;
+      normalized.currentWounds = Math.min(datasheetWounds, normalized.currentWounds === 1 ? datasheetWounds : normalized.currentWounds);
+      normalized.woundsSource = "datasheet";
+    }
+    return normalized;
+  }) : Array.from({ length: Math.max(1, Number(unit.models || unit.modelCount || 1)) }, () => {
+    const wounds = datasheetWounds || Math.max(1, Number(unit.wounds || 1) || 1);
+    const currentWounds = datasheetWounds && (unit.currentWounds === undefined || Number(unit.currentWounds) === 1)
+      ? datasheetWounds
+      : unit.currentWounds ?? wounds;
+    return normalizeModel({ wounds, currentWounds, equipment: unit.equipment || [], woundsSource: datasheetWounds ? "datasheet" : "" }, unit.name);
+  });
   return {
     id: unit.id || makeId("unit"), name: unit.name || "未命名单位", points: unit.points || "", role: unit.role || "", enhancement: unit.enhancement || "", notes: unit.notes || "", hasComposition: unit.hasComposition !== false, models,
   };
@@ -239,6 +288,10 @@ function renderCalculatorSelectors() {
     $("#calcNote").textContent = "已选择单位；请确认双方后开始计算。";
   });
 });
+$("#calculatorAttackMode")?.addEventListener("change", (event) => {
+  state.attackMode = event.target.value;
+  $("#calcNote").textContent = `已选择${state.attackMode === "ranged" ? "远程射击" : "近战"}；请确认双方后开始计算。`;
+});
 
 function getCalculatorEntry(side) {
   const key = state.calculatorSelection[side];
@@ -256,9 +309,20 @@ function findStructuredCalculatorCard(name) {
   return state.calculatorCards.find((card) => card.structured && aliases.includes(card.name));
 }
 
+function getCalculatorCardData(entry) {
+  if (entry?.data?.unit) return entry.data;
+  const profile = getUnitProfile(entry?.name);
+  if (!profile) return null;
+  return { faction: entry.faction || "帝皇禁军", kind: "datasheet-profile", unit: { name: entry.name, ...profile }, weapons: profile.weapons || [] };
+}
+
 function parseSkill(value, fallback = 7) {
   const number = Number(String(value ?? "").replace("+", ""));
   return Number.isFinite(number) ? number : fallback;
+}
+
+function passiveAbilityText(value) {
+  return String(value ?? "").split(/⚫|•/).filter((part) => !/(每场|每回合|一次性|使用时机|使用对象|使用本技能|消耗\s*\d*CP)/.test(part)).join(" ");
 }
 
 function buildSelectedRoundPayload() {
@@ -267,14 +331,15 @@ function buildSelectedRoundPayload() {
   if (!attacker || !defender) throw new Error("请先选择进攻单位和防御目标");
   const attackerCard = attacker.structured ? attacker : findStructuredCalculatorCard(attacker.name);
   const defenderCard = defender.structured ? defender : findStructuredCalculatorCard(defender.name);
-  const attackerData = attackerCard?.data;
-  const defenderData = defenderCard?.data;
+  const attackerData = getCalculatorCardData(attackerCard || attacker);
+  const defenderData = getCalculatorCardData(defenderCard || defender);
   if (!attackerData?.unit || !Array.isArray(attackerData.weapons) || !attackerData.weapons.length) throw new Error(`进攻单位“${attacker.name}”没有可计算的结构化武器数据`);
   if (!defenderData?.unit) throw new Error(`防御单位“${defender.name}”没有可计算的属性数据`);
   const attackerModels = attacker.rosterUnit ? activeModels(attacker.rosterUnit).length : Number(attackerData.unit.models || 1);
   const defenderModels = defender.rosterUnit ? activeModels(defender.rosterUnit).length : Number(defenderData.unit.models || 1);
   const toughness = Number(defenderData.unit.toughness || 0);
-  const weaponGroups = attackerData.weapons.filter((weapon) => weapon.type === "ranged").map((weapon) => ({
+  const unitAbilities = passiveAbilityText(attackerData.unit.abilities);
+  const weaponGroups = attackerData.weapons.filter((weapon) => weapon.type === state.attackMode).map((weapon) => ({
     name: `${attacker.name} · ${weapon.name}`,
     modelCount: attackerModels,
     attacks: weapon.attacks,
@@ -282,9 +347,14 @@ function buildSelectedRoundPayload() {
     wound: woundTarget(Number(weapon.strength || 0), toughness),
     ap: Math.abs(Number(weapon.ap || 0)),
     damage: weapon.damage,
-    effects: emptyWeaponEffects({ sustainedHitsEnabled: weapon.abilities?.some((item) => /连击| sustained/i.test(item)) || false }),
+    effects: emptyWeaponEffects({
+      sustainedHitsEnabled: [...(weapon.abilities || []), unitAbilities].some((item) => /连击|sustained/i.test(item)) || false,
+      sustainedHitsValue: ([...(weapon.abilities || []), unitAbilities].join(" ").match(/(?:连击|sustained\s*hits?)\s*(\d+)/i)?.[1] || "1"),
+      lethalHitsEnabled: [...(weapon.abilities || []), unitAbilities].some((item) => /致命命中|致命一击|lethal/i.test(item)) || false,
+      devastatingWoundsEnabled: [...(weapon.abilities || []), unitAbilities].some((item) => /毁灭性伤口|毁灭伤害|devastating/i.test(item)) || false,
+    }),
   }));
-  if (!weaponGroups.length) throw new Error(`进攻单位“${attacker.name}”没有远程武器`);
+  if (!weaponGroups.length) throw new Error(`进攻单位“${attacker.name}”没有${state.attackMode === "ranged" ? "远程" : "近战"}武器`);
   return { simulations: 1000, weaponGroups, defenderGroups: [{ name: defender.name, modelCount: defenderModels, wounds: Number(defenderData.unit.woundsPerModel || 1), save: Number(defenderData.unit.save || 7), invulnerableSave: Number(defenderData.unit.invulnerableSave || 0), allocationOrder: 1, effects: emptyDefenderEffects() }] };
 }
 
@@ -388,7 +458,11 @@ $("#unitDetail")?.addEventListener("change", (event) => {
   if (input.dataset.modelMaxWounds) {
     model.maximumWounds = Math.max(1, Number(input.value) || 1);
     model.currentWounds = Math.min(model.currentWounds, model.maximumWounds);
-  } else model.currentWounds = Math.max(0, Math.min(model.maximumWounds, Number(input.value) || 0));
+    model.woundsSource = "manual";
+  } else {
+    model.currentWounds = Math.max(0, Math.min(model.maximumWounds, Number(input.value) || 0));
+    model.woundsSource = "manual";
+  }
   saveRosters(); renderRosters(); openUnitDetail(input.dataset.side, input.dataset.groupId, input.dataset.unitId);
 });
 
@@ -501,7 +575,115 @@ async function loadCalculatorCards() {
     }
   }
   state.calculatorCards = [...cards.values()];
+  const digitalSources = [
+    { faction: "星际战士", path: "data/星际战士/数据卡-可检索.md" },
+  ];
+  for (const source of digitalSources) {
+    try {
+      const response = await fetch(source.path);
+      if (!response.ok) continue;
+      const parsed = parseDigitalDatasheets(await response.text(), source.faction);
+      state.calculatorCards = state.calculatorCards.map((card) => parsed.get(`${card.faction}:${card.page}`) ? { ...card, structured: true, data: parsed.get(`${card.faction}:${card.page}`) } : card);
+      for (const [page, names] of Object.entries(DIGITAL_UNIT_ALIASES[source.faction] || {})) {
+        const data = parsed.get(`${source.faction}:${page}`);
+        names.forEach((name) => {
+          if (!data) return;
+          const virtualCard = { faction: source.faction, name, page: Number(page), structured: true, data: { ...data, unit: { ...data.unit, name } } };
+          const existingIndex = state.calculatorCards.findIndex((card) => card.faction === source.faction && card.name === name);
+          if (existingIndex >= 0) state.calculatorCards[existingIndex] = virtualCard;
+          else state.calculatorCards.push(virtualCard);
+        });
+      }
+    } catch {
+      // 页面离线时仍保留已经加载的军表和 JSON 数据卡。
+    }
+  }
+  applyDatasheetWoundsToRosters();
   renderCalculatorSelectors();
+}
+
+function markdownCells(line) {
+  return line.split("|").slice(1, -1).map((cell) => cell.replace(/<br\s*\/?>/gi, " ").trim()).filter(Boolean);
+}
+
+function combatExpression(value, fallback = "1") {
+  const text = String(value ?? "").replace(/<br\s*\/?>/gi, " ").trim();
+  const dice = text.match(/\d*d\d+(?:\s*[+-]\s*\d+)?/i);
+  if (dice) return dice[0].replace(/\s+/g, "");
+  const numbers = text.match(/-?\d+/g);
+  return numbers?.at(-1) || fallback;
+}
+
+function combatNumber(value, fallback = 0) {
+  const numbers = String(value ?? "").match(/-?\d+/g);
+  return numbers?.length ? Number(numbers.at(-1)) : fallback;
+}
+
+function parseDigitalDatasheets(markdown, faction) {
+  const result = new Map();
+  const headings = [...markdown.matchAll(/## 第 ([0-9]+) 页：([^\n]+)/g)].map((match, index, all) => ({ page: Number(match[1]), name: match[2].trim(), start: match.index, end: all[index + 1]?.index ?? markdown.length }));
+  headings.forEach((heading) => {
+    const section = markdown.slice(heading.start, heading.end);
+    const lines = section.split(/\r?\n/);
+    const statHeader = lines.findIndex((line) => /\|\s*M\s*\|/.test(line) && /\|\s*T\s*\|/.test(line));
+    if (statHeader < 0) return;
+    let values = [];
+    for (let index = statHeader + 1; index < Math.min(lines.length, statHeader + 6); index += 1) {
+      if (/^\|\s*-/.test(lines[index])) continue;
+      const cells = markdownCells(lines[index]);
+      if (cells.filter((cell) => /\d/.test(cell)).length >= 4) { values = cells; break; }
+    }
+    if (values.length < 4) return;
+    const stat = values.slice(0, 6);
+    const saveParts = String(stat[2] || "7").split("/").map((value) => Number(value.replace("+", ""))).filter(Number.isFinite);
+    const unit = {
+      name: heading.name,
+      movement: Number(String(stat[0] || "0").replace(/[^0-9]/g, "")) || 0,
+      toughness: Number(String(stat[1] || "0").replace(/[^0-9]/g, "")) || 0,
+      save: saveParts[0] || 7,
+      invulnerableSave: saveParts[1] || 0,
+      woundsPerModel: Number(String(stat[3] || "1").replace(/[^0-9]/g, "")) || 1,
+      leadership: stat[4] || "6+",
+      objectiveControl: Number(String(stat[5] || "0").replace(/[^0-9]/g, "")) || 0,
+      abilities: passiveAbilityText(lines.filter((line) => /^\|\s*技/.test(line)).map((line) => markdownCells(line).slice(1).join(" ")).join(" ")),
+    };
+    const weapons = [];
+    let weaponType = "ranged";
+    let inWeaponTable = false;
+    lines.forEach((line) => {
+      if (/近战武器/.test(line)) { weaponType = "melee"; inWeaponTable = true; }
+      if (/射击武器/.test(line)) { weaponType = "ranged"; inWeaponTable = true; }
+      if (!inWeaponTable || !/^\|/.test(line) || /武器名|^\|\s*-/.test(line)) return;
+      const cells = markdownCells(line);
+      if (cells.length < 5 || !cells[0] || /^(M|M\s*$|技能|关键词)/.test(cells[0])) return;
+      const skillIndex = cells.findIndex((cell) => /^\d+\+$/.test(cell));
+      if (skillIndex < 2 || !/\d/.test(cells[skillIndex + 1] || "")) return;
+      const strength = combatNumber(cells[skillIndex + 1], 0);
+      const ap = combatNumber(cells[skillIndex + 2], 0);
+      const damage = combatExpression(cells[skillIndex + 3], "1");
+      weapons.push({ name: cells[0], type: weaponType, attacks: combatExpression(cells[skillIndex - 1], "1"), skill: cells[skillIndex], strength, ap, damage, abilities: cells.slice(skillIndex + 4) });
+    });
+    result.set(`${faction}:${heading.page}`, { faction, kind: "datasheet", unit, weapons });
+  });
+  return result;
+}
+
+function applyDatasheetWoundsToRosters() {
+  let changed = false;
+  ["attacker", "defender"].forEach((side) => state.rosters[side].groups.forEach((group) => group.units.forEach((unit) => {
+    const profile = getUnitProfile(unit.name);
+    const card = findStructuredCalculatorCard(unit.name);
+    const wounds = Number(card?.data?.unit?.woundsPerModel || profile?.woundsPerModel || 0);
+    if (!wounds) return;
+    unit.models.forEach((model) => {
+      if (model.woundsSource === "manual" || model.maximumWounds !== 1) return;
+      model.maximumWounds = wounds;
+      model.currentWounds = model.currentWounds === 1 ? wounds : model.currentWounds;
+      model.woundsSource = "datasheet";
+      changed = true;
+    });
+  })));
+  if (changed) { saveRosters(); renderRosters(); }
 }
 
 function escapeHtml(value) {
@@ -573,7 +755,12 @@ function importArmyToRoster(army, side) {
   const roster = state.rosters[side];
   roster.faction = army.faction || "未识别阵营";
   roster.name = army.name || `${roster.faction}军表`;
-  roster.groups = army.groups.map(normalizeGroup);
+  roster.groups = army.groups.map((group) => normalizeGroup({ ...group, units: group.units.map((unit) => {
+    const card = findStructuredCalculatorCard(unit.name);
+    const wounds = Number(card?.data?.unit?.woundsPerModel || getUnitProfile(unit.name)?.woundsPerModel || 0);
+    if (!wounds || !Array.isArray(unit.models)) return unit;
+    return { ...unit, models: unit.models.map((model) => model.maximumWounds === 1 && model.currentWounds === 1 ? { ...model, maximumWounds: wounds, currentWounds: wounds, woundsSource: "datasheet" } : model) };
+  }) }));
   saveRosters();
   renderRosters();
   return true;
@@ -743,8 +930,11 @@ function renderCalculation(result) {
   $("#averageDamage").textContent = damage;
   $("#calcDamage").textContent = damage;
   $("#killMeter").style.width = `${result.chance * 100}%`;
-  $("#calcNote").textContent = "结果来自当前选择的单位和数据卡属性。";
-  $("#calcTargetWounds").textContent = "已按所选目标数据卡结算";
+  $("#calcNote").textContent = `结果来自当前选择的单位和数据卡属性（${state.attackMode === "ranged" ? "远程射击" : "近战"}，未启用主动一次性技能）。`;
+  const defender = getCalculatorEntry("defender");
+  const defenderCard = defender?.structured ? defender : findStructuredCalculatorCard(defender?.name);
+  const defenderData = getCalculatorCardData(defenderCard || defender);
+  $("#calcTargetWounds").textContent = defenderData?.unit?.woundsPerModel ? `${defenderData.unit.woundsPerModel}W / 模型` : "已按所选目标数据卡结算";
 }
 
 $("#runCalc").addEventListener("click", () => {
