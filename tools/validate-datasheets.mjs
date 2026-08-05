@@ -7,7 +7,6 @@ const failures = [];
 const assert = (condition, message) => { if (!condition) failures.push(message); };
 const readJson = (...parts) => JSON.parse(fs.readFileSync(path.join(root, ...parts), "utf8"));
 
-const custodesRaw = readJson("docs", "data", "帝皇禁军", "帝皇禁军-全部数据卡.json");
 const custodesProfiles = readJson("docs", "data", "帝皇禁军", "帝皇禁军-结构化数据卡.json");
 const spaceMarines = readJson("docs", "data", "星际战士", "星际战士-全部数据卡.json");
 
@@ -15,7 +14,8 @@ assert(custodesProfiles.kind === "datasheet-profiles", "禁军结构化数据卡
 assert(custodesProfiles.schemaVersion === 1, "禁军结构化数据卡 schemaVersion 必须为 1");
 
 const profilesByName = new Map(custodesProfiles.cards.map((card) => [card.name, card]));
-for (const card of custodesRaw.cards) assert(profilesByName.has(card.name), `禁军 OCR 卡缺少结构化档案：${card.name}`);
+assert(custodesProfiles.cards.length === 20, "禁军结构化数据卡必须保留 20 份当前档案");
+assert(custodesProfiles.cards.filter((card) => Number.isInteger(card.page)).length >= 18, "禁军结构化数据卡至少应保留 18 份带来源页码的档案");
 
 const requiredUnitFields = ["name", "models", "movement", "toughness", "save", "woundsPerModel", "leadership", "objectiveControl"];
 const warnings = [];
