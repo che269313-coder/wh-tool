@@ -60,6 +60,8 @@
     feelNoPainThreshold: 6,
     feelNoPainMortalEnabled: false,
     feelNoPainMortalThreshold: 6,
+    damageOverride: 0,
+    ruleInvulnerableSave: 0,
     oneUseInvulnerableEnabled: false,
     oneUseInvulnerableSave: 2,
   };
@@ -318,6 +320,9 @@
     if (number(group.invulnerableSave) > 0) {
       candidates.push({ threshold: number(group.invulnerableSave), kind: "invulnerable" });
     }
+    if (number(group.effects.ruleInvulnerableSave) > 0) {
+      candidates.push({ threshold: number(group.effects.ruleInvulnerableSave), kind: "ruleInvulnerable" });
+    }
     if (group.oneUseAvailable && number(group.effects.oneUseInvulnerableSave) > 0) {
       candidates.push({ threshold: number(group.effects.oneUseInvulnerableSave), kind: "oneUse" });
     }
@@ -484,6 +489,7 @@
 
     let amount = event.negated ? 0 : rollDamageExpression(event.damage, weaponEffects, rng);
     const defenderEffects = defenderGroup.effects;
+    if (Number(defenderEffects.damageOverride) > 0 && amount > 0) amount = Number(defenderEffects.damageOverride);
     const fnpEnabled = event.mortal ? defenderEffects.feelNoPainMortalEnabled : defenderEffects.feelNoPainEnabled;
     const fnpThreshold = event.mortal ? defenderEffects.feelNoPainMortalThreshold : defenderEffects.feelNoPainThreshold;
     if (fnpEnabled) amount = applyFeelNoPain(amount, fnpThreshold, rng);

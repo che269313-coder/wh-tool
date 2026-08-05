@@ -218,6 +218,9 @@ h4 { font-size: 16px; letter-spacing: -.02em; }
 .calculator-member-weapons { margin-top: 10px; }
 .calculator-member-weapons > strong { color: var(--muted); font-size: 10px; }
 .calculator-abilities { display: grid; gap: 7px; margin-top: 13px; }
+.calculator-rule-section { display: grid; gap: 7px; }
+.calculator-rule-section + .calculator-rule-section { margin-top: 5px; }
+.calculator-rule-control { margin-top: 8px; }
 .calculator-ability { border: 1px solid rgba(107,191,157,.25); border-radius: 9px; padding: 9px 10px; background: rgba(19,50,49,.3); }
 .calculator-ability.is-active { border-color: rgba(211,163,74,.35); background: rgba(74,54,22,.22); }
 .calculator-ability strong { font-size: 11px; }

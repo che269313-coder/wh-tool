@@ -467,9 +467,20 @@ function getCalculatorDraft(side) {
     const explicitGuard = entry.group.units.some((candidate) => /护卫|bodyguard/i.test(String(candidate.role || "")));
     const memberIndex = entry.group.units.indexOf(member);
     const role = /领导|主将|领袖|character|leader/i.test(String(member.role || "")) ? "角色" : /护卫|bodyguard/i.test(String(member.role || "")) ? "护卫" : (explicitGuard && !explicitLeader ? "角色" : (memberIndex === 0 ? "角色" : "护卫"));
-    return { id: member.id, name: member.name, role, unit: memberUnit, weapons: memberWeapons, modelCount: activeModels(member).length };
+    const livingModels = activeModels(member);
+    return {
+      id: member.id, name: member.name, role, unit: memberUnit, weapons: memberWeapons, modelCount: livingModels.length,
+      initialModelCount: member.models.length,
+      remainingWounds: livingModels.reduce((sum, model) => sum + Number(model.currentWounds || 0), 0),
+    };
   }).sort((a, b) => (a.role === "角色" ? 0 : 1) - (b.role === "角色" ? 0 : 1)) : [];
-  state.calculatorDrafts[side] = { key, entry, data, unit: baseUnit, weapons, modelCount: Math.max(1, modelCount || 1), source: calculatorSource(entry), joinedMembers, martialKatah: "none", oathHitValues: [], oathWoundBonus: false };
+  const activeRosterModels = rosterUnit ? activeModels(rosterUnit) : [];
+  state.calculatorDrafts[side] = {
+    key, entry, data, unit: baseUnit, weapons, modelCount: Math.max(1, modelCount || 1), source: calculatorSource(entry), joinedMembers,
+    martialKatah: "none", oathHitValues: [], oathWoundBonus: false, ruleSelections: {},
+    initialModelCount: rosterUnit ? rosterUnit.models.length : Math.max(1, Number(baseUnit.models || baseUnit.defaultModels || 1)),
+    remainingWounds: rosterUnit ? activeRosterModels.reduce((sum, model) => sum + Number(model.currentWounds || 0), 0) : Number(baseUnit.woundsPerModel || 1) * Math.max(1, modelCount || 1),
+  };
   return state.calculatorDrafts[side];
 }
 
@@ -481,35 +492,38 @@ function unitHasOathOfMoment(unit, faction = "") {
   return /破敌重誓|oath\s+of\s+moment/i.test(String(unit?.abilities || "")) || /星际战士|阿斯塔特|白色疤痕/i.test(String(faction || ""));
 }
 
+function calculatorRuleControlMarkup(draft, side, rule) {
+  if (!rule.controls?.length) return "";
+  return rule.controls.map((control) => {
+    const key = `${rule.id}.${control.id}`;
+    const current = draft.ruleSelections?.[key];
+    if (control.type === "checkbox") return `<label class="check-row calculator-rule-control"><input type="checkbox" data-calc-side="${side}" data-calc-rule="${escapeHtml(key)}" ${current ? "checked" : ""} /><span>${escapeHtml(control.label)}</span></label>`;
+    return `<label class="calculator-martial-control calculator-rule-control">${escapeHtml(control.label)}<select data-calc-side="${side}" data-calc-rule="${escapeHtml(key)}">${(control.options || []).map(([value, label]) => `<option value="${escapeHtml(value)}" ${(current ?? control.options?.[0]?.[0]) === value ? "selected" : ""}>${escapeHtml(label)}</option>`).join("")}</select></label>`;
+  }).join("");
+}
+
+function calculatorRuleMarkup(draft, side, rules, heading) {
+  if (!rules.length) return "";
+  return `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>${heading}</strong></div>${rules.map((rule) => `<div class="calculator-ability"><strong>${escapeHtml(rule.unitName ? `${rule.unitName} · ${rule.name}` : rule.name)}</strong><p>${escapeHtml(rule.text)}</p><small>${escapeHtml(rule.status || "仅供查阅")}</small>${calculatorRuleControlMarkup(draft, side, rule)}</div>`).join("")}</section>`;
+}
+
 function calculatorAbilityMarkup(draft, side) {
   const unit = draft.unit || {};
-  const selectedName = draft.entry?.name || "当前单位";
-  const joinedAbilityEntries = (draft.joinedMembers || [])
-    .filter((member) => member.id !== draft.entry?.rosterUnit?.id)
-    .map((member) => ({ label: member.name, passive: passiveAbilityText(member.unit?.abilities), active: member.unit?.activeAbilities || member.unit?.active }))
-    .filter((entry) => entry.passive || entry.active);
-  const passive = [{ label: selectedName, text: passiveAbilityText(unit.abilities) }, ...joinedAbilityEntries.map((entry) => ({ label: entry.label, text: entry.passive }))]
-    .filter((entry) => entry.text)
-    .map((entry) => `${entry.label}：${entry.text}`)
-    .join("；");
-  const active = [{ label: selectedName, text: unit.activeAbilities || unit.active }, ...joinedAbilityEntries.map((entry) => ({ label: entry.label, text: entry.active }))]
-    .filter((entry) => entry.text)
-    .map((entry) => `${entry.label}：${entry.text}`)
-    .join("；") || "未从数据卡结构化提取";
+  const unitNames = [draft.entry?.name, ...(draft.joinedMembers || []).map((member) => member.name)];
+  const catalog = window.WarhammerRuleResolver?.rulesForUnits(draft.entry?.faction, unitNames) || { faction: [], unit: [] };
+  const factionRulesForUnit = catalog.faction.filter((rule) => rule.effect?.type !== "martial-katah" || unitNames.some((name) => window.WarhammerRuleResolver?.isMartialKatahUnit(draft.entry?.faction, name)));
   const allWeapons = [draft.weapons || [], ...(draft.joinedMembers || []).map((member) => member.weapons || [])].flat();
   const weaponAbilities = [...new Set(allWeapons.flatMap((weapon) => weapon.abilities || []).filter(Boolean))];
-  const passiveRules = [passive, ...weaponAbilities].join(" ");
-  const detected = [
-    [/连击|sustained/i, "连击"],
-    [/致命命中|致命一击|lethal/i, "致命命中"],
-    [/毁灭性伤口|毁灭性伤害|毁灭伤害|devastating/i, "毁灭性伤口"],
-  ].filter(([pattern]) => pattern.test(passiveRules)).map(([, label]) => label);
-  const hasMartialKatah = side === "attacker" && /禁军武艺/.test([unit.abilities, ...(draft.joinedMembers || []).map((member) => member.unit?.abilities)].join(" "));
+  const hasMartialKatah = side === "attacker" && (factionRulesForUnit.some((rule) => rule.effect?.type === "martial-katah") || /禁军武艺/.test([unit.abilities, ...(draft.joinedMembers || []).map((member) => member.unit?.abilities)].join(" ")));
   const martialControl = hasMartialKatah ? `<label class="calculator-martial-control">禁军武艺（仅近战）<select data-calc-side="${side}" data-calc-martial><option value="none" ${draft.martialKatah === "none" ? "selected" : ""}>不启用</option><option value="sustained" ${draft.martialKatah === "sustained" ? "selected" : ""}>连击 1</option><option value="lethal" ${draft.martialKatah === "lethal" ? "selected" : ""}>致命一击</option></select></label>` : "";
   const hasOathOfMoment = side === "attacker" && unitHasOathOfMoment(unit, draft.entry?.faction);
   const oathValues = new Set((draft.oathHitValues || []).map(Number));
-  const oathControl = hasOathOfMoment ? `<div class="calculator-oath-control"><strong>破敌重誓（手动选择）</strong><small>重投命中骰结果（可多选）</small><div class="calculator-oath-faces">${[1, 2, 3, 4, 5, 6].map((face) => `<label><input type="checkbox" value="${face}" data-calc-side="${side}" data-calc-oath-hit ${oathValues.has(face) ? "checked" : ""} />${face}</label>`).join("")}</div><label class="check-row"><input type="checkbox" data-calc-side="${side}" data-calc-oath-wound ${draft.oathWoundBonus ? "checked" : ""} /><span>造伤 +1</span></label></div>` : "";
-  return `<div class="calculator-abilities"><div class="calculator-ability"><strong>可用被动（默认不启用）</strong><p>${escapeHtml(passive || "未解析到单位被动")}</p>${weaponAbilities.length ? `<small>武器关键词：${escapeHtml(weaponAbilities.join("、"))}</small>` : ""}<small>可识别关键词：${escapeHtml(detected.join("、") || "无；其余被动仅列出")}</small>${martialControl}${oathControl}</div><div class="calculator-ability is-active"><strong>主动/一次性（当前不启用）</strong><p>${escapeHtml(active)}</p><small>本版本只显示并明确标注，不会自动加入骰子计算。</small></div></div>`;
+  const oathControl = hasOathOfMoment ? `<div class="calculator-oath-control"><strong>破敌重誓</strong><small>重投命中骰结果（可多选）</small><div class="calculator-oath-faces">${[1, 2, 3, 4, 5, 6].map((face) => `<label><input type="checkbox" value="${face}" data-calc-side="${side}" data-calc-oath-hit ${oathValues.has(face) ? "checked" : ""} />${face}</label>`).join("")}</div><label class="check-row"><input type="checkbox" data-calc-side="${side}" data-calc-oath-wound ${draft.oathWoundBonus ? "checked" : ""} /><span>造伤 +1</span></label></div>` : "";
+  const factionRules = calculatorRuleMarkup(draft, side, factionRulesForUnit, "阵营技能");
+  const fallbackFaction = !factionRulesForUnit.length && hasOathOfMoment ? `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>阵营技能</strong></div><div class="calculator-ability"><strong>破敌重誓</strong><p>选择需要重投的命中骰结果，也可选择造伤 +1。</p>${oathControl}</div></section>` : "";
+  const unitRules = calculatorRuleMarkup(draft, side, catalog.unit, "单位技能");
+  const legacy = !catalog.unit.length && (unit.abilities || unit.activeAbilities) ? `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>单位技能</strong></div><div class="calculator-ability"><p>${escapeHtml([unit.abilities, unit.activeAbilities || unit.active].filter(Boolean).join("；"))}</p><small>已显示，等待结构化规则补充。</small></div></section>` : "";
+  return `<div class="calculator-abilities">${factionRules}${fallbackFaction}${unitRules}${legacy}${martialControl}${factionRulesForUnit.length && hasOathOfMoment ? oathControl : ""}${weaponAbilities.length ? `<div class="calculator-ability"><strong>武器关键词</strong><p>${escapeHtml(weaponAbilities.join("、"))}</p><small>武器关键词会自动并入骰子计算。</small></div>` : ""}</div>`;
 }
 
 function calculatorWeaponMarkup(draft, side) {
@@ -567,6 +581,10 @@ function updateCalculatorDraftFromControl(control) {
   const value = control.type === "checkbox" || control.type === "radio" ? control.checked : control.value;
   if (control.dataset.calcModelCount !== undefined) draft.modelCount = Math.max(1, Number(value) || 1);
   if (control.dataset.calcMartial !== undefined) draft.martialKatah = value;
+  if (control.dataset.calcRule !== undefined) {
+    draft.ruleSelections ||= {};
+    draft.ruleSelections[control.dataset.calcRule] = control.type === "checkbox" ? Boolean(control.checked) : value;
+  }
   if (control.dataset.calcOathHit !== undefined) {
     const face = Number(control.value);
     const selected = new Set((draft.oathHitValues || []).map(Number));
@@ -626,9 +644,45 @@ function activeAbilityText(value) {
   return String(value ?? "").split(/⚫|•/).filter((part) => /(每场|每回合|一次性|使用时机|使用对象|消耗\s*\d*CP)/.test(part)).join(" ");
 }
 
-function defenderEffectsFromUnit(unit) {
-  // 被动规则只在详情中列出，当前版本默认不启用；后续可在这里接入逐项开关。
-  return emptyDefenderEffects();
+function ruleContextForDraft(draft, unitName, overrides = {}) {
+  const member = (draft.joinedMembers || []).find((candidate) => candidate.name === unitName);
+  const modelCount = member?.modelCount ?? draft.modelCount;
+  const initialModelCount = member?.initialModelCount ?? draft.initialModelCount ?? modelCount;
+  return {
+    phase: state.attackMode,
+    isJoined: Boolean(draft.entry?.rosterUnit && draft.joinedMembers?.length),
+    remainingWounds: member?.remainingWounds ?? draft.remainingWounds,
+    underStartingStrength: modelCount < initialModelCount,
+    belowHalfStrength: modelCount * 2 < initialModelCount,
+    ...overrides,
+  };
+}
+
+function resolvedRuleEffects(draft, unitName, overrides = {}) {
+  if (!window.WarhammerRuleResolver) return { attack: {}, defend: {}, notes: [] };
+  return window.WarhammerRuleResolver.resolveUnit(
+    draft.entry?.faction,
+    unitName,
+    draft.ruleSelections || {},
+    ruleContextForDraft(draft, unitName, overrides),
+  );
+}
+
+function defenderEffectsFromUnit(unit, draft, unitName) {
+  const rules = draft ? resolvedRuleEffects(draft, unitName || unit?.name || draft.entry?.name) : { defend: {} };
+  const defend = rules.defend || {};
+  const effects = emptyDefenderEffects();
+  if (defend.feelNoPain) {
+    effects.feelNoPainEnabled = true;
+    effects.feelNoPainThreshold = defend.feelNoPain;
+  }
+  if (defend.feelNoPainMortal) {
+    effects.feelNoPainMortalEnabled = true;
+    effects.feelNoPainMortalThreshold = defend.feelNoPainMortal;
+  }
+  if (defend.damageOverride) effects.damageOverride = defend.damageOverride;
+  if (defend.invulnerableSave) effects.ruleInvulnerableSave = defend.invulnerableSave;
+  return effects;
 }
 
 function calculatorDataForUnit(unit, faction) {
@@ -647,7 +701,7 @@ function buildDefenderGroups(defender, draft) {
       save: Number(draft.unit.save || 7),
       invulnerableSave: Number(draft.unit.invulnerableSave || 0),
       allocationOrder: 1,
-      effects: defenderEffectsFromUnit(draft.unit),
+      effects: defenderEffectsFromUnit(draft.unit, draft, defender.name),
     }];
   }
   const explicitLeader = group.units.some((unit) => /领导|主将|领袖|character|leader/i.test(String(unit.role || "")));
@@ -667,7 +721,7 @@ function buildDefenderGroups(defender, draft) {
       save: Number(unitData.save || 7),
       invulnerableSave: Number(unitData.invulnerableSave || 0),
       allocationOrder: role === "护卫" ? 1 : 2,
-      effects: defenderEffectsFromUnit(unitData),
+      effects: defenderEffectsFromUnit(unitData, draft, unit.name),
     };
   }).sort((a, b) => a.allocationOrder - b.allocationOrder);
 }
@@ -685,26 +739,65 @@ function buildSelectedRoundPayload() {
   if (!attackerData?.unit || !Array.isArray(attackerData.weapons) || !attackerData.weapons.length) throw new Error(`进攻单位“${attacker.name}”没有可计算的结构化武器数据`);
   if (!defenderData?.unit || !defenderUnit.woundsPerModel) throw new Error(`防御单位“${defender.name}”没有可计算的属性数据`);
   const toughness = Number(defenderUnit.toughness || 0);
+  const defenderRuleEffects = [defender.name, ...(defenderDraft.joinedMembers || []).map((member) => member.name)]
+    .map((name) => resolvedRuleEffects(defenderDraft, name).defend || {})
+    .reduce((result, effects) => ({
+      incomingApModifier: Math.min(result.incomingApModifier, Number(effects.incomingApModifier || 0)),
+      incomingHitModifier: Math.min(result.incomingHitModifier, Number(effects.incomingHitModifier || 0)),
+      incomingWoundModifier: Math.min(result.incomingWoundModifier, Number(effects.incomingWoundModifier || 0)),
+      incomingWoundWhenStrengthGreater: Math.min(result.incomingWoundWhenStrengthGreater, Number(effects.incomingWoundWhenStrengthGreater || 0)),
+    }), { incomingApModifier: 0, incomingHitModifier: 0, incomingWoundModifier: 0, incomingWoundWhenStrengthGreater: 0 });
   const attackerSources = attackerDraft.joinedMembers?.length
     ? attackerDraft.joinedMembers.map((member) => member.id === attacker.rosterUnit?.id
-      ? { name: attacker.name, unit: attackerUnit, weapons: attackerDraft.weapons, modelCount: attackerDraft.modelCount }
+      ? {
+        name: attacker.name, unit: attackerUnit, weapons: attackerDraft.weapons, modelCount: attackerDraft.modelCount,
+        initialModelCount: attackerDraft.initialModelCount, remainingWounds: attackerDraft.remainingWounds,
+      }
       : member)
-    : [{ name: attacker.name, unit: attackerUnit, weapons: attackerDraft.weapons, modelCount: attackerDraft.modelCount }];
+    : [{ name: attacker.name, unit: attackerUnit, weapons: attackerDraft.weapons, modelCount: attackerDraft.modelCount, initialModelCount: attackerDraft.initialModelCount, remainingWounds: attackerDraft.remainingWounds }];
+  const sourceRuleEntries = attackerSources.map((source) => ({
+    source,
+    effects: resolvedRuleEffects(attackerDraft, source.name, {
+      initialModelCount: source.initialModelCount,
+      remainingWounds: source.remainingWounds,
+      underStartingStrength: Number(source.modelCount || 0) < Number(source.initialModelCount || source.modelCount || 0),
+      belowHalfStrength: Number(source.modelCount || 0) * 2 < Number(source.initialModelCount || source.modelCount || 0),
+    }).attack || {},
+  }));
+  // Rules worded as applying to a leader's unit (for example Trajann's ignore
+  // modifier, Aleya's under-strength bonus and Martial Master) are shared by
+  // every model in an imported joined unit. Source-specific rules remain on
+  // their own weapon profiles below.
+  const sharedJoinedRules = sourceRuleEntries.reduce((result, entry) => ({
+    hitModifier: result.hitModifier + Number(entry.effects.hitModifier || 0),
+    woundModifier: result.woundModifier + Number(entry.effects.woundModifier || 0),
+    ignoreHitModifiers: result.ignoreHitModifiers || Boolean(entry.effects.ignoreHitModifiers),
+    martialChoices: [...new Set([...result.martialChoices, ...(entry.effects.martialChoices || [])])],
+  }), { hitModifier: 0, woundModifier: 0, ignoreHitModifiers: false, martialChoices: [] });
   const weaponGroups = attackerSources.flatMap((source) => {
-    const martialKatah = state.attackMode === "melee" && /禁军武艺/.test(String(source.unit?.abilities || "")) ? attackerDraft.martialKatah : "none";
+    const sourceRules = sourceRuleEntries.find((entry) => entry.source === source)?.effects || {};
+    const hasMartialKatah = state.attackMode === "melee" && (window.WarhammerRuleResolver?.isMartialKatahUnit(attacker.faction, source.name) || /禁军武艺/.test(String(source.unit?.abilities || "")));
+    const martialKatah = hasMartialKatah ? [attackerDraft.martialKatah, ...sharedJoinedRules.martialChoices].filter((choice) => choice && choice !== "none") : [];
     const oathOfMoment = unitHasOathOfMoment(source.unit, attacker.faction)
       ? { hitValues: attackerDraft.oathHitValues || [], woundBonus: Boolean(attackerDraft.oathWoundBonus) }
       : {};
-    return (source.weapons || []).filter((weapon) => weapon.enabled !== false && weapon.type === state.attackMode && Number(weapon.modelCount ?? source.modelCount ?? 1) > 0).map((weapon) => ({
-      name: `${source.name} · ${weapon.name}`,
-      modelCount: Number(weapon.modelCount ?? source.modelCount ?? 1),
-      attacks: weapon.attacks,
-      hit: String(weapon.skill || "").toLowerCase() === "torrent" ? "torrent" : parseSkill(weapon.skill),
-      wound: woundTarget(Number(weapon.strength || 0), toughness),
-      ap: Math.abs(Number(weapon.ap || 0)),
-      damage: weapon.damage,
-      effects: weaponEffectsFromKeywords(weapon, martialKatah, oathOfMoment),
-    }));
+    const groups = (source.weapons || []).filter((weapon) => weapon.enabled !== false && weapon.type === state.attackMode && Number(weapon.modelCount ?? source.modelCount ?? 1) > 0).map((weapon) => {
+      const attackOverride = sourceRules.weaponAttackOverride?.name === weapon.name ? sourceRules.weaponAttackOverride.value : weapon.attacks;
+      const hitModifier = sharedJoinedRules.hitModifier + (sharedJoinedRules.ignoreHitModifiers ? 0 : defenderRuleEffects.incomingHitModifier);
+      const conditionalWoundModifier = Number(weapon.strength || 0) > toughness ? defenderRuleEffects.incomingWoundWhenStrengthGreater : 0;
+      const woundModifier = sharedJoinedRules.woundModifier + defenderRuleEffects.incomingWoundModifier + conditionalWoundModifier;
+      return {
+        name: `${source.name} · ${weapon.name}`,
+        modelCount: Number(weapon.modelCount ?? source.modelCount ?? 1),
+        attacks: attackOverride,
+        hit: String(weapon.skill || "").toLowerCase() === "torrent" ? "torrent" : parseSkill(weapon.skill),
+        wound: woundTarget(Number(weapon.strength || 0), toughness),
+        ap: Math.max(0, Math.abs(Number(weapon.ap || 0)) + defenderRuleEffects.incomingApModifier),
+        damage: weapon.damage,
+        effects: weaponEffectsFromKeywords(weapon, martialKatah, oathOfMoment, sourceRules, { hitModifier, woundModifier }),
+      };
+    });
+    return sourceRules.repeatRanged ? [...groups, ...groups.map((group) => ({ ...group, name: `${group.name}（枪林弹雨）` }))] : groups;
   });
   if (!weaponGroups.length) throw new Error(`进攻单位“${attacker.name}”没有${state.attackMode === "ranged" ? "远程" : "近战"}武器`);
   return { simulations: 1000, weaponGroups, defenderGroups: buildDefenderGroups(defender, defenderDraft) };
@@ -1255,11 +1348,11 @@ function emptyDefenderEffects() {
   return {
     saveRerollFixedEnabled: false, saveRerollFixedAmount: 1, saveRerollFixedType: "ones", saveRerollFixedValues: [],
     saveRerollAllEnabled: false, saveRerollAllType: "ones", saveRerollAllValues: [], feelNoPainEnabled: false,
-    feelNoPainThreshold: 6, feelNoPainMortalEnabled: false, feelNoPainMortalThreshold: 6, oneUseInvulnerableEnabled: false, oneUseInvulnerableSave: 2,
+    feelNoPainThreshold: 6, feelNoPainMortalEnabled: false, feelNoPainMortalThreshold: 6, damageOverride: 0, ruleInvulnerableSave: 0, oneUseInvulnerableEnabled: false, oneUseInvulnerableSave: 2,
   };
 }
 
-function weaponEffectsFromKeywords(weapon, martialKatah = "none", oathOfMoment = {}) {
+function weaponEffectsFromKeywords(weapon, martialKatah = [], oathOfMoment = {}, ruleEffects = {}, modifiers = {}) {
   const keywords = (weapon?.abilities || []).join(" ");
   const sustained = keywords.match(/连击\s*(d3|\d+)?|sustained\s*hits?\s*(d3|\d+)?/i);
   const sustainedValue = sustained?.[1] || sustained?.[2] || "1";
@@ -1269,18 +1362,22 @@ function weaponEffectsFromKeywords(weapon, martialKatah = "none", oathOfMoment =
   const hasTwinLinked = /双联|twin-?linked/i.test(keywords);
   const oathHitValues = [...new Set((oathOfMoment?.hitValues || []).map(Number).filter((value) => value >= 1 && value <= 6))];
   const oathWoundBonus = Boolean(oathOfMoment?.woundBonus);
+  const martialChoices = Array.isArray(martialKatah) ? martialKatah : [martialKatah];
+  const ruleWoundReroll = ruleEffects.woundReroll || "";
   return emptyWeaponEffects({
     hitRerollAllEnabled: oathHitValues.length > 0,
     hitRerollAllType: "specific",
     hitRerollAllValues: oathHitValues,
-    woundModifierEnabled: oathWoundBonus,
-    woundModifierValue: oathWoundBonus ? 1 : 0,
-    sustainedHitsEnabled: hasSustained || martialKatah === "sustained",
+    hitModifierEnabled: Boolean(modifiers.hitModifier),
+    hitModifierValue: Number(modifiers.hitModifier || 0),
+    woundModifierEnabled: oathWoundBonus || Boolean(modifiers.woundModifier),
+    woundModifierValue: (oathWoundBonus ? 1 : 0) + Number(modifiers.woundModifier || 0),
+    sustainedHitsEnabled: hasSustained || martialChoices.includes("sustained"),
     sustainedHitsValue: sustainedValue,
-    lethalHitsEnabled: hasLethal || martialKatah === "lethal",
-    devastatingWoundsEnabled: hasDevastating,
-    woundRerollAllEnabled: hasTwinLinked,
-    woundRerollAllType: "failed",
+    lethalHitsEnabled: hasLethal || martialChoices.includes("lethal"),
+    devastatingWoundsEnabled: hasDevastating || Boolean(ruleEffects.devastating),
+    woundRerollAllEnabled: hasTwinLinked || Boolean(ruleWoundReroll),
+    woundRerollAllType: ruleWoundReroll || "failed",
   });
 }
 
@@ -1368,10 +1465,8 @@ function renderCalculation(result) {
   $("#killMeter").style.width = `${result.chance * 100}%`;
   const attackerDraft = getCalculatorDraft("attacker");
   const defenderDraft = getCalculatorDraft("defender");
-  const passive = passiveAbilityText(attackerDraft?.unit?.abilities);
-  const active = attackerDraft?.unit?.activeAbilities || attackerDraft?.unit?.active || "未结构化提取";
   const joined = Boolean(defenderDraft?.joinedMembers?.length);
-  $("#calcNote").textContent = `结果来自当前选择的单位和可调参数（${state.attackMode === "ranged" ? "远程射击" : "近战"}；全歼概率按整个目标单位模型全部被摧毁计算；被动${passive ? "已列出，默认未启用" : "未解析"}；主动/一次性未启用${active ? "，已标注" : ""}${joined ? "；联合单位按护卫→角色分配伤害" : ""}）。`;
+  $("#calcNote").textContent = `结果来自当前选择的单位和可调参数（${state.attackMode === "ranged" ? "远程射击" : "近战"}；全歼概率按整个目标单位模型全部被摧毁计算；已按页面中勾选或选择的阵营技能、单位技能结算${joined ? "；联合单位按护卫→角色分配伤害" : ""}）。`;
   $("#calcTargetWounds").textContent = defenderDraft?.unit?.woundsPerModel ? `${defenderDraft.unit.woundsPerModel}W / 模型${joined ? "（护卫先承伤）" : ""}` : "已按所选目标数据卡结算";
 }
 
