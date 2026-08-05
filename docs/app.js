@@ -477,7 +477,7 @@ function getCalculatorDraft(side) {
   const activeRosterModels = rosterUnit ? activeModels(rosterUnit) : [];
   state.calculatorDrafts[side] = {
     key, entry, data, unit: baseUnit, weapons, modelCount: Math.max(1, modelCount || 1), source: calculatorSource(entry), joinedMembers,
-    martialKatah: "none", oathHitValues: [], oathWoundBonus: false, ruleSelections: {},
+    martialKatah: "none", oathWoundBonus: false, ruleSelections: {}, rerollSelections: {},
     initialModelCount: rosterUnit ? rosterUnit.models.length : Math.max(1, Number(baseUnit.models || baseUnit.defaultModels || 1)),
     remainingWounds: rosterUnit ? activeRosterModels.reduce((sum, model) => sum + Number(model.currentWounds || 0), 0) : Number(baseUnit.woundsPerModel || 1) * Math.max(1, modelCount || 1),
   };
@@ -525,21 +525,62 @@ function calculatorAbilityMarkup(draft, side) {
   const hasMartialKatah = side === "attacker" && (factionRulesForUnit.some((rule) => rule.effect?.type === "martial-katah") || /禁军武艺/.test([unit.abilities, ...(draft.joinedMembers || []).map((member) => member.unit?.abilities)].join(" ")));
   const martialControl = hasMartialKatah ? `<label class="calculator-martial-control">禁军武艺（仅近战）<select data-calc-side="${side}" data-calc-martial><option value="none" ${draft.martialKatah === "none" ? "selected" : ""}>不启用</option><option value="sustained" ${draft.martialKatah === "sustained" ? "selected" : ""}>连击 1</option><option value="lethal" ${draft.martialKatah === "lethal" ? "selected" : ""}>致命一击</option></select></label>` : "";
   const hasOathOfMoment = side === "attacker" && unitHasOathOfMoment(unit, draft.entry?.faction);
-  const oathValues = new Set((draft.oathHitValues || []).map(Number));
-  const oathControl = hasOathOfMoment ? `<div class="calculator-oath-control"><strong>破敌重誓</strong><small>重投命中骰结果（可多选）</small><div class="calculator-oath-faces">${[1, 2, 3, 4, 5, 6].map((face) => `<label><input type="checkbox" value="${face}" data-calc-side="${side}" data-calc-oath-hit ${oathValues.has(face) ? "checked" : ""} />${face}</label>`).join("")}</div><label class="check-row"><input type="checkbox" data-calc-side="${side}" data-calc-oath-wound ${draft.oathWoundBonus ? "checked" : ""} /><span>造伤 +1</span></label></div>` : "";
+  const oathWoundControl = hasOathOfMoment ? `<label class="check-row calculator-rule-control"><input type="checkbox" data-calc-side="${side}" data-calc-oath-wound ${draft.oathWoundBonus ? "checked" : ""} /><span>破敌重誓：造伤 +1</span></label>` : "";
   const factionRules = calculatorRuleMarkup(draft, side, factionRulesForUnit, "阵营技能");
-  const fallbackFaction = !factionRulesForUnit.length && hasOathOfMoment ? `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>阵营技能</strong></div><div class="calculator-ability"><strong>破敌重誓</strong><p>选择需要重投的命中骰结果，也可选择造伤 +1。</p>${oathControl}</div></section>` : "";
+  const fallbackFaction = !factionRulesForUnit.length && hasOathOfMoment ? `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>阵营技能</strong></div><div class="calculator-ability"><strong>破敌重誓</strong><p>命中重投骰面会按当前武器显示；可在武器栏选择具体结果。</p>${oathWoundControl}</div></section>` : "";
   const unitRules = calculatorRuleMarkup(draft, side, catalog.unit, "单位技能");
   const legacy = !catalog.unit.length && (unit.abilities || unit.activeAbilities) ? `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>单位技能</strong></div><div class="calculator-ability"><p>${escapeHtml([unit.abilities, unit.activeAbilities || unit.active].filter(Boolean).join("；"))}</p><small>已显示，等待结构化规则补充。</small></div></section>` : "";
-  return `<div class="calculator-abilities">${factionRules}${fallbackFaction}${unitRules}${legacy}${martialControl}${factionRulesForUnit.length && hasOathOfMoment ? oathControl : ""}${weaponAbilities.length ? `<div class="calculator-ability"><strong>武器关键词</strong><p>${escapeHtml(weaponAbilities.join("、"))}</p><small>武器关键词会自动并入骰子计算。</small></div>` : ""}</div>`;
+  return `<div class="calculator-abilities">${factionRules}${fallbackFaction}${unitRules}${legacy}${martialControl}${weaponAbilities.length ? `<div class="calculator-ability"><strong>武器关键词</strong><p>${escapeHtml(weaponAbilities.join("、"))}</p><small>武器关键词会自动并入骰子计算。</small></div>` : ""}</div>`;
+}
+
+function calculatorRerollKey(kind, sourceKey, weaponIndex) {
+  return `${kind}:${sourceKey}:${weaponIndex}`;
+}
+
+function rerollSelection(draft, key, threshold) {
+  const configured = draft.rerollSelections?.[key];
+  const fallback = Array.from({ length: Math.max(0, threshold - 1) }, (_, index) => index + 1);
+  return { configured: Boolean(configured?.configured), faces: configured?.configured ? configured.faces || [] : fallback };
+}
+
+function resolvedRerollSelection(draft, kind, sourceKey, weaponIndex, threshold) {
+  const selection = rerollSelection(draft, calculatorRerollKey(kind, sourceKey, weaponIndex), threshold);
+  return selection.configured ? { type: "specific", values: selection.faces } : { type: "failed", values: [] };
+}
+
+function rerollFacesMarkup(draft, side, { kind, sourceKey, weaponIndex, threshold, title, locked = false }) {
+  const key = calculatorRerollKey(kind, sourceKey, weaponIndex);
+  const selection = rerollSelection(draft, key, threshold);
+  const faces = new Set((locked ? [1] : selection.faces).map(Number));
+  const stateText = locked ? "规则固定：仅重投 1" : (selection.configured ? "已按所选骰面重投" : "默认重投失败骰");
+  return `<div class="calculator-reroll-control ${locked ? "is-locked" : ""}"><strong>${escapeHtml(title)}</strong><small>成功：${threshold}+；${stateText}</small><div class="calculator-reroll-faces">${[1, 2, 3, 4, 5, 6].map((face) => `<label class="${face >= threshold ? "is-success" : "is-failure"} ${faces.has(face) ? "is-selected" : ""}"><input type="checkbox" value="${face}" data-calc-side="${side}" data-calc-reroll-kind="${kind}" data-calc-reroll-key="${escapeHtml(key)}" data-calc-reroll-face ${faces.has(face) ? "checked" : ""} ${locked && face !== 1 ? "disabled" : ""} />${face}</label>`).join("")}</div>${locked ? "" : "<small>可选择成功骰来赌暴击；选择后会覆盖默认的失败骰重投。</small>"}</div>`;
+}
+
+function calculatorWeaponRerollMarkup(weapon, draft, side, sourceName, sourceKey, weaponIndex) {
+  if (side !== "attacker") return "";
+  const sections = [];
+  const hitThreshold = String(weapon.skill || "").toLowerCase() === "torrent" ? 0 : parseSkill(weapon.skill);
+  if (unitHasOathOfMoment(draft.unit, draft.entry?.faction) && hitThreshold > 0) {
+    sections.push(rerollFacesMarkup(draft, side, { kind: "oath-hit", sourceKey, weaponIndex, threshold: hitThreshold, title: "破敌重誓 · 命中重投" }));
+  }
+  const sourceRules = resolvedRuleEffects(draft, sourceName).attack || {};
+  if (sourceRules.woundReroll) {
+    const defenderDraft = getCalculatorDraft("defender");
+    const woundThreshold = defenderDraft?.unit?.toughness ? woundTarget(Number(weapon.strength || 0), Number(defenderDraft.unit.toughness)) : 4;
+    sections.push(rerollFacesMarkup(draft, side, {
+      kind: "guard-wound", sourceKey, weaponIndex, threshold: woundThreshold,
+      title: "保持警戒 · 造伤重投", locked: sourceRules.woundReroll === "ones",
+    }));
+  }
+  return sections.join("");
 }
 
 function calculatorWeaponMarkup(draft, side) {
   if (!draft.weapons?.length) return `<p class="calculator-missing">这张数据卡还没有结构化武器字段，暂时无法计算。请补充数据卡 JSON 后再试。</p>`;
-  return `<div class="calculator-weapons"><div class="calculator-section-heading"><strong>武器与攻击参数</strong><small>当前模式：${state.attackMode === "ranged" ? "远程射击" : "近战"}；可勾选参与计算的武器</small></div>${draft.weapons.map((weapon, index) => calculatorWeaponControlMarkup(weapon, side, index)).join("")}</div>`;
+  return `<div class="calculator-weapons"><div class="calculator-section-heading"><strong>武器与攻击参数</strong><small>当前模式：${state.attackMode === "ranged" ? "远程射击" : "近战"}；可勾选参与计算的武器</small></div>${draft.weapons.map((weapon, index) => calculatorWeaponControlMarkup(weapon, side, index, null, draft, draft.entry.name, "unit")).join("")}</div>`;
 }
 
-function calculatorWeaponControlMarkup(weapon, side, index, groupIndex = null) {
+function calculatorWeaponControlMarkup(weapon, side, index, groupIndex = null, draft = null, sourceName = "", sourceKey = "unit") {
   const scope = groupIndex === null
     ? `data-calc-weapon-index="${index}"`
     : `data-calc-group-index="${groupIndex}" data-calc-group-weapon-index="${index}"`;
@@ -547,7 +588,7 @@ function calculatorWeaponControlMarkup(weapon, side, index, groupIndex = null) {
   const inputType = selectionGroup ? "radio" : "checkbox";
   const selectionName = selectionGroup ? ` name="calc-weapon-${side}-${groupIndex ?? "unit"}-${escapeHtml(selectionGroup)}"` : "";
   const selectionNote = selectionGroup ? ` · 配装：${escapeHtml(selectionGroup)}（单选）` : "";
-  return `<div class="calculator-weapon ${weapon.type === state.attackMode ? "is-current" : ""}"><label class="check-row"><input type="${inputType}"${selectionName} data-calc-side="${side}" ${scope} data-calc-weapon-enabled ${weapon.enabled !== false ? "checked" : ""} /><span>${escapeHtml(weapon.name || `武器 ${index + 1}`)} · ${weapon.type === "melee" ? "近战" : "远程"}${selectionNote}</span></label><div class="calculator-weapon-fields"><label>数量<input type="number" min="0" data-calc-side="${side}" ${scope} data-calc-weapon-count value="${escapeHtml(weapon.modelCount ?? 1)}" /></label><label>攻击<input data-calc-side="${side}" ${scope} data-calc-weapon-field="attacks" value="${escapeHtml(weapon.attacks ?? "1")}" /></label><label>命中<input data-calc-side="${side}" ${scope} data-calc-weapon-field="skill" value="${escapeHtml(weapon.skill ?? "4+")}" /></label><label>力量<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="strength" value="${escapeHtml(weapon.strength ?? "0")}" /></label><label>AP<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="ap" value="${escapeHtml(weapon.ap ?? "0")}" /></label><label>伤害<input data-calc-side="${side}" ${scope} data-calc-weapon-field="damage" value="${escapeHtml(weapon.damage ?? "1")}" /></label></div><small class="weapon-keywords">${escapeHtml((weapon.abilities || []).join("、") || "无关键词")}</small></div>`;
+  return `<div class="calculator-weapon ${weapon.type === state.attackMode ? "is-current" : ""}"><label class="check-row"><input type="${inputType}"${selectionName} data-calc-side="${side}" ${scope} data-calc-weapon-enabled ${weapon.enabled !== false ? "checked" : ""} /><span>${escapeHtml(weapon.name || `武器 ${index + 1}`)} · ${weapon.type === "melee" ? "近战" : "远程"}${selectionNote}</span></label><div class="calculator-weapon-fields"><label>数量<input type="number" min="0" data-calc-side="${side}" ${scope} data-calc-weapon-count value="${escapeHtml(weapon.modelCount ?? 1)}" /></label><label>攻击<input data-calc-side="${side}" ${scope} data-calc-weapon-field="attacks" value="${escapeHtml(weapon.attacks ?? "1")}" /></label><label>命中<input data-calc-side="${side}" ${scope} data-calc-weapon-field="skill" value="${escapeHtml(weapon.skill ?? "4+")}" /></label><label>力量<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="strength" value="${escapeHtml(weapon.strength ?? "0")}" /></label><label>AP<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="ap" value="${escapeHtml(weapon.ap ?? "0")}" /></label><label>伤害<input data-calc-side="${side}" ${scope} data-calc-weapon-field="damage" value="${escapeHtml(weapon.damage ?? "1")}" /></label></div><small class="weapon-keywords">${escapeHtml((weapon.abilities || []).join("、") || "无关键词")}</small>${draft ? calculatorWeaponRerollMarkup(weapon, draft, side, sourceName, sourceKey, index) : ""}</div>`;
 }
 
 function calculatorJoinedMembersMarkup(draft, side) {
@@ -558,7 +599,7 @@ function calculatorJoinedMembersMarkup(draft, side) {
     const selected = member.id === selectedId;
     const weapons = selected ? draft.weapons : member.weapons;
     const weaponMarkup = weapons?.length
-      ? `<div class="calculator-member-weapons"><strong>武器</strong>${weapons.map((weapon, weaponIndex) => calculatorWeaponControlMarkup(weapon, side, weaponIndex, selected ? null : index)).join("")}</div>`
+      ? `<div class="calculator-member-weapons"><strong>武器</strong>${weapons.map((weapon, weaponIndex) => calculatorWeaponControlMarkup(weapon, side, weaponIndex, selected ? null : index, draft, member.name, selected ? "unit" : `member-${index}`)).join("")}</div>`
       : `<small class="weapon-keywords">武器：未结构化提取</small>`;
     return `<div class="calculator-joined-member"><div class="calculator-joined-member-heading"><strong>${escapeHtml(member.name)} · ${escapeHtml(member.role || "组成模型")}</strong><label>模型数量<input type="number" min="1" data-calc-side="${side}" data-calc-group-index="${index}" data-calc-group-model-count value="${escapeHtml(member.modelCount)}" /></label></div><div class="calculator-stats">${[["toughness", "坚韧"], ["save", "护甲"], ["invulnerableSave", "特殊保护"], ["woundsPerModel", "W/模型"]].map(([field, title]) => `<label>${title}<input data-calc-side="${side}" data-calc-group-index="${index}" data-calc-group-stat="${field}" value="${escapeHtml(calculatorStat(member.unit, field, field === "invulnerableSave" ? 0 : ""))}" /></label>`).join("")}</div>${weaponMarkup}</div>`;
   }).join("");
@@ -593,12 +634,16 @@ function updateCalculatorDraftFromControl(control) {
     draft.ruleSelections ||= {};
     draft.ruleSelections[control.dataset.calcRule] = control.type === "checkbox" ? Boolean(control.checked) : value;
   }
-  if (control.dataset.calcOathHit !== undefined) {
+  if (control.dataset.calcRerollFace !== undefined) {
+    const key = control.dataset.calcRerollKey;
     const face = Number(control.value);
-    const selected = new Set((draft.oathHitValues || []).map(Number));
-    if (control.checked) selected.add(face);
-    else selected.delete(face);
-    draft.oathHitValues = [...selected].filter((item) => item >= 1 && item <= 6).sort((a, b) => a - b);
+    draft.rerollSelections ||= {};
+    const selection = draft.rerollSelections[key] ||= { configured: true, faces: [] };
+    selection.configured = true;
+    const faces = new Set((selection.faces || []).map(Number));
+    if (control.checked) faces.add(face);
+    else faces.delete(face);
+    selection.faces = [...faces].filter((item) => item >= 1 && item <= 6).sort((a, b) => a - b);
   }
   if (control.dataset.calcOathWound !== undefined) draft.oathWoundBonus = Boolean(value);
   if (control.dataset.calcStat) {
@@ -758,7 +803,7 @@ function buildSelectedRoundPayload() {
   const attackerSources = attackerDraft.joinedMembers?.length
     ? attackerDraft.joinedMembers.map((member) => member.id === attacker.rosterUnit?.id
       ? {
-        name: attacker.name, unit: attackerUnit, weapons: attackerDraft.weapons, modelCount: attackerDraft.modelCount,
+        id: attacker.rosterUnit?.id, name: attacker.name, unit: attackerUnit, weapons: attackerDraft.weapons, modelCount: attackerDraft.modelCount,
         initialModelCount: attackerDraft.initialModelCount, remainingWounds: attackerDraft.remainingWounds,
       }
       : member)
@@ -784,25 +829,36 @@ function buildSelectedRoundPayload() {
   }), { hitModifier: 0, woundModifier: 0, ignoreHitModifiers: false, martialChoices: [] });
   const weaponGroups = attackerSources.flatMap((source) => {
     const sourceRules = sourceRuleEntries.find((entry) => entry.source === source)?.effects || {};
+    const sourceKey = !attackerDraft.joinedMembers.length || (source.id && source.id === attacker.rosterUnit?.id) ? "unit" : `member-${attackerDraft.joinedMembers.indexOf(source)}`;
     const hasMartialKatah = state.attackMode === "melee" && (window.WarhammerRuleResolver?.isMartialKatahUnit(attacker.faction, source.name) || /禁军武艺/.test(String(source.unit?.abilities || "")));
     const martialKatah = hasMartialKatah ? [attackerDraft.martialKatah, ...sharedJoinedRules.martialChoices].filter((choice) => choice && choice !== "none") : [];
     const oathOfMoment = unitHasOathOfMoment(source.unit, attacker.faction)
-      ? { hitValues: attackerDraft.oathHitValues || [], woundBonus: Boolean(attackerDraft.oathWoundBonus) }
+      ? { woundBonus: Boolean(attackerDraft.oathWoundBonus) }
       : {};
-    const groups = (source.weapons || []).filter((weapon) => weapon.enabled !== false && weapon.type === state.attackMode && Number(weapon.modelCount ?? source.modelCount ?? 1) > 0).map((weapon) => {
+    const groups = (source.weapons || []).map((weapon, weaponIndex) => ({ weapon, weaponIndex }))
+      .filter(({ weapon }) => weapon.enabled !== false && weapon.type === state.attackMode && Number(weapon.modelCount ?? source.modelCount ?? 1) > 0)
+      .map(({ weapon, weaponIndex }) => {
       const attackOverride = sourceRules.weaponAttackOverride?.name === weapon.name ? sourceRules.weaponAttackOverride.value : weapon.attacks;
       const hitModifier = sharedJoinedRules.hitModifier + (sharedJoinedRules.ignoreHitModifiers ? 0 : defenderRuleEffects.incomingHitModifier);
       const conditionalWoundModifier = Number(weapon.strength || 0) > toughness ? defenderRuleEffects.incomingWoundWhenStrengthGreater : 0;
       const woundModifier = sharedJoinedRules.woundModifier + defenderRuleEffects.incomingWoundModifier + conditionalWoundModifier;
+      const hitThreshold = String(weapon.skill || "").toLowerCase() === "torrent" ? 7 : parseSkill(weapon.skill);
+      const woundThreshold = woundTarget(Number(weapon.strength || 0), toughness);
+      const oathReroll = unitHasOathOfMoment(source.unit, attacker.faction) && hitThreshold <= 6
+        ? resolvedRerollSelection(attackerDraft, "oath-hit", sourceKey, weaponIndex, hitThreshold)
+        : { type: "none", values: [] };
+      const guardReroll = sourceRules.woundReroll === "failed"
+        ? resolvedRerollSelection(attackerDraft, "guard-wound", sourceKey, weaponIndex, woundThreshold)
+        : { type: sourceRules.woundReroll || "", values: [] };
       return {
         name: `${source.name} · ${weapon.name}`,
         modelCount: Number(weapon.modelCount ?? source.modelCount ?? 1),
         attacks: attackOverride,
         hit: String(weapon.skill || "").toLowerCase() === "torrent" ? "torrent" : parseSkill(weapon.skill),
-        wound: woundTarget(Number(weapon.strength || 0), toughness),
+        wound: woundThreshold,
         ap: Math.max(0, Math.abs(Number(weapon.ap || 0)) + defenderRuleEffects.incomingApModifier),
         damage: weapon.damage,
-        effects: weaponEffectsFromKeywords(weapon, martialKatah, oathOfMoment, sourceRules, { hitModifier, woundModifier }),
+        effects: weaponEffectsFromKeywords(weapon, martialKatah, { ...oathOfMoment, hitReroll: oathReroll }, { ...sourceRules, woundReroll: guardReroll.type, woundRerollValues: guardReroll.values }, { hitModifier, woundModifier }),
       };
     });
     return sourceRules.repeatRanged ? [...groups, ...groups.map((group) => ({ ...group, name: `${group.name}（枪林弹雨）` }))] : groups;
@@ -1368,13 +1424,15 @@ function weaponEffectsFromKeywords(weapon, martialKatah = [], oathOfMoment = {},
   const hasLethal = /致命命中|致命一击|lethal/i.test(keywords);
   const hasDevastating = /毁灭性伤口|毁灭性伤害|毁灭伤害|devastating/i.test(keywords);
   const hasTwinLinked = /双联|twin-?linked/i.test(keywords);
-  const oathHitValues = [...new Set((oathOfMoment?.hitValues || []).map(Number).filter((value) => value >= 1 && value <= 6))];
+  const oathReroll = oathOfMoment?.hitReroll || { type: "none", values: [] };
+  const oathHitValues = [...new Set((oathReroll.values || []).map(Number).filter((value) => value >= 1 && value <= 6))];
   const oathWoundBonus = Boolean(oathOfMoment?.woundBonus);
   const martialChoices = Array.isArray(martialKatah) ? martialKatah : [martialKatah];
   const ruleWoundReroll = ruleEffects.woundReroll || "";
+  const ruleWoundRerollValues = [...new Set((ruleEffects.woundRerollValues || []).map(Number).filter((value) => value >= 1 && value <= 6))];
   return emptyWeaponEffects({
-    hitRerollAllEnabled: oathHitValues.length > 0,
-    hitRerollAllType: "specific",
+    hitRerollAllEnabled: oathReroll.type && oathReroll.type !== "none",
+    hitRerollAllType: oathReroll.type || "ones",
     hitRerollAllValues: oathHitValues,
     hitModifierEnabled: Boolean(modifiers.hitModifier),
     hitModifierValue: Number(modifiers.hitModifier || 0),
@@ -1386,6 +1444,7 @@ function weaponEffectsFromKeywords(weapon, martialKatah = [], oathOfMoment = {},
     devastatingWoundsEnabled: hasDevastating || Boolean(ruleEffects.devastating),
     woundRerollAllEnabled: hasTwinLinked || Boolean(ruleWoundReroll),
     woundRerollAllType: ruleWoundReroll || "failed",
+    woundRerollAllValues: ruleWoundRerollValues,
   });
 }
 

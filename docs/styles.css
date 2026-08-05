@@ -233,6 +233,16 @@ h4 { font-size: 16px; letter-spacing: -.02em; }
 .calculator-oath-faces { display: flex; flex-wrap: wrap; gap: 5px; }
 .calculator-oath-faces label { display: inline-flex; align-items: center; gap: 3px; border: 1px solid var(--line); border-radius: 6px; padding: 4px 6px; color: var(--text); }
 .calculator-oath-faces input { width: auto; margin: 0; accent-color: var(--gold); }
+.calculator-reroll-control { display: grid; gap: 5px; margin-top: 9px; border: 1px solid rgba(211,163,74,.32); border-radius: 8px; padding: 8px; background: rgba(74,54,22,.16); }
+.calculator-reroll-control strong { color: #e8d39a; font-size: 10px; }
+.calculator-reroll-control small { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.35; }
+.calculator-reroll-faces { display: flex; flex-wrap: wrap; gap: 5px; }
+.calculator-reroll-faces label { display: inline-flex; align-items: center; justify-content: center; min-width: 27px; border: 1px solid var(--line); border-radius: 6px; padding: 4px 6px; color: var(--text); font-size: 11px; }
+.calculator-reroll-faces label.is-failure { border-color: rgba(224,117,102,.42); background: rgba(150,55,45,.17); }
+.calculator-reroll-faces label.is-success { border-color: rgba(93,191,145,.34); background: rgba(42,116,82,.14); }
+.calculator-reroll-faces label.is-selected { border-color: var(--gold-bright); background: rgba(211,163,74,.32); color: #fff1cb; }
+.calculator-reroll-faces input { display: none; }
+.calculator-reroll-control.is-locked { border-color: rgba(255,255,255,.15); background: rgba(255,255,255,.025); }
 .calculator-weapons { margin-top: 13px; }
 .calculator-section-heading { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
 .calculator-section-heading strong { font-size: 12px; }
