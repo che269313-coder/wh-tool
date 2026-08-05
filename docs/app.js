@@ -13,6 +13,7 @@ const BUILTIN_LIBRARY_FILES = [
   "data/帝皇禁军/帝皇禁军10版中文老湿腐版1.07.pdf",
   "data/帝皇禁军/数据卡-OCR-可检索.md",
   "data/帝皇禁军/帝皇禁军-全部数据卡.json",
+  "data/帝皇禁军/帝皇禁军-结构化数据卡.json",
   "data/星际战士/星际战士11版中文1.0.pdf",
   "data/星际战士/分遣队规则-可检索.md",
   "data/星际战士/数据卡-可检索.md",
@@ -36,6 +37,7 @@ const BUILTIN_FILE_METADATA = {
   "AI-战斗规则摘要.md": { faction: "规则书", kind: "rulebook", builtin: true },
   "数据卡-OCR-可检索.md": { faction: "帝皇禁军", kind: "datasheet", builtin: true },
   "帝皇禁军-全部数据卡.json": { faction: "帝皇禁军", kind: "datasheet", builtin: true },
+  "帝皇禁军-结构化数据卡.json": { faction: "帝皇禁军", kind: "datasheet", builtin: true },
   "分遣队规则-可检索.md": { faction: "星际战士", kind: "detachment", builtin: true },
   "数据卡-可检索.md": { faction: "星际战士", kind: "datasheet", builtin: true },
   "星际战士-全部数据卡.json": { faction: "星际战士", kind: "datasheet", builtin: true },
@@ -84,41 +86,9 @@ const DATASHEET_ALIASES = {
     "苏博登可汗(主将)": ["速不台可汗"],
   },
 };
-const UNIT_PROFILE_OVERRIDES = {
-  // 扫描版禁军卡的结构化 OCR 只保留了单位名；这些是对照原卡录入的基础属性、默认模型数和武器。
-  "图拉真元帅": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 7, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；不知疼痛 5+；禁军武艺；禁军元帅", activeAbilities: "时间锁（每场游戏一次，近战阶段开始时）", weapons: [{ name: "雄鹰咆哮", type: "ranged", attacks: "2", skill: "2+", strength: 5, ap: -2, damage: "3", abilities: ["突击"] }, { name: "守望者战斧", type: "melee", attacks: "6", skill: "2+", strength: 10, ap: -2, damage: "3", abilities: [] }] },
-  "瓦雷利安连长": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；不知疼痛 6+；禁军武艺", activeAbilities: "狮门英杰（一次性）", weapons: [{ name: "真知战矛", type: "ranged", attacks: "3", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "真知战矛", type: "melee", attacks: "7", skill: "2+", strength: 8, ap: -3, damage: "2", abilities: [] }] },
-  "盾卫连长": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；禁军武艺", activeAbilities: "武艺大师（每场游戏一次）", weapons: [{ name: "堡主战斧", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "热熔长矛", type: "ranged", attacks: "2", skill: "2+", strength: 9, ap: -4, damage: "d6", abilities: ["热熔 2"] }, { name: "哨兵之剑", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击", "手枪"] }, { name: "堡主战斧", type: "melee", attacks: "6", skill: "2+", strength: 9, ap: -1, damage: "3", abilities: [] }, { name: "卫士之矛", type: "melee", attacks: "7", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }, { name: "热熔长矛", type: "melee", attacks: "7", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }, { name: "哨兵之剑", type: "melee", attacks: "7", skill: "2+", strength: 6, ap: -2, damage: "1", abilities: [] }] },
-  "剑锋冠军": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 6, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；禁军武艺", activeAbilities: "", weapons: [{ name: "宝库之剑（斩首）", selectionGroup: "宝库之剑", type: "melee", attacks: "6", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: ["精准"] }, { name: "宝库之剑（疾风）", selectionGroup: "宝库之剑", type: "melee", attacks: "9", skill: "2+", strength: 5, ap: -1, damage: "1", abilities: ["连击 1"] }, { name: "宝库之剑（炫光）", selectionGroup: "宝库之剑", type: "melee", attacks: "5", skill: "2+", strength: 6, ap: -3, damage: "3", abilities: ["毁灭伤害"] }] },
-  "终结者盾卫连长": { movement: 5, toughness: 7, save: 2, invulnerableSave: 4, woundsPerModel: 7, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；深入打击；禁军武艺", activeAbilities: "金光战甲；精熟战略", weapons: [{ name: "堡主战斧", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "强势榴弹发射器", type: "ranged", attacks: "d6", skill: "2+", strength: 4, ap: -1, damage: "1", abilities: ["爆炸"] }, { name: "堡主战斧", type: "melee", attacks: "6", skill: "2+", strength: 9, ap: -1, damage: "3", abilities: [] }, { name: "卫士之矛", type: "melee", attacks: "7", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }] },
-  "摩托盾卫连长": { movement: 12, toughness: 7, save: 2, invulnerableSave: 4, woundsPerModel: 8, models: 1, leadership: "6+", objectiveControl: 2, abilities: "领袖；禁军武艺", activeAbilities: "扫荡进军；精熟战略", weapons: [{ name: "晨鹰风暴爆弹枪", type: "ranged", attacks: "3", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["速射 3", "双联"] }, { name: "集束导弹", type: "ranged", attacks: "1", skill: "2+", strength: 10, ap: -3, damage: "d6+1", abilities: ["双联"] }, { name: "拦截者骑枪", type: "melee", attacks: "6", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: ["迅猛冲锋"] }] },
-  "禁军盾卫": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 3, models: 4, leadership: "6+", objectiveControl: 2, abilities: "深入打击；禁军武艺", activeAbilities: "坚守阵地（按数据卡选择）", weapons: [{ name: "卫士之矛", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "哨兵之剑", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击", "手枪"] }, { name: "卫士之矛", type: "melee", attacks: "5", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }, { name: "誓约匕首", type: "melee", attacks: "5", skill: "2+", strength: 5, ap: -2, damage: "1", abilities: [] }, { name: "哨兵之剑", type: "melee", attacks: "5", skill: "2+", strength: 6, ap: -2, damage: "1", abilities: [] }] },
-  "阿拉鲁斯终结者": { movement: 5, toughness: 7, save: 2, invulnerableSave: 4, woundsPerModel: 4, models: 2, leadership: "6+", objectiveControl: 2, abilities: "深入打击；禁军武艺；暴君杀手；自金光降下", activeAbilities: "", weapons: [{ name: "堡主战斧", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "堡主战斧", type: "melee", attacks: "4", skill: "2+", strength: 9, ap: -1, damage: "3", abilities: [] }, { name: "卫士之矛", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛", type: "melee", attacks: "5", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }, { name: "强势榴弹发射器", type: "ranged", attacks: "d6", skill: "2+", strength: 4, ap: -1, damage: "1", abilities: ["爆炸"] }, { name: "誓约匕首", type: "melee", attacks: "5", skill: "2+", strength: 5, ap: -2, damage: "1", abilities: [] }] },
-  "禁军守望者": { movement: 6, toughness: 6, save: 2, invulnerableSave: 4, woundsPerModel: 3, models: 4, leadership: "6+", objectiveControl: 2, abilities: "深入打击；禁军武艺；坚定意志", activeAbilities: "坚守阵地（按数据卡选择）", weapons: [{ name: "堡主战斧", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "堡主战斧", type: "melee", attacks: "4", skill: "2+", strength: 9, ap: -1, damage: "3", abilities: [] }, { name: "卫士之矛", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["突击"] }, { name: "卫士之矛", type: "melee", attacks: "5", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: [] }] },
-  "晨鹰摩托队": { movement: 12, toughness: 7, save: 2, invulnerableSave: 4, woundsPerModel: 5, models: 2, leadership: "6+", objectiveControl: 2, abilities: "禁军武艺", activeAbilities: "涡轮加速（本单位加速时）", weapons: [{ name: "晨鹰风暴爆弹枪", type: "ranged", attacks: "3", skill: "2+", strength: 4, ap: -1, damage: "2", abilities: ["速射 3", "双联"] }, { name: "集束导弹", type: "ranged", attacks: "1", skill: "2+", strength: 10, ap: -3, damage: "d6+1", abilities: ["双联"] }, { name: "拦截者骑枪", type: "melee", attacks: "5", skill: "2+", strength: 7, ap: -2, damage: "2", abilities: ["迅猛冲锋"] }] },
-  "神圣蔑视者无畏机甲": { movement: 6, toughness: 9, save: 2, invulnerableSave: 5, woundsPerModel: 10, models: 1, leadership: "6+", objectiveControl: 3, abilities: "致命破坏；无畏机甲协议", activeAbilities: "自动修复（每回合一次）", weapons: [{ name: "并联爆弹枪", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: 0, damage: "1", abilities: ["速射 2"] }, { name: "可瑞斯斩击炮", type: "ranged", attacks: "6", skill: "2+", strength: 7, ap: -1, damage: "1", abilities: ["毁灭性伤口"] }, { name: "多管热熔", type: "ranged", attacks: "2", skill: "2+", strength: 9, ap: -4, damage: "d6", abilities: ["热熔 2"] }, { name: "蔑视者铁拳", type: "melee", attacks: "5", skill: "2+", strength: 12, ap: -2, damage: "3", abilities: [] }] },
-  "神圣兰德掠袭者坦克": { movement: 10, toughness: 12, save: 2, invulnerableSave: 0, woundsPerModel: 16, models: 1, leadership: "6+", objectiveControl: 5, abilities: "致命破坏；坚固装甲", activeAbilities: "自动修复（每回合一次）", weapons: [{ name: "风暴爆弹枪", type: "ranged", attacks: "2", skill: "2+", strength: 4, ap: 0, damage: "1", abilities: ["速射 2"] }, { name: "猎杀飞弹", type: "ranged", attacks: "1", skill: "2+", strength: 14, ap: -3, damage: "d6", abilities: ["一次性"] }, { name: "双联重型爆弹枪", type: "ranged", attacks: "3", skill: "2+", strength: 5, ap: -1, damage: "2", abilities: ["连击 1", "双联"] }, { name: "神锤激光炮", type: "ranged", attacks: "2", skill: "2+", strength: 12, ap: -3, damage: "d6+1", abilities: [] }, { name: "精金履带", type: "melee", attacks: "6", skill: "4+", strength: 8, ap: 0, damage: "1", abilities: [] }] },
-  "灭魔教团百夫长": { movement: 6, toughness: 3, save: 3, invulnerableSave: 5, woundsPerModel: 4, models: 1, leadership: "6+", objectiveControl: 1, abilities: "领袖；扩候；不知疼痛 5+", activeAbilities: "处决协议（一次性）", weapons: [{ name: "精工爆弹枪", type: "ranged", attacks: "1", skill: "2+", strength: 4, ap: 0, damage: "2", abilities: ["速射 1"] }, { name: "猎巫喷火器", type: "ranged", attacks: "d6", skill: "torrent", strength: 4, ap: 0, damage: "1", abilities: ["torrent"] }, { name: "格斗武器", type: "melee", attacks: "3", skill: "2+", strength: 3, ap: 0, damage: "1", abilities: [] }, { name: "处决者巨剑", type: "melee", attacks: "3", skill: "2+", strength: 5, ap: -2, damage: "2", abilities: ["反灵能者 5+", "毁灭性伤口"] }] },
-  "艾雷雅": { movement: 6, toughness: 3, save: 3, invulnerableSave: 5, woundsPerModel: 4, models: 1, leadership: "6+", objectiveControl: 1, abilities: "领袖；慰候 6+；不知疼痛 5+", activeAbilities: "战术洞察（一次性）", weapons: [{ name: "安眠", type: "melee", attacks: "4", skill: "2+", strength: 6, ap: -3, damage: "3", abilities: ["反灵能者 5+", "毁灭性伤口"] }] },
-  "控诉者": { movement: 6, toughness: 3, save: 3, invulnerableSave: 0, woundsPerModel: 1, models: 3, leadership: "6+", objectiveControl: 2, abilities: "净化处决；拥有精准和毁灭性伤口", activeAbilities: "灵能猎杀（条件性）", weapons: [{ name: "爆弹枪", type: "ranged", attacks: "1", skill: "3+", strength: 4, ap: 0, damage: "1", abilities: ["速射 1"] }, { name: "格斗武器", type: "melee", attacks: "2", skill: "3+", strength: 3, ap: 0, damage: "1", abilities: [] }] },
-  "戒卫者": { movement: 6, toughness: 3, save: 3, invulnerableSave: 0, woundsPerModel: 1, models: 3, leadership: "6+", objectiveControl: 1, abilities: "迅捷格挡；深沉之女", activeAbilities: "反灵能者姿态（条件性）", weapons: [{ name: "处决者巨剑", type: "melee", attacks: "2", skill: "3+", strength: 5, ap: -2, damage: "2", abilities: ["反灵能者 5+", "毁灭性伤口"] }] },
-  "猎巫者": { movement: 6, toughness: 3, save: 3, invulnerableSave: 0, woundsPerModel: 1, models: 3, leadership: "6+", objectiveControl: 1, abilities: "斥候 6；猎巫者", activeAbilities: "利刃烈焰（条件性）", weapons: [{ name: "猎巫喷火器", type: "ranged", attacks: "d6", skill: "torrent", strength: 4, ap: 0, damage: "1", abilities: ["torrent"] }, { name: "格斗武器", type: "melee", attacks: "2", skill: "3+", strength: 3, ap: 0, damage: "1", abilities: [] }] },
-  "灭魔教团犀牛装甲车": { movement: 12, toughness: 9, save: 3, invulnerableSave: 0, woundsPerModel: 10, models: 1, leadership: "6+", objectiveControl: 2, abilities: "致命破坏；自行修理", activeAbilities: "烟幕（一次性）", weapons: [{ name: "风暴爆弹枪", type: "ranged", attacks: "2", skill: "3+", strength: 4, ap: 0, damage: "1", abilities: ["速射 2"] }, { name: "猎杀飞弹", type: "ranged", attacks: "1", skill: "2+", strength: 14, ap: -3, damage: "d6", abilities: ["一次性"] }, { name: "装甲履带", type: "melee", attacks: "3", skill: "4+", strength: 6, ap: 0, damage: "1", abilities: [] }] },
-  "神鸟反重力坦克": { movement: 10, toughness: 10, save: 2, invulnerableSave: 5, woundsPerModel: 14, models: 1, leadership: "6+", objectiveControl: 4, abilities: "致命破坏 D3；悬浮", activeAbilities: "高级火力（目标类型条件性致命命中）", weapons: [{ name: "并联拉斯托姆型爆弹炮", type: "ranged", attacks: "3", skill: "2+", strength: 6, ap: -1, damage: "1", abilities: ["连击 1"] }, { name: "并联阿拉克努斯重型爆炎炮", type: "ranged", attacks: "4", skill: "2+", strength: 12, ap: -3, damage: "d6+2", abilities: ["双联"] }, { name: "装甲外壳", type: "melee", attacks: "4", skill: "4+", strength: 6, ap: 0, damage: "1", abilities: [] }] },
-  "警戒者": { movement: 6, toughness: 3, save: 3, invulnerableSave: 0, woundsPerModel: 1, models: 4, leadership: "6+", objectiveControl: 1, abilities: "迅捷格挡；深沉之女", activeAbilities: "反灵能者姿态（条件性）", weapons: [{ name: "处决者巨剑", type: "melee", attacks: "2", skill: "3+", strength: 5, ap: -2, damage: "2", abilities: ["反灵能者 5+", "毁灭性伤口"] }] },
-};
-const PROFILE_DEFAULT_EQUIPMENT = {
-  "盾卫连长": "卫士之矛",
-  "终结者盾卫连长": "卫士之矛",
-  "禁军盾卫": "卫士之矛",
-  "阿拉鲁斯终结者": "卫士之矛",
-  "禁军守望者": "卫士之矛",
-  "晨鹰摩托队": "晨鹰风暴爆弹枪",
-  "神鸟反重力坦克": "并联拉斯托姆型爆弹炮 并联阿拉克努斯重型爆炎炮",
-  "警戒者": "处决者巨剑",
-};
 const CALCULATOR_CARD_FILES = [
   "data/帝皇禁军/帝皇禁军-全部数据卡.json",
+  "data/帝皇禁军/帝皇禁军-结构化数据卡.json",
   "data/星际战士/星际战士-全部数据卡.json",
 ];
 const DIGITAL_UNIT_ALIASES = {
@@ -131,9 +101,14 @@ const DIGITAL_UNIT_ALIASES = {
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 
+function unitNameCandidates(name) {
+  const source = String(name || "");
+  const normalized = source.replace(/\([^)]*\)/g, "").trim();
+  return [...new Set([source, normalized, ...(DATASHEET_ALIASES["帝皇禁军"]?.[source] || []), ...(DATASHEET_ALIASES["白色疤痕"]?.[source] || [])].filter(Boolean))];
+}
+
 function getUnitProfile(name) {
-  const candidates = [name, String(name || "").replace(/\([^)]*\)/g, "").trim(), ...(DATASHEET_ALIASES["帝皇禁军"]?.[name] || [])];
-  return candidates.map((candidate) => UNIT_PROFILE_OVERRIDES[candidate]).find(Boolean) || null;
+  return findStructuredCalculatorCard(name)?.data?.unit || null;
 }
 
 function loadSettings() {
@@ -336,21 +311,27 @@ function getCalculatorEntry(side) {
 }
 
 function findStructuredCalculatorCard(name) {
-  const aliases = [name, name.replace(/\([^)]*\)/g, "").trim(), ...(DATASHEET_ALIASES["帝皇禁军"]?.[name] || []), ...(DATASHEET_ALIASES["白色疤痕"]?.[name] || [])];
+  const aliases = unitNameCandidates(name);
   return state.calculatorCards.find((card) => card.structured && aliases.includes(card.name));
 }
 
+function normalizeCalculatorCardData(data) {
+  if (!data?.unit) return data || null;
+  const sourceAbilities = Array.isArray(data.abilities)
+    ? data.abilities.map((ability) => ability?.text || ability?.name).filter(Boolean).join("；")
+    : "";
+  return {
+    ...data,
+    unit: {
+      ...data.unit,
+      abilities: data.unit.abilities || sourceAbilities,
+    },
+  };
+}
+
 function getCalculatorCardData(entry) {
-  if (entry?.data?.unit) {
-    const profile = getUnitProfile(entry.data.unit.name || entry.name);
-    if (!profile) return entry.data;
-    const { weapons: profileWeapons, ...profileUnit } = profile;
-    return { ...entry.data, unit: { ...profileUnit, ...entry.data.unit }, weapons: entry.data.weapons?.length ? entry.data.weapons : (profileWeapons || []) };
-  }
-  const profile = getUnitProfile(entry?.name);
-  if (!profile) return null;
-  const { weapons, ...unitProfile } = profile;
-  return { faction: entry.faction || "帝皇禁军", kind: "datasheet-profile", unit: { name: entry.name, ...unitProfile }, weapons: weapons || [] };
+  if (entry?.data?.unit) return normalizeCalculatorCardData(entry.data);
+  return normalizeCalculatorCardData(findStructuredCalculatorCard(entry?.name)?.data);
 }
 
 function cloneCalculatorValue(value) {
@@ -424,7 +405,7 @@ function setCalculatorWeaponEnabled(weapons, index, enabled) {
 function enabledCalculatorWeapons(data, entryName, rosterUnit) {
   const baseUnit = data?.unit || {};
   const baseWeapons = Array.isArray(data?.weapons) ? cloneCalculatorValue(data.weapons) : [];
-  const defaultEquipment = baseUnit.defaultEquipment || PROFILE_DEFAULT_EQUIPMENT[entryName] || "";
+  const defaultEquipment = baseUnit.defaultEquipment || "";
   const defaultModels = Math.max(1, Number(rosterUnit ? activeModels(rosterUnit).length : baseUnit.models || baseUnit.defaultModels || 1) || 1);
   const matching = rosterUnit
     ? baseWeapons.map((weapon) => weaponMatchesRoster(weapon, rosterUnit))
@@ -1072,7 +1053,9 @@ async function loadCalculatorCards() {
       for (const card of parsed.cards || []) {
         if (!card.name || categoryNames.has(card.name) || card.name.startsWith("⚫") || /爆弹枪|复合武器|雷霆锤/.test(card.name)) continue;
         const key = `${parsed.faction}:${card.name}`;
-        if (!cards.has(key)) cards.set(key, { faction: parsed.faction, name: card.name, page: card.page, structured: Boolean(card.unit), data: card.unit ? card : null });
+        const candidate = { faction: parsed.faction, name: card.name, page: card.page, structured: Boolean(card.unit), data: card.unit ? card : null };
+        const existing = cards.get(key);
+        if (!existing || (candidate.structured && !existing.structured)) cards.set(key, candidate);
       }
     } catch {
       // 本地 file:// 预览可能禁止 fetch；军表选项仍然可用。
@@ -1107,10 +1090,6 @@ async function loadCalculatorCards() {
       // 页面离线时仍保留已经加载的军表和 JSON 数据卡。
     }
   }
-  Object.keys(UNIT_PROFILE_OVERRIDES).forEach((name) => {
-    if (state.calculatorCards.some((card) => card.name === name)) return;
-    state.calculatorCards.push({ faction: "帝皇禁军", name, page: `profile-${name}`, structured: false, data: null, profileOnly: true });
-  });
   applyDatasheetWoundsToRosters();
   renderCalculatorSelectors();
 }

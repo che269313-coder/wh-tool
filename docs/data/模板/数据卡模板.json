@@ -1,37 +1,130 @@
 {
   "faction": "示例阵营",
-  "kind": "datasheet",
-  "unit": {
-    "name": "示例单位",
-    "models": 5,
-    "woundsPerModel": 3,
-    "toughness": 5,
-    "save": 2,
-    "invulnerableSave": null,
-    "feelNoPain": null,
-    "keywords": []
+  "kind": "datasheet-profiles",
+  "schemaVersion": 1,
+  "source": {
+    "file": "来源 PDF 文件名.pdf",
+    "version": "规则版本与勘误日期",
+    "language": "简体中文"
   },
-  "weapons": [
+  "cards": [
     {
-      "name": "示例远程武器",
-      "type": "ranged",
-      "attacks": "2",
-      "skill": 2,
-      "strength": 5,
-      "ap": 1,
-      "damage": "2",
-      "abilities": []
-    },
-    {
-      "name": "示例近战武器",
-      "type": "melee",
-      "attacks": "3",
-      "skill": 2,
-      "strength": 6,
-      "ap": 2,
-      "damage": "2",
-      "abilities": []
+      "id": "example.faction.example-unit",
+      "name": "示例单位",
+      "englishName": "Example Unit",
+      "page": 1,
+      "source": {
+        "file": "来源 PDF 文件名.pdf",
+        "page": 1,
+        "extraction": "visual-table-check"
+      },
+      "unit": {
+        "name": "示例单位",
+        "models": 5,
+        "movement": 6,
+        "toughness": 5,
+        "save": 2,
+        "invulnerableSave": null,
+        "woundsPerModel": 3,
+        "leadership": "6+",
+        "objectiveControl": 2,
+        "defaultEquipment": "示例远程武器；示例近战武器"
+      },
+      "composition": {
+        "minModels": 5,
+        "maxModels": 10,
+        "text": "单位构成的原文"
+      },
+      "weapons": [
+        {
+          "id": "example-ranged",
+          "name": "示例远程武器",
+          "type": "ranged",
+          "range": "24\"",
+          "attacks": "2",
+          "skill": "2+",
+          "strength": 5,
+          "ap": -1,
+          "damage": "2",
+          "abilities": ["突击"]
+        },
+        {
+          "id": "example-melee",
+          "name": "示例近战武器",
+          "type": "melee",
+          "attacks": "3",
+          "skill": "2+",
+          "strength": 6,
+          "ap": -2,
+          "damage": "2",
+          "abilities": []
+        },
+        {
+          "id": "example-mode-a",
+          "name": "示例武器（模式 A）",
+          "selectionGroup": "示例武器模式",
+          "type": "melee",
+          "attacks": "5",
+          "skill": "2+",
+          "strength": 6,
+          "ap": -2,
+          "damage": "2",
+          "abilities": []
+        },
+        {
+          "id": "example-mode-b",
+          "name": "示例武器（模式 B）",
+          "selectionGroup": "示例武器模式",
+          "type": "melee",
+          "attacks": "8",
+          "skill": "2+",
+          "strength": 5,
+          "ap": -1,
+          "damage": "1",
+          "abilities": ["连击 1"]
+        }
+      ],
+      "wargearOptions": [
+        {
+          "text": "装备选项原文",
+          "replace": "被替换的装备名称",
+          "with": "替换后的装备名称",
+          "limit": "每个模型 1 件"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "example-faction-rule",
+          "name": "示例阵营技能",
+          "category": "faction",
+          "text": "数据卡或规则书原文；不要自行总结。",
+          "phase": ["melee"],
+          "condition": "触发条件原文",
+          "uses": "unlimited",
+          "status": "displayOnly"
+        },
+        {
+          "id": "example-unit-rule",
+          "name": "示例单位技能",
+          "category": "unit",
+          "text": "单位技能原文；不要改写。",
+          "phase": ["ranged", "melee"],
+          "condition": "触发条件原文",
+          "uses": "oncePerBattle",
+          "status": "needsReview"
+        }
+      ],
+      "keywords": ["步兵", "人物", "示例阵营"],
+      "leader": {
+        "canLead": ["可领导的单位名称"],
+        "text": "领袖规则原文"
+      },
+      "extraction": {
+        "rawText": "该页原始 OCR 或数字文本",
+        "confidence": "high",
+        "needsReview": false
+      },
+      "verification": "表格数值已按 PDF 原页人工核对。"
     }
-  ],
-  "source": "请填写规则版本、页码或官方来源"
+  ]
 }
