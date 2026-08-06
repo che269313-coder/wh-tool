@@ -1150,6 +1150,24 @@
       "composition": {
         "text": "1个瘟疫冠军，4-9个瘟疫战士，每个模型32mm底盘"
       },
+      "modelProfiles": [
+        {
+          "id": "champion",
+          "name": "瘟疫冠军",
+          "role": "队长",
+          "matchIncludes": ["冠军"],
+          "count": 1,
+          "defaultEquipment": "爆弹枪，瘟疫短刀",
+          "weaponNames": ["爆弹枪", "爆弹手枪", "等离子枪", "等离子手枪", "瘟疫短刀", "病毒武器", "动力拳"]
+        },
+        {
+          "id": "trooper",
+          "name": "瘟疫战士",
+          "role": "普通队员",
+          "remaining": true,
+          "defaultEquipment": "爆弹枪，瘟疫短刀"
+        }
+      ],
       "keywords": [
         "战线",
         "步兵",
@@ -1434,6 +1452,23 @@
       "composition": {
         "text": "1个腐毒领主终结者冠军，2-9个腐毒领主终结者，每个模型40mm底盘"
       },
+      "modelProfiles": [
+        {
+          "id": "champion",
+          "name": "腐毒领主终结者冠军",
+          "role": "队长",
+          "matchIncludes": ["冠军"],
+          "count": 1,
+          "defaultEquipment": "复合爆弹枪，疫病刀锋"
+        },
+        {
+          "id": "trooper",
+          "name": "腐毒领主终结者",
+          "role": "普通队员",
+          "remaining": true,
+          "defaultEquipment": "复合爆弹枪，疫病刀锋"
+        }
+      ],
       "keywords": [
         "步兵",
         "混沌",
@@ -1583,6 +1618,26 @@
       "composition": {
         "text": "1个死亡寿衣终结者冠军，2-5个死亡寿衣终结者，每个模型40mm底盘"
       },
+      "modelProfiles": [
+        {
+          "id": "champion",
+          "name": "死亡寿衣终结者冠军",
+          "role": "队长",
+          "matchIncludes": ["冠军"],
+          "count": 1,
+          "defaultEquipment": "瘟疫喷射拳套，屠人镰",
+          "weaponMultipliers": {
+            "瘟疫喷射拳套": 2
+          }
+        },
+        {
+          "id": "trooper",
+          "name": "死亡寿衣终结者",
+          "role": "普通队员",
+          "remaining": true,
+          "defaultEquipment": "瘟疫喷射拳套，屠人镰"
+        }
+      ],
       "keywords": [
         "步兵",
         "混沌",
@@ -3359,6 +3414,23 @@
       "composition": {
         "text": "每个单位1个承疫者，9个负瘟者，每个模型32mm底盘"
       },
+      "modelProfiles": [
+        {
+          "id": "champion",
+          "name": "承疫者",
+          "role": "队长",
+          "matchIncludes": ["承疫者"],
+          "count": 1,
+          "defaultEquipment": "瘟疫剑"
+        },
+        {
+          "id": "trooper",
+          "name": "负瘟者",
+          "role": "普通队员",
+          "remaining": true,
+          "defaultEquipment": "瘟疫剑"
+        }
+      ],
       "keywords": [
         "战线",
         "步兵",
@@ -3421,6 +3493,23 @@
       "composition": {
         "text": "每个单位1个瘟疫使者，2-5个瘟疫蜂兵"
       },
+      "modelProfiles": [
+        {
+          "id": "champion",
+          "name": "瘟疫使者",
+          "role": "队长",
+          "matchIncludes": ["瘟疫使者"],
+          "count": 1,
+          "defaultEquipment": "死亡颅弹，腐臭口器，瘟疫剑"
+        },
+        {
+          "id": "trooper",
+          "name": "瘟疫蜂兵",
+          "role": "普通队员",
+          "remaining": true,
+          "defaultEquipment": "死亡颅弹，腐臭口器，瘟疫剑"
+        }
+      ],
       "keywords": [
         "骑乘",
         "飞行",

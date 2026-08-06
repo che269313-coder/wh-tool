@@ -35,6 +35,24 @@
         "maxModels": 10,
         "text": "单位构成的原文"
       },
+      "modelProfiles": [
+        {
+          "id": "champion",
+          "name": "队长/冠军名称",
+          "role": "队长",
+          "matchIncludes": ["冠军"],
+          "count": 1,
+          "defaultEquipment": "队长默认装备",
+          "weaponMultipliers": {"额外武器名称": 2}
+        },
+        {
+          "id": "trooper",
+          "name": "普通队员名称",
+          "role": "普通队员",
+          "remaining": true,
+          "defaultEquipment": "普通队员默认装备"
+        }
+      ],
       "weapons": [
         {
           "id": "example-ranged",

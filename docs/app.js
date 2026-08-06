@@ -454,11 +454,12 @@ function setCalculatorWeaponEnabled(weapons, index, enabled) {
   }
 }
 
-function enabledCalculatorWeapons(data, entryName, rosterUnit) {
+function enabledCalculatorWeapons(data, entryName, rosterUnit, options = {}) {
   const baseUnit = data?.unit || {};
-  const baseWeapons = Array.isArray(data?.weapons) ? cloneCalculatorValue(data.weapons) : [];
-  const defaultEquipment = baseUnit.defaultEquipment || "";
-  const defaultModels = Math.max(1, Number(rosterUnit ? activeModels(rosterUnit).length : baseUnit.models || baseUnit.defaultModels || 1) || 1);
+  const baseWeapons = (Array.isArray(data?.weapons) ? cloneCalculatorValue(data.weapons) : [])
+    .filter((weapon) => !Array.isArray(options.weaponNames) || options.weaponNames.some((name) => weaponMatchesEquipmentText(weapon, name)));
+  const defaultEquipment = options.defaultEquipment ?? baseUnit.defaultEquipment ?? "";
+  const defaultModels = Math.max(1, Number(options.modelCount ?? (rosterUnit ? activeModels(rosterUnit).length : baseUnit.models || baseUnit.defaultModels || 1)) || 1);
   const matching = rosterUnit
     ? baseWeapons.map((weapon) => weaponMatchesRoster(weapon, rosterUnit))
     : baseWeapons.map((weapon) => weaponMatchesEquipmentText(weapon, defaultEquipment));
@@ -466,8 +467,76 @@ function enabledCalculatorWeapons(data, entryName, rosterUnit) {
   return applyExclusiveWeaponDefaults(baseWeapons.map((weapon, index) => ({
     ...weapon,
     enabled: anyMatching ? matching[index] : true,
-    modelCount: weapon.modelCount ?? (rosterUnit ? weaponModelCount(weapon, rosterUnit, defaultModels) : defaultModels),
+    modelCount: (weapon.modelCount ?? (rosterUnit ? weaponModelCount(weapon, rosterUnit, defaultModels) : defaultModels)) * Math.max(1, Number(options.weaponMultipliers?.[weapon.name] || 1)),
   })));
+}
+
+function normalizeModelProfileText(value) {
+  return String(value || "").replace(/[\s\u00a0·・,，。:：()（）\[\]【】]/g, "").toLowerCase();
+}
+
+function modelProfileMatchesModel(profile, model) {
+  const modelName = normalizeModelProfileText(model?.name);
+  if (!modelName) return false;
+  const includes = Array.isArray(profile?.matchIncludes) ? profile.matchIncludes : [];
+  if (includes.some((term) => {
+    const normalized = normalizeModelProfileText(term);
+    return normalized && modelName.includes(normalized);
+  })) return true;
+  const profileName = normalizeModelProfileText(profile?.name);
+  return Boolean(profileName && (modelName === profileName || modelName.includes(profileName)));
+}
+
+function modelProfileAssignments(data, rosterUnit) {
+  const profiles = Array.isArray(data?.modelProfiles) ? data.modelProfiles : [];
+  if (!profiles.length) return [];
+  const active = rosterUnit ? activeModels(rosterUnit) : [];
+  const total = Math.max(1, Number(rosterUnit ? active.length : data.unit?.models || data.unit?.defaultModels || 1) || 1);
+  const remainingModels = [...active];
+  const assignments = [];
+  profiles.filter((profile) => !profile.remaining).forEach((profile) => {
+    const expected = Math.max(0, Number(profile.count || 0) || 0);
+    let models = remainingModels.filter((model) => modelProfileMatchesModel(profile, model));
+    models.forEach((model) => remainingModels.splice(remainingModels.indexOf(model), 1));
+    if (!models.length && rosterUnit && expected > 0 && remainingModels.length) {
+      models = remainingModels.splice(0, Math.min(expected, remainingModels.length));
+    }
+    if (!rosterUnit && expected > 0) models = Array.from({ length: expected }, (_, index) => ({ name: profile.name, id: `${profile.id}-${index}` }));
+    assignments.push({ profile, models, count: rosterUnit ? models.length : expected });
+  });
+  profiles.filter((profile) => profile.remaining).forEach((profile) => {
+    const models = rosterUnit ? remainingModels.splice(0) : Array.from({ length: Math.max(0, total - assignments.reduce((sum, item) => sum + item.count, 0)) }, (_, index) => ({ name: profile.name, id: `${profile.id}-${index}` }));
+    assignments.push({ profile, models, count: models.length });
+  });
+  return assignments.filter((assignment) => assignment.count > 0);
+}
+
+function calculatorModelProfileMembers(data, rosterUnit, entryName) {
+  return modelProfileAssignments(data, rosterUnit).map(({ profile, models, count }) => {
+    const memberUnit = { ...(data.unit || {}), ...(profile.unit || {}), name: profile.name || data.unit?.name || entryName };
+    const memberData = { ...data, unit: memberUnit };
+    const syntheticRosterUnit = rosterUnit ? { ...rosterUnit, name: memberUnit.name, models } : null;
+    const memberWeapons = enabledCalculatorWeapons(memberData, entryName, syntheticRosterUnit, {
+      defaultEquipment: profile.defaultEquipment ?? memberUnit.defaultEquipment,
+      modelCount: count,
+      weaponNames: profile.weaponNames,
+      weaponMultipliers: profile.weaponMultipliers,
+    });
+    return {
+      id: `${rosterUnit?.id || entryName}:${profile.id}`,
+      name: memberUnit.name,
+      role: profile.role || "组成模型",
+      unit: memberUnit,
+      weapons: memberWeapons,
+      modelCount: count,
+      initialModelCount: count,
+      remainingWounds: models.reduce((sum, model) => sum + Number(model.currentWounds || memberUnit.woundsPerModel || 1), 0),
+      isModelProfile: true,
+      profileId: profile.id,
+      isPrimary: profile.id === "champion" || profile.id === "leader" || profile.id === "sergeant",
+      ruleName: entryName,
+    };
+  });
 }
 
 function getCalculatorDraft(side) {
@@ -484,26 +553,39 @@ function getCalculatorDraft(side) {
   const baseWeapons = enabledCalculatorWeapons(data, entry.name, entry.rosterUnit);
   const rosterUnit = entry.rosterUnit;
   const modelCount = rosterUnit ? activeModels(rosterUnit).length : Math.max(1, Number(baseUnit.models || baseUnit.defaultModels || 1) || 1);
-  const weapons = baseWeapons;
   const joined = rosterUnit && entry.group && (entry.group.category === "联合单位" || /^联合单位/.test(entry.group.title || ""));
-  const joinedMembers = joined ? entry.group.units.filter((member) => activeModels(member).length).map((member) => {
+  const explicitJoinedMembers = joined ? entry.group.units.filter((member) => activeModels(member).length).flatMap((member) => {
     const memberData = member.id === rosterUnit.id ? data : calculatorDataForUnit(member, entry.faction);
     const memberUnit = cloneCalculatorValue(memberData?.unit || {});
-    const memberWeapons = enabledCalculatorWeapons(memberData, member.name, member);
     const explicitLeader = entry.group.units.some((candidate) => /领导|主将|领袖|character|leader/i.test(String(candidate.role || "")));
     const explicitGuard = entry.group.units.some((candidate) => /护卫|bodyguard/i.test(String(candidate.role || "")));
     const memberIndex = entry.group.units.indexOf(member);
     const role = /领导|主将|领袖|character|leader/i.test(String(member.role || "")) ? "角色" : /护卫|bodyguard/i.test(String(member.role || "")) ? "护卫" : (explicitGuard && !explicitLeader ? "角色" : (memberIndex === 0 ? "角色" : "护卫"));
     const livingModels = activeModels(member);
-    return {
+    const profileMembers = calculatorModelProfileMembers(memberData, member, member.name);
+    if (profileMembers.length) return profileMembers.map((profileMember) => ({
+      ...profileMember,
+      parentId: member.id,
+      parentRole: role,
+      role: `${role} · ${profileMember.role}`,
+    }));
+    const memberWeapons = enabledCalculatorWeapons(memberData, member.name, member);
+    return [{
       id: member.id, name: member.name, role, unit: memberUnit, weapons: memberWeapons, modelCount: livingModels.length,
       initialModelCount: member.models.length,
       remainingWounds: livingModels.reduce((sum, model) => sum + Number(model.currentWounds || 0), 0),
-    };
-  }).sort((a, b) => (a.role === "角色" ? 0 : 1) - (b.role === "角色" ? 0 : 1)) : [];
+      parentId: member.id, parentRole: role, ruleName: member.name,
+    }];
+  }).sort((a, b) => ((a.parentRole || a.role) === "角色" ? 0 : 1) - ((b.parentRole || b.role) === "角色" ? 0 : 1)) : [];
+  const modelProfileMembers = !joined ? calculatorModelProfileMembers(data, rosterUnit, entry.name) : [];
+  const joinedMembers = explicitJoinedMembers.length ? explicitJoinedMembers : modelProfileMembers;
+  const weapons = modelProfileMembers.length
+    ? (modelProfileMembers.find((member) => member.isPrimary)?.weapons || modelProfileMembers[0].weapons)
+    : baseWeapons;
   const activeRosterModels = rosterUnit ? activeModels(rosterUnit) : [];
   state.calculatorDrafts[side] = {
     key, entry, data, unit: baseUnit, weapons, modelCount: Math.max(1, modelCount || 1), source: calculatorSource(entry), joinedMembers,
+    compositionMode: explicitJoinedMembers.length ? "joined" : modelProfileMembers.length ? "modelProfiles" : "single",
     martialKatah: "none", oathWoundBonus: false, ruleSelections: {}, rerollSelections: {},
     initialModelCount: rosterUnit ? rosterUnit.models.length : Math.max(1, Number(baseUnit.models || baseUnit.defaultModels || 1)),
     remainingWounds: rosterUnit ? activeRosterModels.reduce((sum, model) => sum + Number(model.currentWounds || 0), 0) : Number(baseUnit.woundsPerModel || 1) * Math.max(1, modelCount || 1),
@@ -643,7 +725,10 @@ function calculatorWeaponControlMarkup(weapon, side, index, groupIndex = null, d
 
 function calculatorJoinedMembersMarkup(draft, side) {
   if (!draft.joinedMembers?.length) return "";
-  const note = side === "defender" ? "护卫先承伤，角色最后承伤；可分别调整属性" : "联合单位中的角色和护卫都会参与本次攻击；可分别调整数量";
+  const isModelProfiles = draft.compositionMode === "modelProfiles";
+  const note = isModelProfiles
+    ? "队长与普通队员分开计算；可分别调整数量、属性和武器"
+    : side === "defender" ? "护卫先承伤，角色最后承伤；可分别调整属性" : "联合单位中的角色和护卫都会参与本次攻击；可分别调整数量";
   const selectedId = draft.entry?.rosterUnit?.id;
   const members = draft.joinedMembers.map((member, index) => {
     const selected = member.id === selectedId;
@@ -653,7 +738,7 @@ function calculatorJoinedMembersMarkup(draft, side) {
       : `<small class="weapon-keywords">武器：未结构化提取</small>`;
     return `<div class="calculator-joined-member"><div class="calculator-joined-member-heading"><strong>${escapeHtml(member.name)} · ${escapeHtml(member.role || "组成模型")}</strong><label>模型数量<input type="number" min="1" data-calc-side="${side}" data-calc-group-index="${index}" data-calc-group-model-count value="${escapeHtml(member.modelCount)}" /></label></div><div class="calculator-stats">${[["toughness", "坚韧"], ["save", "护甲"], ["invulnerableSave", "特殊保护"], ["woundsPerModel", "W/模型"]].map(([field, title]) => `<label>${title}<input data-calc-side="${side}" data-calc-group-index="${index}" data-calc-group-stat="${field}" value="${escapeHtml(calculatorStat(member.unit, field, field === "invulnerableSave" ? 0 : ""))}" /></label>`).join("")}</div>${weaponMarkup}</div>`;
   }).join("");
-  return `<div class="calculator-joined-members"><div class="calculator-section-heading"><strong>联合单位成员</strong><small>${note}</small></div>${members}${calculatorAbilityMarkup(draft, side)}</div>`;
+  return `<div class="calculator-joined-members"><div class="calculator-section-heading"><strong>${isModelProfiles ? "单位成员" : "联合单位成员"}</strong><small>${note}</small></div>${members}${calculatorAbilityMarkup(draft, side)}</div>`;
 }
 
 function calculatorDetailMarkup(side) {
@@ -661,8 +746,8 @@ function calculatorDetailMarkup(side) {
   const label = side === "attacker" ? "进攻方" : "防守方";
   if (!draft) return `<article class="calculator-side is-empty"><h3>${label}</h3><p>请选择${label}单位。</p></article>`;
   const unit = draft.unit || {};
-  const combined = Boolean(draft.entry.rosterUnit && draft.joinedMembers?.length);
-  if (combined) return `<article class="calculator-side ${side}"><div class="calculator-side-heading"><div><span>${label} · ${draft.source}</span><h3>联合单位</h3></div></div>${calculatorJoinedMembersMarkup(draft, side)}</article>`;
+  const combined = Boolean(draft.joinedMembers?.length);
+  if (combined) return `<article class="calculator-side ${side}"><div class="calculator-side-heading"><div><span>${label} · ${draft.source}</span><h3>${draft.compositionMode === "modelProfiles" ? escapeHtml(draft.entry.name) : "联合单位"}</h3></div></div>${calculatorJoinedMembersMarkup(draft, side)}</article>`;
   const stats = [["movement", "移速"], ["toughness", "坚韧"], ["save", "护甲"], ["invulnerableSave", "特殊保护"], ["woundsPerModel", "W/模型"], ["leadership", "领导"], ["objectiveControl", "OC"]];
   return `<article class="calculator-side ${side}"><div class="calculator-side-heading"><div><span>${label} · ${draft.source}</span><h3>${escapeHtml(draft.entry.name)}</h3></div><label>模型数量<input type="number" min="1" data-calc-side="${side}" data-calc-model-count value="${escapeHtml(draft.modelCount)}" /></label></div><div class="calculator-stats">${stats.map(([field, title]) => `<label>${title}<input data-calc-side="${side}" data-calc-stat="${field}" value="${escapeHtml(calculatorStat(unit, field, field === "invulnerableSave" ? 0 : ""))}" /></label>`).join("")}</div>${calculatorAbilityMarkup(draft, side)}${calculatorWeaponMarkup(draft, side)}</article>`;
 }
@@ -806,6 +891,17 @@ function calculatorDataForUnit(unit, faction) {
 function buildDefenderGroups(defender, draft, attackerFactionEffects = {}) {
   const group = defender?.group;
   const joined = defender?.rosterUnit && group && (group.category === "联合单位" || /^联合单位/.test(group.title || ""));
+  if (!joined && draft?.compositionMode === "modelProfiles" && draft.joinedMembers?.length) {
+    return draft.joinedMembers.map((member) => ({
+      name: `${member.name}（${member.role}）`,
+      modelCount: member.modelCount,
+      wounds: Number(member.unit?.woundsPerModel || 1),
+      save: Math.max(2, Number(member.unit?.save || 7) + Number(attackerFactionEffects.targetSaveModifier || 0)),
+      invulnerableSave: Number(member.unit?.invulnerableSave || 0),
+      allocationOrder: member.isPrimary ? 2 : 1,
+      effects: defenderEffectsFromUnit(member.unit, draft, member.ruleName || member.name),
+    })).sort((a, b) => a.allocationOrder - b.allocationOrder);
+  }
   if (!joined) {
     return [{
       name: defender.name,
@@ -819,22 +915,28 @@ function buildDefenderGroups(defender, draft, attackerFactionEffects = {}) {
   }
   const explicitLeader = group.units.some((unit) => /领导|主将|领袖|character|leader/i.test(String(unit.role || "")));
   const explicitGuard = group.units.some((unit) => /护卫|bodyguard/i.test(String(unit.role || "")));
-  return group.units.filter((unit) => activeModels(unit).length).map((unit, index) => {
-    const isSelected = unit.id === defender.rosterUnit.id;
-    const member = draft.joinedMembers?.find((candidate) => candidate.id === unit.id);
-    const data = isSelected ? draft.data : calculatorDataForUnit(unit, defender.faction);
-    const unitData = isSelected ? draft.unit : (member?.unit || data?.unit || {});
-    const roleText = String(unit.role || "");
-    const isLeader = /领导|主将|领袖|character|leader/i.test(roleText);
-    const role = isLeader ? "角色" : /护卫|bodyguard/i.test(roleText) ? "护卫" : (explicitGuard && !explicitLeader ? "角色" : (index === 0 ? "角色" : "护卫"));
+  const members = draft.joinedMembers?.length
+    ? draft.joinedMembers
+    : group.units.filter((unit) => activeModels(unit).length).map((unit, index) => ({
+      id: unit.id,
+      name: unit.name,
+      role: /领导|主将|领袖|character|leader/i.test(String(unit.role || "")) ? "角色" : /护卫|bodyguard/i.test(String(unit.role || "")) ? "护卫" : (explicitGuard && !explicitLeader ? "角色" : (index === 0 ? "角色" : "护卫")),
+      unit: calculatorDataForUnit(unit, defender.faction)?.unit || {},
+      modelCount: activeModels(unit).length,
+      ruleName: unit.name,
+    }));
+  return members.map((member) => {
+    const roleText = String(member.parentRole || member.role || "");
+    const isLeader = /角色|领导|主将|领袖|character|leader/i.test(roleText) && !/护卫/.test(roleText);
+    const isGuard = /护卫|bodyguard|普通队员/i.test(roleText);
     return {
-      name: `${unit.name}（${role}）`,
-      modelCount: isSelected ? draft.modelCount : (member?.modelCount || activeModels(unit).length),
-      wounds: Number(unitData.woundsPerModel || 1),
-      save: Math.max(2, Number(unitData.save || 7) + Number(attackerFactionEffects.targetSaveModifier || 0)),
-      invulnerableSave: Number(unitData.invulnerableSave || 0),
-      allocationOrder: role === "护卫" ? 1 : 2,
-      effects: defenderEffectsFromUnit(unitData, draft, unit.name),
+      name: `${member.name}（${member.role}）`,
+      modelCount: member.modelCount,
+      wounds: Number(member.unit?.woundsPerModel || 1),
+      save: Math.max(2, Number(member.unit?.save || 7) + Number(attackerFactionEffects.targetSaveModifier || 0)),
+      invulnerableSave: Number(member.unit?.invulnerableSave || 0),
+      allocationOrder: isGuard && !isLeader ? 1 : 2,
+      effects: defenderEffectsFromUnit(member.unit, draft, member.ruleName || member.name),
     };
   }).sort((a, b) => a.allocationOrder - b.allocationOrder);
 }
@@ -874,7 +976,7 @@ function buildSelectedRoundPayload() {
     : [{ name: attacker.name, unit: attackerUnit, weapons: attackerDraft.weapons, modelCount: attackerDraft.modelCount, initialModelCount: attackerDraft.initialModelCount, remainingWounds: attackerDraft.remainingWounds }];
   const sourceRuleEntries = attackerSources.map((source) => ({
     source,
-    effects: resolvedRuleEffects(attackerDraft, source.name, {
+    effects: resolvedRuleEffects(attackerDraft, source.ruleName || source.name, {
       initialModelCount: source.initialModelCount,
       remainingWounds: source.remainingWounds,
       underStartingStrength: Number(source.modelCount || 0) < Number(source.initialModelCount || source.modelCount || 0),

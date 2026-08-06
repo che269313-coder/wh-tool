@@ -42,6 +42,14 @@ custodesProfiles.cards.forEach((card) => validateCard(card, `禁军 ${card.name}
 spaceMarines.cards.filter((card) => card.unit).forEach((card) => validateCard(card, `星际战士 ${card.name}`));
 assert(deathGuard.kind === "datasheet-profiles" && deathGuard.schemaVersion === 1, "死亡守卫结构化数据卡必须使用 schemaVersion 1");
 assert(deathGuard.cards.length === 36, "死亡守卫数据卡必须覆盖 PDF 中的 36 张卡");
+const deathshroud = deathGuard.cards.find((card) => card.name === "死亡寿衣终结者");
+const plagueMarines = deathGuard.cards.find((card) => card.name === "瘟疫战士");
+for (const [label, card] of [["死亡寿衣终结者", deathshroud], ["瘟疫战士", plagueMarines]]) {
+  assert(Array.isArray(card?.modelProfiles) && card.modelProfiles.length === 2, `${label} 必须声明队长与普通队员模型配置`);
+  assert(card?.modelProfiles?.some((profile) => profile.id === "champion" && Number(profile.count) === 1), `${label} 缺少 1 个队长配置`);
+  assert(card?.modelProfiles?.some((profile) => profile.id === "trooper" && profile.remaining === true), `${label} 缺少剩余普通队员配置`);
+}
+assert(Number(deathshroud?.modelProfiles?.find((profile) => profile.id === "champion")?.weaponMultipliers?.["瘟疫喷射拳套"]) === 2, "死亡寿衣终结者冠军必须有额外一把瘟疫喷射拳套");
 const deathGuardNames = new Set();
 deathGuard.cards.forEach((card) => {
   assert(!deathGuardNames.has(card.name), `死亡守卫存在重复单位名：${card.name}`);
