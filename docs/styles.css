@@ -217,6 +217,7 @@ h4 { font-size: 16px; letter-spacing: -.02em; }
 .calculator-picker-list { display: grid; gap: 8px; }
 .calculator-picker-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: end; }
 .calculator-picker-label { position: relative; display: grid; gap: 6px; color: var(--muted); font-size: 11px; }
+.calculator-picker-label:focus-within { z-index: 21; }
 .calculator-picker-row input { margin: 0; }
 .calculator-picker-menu { position: absolute; z-index: 20; top: calc(100% - 1px); left: 0; right: 0; display: none; max-height: 260px; overflow-y: auto; padding: 5px; border: 1px solid var(--gold); border-radius: 0 0 10px 10px; background: #101923; box-shadow: 0 12px 24px rgba(0,0,0,.38); }
 .calculator-picker-menu.is-open { display: grid; gap: 3px; }
