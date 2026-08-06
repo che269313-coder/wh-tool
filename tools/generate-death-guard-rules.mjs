@@ -58,7 +58,12 @@ function effectDescriptors(text) {
     effects.push({ type: "weapon-ap-modifier", value: 1, condition: "large-or-led", requiresTargetInfected: true });
     customControls.push(...targetControls);
   }
-  if (/连击\s*(\d+)/.test(text)) add({ type: "sustained-hits", value: Number(text.match(/连击\s*(\d+)/)?.[1] || 1) });
+  if (/传染馈赠/.test(text) && /连\s*击\s*1/.test(text)) {
+    effects.push({ type: "sustained-hits", value: 1, requiresTargetInfected: true });
+    customControls.push(...targetControls);
+  } else if (/连\s*击\s*(\d+)/.test(text)) {
+    add({ type: "sustained-hits", value: Number(text.match(/连\s*击\s*(\d+)/)?.[1] || 1) });
+  }
   if (/致命一击|致命命中/.test(text)) add({ type: "lethal-hits" });
   if (/毁灭伤害|毁灭性伤口/.test(text)) add({ type: "devastating-wounds" });
   const attackBonus = text.match(/攻击次数\s*A\s*([+＋-])\s*(\d+)|\bA\s*([+＋-])\s*(\d+)/);

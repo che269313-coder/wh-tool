@@ -470,7 +470,32 @@
       "id": "death-guard-p31-1",
       "name": "传染馈赠（灵能）",
       "text": "传染馈赠（灵能）: 此模型领导单位时，该单 位内的模型攻击受【感染】敌方单位时获得【连 击1】",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        },
+        {
+          "id": "targetInfected",
+          "type": "checkbox",
+          "label": "目标已感染"
+        },
+        {
+          "id": "forceLeader",
+          "type": "checkbox",
+          "label": "数据卡模式下强行视为已领导单位"
+        }
+      ],
+      "effects": [
+        {
+          "type": "sustained-hits",
+          "value": 1,
+          "requiresTargetInfected": true,
+          "requiresJoined": true
+        }
+      ],
       "source": {
         "page": 31,
         "source": {

@@ -31,12 +31,24 @@ assert(blightlordVolley?.effects?.some((effect) => effect.type === "weapon-ap-mo
 const tankHunters = deathGuardRules?.unitRules?.["恶臭疫病引擎"]?.find((rule) => rule.name.includes("坦克猎手"));
 assert(tankHunters?.effects?.some((effect) => effect.type === "hit-modifier" && effect.requiresTargetMonsterVehicle), "恶臭疫病引擎必须声明坦克猎手命中+1");
 assert(tankHunters?.effects?.some((effect) => effect.type === "wound-modifier" && effect.requiresTargetMonsterVehicle), "恶臭疫病引擎必须声明坦克猎手造伤+1");
+const contagionGift = deathGuardRules?.unitRules?.["恶瘟投放者"]?.find((rule) => rule.name.includes("传染馈赠"));
+assert(contagionGift?.effects?.some((effect) => effect.type === "sustained-hits" && effect.requiresTargetInfected && effect.requiresJoined), "恶瘟投放者必须声明传染馈赠的感染目标连击1效果");
+assert(contagionGift?.controls?.some((control) => control.id === "targetInfected"), "传染馈赠必须提供目标已感染选项");
+assert(deathGuardData.cards.some((card) => card.name === "有翼纳垢恶魔亲王") && deathGuardData.cards.some((card) => card.name === "恶瘟投放者"), "死亡守卫必须保留有翼纳垢恶魔亲王和恶瘟投放者数据卡");
 const mortarionCore = deathGuardRules?.unitRules?.["莫塔里安"]?.find((rule) => rule.name === "核心技能");
 assert(mortarionCore?.effects?.some((effect) => effect.type === "fnp" && effect.threshold === 5) && !mortarionCore.controls, "莫塔里安核心技能的不知疼痛5+必须默认启用");
 if (nurgleGift) {
   const disabledGift = context.WarhammerRuleResolver.resolveFaction("死亡守卫", {}, { phase: "ranged" });
   const enabledGift = context.WarhammerRuleResolver.resolveFaction("死亡守卫", { "death-guard-nurgles-gift.enabled": true }, { phase: "ranged" });
   assert(disabledGift.attack.targetToughnessModifier === 0 && enabledGift.attack.targetToughnessModifier === -1, "纳垢赐福必须默认关闭并可通过控件启用T-1");
+}
+if (contagionGift) {
+  const contagionEnabled = resolve("死亡守卫", "恶疾使者", {
+    [`${contagionGift.id}.enabled`]: true,
+    [`${contagionGift.id}.targetInfected`]: true,
+    [`${contagionGift.id}.forceLeader`]: true,
+  }, { phase: "melee", isJoined: false });
+  assert(contagionEnabled.attack.sustainedHits === 1, "恶疾使者别名必须能解析传染馈赠的连击1");
 }
 if (skullsquirm) {
   const enabledSkullsquirm = context.WarhammerRuleResolver.resolveFaction("死亡守卫", { "death-guard-nurgles-gift.enabled": true, "death-guard-nurgles-gift.plague": "skullsquirm" }, { phase: "melee" });

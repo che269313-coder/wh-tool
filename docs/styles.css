@@ -144,6 +144,11 @@ h4 { font-size: 16px; letter-spacing: -.02em; }
 .paste-roster-card textarea:focus { border-color: var(--gold); }
 .paste-roster-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .paste-roster-actions .secondary-button { flex: 1 1 150px; }
+.roster-warning { display: grid; gap: 8px; margin: 14px 0; padding: 13px; border: 1px solid rgba(224, 137, 93, .55); border-radius: 13px; background: rgba(116, 53, 38, .2); }
+.roster-warning-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.roster-warning-heading strong { color: #f0b27d; font-size: 12px; }
+.roster-warning p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
+.roster-warning textarea { width: 100%; resize: vertical; border: 1px solid var(--line); border-radius: 8px; background: rgba(5, 12, 19, .65); color: var(--text); padding: 8px; font: 11px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; user-select: text; }
 .equipment-summary { display: grid; gap: 2px; margin: 0; padding: 0 12px 11px 25px; color: #cbd5db; font-size: 11px; line-height: 1.45; }
 .equipment-summary li { padding-left: 0; }
 .unit-detail-dialog { width: min(680px, calc(100% - 24px)); max-height: min(760px, calc(100svh - 24px)); overflow: auto; border: 1px solid var(--line); border-radius: 17px; background: #151f2b; color: var(--text); padding: 16px; box-shadow: var(--shadow); }

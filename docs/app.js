@@ -99,6 +99,10 @@ const DATASHEET_ALIASES = {
   "白色疤痕": {
     "苏博登可汗(主将)": ["速不台可汗"],
   },
+  "死亡守卫": {
+    "带翼恶魔亲王": ["有翼纳垢恶魔亲王"],
+    "恶疾使者": ["恶瘟投放者"],
+  },
 };
 const CALCULATOR_CARD_FILES = [
   "data/帝皇禁军/帝皇禁军-结构化数据卡.json",
@@ -118,7 +122,11 @@ const $$ = (selector) => [...document.querySelectorAll(selector)];
 function unitNameCandidates(name) {
   const source = String(name || "");
   const normalized = source.replace(/\([^)]*\)/g, "").trim();
-  return [...new Set([source, normalized, ...(DATASHEET_ALIASES["帝皇禁军"]?.[source] || []), ...(DATASHEET_ALIASES["白色疤痕"]?.[source] || [])].filter(Boolean))];
+  const aliases = Object.values(DATASHEET_ALIASES).flatMap((factionAliases) => [
+    ...(factionAliases[source] || []),
+    ...(factionAliases[normalized] || []),
+  ]);
+  return [...new Set([source, normalized, ...aliases].filter(Boolean))];
 }
 
 function getUnitProfile(name) {
@@ -326,7 +334,13 @@ function getCalculatorEntry(side) {
 
 function findStructuredCalculatorCard(name) {
   const aliases = unitNameCandidates(name);
-  return state.calculatorCards.find((card) => card.structured && aliases.includes(card.name));
+  const normalize = (value) => String(value || "")
+    .replace(/[\s\u00a0·•・,，。.!！:：;；/\\_\-—–]/g, "")
+    .replace(/[（(][^）)]*[）)]/g, "")
+    .toLowerCase();
+  const candidates = new Set(aliases.map(normalize));
+  return state.calculatorCards.find((card) => card.structured && card.data?.unit && [card.name, card.data.unit.name, card.data.englishName]
+    .some((candidate) => candidates.has(normalize(candidate))));
 }
 
 function normalizeCalculatorCardData(data) {
@@ -926,6 +940,25 @@ function unitOverviewMarkup(unit, side, groupId) {
   </article>`;
 }
 
+function renderRosterWarnings() {
+  const container = $("#rosterWarnings");
+  if (!container) return;
+  const hasCards = state.calculatorCards.some((card) => card.structured && card.data?.unit);
+  const unmatched = hasCards
+    ? ["attacker", "defender"].flatMap((side) => getRosterUnits(state.rosters[side])
+      .filter((unit) => !findStructuredCalculatorCard(unit.name))
+      .map((unit) => ({ side, name: unit.name })))
+    : [];
+  if (!unmatched.length) {
+    container.hidden = true;
+    container.innerHTML = "";
+    return;
+  }
+  const names = unmatched.map(({ side, name }) => `${sideLabel(side)}：${name}`);
+  container.hidden = false;
+  container.innerHTML = `<div class="roster-warning-heading"><strong>有单位未匹配到数据卡</strong><button type="button" class="text-button" data-copy-unmatched>复制全部名称</button></div><p>这些单位仍会保留在军表中，但暂时不能自动带入完整属性。请复制名称后反馈，我会补充中文别名或数据卡。</p><textarea readonly rows="${Math.min(8, names.length)}" data-unmatched-names>${escapeHtml(names.join("\n"))}</textarea>`;
+}
+
 function renderRosters() {
   const battle = $("#battleRoster");
   const overview = $("#rosterOverview");
@@ -952,6 +985,7 @@ function renderRosters() {
   $("#battleTitle").innerHTML = `${escapeHtml(attackers.faction || attackers.name)} <span>vs</span> ${escapeHtml(defenders.faction || defenders.name)}`;
   $("#attackerSummary").textContent = attackers.groups.length ? `${attackers.name} · ${getRosterUnits(attackers).length} 单位` : "未设置";
   $("#defenderSummary").textContent = defenders.groups.length ? `${defenders.name} · ${getRosterUnits(defenders).length} 单位` : "未设置";
+  renderRosterWarnings();
   renderCalculatorSelectors();
 }
 
@@ -1441,6 +1475,20 @@ $$('[data-paste-side]').forEach((button) => button.addEventListener("click", () 
   } else showToast("未识别军表格式，请检查粘贴内容是否完整");
 }));
 $("#clearRosterPaste")?.addEventListener("click", () => { $("#rosterPaste").value = ""; });
+$("#rosterWarnings")?.addEventListener("click", async (event) => {
+  if (!event.target.closest("[data-copy-unmatched]")) return;
+  const field = event.currentTarget.querySelector("[data-unmatched-names]");
+  if (!field) return;
+  const text = field.value;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    field.focus();
+    field.select();
+    document.execCommand("copy");
+  }
+  showToast("已复制未匹配单位名称");
+});
 $("#readClipboard")?.addEventListener("click", async () => {
   try {
     $("#rosterPaste").value = await navigator.clipboard.readText();

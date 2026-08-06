@@ -23,6 +23,8 @@
       "盾卫连长(主将)": "盾卫连长",
       "阿拉琉斯终结者": "阿拉鲁斯终结者",
       "警戒者": "警戒者",
+      "带翼恶魔亲王": "有翼纳垢恶魔亲王",
+      "恶疾使者": "恶瘟投放者",
     };
     const name = aliases[unitName] || normalizeUnitName(unitName);
     return { faction: data.factionRules || [], unit: data.unitRules?.[name] || [] };
