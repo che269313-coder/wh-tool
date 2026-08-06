@@ -35,8 +35,24 @@ const contagionGift = deathGuardRules?.unitRules?.["恶瘟投放者"]?.find((rul
 assert(contagionGift?.effects?.some((effect) => effect.type === "sustained-hits" && effect.requiresTargetInfected && effect.requiresJoined), "恶瘟投放者必须声明传染馈赠的感染目标连击1效果");
 assert(contagionGift?.controls?.some((control) => control.id === "targetInfected"), "传染馈赠必须提供目标已感染选项");
 assert(deathGuardData.cards.some((card) => card.name === "有翼纳垢恶魔亲王") && deathGuardData.cards.some((card) => card.name === "恶瘟投放者"), "死亡守卫必须保留有翼纳垢恶魔亲王和恶瘟投放者数据卡");
-assert(context.WarhammerRuleResolver.rulesForUnit("死亡守卫", "凋零引擎").unit.length === context.WarhammerRuleResolver.rulesForUnit("死亡守卫", "恶臭疫病引擎").unit.length, "凋零引擎必须映射到恶臭疫病引擎");
-assert(context.WarhammerRuleResolver.rulesForUnit("死亡守卫", "瘟疫机蜂").unit.length === context.WarhammerRuleResolver.rulesForUnit("死亡守卫", "恶臭肿胀机兵").unit.length, "瘟疫机蜂必须映射到恶臭肿胀机兵");
+const deathGuardAliasPairs = [
+  ["死亡守卫带翼恶魔亲王", "有翼纳垢恶魔亲王"], ["带翼恶魔亲王", "有翼纳垢恶魔亲王"],
+  ["凋败记账官", "书记官"], ["病毒精练者", "生物腐化者"],
+  ["死亡守卫旗手", "死亡守卫持像者"], ["死亡守卫恶魔亲王", "纳垢恶魔亲王"],
+  ["恶疾使者", "恶瘟投放者"], ["瘟疫散播者", "恶臭病原体"],
+  ["烈毒领主", "病毒领主"], ["丧钟使者", "剧毒疫病使者"], ["泰丰斯", "泰弗斯"],
+  ["死亡守卫犀牛装甲车", "混沌犀牛战车"], ["凋零引擎", "恶臭疫病引擎"],
+  ["瘟疫行尸", "瘟疫行者"], ["凋零霸主终结者", "腐毒领主终结者"],
+  ["死亡守卫混沌卵", "纳垢混沌魔物"], ["死亡守卫地狱兽", "地狱兽"],
+  ["死亡守卫兰德掠袭者", "混沌兰德掠袭者战车"],
+  ["死亡守卫歼灭者型猎食者坦克", "混沌歼灭者型掠食者战车"],
+  ["死亡守卫破坏者型猎食者坦克", "混沌破坏者型掠食者战车"],
+  ["瘟疫机蜂", "恶臭肿胀机兵"], ["剧毒坩埚", "瘴毒机"],
+];
+deathGuardAliasPairs.forEach(([alias, canonical]) => assert(
+  context.WarhammerRuleResolver.rulesForUnit("死亡守卫", alias).unit.length === context.WarhammerRuleResolver.rulesForUnit("死亡守卫", canonical).unit.length,
+  `死亡守卫别名必须映射：${alias} -> ${canonical}`,
+));
 const mortarionCore = deathGuardRules?.unitRules?.["莫塔里安"]?.find((rule) => rule.name === "核心技能");
 assert(mortarionCore?.effects?.some((effect) => effect.type === "fnp" && effect.threshold === 5) && !mortarionCore.controls, "莫塔里安核心技能的不知疼痛5+必须默认启用");
 if (nurgleGift) {

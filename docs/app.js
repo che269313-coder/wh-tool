@@ -100,11 +100,29 @@ const DATASHEET_ALIASES = {
     "苏博登可汗(主将)": ["速不台可汗"],
   },
   "死亡守卫": {
+    "死亡守卫带翼恶魔亲王": ["有翼纳垢恶魔亲王"],
     "带翼恶魔亲王": ["有翼纳垢恶魔亲王"],
+    "凋败记账官": ["书记官"],
+    "病毒精练者": ["生物腐化者"],
+    "死亡守卫旗手": ["死亡守卫持像者"],
+    "死亡守卫恶魔亲王": ["纳垢恶魔亲王"],
     "恶疾使者": ["恶瘟投放者"],
-    "凋零引擎": ["恶臭疫病引擎"],
-    "瘟疫机蜂": ["恶臭肿胀机兵"],
+    "瘟疫散播者": ["恶臭病原体"],
+    "烈毒领主": ["病毒领主"],
+    "丧钟使者": ["剧毒疫病使者"],
+    "泰丰斯": ["泰弗斯"],
+    "死亡守卫犀牛装甲车": ["混沌犀牛战车"],
     "装备重型瘟疫榴弹炮的瘟疫机蜂": ["装备重型凋零榴弹炮的恶臭肿胀机兵"],
+    "凋零引擎": ["恶臭疫病引擎"],
+    "瘟疫行尸": ["瘟疫行者"],
+    "凋零霸主终结者": ["腐毒领主终结者"],
+    "死亡守卫混沌卵": ["纳垢混沌魔物"],
+    "死亡守卫地狱兽": ["地狱兽"],
+    "死亡守卫兰德掠袭者": ["混沌兰德掠袭者战车"],
+    "死亡守卫歼灭者型猎食者坦克": ["混沌歼灭者型掠食者战车"],
+    "死亡守卫破坏者型猎食者坦克": ["混沌破坏者型掠食者战车"],
+    "瘟疫机蜂": ["恶臭肿胀机兵"],
+    "剧毒坩埚": ["瘴毒机"],
   },
 };
 const CALCULATOR_CARD_FILES = [
@@ -125,11 +143,13 @@ const $$ = (selector) => [...document.querySelectorAll(selector)];
 function unitNameCandidates(name) {
   const source = String(name || "");
   const normalized = source.replace(/\([^)]*\)/g, "").trim();
+  const withoutFactionPrefix = source.replace(/^死亡守卫\s*/, "").trim();
   const aliases = Object.values(DATASHEET_ALIASES).flatMap((factionAliases) => [
     ...(factionAliases[source] || []),
     ...(factionAliases[normalized] || []),
+    ...(factionAliases[withoutFactionPrefix] || []),
   ]);
-  return [...new Set([source, normalized, ...aliases].filter(Boolean))];
+  return [...new Set([source, normalized, withoutFactionPrefix, ...aliases].filter(Boolean))];
 }
 
 function getUnitProfile(name) {
@@ -994,7 +1014,7 @@ function renderRosters() {
 
 async function getDatasheetPreview(faction, unitName) {
   if (!state.calculatorCards.length) await loadCalculatorCards();
-  const names = [unitName, unitName.replace(/[（(][^）)]*[）)]/g, "").trim(), ...(DATASHEET_ALIASES[faction]?.[unitName] || [])].filter(Boolean);
+  const names = [...new Set([...unitNameCandidates(unitName), ...(DATASHEET_ALIASES[faction]?.[unitName] || [])].filter(Boolean))];
   const normalizeName = (value) => String(value || "")
     .replace(/[\s\u00a0·•・,，。.!！:：;；/\\_\-—–]/g, "")
     .replace(/[（(][^）)]*[）)]/g, "")
@@ -1279,7 +1299,10 @@ async function loadCalculatorCards() {
     }
   }
   applyDatasheetWoundsToRosters();
-  renderCalculatorSelectors();
+  // The roster warning is rendered before asynchronous catalogue loading.
+  // Render the whole roster again so canonical names are not reported as
+  // missing merely because the cards arrived after the initial render.
+  renderRosters();
 }
 
 function markdownCells(line) {
