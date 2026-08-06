@@ -35,6 +35,11 @@ const contagionGift = deathGuardRules?.unitRules?.["恶瘟投放者"]?.find((rul
 assert(contagionGift?.effects?.some((effect) => effect.type === "sustained-hits" && effect.requiresTargetInfected && effect.requiresJoined), "恶瘟投放者必须声明传染馈赠的感染目标连击1效果");
 assert(contagionGift?.controls?.some((control) => control.id === "targetInfected"), "传染馈赠必须提供目标已感染选项");
 assert(deathGuardData.cards.some((card) => card.name === "有翼纳垢恶魔亲王") && deathGuardData.cards.some((card) => card.name === "恶瘟投放者"), "死亡守卫必须保留有翼纳垢恶魔亲王和恶瘟投放者数据卡");
+const defilerCard = deathGuardData.cards.find((card) => card.name === "污染者");
+assert(defilerCard?.unit?.movement === 12 && defilerCard.unit.woundsPerModel === 18 && defilerCard.unit.invulnerableSave === 5, "污染者必须更新为 M12/T11/W18/5++");
+assert(["魂浆破坏炮", "重型导弹发射器 - 穿甲弹", "重型导弹发射器 - 碎片弹", "重型死神自动炮", "流火岩浆切割器", "电鞭", "剪切爪 - 猛击", "剪切爪 - 横扫"].every((name) => defilerCard.weapons.some((weapon) => weapon.name === name)), "污染者必须保留最新图片中的全部武器配置");
+const defilerDamaged = deathGuardRules?.unitRules?.["污染者"]?.find((rule) => rule.name === "受损");
+assert(defilerDamaged?.effects?.some((effect) => effect.type === "damaged-hit-minus" && effect.threshold === 6), "污染者受损区间必须为剩余1-6点耐伤");
 const deathGuardAliasPairs = [
   ["死亡守卫带翼恶魔亲王", "有翼纳垢恶魔亲王"], ["带翼恶魔亲王", "有翼纳垢恶魔亲王"],
   ["凋败记账官", "书记官"], ["病毒精练者", "生物腐化者"],

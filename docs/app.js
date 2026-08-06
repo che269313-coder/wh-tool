@@ -210,9 +210,10 @@ function normalizeRosterUnit(unit) {
   const datasheetWounds = Number(profile?.woundsPerModel || 0);
   const models = Array.isArray(unit.models) && unit.models.length ? unit.models.map((model) => {
     const normalized = normalizeModel(model, unit.name);
-    if (datasheetWounds && normalized.woundsSource !== "manual" && normalized.maximumWounds === 1) {
+    if (datasheetWounds && normalized.woundsSource !== "manual" && (normalized.maximumWounds === 1 || normalized.woundsSource === "datasheet")) {
+      const previousMaximumWounds = normalized.maximumWounds;
       normalized.maximumWounds = datasheetWounds;
-      normalized.currentWounds = Math.min(datasheetWounds, normalized.currentWounds === 1 ? datasheetWounds : normalized.currentWounds);
+      normalized.currentWounds = Math.min(datasheetWounds, normalized.currentWounds === previousMaximumWounds || (previousMaximumWounds === 1 && normalized.currentWounds === 1) ? datasheetWounds : normalized.currentWounds);
       normalized.woundsSource = "datasheet";
     }
     return normalized;
@@ -1393,11 +1394,15 @@ function applyDatasheetWoundsToRosters() {
     const wounds = Number(card?.data?.unit?.woundsPerModel || profile?.woundsPerModel || 0);
     if (!wounds) return;
     unit.models.forEach((model) => {
-      if (model.woundsSource === "manual" || model.maximumWounds !== 1) return;
-      model.maximumWounds = wounds;
-      model.currentWounds = model.currentWounds === 1 ? wounds : model.currentWounds;
-      model.woundsSource = "datasheet";
-      changed = true;
+      if (model.woundsSource === "manual" || (model.maximumWounds !== 1 && model.woundsSource !== "datasheet")) return;
+      const previousMaximumWounds = model.maximumWounds;
+      const nextCurrentWounds = model.currentWounds === previousMaximumWounds || (previousMaximumWounds === 1 && model.currentWounds === 1) ? wounds : Math.min(wounds, model.currentWounds);
+      if (model.maximumWounds !== wounds || model.currentWounds !== nextCurrentWounds || model.woundsSource !== "datasheet") {
+        model.maximumWounds = wounds;
+        model.currentWounds = nextCurrentWounds;
+        model.woundsSource = "datasheet";
+        changed = true;
+      }
     });
   })));
   if (changed) { saveRosters(); renderRosters(); }

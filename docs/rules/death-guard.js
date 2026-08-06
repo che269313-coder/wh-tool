@@ -1493,62 +1493,62 @@
     {
       "id": "death-guard-p54-0",
       "name": "核心技能",
-      "text": "致命破灭D3",
+      "text": "致命破灭D6",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 54,
         "source": {
-          "file": "死亡守卫10版中文咸鱼罐头版v1.0.7.1.pdf",
+          "file": "用户提供的最新污染者数据卡图片",
           "page": 54,
-          "extraction": "visual-table-check"
+          "extraction": "image-manual-check"
         }
       }
     },
     {
       "id": "death-guard-p54-1",
-      "name": "匍匐行者",
-      "text": "匍匐行者：此模型进行常规移动、加速或撤退 时，可穿过高度不超过4寸的友方凶兽、载具 单位及地形",
+      "name": "疾行机甲",
+      "text": "疾行机甲：每当该单位进行常规移动、突进或后撤时，该单位可以穿过模型（巨型模型除外）和地形模型。当这样做时，该单位可以在敌方模型的交战范围内进行移动，但是不能在敌方模型的交战范围内结束移动，并且自动通过任何溃逃测试。",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 54,
         "source": {
-          "file": "死亡守卫10版中文咸鱼罐头版v1.0.7.1.pdf",
+          "file": "用户提供的最新污染者数据卡图片",
           "page": 54,
-          "extraction": "visual-table-check"
+          "extraction": "image-manual-check"
         }
       }
     },
     {
       "id": "death-guard-p54-2",
-      "name": "污秽弹幕",
-      "text": "污秽弹幕：在你的射击阶段，此模型完成攻击 后，选择一个被其攻击命中过的敌方单位。直 至该阶段结束，该单位无法获得掩体加成",
+      "name": "污秽轰炸",
+      "text": "污秽轰炸：在你的射击阶段中，在该模型进行射击后，选择一个被那些攻击中一次或多次命中的敌方单位。在该阶段结束前，那个单位不能获得掩体加成。",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 54,
         "source": {
-          "file": "死亡守卫10版中文咸鱼罐头版v1.0.7.1.pdf",
+          "file": "用户提供的最新污染者数据卡图片",
           "page": 54,
-          "extraction": "visual-table-check"
+          "extraction": "image-manual-check"
         }
       }
     },
     {
       "id": "death-guard-p54-3",
-      "name": "严重损伤",
-      "text": "严重损伤：当此模型W剩余1-5时，每次进行 攻击命中结果-1",
+      "name": "受损",
+      "text": "受损：剩余1-6点耐伤：当该模型剩余1-6点伤时，模型攻击的命中掷骰结果减1。",
       "status": "计算支持（满足条件时自动计入）",
       "effects": [
         {
           "type": "damaged-hit-minus",
-          "threshold": 5
+          "threshold": 6
         }
       ],
       "source": {
         "page": 54,
         "source": {
-          "file": "死亡守卫10版中文咸鱼罐头版v1.0.7.1.pdf",
+          "file": "用户提供的最新污染者数据卡图片",
           "page": 54,
-          "extraction": "visual-table-check"
+          "extraction": "image-manual-check"
         }
       }
     }

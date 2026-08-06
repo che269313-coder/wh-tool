@@ -2728,32 +2728,32 @@
       "name": "污染者",
       "englishName": "Defiler",
       "source": {
-        "file": "死亡守卫10版中文咸鱼罐头版v1.0.7.1.pdf",
+        "file": "用户提供的最新污染者数据卡图片",
         "page": 54,
-        "extraction": "visual-table-check"
+        "extraction": "image-manual-check"
       },
       "markdownSection": "死亡守卫-数据卡-可检索.md#第-54-页",
       "extraction": {
-        "rawText": "⚫ 纳垢赐福（光环） ⚫ 致命破灭D3 ⚫ 匍匐行者：此模型进行常规移动、加速或撤退 时，可穿过高度不超过4寸的友方凶兽、载具 单位及地形 ⚫ 污秽弹幕：在你的射击阶段，此模型完成攻击 后，选择一个被其攻击命中过的敌方单位。直 至该阶段结束，该单位无法获得掩体加成 ⚫ 严重损伤：当此模型W剩余1-5时，每次进行 攻击命中结果-1",
+        "rawText": "⚫ 纳垢赐福（光环） ⚫ 致命破灭D6 ⚫ 疾行机甲：每当该单位进行常规移动、突进或后撤时，该单位可以穿过模型（巨型模型除外）和地形模型。当这样做时，该单位可以在敌方模型的交战范围内进行移动，但是不能在敌方模型的交战范围内结束移动，并且自动通过任何溃逃测试。 ⚫ 污秽轰炸：在你的射击阶段中，在该模型进行射击后，选择一个被那些攻击中一次或多次命中的敌方单位。在该阶段结束前，那个单位不能获得掩体加成。 ⚫ 受损：剩余1-6点耐伤：当该模型剩余1-6点伤时，模型攻击的命中掷骰结果减1。",
         "confidence": "high",
         "needsReview": false
       },
       "unit": {
-        "movement": 8,
+        "movement": 12,
         "toughness": 11,
         "save": 3,
         "invulnerableSave": 5,
-        "woundsPerModel": 14,
+        "woundsPerModel": 18,
         "leadership": "6+",
         "objectiveControl": 5,
         "name": "污染者",
         "models": 1,
-        "abilities": "⚫ 纳垢赐福（光环） ⚫ 致命破灭D3 ⚫ 匍匐行者：此模型进行常规移动、加速或撤退 时，可穿过高度不超过4寸的友方凶兽、载具 单位及地形 ⚫ 污秽弹幕：在你的射击阶段，此模型完成攻击 后，选择一个被其攻击命中过的敌方单位。直 至该阶段结束，该单位无法获得掩体加成 ⚫ 严重损伤：当此模型W剩余1-5时，每次进行 攻击命中结果-1",
+        "abilities": "⚫ 纳垢赐福（光环） ⚫ 致命破灭D6 ⚫ 疾行机甲：每当该单位进行常规移动、突进或后撤时，该单位可以穿过模型（巨型模型除外）和地形模型。当这样做时，该单位可以在敌方模型的交战范围内进行移动，但是不能在敌方模型的交战范围内结束移动，并且自动通过任何溃逃测试。 ⚫ 污秽轰炸：在你的射击阶段中，在该模型进行射击后，选择一个被那些攻击中一次或多次命中的敌方单位。在该阶段结束前，那个单位不能获得掩体加成。 ⚫ 受损：剩余1-6点耐伤：当该模型剩余1-6点伤时，模型攻击的命中掷骰结果减1。",
         "activeAbilities": "",
-        "defaultEquipment": "战斗加农炮，收割者自动炮，双联重型喷火器，污染者之爪"
+        "defaultEquipment": "哈迪斯战斗炮，2门酷刑炮，重型导弹发射器，重型灾厄火焰喷射器，剪切爪"
       },
       "composition": {
-        "text": "一台污染者"
+        "text": "1辆污染者，300分；第二个以及第三个单位提升至340分。每个重型死神自动炮额外需要15分，每个哈迪斯激光炮额外需要15分。"
       },
       "keywords": [
         "载具",
@@ -2766,8 +2766,36 @@
       ],
       "weapons": [
         {
-          "name": "战斗加农炮",
+          "name": "魂浆破坏炮",
           "type": "ranged",
+          "range": "36",
+          "attacks": "D6",
+          "skill": "3+",
+          "strength": 12,
+          "ap": -3,
+          "damage": "3",
+          "abilities": [
+            "爆炸",
+            "致命一击"
+          ]
+        },
+        {
+          "name": "酷刑炮",
+          "type": "ranged",
+          "range": "36",
+          "attacks": "6",
+          "skill": "3+",
+          "strength": 6,
+          "ap": -1,
+          "damage": "2",
+          "abilities": [
+            "致命一击"
+          ]
+        },
+        {
+          "name": "哈迪斯战斗炮",
+          "type": "ranged",
+          "range": "48",
           "attacks": "D6+3",
           "skill": "3+",
           "strength": 10,
@@ -2779,126 +2807,139 @@
           ]
         },
         {
-          "name": "复合爆弹枪",
+          "name": "哈迪斯激光炮",
           "type": "ranged",
+          "range": "48",
           "attacks": "2",
-          "skill": "3+",
-          "strength": 4,
-          "ap": 0,
-          "damage": "1",
-          "abilities": [
-            "速射2",
-            "致命一击"
-          ]
-        },
-        {
-          "name": "复合武器",
-          "type": "ranged",
-          "attacks": "1",
-          "skill": "4+",
-          "strength": 4,
-          "ap": 0,
-          "damage": "1",
-          "abilities": [
-            "反步兵4+",
-            "毁灭伤害",
-            "速射1"
-          ]
-        },
-        {
-          "name": "浩劫发射器",
-          "type": "ranged",
-          "attacks": "D6",
-          "skill": "3+",
-          "strength": 5,
-          "ap": 0,
-          "damage": "1",
-          "abilities": [
-            "爆炸"
-          ]
-        },
-        {
-          "name": "收割者自动炮",
-          "type": "ranged",
-          "attacks": "4",
-          "skill": "3+",
-          "strength": 7,
-          "ap": -1,
-          "damage": "1",
-          "abilities": [
-            "毁灭伤害",
-            "连击1"
-          ]
-        },
-        {
-          "name": "双联重爆弹枪",
-          "type": "ranged",
-          "attacks": "3",
-          "skill": "3+",
-          "strength": 5,
-          "ap": -1,
-          "damage": "2",
-          "abilities": [
-            "连击1",
-            "双联",
-            "致命一击"
-          ]
-        },
-        {
-          "name": "双联重型喷火器",
-          "type": "ranged",
-          "attacks": "D6",
-          "skill": "torrent",
-          "strength": 5,
-          "ap": -1,
-          "damage": "1",
-          "abilities": [
-            "无视掩体",
-            "洪流",
-            "双联"
-          ]
-        },
-        {
-          "name": "双联激光炮",
-          "type": "ranged",
-          "attacks": "1",
           "skill": "3+",
           "strength": 12,
           "ap": -3,
           "damage": "D6+1",
           "abilities": [
-            "双联"
+            "致命一击"
           ]
         },
         {
-          "name": "污染者之爪",
+          "name": "重型灾厄火焰喷射器",
+          "type": "ranged",
+          "range": "12",
+          "attacks": "D6+3",
+          "skill": "torrent",
+          "strength": 7,
+          "ap": -2,
+          "damage": "2",
+          "abilities": [
+            "无视掩体",
+            "洪流"
+          ]
+        },
+        {
+          "name": "重型导弹发射器 - 穿甲弹",
+          "type": "ranged",
+          "selectionGroup": "重型导弹发射器",
+          "range": "48",
+          "attacks": "2",
+          "skill": "3+",
+          "strength": 10,
+          "ap": -2,
+          "damage": "D6+1",
+          "abilities": [
+            "致命一击"
+          ]
+        },
+        {
+          "name": "重型导弹发射器 - 碎片弹",
+          "type": "ranged",
+          "selectionGroup": "重型导弹发射器",
+          "range": "48",
+          "attacks": "2D6",
+          "skill": "3+",
+          "strength": 5,
+          "ap": -1,
+          "damage": "1",
+          "abilities": [
+            "爆炸",
+            "致命一击"
+          ]
+        },
+        {
+          "name": "重型死神自动炮",
+          "type": "ranged",
+          "range": "48",
+          "attacks": "4",
+          "skill": "3+",
+          "strength": 9,
+          "ap": -1,
+          "damage": "3",
+          "abilities": [
+            "毁灭伤害",
+            "致命一击",
+            "连击1"
+          ]
+        },
+        {
+          "name": "流火岩浆切割器",
+          "type": "ranged",
+          "range": "12",
+          "attacks": "2",
+          "skill": "3+",
+          "strength": 9,
+          "ap": -4,
+          "damage": "D6",
+          "abilities": [
+            "热熔2",
+            "致命一击"
+          ]
+        },
+        {
+          "name": "电鞭",
           "type": "melee",
+          "range": "近战",
+          "attacks": "5",
+          "skill": "3+",
+          "strength": 12,
+          "ap": -2,
+          "damage": "2",
+          "abilities": [
+            "额外攻击",
+            "连击2"
+          ]
+        },
+        {
+          "name": "剪切爪 - 猛击",
+          "type": "melee",
+          "selectionGroup": "剪切爪",
+          "range": "近战",
           "attacks": "5",
           "skill": "3+",
           "strength": 16,
           "ap": -3,
           "damage": "D6+1",
-          "abilities": []
+          "abilities": [
+            "致命一击"
+          ]
         },
         {
-          "name": "污染者之鞭",
+          "name": "剪切爪 - 横扫",
           "type": "melee",
-          "attacks": "3",
+          "selectionGroup": "剪切爪",
+          "range": "近战",
+          "attacks": "10",
           "skill": "3+",
-          "strength": 12,
-          "ap": -1,
-          "damage": "2",
+          "strength": 6,
+          "ap": -2,
+          "damage": "1",
           "abilities": [
-            "额外攻击"
+            "致命一击"
           ]
         }
       ],
       "wargearOptions": [
         {
-          "text": " 该模型的双联重型喷火器可以替换为以下之一  1把污染者之鞭  1门浩劫发射器"
+          "text": " 该模型的哈迪斯战斗炮可以替换为1门魂浆破坏炮。  该模型的酷刑炮可以替换为2个流火岩浆切割器。  该模型的重型灾厄火焰喷射器可以替换为以下之一：1门哈迪斯激光炮；1门重型死神自动炮；1条电鞭（该模型不能装备超过一条电鞭）。  该模型的重型导弹发射器可以替换为以下之一：1门哈迪斯激光炮；1门重型死神自动炮；1条电鞭（该模型不能装备超过一条电鞭）。"
         }
       ],
-      "verification": "由数字版 PDF 表格提取并抽样人工核对；动态数值或条件性规则需在计算器中确认。"
+      "verification": "根据用户提供的最新数据卡图片逐项核对；动态数值或条件性规则需在计算器中确认。"
     },
     {
       "page": 56,

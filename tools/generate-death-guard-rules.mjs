@@ -43,7 +43,7 @@ function effectDescriptors(text) {
   if (fnp) add({ type: "fnp", threshold: Number(fnp[1]) });
   if (/命中.*重掷|命中.*重投|重掷.*命中|重投.*命中/.test(text)) add({ type: "space-hit-reroll", mode: /命中1|命中结果为1|重掷命中1/.test(text) ? "ones" : "failed" });
   if (/造伤.*重掷|造伤.*重投|重掷.*造伤|重投.*造伤/.test(text)) add({ type: "space-wound-reroll", mode: /造伤1|造伤结果为1/.test(text) ? "ones" : "failed" });
-  const damaged = text.match(/W\s*剩余\s*1-([4-7])[^。]{0,30}命\s*中\s*结果\s*-\s*1/);
+  const damaged = text.match(/(?:W\s*剩余|剩余)\s*1\s*-\s*([4-7])(?:\s*点耐伤)?[^。]{0,120}命\s*中(?:掷骰)?(?:结果)?\s*(?:-|减)\s*1/);
   const hitBonus = text.match(/命中(?:\s*与\s*造伤骰)?(?:\s*结果)?\s*([+＋-])\s*1/);
   if (hitBonus && !damaged) add({ type: "hit-modifier", value: hitBonus[1] === "-" ? -1 : 1 });
   const woundBonus = text.match(/造伤(?:结果)?\s*([+＋-])\s*1/);
