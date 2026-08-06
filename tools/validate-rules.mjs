@@ -35,6 +35,8 @@ const contagionGift = deathGuardRules?.unitRules?.["恶瘟投放者"]?.find((rul
 assert(contagionGift?.effects?.some((effect) => effect.type === "sustained-hits" && effect.requiresTargetInfected && effect.requiresJoined), "恶瘟投放者必须声明传染馈赠的感染目标连击1效果");
 assert(contagionGift?.controls?.some((control) => control.id === "targetInfected"), "传染馈赠必须提供目标已感染选项");
 assert(deathGuardData.cards.some((card) => card.name === "有翼纳垢恶魔亲王") && deathGuardData.cards.some((card) => card.name === "恶瘟投放者"), "死亡守卫必须保留有翼纳垢恶魔亲王和恶瘟投放者数据卡");
+assert(context.WarhammerRuleResolver.rulesForUnit("死亡守卫", "凋零引擎").unit.length === context.WarhammerRuleResolver.rulesForUnit("死亡守卫", "恶臭疫病引擎").unit.length, "凋零引擎必须映射到恶臭疫病引擎");
+assert(context.WarhammerRuleResolver.rulesForUnit("死亡守卫", "瘟疫机蜂").unit.length === context.WarhammerRuleResolver.rulesForUnit("死亡守卫", "恶臭肿胀机兵").unit.length, "瘟疫机蜂必须映射到恶臭肿胀机兵");
 const mortarionCore = deathGuardRules?.unitRules?.["莫塔里安"]?.find((rule) => rule.name === "核心技能");
 assert(mortarionCore?.effects?.some((effect) => effect.type === "fnp" && effect.threshold === 5) && !mortarionCore.controls, "莫塔里安核心技能的不知疼痛5+必须默认启用");
 if (nurgleGift) {

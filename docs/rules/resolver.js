@@ -25,6 +25,9 @@
       "警戒者": "警戒者",
       "带翼恶魔亲王": "有翼纳垢恶魔亲王",
       "恶疾使者": "恶瘟投放者",
+      "凋零引擎": "恶臭疫病引擎",
+      "瘟疫机蜂": "恶臭肿胀机兵",
+      "装备重型瘟疫榴弹炮的瘟疫机蜂": "装备重型凋零榴弹炮的恶臭肿胀机兵",
     };
     const name = aliases[unitName] || normalizeUnitName(unitName);
     return { faction: data.factionRules || [], unit: data.unitRules?.[name] || [] };
