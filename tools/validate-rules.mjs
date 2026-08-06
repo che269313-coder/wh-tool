@@ -5,13 +5,25 @@ import vm from "node:vm";
 const root = path.resolve(import.meta.dirname, "..");
 const context = vm.createContext({});
 context.globalThis = context;
-for (const file of ["custodes.js", "space-marines.js", "effects.js", "resolver.js"]) {
+for (const file of ["custodes.js", "space-marines.js", "death-guard.js", "effects.js", "resolver.js"]) {
   vm.runInContext(fs.readFileSync(path.join(root, "docs", "rules", file), "utf8"), context, { filename: file });
 }
 
 const resolve = context.WarhammerRuleResolver.resolveUnit;
 const failures = [];
 const assert = (condition, message) => { if (!condition) failures.push(message); };
+
+const deathGuardData = JSON.parse(fs.readFileSync(path.join(root, "docs", "data", "死亡守卫", "死亡守卫-全部数据卡.json"), "utf8"));
+const deathGuardRules = context.WarhammerDeathGuardRules;
+assert(deathGuardRules && Object.keys(deathGuardRules.unitRules || {}).length === deathGuardData.cards.length, "死亡守卫规则目录必须覆盖全部数据卡");
+assert(deathGuardData.cards.every((card) => deathGuardRules?.unitRules?.[card.unit.name]?.length), "每个死亡守卫单位都必须至少有一条原文技能规则");
+const nurgleGift = deathGuardRules?.factionRules?.find((rule) => rule.id === "death-guard-nurgles-gift");
+assert(nurgleGift?.effects?.some((effect) => effect.type === "target-toughness-modifier" && effect.value === -1), "死亡守卫必须声明纳垢赐福的目标T-1效果");
+if (nurgleGift) {
+  const disabledGift = context.WarhammerRuleResolver.resolveFaction("死亡守卫", {}, { phase: "ranged" });
+  const enabledGift = context.WarhammerRuleResolver.resolveFaction("死亡守卫", { "death-guard-nurgles-gift.enabled": true }, { phase: "ranged" });
+  assert(disabledGift.attack.targetToughnessModifier === 0 && enabledGift.attack.targetToughnessModifier === -1, "纳垢赐福必须默认关闭并可通过控件启用T-1");
+}
 
 const dataRoot = path.join(root, "docs", "data");
 const spaceMarineDir = fs.readdirSync(dataRoot).find((name) => {

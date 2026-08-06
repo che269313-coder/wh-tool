@@ -9,6 +9,7 @@ const readJson = (...parts) => JSON.parse(fs.readFileSync(path.join(root, ...par
 
 const custodesProfiles = readJson("docs", "data", "帝皇禁军", "帝皇禁军-结构化数据卡.json");
 const spaceMarines = readJson("docs", "data", "星际战士", "星际战士-全部数据卡.json");
+const deathGuard = readJson("docs", "data", "死亡守卫", "死亡守卫-全部数据卡.json");
 
 assert(custodesProfiles.kind === "datasheet-profiles", "禁军结构化数据卡 kind 必须为 datasheet-profiles");
 assert(custodesProfiles.schemaVersion === 1, "禁军结构化数据卡 schemaVersion 必须为 1");
@@ -39,6 +40,19 @@ const validateCard = (card, label, { strictWeapons = false } = {}) => {
 
 custodesProfiles.cards.forEach((card) => validateCard(card, `禁军 ${card.name}`, { strictWeapons: true }));
 spaceMarines.cards.filter((card) => card.unit).forEach((card) => validateCard(card, `星际战士 ${card.name}`));
+assert(deathGuard.kind === "datasheet-profiles" && deathGuard.schemaVersion === 1, "死亡守卫结构化数据卡必须使用 schemaVersion 1");
+assert(deathGuard.cards.length === 36, "死亡守卫数据卡必须覆盖 PDF 中的 36 张卡");
+const deathGuardNames = new Set();
+deathGuard.cards.forEach((card) => {
+  assert(!deathGuardNames.has(card.name), `死亡守卫存在重复单位名：${card.name}`);
+  deathGuardNames.add(card.name);
+  validateCard(card, `死亡守卫 ${card.name}`, { strictWeapons: true });
+  for (const weapon of card.weapons || []) {
+    if (/洪流|喷射|torrent/i.test((weapon.abilities || []).join(" "))) {
+      assert(String(weapon.skill).toLowerCase() === "torrent", `死亡守卫 ${card.name} 的喷射武器必须标记为 torrent`);
+    }
+  }
+});
 
 const bladeChampion = profilesByName.get("剑锋冠军");
 const swordModes = bladeChampion?.weapons?.filter((weapon) => weapon.selectionGroup === "宝库之剑") || [];

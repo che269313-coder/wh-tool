@@ -17,6 +17,11 @@ const BUILTIN_LIBRARY_FILES = [
   "data/星际战士/分遣队规则-可检索.md",
   "data/星际战士/数据卡-可检索.md",
   "data/星际战士/星际战士-全部数据卡.json",
+  "data/死亡守卫/死亡守卫10版中文咸鱼罐头版v1.0.7.1.pdf",
+  "data/死亡守卫/死亡守卫-分遣队规则-可检索.md",
+  "data/死亡守卫/死亡守卫-数据卡-可检索.md",
+  "data/死亡守卫/死亡守卫-分数表-可检索.md",
+  "data/死亡守卫/死亡守卫-全部数据卡.json",
 ];
 const DEFAULT_SETTINGS = {
   mode: "direct",
@@ -39,6 +44,11 @@ const BUILTIN_FILE_METADATA = {
   "分遣队规则-可检索.md": { faction: "星际战士", kind: "detachment", builtin: true },
   "数据卡-可检索.md": { faction: "星际战士", kind: "datasheet", builtin: true },
   "星际战士-全部数据卡.json": { faction: "星际战士", kind: "datasheet", builtin: true },
+  "死亡守卫10版中文咸鱼罐头版v1.0.7.1.pdf": { faction: "死亡守卫", kind: "datasheet", builtin: true },
+  "死亡守卫-全部数据卡.json": { faction: "死亡守卫", kind: "datasheet", builtin: true },
+  "死亡守卫-分遣队规则-可检索.md": { faction: "死亡守卫", kind: "detachment", builtin: true },
+  "死亡守卫-数据卡-可检索.md": { faction: "死亡守卫", kind: "datasheet", builtin: true },
+  "死亡守卫-分数表-可检索.md": { faction: "死亡守卫", kind: "supplement", builtin: true },
 };
 
 const KIND_LABELS = {
@@ -73,6 +83,7 @@ const DATASHEET_FILES = {
   "帝皇禁军": "data/帝皇禁军/数据卡-OCR-可检索.md",
   "白色疤痕": "data/星际战士/数据卡-可检索.md",
   "星际战士": "data/星际战士/数据卡-可检索.md",
+  "死亡守卫": "data/死亡守卫/死亡守卫-数据卡-可检索.md",
 };
 const DATASHEET_ALIASES = {
   "帝皇禁军": {
@@ -87,6 +98,7 @@ const DATASHEET_ALIASES = {
 const CALCULATOR_CARD_FILES = [
   "data/帝皇禁军/帝皇禁军-结构化数据卡.json",
   "data/星际战士/星际战士-全部数据卡.json",
+  "data/死亡守卫/死亡守卫-全部数据卡.json",
 ];
 const DIGITAL_UNIT_ALIASES = {
   "星际战士": {
@@ -505,7 +517,10 @@ function calculatorAbilityMarkup(draft, side) {
   const unit = draft.unit || {};
   const unitNames = [draft.entry?.name, ...(draft.joinedMembers || []).map((member) => member.name)];
   const catalog = window.WarhammerRuleResolver?.rulesForUnits(draft.entry?.faction, unitNames) || { faction: [], unit: [] };
-  const factionRulesForUnit = catalog.faction.filter((rule) => rule.effect?.type !== "martial-katah" || unitNames.some((name) => window.WarhammerRuleResolver?.isMartialKatahUnit(draft.entry?.faction, name)));
+  const factionRulesForUnit = catalog.faction.filter((rule) =>
+    (rule.effect?.type !== "martial-katah" || unitNames.some((name) => window.WarhammerRuleResolver?.isMartialKatahUnit(draft.entry?.faction, name)))
+    && !(rule.id === "death-guard-nurgles-gift" && side !== "attacker")
+  );
   const allWeapons = [draft.weapons || [], ...(draft.joinedMembers || []).map((member) => member.weapons || [])].flat();
   const weaponAbilities = [...new Set(allWeapons.flatMap((weapon) => weapon.abilities || []).filter(Boolean))];
   const hasMartialKatah = side === "attacker" && (factionRulesForUnit.some((rule) => rule.effect?.type === "martial-katah") || /禁军武艺/.test([unit.abilities, ...(draft.joinedMembers || []).map((member) => member.unit?.abilities)].join(" ")));
@@ -717,6 +732,15 @@ function resolvedRuleEffects(draft, unitName, overrides = {}) {
   );
 }
 
+function resolvedFactionEffects(draft, overrides = {}) {
+  if (!draft || !window.WarhammerRuleResolver?.resolveFaction) return { attack: {}, defend: {}, notes: [] };
+  return window.WarhammerRuleResolver.resolveFaction(
+    draft.entry?.faction,
+    draft.ruleSelections || {},
+    { phase: state.attackMode, ...overrides },
+  );
+}
+
 function defenderEffectsFromUnit(unit, draft, unitName) {
   const rules = draft ? resolvedRuleEffects(draft, unitName || unit?.name || draft.entry?.name) : { defend: {} };
   const defend = rules.defend || {};
@@ -787,7 +811,8 @@ function buildSelectedRoundPayload() {
   const defenderUnit = defenderDraft?.unit || {};
   if (!attackerData?.unit || !Array.isArray(attackerData.weapons) || !attackerData.weapons.length) throw new Error(`进攻单位“${attacker.name}”没有可计算的结构化武器数据`);
   if (!defenderData?.unit || !defenderUnit.woundsPerModel) throw new Error(`防御单位“${defender.name}”没有可计算的属性数据`);
-  const toughness = Number(defenderUnit.toughness || 0);
+  const attackerFactionEffects = resolvedFactionEffects(attackerDraft).attack || {};
+  const toughness = Math.max(1, Number(defenderUnit.toughness || 0) + Number(attackerFactionEffects.targetToughnessModifier || 0));
   const defenderRuleEffects = [defender.name, ...(defenderDraft.joinedMembers || []).map((member) => member.name)]
     .map((name) => resolvedRuleEffects(defenderDraft, name).defend || {})
     .reduce((result, effects) => ({
@@ -1247,7 +1272,7 @@ function parseArmyList(content) {
   }
   const lines = content.replace(/\r/g, "").split("\n");
   const armyName = lines.find((line) => /\(\d+分\)\s*$/.test(line.trim()))?.trim() || "导入军表";
-  const faction = lines.find((line) => ["帝皇禁军", "白色疤痕", "星际战士"].includes(line.trim()))?.trim() || "未识别阵营";
+  const faction = lines.find((line) => ["帝皇禁军", "白色疤痕", "星际战士", "死亡守卫"].includes(line.trim()))?.trim() || "未识别阵营";
   const groups = []; let group = null; let unit = null; let inComposition = false; let modelBatch = []; let lastTargets = [];
   const ensureUnitModel = () => {
     if (!unit.models.length) unit.models.push(normalizeModel({ name: unit.name }, unit.name));
@@ -1618,8 +1643,12 @@ function getRelevantFolders(question) {
   const text = question.toLowerCase();
   const selected = new Set(["规则书"]);
   const factionNames = new Set([state.rosters.attacker.faction, state.rosters.defender.faction].filter(Boolean));
-  ["帝皇禁军", "星际战士"].forEach((faction) => {
-    const shorthand = faction === "帝皇禁军" ? /禁军|custodes/i : /星际战士|阿斯塔特|space marines/i;
+  ["帝皇禁军", "星际战士", "死亡守卫"].forEach((faction) => {
+    const shorthand = faction === "帝皇禁军"
+      ? /禁军|custodes/i
+      : faction === "星际战士"
+        ? /星际战士|阿斯塔特|space marines/i
+        : /死亡守卫|death guard|瘟疫军团/i;
     if (shorthand.test(text)) selected.add(faction);
   });
   factionNames.forEach((faction) => selected.add(faction));

@@ -50,6 +50,7 @@
       case "lethal-hits": if (!rule.controls?.length || enabled(selections, rule)) attack.lethalHits = true; break;
       case "devastating-wounds": if (!rule.controls?.length || enabled(selections, rule)) attack.devastating = true; break;
       case "attack-modifier": if (!rule.controls?.length || enabled(selections, rule)) attack.attackModifier += Number(effect.value || 0); break;
+      case "target-toughness-modifier": if (!rule.controls?.length || enabled(selections, rule)) attack.targetToughnessModifier += Number(effect.value || 0); break;
       case "incoming-hit-minus": if (!rule.controls?.length || enabled(selections, rule)) defend.incomingHitModifier -= Math.abs(Number(effect.value || 1)); break;
       case "incoming-wound-minus": if (!rule.controls?.length || enabled(selections, rule)) defend.incomingWoundModifier -= Math.abs(Number(effect.value || 1)); break;
       case "incoming-wound-when-strength-gte": if (!rule.controls?.length || enabled(selections, rule)) defend.incomingWoundWhenStrengthGreaterOrEqual = -Math.abs(Number(effect.value || 1)); break;
