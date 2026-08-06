@@ -76,6 +76,7 @@ const state = {
   calculatorSelections: { attacker: [""], defender: [""] },
   calculatorSearch: { attacker: "", defender: "" },
   calculatorPickerSearch: { attacker: [""], defender: [""] },
+  calculatorPickerOpen: { attacker: [false], defender: [false] },
   calculatorDrafts: { attacker: [], defender: [] },
   externalCalculatorEnabled: true,
   attackMode: "ranged",
@@ -320,17 +321,25 @@ function calculatorPickerOptions(side) {
   return { allOptions: [...rosterOptions, ...cardOptions] };
 }
 
+function calculatorPickerMenuMarkup(side, index, options) {
+  const keys = calculatorSelectionKeys(side);
+  const key = keys[index] || "";
+  const search = state.calculatorPickerSearch[side]?.[index] || "";
+  const query = String(search).trim().toLocaleLowerCase();
+  const filtered = options.allOptions.filter((option) => !query || `${option.name} ${option.label}`.toLocaleLowerCase().includes(query) || option.key === key);
+  if (!filtered.length) return `<span class="calculator-picker-empty">没有匹配单位</span>`;
+  return filtered.map((option) => `<button type="button" class="calculator-picker-option" data-calculator-picker-option data-side="${side}" data-index="${index}" data-key="${escapeHtml(option.key)}"><strong>${escapeHtml(option.name)}</strong><small>${escapeHtml(option.label)}</small></button>`).join("");
+}
+
 function calculatorPickerMarkup(side, index, options) {
   const keys = calculatorSelectionKeys(side);
   const key = keys[index] || "";
   const search = state.calculatorPickerSearch[side]?.[index] || "";
   const selected = options.allOptions.find((option) => option.key === key);
-  const query = String(search).trim().toLocaleLowerCase();
-  const filtered = options.allOptions.filter((option) => !query || `${option.name} ${option.label}`.toLocaleLowerCase().includes(query) || option.key === key);
-  const listId = `calculator-${side}-options-${index}`;
   const value = selected ? selected.label : search;
   const label = side === "attacker" ? `进攻单位 ${index + 1}` : `防御目标 ${index + 1}`;
-  return `<div class="calculator-picker-row" data-calculator-picker-row data-side="${side}" data-index="${index}"><label>${label}<input type="search" autocomplete="off" list="${listId}" data-calculator-picker-input data-side="${side}" data-index="${index}" value="${escapeHtml(value)}" placeholder="输入名称或阵营自动过滤……" /></label>${keys.length > 1 ? `<button type="button" class="calculator-picker-remove" data-calculator-picker-remove data-side="${side}" data-index="${index}">移除</button>` : ""}<datalist id="${listId}">${filtered.map((option) => `<option value="${escapeHtml(option.label)}" data-key="${escapeHtml(option.key)}"></option>`).join("")}</datalist></div>`;
+  const open = Boolean(state.calculatorPickerOpen[side]?.[index]);
+  return `<div class="calculator-picker-row" data-calculator-picker-row data-side="${side}" data-index="${index}"><label class="calculator-picker-label">${label}<input type="search" autocomplete="off" data-calculator-picker-input data-side="${side}" data-index="${index}" value="${escapeHtml(value)}" placeholder="输入名称或阵营自动过滤……" /><div class="calculator-picker-menu${open ? " is-open" : ""}" data-calculator-picker-menu>${calculatorPickerMenuMarkup(side, index, options)}</div></label>${keys.length > 1 ? `<button type="button" class="calculator-picker-remove" data-calculator-picker-remove data-side="${side}" data-index="${index}">移除</button>` : ""}</div>`;
 }
 
 function renderCalculatorSelectors() {
@@ -348,6 +357,8 @@ function renderCalculatorSelectors() {
     });
     state.calculatorPickerSearch[side] ||= [];
     while (state.calculatorPickerSearch[side].length < keys.length) state.calculatorPickerSearch[side].push("");
+    state.calculatorPickerOpen[side] ||= [];
+    while (state.calculatorPickerOpen[side].length < keys.length) state.calculatorPickerOpen[side].push(false);
     container.innerHTML = keys.map((_, index) => calculatorPickerMarkup(side, index, options)).join("");
   });
   renderCalculatorDetails();
@@ -361,14 +372,33 @@ function handleCalculatorPickerInput(event) {
   const options = calculatorPickerOptions(side).allOptions;
   state.calculatorPickerSearch[side] ||= [];
   state.calculatorPickerSearch[side][index] = input.value;
-  const selected = [...(document.getElementById(`calculator-${side}-options-${index}`)?.options || [])].find((option) => option.value === input.value);
   const keys = calculatorSelectionKeys(side);
-  keys[index] = selected?.dataset.key && options.some((option) => option.key === selected.dataset.key) ? selected.dataset.key : "";
-  if (keys[index]) state.calculatorPickerSearch[side][index] = "";
+  keys[index] = "";
+  state.calculatorPickerOpen[side] ||= [];
+  state.calculatorPickerOpen[side][index] = true;
   state.calculatorSelection[side] = keys[0] || "";
   state.calculatorDrafts[side][index] = null;
-  renderCalculatorSelectors();
+  refreshCalculatorPickerMenu(side, index);
+  renderCalculatorDetails();
   $("#calcNote").textContent = "已选择单位；请确认双方后开始计算。";
+}
+
+function refreshCalculatorPickerMenu(side, index) {
+  const row = document.querySelector(`[data-calculator-picker-row][data-side="${side}"][data-index="${index}"]`);
+  const menu = row?.querySelector("[data-calculator-picker-menu]");
+  if (!menu) return;
+  menu.innerHTML = calculatorPickerMenuMarkup(side, index, calculatorPickerOptions(side));
+  menu.classList.add("is-open");
+}
+
+function handleCalculatorPickerFocus(event) {
+  const input = event.target.closest("[data-calculator-picker-input]");
+  if (!input) return;
+  const side = input.dataset.side;
+  const index = Number(input.dataset.index || 0);
+  state.calculatorPickerOpen[side] ||= [];
+  state.calculatorPickerOpen[side][index] = true;
+  refreshCalculatorPickerMenu(side, index);
 }
 
 function handleCalculatorPickerClick(event) {
@@ -381,20 +411,49 @@ function handleCalculatorPickerClick(event) {
   keys.splice(index, 1);
   state.calculatorPickerSearch[side]?.splice(index, 1);
   state.calculatorDrafts[side]?.splice(index, 1);
+  state.calculatorPickerOpen[side]?.splice(index, 1);
   state.calculatorSelection[side] = keys[0] || "";
   renderCalculatorSelectors();
+}
+
+function handleCalculatorPickerOption(event) {
+  const option = event.target.closest("[data-calculator-picker-option]");
+  if (!option) return;
+  const side = option.dataset.side;
+  const index = Number(option.dataset.index || 0);
+  const keys = calculatorSelectionKeys(side);
+  keys[index] = option.dataset.key || "";
+  state.calculatorPickerSearch[side] ||= [];
+  state.calculatorPickerSearch[side][index] = "";
+  state.calculatorPickerOpen[side] ||= [];
+  state.calculatorPickerOpen[side][index] = false;
+  state.calculatorSelection[side] = keys[0] || "";
+  state.calculatorDrafts[side][index] = null;
+  renderCalculatorSelectors();
+  $("#calcNote").textContent = "已选择单位；请确认双方后开始计算。";
 }
 
 ["attacker", "defender"].forEach((side) => {
   const container = $(`#calculator${side === "attacker" ? "Attacker" : "Defender"}Pickers`);
   container?.addEventListener("input", handleCalculatorPickerInput);
+  container?.addEventListener("focusin", handleCalculatorPickerFocus);
   container?.addEventListener("click", handleCalculatorPickerClick);
+  container?.addEventListener("click", handleCalculatorPickerOption);
   $(`#addCalculator${side === "attacker" ? "Attacker" : "Defender"}`)?.addEventListener("click", () => {
     calculatorSelectionKeys(side).push("");
     state.calculatorPickerSearch[side] ||= [];
     state.calculatorPickerSearch[side].push("");
+    state.calculatorPickerOpen[side] ||= [];
+    state.calculatorPickerOpen[side].push(false);
     state.calculatorDrafts[side].push(null);
     renderCalculatorSelectors();
+  });
+});
+document.addEventListener("click", (event) => {
+  if (event.target.closest("[data-calculator-picker-row]")) return;
+  ["attacker", "defender"].forEach((side) => {
+    (state.calculatorPickerOpen[side] || []).fill(false);
+    $(`#calculator${side === "attacker" ? "Attacker" : "Defender"}Pickers`)?.querySelectorAll("[data-calculator-picker-menu].is-open").forEach((menu) => menu.classList.remove("is-open"));
   });
 });
 
