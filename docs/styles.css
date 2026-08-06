@@ -212,6 +212,13 @@ h4 { font-size: 16px; letter-spacing: -.02em; }
 .form-card > label { display: grid; gap: 7px; color: var(--muted); font-size: 11px; }
 .form-card input, .form-card select { width: 100%; border: 1px solid var(--line); border-radius: 10px; outline: 0; background: #101923; color: var(--text); padding: 11px; font-size: 13px; }
 .form-card input:focus, .form-card select:focus { border-color: var(--gold); }
+.calculator-picker-block { display: grid; gap: 8px; }
+.calculator-picker-heading { display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-size: 11px; }
+.calculator-picker-list { display: grid; gap: 8px; }
+.calculator-picker-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: end; }
+.calculator-picker-row label { display: grid; gap: 6px; color: var(--muted); font-size: 11px; }
+.calculator-picker-row input { margin: 0; }
+.calculator-picker-remove { align-self: stretch; padding: 0 10px; border: 1px solid rgba(233,120,120,.45); border-radius: 10px; background: transparent; color: #f09b9b; }
 .toggle-row { margin-top: 4px; padding: 12px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .toggle-row strong, .toggle-row small { display: block; }
 .toggle-row strong { font-size: 13px; }

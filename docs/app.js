@@ -73,8 +73,10 @@ const state = {
   datasheetCache: {},
   calculatorCards: [],
   calculatorSelection: { attacker: "", defender: "" },
+  calculatorSelections: { attacker: [""], defender: [""] },
   calculatorSearch: { attacker: "", defender: "" },
-  calculatorDrafts: { attacker: null, defender: null },
+  calculatorPickerSearch: { attacker: [""], defender: [""] },
+  calculatorDrafts: { attacker: [], defender: [] },
   externalCalculatorEnabled: true,
   attackMode: "ranged",
 };
@@ -300,41 +302,102 @@ function calculatorRosterOptions(side) {
   })));
 }
 
+// The calculator uses one searchable combobox per row.  Rows are kept as arrays
+// so several attacking and defending units can be selected in order.
+function calculatorSelectionKeys(side) {
+  const keys = Array.isArray(state.calculatorSelections?.[side])
+    ? state.calculatorSelections[side]
+    : [state.calculatorSelection?.[side] || ""];
+  if (!keys.length) keys.push("");
+  state.calculatorSelections[side] = keys;
+  state.calculatorSelection[side] = keys[0] || "";
+  return keys;
+}
+
+function calculatorPickerOptions(side) {
+  const rosterOptions = calculatorRosterOptions(side);
+  const cardOptions = calculatorCardNames().map((card) => ({ key: `card:${card.faction}:${card.page || card.name}`, name: card.name, label: `${card.name} · ${card.faction || "datasheet"}`, card }));
+  return { allOptions: [...rosterOptions, ...cardOptions] };
+}
+
+function calculatorPickerMarkup(side, index, options) {
+  const keys = calculatorSelectionKeys(side);
+  const key = keys[index] || "";
+  const search = state.calculatorPickerSearch[side]?.[index] || "";
+  const selected = options.allOptions.find((option) => option.key === key);
+  const query = String(search).trim().toLocaleLowerCase();
+  const filtered = options.allOptions.filter((option) => !query || `${option.name} ${option.label}`.toLocaleLowerCase().includes(query) || option.key === key);
+  const listId = `calculator-${side}-options-${index}`;
+  const value = selected ? selected.label : search;
+  const label = side === "attacker" ? `进攻单位 ${index + 1}` : `防御目标 ${index + 1}`;
+  return `<div class="calculator-picker-row" data-calculator-picker-row data-side="${side}" data-index="${index}"><label>${label}<input type="search" autocomplete="off" list="${listId}" data-calculator-picker-input data-side="${side}" data-index="${index}" value="${escapeHtml(value)}" placeholder="输入名称或阵营自动过滤……" /></label>${keys.length > 1 ? `<button type="button" class="calculator-picker-remove" data-calculator-picker-remove data-side="${side}" data-index="${index}">移除</button>` : ""}<datalist id="${listId}">${filtered.map((option) => `<option value="${escapeHtml(option.label)}" data-key="${escapeHtml(option.key)}"></option>`).join("")}</datalist></div>`;
+}
+
 function renderCalculatorSelectors() {
   ["attacker", "defender"].forEach((side) => {
-    const select = $(`#calculator${side === "attacker" ? "Attackers" : "Defenders"}`);
-    if (!select) return;
-    const rosterOptions = calculatorRosterOptions(side);
-    const cardOptions = calculatorCardNames().map((card) => ({ key: `card:${card.faction}:${card.page || card.name}`, name: card.name, label: `${card.name} · ${card.faction || "数据卡"}`, card }));
-    const allOptions = [...rosterOptions, ...cardOptions];
-    const validKeys = new Set(allOptions.map((option) => option.key));
-    if (!validKeys.has(state.calculatorSelection[side])) state.calculatorSelection[side] = "";
-    const search = String(state.calculatorSearch[side] || "").trim().toLocaleLowerCase();
-    const matchesSearch = (option) => !search || `${option.name} ${option.label}`.toLocaleLowerCase().includes(search);
-    const filterOptions = (options) => options.filter((option) => matchesSearch(option) || option.key === state.calculatorSelection[side]);
-    const filteredRoster = filterOptions(rosterOptions);
-    const filteredCards = filterOptions(cardOptions);
-    select.innerHTML = `<option value="">${search ? "未选择（搜索结果）" : "请选择已导入单位或数据卡"}</option><optgroup label="当前军表">${filteredRoster.map((option) => `<option value="${escapeHtml(option.key)}">${escapeHtml(option.label)}</option>`).join("") || "<option disabled>没有匹配单位</option>"}</optgroup><optgroup label="已收录数据卡">${filteredCards.map((option) => `<option value="${escapeHtml(option.key)}">${escapeHtml(option.label)}</option>`).join("") || "<option disabled>没有匹配数据卡</option>"}</optgroup>`;
-    select.value = state.calculatorSelection[side];
-    const searchInput = $(`#calculator${side === "attacker" ? "Attacker" : "Defender"}Search`);
-    if (searchInput && searchInput.value !== state.calculatorSearch[side]) searchInput.value = state.calculatorSearch[side];
+    const container = $(`#calculator${side === "attacker" ? "Attacker" : "Defender"}Pickers`);
+    if (!container) return;
+    const options = calculatorPickerOptions(side);
+    const validKeys = new Set(options.allOptions.map((option) => option.key));
+    const keys = calculatorSelectionKeys(side);
+    keys.forEach((key, index) => {
+      if (key && !validKeys.has(key)) {
+        keys[index] = "";
+        state.calculatorDrafts[side][index] = null;
+      }
+    });
+    state.calculatorPickerSearch[side] ||= [];
+    while (state.calculatorPickerSearch[side].length < keys.length) state.calculatorPickerSearch[side].push("");
+    container.innerHTML = keys.map((_, index) => calculatorPickerMarkup(side, index, options)).join("");
   });
   renderCalculatorDetails();
 }
 
+function handleCalculatorPickerInput(event) {
+  const input = event.target.closest("[data-calculator-picker-input]");
+  if (!input) return;
+  const side = input.dataset.side;
+  const index = Number(input.dataset.index || 0);
+  const options = calculatorPickerOptions(side).allOptions;
+  state.calculatorPickerSearch[side] ||= [];
+  state.calculatorPickerSearch[side][index] = input.value;
+  const selected = [...(document.getElementById(`calculator-${side}-options-${index}`)?.options || [])].find((option) => option.value === input.value);
+  const keys = calculatorSelectionKeys(side);
+  keys[index] = selected?.dataset.key && options.some((option) => option.key === selected.dataset.key) ? selected.dataset.key : "";
+  if (keys[index]) state.calculatorPickerSearch[side][index] = "";
+  state.calculatorSelection[side] = keys[0] || "";
+  state.calculatorDrafts[side][index] = null;
+  renderCalculatorSelectors();
+  $("#calcNote").textContent = "已选择单位；请确认双方后开始计算。";
+}
+
+function handleCalculatorPickerClick(event) {
+  const remove = event.target.closest("[data-calculator-picker-remove]");
+  if (!remove) return;
+  const side = remove.dataset.side;
+  const index = Number(remove.dataset.index || 0);
+  const keys = calculatorSelectionKeys(side);
+  if (keys.length <= 1) return;
+  keys.splice(index, 1);
+  state.calculatorPickerSearch[side]?.splice(index, 1);
+  state.calculatorDrafts[side]?.splice(index, 1);
+  state.calculatorSelection[side] = keys[0] || "";
+  renderCalculatorSelectors();
+}
+
 ["attacker", "defender"].forEach((side) => {
-  const select = $(`#calculator${side === "attacker" ? "Attackers" : "Defenders"}`);
-  select?.addEventListener("change", (event) => {
-    state.calculatorSelection[side] = event.target.value;
-    state.calculatorDrafts[side] = null;
-    $("#calcNote").textContent = "已选择单位；请确认双方后开始计算。";
-    renderCalculatorDetails();
-  });
-  $(`#calculator${side === "attacker" ? "Attacker" : "Defender"}Search`)?.addEventListener("input", (event) => {
-    state.calculatorSearch[side] = event.target.value;
+  const container = $(`#calculator${side === "attacker" ? "Attacker" : "Defender"}Pickers`);
+  container?.addEventListener("input", handleCalculatorPickerInput);
+  container?.addEventListener("click", handleCalculatorPickerClick);
+  $(`#addCalculator${side === "attacker" ? "Attacker" : "Defender"}`)?.addEventListener("click", () => {
+    calculatorSelectionKeys(side).push("");
+    state.calculatorPickerSearch[side] ||= [];
+    state.calculatorPickerSearch[side].push("");
+    state.calculatorDrafts[side].push(null);
     renderCalculatorSelectors();
   });
 });
+
 $("#calculatorAttackMode")?.addEventListener("change", (event) => {
   state.attackMode = event.target.value;
   $("#calcNote").textContent = `已选择${state.attackMode === "ranged" ? "远程射击" : "近战"}；请确认双方后开始计算。`;
@@ -345,8 +408,8 @@ $("#enableExternalCalc")?.addEventListener("change", (event) => {
   $("#runExternalCalc").disabled = !state.externalCalculatorEnabled;
 });
 
-function getCalculatorEntry(side) {
-  const key = state.calculatorSelection[side];
+function getCalculatorEntry(side, selectionKey = null) {
+  const key = selectionKey ?? state.calculatorSelection[side];
   if (!key) return null;
   if (key.startsWith("roster:")) {
     const [, rosterSide, groupId, unitId] = key.split(":");
@@ -540,14 +603,15 @@ function calculatorModelProfileMembers(data, rosterUnit, entryName) {
   });
 }
 
-function getCalculatorDraft(side) {
-  const entry = getCalculatorEntry(side);
-  const key = state.calculatorSelection[side];
+function getCalculatorDraft(side, index = 0, selectionKey = null) {
+  const keys = calculatorSelectionKeys(side);
+  const key = selectionKey ?? keys[index] ?? "";
+  const entry = getCalculatorEntry(side, key);
   if (!entry || !key) {
-    state.calculatorDrafts[side] = null;
+    state.calculatorDrafts[side][index] = null;
     return null;
   }
-  if (state.calculatorDrafts[side]?.key === key) return state.calculatorDrafts[side];
+  if (state.calculatorDrafts[side]?.[index]?.key === key) return state.calculatorDrafts[side][index];
   const card = entry.structured ? entry : findStructuredCalculatorCard(entry.name);
   const data = getCalculatorCardData(card || entry);
   const baseUnit = cloneCalculatorValue(data?.unit || {});
@@ -584,14 +648,15 @@ function getCalculatorDraft(side) {
     ? (modelProfileMembers.find((member) => member.isPrimary)?.weapons || modelProfileMembers[0].weapons)
     : baseWeapons;
   const activeRosterModels = rosterUnit ? activeModels(rosterUnit) : [];
-  state.calculatorDrafts[side] = {
+  state.calculatorDrafts[side][index] = {
     key, entry, data, unit: baseUnit, weapons, modelCount: Math.max(1, modelCount || 1), source: calculatorSource(entry), joinedMembers,
+    calculatorUnitIndex: index, sourceKey: `${side}-${index}`,
     compositionMode: explicitJoinedMembers.length ? "joined" : modelProfileMembers.length ? "modelProfiles" : "single",
     martialKatah: "none", oathWoundBonus: false, ruleSelections: {}, rerollSelections: {},
     initialModelCount: rosterUnit ? rosterUnit.models.length : Math.max(1, Number(baseUnit.models || baseUnit.defaultModels || 1)),
     remainingWounds: rosterUnit ? activeRosterModels.reduce((sum, model) => sum + Number(model.currentWounds || 0), 0) : Number(baseUnit.woundsPerModel || 1) * Math.max(1, modelCount || 1),
   };
-  return state.calculatorDrafts[side];
+  return state.calculatorDrafts[side][index];
 }
 
 function calculatorStat(unit, name, fallback = "") {
@@ -742,8 +807,8 @@ function calculatorJoinedMembersMarkup(draft, side) {
   return `<div class="calculator-joined-members"><div class="calculator-section-heading"><strong>${isModelProfiles ? "单位成员" : "联合单位成员"}</strong><small>${note}</small></div>${members}${calculatorAbilityMarkup(draft, side)}</div>`;
 }
 
-function calculatorDetailMarkup(side) {
-  const draft = getCalculatorDraft(side);
+function calculatorDetailMarkup(side, index = 0) {
+  const draft = getCalculatorDraft(side, index);
   const label = side === "attacker" ? "进攻方" : "防守方";
   if (!draft) return `<article class="calculator-side is-empty"><h3>${label}</h3><p>请选择${label}单位。</p></article>`;
   const unit = draft.unit || {};
@@ -756,12 +821,19 @@ function calculatorDetailMarkup(side) {
 function renderCalculatorDetails() {
   const container = $("#calculatorDetails");
   if (!container) return;
-  container.innerHTML = `<div class="calculator-detail-grid">${calculatorDetailMarkup("attacker")}${calculatorDetailMarkup("defender")}</div>`;
+  const attackers = calculatorSelectionKeys("attacker").map((_, index) => calculatorDetailMarkup("attacker", index)).join("");
+  const defenders = calculatorSelectionKeys("defender").map((_, index) => calculatorDetailMarkup("defender", index)).join("");
+  container.innerHTML = `<div class="calculator-detail-grid">${attackers}${defenders}</div>`;
+  const sides = [...container.querySelectorAll(".calculator-side")];
+  const attackerCount = calculatorSelectionKeys("attacker").length;
+  sides.slice(0, attackerCount).forEach((element, index) => { element.dataset.calculatorUnitIndex = index; });
+  sides.slice(attackerCount).forEach((element, index) => { element.dataset.calculatorUnitIndex = index; });
 }
 
 function updateCalculatorDraftFromControl(control) {
   const side = control.dataset.calcSide;
-  const draft = state.calculatorDrafts[side];
+  const unitIndex = Number(control.closest("[data-calculator-unit-index]")?.dataset.calculatorUnitIndex || 0);
+  const draft = state.calculatorDrafts[side]?.[unitIndex];
   if (!draft) return;
   const value = control.type === "checkbox" || control.type === "radio" ? control.checked : control.value;
   if (control.dataset.calcModelCount !== undefined) draft.modelCount = Math.max(1, Number(value) || 1);
@@ -942,7 +1014,56 @@ function buildDefenderGroups(defender, draft, attackerFactionEffects = {}) {
   }).sort((a, b) => a.allocationOrder - b.allocationOrder);
 }
 
+function buildMultiSelectedRoundPayload(attackerKeys, defenderKeys) {
+  const savedSelections = {
+    attacker: [...calculatorSelectionKeys("attacker")],
+    defender: [...calculatorSelectionKeys("defender")],
+  };
+  const savedLegacy = { ...state.calculatorSelection };
+  const savedDrafts = state.calculatorDrafts;
+  const firstDefenderKey = defenderKeys[0];
+  const weaponGroups = [];
+  try {
+    state.calculatorDrafts = { attacker: [], defender: [] };
+    attackerKeys.forEach((key) => {
+      state.calculatorSelections = { attacker: [key], defender: [firstDefenderKey] };
+      state.calculatorSelection = { attacker: key, defender: firstDefenderKey };
+      const payload = buildSelectedRoundPayload();
+      const attackerEntry = getCalculatorEntry("attacker", key);
+      weaponGroups.push(...payload.weaponGroups.map((group) => ({ ...group, name: `${attackerEntry?.name || "进攻单位"} · ${group.name}` })));
+    });
+    state.calculatorSelections = { attacker: [attackerKeys[0]], defender: [firstDefenderKey] };
+    state.calculatorSelection = { attacker: attackerKeys[0], defender: firstDefenderKey };
+    const firstAttackerDraft = getCalculatorDraft("attacker");
+    const attackerFactionEffects = resolvedFactionEffects(firstAttackerDraft).attack || {};
+    const defenderGroups = [];
+    defenderKeys.forEach((key, index) => {
+      state.calculatorSelections = { attacker: [attackerKeys[0]], defender: [key] };
+      state.calculatorSelection = { attacker: attackerKeys[0], defender: key };
+      const entry = getCalculatorEntry("defender", key);
+      const draft = getCalculatorDraft("defender");
+      if (!entry || !draft) return;
+      buildDefenderGroups(entry, draft, attackerFactionEffects).forEach((group) => {
+        defenderGroups.push({ ...group, allocationOrder: index * 100 + Number(group.allocationOrder || 1) });
+      });
+    });
+    if (!weaponGroups.length || !defenderGroups.length) throw new Error("请先选择至少一个有效的进攻单位和防御目标。");
+    return { simulations: 1000, weaponGroups, defenderGroups };
+  } finally {
+    state.calculatorSelections = { attacker: savedSelections.attacker, defender: savedSelections.defender };
+    state.calculatorSelection = savedLegacy;
+    state.calculatorDrafts = savedDrafts;
+  }
+}
+
 function buildSelectedRoundPayload() {
+  const attackerKeys = calculatorSelectionKeys("attacker").filter(Boolean);
+  const defenderKeys = calculatorSelectionKeys("defender").filter(Boolean);
+  if (attackerKeys.length === 1 && defenderKeys.length === 1) {
+    state.calculatorSelection.attacker = attackerKeys[0];
+    state.calculatorSelection.defender = defenderKeys[0];
+  }
+  if (attackerKeys.length > 1 || defenderKeys.length > 1) return buildMultiSelectedRoundPayload(attackerKeys, defenderKeys);
   const attacker = getCalculatorEntry("attacker");
   const defender = getCalculatorEntry("defender");
   if (!attacker || !defender) throw new Error("请先选择进攻单位和防御目标");
@@ -1846,8 +1967,11 @@ function renderCalculation(result) {
   const attackerDraft = getCalculatorDraft("attacker");
   const defenderDraft = getCalculatorDraft("defender");
   const joined = Boolean(defenderDraft?.joinedMembers?.length);
+  const defenderDrafts = calculatorSelectionKeys("defender").map((_, index) => getCalculatorDraft("defender", index)).filter(Boolean);
   $("#calcNote").textContent = `结果来自当前选择的单位和可调参数（${state.attackMode === "ranged" ? "远程射击" : "近战"}；全歼概率按整个目标单位模型全部被摧毁计算；已按页面中勾选或选择的阵营技能、单位技能结算${joined ? "；联合单位按护卫→角色分配伤害" : ""}）。`;
-  $("#calcTargetWounds").textContent = defenderDraft?.unit?.woundsPerModel ? `${defenderDraft.unit.woundsPerModel}W / 模型${joined ? "（护卫先承伤）" : ""}` : "已按所选目标数据卡结算";
+  $("#calcTargetWounds").textContent = defenderDrafts.length > 1
+    ? `${defenderDrafts.length} 个防御单位；按列表顺序先后承伤`
+    : defenderDraft?.unit?.woundsPerModel ? `${defenderDraft.unit.woundsPerModel}W / 模型${joined ? "（护卫先承伤）" : ""}` : "已按所选目标数据卡结算";
 }
 
 $("#runCalc").addEventListener("click", () => {

@@ -85,10 +85,14 @@
         <section id="view-calculator" class="view">
           <div class="page-heading"><p class="eyebrow">DICE ENGINE</p><h2>规则计算器</h2><p>AI 只负责理解诉求；命中、造伤、豁免、伤害与击杀概率由规则引擎计算。</p></div>
           <div class="form-card">
-            <label>搜索进攻单位<input id="calculatorAttackerSearch" type="search" autocomplete="off" placeholder="按名称或阵营搜索……" /></label>
-            <label>进攻单位<select id="calculatorAttackers"><option value="">请先导入并选择单位</option></select></label>
-            <label>搜索防御单位<input id="calculatorDefenderSearch" type="search" autocomplete="off" placeholder="按名称或阵营搜索……" /></label>
-            <label>防御目标<select id="calculatorDefenders"><option value="">请先导入并选择单位</option></select></label>
+            <div class="calculator-picker-block">
+              <div class="calculator-picker-heading"><strong>进攻单位</strong><button id="addCalculatorAttacker" type="button" class="text-button">＋添加单位</button></div>
+              <div id="calculatorAttackerPickers" class="calculator-picker-list"></div>
+            </div>
+            <div class="calculator-picker-block">
+              <div class="calculator-picker-heading"><strong>防御目标</strong><button id="addCalculatorDefender" type="button" class="text-button">＋添加单位</button></div>
+              <div id="calculatorDefenderPickers" class="calculator-picker-list"></div>
+            </div>
             <label>攻击类型<select id="calculatorAttackMode"><option value="ranged">远程射击</option><option value="melee">近战</option></select></label>
             <label class="check-row"><input id="enableExternalCalc" type="checkbox" checked /> <span>启用固定外部基准</span></label>
             <div class="button-row"><button id="runCalc" class="secondary-button">本地模拟 1,000 次</button><button id="runExternalCalc" class="primary-button">外部基准计算</button></div>
