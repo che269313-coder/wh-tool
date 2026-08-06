@@ -173,6 +173,10 @@ h4 { font-size: 16px; letter-spacing: -.02em; }
 .datasheet-stat-grid span { color: var(--muted); font-size: 10px; }
 .datasheet-stat-grid strong { margin-top: 2px; font-size: 14px; color: var(--gold-bright); }
 .datasheet-card-preview h4 { margin: 13px 0 6px; color: var(--gold-bright); font-size: 12px; }
+.datasheet-fallback-list { display: grid; gap: 6px; margin-top: 10px; }
+.datasheet-fallback-row { display: grid; grid-template-columns: minmax(78px, .38fr) 1fr; gap: 8px; align-items: start; padding: 8px; border: 1px solid var(--line); border-radius: 8px; background: rgba(255,255,255,.025); }
+.datasheet-fallback-row strong { color: var(--gold-bright); font-size: 10px; line-height: 1.4; }
+.datasheet-fallback-row span { min-width: 0; color: var(--text); font-size: 10px; line-height: 1.5; overflow-wrap: anywhere; }
 .datasheet-table-wrap { width: 100%; overflow: hidden; }
 .datasheet-table-wrap table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 9px; }
 .datasheet-table-wrap th, .datasheet-table-wrap td { border: 1px solid var(--line); padding: 4px 3px; text-align: left; vertical-align: top; overflow-wrap: anywhere; }

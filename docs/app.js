@@ -85,6 +85,11 @@ const DATASHEET_FILES = {
   "星际战士": "data/星际战士/数据卡-可检索.md",
   "死亡守卫": "data/死亡守卫/死亡守卫-数据卡-可检索.md",
 };
+const DATASHEET_JSON_FILES = {
+  "帝皇禁军": "data/帝皇禁军/帝皇禁军-结构化数据卡.json",
+  "星际战士": "data/星际战士/星际战士-全部数据卡.json",
+  "死亡守卫": "data/死亡守卫/死亡守卫-全部数据卡.json",
+};
 const DATASHEET_ALIASES = {
   "帝皇禁军": {
     "盾卫连长(主将)": ["盾卫连长"],
@@ -952,8 +957,48 @@ function renderRosters() {
 
 async function getDatasheetPreview(faction, unitName) {
   if (!state.calculatorCards.length) await loadCalculatorCards();
-  const names = [unitName, unitName.replace(/\([^)]*\)/g, "").trim(), ...(DATASHEET_ALIASES[faction]?.[unitName] || [])];
-  const structured = state.calculatorCards.find((card) => card.structured && (!faction || card.faction === faction) && names.includes(card.name));
+  const names = [unitName, unitName.replace(/[（(][^）)]*[）)]/g, "").trim(), ...(DATASHEET_ALIASES[faction]?.[unitName] || [])].filter(Boolean);
+  const normalizeName = (value) => String(value || "")
+    .replace(/[\s\u00a0·•・,，。.!！:：;；/\\_\-—–]/g, "")
+    .replace(/[（(][^）)]*[）)]/g, "")
+    .toLowerCase();
+  const normalizedNames = new Set(names.map(normalizeName).filter(Boolean));
+  const matchesName = (card) => {
+    if (!card?.structured || !card.data?.unit) return false;
+    if (faction && card.faction && card.faction !== faction) return false;
+    return [card.name, card.data.unit.name, card.data.englishName, card.englishName]
+      .some((candidate) => normalizedNames.has(normalizeName(candidate)));
+  };
+  let structured = state.calculatorCards.find(matchesName);
+  // Older imported rosters may contain different punctuation or a stale
+  // faction label. Resolve directly from the structured catalogue before
+  // falling back to the legacy Markdown section.
+  if (!structured) {
+    const jsonPaths = [...new Set([
+      ...(faction && DATASHEET_JSON_FILES[faction] ? [DATASHEET_JSON_FILES[faction]] : []),
+      ...Object.values(DATASHEET_JSON_FILES),
+    ])];
+    for (const path of jsonPaths) {
+      try {
+        const response = await fetch(path);
+        if (!response.ok) continue;
+        const parsed = await response.json();
+        const cards = parsed.cards || (parsed.unit ? [parsed] : []);
+        const hit = cards.find((card) => {
+          const data = card.unit ? card : parsed.unit ? parsed : null;
+          return data && [card.name, data.unit?.name, data.englishName]
+            .some((candidate) => normalizedNames.has(normalizeName(candidate)));
+        });
+        if (hit) {
+          const data = hit.unit ? hit : parsed.unit ? parsed : null;
+          structured = { faction: parsed.faction, name: hit.name || data?.unit?.name, structured: true, data };
+          break;
+        }
+      } catch {
+        // Keep trying other catalogues, then use the readable Markdown fallback.
+      }
+    }
+  }
   if (structured?.data?.unit) return { type: "structured", data: structured.data };
   const path = DATASHEET_FILES[faction];
   if (!path) return null;
@@ -978,8 +1023,13 @@ function datasheetPreviewMarkup(preview) {
   if (!preview) return `<strong>数据卡属性</strong><p class="muted-copy">未找到该单位的可用数据卡条目；你仍可在上方设置模型血量。</p>`;
   if (preview.type !== "structured") {
     const rows = preview.text.split(/\r?\n/).filter((line) => /^\s*\|/.test(line) && !/^\s*\|\s*-/.test(line)).map((line) => line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim().replace(/<br\s*\/?>(?=\S)/gi, " "))).filter((cells) => cells.some(Boolean));
-    const table = rows.length ? `<div class="datasheet-table-wrap"><table><tbody>${rows.map((cells, index) => `<tr>${cells.map((cell) => `<${index === 0 ? "th" : "td"}>${escapeHtml(cell)}</${index === 0 ? "th" : "td"}>`).join("")}</tr>`).join("")}</tbody></table></div>` : `<pre>${escapeHtml(preview.text)}</pre>`;
-    return `<details open><summary>数据卡属性</summary>${table}</details>`;
+    const fallbackRows = rows.map((cells) => {
+      const label = cells[0] || "";
+      const value = cells.slice(1).filter(Boolean).join(" · ");
+      return `<article class="datasheet-fallback-row"><strong>${escapeHtml(label)}</strong><span>${escapeHtml(value || "—")}</span></article>`;
+    }).join("");
+    const content = fallbackRows ? `<div class="datasheet-fallback-list">${fallbackRows}</div>` : `<pre>${escapeHtml(preview.text)}</pre>`;
+    return `<details open><summary>数据卡属性</summary><div class="datasheet-card-preview">${content}</div></details>`;
   }
   const data = preview.data || {};
   const unit = data.unit || {};
