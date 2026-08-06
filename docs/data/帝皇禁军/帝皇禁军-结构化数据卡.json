@@ -1036,6 +1036,23 @@
         "activeAbilities": "灵能猎杀（条件性）",
         "defaultEquipment": ""
       },
+      "modelProfiles": [
+        {
+          "id": "champion",
+          "name": "静修女队长",
+          "role": "队长",
+          "matchIncludes": ["队长"],
+          "count": 1,
+          "defaultEquipment": "爆弹枪，格斗武器"
+        },
+        {
+          "id": "trooper",
+          "name": "控诉者",
+          "role": "普通队员",
+          "remaining": true,
+          "defaultEquipment": "爆弹枪，格斗武器"
+        }
+      ],
       "weapons": [
         {
           "name": "爆弹枪",
@@ -1085,6 +1102,23 @@
         "activeAbilities": "反灵能者姿态（条件性）",
         "defaultEquipment": ""
       },
+      "modelProfiles": [
+        {
+          "id": "champion",
+          "name": "宁静修女队长",
+          "role": "队长",
+          "matchIncludes": ["队长"],
+          "count": 1,
+          "defaultEquipment": "处决者巨剑"
+        },
+        {
+          "id": "trooper",
+          "name": "戒卫者",
+          "role": "普通队员",
+          "remaining": true,
+          "defaultEquipment": "处决者巨剑"
+        }
+      ],
       "weapons": [
         {
           "name": "处决者巨剑",
@@ -1125,6 +1159,23 @@
         "activeAbilities": "利刃烈焰（条件性）",
         "defaultEquipment": ""
       },
+      "modelProfiles": [
+        {
+          "id": "champion",
+          "name": "净洁修女队长",
+          "role": "队长",
+          "matchIncludes": ["队长"],
+          "count": 1,
+          "defaultEquipment": "猎巫喷火器，格斗武器"
+        },
+        {
+          "id": "trooper",
+          "name": "猎巫者",
+          "role": "普通队员",
+          "remaining": true,
+          "defaultEquipment": "猎巫喷火器，格斗武器"
+        }
+      ],
       "weapons": [
         {
           "name": "猎巫喷火器",

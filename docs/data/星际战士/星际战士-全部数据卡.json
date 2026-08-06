@@ -2687,6 +2687,40 @@
         "activeAbilities": "",
         "defaultEquipment": "老 旗手：爆弹手枪，爆弹步枪，格斗武器 连队冠军：爆弹手枪，精工动力武器 连队老兵A：爆弹手枪，精工重型爆弹枪，格斗武器 连队老兵B：爆弹手枪，精工爆弹步枪，格斗武器"
       },
+      "modelProfiles": [
+        {
+          "id": "banner",
+          "name": "旗手",
+          "role": "旗手",
+          "matchIncludes": ["旗手"],
+          "count": 1,
+          "defaultEquipment": "爆弹手枪，爆弹步枪，格斗武器"
+        },
+        {
+          "id": "champion",
+          "name": "连队冠军",
+          "role": "队长",
+          "matchIncludes": ["冠军"],
+          "count": 1,
+          "defaultEquipment": "爆弹手枪，精工动力武器"
+        },
+        {
+          "id": "veteran-a",
+          "name": "连队老兵A",
+          "role": "普通队员",
+          "matchIncludes": ["老兵A"],
+          "count": 1,
+          "defaultEquipment": "爆弹手枪，精工重型爆弹枪，格斗武器"
+        },
+        {
+          "id": "veteran-b",
+          "name": "连队老兵B",
+          "role": "普通队员",
+          "matchIncludes": ["老兵B"],
+          "count": 1,
+          "defaultEquipment": "爆弹手枪，精工爆弹步枪，格斗武器"
+        }
+      ],
       "weapons": [
         {
           "name": "爆弹手枪",
@@ -2783,6 +2817,32 @@
         "activeAbilities": "",
         "defaultEquipment": "老 旗手：马库拉格旗帜，精工动力武器 战团冠军：荣誉之刃 荣誉卫士：精工爆弹卡宾枪，精工动力武器"
       },
+      "modelProfiles": [
+        {
+          "id": "banner",
+          "name": "旗手",
+          "role": "旗手",
+          "matchIncludes": ["旗手"],
+          "count": 1,
+          "defaultEquipment": "马库拉格旗帜，精工动力武器"
+        },
+        {
+          "id": "champion",
+          "name": "战团冠军",
+          "role": "队长",
+          "matchIncludes": ["冠军"],
+          "count": 1,
+          "defaultEquipment": "荣誉之刃"
+        },
+        {
+          "id": "honor-guard",
+          "name": "荣誉卫士",
+          "role": "普通队员",
+          "matchIncludes": ["荣誉卫士"],
+          "count": 1,
+          "defaultEquipment": "精工爆弹卡宾枪，精工动力武器"
+        }
+      ],
       "weapons": [
         {
           "name": "精工爆弹卡宾枪",
