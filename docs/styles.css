@@ -220,6 +220,7 @@ h4 { font-size: 16px; letter-spacing: -.02em; }
 .calculator-picker-row input { margin: 0; }
 .calculator-picker-menu { position: absolute; z-index: 20; top: calc(100% - 1px); left: 0; right: 0; display: none; max-height: 260px; overflow-y: auto; padding: 5px; border: 1px solid var(--gold); border-radius: 0 0 10px 10px; background: #101923; box-shadow: 0 12px 24px rgba(0,0,0,.38); }
 .calculator-picker-menu.is-open { display: grid; gap: 3px; }
+.calculator-picker-label:focus-within .calculator-picker-menu { display: grid; gap: 3px; }
 .calculator-picker-option { display: grid; gap: 2px; width: 100%; padding: 8px 9px; border: 0; border-radius: 7px; background: transparent; color: var(--text); text-align: left; cursor: pointer; }
 .calculator-picker-option:hover, .calculator-picker-option:focus { background: rgba(215,168,86,.18); outline: 0; }
 .calculator-picker-option strong { font-size: 12px; }

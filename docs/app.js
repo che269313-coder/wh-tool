@@ -369,7 +369,6 @@ function handleCalculatorPickerInput(event) {
   if (!input) return;
   const side = input.dataset.side;
   const index = Number(input.dataset.index || 0);
-  const options = calculatorPickerOptions(side).allOptions;
   state.calculatorPickerSearch[side] ||= [];
   state.calculatorPickerSearch[side][index] = input.value;
   const keys = calculatorSelectionKeys(side);
@@ -379,8 +378,6 @@ function handleCalculatorPickerInput(event) {
   state.calculatorSelection[side] = keys[0] || "";
   state.calculatorDrafts[side][index] = null;
   refreshCalculatorPickerMenu(side, index);
-  renderCalculatorDetails();
-  $("#calcNote").textContent = "已选择单位；请确认双方后开始计算。";
 }
 
 function refreshCalculatorPickerMenu(side, index) {
