@@ -5,19 +5,14 @@ const ROSTER_STORAGE_KEY = "warhammer-tactical-assistant-rosters-v2";
 const FIXED_CALCULATOR_ENDPOINT = "https://wathammer.com/simulate-round";
 const FIXED_CALCULATOR_PAGE = "https://wathammer.com/round";
 const BUILTIN_LIBRARY_FILES = [
-  "data/规则书/11版核心规则简中.pdf",
   "data/规则书/核心规则-可检索.md",
-  "data/规则书/分遣队速查表.pdf",
   "data/规则书/分遣队速查-可检索.md",
   "data/规则书/AI-战斗规则摘要.md",
-  "data/帝皇禁军/帝皇禁军10版中文老湿腐版1.07.pdf",
   "data/帝皇禁军/数据卡-OCR-可检索.md",
   "data/帝皇禁军/帝皇禁军-结构化数据卡.json",
-  "data/星际战士/星际战士11版中文1.0.pdf",
   "data/星际战士/分遣队规则-可检索.md",
   "data/星际战士/数据卡-可检索.md",
   "data/星际战士/星际战士-全部数据卡.json",
-  "data/死亡守卫/死亡守卫10版中文咸鱼罐头版v1.0.7.1.pdf",
   "data/死亡守卫/死亡守卫-分遣队规则-可检索.md",
   "data/死亡守卫/死亡守卫-数据卡-可检索.md",
   "data/死亡守卫/死亡守卫-分数表-可检索.md",
@@ -32,10 +27,6 @@ const DEFAULT_SETTINGS = {
 };
 
 const BUILTIN_FILE_METADATA = {
-  "11版核心规则简中.pdf": { faction: "规则书", kind: "rulebook", builtin: true },
-  "帝皇禁军10版中文老湿腐版1.07.pdf": { faction: "帝皇禁军", kind: "datasheet", builtin: true },
-  "分遣队速查表.pdf": { faction: "规则书", kind: "detachment", builtin: true },
-  "星际战士11版中文1.0.pdf": { faction: "星际战士", kind: "datasheet", builtin: true },
   "核心规则-可检索.md": { faction: "规则书", kind: "rulebook", builtin: true },
   "分遣队速查-可检索.md": { faction: "规则书", kind: "detachment", builtin: true },
   "AI-战斗规则摘要.md": { faction: "规则书", kind: "rulebook", builtin: true },
@@ -44,7 +35,6 @@ const BUILTIN_FILE_METADATA = {
   "分遣队规则-可检索.md": { faction: "星际战士", kind: "detachment", builtin: true },
   "数据卡-可检索.md": { faction: "星际战士", kind: "datasheet", builtin: true },
   "星际战士-全部数据卡.json": { faction: "星际战士", kind: "datasheet", builtin: true },
-  "死亡守卫10版中文咸鱼罐头版v1.0.7.1.pdf": { faction: "死亡守卫", kind: "datasheet", builtin: true },
   "死亡守卫-全部数据卡.json": { faction: "死亡守卫", kind: "datasheet", builtin: true },
   "死亡守卫-分遣队规则-可检索.md": { faction: "死亡守卫", kind: "detachment", builtin: true },
   "死亡守卫-数据卡-可检索.md": { faction: "死亡守卫", kind: "datasheet", builtin: true },
