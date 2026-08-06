@@ -84,7 +84,7 @@
       common("aleya-core", "【核心技能】：领袖，斥候 6，不知疼痛 5+", { type: "fnp", threshold: 5 }),
       common("aleya-insight", "战术洞察：本模型所领导的单位，其中的模型获得【先攻】"),
       { id: "custodes-aleya-deep", name: "深渊之女", text: "深渊之女：本模型在对抗【灵能】攻击和致命伤害时算作拥有【不知疼痛 3+】", status: supported, controls: [{ id: "psychic", type: "checkbox", label: "来袭攻击具有【灵能】关键词" }], effect: { type: "deep-daughter" } },
-      { id: "custodes-aleya-soul", name: "坚毅灵魂", text: "坚毅灵魂：本模型所领导的单位如果低于起始数量，则攻击命中结果+1，如果低于半数则造伤结果也+1", status: supported, controls: [{ id: "forceLeader", type: "checkbox", label: "强行按角色已领导本单位" }, { id: "belowHalf", type: "checkbox", label: "同时按本单位低于半数处理" }], effect: { type: "under-strength-bonuses", requiresJoined: true } },
+      { id: "custodes-aleya-soul", name: "坚毅灵魂", text: "坚毅灵魂：本模型所领导的单位如果低于起始数量，则攻击命中结果+1，如果低于半数则造伤结果也+1", status: supported, controls: [{ id: "forceLeader", type: "checkbox", label: "本次启用此技能" }, { id: "belowHalf", type: "checkbox", label: "按低于半数处理" }], effect: { type: "under-strength-bonuses", requiresJoined: true } },
     ]),
     unit("控诉者", [
       { id: "custodes-prosecutors-purge", name: "净化处决", text: "净化处决：本单位模型射击攻击灵能者单位时算作拥有【精准】和【毁灭伤害】技能", status: supported, controls: [{ id: "targetPsychic", type: "checkbox", label: "目标是灵能者单位" }], effect: { type: "anti-psyker-weapons" } },

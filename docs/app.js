@@ -472,10 +472,14 @@ function unitHasOathOfMoment(unit, faction = "") {
 
 function calculatorRuleControlMarkup(draft, side, rule) {
   if (!rule.controls?.length) return "";
-  return rule.controls.map((control) => {
+  const hasEnabledControl = rule.controls.some((control) => control.id === "enabled");
+  const hasForceLeaderControl = rule.controls.some((control) => control.id === "forceLeader");
+  return rule.controls.filter((control) => !(control.id === "forceLeader" && hasEnabledControl)).map((control) => {
     const key = `${rule.id}.${control.id}`;
     const current = draft.ruleSelections?.[key];
-    if (control.type === "checkbox") return `<label class="check-row calculator-rule-control"><input type="checkbox" data-calc-side="${side}" data-calc-rule="${escapeHtml(key)}" ${current ? "checked" : ""} /><span>${escapeHtml(control.label)}</span></label>`;
+    const label = control.id === "forceLeader" && !hasEnabledControl ? "本次启用此技能" : control.label;
+    const impliesForceLeader = control.id === "enabled" && hasForceLeaderControl ? ` data-calc-implies-force-leader="${escapeHtml(`${rule.id}.forceLeader`)}"` : "";
+    if (control.type === "checkbox") return `<label class="check-row calculator-rule-control"><input type="checkbox" data-calc-side="${side}" data-calc-rule="${escapeHtml(key)}"${impliesForceLeader} ${current ? "checked" : ""} /><span>${escapeHtml(label)}</span></label>`;
     return `<label class="calculator-martial-control calculator-rule-control">${escapeHtml(control.label)}<select data-calc-side="${side}" data-calc-rule="${escapeHtml(key)}">${(control.options || []).map(([value, label]) => `<option value="${escapeHtml(value)}" ${(current ?? control.options?.[0]?.[0]) === value ? "selected" : ""}>${escapeHtml(label)}</option>`).join("")}</select></label>`;
   }).join("");
 }
@@ -624,6 +628,7 @@ function updateCalculatorDraftFromControl(control) {
   if (control.dataset.calcRule !== undefined) {
     draft.ruleSelections ||= {};
     draft.ruleSelections[control.dataset.calcRule] = control.type === "checkbox" ? Boolean(control.checked) : value;
+    if (control.dataset.calcImpliesForceLeader) draft.ruleSelections[control.dataset.calcImpliesForceLeader] = control.type === "checkbox" ? Boolean(control.checked) : Boolean(value);
   }
   if (control.dataset.calcRerollFace !== undefined) {
     const key = control.dataset.calcRerollKey;
