@@ -517,10 +517,7 @@ function calculatorAbilityMarkup(draft, side) {
   const unit = draft.unit || {};
   const unitNames = [draft.entry?.name, ...(draft.joinedMembers || []).map((member) => member.name)];
   const catalog = window.WarhammerRuleResolver?.rulesForUnits(draft.entry?.faction, unitNames) || { faction: [], unit: [] };
-  const factionRulesForUnit = catalog.faction.filter((rule) =>
-    (rule.effect?.type !== "martial-katah" || unitNames.some((name) => window.WarhammerRuleResolver?.isMartialKatahUnit(draft.entry?.faction, name)))
-    && !(rule.id === "death-guard-nurgles-gift" && side !== "attacker")
-  );
+  const factionRulesForUnit = catalog.faction.filter((rule) => rule.effect?.type !== "martial-katah" || unitNames.some((name) => window.WarhammerRuleResolver?.isMartialKatahUnit(draft.entry?.faction, name)));
   const allWeapons = [draft.weapons || [], ...(draft.joinedMembers || []).map((member) => member.weapons || [])].flat();
   const weaponAbilities = [...new Set(allWeapons.flatMap((weapon) => weapon.abilities || []).filter(Boolean))];
   const hasMartialKatah = side === "attacker" && (factionRulesForUnit.some((rule) => rule.effect?.type === "martial-katah") || /禁军武艺/.test([unit.abilities, ...(draft.joinedMembers || []).map((member) => member.unit?.abilities)].join(" ")));
@@ -812,7 +809,9 @@ function buildSelectedRoundPayload() {
   if (!attackerData?.unit || !Array.isArray(attackerData.weapons) || !attackerData.weapons.length) throw new Error(`进攻单位“${attacker.name}”没有可计算的结构化武器数据`);
   if (!defenderData?.unit || !defenderUnit.woundsPerModel) throw new Error(`防御单位“${defender.name}”没有可计算的属性数据`);
   const attackerFactionEffects = resolvedFactionEffects(attackerDraft).attack || {};
+  const defenderFactionEffects = resolvedFactionEffects(defenderDraft).attack || {};
   const toughness = Math.max(1, Number(defenderUnit.toughness || 0) + Number(attackerFactionEffects.targetToughnessModifier || 0));
+  const defenderFactionHitModifier = state.attackMode === "melee" ? Number(defenderFactionEffects.targetMeleeHitModifier || 0) : 0;
   const defenderRuleEffects = [defender.name, ...(defenderDraft.joinedMembers || []).map((member) => member.name)]
     .map((name) => resolvedRuleEffects(defenderDraft, name).defend || {})
     .reduce((result, effects) => ({
@@ -870,7 +869,7 @@ function buildSelectedRoundPayload() {
         : (Number(sourceRules.attackModifier || sharedJoinedRules.attackModifier || 0) && Number.isFinite(Number(weapon.attacks))
           ? String(Number(weapon.attacks) + Number(sourceRules.attackModifier || sharedJoinedRules.attackModifier || 0))
           : weapon.attacks);
-      const hitModifier = sharedJoinedRules.hitModifier + (sharedJoinedRules.ignoreHitModifiers ? 0 : defenderRuleEffects.incomingHitModifier);
+      const hitModifier = sharedJoinedRules.hitModifier + (sharedJoinedRules.ignoreHitModifiers ? 0 : defenderFactionHitModifier + defenderRuleEffects.incomingHitModifier);
       const conditionalWoundModifier = Number(weapon.strength || 0) >= toughness
         ? defenderRuleEffects.incomingWoundWhenStrengthGreaterOrEqual
         : (Number(weapon.strength || 0) > toughness ? defenderRuleEffects.incomingWoundWhenStrengthGreater : 0);
@@ -929,7 +928,7 @@ function renderRosters() {
     const totalWounds = models.reduce((sum, model) => sum + model.currentWounds, 0);
     const maxWounds = models.reduce((sum, model) => sum + model.maximumWounds, 0);
     const ratio = maxWounds ? Math.round((totalWounds / maxWounds) * 100) : 0;
-    return `<article class="unit-card ${side}"><div class="unit-top"><span class="faction-dot ${side === "attacker" ? "gold" : "red"}"></span><span class="unit-role">${escapeHtml(sideLabel(side))}</span></div><h4>${escapeHtml(unit.name)}</h4><p>${models.length} 个存活模型 · ${escapeHtml(Object.entries(countEquipment(unit)).map(([name, count]) => `${count}x ${name}`).join(" · ") || "无装备")}</p><div class="stat-row"><span>剩余伤口</span><strong>${totalWounds} / ${maxWounds}</strong></div><div class="health-bar ${side === "defender" ? "red" : ""}"><span style="width:${ratio}%"></span></div></article>`;
+    return `<article class="unit-card ${side}"><div class="unit-top"><span class="faction-dot ${side === "attacker" ? "gold" : "red"}"></span><span class="unit-role">${escapeHtml(sideLabel(side))}</span></div><h4>${escapeHtml(unit.name)}</h4><p>${models.length} 个存活模型 · ${escapeHtml(Object.entries(countEquipment(unit)).map(([name, count]) => `${count}x ${name}`).join(" · ") || "无装备")}</p><div class="stat-row"><span>剩余血量</span><strong>${totalWounds} / ${maxWounds}</strong></div><div class="health-bar ${side === "defender" ? "red" : ""}"><span style="width:${ratio}%"></span></div></article>`;
   }).join("") : '<div class="library-empty">导入双方军表后会在这里显示全部单位。</div>';
   if (overview) overview.innerHTML = ["attacker", "defender"].map((side) => {
     const roster = state.rosters[side];
@@ -948,25 +947,43 @@ function renderRosters() {
   renderCalculatorSelectors();
 }
 
-async function getDatasheetExcerpt(faction, unitName) {
+async function getDatasheetPreview(faction, unitName) {
+  const names = [unitName, unitName.replace(/\([^)]*\)/g, "").trim(), ...(DATASHEET_ALIASES[faction]?.[unitName] || [])];
+  const structured = state.calculatorCards.find((card) => card.structured && (!faction || card.faction === faction) && names.includes(card.name));
+  if (structured?.data?.unit) return { type: "structured", data: structured.data };
   const path = DATASHEET_FILES[faction];
-  if (!path) return "";
+  if (!path) return null;
   if (!state.datasheetCache[path]) {
     try {
       const response = await fetch(path);
-      if (!response.ok) return "";
+      if (!response.ok) return null;
       state.datasheetCache[path] = await response.text();
     } catch {
-      return "";
+      return null;
     }
   }
   const text = state.datasheetCache[path] || "";
-  const names = [unitName, unitName.replace(/\([^)]*\)/g, "").trim(), ...(DATASHEET_ALIASES[faction]?.[unitName] || [])];
   const hit = names.map((name) => text.indexOf(name)).find((index) => index >= 0);
-  if (hit === undefined) return "";
+  if (hit === undefined) return null;
   const start = Math.max(0, text.lastIndexOf("## ", hit));
   const next = text.indexOf("\n## ", hit + 1);
-  return text.slice(start, next >= 0 ? next : hit + 6000).slice(0, 7000).trim();
+  return { type: "markdown", text: text.slice(start, next >= 0 ? next : hit + 6000).slice(0, 7000).trim() };
+}
+
+function datasheetPreviewMarkup(preview) {
+  if (!preview) return `<strong>数据卡属性</strong><p class="muted-copy">未找到该单位的可用数据卡条目；你仍可在上方设置模型血量。</p>`;
+  if (preview.type !== "structured") {
+    const rows = preview.text.split(/\r?\n/).filter((line) => /^\s*\|/.test(line) && !/^\s*\|\s*-/.test(line)).map((line) => line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim().replace(/<br\s*\/?>(?=\S)/gi, " "))).filter((cells) => cells.some(Boolean));
+    const table = rows.length ? `<div class="datasheet-table-wrap"><table><tbody>${rows.map((cells, index) => `<tr>${cells.map((cell) => `<${index === 0 ? "th" : "td"}>${escapeHtml(cell)}</${index === 0 ? "th" : "td"}>`).join("")}</tr>`).join("")}</tbody></table></div>` : `<pre>${escapeHtml(preview.text)}</pre>`;
+    return `<details open><summary>数据卡属性</summary>${table}</details>`;
+  }
+  const data = preview.data || {};
+  const unit = data.unit || {};
+  const save = unit.invulnerableSave ? `${unit.save}+ / ${unit.invulnerableSave}+` : `${unit.save ?? "-"}+`;
+  const statRows = [["移动", unit.movement ? `${unit.movement}"` : "-"], ["坚韧", unit.toughness ?? "-"], ["护甲 / 特殊保护", save], ["血量", unit.woundsPerModel ?? "-"], ["领导力", unit.leadership ?? "-"], ["控制值", unit.objectiveControl ?? "-"]];
+  const weaponRows = (data.weapons || []).map((weapon) => `<tr><td>${escapeHtml(weapon.name)}</td><td>${weapon.type === "melee" ? "近战" : "射击"}</td><td>${escapeHtml(weapon.attacks ?? "-")}</td><td>${escapeHtml(weapon.skill === "torrent" ? "自动命中" : weapon.skill ?? "-")}</td><td>${escapeHtml(weapon.strength ?? "-")}</td><td>${escapeHtml(weapon.ap ?? "-")}</td><td>${escapeHtml(weapon.damage ?? "-")}</td><td>${escapeHtml((weapon.abilities || []).join("、") || "-")}</td></tr>`).join("");
+  const abilities = String(unit.abilities || "").split("⚫").map((item) => item.trim()).filter(Boolean).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+  return `<details open><summary>数据卡属性</summary><div class="datasheet-card-preview"><div class="datasheet-stat-grid">${statRows.map(([label, value]) => `<div><span>${label}</span><strong>${escapeHtml(value)}</strong></div>`).join("")}</div>${unit.defaultEquipment ? `<p class="datasheet-equipment"><strong>默认装备：</strong>${escapeHtml(unit.defaultEquipment)}</p>` : ""}${weaponRows ? `<h4>武器</h4><div class="datasheet-table-wrap"><table><thead><tr><th>武器</th><th>类型</th><th>A</th><th>命中</th><th>S</th><th>AP</th><th>D</th><th>技能</th></tr></thead><tbody>${weaponRows}</tbody></table></div>` : ""}${abilities ? `<h4>技能</h4><ul class="datasheet-abilities">${abilities}</ul>` : ""}</div></details>`;
 }
 
 async function openUnitDetail(side, groupId, unitId) {
@@ -977,11 +994,15 @@ async function openUnitDetail(side, groupId, unitId) {
   const detailKey = `${side}:${groupId}:${unitId}`;
   dialog.dataset.detailKey = detailKey;
   detail.innerHTML = `<div class="detail-heading"><div><span>${escapeHtml(group.title)}</span><h3>${escapeHtml(unit.name)}${unit.points ? ` · ${escapeHtml(unit.points)}分` : ""}</h3></div><button type="button" data-close-detail>关闭</button></div>${unit.enhancement ? `<p class="detail-note">强化：${escapeHtml(unit.enhancement)}</p>` : ""}<div class="model-list">${unit.models.map((model) => `<article class="model-row ${model.currentWounds <= 0 ? "is-destroyed" : ""}"><div><strong>${escapeHtml(model.name)}</strong><small>${model.equipment.map((item) => `${item.count}x ${item.name}`).join(" · ") || "无装备"}</small></div><label>当前伤口<input type="number" min="0" max="${model.maximumWounds}" value="${model.currentWounds}" data-model-wounds data-side="${side}" data-group-id="${groupId}" data-unit-id="${unit.id}" data-model-id="${model.id}" /></label><label>最大伤口<input type="number" min="1" value="${model.maximumWounds}" data-model-max-wounds data-side="${side}" data-group-id="${groupId}" data-unit-id="${model.id}" /></label>${model.currentWounds > 0 ? `<button type="button" class="delete-unit" data-destroy-model data-side="${side}" data-group-id="${groupId}" data-unit-id="${unit.id}" data-model-id="${model.id}">移除模型</button>` : "<em>已阵亡</em>"}</article>`).join("")}</div><section class="datasheet-preview" data-datasheet-preview><strong>数据卡属性</strong><p class="muted-copy">正在加载…</p></section>`;
+  detail.querySelectorAll("label").forEach((label) => {
+    if (label.querySelector("[data-model-wounds]")) label.firstChild.textContent = "当前血量";
+    if (label.querySelector("[data-model-max-wounds]")) label.firstChild.textContent = "最大血量";
+  });
   if (!dialog.open) dialog.showModal();
-  const excerpt = await getDatasheetExcerpt(state.rosters[side].faction, unit.name);
+  const previewData = await getDatasheetPreview(state.rosters[side].faction, unit.name);
   if (!dialog.open || dialog.dataset.detailKey !== detailKey) return;
   const preview = detail.querySelector("[data-datasheet-preview]");
-  if (preview) preview.innerHTML = excerpt ? `<details><summary>数据卡属性</summary><pre>${escapeHtml(excerpt)}</pre></details>` : `<strong>数据卡属性</strong><p class="muted-copy">未找到该单位的可用数据卡条目；你仍可在上方设置模型伤口。</p>`;
+  if (preview) preview.innerHTML = datasheetPreviewMarkup(previewData);
 }
 
 $("#rosterOverview")?.addEventListener("click", (event) => {

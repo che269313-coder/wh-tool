@@ -83,6 +83,14 @@ const factionRules = [{
   controls: [{ id: "enabled", type: "checkbox", label: "目标受到纳垢赐福（T-1）" }],
   effects: [{ type: "target-toughness-modifier", value: -1 }],
   source: { file: "死亡守卫-分遣队规则-可检索.md" },
+}, {
+  id: "death-guard-skullsquirm-blight",
+  name: "纳垢赐福：头骨痉挛瘟疫",
+  text: "头骨痉挛瘟疫：受到纳垢赐福影响的敌方单位，其模型进行近战攻击时，命中骰结果-1。",
+  status: "计算支持（死亡守卫作为防守方、目标已感染且进行近战攻击时计入）",
+  controls: [{ id: "enabled", type: "checkbox", label: "目标受到头骨痉挛（近战命中 -1）" }],
+  effects: [{ type: "target-melee-hit-minus", value: -1 }],
+  source: { file: "死亡守卫-分遣队规则-可检索.md" },
 }];
 
 const output = `/* Generated from docs/data/死亡守卫/死亡守卫-全部数据卡.json. Raw ability text is preserved; rerun tools/generate-death-guard-rules.mjs after data changes. */\n(function (root) {\n  const factionRules = ${JSON.stringify(factionRules, null, 2)};\n  const unitRules = ${JSON.stringify(unitRules, null, 2)};\n  root.WarhammerDeathGuardRules = { factionRules, unitRules };\n})(typeof globalThis === "undefined" ? this : globalThis);\n`;

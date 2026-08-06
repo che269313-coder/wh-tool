@@ -19,10 +19,16 @@ assert(deathGuardRules && Object.keys(deathGuardRules.unitRules || {}).length ==
 assert(deathGuardData.cards.every((card) => deathGuardRules?.unitRules?.[card.unit.name]?.length), "每个死亡守卫单位都必须至少有一条原文技能规则");
 const nurgleGift = deathGuardRules?.factionRules?.find((rule) => rule.id === "death-guard-nurgles-gift");
 assert(nurgleGift?.effects?.some((effect) => effect.type === "target-toughness-modifier" && effect.value === -1), "死亡守卫必须声明纳垢赐福的目标T-1效果");
+const skullsquirm = deathGuardRules?.factionRules?.find((rule) => rule.id === "death-guard-skullsquirm-blight");
+assert(skullsquirm?.effects?.some((effect) => effect.type === "target-melee-hit-minus" && effect.value === -1), "死亡守卫必须声明头骨痉挛的近战命中-1效果");
 if (nurgleGift) {
   const disabledGift = context.WarhammerRuleResolver.resolveFaction("死亡守卫", {}, { phase: "ranged" });
   const enabledGift = context.WarhammerRuleResolver.resolveFaction("死亡守卫", { "death-guard-nurgles-gift.enabled": true }, { phase: "ranged" });
   assert(disabledGift.attack.targetToughnessModifier === 0 && enabledGift.attack.targetToughnessModifier === -1, "纳垢赐福必须默认关闭并可通过控件启用T-1");
+}
+if (skullsquirm) {
+  const enabledSkullsquirm = context.WarhammerRuleResolver.resolveFaction("死亡守卫", { "death-guard-skullsquirm-blight.enabled": true }, { phase: "melee" });
+  assert(enabledSkullsquirm.attack.targetMeleeHitModifier === -1, "头骨痉挛必须可通过控件启用近战命中-1");
 }
 
 const dataRoot = path.join(root, "docs", "data");

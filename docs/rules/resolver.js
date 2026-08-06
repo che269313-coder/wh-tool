@@ -51,7 +51,7 @@
 
   function resolveUnit(faction, unitName, selections = {}, context = {}) {
     const rules = rulesForUnit(faction, unitName).unit;
-    const attack = { hitModifier: 0, woundModifier: 0, hitReroll: null, woundReroll: null, devastating: false, sustainedHits: 0, lethalHits: false, attackModifier: 0, targetToughnessModifier: 0, martialChoices: [], repeatRanged: false, weaponAttackOverride: null, ignoreHitModifiers: false };
+    const attack = { hitModifier: 0, woundModifier: 0, hitReroll: null, woundReroll: null, devastating: false, sustainedHits: 0, lethalHits: false, attackModifier: 0, targetToughnessModifier: 0, targetMeleeHitModifier: 0, martialChoices: [], repeatRanged: false, weaponAttackOverride: null, ignoreHitModifiers: false };
     const defend = { invulnerableSave: 0, damageOverride: 0, feelNoPain: 0, feelNoPainMortal: 0, incomingApModifier: 0, incomingHitModifier: 0, incomingWoundModifier: 0, incomingWoundWhenStrengthGreater: 0, incomingWoundWhenStrengthGreaterOrEqual: 0 };
     const notes = [];
     rules.forEach((rule) => {
@@ -69,7 +69,7 @@
 
   function resolveFaction(faction, selections = {}, context = {}) {
     const rules = rulesForUnit(faction, "").faction;
-    const attack = { hitModifier: 0, woundModifier: 0, hitReroll: null, woundReroll: null, devastating: false, sustainedHits: 0, lethalHits: false, attackModifier: 0, targetToughnessModifier: 0, martialChoices: [], repeatRanged: false, weaponAttackOverride: null, ignoreHitModifiers: false };
+    const attack = { hitModifier: 0, woundModifier: 0, hitReroll: null, woundReroll: null, devastating: false, sustainedHits: 0, lethalHits: false, attackModifier: 0, targetToughnessModifier: 0, targetMeleeHitModifier: 0, martialChoices: [], repeatRanged: false, weaponAttackOverride: null, ignoreHitModifiers: false };
     const defend = { invulnerableSave: 0, damageOverride: 0, feelNoPain: 0, feelNoPainMortal: 0, incomingApModifier: 0, incomingHitModifier: 0, incomingWoundModifier: 0, incomingWoundWhenStrengthGreater: 0, incomingWoundWhenStrengthGreaterOrEqual: 0 };
     const notes = [];
     rules.forEach((rule) => {
