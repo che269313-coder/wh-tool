@@ -460,14 +460,15 @@ function enabledCalculatorWeapons(data, entryName, rosterUnit, options = {}) {
     .filter((weapon) => !Array.isArray(options.weaponNames) || options.weaponNames.some((name) => weaponMatchesEquipmentText(weapon, name)));
   const defaultEquipment = options.defaultEquipment ?? baseUnit.defaultEquipment ?? "";
   const defaultModels = Math.max(1, Number(options.modelCount ?? (rosterUnit ? activeModels(rosterUnit).length : baseUnit.models || baseUnit.defaultModels || 1)) || 1);
-  const matching = rosterUnit
+  const hasRosterEquipment = rosterUnit && Object.keys(countEquipment(rosterUnit)).length > 0;
+  const matching = hasRosterEquipment
     ? baseWeapons.map((weapon) => weaponMatchesRoster(weapon, rosterUnit))
     : baseWeapons.map((weapon) => weaponMatchesEquipmentText(weapon, defaultEquipment));
   const anyMatching = matching.some(Boolean);
   return applyExclusiveWeaponDefaults(baseWeapons.map((weapon, index) => ({
     ...weapon,
     enabled: anyMatching ? matching[index] : true,
-    modelCount: (weapon.modelCount ?? (rosterUnit ? weaponModelCount(weapon, rosterUnit, defaultModels) : defaultModels)) * Math.max(1, Number(options.weaponMultipliers?.[weapon.name] || 1)),
+    modelCount: (weapon.modelCount ?? (hasRosterEquipment ? weaponModelCount(weapon, rosterUnit, defaultModels) : defaultModels)) * Math.max(1, Number(options.weaponMultipliers?.[weapon.name] || 1)),
   })));
 }
 
