@@ -1523,24 +1523,34 @@ async function importBuiltinLibraryFiles() {
 async function loadCalculatorCards() {
   const cards = new Map();
   const categoryNames = new Set(["传奇英雄人物", "战术小队", "其他步兵", "军表构成", "3", "骑乘", "终结者", "机甲", "载具", "运输载具", "飞行载具", "工事"]);
-  for (const path of CALCULATOR_CARD_FILES) {
+  const appendCards = (parsed) => {
+    if (!parsed || typeof parsed !== "object") return;
+    if (parsed.unit?.name) cards.set(`${parsed.faction}:${parsed.unit.name}`, { faction: parsed.faction, name: parsed.unit.name, structured: true, data: parsed });
+    for (const card of parsed.cards || []) {
+      if (!card.name || categoryNames.has(card.name) || card.name.startsWith("⚫") || /爆弹枪|复合武器|雷霆锤/.test(card.name)) continue;
+      const key = `${parsed.faction}:${card.name}`;
+      const candidate = { faction: parsed.faction, name: card.name, page: card.page, structured: Boolean(card.unit), data: card.unit ? card : null };
+      const existing = cards.get(key);
+      if (!existing || (candidate.structured && !existing.structured)) cards.set(key, candidate);
+    }
+  };
+  const embeddedCatalog = Array.isArray(window.WARHAMMER_CALCULATOR_CATALOG)
+    ? window.WARHAMMER_CALCULATOR_CATALOG
+    : [];
+  for (const parsed of embeddedCatalog) appendCards(parsed);
+  for (const path of embeddedCatalog.length ? [] : CALCULATOR_CARD_FILES) {
     try {
       const response = await fetch(path);
       if (!response.ok) continue;
-      const parsed = await response.json();
-      if (parsed.unit?.name) cards.set(`${parsed.faction}:${parsed.unit.name}`, { faction: parsed.faction, name: parsed.unit.name, structured: true, data: parsed });
-      for (const card of parsed.cards || []) {
-        if (!card.name || categoryNames.has(card.name) || card.name.startsWith("⚫") || /爆弹枪|复合武器|雷霆锤/.test(card.name)) continue;
-        const key = `${parsed.faction}:${card.name}`;
-        const candidate = { faction: parsed.faction, name: card.name, page: card.page, structured: Boolean(card.unit), data: card.unit ? card : null };
-        const existing = cards.get(key);
-        if (!existing || (candidate.structured && !existing.structured)) cards.set(key, candidate);
-      }
+      appendCards(await response.json());
     } catch {
       // 本地 file:// 预览可能禁止 fetch；军表选项仍然可用。
     }
   }
   state.calculatorCards = [...cards.values()];
+  // The picker may already be open while the async catalogue arrives.
+  // Refresh it here so a valid search (for example “图拉真”) is not left empty.
+  renderCalculatorSelectors();
   const digitalSources = [
     { faction: "星际战士", path: "data/星际战士/数据卡-可检索.md" },
   ];
