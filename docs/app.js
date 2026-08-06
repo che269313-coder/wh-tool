@@ -477,14 +477,18 @@ function calculatorRuleControlMarkup(draft, side, rule) {
 function calculatorRuleMarkup(draft, side, rules, heading) {
   if (!rules.length) return "";
   const statusFor = (rule) => {
-    if (!rule.controls?.length) return rule.status || "仅供查阅";
-    const active = rule.controls.some((control) => {
+    const hasSpecialControl = rule.uiControl === "oath-wound-bonus" && side === "attacker";
+    if (!rule.controls?.length && !hasSpecialControl) return rule.status || "仅供查阅";
+    const active = (rule.controls || []).some((control) => {
       const value = draft.ruleSelections?.[`${rule.id}.${control.id}`];
       return control.type === "checkbox" ? Boolean(value) : Boolean(value && value !== "none");
-    });
+    }) || (hasSpecialControl && Boolean(draft.oathWoundBonus));
     return active ? "本次已启用并计入骰子" : "可选效果：默认未启用";
   };
-  return `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>${heading}</strong></div>${rules.map((rule) => `<div class="calculator-ability"><strong>${escapeHtml(rule.unitName ? `${rule.unitName} · ${rule.name}` : rule.name)}</strong><p>${escapeHtml(rule.text)}</p><small>${escapeHtml(statusFor(rule))}</small>${calculatorRuleControlMarkup(draft, side, rule)}</div>`).join("")}</section>`;
+  const specialControlMarkup = (rule) => rule.uiControl === "oath-wound-bonus" && side === "attacker"
+    ? `<label class="check-row calculator-rule-control"><input type="checkbox" data-calc-side="${side}" data-calc-oath-wound ${draft.oathWoundBonus ? "checked" : ""} /><span>破敌重誓：造伤 +1</span></label>`
+    : "";
+  return `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>${heading}</strong></div>${rules.map((rule) => `<div class="calculator-ability"><strong>${escapeHtml(rule.unitName ? `${rule.unitName} · ${rule.name}` : rule.name)}</strong><p>${escapeHtml(rule.text)}</p><small>${escapeHtml(statusFor(rule))}</small>${calculatorRuleControlMarkup(draft, side, rule)}${specialControlMarkup(rule)}</div>`).join("")}</section>`;
 }
 
 function calculatorAbilityMarkup(draft, side) {
@@ -1066,7 +1070,7 @@ async function importBuiltinLibraryFiles() {
 
 async function loadCalculatorCards() {
   const cards = new Map();
-  const categoryNames = new Set(["传奇英雄人物", "通用人物", "战术小队", "其他步兵", "军表构成", "3", "骑乘", "终结者", "机甲", "载具", "运输载具", "飞行载具", "工事"]);
+  const categoryNames = new Set(["传奇英雄人物", "战术小队", "其他步兵", "军表构成", "3", "骑乘", "终结者", "机甲", "载具", "运输载具", "飞行载具", "工事"]);
   for (const path of CALCULATOR_CARD_FILES) {
     try {
       const response = await fetch(path);

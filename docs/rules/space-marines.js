@@ -6,6 +6,7 @@
     "name": "破敌重誓",
     "text": "破敌重誓：如果你的军队阵营是阿斯塔特修会，则在你的指挥阶段开始时，从对手的军队中选择一个单位，直到你的下个指挥阶段开始时为止，你的军队中拥有本能力的模型攻击那个敌方单位时可以重投命中结果。并且如果你使用的是本文中的分队，军队中的任意单位都不包含圣血天使，黑暗天使，死亡守望，太空野狼关键词之一，则对那个敌方单位的攻击造伤结果也+1",
     "status": "计算支持（命中重投和造伤加成由专用控件处理）",
+    "uiControl": "oath-wound-bonus",
     "source": {
       "file": "分遣队规则-可检索.md"
     }
@@ -798,7 +799,8 @@
       "effects": [
         {
           "type": "space-wound-reroll",
-          "mode": "failed"
+          "mode": "failed",
+          "phase": "ranged"
         }
       ],
       "source": {
@@ -1032,6 +1034,79 @@
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 64,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    }
+  ],
+  "通用人物": [
+    {
+      "id": "space-marines-p65-0",
+      "name": "特殊保护",
+      "text": "特殊保护：本模型拥有4+特殊保护",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "invulnerable-save",
+          "value": 4
+        }
+      ],
+      "source": {
+        "page": 65,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p65-1",
+      "name": "【核心技能】",
+      "text": "【核心技能】：领袖",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 65,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p65-3",
+      "name": "战斗之仪",
+      "text": "战斗之仪：每个游戏大回合一次，你的军队中最多一个拥 有此技能的单位对自身所在单位使用一个战略技能时可以 减少1点CP消耗 （本模型处于预备队中亦可生效）",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 65,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p65-4",
+      "name": "巅峰时刻",
+      "text": "巅峰时刻：每场游戏一次，近战阶段开始时可以使用本技 能，让本模型装备的近战武器A+3并获得【毁灭伤害】 特效，持续本阶段",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "devastating-wounds",
+          "phase": "melee"
+        },
+        {
+          "type": "attack-modifier",
+          "value": 3,
+          "phase": "melee"
+        }
+      ],
+      "source": {
+        "page": 65,
         "source": "星际战士11版中文1.0.pdf"
       }
     }
@@ -2188,7 +2263,20 @@
       "id": "space-marines-p90-2",
       "name": "目标歼灭",
       "text": "目标歼灭：每当本单位被选中进行射击时，只选择了一个 目标，就可以使用本技能，让本阶段中所装备的爆弹步枪 A+2",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "attack-modifier",
+          "value": 2
+        }
+      ],
       "source": {
         "page": 90,
         "source": "星际战士11版中文1.0.pdf"
@@ -2270,7 +2358,8 @@
       "effects": [
         {
           "type": "space-hit-reroll",
-          "mode": "ones"
+          "mode": "ones",
+          "phase": "melee"
         }
       ],
       "source": {
@@ -2744,7 +2833,8 @@
       "effects": [
         {
           "type": "incoming-hit-minus",
-          "value": 1
+          "value": 1,
+          "phase": "ranged"
         }
       ],
       "source": {
@@ -3517,11 +3607,13 @@
       "effects": [
         {
           "type": "space-hit-reroll",
-          "mode": "failed"
+          "mode": "failed",
+          "phase": "ranged"
         },
         {
           "type": "space-wound-reroll",
-          "mode": "failed"
+          "mode": "failed",
+          "phase": "ranged"
         }
       ],
       "source": {

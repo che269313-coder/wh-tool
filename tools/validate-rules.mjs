@@ -20,9 +20,9 @@ const spaceMarineDir = fs.readdirSync(dataRoot).find((name) => {
 });
 const spaceMarineFile = fs.readdirSync(path.join(dataRoot, spaceMarineDir)).find((file) => file.endsWith("全部数据卡.json"));
 const spaceMarineData = JSON.parse(fs.readFileSync(path.join(dataRoot, spaceMarineDir, spaceMarineFile), "utf8"));
-const categoryNames = new Set(["传奇英雄人物", "通用人物", "战术小队", "其他步兵", "军表构成", "3", "骑乘", "终结者", "机甲", "载具", "运输载具", "飞行载具", "工事"]);
+const categoryNames = new Set(["传奇英雄人物", "战术小队", "其他步兵", "军表构成", "3", "骑乘", "终结者", "机甲", "载具", "运输载具", "飞行载具", "工事"]);
 const structuredSpaceMarineCards = (spaceMarineData.cards || []).filter((card) => card.unit?.name && !categoryNames.has(card.name) && !String(card.name || "").startsWith("⚫"));
-assert(Object.keys(context.WarhammerSpaceMarineRules.unitRules).length === structuredSpaceMarineCards.length && structuredSpaceMarineCards.length === 91, "星际战士规则目录必须覆盖全部 91 个可载入单位");
+assert(Object.keys(context.WarhammerSpaceMarineRules.unitRules).length === structuredSpaceMarineCards.length && structuredSpaceMarineCards.length === 92, "星际战士规则目录必须覆盖全部 92 个可载入单位");
 assert(structuredSpaceMarineCards.every((card) => context.WarhammerSpaceMarineRules.unitRules[card.unit.name]?.length), "每个星际战士单位都必须至少有一条原文技能规则");
 
 const tytusCard = structuredSpaceMarineCards.find((card) => String(card.unit.abilities || "").includes("持续攻势"));
@@ -36,6 +36,12 @@ if (tytusRule) {
 
 const woundRule = Object.values(context.WarhammerSpaceMarineRules.unitRules).flat().find((rule) => rule.effects?.some((effect) => effect.type === "incoming-wound-when-strength-gte"));
 assert(woundRule, "星际战士必须声明 S≥T 时的造伤 -1 技能");
+
+const genericCaptainRules = context.WarhammerSpaceMarineRules.unitRules["通用人物"] || [];
+assert(genericCaptainRules.some((rule) => rule.name === "战斗之仪"), "通用人物数据卡必须显示战斗之仪");
+const peakMoment = genericCaptainRules.find((rule) => rule.name === "巅峰时刻");
+assert(peakMoment?.effects?.some((effect) => effect.type === "attack-modifier" && effect.value === 3), "通用人物数据卡必须声明巅峰时刻 A+3");
+assert(peakMoment?.effects?.some((effect) => effect.type === "devastating-wounds" && effect.phase === "melee"), "巅峰时刻必须在近战阶段提供毁灭伤害");
 
 const guardDefault = resolve("帝皇禁军", "禁军盾卫", {}, { phase: "melee" });
 assert(guardDefault.attack.woundReroll === "ones", "禁军盾卫默认必须重投造伤 1");

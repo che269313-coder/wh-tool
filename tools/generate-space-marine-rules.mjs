@@ -22,7 +22,7 @@ for (const match of markdown.matchAll(/##[^\n]*?第\s*(\d+)\s*页[\s\S]*?(?=\r?\
   if (content) markdownAbilitiesByPage.set(Number(match[1]), content);
 }
 const categoryNames = new Set([
-  "传奇英雄人物", "通用人物", "战术小队", "其他步兵", "军表构成", "3",
+  "传奇英雄人物", "战术小队", "其他步兵", "军表构成", "3",
   "骑乘", "终结者", "机甲", "载具", "运输载具", "飞行载具", "工事",
 ]);
 const cards = (source.cards || []).filter((card) => card.unit?.name && !categoryNames.has(card.name) && !String(card.name || "").startsWith("⚫"));
@@ -41,7 +41,7 @@ const nameFromText = (text, index) => {
 function effectDescriptors(text) {
   const result = [];
   const leader = /本模型所领导|所领导的单位|本模型所在单位|领导本单位/.test(text);
-  const add = (effect) => result.push(effect);
+  const add = (effect) => result.push(/近战阶段/.test(text) ? { ...effect, phase: "melee" } : /射击阶段/.test(text) ? { ...effect, phase: "ranged" } : effect);
   if (/不知疼痛\s*[3456]\s*\+/.test(text)) {
     const threshold = Number(text.match(/不知疼痛\s*([3456])\s*\+/)?.[1]);
     if (threshold) add({ type: "fnp", threshold });
@@ -61,7 +61,8 @@ function effectDescriptors(text) {
   if (/连击\s*\d+/.test(text)) add({ type: "sustained-hits", value: Number(text.match(/连击\s*(\d+)/)?.[1] || 1) });
   if (/致命一击|致命命中/.test(text)) add({ type: "lethal-hits" });
   if (/毁灭伤害|毁灭性伤口/.test(text)) add({ type: "devastating-wounds" });
-  if (/(?:武器|本单位|本模型所领导的单位)[^。\n]{0,50}A\s*[+＋]\s*1/.test(text)) add({ type: "attack-modifier", value: 1 });
+  const attackBonus = text.match(/(?:武器|本单位|本模型所领导的单位)[^。\n]{0,50}A\s*[+＋]\s*(\d+)/);
+  if (attackBonus) add({ type: "attack-modifier", value: Number(attackBonus[1]) });
   const damaged = text.match(/W值为1-([45])[^。\n]{0,20}攻击命中结果\s*-\s*1/);
   if (damaged) add({ type: "damaged-hit-minus", threshold: Number(damaged[1]) });
   else if (/攻击[^。\n]{0,40}命中结果\s*-\s*1/.test(text)) add({ type: "incoming-hit-minus", value: 1 });
@@ -97,7 +98,7 @@ for (const card of cards) {
 if (process.argv.includes("--write-source")) fs.writeFileSync(sourcePath, `${JSON.stringify(source, null, 2)}\n`, "utf8");
 
 const oathText = "破敌重誓：如果你的军队阵营是阿斯塔特修会，则在你的指挥阶段开始时，从对手的军队中选择一个单位，直到你的下个指挥阶段开始时为止，你的军队中拥有本能力的模型攻击那个敌方单位时可以重投命中结果。并且如果你使用的是本文中的分队，军队中的任意单位都不包含圣血天使，黑暗天使，死亡守望，太空野狼关键词之一，则对那个敌方单位的攻击造伤结果也+1";
-const output = `/* Generated from ${path.relative(process.cwd(), sourcePath).replaceAll("\\", "/")}. Raw ability text is preserved; update the source JSON and rerun tools/generate-space-marine-rules.mjs. */\n(function (root) {\n  const factionRules = ${JSON.stringify([{ id: "space-marines-oath-of-moment", name: "破敌重誓", text: oathText, status: "计算支持（命中重投和造伤加成由专用控件处理）", source: { file: "分遣队规则-可检索.md" } }], null, 2)};\n  const unitRules = ${JSON.stringify(unitRules, null, 2)};\n  root.WarhammerSpaceMarineRules = { factionRules, unitRules };\n})(typeof globalThis === "undefined" ? this : globalThis);\n`;
+const output = `/* Generated from ${path.relative(process.cwd(), sourcePath).replaceAll("\\", "/")}. Raw ability text is preserved; update the source JSON and rerun tools/generate-space-marine-rules.mjs. */\n(function (root) {\n  const factionRules = ${JSON.stringify([{ id: "space-marines-oath-of-moment", name: "破敌重誓", text: oathText, status: "计算支持（命中重投和造伤加成由专用控件处理）", uiControl: "oath-wound-bonus", source: { file: "分遣队规则-可检索.md" } }], null, 2)};\n  const unitRules = ${JSON.stringify(unitRules, null, 2)};\n  root.WarhammerSpaceMarineRules = { factionRules, unitRules };\n})(typeof globalThis === "undefined" ? this : globalThis);\n`;
 const outputPath = path.resolve("docs/rules/space-marines.js");
 fs.writeFileSync(outputPath, output, "utf8");
 console.log(`generated ${Object.keys(unitRules).length} units and ${Object.values(unitRules).reduce((sum, rules) => sum + rules.length, 0)} rules -> ${outputPath}`);
