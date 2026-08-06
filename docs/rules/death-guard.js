@@ -4,41 +4,52 @@
   {
     "id": "death-guard-nurgles-gift",
     "name": "纳垢赐福",
-    "text": "纳垢赐福（光环）：当敌方单位处于感染范围内时，该敌方单位模型的韧性值T-1。计算器中请在确认目标已被感染且位于范围内时启用此选项。",
-    "status": "计算支持（按目标已感染且在范围内时启用）",
+    "text": "纳垢赐福（光环）：当敌方单位处于感染范围内时，该敌方单位模型的韧性值T-1；该单位额外受到以下一种瘟疫的影响（三选一）：头骨痉挛：模型进行近战攻击时命中结果-1；颤骨瘟疫：模型的保护值SV-1；烂魂伤风：模型的移动、领导和目标控制属性各-1。",
+    "status": "计算支持（T-1与头骨痉挛/颤骨瘟疫会计入伤害计算；烂魂伤风仅显示）",
     "controls": [
       {
         "id": "enabled",
         "type": "checkbox",
-        "label": "目标受到纳垢赐福（T-1）"
+        "label": "目标受到纳垢赐福（感染范围内）"
+      },
+      {
+        "id": "plague",
+        "type": "select",
+        "label": "额外瘟疫（三选一）",
+        "options": [
+          [
+            "none",
+            "不选择"
+          ],
+          [
+            "skullsquirm",
+            "头骨痉挛：近战命中 -1"
+          ],
+          [
+            "rattlejoint",
+            "颤骨瘟疫：保护值 SV -1"
+          ],
+          [
+            "scabrous",
+            "烂魂伤风：移动/领导/OC -1"
+          ]
+        ]
       }
     ],
     "effects": [
       {
         "type": "target-toughness-modifier",
         "value": -1
-      }
-    ],
-    "source": {
-      "file": "死亡守卫-分遣队规则-可检索.md"
-    }
-  },
-  {
-    "id": "death-guard-skullsquirm-blight",
-    "name": "纳垢赐福：头骨痉挛瘟疫",
-    "text": "头骨痉挛瘟疫：受到纳垢赐福影响的敌方单位，其模型进行近战攻击时，命中骰结果-1。",
-    "status": "计算支持（死亡守卫作为防守方、目标已感染且进行近战攻击时计入）",
-    "controls": [
-      {
-        "id": "enabled",
-        "type": "checkbox",
-        "label": "目标受到头骨痉挛（近战命中 -1）"
-      }
-    ],
-    "effects": [
+      },
       {
         "type": "target-melee-hit-minus",
-        "value": -1
+        "value": -1,
+        "requiresPlague": "skullsquirm"
+      },
+      {
+        "type": "target-save-modifier",
+        "value": 1,
+        "requiresPlague": "rattlejoint"
       }
     ],
     "source": {
@@ -53,13 +64,6 @@
       "name": "核心技能",
       "text": "致命破灭D6，深入打击，不知疼痛5+",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "fnp",
@@ -107,7 +111,13 @@
       "id": "death-guard-p23-3",
       "name": "严重损伤",
       "text": "严重损伤：当此模型 W剩余1-6时，攻击命 中结果-1",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "damaged-hit-minus",
+          "threshold": 6
+        }
+      ],
       "source": {
         "page": 23,
         "source": {
@@ -380,13 +390,6 @@
       "name": "腐败轰炸",
       "text": "腐败轰炸: 你的射击阶段开始时，选择该模型 30寸内可见的一个敌方单位。本阶段内，友方 死亡守卫模型远程攻击该单位时，可重掷命中 1（若用爆炸武器射击，则可重掷所有命中骰）",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "space-hit-reroll",
@@ -810,13 +813,6 @@
       "name": "核心技能",
       "text": "渗透，不知疼痛5+",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "fnp",
@@ -866,7 +862,38 @@
       "id": "death-guard-p41-1",
       "name": "炽烈连射",
       "text": "炽烈连射：若此单位的初始数量不低于5，或 有角色领导此单位。则每当此单位中的模型对 受【感染】单位进行远程攻击时，该攻击的力 量S与穿甲值AP各+1",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        },
+        {
+          "id": "targetInfected",
+          "type": "checkbox",
+          "label": "目标已感染"
+        },
+        {
+          "id": "forceLeader",
+          "type": "checkbox",
+          "label": "数据卡模式下强行视为已领导单位"
+        }
+      ],
+      "effects": [
+        {
+          "type": "weapon-strength-modifier",
+          "value": 1,
+          "condition": "large-or-led",
+          "requiresTargetInfected": true
+        },
+        {
+          "type": "weapon-ap-modifier",
+          "value": 1,
+          "condition": "large-or-led",
+          "requiresTargetInfected": true
+        }
+      ],
       "source": {
         "page": 41,
         "source": {
@@ -960,13 +987,6 @@
       "name": "核心技能",
       "text": "致命破灭1，不知疼痛5+，斥候6",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "fnp",
@@ -1076,7 +1096,31 @@
       "id": "death-guard-p46-1",
       "name": "坦克猎手（TankHunters）",
       "text": "坦克猎手（TankHunters）: 在你的射击阶段， 该模型攻击凶兽或载具时，命中与造伤骰结果 各+1",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        },
+        {
+          "id": "targetMonsterVehicle",
+          "type": "checkbox",
+          "label": "目标为凶兽或载具"
+        }
+      ],
+      "effects": [
+        {
+          "type": "hit-modifier",
+          "value": 1,
+          "requiresTargetMonsterVehicle": true
+        },
+        {
+          "type": "wound-modifier",
+          "value": 1,
+          "requiresTargetMonsterVehicle": true
+        }
+      ],
       "source": {
         "page": 46,
         "source": {
@@ -1121,13 +1165,6 @@
       "name": "严重损伤",
       "text": "严重损伤：当此模型W剩余1-4时，每次进行 攻击命中结果-1",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "damaged-hit-minus",
@@ -1164,13 +1201,6 @@
       "name": "疫病恶意",
       "text": "疫病恶意：此模型攻击受【感染】的敌方单位 时，造伤结果+1",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "wound-modifier",
@@ -1191,13 +1221,6 @@
       "name": "溅沫狂怒",
       "text": "溅沫狂怒：若此模型除近战武器外只装备了两 把近战装备，则这两把近战装备的攻击次数 A+2",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "attack-modifier",
@@ -1248,13 +1271,6 @@
       "name": "严重损伤",
       "text": "严重损伤：当此模型W剩余1-4时，每次进 行攻击命中结果-1",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "damaged-hit-minus",
@@ -1305,13 +1321,6 @@
       "name": "严重损伤",
       "text": "严重损伤：当此模型W剩余 1-4时，每次进 行攻击命中结果-1",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "damaged-hit-minus",
@@ -1425,13 +1434,6 @@
       "name": "严重损伤",
       "text": "严重损伤：当此模型W剩余1-5时，每次进 行攻击命中结果-1",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "damaged-hit-minus",
@@ -1510,13 +1512,6 @@
       "name": "严重损伤",
       "text": "严重损伤：当此模型W剩余1-5时，每次进行 攻击命中结果-1",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "damaged-hit-minus",
@@ -1580,7 +1575,14 @@
       "id": "death-guard-p56-3",
       "name": "堡垒特性",
       "text": "堡垒特性：当敌方单位仅与本方堡垒接触时 ▪ 仍可被远程攻击，但非手枪类武器攻击命 中结果-1 ▪ 陷入战斗震撼时撤退无需【绝望逃脱测 试】（需穿越敌方单位的情况除外）",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "incoming-hit-minus",
+          "value": 1,
+          "phase": "ranged"
+        }
+      ],
       "source": {
         "page": 56,
         "source": {
@@ -1611,13 +1613,6 @@
       "name": "技能2",
       "text": "致命破灭D6，深入打击，不知疼痛6+",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "fnp",
@@ -1666,17 +1661,10 @@
       "name": "严重损伤",
       "text": "严重损伤：当此模型W剩余1-7点时，每次攻 击的命中结果-1",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
-          "type": "hit-modifier",
-          "value": -1
+          "type": "damaged-hit-minus",
+          "threshold": 7
         }
       ],
       "source": {
@@ -1709,13 +1697,6 @@
       "name": "技能2",
       "text": "致命破灭D6，深入打击，不知疼痛6+",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "fnp",
@@ -1764,21 +1745,10 @@
       "name": "严重损伤",
       "text": "严重损伤：当此模型W剩余1-7时，每次攻击 命中结果-1",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
-          "type": "hit-modifier",
-          "value": -1
-        },
-        {
-          "type": "incoming-hit-minus",
-          "value": 1
+          "type": "damaged-hit-minus",
+          "threshold": 7
         }
       ],
       "source": {
@@ -1825,13 +1795,6 @@
       "name": "恶作剧制造者",
       "text": "恶作剧制造者：每当一个与具备此能力的单位 处于交战距离内的敌方单位（泰坦级单位除外） 被选择攻击时，在该阶段剩余时间内，该敌方 单位模型的近战攻击命中结果-1",
       "status": "计算支持（满足条件时自动计入）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "hit-modifier",

@@ -760,7 +760,7 @@ function calculatorDataForUnit(unit, faction) {
   return getCalculatorCardData(card || { name: unit.name, faction });
 }
 
-function buildDefenderGroups(defender, draft) {
+function buildDefenderGroups(defender, draft, attackerFactionEffects = {}) {
   const group = defender?.group;
   const joined = defender?.rosterUnit && group && (group.category === "联合单位" || /^联合单位/.test(group.title || ""));
   if (!joined) {
@@ -768,7 +768,7 @@ function buildDefenderGroups(defender, draft) {
       name: defender.name,
       modelCount: draft.modelCount,
       wounds: Number(draft.unit.woundsPerModel || 1),
-      save: Number(draft.unit.save || 7),
+      save: Math.max(2, Number(draft.unit.save || 7) + Number(attackerFactionEffects.targetSaveModifier || 0)),
       invulnerableSave: Number(draft.unit.invulnerableSave || 0),
       allocationOrder: 1,
       effects: defenderEffectsFromUnit(draft.unit, draft, defender.name),
@@ -788,7 +788,7 @@ function buildDefenderGroups(defender, draft) {
       name: `${unit.name}（${role}）`,
       modelCount: isSelected ? draft.modelCount : (member?.modelCount || activeModels(unit).length),
       wounds: Number(unitData.woundsPerModel || 1),
-      save: Number(unitData.save || 7),
+      save: Math.max(2, Number(unitData.save || 7) + Number(attackerFactionEffects.targetSaveModifier || 0)),
       invulnerableSave: Number(unitData.invulnerableSave || 0),
       allocationOrder: role === "护卫" ? 1 : 2,
       effects: defenderEffectsFromUnit(unitData, draft, unit.name),
@@ -850,9 +850,11 @@ function buildSelectedRoundPayload() {
     lethalHits: result.lethalHits || Boolean(entry.effects.lethalHits),
     devastating: result.devastating || Boolean(entry.effects.devastating),
     attackModifier: result.attackModifier + Number(entry.effects.attackModifier || 0),
+    strengthModifier: result.strengthModifier + Number(entry.effects.strengthModifier || 0),
+    apModifier: result.apModifier + Number(entry.effects.apModifier || 0),
     ignoreHitModifiers: result.ignoreHitModifiers || Boolean(entry.effects.ignoreHitModifiers),
     martialChoices: [...new Set([...result.martialChoices, ...(entry.effects.martialChoices || [])])],
-  }), { hitModifier: 0, woundModifier: 0, hitReroll: null, sustainedHits: 0, lethalHits: false, devastating: false, attackModifier: 0, ignoreHitModifiers: false, martialChoices: [] });
+  }), { hitModifier: 0, woundModifier: 0, hitReroll: null, sustainedHits: 0, lethalHits: false, devastating: false, attackModifier: 0, strengthModifier: 0, apModifier: 0, ignoreHitModifiers: false, martialChoices: [] });
   const weaponGroups = attackerSources.flatMap((source) => {
     const sourceRules = sourceRuleEntries.find((entry) => entry.source === source)?.effects || {};
     const sourceKey = !attackerDraft.joinedMembers.length || (source.id && source.id === attacker.rosterUnit?.id) ? "unit" : `member-${attackerDraft.joinedMembers.indexOf(source)}`;
@@ -870,12 +872,13 @@ function buildSelectedRoundPayload() {
           ? String(Number(weapon.attacks) + Number(sourceRules.attackModifier || sharedJoinedRules.attackModifier || 0))
           : weapon.attacks);
       const hitModifier = sharedJoinedRules.hitModifier + (sharedJoinedRules.ignoreHitModifiers ? 0 : defenderFactionHitModifier + defenderRuleEffects.incomingHitModifier);
-      const conditionalWoundModifier = Number(weapon.strength || 0) >= toughness
+      const effectiveStrength = Number(weapon.strength || 0) + Number(sourceRules.strengthModifier || sharedJoinedRules.strengthModifier || 0);
+      const conditionalWoundModifier = effectiveStrength >= toughness
         ? defenderRuleEffects.incomingWoundWhenStrengthGreaterOrEqual
-        : (Number(weapon.strength || 0) > toughness ? defenderRuleEffects.incomingWoundWhenStrengthGreater : 0);
+        : (effectiveStrength > toughness ? defenderRuleEffects.incomingWoundWhenStrengthGreater : 0);
       const woundModifier = sharedJoinedRules.woundModifier + defenderRuleEffects.incomingWoundModifier + conditionalWoundModifier;
       const hitThreshold = isTorrentWeapon(weapon) ? 7 : parseSkill(weapon.skill);
-      const woundThreshold = woundTarget(Number(weapon.strength || 0), toughness);
+      const woundThreshold = woundTarget(effectiveStrength, toughness);
       const oathReroll = unitHasOathOfMoment(source.unit, attacker.faction) && hitThreshold <= 6
         ? resolvedRerollSelection(attackerDraft, "oath-hit", sourceKey, weaponIndex, hitThreshold)
         : { type: "none", values: [] };
@@ -895,7 +898,7 @@ function buildSelectedRoundPayload() {
         attacks: attackOverride,
         hit: isTorrentWeapon(weapon) ? "torrent" : parseSkill(weapon.skill),
         wound: woundThreshold,
-        ap: Math.max(0, Math.abs(Number(weapon.ap || 0)) + defenderRuleEffects.incomingApModifier),
+        ap: Math.max(0, Math.abs(Number(weapon.ap || 0)) + Number(sourceRules.apModifier || sharedJoinedRules.apModifier || 0) + defenderRuleEffects.incomingApModifier),
         damage: weapon.damage,
         effects: weaponEffectsFromKeywords(weapon, martialKatah, { ...oathOfMoment, hitReroll: effectiveHitReroll }, { ...sourceRules, sustainedHits: sharedJoinedRules.sustainedHits, lethalHits: sharedJoinedRules.lethalHits, devastating: sharedJoinedRules.devastating, woundReroll: guardReroll.type, woundRerollValues: guardReroll.values }, { hitModifier, woundModifier }),
       };
@@ -903,7 +906,7 @@ function buildSelectedRoundPayload() {
     return sourceRules.repeatRanged ? [...groups, ...groups.map((group) => ({ ...group, name: `${group.name}（枪林弹雨）` }))] : groups;
   });
   if (!weaponGroups.length) throw new Error(`进攻单位“${attacker.name}”没有${state.attackMode === "ranged" ? "远程" : "近战"}武器`);
-  return { simulations: 1000, weaponGroups, defenderGroups: buildDefenderGroups(defender, defenderDraft) };
+  return { simulations: 1000, weaponGroups, defenderGroups: buildDefenderGroups(defender, defenderDraft, attackerFactionEffects) };
 }
 
 function unitOverviewMarkup(unit, side, groupId) {
@@ -948,6 +951,7 @@ function renderRosters() {
 }
 
 async function getDatasheetPreview(faction, unitName) {
+  if (!state.calculatorCards.length) await loadCalculatorCards();
   const names = [unitName, unitName.replace(/\([^)]*\)/g, "").trim(), ...(DATASHEET_ALIASES[faction]?.[unitName] || [])];
   const structured = state.calculatorCards.find((card) => card.structured && (!faction || card.faction === faction) && names.includes(card.name));
   if (structured?.data?.unit) return { type: "structured", data: structured.data };
@@ -986,6 +990,18 @@ function datasheetPreviewMarkup(preview) {
   return `<details open><summary>数据卡属性</summary><div class="datasheet-card-preview"><div class="datasheet-stat-grid">${statRows.map(([label, value]) => `<div><span>${label}</span><strong>${escapeHtml(value)}</strong></div>`).join("")}</div>${unit.defaultEquipment ? `<p class="datasheet-equipment"><strong>默认装备：</strong>${escapeHtml(unit.defaultEquipment)}</p>` : ""}${weaponRows ? `<h4>武器</h4><div class="datasheet-table-wrap"><table><thead><tr><th>武器</th><th>类型</th><th>A</th><th>命中</th><th>S</th><th>AP</th><th>D</th><th>技能</th></tr></thead><tbody>${weaponRows}</tbody></table></div>` : ""}${abilities ? `<h4>技能</h4><ul class="datasheet-abilities">${abilities}</ul>` : ""}</div></details>`;
 }
 
+function datasheetPreviewCardMarkup(preview) {
+  if (!preview) return datasheetPreviewMarkup(preview);
+  if (preview.type !== "structured") return datasheetPreviewMarkup(preview);
+  const data = preview.data || {};
+  const unit = data.unit || {};
+  const save = unit.invulnerableSave ? `${unit.save}+ / ${unit.invulnerableSave}+` : `${unit.save ?? "-"}+`;
+  const statRows = [["移动", unit.movement ? `${unit.movement}\"` : "-"], ["坚韧", unit.toughness ?? "-"], ["护甲 / 特殊保护", save], ["血量", unit.woundsPerModel ?? "-"], ["领导力", unit.leadership ?? "-"], ["控制值", unit.objectiveControl ?? "-"]];
+  const weaponRows = (data.weapons || []).map((weapon) => `<article class="datasheet-weapon-row"><div class="datasheet-weapon-heading"><strong>${escapeHtml(weapon.name)}</strong><span>${weapon.type === "melee" ? "近战" : "射击"}</span></div><div class="datasheet-weapon-stats"><div><span>A</span><strong>${escapeHtml(weapon.attacks ?? "-")}</strong></div><div><span>命中</span><strong>${escapeHtml(weapon.skill === "torrent" ? "自动" : weapon.skill ?? "-")}</strong></div><div><span>S</span><strong>${escapeHtml(weapon.strength ?? "-")}</strong></div><div><span>AP</span><strong>${escapeHtml(weapon.ap ?? "-")}</strong></div><div><span>D</span><strong>${escapeHtml(weapon.damage ?? "-")}</strong></div></div><small>${escapeHtml((weapon.abilities || []).join("、") || "无关键词")}</small></article>`).join("");
+  const abilities = String(unit.abilities || "").split("⚫").map((item) => item.trim()).filter(Boolean).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+  return `<details open><summary>数据卡属性</summary><div class="datasheet-card-preview"><div class="datasheet-stat-grid">${statRows.map(([label, value]) => `<div><span>${label}</span><strong>${escapeHtml(value)}</strong></div>`).join("")}</div>${unit.defaultEquipment ? `<p class="datasheet-equipment"><strong>默认装备：</strong>${escapeHtml(unit.defaultEquipment)}</p>` : ""}${weaponRows ? `<h4>武器</h4><div class="datasheet-weapon-list">${weaponRows}</div>` : ""}${abilities ? `<h4>技能</h4><ul class="datasheet-abilities">${abilities}</ul>` : ""}</div></details>`;
+}
+
 async function openUnitDetail(side, groupId, unitId) {
   const { group, unit } = findUnit(side, groupId, unitId);
   if (!unit) return;
@@ -1002,7 +1018,7 @@ async function openUnitDetail(side, groupId, unitId) {
   const previewData = await getDatasheetPreview(state.rosters[side].faction, unit.name);
   if (!dialog.open || dialog.dataset.detailKey !== detailKey) return;
   const preview = detail.querySelector("[data-datasheet-preview]");
-  if (preview) preview.innerHTML = datasheetPreviewMarkup(previewData);
+  if (preview) preview.innerHTML = datasheetPreviewCardMarkup(previewData);
 }
 
 $("#rosterOverview")?.addEventListener("click", (event) => {

@@ -9,6 +9,10 @@
   function apply(effect, { rule, selections, context, attack, defend, selected, enabled }) {
     if (effect.condition === "underStartingStrength" && !context.underStartingStrength) return;
     if (effect.condition === "belowHalfStrength" && !context.belowHalfStrength) return;
+    if (effect.condition === "large-or-led" && !(Number(context.initialModelCount || 0) >= 5 || Number(context.modelCount || 0) >= 5 || context.isJoined || enabled(selections, rule, "forceLeader"))) return;
+    if (effect.requiresTargetInfected && !selected(selections, rule, "targetInfected", false)) return;
+    if (effect.requiresTargetMonsterVehicle && !selected(selections, rule, "targetMonsterVehicle", false)) return;
+    if (effect.requiresPlague && selected(selections, rule, "plague", "none") !== effect.requiresPlague) return;
     switch (effect.type) {
       case "fnp":
         if (enabled(selections, rule) || !rule.controls?.length) defend.feelNoPain = Math.max(defend.feelNoPain, Number(effect.threshold));
@@ -52,6 +56,9 @@
       case "attack-modifier": if (!rule.controls?.length || enabled(selections, rule)) attack.attackModifier += Number(effect.value || 0); break;
       case "target-toughness-modifier": if (!rule.controls?.length || enabled(selections, rule)) attack.targetToughnessModifier += Number(effect.value || 0); break;
       case "target-melee-hit-minus": if (!rule.controls?.length || enabled(selections, rule)) attack.targetMeleeHitModifier += Number(effect.value || -1); break;
+      case "weapon-strength-modifier": if (!rule.controls?.length || enabled(selections, rule)) attack.strengthModifier = Number(attack.strengthModifier || 0) + Number(effect.value || 0); break;
+      case "weapon-ap-modifier": if (!rule.controls?.length || enabled(selections, rule)) attack.apModifier = Number(attack.apModifier || 0) + Number(effect.value || 0); break;
+      case "target-save-modifier": if (!rule.controls?.length || enabled(selections, rule)) attack.targetSaveModifier = Number(attack.targetSaveModifier || 0) + Number(effect.value || 0); break;
       case "incoming-hit-minus": if (!rule.controls?.length || enabled(selections, rule)) defend.incomingHitModifier -= Math.abs(Number(effect.value || 1)); break;
       case "incoming-wound-minus": if (!rule.controls?.length || enabled(selections, rule)) defend.incomingWoundModifier -= Math.abs(Number(effect.value || 1)); break;
       case "incoming-wound-when-strength-gte": if (!rule.controls?.length || enabled(selections, rule)) defend.incomingWoundWhenStrengthGreaterOrEqual = -Math.abs(Number(effect.value || 1)); break;

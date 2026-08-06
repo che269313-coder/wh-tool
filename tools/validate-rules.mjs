@@ -19,16 +19,30 @@ assert(deathGuardRules && Object.keys(deathGuardRules.unitRules || {}).length ==
 assert(deathGuardData.cards.every((card) => deathGuardRules?.unitRules?.[card.unit.name]?.length), "每个死亡守卫单位都必须至少有一条原文技能规则");
 const nurgleGift = deathGuardRules?.factionRules?.find((rule) => rule.id === "death-guard-nurgles-gift");
 assert(nurgleGift?.effects?.some((effect) => effect.type === "target-toughness-modifier" && effect.value === -1), "死亡守卫必须声明纳垢赐福的目标T-1效果");
-const skullsquirm = deathGuardRules?.factionRules?.find((rule) => rule.id === "death-guard-skullsquirm-blight");
-assert(skullsquirm?.effects?.some((effect) => effect.type === "target-melee-hit-minus" && effect.value === -1), "死亡守卫必须声明头骨痉挛的近战命中-1效果");
+const skullsquirm = deathGuardRules?.factionRules?.find((rule) => rule.id === "death-guard-nurgles-gift");
+assert(skullsquirm?.controls?.find((control) => control.id === "plague")?.options?.some(([value]) => value === "skullsquirm"), "死亡守卫必须提供头骨痉挛的额外瘟疫选项");
+assert(skullsquirm?.controls?.find((control) => control.id === "plague")?.options?.some(([value]) => value === "rattlejoint"), "死亡守卫必须提供颤骨瘟疫的额外瘟疫选项");
+assert(skullsquirm?.controls?.find((control) => control.id === "plague")?.options?.some(([value]) => value === "scabrous"), "死亡守卫必须提供烂魂伤风的额外瘟疫选项");
+assert(skullsquirm?.effects?.some((effect) => effect.type === "target-melee-hit-minus" && effect.requiresPlague === "skullsquirm"), "死亡守卫必须声明头骨痉挛的近战命中-1效果");
+assert(skullsquirm?.effects?.some((effect) => effect.type === "target-save-modifier" && effect.requiresPlague === "rattlejoint"), "死亡守卫必须声明颤骨瘟疫的保护值-1效果");
+const blightlordVolley = deathGuardRules?.unitRules?.["腐毒领主终结者"]?.find((rule) => rule.name === "炽烈连射");
+assert(blightlordVolley?.effects?.some((effect) => effect.type === "weapon-strength-modifier"), "腐毒领主终结者必须声明炽烈连射的力量+1");
+assert(blightlordVolley?.effects?.some((effect) => effect.type === "weapon-ap-modifier"), "腐毒领主终结者必须声明炽烈连射的AP+1");
+const tankHunters = deathGuardRules?.unitRules?.["恶臭疫病引擎"]?.find((rule) => rule.name.includes("坦克猎手"));
+assert(tankHunters?.effects?.some((effect) => effect.type === "hit-modifier" && effect.requiresTargetMonsterVehicle), "恶臭疫病引擎必须声明坦克猎手命中+1");
+assert(tankHunters?.effects?.some((effect) => effect.type === "wound-modifier" && effect.requiresTargetMonsterVehicle), "恶臭疫病引擎必须声明坦克猎手造伤+1");
+const mortarionCore = deathGuardRules?.unitRules?.["莫塔里安"]?.find((rule) => rule.name === "核心技能");
+assert(mortarionCore?.effects?.some((effect) => effect.type === "fnp" && effect.threshold === 5) && !mortarionCore.controls, "莫塔里安核心技能的不知疼痛5+必须默认启用");
 if (nurgleGift) {
   const disabledGift = context.WarhammerRuleResolver.resolveFaction("死亡守卫", {}, { phase: "ranged" });
   const enabledGift = context.WarhammerRuleResolver.resolveFaction("死亡守卫", { "death-guard-nurgles-gift.enabled": true }, { phase: "ranged" });
   assert(disabledGift.attack.targetToughnessModifier === 0 && enabledGift.attack.targetToughnessModifier === -1, "纳垢赐福必须默认关闭并可通过控件启用T-1");
 }
 if (skullsquirm) {
-  const enabledSkullsquirm = context.WarhammerRuleResolver.resolveFaction("死亡守卫", { "death-guard-skullsquirm-blight.enabled": true }, { phase: "melee" });
-  assert(enabledSkullsquirm.attack.targetMeleeHitModifier === -1, "头骨痉挛必须可通过控件启用近战命中-1");
+  const enabledSkullsquirm = context.WarhammerRuleResolver.resolveFaction("死亡守卫", { "death-guard-nurgles-gift.enabled": true, "death-guard-nurgles-gift.plague": "skullsquirm" }, { phase: "melee" });
+  const enabledRattlejoint = context.WarhammerRuleResolver.resolveFaction("死亡守卫", { "death-guard-nurgles-gift.enabled": true, "death-guard-nurgles-gift.plague": "rattlejoint" }, { phase: "ranged" });
+  assert(enabledSkullsquirm.attack.targetMeleeHitModifier === -1, "头骨痉挛必须可通过三选一控件启用近战命中-1");
+  assert(enabledRattlejoint.attack.targetSaveModifier === 1, "颤骨瘟疫必须可通过三选一控件启用保护值-1");
 }
 
 const dataRoot = path.join(root, "docs", "data");
