@@ -31,6 +31,16 @@ def text(value: object) -> str:
     return re.sub(r"\s+", " ", str(value or "").replace("\n", " ")).strip()
 
 
+def clean_ability_text(value: object) -> str:
+    """Remove a PDF extraction fragment that leaves a dangling closing bracket.
+
+    Some Space Marine tables extract ``【核心技能】``/``【阵营技能】`` as
+    only ``】：`` at the beginning of the skill cell.  Keeping that fragment
+    creates a fake standalone skill after the bullet separator is parsed.
+    """
+    return re.sub(r"^\s*】\s*[：:]\s*", "", text(value))
+
+
 def compact(value: object) -> str:
     return re.sub(r"\s+", "", text(value))
 
@@ -117,7 +127,7 @@ def table_stats(table: list[list[object]]) -> tuple[dict, str]:
             if "射击武器" in content or "近战武器" in content:
                 break
             if "技能" in content:
-                ability_text = re.sub(r"^.*?技能\s*", "", content).strip()
+                ability_text = clean_ability_text(re.sub(r"^.*?技能\s*", "", content))
                 break
         invulnerable = re.search(r"(\d)\+\s*特殊保护", ability_text)
         unit["invulnerableSave"] = (

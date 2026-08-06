@@ -28,6 +28,10 @@ const categoryNames = new Set([
 const cards = (source.cards || []).filter((card) => card.unit?.name && !categoryNames.has(card.name) && !String(card.name || "").startsWith("⚫"));
 const supported = "计算支持（满足条件时自动结算）";
 const displayOnly = "已显示，暂不改变本次骰子";
+const cleanAbilityText = (value) => String(value || "")
+  .replace(/^\s*】\s*[：:]\s*/, "")
+  .replace(/\s+/g, " ")
+  .trim();
 const controls = (leader = false) => [
   { id: "enabled", type: "checkbox", label: "本次启用此技能" },
   ...(leader ? [{ id: "forceLeader", type: "checkbox", label: "数据卡模式下强行视为已领导单位" }] : []),
@@ -72,7 +76,7 @@ function effectDescriptors(text) {
 }
 
 function toRule(card, text, index) {
-  const clean = String(text).replace(/\s+/g, " ").trim();
+  const clean = cleanAbilityText(text);
   const factionOnly = clean.replace(/^[】】\]\s：:]+/, "").trim();
   if (!clean || /^【?阵营技能】?\s*[：:]?\s*破敌重誓\s*$/.test(clean) || factionOnly === "破敌重誓") return null;
   const { effects, leader } = effectDescriptors(clean);
@@ -90,7 +94,7 @@ function toRule(card, text, index) {
 
 const unitRules = {};
 for (const card of cards) {
-  const abilityText = String(card.unit.abilities || "").trim() || markdownAbilitiesByPage.get(Number(card.page)) || "";
+  const abilityText = cleanAbilityText(String(card.unit.abilities || "").trim() || markdownAbilitiesByPage.get(Number(card.page)) || "");
   if (!String(card.unit.abilities || "").trim() && abilityText && process.argv.includes("--write-source")) card.unit.abilities = abilityText;
   const segments = abilityText.split(bullet).map((segment) => segment.trim()).filter(Boolean);
   unitRules[card.unit.name] = segments.map((segment, index) => toRule(card, segment, index)).filter(Boolean);

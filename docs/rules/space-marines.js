@@ -59,7 +59,7 @@
     {
       "id": "space-marines-p48-0",
       "name": "核心特性",
-      "text": "】：深入打击，领袖",
+      "text": "深入打击，领袖",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 48,
@@ -91,7 +91,7 @@
     {
       "id": "space-marines-p49-0",
       "name": "核心特性",
-      "text": "】：领袖",
+      "text": "领袖",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 49,
@@ -161,7 +161,7 @@
     {
       "id": "space-marines-p50-0",
       "name": "核心特性",
-      "text": "】：领袖",
+      "text": "领袖",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 50,
@@ -193,7 +193,7 @@
     {
       "id": "space-marines-p51-0",
       "name": "核心特性",
-      "text": "】：领袖",
+      "text": "领袖",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 51,
@@ -225,7 +225,7 @@
     {
       "id": "space-marines-p52-0",
       "name": "核心特性",
-      "text": "】：领袖，不知疼痛5+",
+      "text": "领袖，不知疼痛5+",
       "status": "计算支持（满足条件时自动结算）",
       "controls": [
         {
@@ -289,7 +289,7 @@
     {
       "id": "space-marines-p53-0",
       "name": "核心特性",
-      "text": "】：支援",
+      "text": "支援",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 53,
@@ -367,7 +367,7 @@
     {
       "id": "space-marines-p54-0",
       "name": "核心特性",
-      "text": "】：领袖，深入打击",
+      "text": "领袖，深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 54,
@@ -496,7 +496,7 @@
     {
       "id": "space-marines-p56-0",
       "name": "核心特性",
-      "text": "】：领袖",
+      "text": "领袖",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 56,
@@ -580,7 +580,7 @@
     {
       "id": "space-marines-p57-0",
       "name": "核心特性",
-      "text": "】：领袖，不知疼痛6+",
+      "text": "领袖，不知疼痛6+",
       "status": "计算支持（满足条件时自动结算）",
       "controls": [
         {
@@ -680,7 +680,7 @@
     {
       "id": "space-marines-p58-0",
       "name": "核心特性",
-      "text": "】：领袖，深入打击，独行特工，隐蔽",
+      "text": "领袖，深入打击，独行特工，隐蔽",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 58,
@@ -722,7 +722,7 @@
     {
       "id": "space-marines-p59-0",
       "name": "核心特性",
-      "text": "】：深入打击，独行特工，隐蔽",
+      "text": "深入打击，独行特工，隐蔽",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 59,
@@ -764,7 +764,7 @@
     {
       "id": "space-marines-p60-0",
       "name": "核心特性",
-      "text": "】：领袖，不知疼痛6+",
+      "text": "领袖，不知疼痛6+",
       "status": "计算支持（满足条件时自动结算）",
       "controls": [
         {
@@ -846,7 +846,7 @@
     {
       "id": "space-marines-p61-0",
       "name": "核心特性",
-      "text": "】：领袖",
+      "text": "领袖",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 61,
@@ -962,7 +962,7 @@
     {
       "id": "space-marines-p63-0",
       "name": "核心特性",
-      "text": "】：领袖",
+      "text": "领袖",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 63,
@@ -994,7 +994,7 @@
     {
       "id": "space-marines-p64-0",
       "name": "核心特性",
-      "text": "】：深入打击，领袖，不觉疼痛5+",
+      "text": "深入打击，领袖，不觉疼痛5+",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 64,
@@ -1115,7 +1115,7 @@
     {
       "id": "space-marines-p67-0",
       "name": "核心特性",
-      "text": "】：领袖，渗透，隐蔽",
+      "text": "领袖，渗透，隐蔽",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 67,
@@ -1147,7 +1147,7 @@
     {
       "id": "space-marines-p68-0",
       "name": "核心特性",
-      "text": "】：领袖，深入打击",
+      "text": "领袖，深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 68,
@@ -1234,7 +1234,7 @@
     {
       "id": "space-marines-p70-0",
       "name": "核心特性",
-      "text": "】：支援",
+      "text": "支援",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 70,
@@ -1284,7 +1284,7 @@
     {
       "id": "space-marines-p71-0",
       "name": "核心特性",
-      "text": "】：支援，斥候6",
+      "text": "支援，斥候6",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 71,
@@ -1334,7 +1334,7 @@
     {
       "id": "space-marines-p72-0",
       "name": "核心特性",
-      "text": "】：支援，斥候6，深入打击，渗透",
+      "text": "支援，斥候6，深入打击，渗透",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 72,
@@ -1384,7 +1384,7 @@
     {
       "id": "space-marines-p73-0",
       "name": "核心特性",
-      "text": "】：独行特工，渗透，隐蔽，不知疼痛5+",
+      "text": "独行特工，渗透，隐蔽，不知疼痛5+",
       "status": "计算支持（满足条件时自动结算）",
       "controls": [
         {
@@ -1452,7 +1452,7 @@
     {
       "id": "space-marines-p74-0",
       "name": "核心特性",
-      "text": "】：领袖",
+      "text": "领袖",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 74,
@@ -1522,7 +1522,7 @@
     {
       "id": "space-marines-p75-0",
       "name": "核心特性",
-      "text": "】：领袖，渗透",
+      "text": "领袖，渗透",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 75,
@@ -1573,7 +1573,7 @@
     {
       "id": "space-marines-p76-0",
       "name": "核心特性",
-      "text": "】：领袖，深入打击",
+      "text": "领袖，深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 76,
@@ -1643,7 +1643,7 @@
     {
       "id": "space-marines-p77-0",
       "name": "核心特性",
-      "text": "】：领袖",
+      "text": "领袖",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 77,
@@ -1675,7 +1675,7 @@
     {
       "id": "space-marines-p78-0",
       "name": "核心特性",
-      "text": "】：领袖，深入打击",
+      "text": "领袖，深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 78,
@@ -1745,7 +1745,7 @@
     {
       "id": "space-marines-p79-0",
       "name": "核心特性",
-      "text": "】：领袖",
+      "text": "领袖",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 79,
@@ -1814,7 +1814,7 @@
     {
       "id": "space-marines-p80-0",
       "name": "核心特性",
-      "text": "】：领袖，深入打击",
+      "text": "领袖，深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 80,
@@ -1865,7 +1865,7 @@
     {
       "id": "space-marines-p81-0",
       "name": "核心特性",
-      "text": "】：领袖",
+      "text": "领袖",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 81,
@@ -1920,7 +1920,7 @@
     {
       "id": "space-marines-p82-0",
       "name": "核心特性",
-      "text": "】：支援",
+      "text": "支援",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 82,
@@ -1952,7 +1952,7 @@
     {
       "id": "space-marines-p83-0",
       "name": "核心特性",
-      "text": "】：支援",
+      "text": "支援",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 83,
@@ -1984,7 +1984,7 @@
     {
       "id": "space-marines-p84-0",
       "name": "核心特性",
-      "text": "】：支援",
+      "text": "支援",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 84,
@@ -2016,7 +2016,7 @@
     {
       "id": "space-marines-p85-0",
       "name": "核心特性",
-      "text": "】：支援，深入打击",
+      "text": "支援，深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 85,
@@ -2147,7 +2147,7 @@
     {
       "id": "space-marines-p87-0",
       "name": "核心特性",
-      "text": "】：领袖",
+      "text": "领袖",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 87,
@@ -2287,7 +2287,7 @@
     {
       "id": "space-marines-p91-0",
       "name": "核心特性",
-      "text": "】：深入打击",
+      "text": "深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 91,
@@ -2371,16 +2371,6 @@
   "肃卫老兵小队": [
     {
       "id": "space-marines-p95-0",
-      "name": "核心特性",
-      "text": "】：",
-      "status": "已显示，暂不改变本次骰子",
-      "source": {
-        "page": 95,
-        "source": "星际战士11版中文1.0.pdf"
-      }
-    },
-    {
-      "id": "space-marines-p95-1",
       "name": "老兵专注",
       "text": "老兵专注：本单位模型攻击你的【破敌重誓】技能目标 时，可以重投造伤结果",
       "status": "计算支持（满足条件时自动结算）",
@@ -2496,7 +2486,7 @@
     {
       "id": "space-marines-p102-0",
       "name": "核心特性",
-      "text": "】：深入打击",
+      "text": "深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 102,
@@ -2518,7 +2508,7 @@
     {
       "id": "space-marines-p103-0",
       "name": "核心特性",
-      "text": "】：渗透",
+      "text": "渗透",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 103,
@@ -2540,7 +2530,7 @@
     {
       "id": "space-marines-p104-0",
       "name": "核心特性",
-      "text": "】：斥候6",
+      "text": "斥候6",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 104,
@@ -2575,7 +2565,7 @@
     {
       "id": "space-marines-p105-0",
       "name": "核心特性",
-      "text": "】：斥候6",
+      "text": "斥候6",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 105,
@@ -2651,7 +2641,7 @@
     {
       "id": "space-marines-p108-0",
       "name": "核心特性",
-      "text": "】：深入打击",
+      "text": "深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 108,
@@ -2683,7 +2673,7 @@
     {
       "id": "space-marines-p111-0",
       "name": "核心特性",
-      "text": "】：渗透，斥候6",
+      "text": "渗透，斥候6",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 111,
@@ -2777,7 +2767,7 @@
     {
       "id": "space-marines-p116-0",
       "name": "核心特性",
-      "text": "】：深入打击",
+      "text": "深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 116,
@@ -2811,7 +2801,7 @@
     {
       "id": "space-marines-p117-0",
       "name": "核心特性",
-      "text": "】：深入打击",
+      "text": "深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 117,
@@ -2859,7 +2849,7 @@
     {
       "id": "space-marines-p122-0",
       "name": "核心特性",
-      "text": "】：致命破灭1",
+      "text": "致命破灭1",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 122,
@@ -2894,7 +2884,7 @@
     {
       "id": "space-marines-p123-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3",
+      "text": "致命破灭D3",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 123,
@@ -2939,7 +2929,7 @@
     {
       "id": "space-marines-p124-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3",
+      "text": "致命破灭D3",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 124,
@@ -2984,7 +2974,7 @@
     {
       "id": "space-marines-p125-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3",
+      "text": "致命破灭D3",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 125,
@@ -3042,7 +3032,7 @@
     {
       "id": "space-marines-p127-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3",
+      "text": "致命破灭D3",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 127,
@@ -3087,7 +3077,7 @@
     {
       "id": "space-marines-p128-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3",
+      "text": "致命破灭D3",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 128,
@@ -3132,7 +3122,7 @@
     {
       "id": "space-marines-p129-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3",
+      "text": "致命破灭D3",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 129,
@@ -3177,7 +3167,7 @@
     {
       "id": "space-marines-p130-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3",
+      "text": "致命破灭D3",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 130,
@@ -3222,7 +3212,7 @@
     {
       "id": "space-marines-p131-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3",
+      "text": "致命破灭D3",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 131,
@@ -3267,7 +3257,7 @@
     {
       "id": "space-marines-p132-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3",
+      "text": "致命破灭D3",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 132,
@@ -3325,7 +3315,7 @@
     {
       "id": "space-marines-p133-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3",
+      "text": "致命破灭D3",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 133,
@@ -3383,7 +3373,7 @@
     {
       "id": "space-marines-p135-0",
       "name": "核心特性",
-      "text": "】：致命破灭D6",
+      "text": "致命破灭D6",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 135,
@@ -3428,7 +3418,7 @@
     {
       "id": "space-marines-p136-0",
       "name": "核心特性",
-      "text": "】：致命破灭D6",
+      "text": "致命破灭D6",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 136,
@@ -3473,7 +3463,7 @@
     {
       "id": "space-marines-p137-0",
       "name": "核心特性",
-      "text": "】：致命破灭D6",
+      "text": "致命破灭D6",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 137,
@@ -3518,7 +3508,7 @@
     {
       "id": "space-marines-p138-0",
       "name": "核心特性",
-      "text": "】：致命破灭D6",
+      "text": "致命破灭D6",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 138,
@@ -3563,7 +3553,7 @@
     {
       "id": "space-marines-p139-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3，开火口2",
+      "text": "致命破灭D3，开火口2",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 139,
@@ -3585,7 +3575,7 @@
     {
       "id": "space-marines-p140-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3",
+      "text": "致命破灭D3",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 140,
@@ -3626,7 +3616,7 @@
     {
       "id": "space-marines-p141-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3，开火口6",
+      "text": "致命破灭D3，开火口6",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 141,
@@ -3648,7 +3638,7 @@
     {
       "id": "space-marines-p142-0",
       "name": "核心特性",
-      "text": "】：致命破灭1，深入打击",
+      "text": "致命破灭1，深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 142,
@@ -3670,7 +3660,7 @@
     {
       "id": "space-marines-p144-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3，深入打击",
+      "text": "致命破灭D3，深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 144,
@@ -3705,7 +3695,7 @@
     {
       "id": "space-marines-p145-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3，深入打击",
+      "text": "致命破灭D3，深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 145,
@@ -3727,7 +3717,7 @@
     {
       "id": "space-marines-p146-0",
       "name": "核心特性",
-      "text": "】：深入打击",
+      "text": "深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 146,
@@ -3749,7 +3739,7 @@
     {
       "id": "space-marines-p147-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3",
+      "text": "致命破灭D3",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 147,
@@ -3784,7 +3774,7 @@
     {
       "id": "space-marines-p148-0",
       "name": "核心特性",
-      "text": "】：致命破灭D3",
+      "text": "致命破灭D3",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 148,
@@ -3819,7 +3809,7 @@
     {
       "id": "space-marines-p149-0",
       "name": "核心特性",
-      "text": "】：致命破灭D6，悬浮",
+      "text": "致命破灭D6，悬浮",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 149,
