@@ -205,12 +205,18 @@ def parse_weapon_rows(table: list[list[object]]) -> list[dict]:
         option_name = name.strip("（）()")
         weapon_name = f"{profile_base}（{option_name}）" if choice else name
         ability_parts = [part.strip() for part in re.split(r"[、；;]", abilities_raw) if part.strip() and not part.strip().isdigit()]
+        parsed_skill = weapon_skill(skill)
+        # Torrent weapons use "-" in the BS/WS column and carry the 喷射
+        # keyword. Keep that rule explicit so downstream code cannot treat
+        # the dash as a normal 7+ hit threshold.
+        if not re.search(r"\d+\+", parsed_skill) and re.search(r"喷射|torrent", abilities_raw, re.I):
+            parsed_skill = "torrent"
         weapons.append({
             "name": weapon_name,
             **({"selectionGroup": profile_base} if choice else {}),
             "type": current_type,
             "attacks": attacks,
-            "skill": weapon_skill(skill),
+            "skill": parsed_skill,
             "strength": strength,
             "ap": last_number(ap_raw, 0),
             "damage": damage,

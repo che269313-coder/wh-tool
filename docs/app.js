@@ -460,6 +460,12 @@ function calculatorStat(unit, name, fallback = "") {
   return unit?.[name] ?? fallback;
 }
 
+function isTorrentWeapon(weapon) {
+  const skill = String(weapon?.skill ?? "").trim().toLowerCase();
+  if (skill === "torrent" || skill === "auto-hit" || skill === "自动命中") return true;
+  return !/\d+\+/.test(skill) && (weapon?.abilities || []).some((ability) => /喷射|torrent/i.test(String(ability)));
+}
+
 function unitHasOathOfMoment(unit, faction = "") {
   return /破敌重誓|oath\s+of\s+moment/i.test(String(unit?.abilities || "")) || /星际战士|阿斯塔特|白色疤痕/i.test(String(faction || ""));
 }
@@ -535,7 +541,7 @@ function rerollFacesMarkup(draft, side, { kind, sourceKey, weaponIndex, threshol
 function calculatorWeaponRerollMarkup(weapon, draft, side, sourceName, sourceKey, weaponIndex) {
   if (side !== "attacker") return "";
   const sections = [];
-  const hitThreshold = String(weapon.skill || "").toLowerCase() === "torrent" ? 0 : parseSkill(weapon.skill);
+  const hitThreshold = isTorrentWeapon(weapon) ? 0 : parseSkill(weapon.skill);
   const sourceRules = resolvedRuleEffects(draft, sourceName).attack || {};
   if (sourceRules.hitReroll && hitThreshold > 0) {
     const rerollRule = window.WarhammerRuleResolver?.rulesForUnit(draft.entry?.faction, sourceName).unit.find((rule) => rule.effects?.some((effect) => effect.type === "space-hit-reroll"));
@@ -572,7 +578,8 @@ function calculatorWeaponControlMarkup(weapon, side, index, groupIndex = null, d
   const inputType = selectionGroup ? "radio" : "checkbox";
   const selectionName = selectionGroup ? ` name="calc-weapon-${side}-${groupIndex ?? "unit"}-${escapeHtml(selectionGroup)}"` : "";
   const selectionNote = selectionGroup ? ` · 配装：${escapeHtml(selectionGroup)}（单选）` : "";
-  return `<div class="calculator-weapon ${weapon.type === state.attackMode ? "is-current" : ""}"><label class="check-row"><input type="${inputType}"${selectionName} data-calc-side="${side}" ${scope} data-calc-weapon-enabled ${weapon.enabled !== false ? "checked" : ""} /><span>${escapeHtml(weapon.name || `武器 ${index + 1}`)} · ${weapon.type === "melee" ? "近战" : "远程"}${selectionNote}</span></label><div class="calculator-weapon-fields"><label>数量<input type="number" min="0" data-calc-side="${side}" ${scope} data-calc-weapon-count value="${escapeHtml(weapon.modelCount ?? 1)}" /></label><label>攻击<input data-calc-side="${side}" ${scope} data-calc-weapon-field="attacks" value="${escapeHtml(weapon.attacks ?? "1")}" /></label><label>命中<input data-calc-side="${side}" ${scope} data-calc-weapon-field="skill" value="${escapeHtml(weapon.skill ?? "4+")}" /></label><label>力量<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="strength" value="${escapeHtml(weapon.strength ?? "0")}" /></label><label>AP<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="ap" value="${escapeHtml(weapon.ap ?? "0")}" /></label><label>伤害<input data-calc-side="${side}" ${scope} data-calc-weapon-field="damage" value="${escapeHtml(weapon.damage ?? "1")}" /></label></div><small class="weapon-keywords">${escapeHtml((weapon.abilities || []).join("、") || "无关键词")}</small>${draft ? calculatorWeaponRerollMarkup(weapon, draft, side, sourceName, sourceKey, index) : ""}</div>`;
+  const displayedSkill = isTorrentWeapon(weapon) ? "自动命中" : (weapon.skill ?? "4+");
+  return `<div class="calculator-weapon ${weapon.type === state.attackMode ? "is-current" : ""}"><label class="check-row"><input type="${inputType}"${selectionName} data-calc-side="${side}" ${scope} data-calc-weapon-enabled ${weapon.enabled !== false ? "checked" : ""} /><span>${escapeHtml(weapon.name || `武器 ${index + 1}`)} · ${weapon.type === "melee" ? "近战" : "远程"}${selectionNote}</span></label><div class="calculator-weapon-fields"><label>数量<input type="number" min="0" data-calc-side="${side}" ${scope} data-calc-weapon-count value="${escapeHtml(weapon.modelCount ?? 1)}" /></label><label>攻击<input data-calc-side="${side}" ${scope} data-calc-weapon-field="attacks" value="${escapeHtml(weapon.attacks ?? "1")}" /></label><label>命中<input data-calc-side="${side}" ${scope} data-calc-weapon-field="skill" value="${escapeHtml(displayedSkill)}" /></label><label>力量<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="strength" value="${escapeHtml(weapon.strength ?? "0")}" /></label><label>AP<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="ap" value="${escapeHtml(weapon.ap ?? "0")}" /></label><label>伤害<input data-calc-side="${side}" ${scope} data-calc-weapon-field="damage" value="${escapeHtml(weapon.damage ?? "1")}" /></label></div><small class="weapon-keywords">${escapeHtml((weapon.abilities || []).join("、") || "无关键词")}</small>${draft ? calculatorWeaponRerollMarkup(weapon, draft, side, sourceName, sourceKey, index) : ""}</div>`;
 }
 
 function calculatorJoinedMembersMarkup(draft, side) {
@@ -838,7 +845,7 @@ function buildSelectedRoundPayload() {
         ? defenderRuleEffects.incomingWoundWhenStrengthGreaterOrEqual
         : (Number(weapon.strength || 0) > toughness ? defenderRuleEffects.incomingWoundWhenStrengthGreater : 0);
       const woundModifier = sharedJoinedRules.woundModifier + defenderRuleEffects.incomingWoundModifier + conditionalWoundModifier;
-      const hitThreshold = String(weapon.skill || "").toLowerCase() === "torrent" ? 7 : parseSkill(weapon.skill);
+      const hitThreshold = isTorrentWeapon(weapon) ? 7 : parseSkill(weapon.skill);
       const woundThreshold = woundTarget(Number(weapon.strength || 0), toughness);
       const oathReroll = unitHasOathOfMoment(source.unit, attacker.faction) && hitThreshold <= 6
         ? resolvedRerollSelection(attackerDraft, "oath-hit", sourceKey, weaponIndex, hitThreshold)
@@ -857,7 +864,7 @@ function buildSelectedRoundPayload() {
         name: `${source.name} · ${weapon.name}`,
         modelCount: Number(weapon.modelCount ?? source.modelCount ?? 1),
         attacks: attackOverride,
-        hit: String(weapon.skill || "").toLowerCase() === "torrent" ? "torrent" : parseSkill(weapon.skill),
+        hit: isTorrentWeapon(weapon) ? "torrent" : parseSkill(weapon.skill),
         wound: woundThreshold,
         ap: Math.max(0, Math.abs(Number(weapon.ap || 0)) + defenderRuleEffects.incomingApModifier),
         damage: weapon.damage,
