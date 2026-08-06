@@ -1627,6 +1627,11 @@ function weaponEffectsFromKeywords(weapon, martialKatah = [], oathOfMoment = {},
   const hasSustained = Boolean(sustained) || Number(ruleEffects.sustainedHits || 0) > 0;
   const hasLethal = /致命命中|致命一击|lethal/i.test(keywords) || Boolean(ruleEffects.lethalHits);
   const hasDevastating = /毁灭性伤口|毁灭性伤害|毁灭伤害|devastating/i.test(keywords) || Boolean(ruleEffects.devastating);
+  // Anti-Infantry/反步兵 changes the critical-wound threshold.  Torrent
+  // attacks still auto-hit, but they must not lose the anti-keyword effect
+  // when the wound roll is resolved against infantry.
+  const antiInfantry = keywords.match(/反步兵\s*([2-6])\+|anti[- ]?infantry\s*([2-6])\+/i);
+  const criticalWoundThreshold = antiInfantry ? Number(antiInfantry[1] || antiInfantry[2]) : 6;
   const hasTwinLinked = /双联|twin-?linked/i.test(keywords);
   const hitReroll = oathOfMoment?.hitReroll || { type: "none", values: [] };
   const hitValues = [...new Set((hitReroll.values || []).map(Number).filter((value) => value >= 1 && value <= 6))];
@@ -1646,6 +1651,7 @@ function weaponEffectsFromKeywords(weapon, martialKatah = [], oathOfMoment = {},
     sustainedHitsValue: sustainedValue,
     lethalHitsEnabled: hasLethal || martialChoices.includes("lethal"),
     devastatingWoundsEnabled: hasDevastating || Boolean(ruleEffects.devastating),
+    criticalWoundThreshold,
     woundRerollAllEnabled: hasTwinLinked || Boolean(ruleWoundReroll),
     woundRerollAllType: ruleWoundReroll || "failed",
     woundRerollAllValues: ruleWoundRerollValues,
