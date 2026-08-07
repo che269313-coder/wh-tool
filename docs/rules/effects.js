@@ -79,7 +79,16 @@
       case "incoming-wound-minus": if (!rule.controls?.length || enabled(selections, rule)) defend.incomingWoundModifier -= Math.abs(Number(effect.value || 1)); break;
       case "incoming-wound-when-strength-gte": if (!rule.controls?.length || enabled(selections, rule)) defend.incomingWoundWhenStrengthGreaterOrEqual = -Math.abs(Number(effect.value || 1)); break;
       case "damage-halving": defend.damageMultiplier = Math.min(Number(defend.damageMultiplier || 1), 0.5); break;
-      case "invulnerable-save": if (!rule.controls?.length || enabled(selections, rule)) defend.invulnerableSave = Math.max(Number(defend.invulnerableSave || 0), Number(effect.value || 0)); break;
+      case "invulnerable-save":
+        // Passive (no controls) saves stack by best value. A controllable
+        // one-shot/phase override (e.g. 金刚不破's 2+ for the phase) replaces
+        // the base save instead of being capped by Math.max.
+        if (rule.controls?.length) {
+          if (enabled(selections, rule)) defend.invulnerableSave = Number(effect.value || 0);
+        } else {
+          defend.invulnerableSave = Math.max(Number(defend.invulnerableSave || 0), Number(effect.value || 0));
+        }
+        break;
       default: break;
     }
   }

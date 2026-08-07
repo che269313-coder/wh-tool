@@ -109,7 +109,7 @@ if (tytusRule) {
 const woundRule = Object.values(context.WarhammerSpaceMarineRules.unitRules).flat().find((rule) => rule.effects?.some((effect) => effect.type === "incoming-wound-when-strength-gte"));
 assert(woundRule, "星际战士必须声明 S≥T 时的造伤 -1 技能");
 
-const genericCaptainRules = context.WarhammerSpaceMarineRules.unitRules["通用人物"] || [];
+const genericCaptainRules = context.WarhammerSpaceMarineRules.unitRules["连长"] || [];
 assert(genericCaptainRules.some((rule) => rule.name === "战斗之仪"), "通用人物数据卡必须显示战斗之仪");
 const peakMoment = genericCaptainRules.find((rule) => rule.name === "巅峰时刻");
 assert(peakMoment?.effects?.some((effect) => effect.type === "attack-modifier" && effect.value === 3), "通用人物数据卡必须声明巅峰时刻 A+3");
@@ -143,6 +143,11 @@ assert(passiveInvulnerableRules.length > 0 && passiveInvulnerableRules.every((ru
 const thorRule = Object.values(spaceMarineRules).flat().find((rule) => rule.text === "特殊保护：本模型拥有4+特殊保护");
 const thor = resolve("星际战士", "托尔连长", {}, { phase: "melee" });
 assert(thorRule && !thorRule.controls?.length && thor.defend.invulnerableSave === 4, "托尔连长的4+特殊保护必须无控件且自动进入防御结算");
+const lysanderSaveRule = spaceMarineRules["莱山德连长"]?.find((rule) => rule.name === "特殊保护");
+const lysanderBase = resolve("星际战士", "莱山德连长", {}, { phase: "melee" });
+const lysanderImpervious = resolve("星际战士", "莱山德连长", { [`${spaceMarineRules["莱山德连长"]?.find((rule) => rule.name === "金刚不破")?.id}.enabled`]: true }, { phase: "melee" });
+assert(lysanderSaveRule && lysanderSaveRule.effects?.some((effect) => effect.type === "invulnerable-save" && effect.value === 4) && !lysanderSaveRule.controls?.length && lysanderBase.defend.invulnerableSave === 4, "莱山德连长的被动特殊保护必须是 4+ 且自动结算（不能把金刚不破的 2+ 污染为被动值）");
+assert(lysanderImpervious.defend.invulnerableSave === 2, "莱山德连长开启金刚不破后必须获得 2+ 特殊保护");
 const siegeCommander = spaceMarineRules["托尔连长"]?.find((rule) => rule.name === "攻城指挥官");
 const thorAgainstInfantry = resolve("星际战士", "托尔连长", {}, { phase: "melee" });
 const thorAgainstVehicle = resolve("星际战士", "托尔连长", { [`${siegeCommander?.id}.targetMonsterVehicle`]: true }, { phase: "melee" });
@@ -150,9 +155,9 @@ assert(siegeCommander?.controls?.some((control) => control.id === "targetMonster
 assert(thorAgainstInfantry.attack.strengthModifier === 0 && thorAgainstInfantry.attack.apModifier === 0 && thorAgainstInfantry.attack.damageModifier === 0, "攻城指挥官未选择目标类型时不得改变武器属性");
 assert(thorAgainstVehicle.attack.strengthModifier === 2 && thorAgainstVehicle.attack.apModifier === 2 && thorAgainstVehicle.attack.damageModifier === 2, "攻城指挥官对巨兽/载具/工事必须同时提供 S/AP/D +2");
 
-const standardBearerEntry = Object.entries(spaceMarineRules).find(([, rules]) => rules.some((rule) => rule.id === "space-marines-p85-3"));
-const standardBearerRule = standardBearerEntry?.[1]?.find((rule) => rule.id === "space-marines-p85-3");
-const standardBearerSelections = { "space-marines-p85-3.enabled": true, "space-marines-p85-3.forceLeader": true };
+const standardBearerEntry = Object.entries(spaceMarineRules).find(([, rules]) => rules.some((rule) => rule.name === "高举旗帜"));
+const standardBearerRule = standardBearerEntry?.[1]?.find((rule) => rule.name === "高举旗帜");
+const standardBearerSelections = { [`${standardBearerRule?.id}.enabled`]: true, [`${standardBearerRule?.id}.forceLeader`]: true };
 const standardBearerNormal = standardBearerEntry && resolve(spaceMarineData.faction, standardBearerEntry[0], standardBearerSelections, { phase: "melee", isJoined: true, underStartingStrength: false, belowHalfStrength: false });
 const standardBearerUnderStarting = standardBearerEntry && resolve(spaceMarineData.faction, standardBearerEntry[0], standardBearerSelections, { phase: "melee", isJoined: true, underStartingStrength: true, belowHalfStrength: false });
 const standardBearerBelowHalf = standardBearerEntry && resolve(spaceMarineData.faction, standardBearerEntry[0], standardBearerSelections, { phase: "melee", isJoined: true, underStartingStrength: true, belowHalfStrength: true });
@@ -167,8 +172,8 @@ const techmarineBlessing = spaceMarineRules["技术军士"]?.find((rule) => rule
 assert(ironFatherForgeMaster && !ironFatherForgeMaster.controls?.length && !ironFatherForgeMaster.effects?.length, "铸造之主不能把友军载具效果误套到当前模型");
 assert(techmarineBlessing && !techmarineBlessing.controls?.length && !techmarineBlessing.effects?.length, "机神祝福不能把友军载具效果误套到当前模型");
 for (const [unitName, threshold] of [["泰图斯连长", 5], ["伏尔甘·赫斯坦", 6], ["坎托战团长", 6]]) {
-  const core = spaceMarineRules[unitName]?.find((rule) => rule.name === "核心特性");
-  assert(core?.effects?.some((effect) => effect.type === "fnp" && effect.threshold === threshold) && !core.controls?.length, `${unitName}核心不知疼痛必须默认生效`);
+  const core = spaceMarineRules[unitName]?.find((rule) => rule.effects?.some((effect) => effect.type === "fnp" && effect.threshold === threshold));
+  assert(core && !core.controls?.length, `${unitName}核心不知疼痛必须默认生效`);
 }
 const lysander = spaceMarineRules["莱山德连长"]?.find((rule) => rule.name === "坚毅典范");
 const lysanderEnabled = resolve(spaceMarineData.faction, "莱山德连长", { [`${lysander?.id}.enabled`]: true, [`${lysander?.id}.forceLeader`]: true }, { phase: "melee", isJoined: false });
@@ -182,7 +187,7 @@ assert(angelRage?.effects?.some((effect) => effect.type === "weapon-strength-mod
 const essoCard = structuredSpaceMarineCards.find((card) => card.unit.name === "艾索·沙恩");
 const subodenCard = structuredSpaceMarineCards.find((card) => card.unit.name === "速不台可汗");
 const heavyCaptainCard = structuredSpaceMarineCards.find((card) => card.unit.name === "重装连长");
-const genericCaptainCard = structuredSpaceMarineCards.find((card) => card.unit.name === "通用人物");
+const genericCaptainCard = structuredSpaceMarineCards.find((card) => card.unit.name === "连长");
 assert(essoCard?.unit?.invulnerableSave === 4, "艾索·沙恩必须保留 4++");
 assert(subodenCard?.weapons?.some((weapon) => weapon.name === "动力长刀“风暴之牙”" && weapon.type === "melee") && subodenCard.weapons.some((weapon) => weapon.name === "动力剑" && weapon.type === "melee"), "速不台可汗必须保留近战武器");
 assert(heavyCaptainCard && heavyCaptainCard.weapons?.some((weapon) => weapon.type === "melee"), "重装连长数据卡必须可被找到并包含近战武器");

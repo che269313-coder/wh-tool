@@ -61,6 +61,13 @@ const hellbruteCard = deathGuard.cards.find((card) => card.unit?.name === "地�
 assert(thorCard?.factionKeywords?.includes("阿斯塔特修会") && thorCard?.factionKeywords?.includes("帝国之拳"), "托尔连长必须保留阵营关键词");
 assert(thorCard?.keywords?.includes("步兵") && thorCard?.keywords?.includes("人物"), "托尔连长必须保留单位关键词");
 assert(mortarionCard?.factionKeywords?.includes("死亡守卫") && mortarionCard?.keywords?.includes("凶兽"), "莫塔里安必须保留阵营和单位关键词");
+for (const name of ["莱山德连长", "罗伯特·基里曼", "重装连长", "终结者连长", "跳跃背包连长"]) {
+  const card = catalogCards.find((candidate) => candidate.unit?.name === name);
+  assert(card?.unit?.invulnerableSave === 4, `${name} 必须保留 4+ 特殊保护（PDF 技能原文）`);
+}
+const lysanderCard = catalogCards.find((card) => card.unit?.name === "莱山德连长");
+assert(lysanderCard?.unit?.abilities?.includes("本模型拥有4+特殊保护"), "莱山德连长技能原文必须包含基础 4+ 特殊保护");
+assert(lysanderCard?.unit?.abilities?.includes("金刚不破"), "莱山德连长技能原文必须保留金刚不破");
 const leadingPdfWatermark = /^[\s]*[\u8001\u6e7f\u8150\u9524\u6218\u7fa4](?=\s*[\u4e00-\u9fffA-Za-z0-9])/;
 assert(!catalogCards.some((card) => leadingPdfWatermark.test(card.unit?.defaultEquipment || "")), "默认装备不应残留 PDF 水印片段");
 assert(!catalogCards.some((card) => /[\u6e7f](?=和)/.test(card.unit?.defaultEquipment || "")), "默认装备不应残留嵌入式 PDF 水印片段");
