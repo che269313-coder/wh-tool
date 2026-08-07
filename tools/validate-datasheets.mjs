@@ -10,6 +10,9 @@ const readJson = (...parts) => JSON.parse(fs.readFileSync(path.join(root, ...par
 const custodesProfiles = readJson("docs", "data", "帝皇禁军", "帝皇禁军-结构化数据卡.json");
 const spaceMarines = readJson("docs", "data", "星际战士", "星际战士-全部数据卡.json");
 const deathGuard = readJson("docs", "data", "死亡守卫", "死亡守卫-全部数据卡.json");
+const catalogContext = { window: {} };
+vm.runInNewContext(fs.readFileSync(path.join(root, "docs", "calculator-catalog.js"), "utf8"), catalogContext);
+const catalogCards = catalogContext.window.WARHAMMER_CALCULATOR_CATALOG.flatMap((catalog) => catalog.cards || []);
 
 assert(custodesProfiles.kind === "datasheet-profiles", "禁军结构化数据卡 kind 必须为 datasheet-profiles");
 assert(custodesProfiles.schemaVersion === 1, "禁军结构化数据卡 schemaVersion 必须为 1");
@@ -52,6 +55,11 @@ const validateCard = (card, label, { strictWeapons = false } = {}) => {
 custodesProfiles.cards.forEach((card) => validateCard(card, `禁军 ${card.name}`, { strictWeapons: true }));
 spaceMarines.cards.filter((card) => card.unit).forEach((card) => validateCard(card, `星际战士 ${card.name}`));
 assert(deathGuard.kind === "datasheet-profiles" && deathGuard.schemaVersion === 1, "死亡守卫结构化数据卡必须使用 schemaVersion 1");
+const thorCard = catalogCards.find((card) => card.unit?.name === "托尔连长");
+const mortarionCard = catalogCards.find((card) => card.unit?.name === "莫塔里安");
+assert(thorCard?.factionKeywords?.includes("阿斯塔特修会") && thorCard?.factionKeywords?.includes("帝国之拳"), "托尔连长必须保留阵营关键词");
+assert(thorCard?.keywords?.includes("步兵") && thorCard?.keywords?.includes("人物"), "托尔连长必须保留单位关键词");
+assert(mortarionCard?.factionKeywords?.includes("死亡守卫") && mortarionCard?.keywords?.includes("凶兽"), "莫塔里安必须保留阵营和单位关键词");
 assert(deathGuard.cards.length === 36, "死亡守卫数据卡必须覆盖 PDF 中的 36 张卡");
 const deathshroud = deathGuard.cards.find((card) => card.name === "死亡寿衣终结者");
 const plagueMarines = deathGuard.cards.find((card) => card.name === "瘟疫战士");

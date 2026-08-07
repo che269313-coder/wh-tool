@@ -67,6 +67,13 @@
       case "target-melee-hit-minus": if (!rule.controls?.length || enabled(selections, rule)) attack.targetMeleeHitModifier += Number(effect.value || -1); break;
       case "weapon-strength-modifier": if (!rule.controls?.length || enabled(selections, rule)) attack.strengthModifier = Number(attack.strengthModifier || 0) + Number(effect.value || 0); break;
       case "weapon-ap-modifier": if (!rule.controls?.length || enabled(selections, rule)) attack.apModifier = Number(attack.apModifier || 0) + Number(effect.value || 0); break;
+      case "siege-commander":
+        if (!rule.controls?.length || enabled(selections, rule, "targetMonsterVehicle")) {
+          attack.strengthModifier = Number(attack.strengthModifier || 0) + 2;
+          attack.apModifier = Number(attack.apModifier || 0) + 2;
+          attack.damageModifier = Number(attack.damageModifier || 0) + 2;
+        }
+        break;
       case "target-save-modifier": if (!rule.controls?.length || enabled(selections, rule)) attack.targetSaveModifier = Number(attack.targetSaveModifier || 0) + Number(effect.value || 0); break;
       case "incoming-hit-minus": if (!rule.controls?.length || enabled(selections, rule)) defend.incomingHitModifier -= Math.abs(Number(effect.value || 1)); break;
       case "incoming-wound-minus": if (!rule.controls?.length || enabled(selections, rule)) defend.incomingWoundModifier -= Math.abs(Number(effect.value || 1)); break;

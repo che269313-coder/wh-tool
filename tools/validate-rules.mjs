@@ -142,6 +142,12 @@ assert(passiveInvulnerableRules.length > 0 && passiveInvulnerableRules.every((ru
 const thorRule = Object.values(spaceMarineRules).flat().find((rule) => rule.text === "特殊保护：本模型拥有4+特殊保护");
 const thor = resolve("星际战士", "托尔连长", {}, { phase: "melee" });
 assert(thorRule && !thorRule.controls?.length && thor.defend.invulnerableSave === 4, "托尔连长的4+特殊保护必须无控件且自动进入防御结算");
+const siegeCommander = spaceMarineRules["托尔连长"]?.find((rule) => rule.name === "攻城指挥官");
+const thorAgainstInfantry = resolve("星际战士", "托尔连长", {}, { phase: "melee" });
+const thorAgainstVehicle = resolve("星际战士", "托尔连长", { [`${siegeCommander?.id}.targetMonsterVehicle`]: true }, { phase: "melee" });
+assert(siegeCommander?.controls?.some((control) => control.id === "targetMonsterVehicle"), "托尔连长攻城指挥官必须提供巨兽/载具/工事目标控件");
+assert(thorAgainstInfantry.attack.strengthModifier === 0 && thorAgainstInfantry.attack.apModifier === 0 && thorAgainstInfantry.attack.damageModifier === 0, "攻城指挥官未选择目标类型时不得改变武器属性");
+assert(thorAgainstVehicle.attack.strengthModifier === 2 && thorAgainstVehicle.attack.apModifier === 2 && thorAgainstVehicle.attack.damageModifier === 2, "攻城指挥官对巨兽/载具/工事必须同时提供 S/AP/D +2");
 
 const enabledSkullsquirm = context.WarhammerRuleResolver.resolveFaction("死亡守卫", {
   "death-guard-nurgles-gift.enabled": true,

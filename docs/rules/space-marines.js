@@ -464,7 +464,20 @@
       "id": "space-marines-p55-4",
       "name": "攻城指挥官",
       "text": "攻城指挥官：本模型攻击巨兽，载具，工事单位时S， AP，D都增强2点",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "targetMonsterVehicle",
+          "type": "checkbox",
+          "label": "目标为巨兽、载具或工事"
+        }
+      ],
+      "effects": [
+        {
+          "type": "siege-commander",
+          "requiresTargetMonsterVehicle": true
+        }
+      ],
       "source": {
         "page": 55,
         "source": "星际战士11版中文1.0.pdf"

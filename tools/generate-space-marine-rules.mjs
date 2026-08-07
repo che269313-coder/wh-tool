@@ -72,6 +72,9 @@ function effectDescriptors(text) {
   else if (/攻击[^。\n]{0,40}命中结果\s*-\s*1/.test(text)) add({ type: "incoming-hit-minus", value: 1 });
   const invulnerable = text.match(/([23456])\s*\+\s*特殊保护/);
   if (invulnerable) add({ type: "invulnerable-save", value: Number(invulnerable[1]) });
+  if (/攻城指挥官|攻击巨兽[，,、 ]*载具[，,、 ]*工事单位时[\s\S]*S[，, ]*AP[，, ]*D[都均]?增强\s*2/.test(text)) {
+    add({ type: "siege-commander", requiresTargetMonsterVehicle: true });
+  }
   return { effects: result, leader };
 }
 
@@ -88,13 +91,16 @@ function toRule(card, text, index) {
     && declaredEffects.every((effect) => effect.type === "invulnerable-save")
     && /拥\s*有/.test(clean)
     && !/一次性|可以|获得|本阶段|持续/.test(clean);
+  const targetMonsterVehicleControl = declaredEffects.some((effect) => effect.requiresTargetMonsterVehicle)
+    ? [{ id: "targetMonsterVehicle", type: "checkbox", label: "目标为巨兽、载具或工事" }]
+    : [];
   const id = `space-marines-p${card.page}-${index}`;
   return {
     id,
     name: nameFromText(clean, index),
     text: clean,
     status: effects.length ? supported : displayOnly,
-    ...(declaredEffects.length ? { ...(passiveInvulnerableSave ? {} : { controls: controls(leader) }), effects: declaredEffects } : {}),
+    ...(declaredEffects.length ? { ...(passiveInvulnerableSave ? {} : { controls: targetMonsterVehicleControl.length ? targetMonsterVehicleControl : controls(leader) }), effects: declaredEffects } : {}),
     source: { page: card.page, source: card.source },
   };
 }
