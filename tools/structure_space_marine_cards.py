@@ -309,6 +309,12 @@ def main() -> None:
                     {"name": "动力长刀“风暴之牙”", "type": "melee", "attacks": "6", "skill": "2+", "strength": 6, "ap": -2, "damage": "2", "abilities": ["迅猛冲锋", "反巨兽 4+", "反载具 4+"]},
                     {"name": "动力剑", "type": "melee", "attacks": "8", "skill": "2+", "strength": 5, "ap": -2, "damage": "1", "abilities": []},
                 ])
+            if page_number == 65 and not any(weapon.get("type") == "melee" for weapon in weapons):
+                weapons.extend([
+                    {"name": "格斗武器", "type": "melee", "attacks": "6", "skill": "2+", "strength": 4, "ap": 0, "damage": "1", "abilities": []},
+                    {"name": "精工动力武器", "type": "melee", "attacks": "6", "skill": "2+", "strength": 5, "ap": -2, "damage": "2", "abilities": []},
+                    {"name": "动力拳", "type": "melee", "attacks": "5", "skill": "2+", "strength": 8, "ap": -2, "damage": "2", "abilities": []},
+                ])
             # Transport and fortification cards can have no weapons, and some
             # aircraft intentionally use “-” for M.  They are still valid
             # defensive targets, so only T and W are mandatory.

@@ -1153,6 +1153,36 @@
           "abilities": [
             "手枪，毁灭伤害"
           ]
+        },
+        {
+          "name": "格斗武器",
+          "type": "melee",
+          "attacks": "6",
+          "skill": "2+",
+          "strength": 4,
+          "ap": 0,
+          "damage": "1",
+          "abilities": []
+        },
+        {
+          "name": "精工动力武器",
+          "type": "melee",
+          "attacks": "6",
+          "skill": "2+",
+          "strength": 5,
+          "ap": -2,
+          "damage": "2",
+          "abilities": []
+        },
+        {
+          "name": "动力拳",
+          "type": "melee",
+          "attacks": "5",
+          "skill": "2+",
+          "strength": 8,
+          "ap": -2,
+          "damage": "2",
+          "abilities": []
         }
       ],
       "verification": "由数字版 PDF 表格提取；动态数值或条件性规则需在计算器中确认。"

@@ -1076,7 +1076,12 @@
       "id": "space-marines-p66-3",
       "name": "永不屈服",
       "text": "永不屈服：被分配给本模型的攻击破坏力减半",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "effects": [
+        {
+          "type": "damage-halving"
+        }
+      ],
       "source": {
         "page": 66,
         "source": "星际战士11版中文1.0.pdf"

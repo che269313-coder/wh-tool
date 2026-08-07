@@ -490,6 +490,9 @@
     let amount = event.negated ? 0 : rollDamageExpression(event.damage, weaponEffects, rng);
     const defenderEffects = defenderGroup.effects;
     if (Number(defenderEffects.damageOverride) > 0 && amount > 0) amount = Number(defenderEffects.damageOverride);
+    if (!event.mortal && Number(defenderEffects.damageMultiplier) > 0 && Number(defenderEffects.damageMultiplier) < 1 && amount > 0) {
+      amount = Math.ceil(amount * Number(defenderEffects.damageMultiplier));
+    }
     const fnpEnabled = event.mortal ? defenderEffects.feelNoPainMortalEnabled : defenderEffects.feelNoPainEnabled;
     const fnpThreshold = event.mortal ? defenderEffects.feelNoPainMortalThreshold : defenderEffects.feelNoPainThreshold;
     if (fnpEnabled) amount = applyFeelNoPain(amount, fnpThreshold, rng);

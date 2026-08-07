@@ -182,9 +182,14 @@ assert(angelRage?.effects?.some((effect) => effect.type === "weapon-strength-mod
 const essoCard = structuredSpaceMarineCards.find((card) => card.unit.name === "艾索·沙恩");
 const subodenCard = structuredSpaceMarineCards.find((card) => card.unit.name === "速不台可汗");
 const heavyCaptainCard = structuredSpaceMarineCards.find((card) => card.unit.name === "重装连长");
+const genericCaptainCard = structuredSpaceMarineCards.find((card) => card.unit.name === "通用人物");
 assert(essoCard?.unit?.invulnerableSave === 4, "艾索·沙恩必须保留 4++");
 assert(subodenCard?.weapons?.some((weapon) => weapon.name === "动力长刀“风暴之牙”" && weapon.type === "melee") && subodenCard.weapons.some((weapon) => weapon.name === "动力剑" && weapon.type === "melee"), "速不台可汗必须保留近战武器");
 assert(heavyCaptainCard && heavyCaptainCard.weapons?.some((weapon) => weapon.type === "melee"), "重装连长数据卡必须可被找到并包含近战武器");
+assert(["格斗武器", "精工动力武器", "动力拳"].every((name) => genericCaptainCard?.weapons?.some((weapon) => weapon.name === name && weapon.type === "melee")), "通用人物数据卡必须保留近战武器");
+const neverYieldRule = spaceMarineRules["重装连长"]?.find((rule) => rule.name === "永不屈服");
+const neverYield = resolve(spaceMarineData.faction, "重装连长", {}, { phase: "melee", isJoined: false });
+assert(neverYieldRule?.effects?.some((effect) => effect.type === "damage-halving") && !neverYieldRule.controls?.length && neverYield.defend.damageMultiplier === 0.5, "永不屈服必须作为默认的被分配攻击 D 减半");
 
 const enabledSkullsquirm = context.WarhammerRuleResolver.resolveFaction("死亡守卫", {
   "death-guard-nurgles-gift.enabled": true,

@@ -287,6 +287,14 @@ function calculatorCardNames() {
   return [...new Map(state.calculatorCards.filter((card) => card.name).map((card) => [`${card.faction || ""}:${card.name}:${card.page || ""}`, card])).values()];
 }
 
+function calculatorCardKey(card) {
+  return `card:${card.faction || ""}:${card.page || card.name}:${card.name}`;
+}
+
+function calculatorLegacyCardKey(card) {
+  return `card:${card.faction || ""}:${card.page || card.name}`;
+}
+
 function calculatorRosterOptions(side) {
   return state.rosters[side].groups.flatMap((group) => group.units.filter((unit) => activeModels(unit).length).map((unit) => ({
     key: `roster:${side}:${group.id}:${unit.id}`, name: unit.name, label: `${unit.name} · ${group.title}`, side, groupId: group.id, unitId: unit.id,
@@ -307,7 +315,7 @@ function calculatorSelectionKeys(side) {
 
 function calculatorPickerOptions(side) {
   const rosterOptions = calculatorRosterOptions(side);
-  const cardOptions = calculatorCardNames().map((card) => ({ key: `card:${card.faction}:${card.page || card.name}`, name: card.name, label: `${card.name} · ${card.faction || "datasheet"}`, card }));
+  const cardOptions = calculatorCardNames().map((card) => ({ key: calculatorCardKey(card), name: card.name, label: `${card.name} · ${card.faction || "datasheet"}`, card }));
   return { allOptions: [...rosterOptions, ...cardOptions] };
 }
 
@@ -462,7 +470,7 @@ function getCalculatorEntry(side, selectionKey = null) {
     const found = findUnit(rosterSide, groupId, unitId);
     return found.unit ? { key, name: found.unit.name, rosterUnit: found.unit, group: found.group, groupId, unitId, faction: state.rosters[rosterSide].faction } : null;
   }
-  return calculatorCardNames().find((card) => `card:${card.faction}:${card.page || card.name}` === key) || null;
+  return calculatorCardNames().find((card) => calculatorCardKey(card) === key || calculatorLegacyCardKey(card) === key) || null;
 }
 
 function findStructuredCalculatorCard(name) {
@@ -1138,6 +1146,7 @@ function defenderEffectsFromUnit(unit, draft, unitName) {
     effects.feelNoPainMortalThreshold = defend.feelNoPainMortal;
   }
   if (defend.damageOverride) effects.damageOverride = defend.damageOverride;
+  if (defend.damageMultiplier) effects.damageMultiplier = defend.damageMultiplier;
   if (defend.invulnerableSave) effects.ruleInvulnerableSave = defend.invulnerableSave;
   return effects;
 }
@@ -1667,6 +1676,22 @@ async function importBuiltinLibraryFiles() {
   }
 }
 
+function appendDigitalUnitAliases(parsed = null) {
+  for (const [faction, pages] of Object.entries(DIGITAL_UNIT_ALIASES)) {
+    for (const [page, names] of Object.entries(pages)) {
+      const key = `${faction}:${page}`;
+      const source = parsed?.get(key) || state.calculatorCards.find((card) => card.faction === faction && Number(card.page) === Number(page) && card.data?.unit)?.data;
+      if (!source?.unit) continue;
+      names.forEach((name) => {
+        const virtualCard = { faction, name, page: Number(page), structured: true, data: { ...source, unit: { ...source.unit, name } } };
+        const existingIndex = state.calculatorCards.findIndex((card) => card.faction === faction && card.name === name);
+        if (existingIndex >= 0) state.calculatorCards[existingIndex] = virtualCard;
+        else state.calculatorCards.push(virtualCard);
+      });
+    }
+  }
+}
+
 async function loadCalculatorCards() {
   const cards = new Map();
   const categoryNames = new Set(["传奇英雄人物", "战术小队", "其他步兵", "军表构成", "3", "骑乘", "终结者", "机甲", "载具", "运输载具", "飞行载具", "工事"]);
@@ -1695,6 +1720,10 @@ async function loadCalculatorCards() {
     }
   }
   state.calculatorCards = [...cards.values()];
+  // Keep digital aliases available even when the Markdown fallback is slow or
+  // unavailable. The structured catalogue already contains page 65, so the
+  // generic Captain alias must be searchable from the first render.
+  appendDigitalUnitAliases();
   // The picker may already be open while the async catalogue arrives.
   // Refresh it here so a valid search (for example “图拉真”) is not left empty.
   renderCalculatorSelectors();
@@ -1712,16 +1741,8 @@ async function loadCalculatorCards() {
       state.calculatorCards = state.calculatorCards.map((card) => !card.data?.unit && parsed.get(`${card.faction}:${card.page}`)
         ? { ...card, structured: true, data: parsed.get(`${card.faction}:${card.page}`) }
         : card);
-      for (const [page, names] of Object.entries(DIGITAL_UNIT_ALIASES[source.faction] || {})) {
-        const data = parsed.get(`${source.faction}:${page}`);
-        names.forEach((name) => {
-          if (!data) return;
-          const virtualCard = { faction: source.faction, name, page: Number(page), structured: true, data: { ...data, unit: { ...data.unit, name } } };
-          const existingIndex = state.calculatorCards.findIndex((card) => card.faction === source.faction && card.name === name);
-          if (existingIndex >= 0) state.calculatorCards[existingIndex] = virtualCard;
-          else state.calculatorCards.push(virtualCard);
-        });
-      }
+      appendDigitalUnitAliases(parsed);
+      renderCalculatorSelectors();
     } catch {
       // 页面离线时仍保留已经加载的军表和 JSON 数据卡。
     }
@@ -2048,7 +2069,7 @@ function emptyDefenderEffects() {
   return {
     saveRerollFixedEnabled: false, saveRerollFixedAmount: 1, saveRerollFixedType: "ones", saveRerollFixedValues: [],
     saveRerollAllEnabled: false, saveRerollAllType: "ones", saveRerollAllValues: [], feelNoPainEnabled: false,
-    feelNoPainThreshold: 6, feelNoPainMortalEnabled: false, feelNoPainMortalThreshold: 6, damageOverride: 0, ruleInvulnerableSave: 0, oneUseInvulnerableEnabled: false, oneUseInvulnerableSave: 2,
+    feelNoPainThreshold: 6, feelNoPainMortalEnabled: false, feelNoPainMortalThreshold: 6, damageOverride: 0, damageMultiplier: 1, ruleInvulnerableSave: 0, oneUseInvulnerableEnabled: false, oneUseInvulnerableSave: 2,
   };
 }
 

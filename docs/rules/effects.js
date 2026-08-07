@@ -78,6 +78,7 @@
       case "incoming-hit-minus": if (!rule.controls?.length || enabled(selections, rule)) defend.incomingHitModifier -= Math.abs(Number(effect.value || 1)); break;
       case "incoming-wound-minus": if (!rule.controls?.length || enabled(selections, rule)) defend.incomingWoundModifier -= Math.abs(Number(effect.value || 1)); break;
       case "incoming-wound-when-strength-gte": if (!rule.controls?.length || enabled(selections, rule)) defend.incomingWoundWhenStrengthGreaterOrEqual = -Math.abs(Number(effect.value || 1)); break;
+      case "damage-halving": defend.damageMultiplier = Math.min(Number(defend.damageMultiplier || 1), 0.5); break;
       case "invulnerable-save": if (!rule.controls?.length || enabled(selections, rule)) defend.invulnerableSave = Math.max(Number(defend.invulnerableSave || 0), Number(effect.value || 0)); break;
       default: break;
     }

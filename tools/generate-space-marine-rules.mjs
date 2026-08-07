@@ -63,6 +63,7 @@ function effectDescriptors(text) {
   if (/造伤结果[^。\n]{0,50}-\s*1/.test(text)) {
     add(/大于等于|大于或等于/.test(text) ? { type: "incoming-wound-when-strength-gte", value: 1 } : { type: "incoming-wound-minus", value: 1 });
   }
+  if (/攻击破坏力[^。\n]{0,20}减半/.test(text)) add({ type: "damage-halving" });
   if (/连击\s*\d+/.test(text)) add({ type: "sustained-hits", value: Number(text.match(/连击\s*(\d+)/)?.[1] || 1) });
   if (/致命一击|致命命中/.test(text)) add({ type: "lethal-hits" });
   if (/毁灭伤害|毁灭性伤口/.test(text)) add({ type: "devastating-wounds" });
@@ -104,6 +105,10 @@ function toRule(card, text, index) {
     && declaredEffects.every((effect) => effect.type === "fnp")
     && clean.replace(/\s+/g, "").includes("领袖，不知疼痛")
     && !/一次性|可以获得|获得|阶段/.test(clean);
+  const passiveDamageHalving = declaredEffects.length > 0
+    && declaredEffects.every((effect) => effect.type === "damage-halving")
+    && /被分配给本模型/.test(clean)
+    && !/一次性|可以|获得|阶段/.test(clean);
   const targetMonsterVehicleControl = declaredEffects.some((effect) => effect.requiresTargetMonsterVehicle)
     ? [{ id: "targetMonsterVehicle", type: "checkbox", label: "目标为巨兽、载具或工事" }]
     : [];
@@ -121,7 +126,7 @@ function toRule(card, text, index) {
     name: nameFromText(clean, index),
     text: clean,
     status: supportedEffects.length ? supported : displayOnly,
-    ...(declaredEffects.length ? { ...((passiveInvulnerableSave || passiveFeelNoPain) ? {} : { controls: targetMonsterVehicleControl.length ? targetMonsterVehicleControl : [...controls(leader), ...strengthConditionControls] }), effects: declaredEffects } : {}),
+    ...(declaredEffects.length ? { ...((passiveInvulnerableSave || passiveFeelNoPain || passiveDamageHalving) ? {} : { controls: targetMonsterVehicleControl.length ? targetMonsterVehicleControl : [...controls(leader), ...strengthConditionControls] }), effects: declaredEffects } : {}),
     source: { page: card.page, source: card.source },
   };
 }
