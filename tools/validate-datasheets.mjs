@@ -61,6 +61,10 @@ const hellbruteCard = deathGuard.cards.find((card) => card.unit?.name === "地�
 assert(thorCard?.factionKeywords?.includes("阿斯塔特修会") && thorCard?.factionKeywords?.includes("帝国之拳"), "托尔连长必须保留阵营关键词");
 assert(thorCard?.keywords?.includes("步兵") && thorCard?.keywords?.includes("人物"), "托尔连长必须保留单位关键词");
 assert(mortarionCard?.factionKeywords?.includes("死亡守卫") && mortarionCard?.keywords?.includes("凶兽"), "莫塔里安必须保留阵营和单位关键词");
+const leadingPdfWatermark = /^[\s]*[\u8001\u6e7f\u8150\u9524\u6218\u7fa4](?=\s*[\u4e00-\u9fffA-Za-z0-9])/;
+assert(!catalogCards.some((card) => leadingPdfWatermark.test(card.unit?.defaultEquipment || "")), "默认装备不应残留 PDF 水印片段");
+assert(!catalogCards.some((card) => /[\u6e7f](?=和)/.test(card.unit?.defaultEquipment || "")), "默认装备不应残留嵌入式 PDF 水印片段");
+assert(!catalogCards.some((card) => [...(card.factionKeywords || []), ...(card.keywords || [])].some((value) => leadingPdfWatermark.test(value))), "关键词不应残留 PDF 水印片段");
 assert(hellbruteCard?.weapons?.filter((weapon) => weapon.type === "melee").length === 4, "地狱兽必须保留数据卡上的 4 把近战武器");
 assert(hellbruteCard?.weapons?.some((weapon) => weapon.name === "地狱兽铁拳" && weapon.type === "melee"), "地狱兽必须包含近战地狱兽铁拳");
 assert(deathGuard.cards.length === 36, "死亡守卫数据卡必须覆盖 PDF 中的 36 张卡");

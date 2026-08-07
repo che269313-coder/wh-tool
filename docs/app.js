@@ -483,17 +483,41 @@ function normalizeCalculatorCardData(data) {
     : "";
   return {
     ...data,
+    factionKeywords: cleanPdfKeywordList(data.factionKeywords),
+    keywords: cleanPdfKeywordList(data.keywords),
     unit: {
       ...data.unit,
       abilities: data.unit.abilities || sourceAbilities,
-      defaultEquipment: cleanPdfWatermarkText(data.unit.defaultEquipment),
+      defaultEquipment: cleanPdfWatermarkText(data.unit.defaultEquipment, data.weapons),
     },
   };
 }
 
-function cleanPdfWatermarkText(value) {
-  return String(value ?? "")
-    .replace(/(^|[，,、\s])群(?=\s*[\u4e00-\u9fffA-Za-z])/g, "$1")
+function cleanPdfKeywordList(values) {
+  return [...new Set((Array.isArray(values) ? values : [])
+    .map((value) => cleanPdfWatermarkText(value))
+    .filter(Boolean))];
+}
+
+function cleanPdfWatermarkText(value, weapons = []) {
+  const watermark = /[\u8001\u6e7f\u8150\u9524\u6218\u7fa4]/;
+  let text = String(value ?? "").replace(/\s+/g, " ").trim();
+  const weaponNames = (Array.isArray(weapons) ? weapons : [])
+    .map((weapon) => String(weapon?.name || weapon || "").replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    .sort((left, right) => right.length - left.length);
+  if (weaponNames.length) {
+    text = text.split(/[，,、]/).map((part) => {
+      const clause = part.trim();
+      const weaponName = weaponNames.find((name) => clause.includes(name));
+      if (!weaponName) return clause;
+      const prefix = clause.slice(0, clause.indexOf(weaponName)).trim();
+      return watermark.test(prefix) ? clause.slice(clause.indexOf(weaponName)).trim() : clause;
+    }).filter(Boolean).join("，");
+  }
+  return text
+    .replace(new RegExp(`(^|[，,、\\s])${watermark.source}(?=\\s*[\\u4e00-\\u9fffA-Za-z0-9])`, "g"), "$1")
+    .replace(/[\u6e7f](?=和)/g, "")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -575,7 +599,7 @@ function enabledCalculatorWeapons(data, entryName, rosterUnit, options = {}) {
   const baseUnit = data?.unit || {};
   const baseWeapons = (Array.isArray(data?.weapons) ? cloneCalculatorValue(data.weapons) : [])
     .filter((weapon) => !Array.isArray(options.weaponNames) || options.weaponNames.some((name) => weaponMatchesEquipmentText(weapon, name)));
-  const defaultEquipment = cleanPdfWatermarkText(options.defaultEquipment ?? baseUnit.defaultEquipment ?? "");
+  const defaultEquipment = cleanPdfWatermarkText(options.defaultEquipment ?? baseUnit.defaultEquipment ?? "", baseWeapons);
   const defaultModels = Math.max(1, Number(options.modelCount ?? (rosterUnit ? activeModels(rosterUnit).length : baseUnit.models || baseUnit.defaultModels || 1)) || 1);
   const hasRosterEquipment = rosterUnit && Object.keys(countEquipment(rosterUnit)).length > 0;
   const matching = hasRosterEquipment
@@ -1746,7 +1770,7 @@ function parseDigitalDatasheets(markdown, faction) {
       if (!line) return [];
       return [...new Set(line.split("|").slice(2).join(" ").replace(/<br\s*\/?>(?=\S)/gi, " ").replace(/\s+/g, " ").trim().replace(/^\s*(?:\d+\s*)+/, "").split(/[，,、]/).map((item) => item.trim()).filter(Boolean))];
     };
-    result.set(`${faction}:${heading.page}`, { faction, kind: "datasheet", unit, factionKeywords: readKeywords("阵营关键词"), keywords: readKeywords("关键词"), weapons });
+    result.set(`${faction}:${heading.page}`, { faction, kind: "datasheet", unit, factionKeywords: cleanPdfKeywordList(readKeywords("阵营关键词")), keywords: cleanPdfKeywordList(readKeywords("关键词")), weapons });
   });
   return result;
 }
