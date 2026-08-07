@@ -2190,7 +2190,37 @@ async function runExternalCalculator() {
   const chanceDelta = (local.chance - averageKills) * 100;
   const damageDelta = local.averageDamage - averageDamage;
   $("#externalNote").textContent = `1000 次 · ${averageHits.toFixed(2)} 命中 · ${averageWounds.toFixed(2)} 造伤 · 本地偏差 ${chanceDelta >= 0 ? "+" : ""}${chanceDelta.toFixed(1)} 个百分点 / ${damageDelta >= 0 ? "+" : ""}${damageDelta.toFixed(2)} 伤害`;
+  renderHistogram("externalDamageDistribution", null, data.totalDamage, "外部总伤害 ");
+  renderHistogram("externalKillsDistribution", null, data.kills, "外部击杀 ");
   return { averageDamage, averageKills, chanceDelta, damageDelta };
+}
+
+function renderHistogram(containerId, noteId, histogram, label = "") {
+  const container = $("#" + containerId);
+  const note = $("#" + noteId);
+  if (!container) return;
+  if (!histogram?.x?.length) {
+    container.innerHTML = "";
+    if (note) note.textContent = "暂无分布数据";
+    return;
+  }
+  const total = Number(histogram.total || histogram.y.reduce((sum, value) => sum + Number(value), 0)) || 1;
+  const entries = histogram.x
+    .map((value, index) => ({ value: Number(value), count: Number(histogram.y[index] || 0) }))
+    .filter((entry) => entry.count > 0);
+  const maxCount = Math.max(...entries.map((entry) => entry.count)) || 1;
+  const percentageOf = (entry) => (entry.count / total) * 100;
+  const bins = entries.length > 80
+    ? [...entries.slice(0, 79), { value: entries[79].value, count: entries.slice(79).reduce((sum, entry) => sum + entry.count, 0), merged: true }]
+    : entries;
+  container.innerHTML = bins.map((entry) => {
+    const height = Math.max(2, Math.round((entry.count / maxCount) * 100));
+    const labelText = entry.merged ? `${entry.value}+` : entry.value;
+    const title = `${label}${labelText}：${entry.count.toLocaleString()} 次（${percentageOf(entry).toFixed(1)}%）`;
+    return `<div class="distribution-bar" title="${escapeHtml(title)}"><span class="distribution-bar-value">${entry.count.toLocaleString()}</span><i style="height:${height}%"></i><b>${labelText}</b></div>`;
+  }).join("");
+  const mean = entries.reduce((sum, entry) => sum + entry.value * entry.count, 0) / total;
+  if (note) note.textContent = `${total.toLocaleString()} 次模拟 · 均值 ${mean.toFixed(2)} · 悬停柱子查看具体次数`;
 }
 
 function renderCalculation(result) {
@@ -2206,10 +2236,13 @@ function renderCalculation(result) {
   const defenderDraft = getCalculatorDraft("defender");
   const joined = Boolean(defenderDraft?.joinedMembers?.length);
   const defenderDrafts = calculatorSelectionKeys("defender").map((_, index) => getCalculatorDraft("defender", index)).filter(Boolean);
-  $("#calcNote").textContent = `结果来自当前选择的单位和可调参数（${state.attackMode === "ranged" ? "远程射击" : "近战"}；全歼概率按整个目标单位模型全部被摧毁计算；已按页面中勾选或选择的阵营技能、单位技能结算${joined ? "；联合单位按护卫→角色分配伤害" : ""}）。`;
+  $("#calcNote").textContent = `结果来自当前选择的单位和可调参数（${state.attackMode === "ranged" ? "远程射击" : "近战"}；全歼概率按整个目标单位模型全部被摧毁计算；已按页面中勾选或选择的阵营技能、单位技能结算${joined ? "；联合单位按护卫→角色分配伤害" : ""}）。伤害分布与平均伤害按防御方模型伤口上限结算（超量伤害不溢出到模型外，与外部计算器口径一致）。`;
   $("#calcTargetWounds").textContent = defenderDrafts.length > 1
     ? `${defenderDrafts.length} 个防御单位；按列表顺序先后承伤`
     : defenderDraft?.unit?.woundsPerModel ? `${defenderDraft.unit.woundsPerModel}W / 模型${joined ? "（护卫先承伤）" : ""}` : "已按所选目标数据卡结算";
+  const engineResult = result.engine || {};
+  renderHistogram("damageDistribution", "damageDistributionNote", engineResult.totalDamage, "总伤害 ");
+  renderHistogram("killsDistribution", "killsDistributionNote", engineResult.kills, "击杀 ");
 }
 
 $("#runCalc").addEventListener("click", () => {

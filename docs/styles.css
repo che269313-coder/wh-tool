@@ -328,3 +328,16 @@ code { color: var(--gold-bright); }
 @media (max-width: 680px) { .calculator-detail-grid { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .hero-grid, .units-grid, .roster-heading { grid-template-columns: 1fr; } .unit-card p { min-height: auto; } .calculation-result { grid-template-columns: 1fr 1fr; } .calculation-result > div:last-child { grid-column: 1 / -1; } .import-config { grid-template-columns: 1fr; } .model-row { grid-template-columns: 1fr auto auto; } .model-row .delete-unit, .model-row em { grid-column: 1 / -1; justify-self: start; } .calculator-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } .calculator-weapon-fields { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 700px) { .app-shell { padding-top: 28px; } .units-grid { gap: 12px; } }
+
+
+.distribution-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.distribution-block { padding: 12px 14px; border: 1px solid rgba(255,255,255,.08); border-radius: 15px; background: rgba(255,255,255,.03); min-width: 0; }
+.distribution-chart { display: flex; align-items: flex-end; gap: 2px; height: 110px; margin-top: 8px; overflow-x: auto; }
+.distribution-bar { flex: 1 1 0; min-width: 8px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; gap: 2px; }
+.distribution-bar i { display: block; width: 100%; background: linear-gradient(180deg, var(--gold-bright), var(--gold)); border-radius: 3px 3px 0 0; min-height: 1px; }
+.distribution-bar span.distribution-bar-value { display: none; font-size: 9px; color: var(--muted); }
+.distribution-bar:hover span.distribution-bar-value { display: block; }
+.distribution-bar b { font-size: 9px; color: var(--muted); font-weight: 400; white-space: nowrap; }
+.distribution-panel small { display: block; margin-top: 6px; font-size: 11px; }
+.external-distributions { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 10px; border-top: 1px solid rgba(99,188,147,.15); }
+@media (max-width: 520px) { .distribution-panel { grid-template-columns: 1fr; } .external-distributions { grid-template-columns: 1fr; } }

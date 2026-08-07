@@ -105,7 +105,11 @@
             <div><span class="card-label">平均有效伤害</span><strong id="calcDamage">—</strong><small id="calcTargetWounds">请先选择目标</small></div>
             <div><span class="card-label">说明</span><p id="calcNote">请选择进攻单位和防御目标后开始计算。</p></div>
           </div>
-          <div class="external-check" id="externalResult"><div><span class="card-label">外部基准校验</span><strong id="externalChance">—</strong><small id="externalNote">启用后运行固定 Wathammer 计算</small></div><div><span class="card-label">外部平均伤害</span><strong id="externalDamage">—</strong><small>wathammer /simulate-round</small></div></div>
+          <div class="distribution-panel">
+            <div class="distribution-block"><span class="card-label">总伤害分布</span><div id="damageDistribution" class="distribution-chart" aria-label="总伤害分布直方图"></div><small id="damageDistributionNote" class="muted-copy">运行本地模拟后显示</small></div>
+            <div class="distribution-block"><span class="card-label">击杀模型数分布</span><div id="killsDistribution" class="distribution-chart" aria-label="击杀模型数分布直方图"></div><small id="killsDistributionNote" class="muted-copy">运行本地模拟后显示</small></div>
+          </div>
+          <div class="external-check" id="externalResult"><div><span class="card-label">外部基准校验</span><strong id="externalChance">—</strong><small id="externalNote">启用后运行固定 Wathammer 计算</small></div><div><span class="card-label">外部平均伤害</span><strong id="externalDamage">—</strong><small>wathammer /simulate-round</small></div><div class="external-distributions"><div class="distribution-block"><span class="card-label">外部总伤害分布</span><div id="externalDamageDistribution" class="distribution-chart" aria-label="外部总伤害分布直方图"></div></div><div class="distribution-block"><span class="card-label">外部击杀分布</span><div id="externalKillsDistribution" class="distribution-chart" aria-label="外部击杀模型数分布直方图"></div></div></div></div>
         </section>
 
         <section id="view-settings" class="view">
