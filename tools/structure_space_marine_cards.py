@@ -17,7 +17,7 @@ import pdfplumber
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "docs" / "data"
-CARD_NAME_OVERRIDES = {47: "罗伯特·基里曼"}
+CARD_NAME_OVERRIDES = {47: "罗伯特·基里曼", 66: "重装连长"}
 
 
 def find_file(pattern: str) -> Path:
@@ -38,7 +38,8 @@ def clean_ability_text(value: object) -> str:
     only ``】：`` at the beginning of the skill cell.  Keeping that fragment
     creates a fake standalone skill after the bullet separator is parsed.
     """
-    return re.sub(r"^\s*】\s*[：:]\s*", "", text(value))
+    cleaned = re.sub(r"^\s*】\s*[：:]\s*", "", text(value))
+    return re.sub(r"\s+\d+\s+\d+\s*$", "", cleaned)
 
 
 def compact(value: object) -> str:
@@ -296,6 +297,18 @@ def main() -> None:
             table = max(tables, key=lambda item: len(item) * max((len(row) for row in item), default=0))
             unit, abilities = table_stats(table)
             weapons = parse_weapon_rows(table)
+            if page_number == 59:
+                # The 4++ is present in the datasheet header but omitted by
+                # pdfplumber on this page's split stat row.
+                unit["invulnerableSave"] = 4
+            if page_number == 63 and not any(weapon.get("type") == "melee" for weapon in weapons):
+                # The melee table is separated from the ranged table by a
+                # malformed header in the source PDF and is skipped by the
+                # conservative row parser.
+                weapons.extend([
+                    {"name": "动力长刀“风暴之牙”", "type": "melee", "attacks": "6", "skill": "2+", "strength": 6, "ap": -2, "damage": "2", "abilities": ["迅猛冲锋", "反巨兽 4+", "反载具 4+"]},
+                    {"name": "动力剑", "type": "melee", "attacks": "8", "skill": "2+", "strength": 5, "ap": -2, "damage": "1", "abilities": []},
+                ])
             # Transport and fortification cards can have no weapons, and some
             # aircraft intentionally use “-” for M.  They are still valid
             # defensive targets, so only T and W are mandatory.

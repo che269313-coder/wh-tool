@@ -92,7 +92,7 @@ const spaceMarineData = JSON.parse(fs.readFileSync(path.join(dataRoot, spaceMari
 const categoryNames = new Set(["传奇英雄人物", "战术小队", "其他步兵", "军表构成", "3", "骑乘", "终结者", "机甲", "载具", "运输载具", "飞行载具", "工事"]);
 const structuredSpaceMarineCards = (spaceMarineData.cards || []).filter((card) => card.unit?.name && !categoryNames.has(card.name) && !String(card.name || "").startsWith("⚫"));
 assert(structuredSpaceMarineCards.every((card) => !String(card.unit.abilities || "").split("⚫").some((segment) => /^\s*】\s*[：:]/.test(segment))), "星际战士技能文本不能残留孤立的 】： 前缀");
-assert(Object.keys(context.WarhammerSpaceMarineRules.unitRules).length === structuredSpaceMarineCards.length && structuredSpaceMarineCards.length === 92, "星际战士规则目录必须覆盖全部 92 个可载入单位");
+assert(Object.keys(context.WarhammerSpaceMarineRules.unitRules).length === structuredSpaceMarineCards.length && structuredSpaceMarineCards.length === 93, "星际战士规则目录必须覆盖全部 93 个可载入单位");
 assert(structuredSpaceMarineCards.every((card) => context.WarhammerSpaceMarineRules.unitRules[card.unit.name]?.length), "每个星际战士单位都必须至少有一条原文技能规则");
 const torrentWeapons = structuredSpaceMarineCards.flatMap((card) => (card.weapons || []).filter((weapon) => (weapon.abilities || []).some((ability) => /喷射|torrent/i.test(String(ability)))));
 assert(torrentWeapons.length > 0 && torrentWeapons.every((weapon) => String(weapon.skill || "").toLowerCase() === "torrent"), "所有带喷射关键词的武器必须标记为自动命中，不能回退为 7+");
@@ -149,6 +149,42 @@ const thorAgainstVehicle = resolve("星际战士", "托尔连长", { [`${siegeCo
 assert(siegeCommander?.controls?.some((control) => control.id === "targetMonsterVehicle"), "托尔连长攻城指挥官必须提供巨兽/载具/工事目标控件");
 assert(thorAgainstInfantry.attack.strengthModifier === 0 && thorAgainstInfantry.attack.apModifier === 0 && thorAgainstInfantry.attack.damageModifier === 0, "攻城指挥官未选择目标类型时不得改变武器属性");
 assert(thorAgainstVehicle.attack.strengthModifier === 2 && thorAgainstVehicle.attack.apModifier === 2 && thorAgainstVehicle.attack.damageModifier === 2, "攻城指挥官对巨兽/载具/工事必须同时提供 S/AP/D +2");
+
+const standardBearerEntry = Object.entries(spaceMarineRules).find(([, rules]) => rules.some((rule) => rule.id === "space-marines-p85-3"));
+const standardBearerRule = standardBearerEntry?.[1]?.find((rule) => rule.id === "space-marines-p85-3");
+const standardBearerSelections = { "space-marines-p85-3.enabled": true, "space-marines-p85-3.forceLeader": true };
+const standardBearerNormal = standardBearerEntry && resolve(spaceMarineData.faction, standardBearerEntry[0], standardBearerSelections, { phase: "melee", isJoined: true, underStartingStrength: false, belowHalfStrength: false });
+const standardBearerUnderStarting = standardBearerEntry && resolve(spaceMarineData.faction, standardBearerEntry[0], standardBearerSelections, { phase: "melee", isJoined: true, underStartingStrength: true, belowHalfStrength: false });
+const standardBearerBelowHalf = standardBearerEntry && resolve(spaceMarineData.faction, standardBearerEntry[0], standardBearerSelections, { phase: "melee", isJoined: true, underStartingStrength: true, belowHalfStrength: true });
+assert(standardBearerRule?.controls?.some((control) => control.id === "underStartingStrength") && standardBearerRule?.controls?.some((control) => control.id === "belowHalfStrength"), "终结者旗手高举旗帜必须提供低于起始模型数量和低于半数两个选项");
+assert(standardBearerRule?.effects?.some((effect) => effect.type === "hit-modifier" && effect.condition === "underStartingStrength"), "高举旗帜的命中 +1 必须绑定低于起始模型数量条件");
+assert(standardBearerNormal?.attack.hitModifier === 0 && standardBearerNormal?.attack.woundModifier === 0, "高举旗帜在满编时不得提供命中或造伤加成");
+assert(standardBearerUnderStarting?.attack.hitModifier === 1 && standardBearerUnderStarting?.attack.woundModifier === 0, "高举旗帜低于起始模型数量时必须提供命中 +1");
+assert(standardBearerBelowHalf?.attack.hitModifier === 1 && standardBearerBelowHalf?.attack.woundModifier === 1, "高举旗帜低于半数时必须同时提供命中和造伤 +1");
+
+const ironFatherForgeMaster = spaceMarineRules["铁父费罗斯"]?.find((rule) => rule.name === "铸造之主");
+const techmarineBlessing = spaceMarineRules["技术军士"]?.find((rule) => rule.name === "机神祝福");
+assert(ironFatherForgeMaster && !ironFatherForgeMaster.controls?.length && !ironFatherForgeMaster.effects?.length, "铸造之主不能把友军载具效果误套到当前模型");
+assert(techmarineBlessing && !techmarineBlessing.controls?.length && !techmarineBlessing.effects?.length, "机神祝福不能把友军载具效果误套到当前模型");
+for (const [unitName, threshold] of [["泰图斯连长", 5], ["伏尔甘·赫斯坦", 6], ["坎托战团长", 6]]) {
+  const core = spaceMarineRules[unitName]?.find((rule) => rule.name === "核心特性");
+  assert(core?.effects?.some((effect) => effect.type === "fnp" && effect.threshold === threshold) && !core.controls?.length, `${unitName}核心不知疼痛必须默认生效`);
+}
+const lysander = spaceMarineRules["莱山德连长"]?.find((rule) => rule.name === "坚毅典范");
+const lysanderEnabled = resolve(spaceMarineData.faction, "莱山德连长", { [`${lysander?.id}.enabled`]: true, [`${lysander?.id}.forceLeader`]: true }, { phase: "melee", isJoined: false });
+assert(lysander?.effects?.some((effect) => effect.type === "incoming-wound-when-strength-gte") && lysanderEnabled.defend.incomingWoundWhenStrengthGreaterOrEqual === -1, "坚毅典范必须把 S≥T 的造伤 -1 传入防守方效果");
+const lionOath = spaceMarineRules["坎托战团长"]?.find((rule) => rule.name === "莱恩誓言");
+const lionOathEnabled = resolve(spaceMarineData.faction, "坎托战团长", { [`${lionOath?.id}.enabled`]: true, [`${lionOath?.id}.forceLeader`]: true }, { phase: "melee", isJoined: false });
+assert(lionOath?.effects?.some((effect) => effect.type === "attack-modifier" && effect.value === 1) && lionOathEnabled.attack.attackModifier === 1, "莱恩誓言必须提供武器 A+1");
+const angelRage = spaceMarineRules["跳跃背包连长"]?.find((rule) => rule.name === "天使之怒");
+const angelRageEnabled = resolve(spaceMarineData.faction, "跳跃背包连长", { [`${angelRage?.id}.enabled`]: true, [`${angelRage?.id}.forceLeader`]: true }, { phase: "melee", isJoined: false });
+assert(angelRage?.effects?.some((effect) => effect.type === "weapon-strength-modifier" && effect.value === 1) && angelRageEnabled.attack.strengthModifier === 1, "天使之怒必须提供近战武器 S+1");
+const essoCard = structuredSpaceMarineCards.find((card) => card.unit.name === "艾索·沙恩");
+const subodenCard = structuredSpaceMarineCards.find((card) => card.unit.name === "速不台可汗");
+const heavyCaptainCard = structuredSpaceMarineCards.find((card) => card.unit.name === "重装连长");
+assert(essoCard?.unit?.invulnerableSave === 4, "艾索·沙恩必须保留 4++");
+assert(subodenCard?.weapons?.some((weapon) => weapon.name === "动力长刀“风暴之牙”" && weapon.type === "melee") && subodenCard.weapons.some((weapon) => weapon.name === "动力剑" && weapon.type === "melee"), "速不台可汗必须保留近战武器");
+assert(heavyCaptainCard && heavyCaptainCard.weapons?.some((weapon) => weapon.type === "melee"), "重装连长数据卡必须可被找到并包含近战武器");
 
 const enabledSkullsquirm = context.WarhammerRuleResolver.resolveFaction("死亡守卫", {
   "death-guard-nurgles-gift.enabled": true,

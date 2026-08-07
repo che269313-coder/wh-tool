@@ -30,6 +30,7 @@ const supported = "计算支持（满足条件时自动结算）";
 const displayOnly = "已显示，暂不改变本次骰子";
 const cleanAbilityText = (value) => String(value || "")
   .replace(/^\s*】\s*[：:]\s*/, "")
+  .replace(/\s+\d+\s+\d+\s*$/, "")
   .replace(/\s+/g, " ")
   .trim();
 const controls = (leader = false) => [
@@ -57,7 +58,7 @@ function effectDescriptors(text) {
   if (!fixedSingleDie && /重投[^。\n]{0,80}造伤|造伤[^。\n]{0,80}重投/.test(text)) {
     add({ type: "space-wound-reroll", mode: /重投[^。\n]{0,30}(?:为|是)?\s*1/.test(text) ? "ones" : "failed" });
   }
-  if (/命中结果[^。\n]{0,50}[+＋]\s*1/.test(text)) add({ type: "hit-modifier", value: 1, ...(text.includes("低于起始强度") ? { condition: "underStartingStrength" } : {}) });
+  if (/命中结果[^。\n]{0,50}[+＋]\s*1/.test(text)) add({ type: "hit-modifier", value: 1, ...(text.includes("低于起始强度") || text.replace(/\s+/g, "").includes("低于起始模型数量") ? { condition: "underStartingStrength" } : {}) });
   if (/造伤结果[^。\n]{0,50}[+＋]\s*1/.test(text)) add({ type: "wound-modifier", value: 1, ...(text.includes("低于半数") ? { condition: "belowHalfStrength" } : {}) });
   if (/造伤结果[^。\n]{0,50}-\s*1/.test(text)) {
     add(/大于等于|大于或等于/.test(text) ? { type: "incoming-wound-when-strength-gte", value: 1 } : { type: "incoming-wound-minus", value: 1 });
@@ -67,6 +68,7 @@ function effectDescriptors(text) {
   if (/毁灭伤害|毁灭性伤口/.test(text)) add({ type: "devastating-wounds" });
   const attackBonus = text.match(/(?:武器|本单位|本模型所领导的单位)[^。\n]{0,50}A\s*[+＋]\s*(\d+)/);
   if (attackBonus) add({ type: "attack-modifier", value: Number(attackBonus[1]) });
+  if (/近战武器\s*S\s*[+＋]\s*1/.test(text)) add({ type: "weapon-strength-modifier", value: 1 });
   const damaged = text.match(/W值为1-([45])[^。\n]{0,20}攻击命中结果\s*-\s*1/);
   if (damaged) add({ type: "damaged-hit-minus", threshold: Number(damaged[1]) });
   else if (/攻击[^。\n]{0,40}命中结果\s*-\s*1/.test(text)) add({ type: "incoming-hit-minus", value: 1 });
@@ -83,7 +85,14 @@ function toRule(card, text, index) {
   const factionOnly = clean.replace(/^[】】\]\s：:]+/, "").trim();
   if (!clean || /^【?阵营技能】?\s*[：:]?\s*破敌重誓\s*$/.test(clean) || factionOnly === "破敌重誓") return null;
   const { effects, leader } = effectDescriptors(clean);
-  const declaredEffects = leader ? effects.map((effect) => ({ ...effect, requiresJoined: true })) : effects;
+  // These abilities choose a different friendly unit/model. The calculator
+  // currently resolves only the selected unit (and its joined leader), so
+  // exposing a checkbox here would falsely apply the buff to the wrong unit.
+  const unsupportedExternalTarget = [
+    "铸造之主", "机神祝福", "铸造之父", "多重光谱阵列", "雷霆轰炸", "冰雹轰炸",
+  ].some((name) => clean.includes(name));
+  const supportedEffects = unsupportedExternalTarget ? [] : effects;
+  const declaredEffects = leader ? supportedEffects.map((effect) => ({ ...effect, requiresJoined: true })) : supportedEffects;
   // A model that "has" a passive invulnerable save does not need an
   // activation checkbox.  Keep controls for temporary/conditional saves
   // such as "can gain" or "once per battle" abilities.
@@ -91,16 +100,28 @@ function toRule(card, text, index) {
     && declaredEffects.every((effect) => effect.type === "invulnerable-save")
     && /拥\s*有/.test(clean)
     && !/一次性|可以|获得|本阶段|持续/.test(clean);
+  const passiveFeelNoPain = declaredEffects.length > 0
+    && declaredEffects.every((effect) => effect.type === "fnp")
+    && clean.replace(/\s+/g, "").includes("领袖，不知疼痛")
+    && !/一次性|可以获得|获得|阶段/.test(clean);
   const targetMonsterVehicleControl = declaredEffects.some((effect) => effect.requiresTargetMonsterVehicle)
     ? [{ id: "targetMonsterVehicle", type: "checkbox", label: "目标为巨兽、载具或工事" }]
     : [];
+  const strengthConditionControls = [
+    ...(declaredEffects.some((effect) => effect.condition === "underStartingStrength")
+      ? [{ id: "underStartingStrength", type: "checkbox", label: "本单位低于起始模型数量（命中 +1）" }]
+      : []),
+    ...(declaredEffects.some((effect) => effect.condition === "belowHalfStrength")
+      ? [{ id: "belowHalfStrength", type: "checkbox", label: "本单位低于半数（造伤 +1）" }]
+      : []),
+  ];
   const id = `space-marines-p${card.page}-${index}`;
   return {
     id,
     name: nameFromText(clean, index),
     text: clean,
-    status: effects.length ? supported : displayOnly,
-    ...(declaredEffects.length ? { ...(passiveInvulnerableSave ? {} : { controls: targetMonsterVehicleControl.length ? targetMonsterVehicleControl : controls(leader) }), effects: declaredEffects } : {}),
+    status: supportedEffects.length ? supported : displayOnly,
+    ...(declaredEffects.length ? { ...((passiveInvulnerableSave || passiveFeelNoPain) ? {} : { controls: targetMonsterVehicleControl.length ? targetMonsterVehicleControl : [...controls(leader), ...strengthConditionControls] }), effects: declaredEffects } : {}),
     source: { page: card.page, source: card.source },
   };
 }

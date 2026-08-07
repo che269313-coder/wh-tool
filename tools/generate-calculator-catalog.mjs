@@ -40,6 +40,10 @@ const cleanEquipmentText = (value, weapons = []) => String(value ?? "")
 const cleanKeywordList = (values) => [...new Set((Array.isArray(values) ? values : [])
   .map((value) => cleanEquipmentText(value))
   .filter(Boolean))];
+const cleanAbilityText = (value) => String(value ?? "")
+  .replace(/\s+\d+\s+\d+\s*$/, "")
+  .replace(/\s+/g, " ")
+  .trim();
 
 const sourceMarkdown = new Map([
   ["帝皇禁军", "docs/data/帝皇禁军/数据卡-OCR-可检索.md"],
@@ -57,7 +61,7 @@ const catalog = inputs.map((file) => {
     const extractedKeywords = cleanKeywordList(extracted.keywords);
     return {
       ...card,
-      unit: card.unit ? { ...card.unit, defaultEquipment: cleanEquipmentText(card.unit.defaultEquipment, card.weapons) } : card.unit,
+      unit: card.unit ? { ...card.unit, abilities: cleanAbilityText(card.unit.abilities), defaultEquipment: cleanEquipmentText(card.unit.defaultEquipment, card.weapons) } : card.unit,
       modelProfiles: (card.modelProfiles || []).map((profile) => ({ ...profile, defaultEquipment: cleanEquipmentText(profile.defaultEquipment, card.weapons) })),
       factionKeywords: cleanKeywordList(card.factionKeywords).length ? cleanKeywordList(card.factionKeywords) : (extractedFactionKeywords.length ? extractedFactionKeywords : [faction]),
       keywords: cleanKeywordList(card.keywords).length ? cleanKeywordList(card.keywords) : extractedKeywords,

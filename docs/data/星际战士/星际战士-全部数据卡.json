@@ -764,7 +764,7 @@
         "woundsPerModel": 5,
         "leadership": "6+",
         "objectiveControl": 1,
-        "invulnerableSave": 0,
+        "invulnerableSave": 4,
         "name": "艾索·沙恩",
         "models": 1,
         "abilities": "深入打击，独行特工，隐蔽 ⚫ 【阵营技能】：破敌重誓 ⚫ 暗影之主：你的指挥阶段中，选择一个敌方单位，直到下 个你的指挥阶段开始时为止，上述敌方单位12寸内的友 军阿斯塔特修会单位可以重投冲锋测试，但如果可能则必 须冲锋那个敌方单位 ⚫ 黑翼披风：你可以消耗0CP对本单位使用快速入场和英勇 介入战略技能，即使本阶段已经对其他单位使用过也一样 ⚫ 责任传承：在宣布军队阵容时，如果你的军队同时包含艾 索·沙恩和凯万史瑞克，则本场战斗中凯万史瑞克失去独行 特工技能，并将战团长关键词替换为连长",
@@ -988,18 +988,38 @@
             "手枪"
           ]
         },
-        {
-          "name": "突击加特林",
-          "type": "ranged",
+      {
+        "name": "突击加特林",
+        "type": "ranged",
           "attacks": "8",
           "skill": "2+",
           "strength": 5,
           "ap": 0,
           "damage": "1",
           "abilities": [
-            "毁灭伤害"
-          ]
-        }
+          "毁灭伤害"
+        ]
+      },
+      {
+        "name": "动力长刀“风暴之牙”",
+        "type": "melee",
+        "attacks": "6",
+        "skill": "2+",
+        "strength": 6,
+        "ap": -2,
+        "damage": "2",
+        "abilities": ["迅猛冲锋", "反巨兽 4+", "反载具 4+"]
+      },
+      {
+        "name": "动力剑",
+        "type": "melee",
+        "attacks": "8",
+        "skill": "2+",
+        "strength": 5,
+        "ap": -2,
+        "damage": "1",
+        "abilities": []
+      }
       ],
       "verification": "由数字版 PDF 表格提取；动态数值或条件性规则需在计算器中确认。"
     },
@@ -1139,7 +1159,7 @@
     },
     {
       "page": 66,
-      "name": "⚫ 战术小队",
+      "name": "重装连长",
       "source": "星际战士11版中文1.0.pdf",
       "markdownSection": "数据卡-可检索.md#第-66-页",
       "extraction": "page-boundary-table",
@@ -1151,7 +1171,7 @@
         "leadership": "6+",
         "objectiveControl": 1,
         "invulnerableSave": 0,
-        "name": "⚫ 战术小队",
+        "name": "重装连长",
         "models": 1,
         "abilities": "领袖 ⚫ 【阵营技能】：破敌重誓 ⚫ 战斗之仪：每个游戏大回合一次，你的军队中最多一个拥有 此技能的单位对自身所在单位使用一个战略技能时可以减少 1点CP消耗（本模型处于预备队中亦可生效） ⚫ 永不屈服：被分配给本模型的攻击破坏力减半",
         "activeAbilities": "",

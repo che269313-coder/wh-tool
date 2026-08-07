@@ -487,7 +487,7 @@ function normalizeCalculatorCardData(data) {
     keywords: cleanPdfKeywordList(data.keywords),
     unit: {
       ...data.unit,
-      abilities: data.unit.abilities || sourceAbilities,
+      abilities: cleanPdfAbilityText(data.unit.abilities || sourceAbilities),
       defaultEquipment: cleanPdfWatermarkText(data.unit.defaultEquipment, data.weapons),
     },
   };
@@ -497,6 +497,13 @@ function cleanPdfKeywordList(values) {
   return [...new Set((Array.isArray(values) ? values : [])
     .map((value) => cleanPdfWatermarkText(value))
     .filter(Boolean))];
+}
+
+function cleanPdfAbilityText(value) {
+  return String(value ?? "")
+    .replace(/\s+\d+\s+\d+\s*$/, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function cleanPdfWatermarkText(value, weapons = []) {
@@ -858,6 +865,12 @@ function effectiveHitThresholdForDisplay(threshold, modifier) {
   return Math.min(6, Math.max(2, base - Number(modifier || 0)));
 }
 
+function effectiveWoundThresholdForDisplay(threshold, modifier) {
+  const base = Number(threshold || 0);
+  if (!base) return base;
+  return Math.min(7, Math.max(2, base - Number(modifier || 0)));
+}
+
 function defenderHitModifierForDisplay() {
   const draft = getCalculatorDraft("defender");
   if (!draft) return 0;
@@ -872,13 +885,30 @@ function defenderHitModifierForDisplay() {
   return factionModifier + unitModifier;
 }
 
+function defenderWoundModifierForDisplay(attackerStrength, defenderToughness) {
+  const draft = getCalculatorDraft("defender");
+  if (!draft) return 0;
+  const effects = [draft.entry?.name, ...(draft.joinedMembers || []).map((member) => member.name)]
+    .filter(Boolean)
+    .map((name) => resolvedRuleEffects(draft, name).defend || {})
+    .reduce((result, defend) => ({
+      incomingWoundModifier: Math.min(result.incomingWoundModifier, Number(defend.incomingWoundModifier || 0)),
+      incomingWoundWhenStrengthGreater: Math.min(result.incomingWoundWhenStrengthGreater, Number(defend.incomingWoundWhenStrengthGreater || 0)),
+      incomingWoundWhenStrengthGreaterOrEqual: Math.min(result.incomingWoundWhenStrengthGreaterOrEqual, Number(defend.incomingWoundWhenStrengthGreaterOrEqual || 0)),
+    }), { incomingWoundModifier: 0, incomingWoundWhenStrengthGreater: 0, incomingWoundWhenStrengthGreaterOrEqual: 0 });
+  const conditional = attackerStrength >= defenderToughness
+    ? effects.incomingWoundWhenStrengthGreaterOrEqual
+    : (attackerStrength > defenderToughness ? effects.incomingWoundWhenStrengthGreater : 0);
+  return effects.incomingWoundModifier + conditional;
+}
+
 function calculatorWeaponRerollMarkup(weapon, draft, side, sourceName, sourceKey, weaponIndex) {
   if (side !== "attacker") return "";
   const sections = [];
   const hitThreshold = isTorrentWeapon(weapon) ? 0 : parseSkill(weapon.skill);
   const defenderHitModifier = defenderHitModifierForDisplay();
-  const displayedHitThreshold = effectiveHitThresholdForDisplay(hitThreshold, defenderHitModifier);
   const sourceRules = resolvedRuleEffects(draft, sourceName).attack || {};
+  const displayedHitThreshold = effectiveHitThresholdForDisplay(hitThreshold, defenderHitModifier + Number(sourceRules.hitModifier || 0));
   if (sourceRules.hitReroll && hitThreshold > 0) {
     const rerollRule = window.WarhammerRuleResolver?.rulesForUnit(draft.entry?.faction, sourceName).unit.find((rule) => rule.effects?.some((effect) => effect.type === "space-hit-reroll"));
     sections.push(rerollFacesMarkup(draft, side, {
@@ -891,7 +921,11 @@ function calculatorWeaponRerollMarkup(weapon, draft, side, sourceName, sourceKey
   }
   if (sourceRules.woundReroll) {
     const defenderDraft = getCalculatorDraft("defender");
-    const woundThreshold = defenderDraft?.unit?.toughness ? woundTarget(Number(weapon.strength || 0), Number(defenderDraft.unit.toughness)) : 4;
+    const defenderToughness = Number(defenderDraft?.unit?.toughness || 0);
+    const attackerStrength = Number(weapon.strength || 0) + Number(sourceRules.strengthModifier || 0);
+    const baseWoundThreshold = defenderToughness ? woundTarget(attackerStrength, defenderToughness) : 4;
+    const woundModifier = Number(sourceRules.woundModifier || 0) + defenderWoundModifierForDisplay(attackerStrength, defenderToughness);
+    const woundThreshold = effectiveWoundThresholdForDisplay(baseWoundThreshold, woundModifier);
     const rerollRule = window.WarhammerRuleResolver?.rulesForUnit(draft.entry?.faction, sourceName).unit.find((rule) => ["guard-wound-reroll", "elite-wound-reroll"].includes(rule.effect?.type));
     sections.push(rerollFacesMarkup(draft, side, {
       kind: "guard-wound", sourceKey, weaponIndex, threshold: woundThreshold,
@@ -915,7 +949,16 @@ function calculatorWeaponControlMarkup(weapon, side, index, groupIndex = null, d
   const selectionName = selectionGroup ? ` name="calc-weapon-${side}-${groupIndex ?? "unit"}-${escapeHtml(selectionGroup)}"` : "";
   const selectionNote = selectionGroup ? ` · 配装：${escapeHtml(selectionGroup)}（单选）` : "";
   const displayedSkill = isTorrentWeapon(weapon) ? "自动命中" : (weapon.skill ?? "4+");
-  return `<div class="calculator-weapon ${weapon.type === state.attackMode ? "is-current" : ""}"><label class="check-row"><input type="${inputType}"${selectionName} data-calc-side="${side}" ${scope} data-calc-weapon-enabled ${weapon.enabled !== false ? "checked" : ""} /><span>${escapeHtml(weapon.name || `武器 ${index + 1}`)} · ${weapon.type === "melee" ? "近战" : "远程"}${selectionNote}</span></label><div class="calculator-weapon-fields"><label>数量<input type="number" min="0" data-calc-side="${side}" ${scope} data-calc-weapon-count value="${escapeHtml(weapon.modelCount ?? 1)}" /></label><label>攻击<input data-calc-side="${side}" ${scope} data-calc-weapon-field="attacks" value="${escapeHtml(weapon.attacks ?? "1")}" /></label><label>命中<input data-calc-side="${side}" ${scope} data-calc-weapon-field="skill" value="${escapeHtml(displayedSkill)}" /></label><label>力量<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="strength" value="${escapeHtml(weapon.strength ?? "0")}" /></label><label>AP<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="ap" value="${escapeHtml(weapon.ap ?? "0")}" /></label><label>伤害<input data-calc-side="${side}" ${scope} data-calc-weapon-field="damage" value="${escapeHtml(weapon.damage ?? "1")}" /></label></div><small class="weapon-keywords">${escapeHtml((weapon.abilities || []).join("、") || "无关键词")}</small>${draft ? calculatorWeaponRerollMarkup(weapon, draft, side, sourceName, sourceKey, index) : ""}</div>`;
+  const sourceRules = draft && side === "attacker" && sourceName ? resolvedRuleEffects(draft, sourceName).attack || {} : {};
+  const attackModifier = Number(sourceRules.attackModifier || 0);
+  const strengthModifier = Number(sourceRules.strengthModifier || 0);
+  const effectiveAttacks = attackModifier ? modifyDamageExpression(weapon.attacks, attackModifier) : "";
+  const effectiveStrength = strengthModifier && Number.isFinite(Number(weapon.strength)) ? String(Number(weapon.strength) + strengthModifier) : "";
+  const modifierNotes = [
+    effectiveAttacks ? `有效攻击：A${effectiveAttacks}（${attackModifier > 0 ? "+" : ""}${attackModifier}）` : "",
+    effectiveStrength ? `有效力量：S${effectiveStrength}（${strengthModifier > 0 ? "+" : ""}${strengthModifier}）` : "",
+  ].filter(Boolean).join(" · ");
+  return `<div class="calculator-weapon ${weapon.type === state.attackMode ? "is-current" : ""}"><label class="check-row"><input type="${inputType}"${selectionName} data-calc-side="${side}" ${scope} data-calc-weapon-enabled ${weapon.enabled !== false ? "checked" : ""} /><span>${escapeHtml(weapon.name || `武器 ${index + 1}`)} · ${weapon.type === "melee" ? "近战" : "远程"}${selectionNote}</span></label><div class="calculator-weapon-fields"><label>数量<input type="number" min="0" data-calc-side="${side}" ${scope} data-calc-weapon-count value="${escapeHtml(weapon.modelCount ?? 1)}" /></label><label>攻击<input data-calc-side="${side}" ${scope} data-calc-weapon-field="attacks" value="${escapeHtml(weapon.attacks ?? "1")}" /></label><label>命中<input data-calc-side="${side}" ${scope} data-calc-weapon-field="skill" value="${escapeHtml(displayedSkill)}" /></label><label>力量<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="strength" value="${escapeHtml(weapon.strength ?? "0")}" /></label><label>AP<input type="number" data-calc-side="${side}" ${scope} data-calc-weapon-field="ap" value="${escapeHtml(weapon.ap ?? "0")}" /></label><label>伤害<input data-calc-side="${side}" ${scope} data-calc-weapon-field="damage" value="${escapeHtml(weapon.damage ?? "1")}" /></label></div>${modifierNotes ? `<small class="weapon-modifiers">${escapeHtml(modifierNotes)}</small>` : ""}<small class="weapon-keywords">${escapeHtml((weapon.abilities || []).join("、") || "无关键词")}</small>${draft ? calculatorWeaponRerollMarkup(weapon, draft, side, sourceName, sourceKey, index) : ""}</div>`;
 }
 
 function calculatorJoinedMembersMarkup(draft, side) {

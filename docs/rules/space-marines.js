@@ -227,13 +227,6 @@
       "name": "核心特性",
       "text": "领袖，不知疼痛5+",
       "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "fnp",
@@ -538,20 +531,7 @@
       "id": "space-marines-p56-4",
       "name": "铸造之主",
       "text": "铸造之主：在你的指挥阶段中，你可以选择本模型3寸内 一个友军阿斯塔特修会载具模型，这个载具模型恢复3点 损失的W值，并且直到下个你的指挥阶段开始时，这个载 具模型攻击命中结果+1。每个模型在每回合中只能被此技 能（或机神祝福技能）选择一次",
-      "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
-      "effects": [
-        {
-          "type": "hit-modifier",
-          "value": 1
-        }
-      ],
+      "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 56,
         "source": "星际战士11版中文1.0.pdf"
@@ -574,13 +554,6 @@
       "name": "核心特性",
       "text": "领袖，不知疼痛6+",
       "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "fnp",
@@ -636,6 +609,16 @@
           "id": "forceLeader",
           "type": "checkbox",
           "label": "数据卡模式下强行视为已领导单位"
+        },
+        {
+          "id": "underStartingStrength",
+          "type": "checkbox",
+          "label": "本单位低于起始模型数量（命中 +1）"
+        },
+        {
+          "id": "belowHalfStrength",
+          "type": "checkbox",
+          "label": "本单位低于半数（造伤 +1）"
         }
       ],
       "effects": [
@@ -758,13 +741,6 @@
       "name": "核心特性",
       "text": "领袖，不知疼痛6+",
       "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "fnp",
@@ -780,21 +756,7 @@
       "id": "space-marines-p60-2",
       "name": "铸造之父",
       "text": "铸造之父：在你的射击阶段中，选择本模型视线内24寸 中一个敌方单位，本阶段中，友军阿斯塔特修会模型对其 使用喷射或热熔武器射击攻击时可以重投造伤结果",
-      "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
-      "effects": [
-        {
-          "type": "space-wound-reroll",
-          "mode": "failed",
-          "phase": "ranged"
-        }
-      ],
+      "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 60,
         "source": "星际战士11版中文1.0.pdf"
@@ -1015,7 +977,7 @@
     {
       "id": "space-marines-p64-3",
       "name": "主脑逻辑引擎",
-      "text": "主脑逻辑引擎：在你宣布军表构成时，你可以选择军队中 的一个友军阿斯塔特修会步兵单位，在本场战斗中，那个 单位中的所有模型拥有【斥候6】，此外在双方玩家完成 部署后，你可以重新部署一个友军阿斯塔特修会单位， （可以无视战略预备队分数限制，将其置入战略预备 队）。 2 5",
+      "text": "主脑逻辑引擎：在你宣布军表构成时，你可以选择军队中 的一个友军阿斯塔特修会步兵单位，在本场战斗中，那个 单位中的所有模型拥有【斥候6】，此外在双方玩家完成 部署后，你可以重新部署一个友军阿斯塔特修会单位， （可以无视战略预备队分数限制，将其置入战略预备 队）。",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 64,
@@ -1085,6 +1047,38 @@
       ],
       "source": {
         "page": 65,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    }
+  ],
+  "重装连长": [
+    {
+      "id": "space-marines-p66-0",
+      "name": "核心特性",
+      "text": "领袖",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 66,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p66-2",
+      "name": "战斗之仪",
+      "text": "战斗之仪：每个游戏大回合一次，你的军队中最多一个拥有 此技能的单位对自身所在单位使用一个战略技能时可以减少 1点CP消耗（本模型处于预备队中亦可生效）",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 66,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p66-3",
+      "name": "永不屈服",
+      "text": "永不屈服：被分配给本模型的攻击破坏力减半",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 66,
         "source": "星际战士11版中文1.0.pdf"
       }
     }
@@ -1194,7 +1188,26 @@
       "id": "space-marines-p69-4",
       "name": "天使之怒",
       "text": "天使之怒：本模型所领导的单位在结束冲锋移动之后，其 中的模型装备的近战武器S+1，持续到本回合结束时",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        },
+        {
+          "id": "forceLeader",
+          "type": "checkbox",
+          "label": "数据卡模式下强行视为已领导单位"
+        }
+      ],
+      "effects": [
+        {
+          "type": "weapon-strength-modifier",
+          "value": 1,
+          "requiresJoined": true
+        }
+      ],
       "source": {
         "page": 69,
         "source": "星际战士11版中文1.0.pdf"
@@ -1845,20 +1858,7 @@
       "id": "space-marines-p81-3",
       "name": "机神祝福",
       "text": "机神祝福：在你的指挥阶段中，你可以选择本模型3寸内 一个友军阿斯塔特修会载具模型，这个载具模型恢复D3 点损失的W值，并且直到下个你的指挥阶段开始时，这个 载具模型攻击命中结果+1。每个模型在每回合中只能被此 技能选择一次",
-      "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
-      "effects": [
-        {
-          "type": "hit-modifier",
-          "value": 1
-        }
-      ],
+      "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 81,
         "source": "星际战士11版中文1.0.pdf"
@@ -2007,12 +2007,23 @@
           "id": "forceLeader",
           "type": "checkbox",
           "label": "数据卡模式下强行视为已领导单位"
+        },
+        {
+          "id": "underStartingStrength",
+          "type": "checkbox",
+          "label": "本单位低于起始模型数量（命中 +1）"
+        },
+        {
+          "id": "belowHalfStrength",
+          "type": "checkbox",
+          "label": "本单位低于半数（造伤 +1）"
         }
       ],
       "effects": [
         {
           "type": "hit-modifier",
           "value": 1,
+          "condition": "underStartingStrength",
           "requiresJoined": true
         },
         {
@@ -2493,20 +2504,7 @@
       "id": "space-marines-p104-2",
       "name": "多重光谱阵列",
       "text": "多重光谱阵列：每当本单位射击完成后，你可以选择被本 单位命中过的一个敌方单位，本阶段中，阿斯塔特修会友 军单位攻击那个敌方单位时，命中结果+1",
-      "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
-      "effects": [
-        {
-          "type": "hit-modifier",
-          "value": 1
-        }
-      ],
+      "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 104,
         "source": "星际战士11版中文1.0.pdf"
@@ -3623,20 +3621,7 @@
       "id": "space-marines-p144-2",
       "name": "雷霆轰炸",
       "text": "雷霆轰炸：当本模型射击完成后，你可以选择被本模型命 中过的一个敌方巨兽或载具单位，本阶段中，每当阿斯塔 特修会友军单位射击攻击那个敌方单位时，造伤结果+1",
-      "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
-      "effects": [
-        {
-          "type": "wound-modifier",
-          "value": 1
-        }
-      ],
+      "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 144,
         "source": "星际战士11版中文1.0.pdf"

@@ -16,8 +16,8 @@
   }
 
   function apply(effect, { rule, selections, context, attack, defend, selected, enabled }) {
-    if (effect.condition === "underStartingStrength" && !context.underStartingStrength) return;
-    if (effect.condition === "belowHalfStrength" && !context.belowHalfStrength) return;
+    if (effect.condition === "underStartingStrength" && !context.underStartingStrength && !selected(selections, rule, "underStartingStrength", false)) return;
+    if (effect.condition === "belowHalfStrength" && !context.belowHalfStrength && !selected(selections, rule, "belowHalfStrength", false)) return;
     if (effect.condition === "large-or-led" && !(Number(context.initialModelCount || 0) >= 5 || Number(context.modelCount || 0) >= 5 || context.isJoined || enabled(selections, rule, "forceLeader"))) return;
     if (effect.requiresTargetInfected && !selected(selections, rule, "targetInfected", false)) return;
     if (effect.requiresTargetMonsterVehicle && !selected(selections, rule, "targetMonsterVehicle", false)) return;
