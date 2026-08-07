@@ -755,8 +755,6 @@ function calculatorAbilityMarkup(draft, side) {
   const unitNames = [draft.entry?.name, ...(draft.joinedMembers || []).map((member) => member.name)];
   const catalog = window.WarhammerRuleResolver?.rulesForUnits(draft.entry?.faction, unitNames) || { faction: [], unit: [] };
   const factionRulesForUnit = catalog.faction.filter((rule) => rule.effect?.type !== "martial-katah" || unitNames.some((name) => window.WarhammerRuleResolver?.isMartialKatahUnit(draft.entry?.faction, name)));
-  const allWeapons = [draft.weapons || [], ...(draft.joinedMembers || []).map((member) => member.weapons || [])].flat();
-  const weaponAbilities = [...new Set(allWeapons.flatMap((weapon) => weapon.abilities || []).filter(Boolean))];
   const hasMartialKatah = side === "attacker" && (factionRulesForUnit.some((rule) => rule.effect?.type === "martial-katah") || /禁军武艺/.test([unit.abilities, ...(draft.joinedMembers || []).map((member) => member.unit?.abilities)].join(" ")));
   const martialControl = hasMartialKatah ? `<label class="calculator-martial-control">禁军武艺（仅近战）<select data-calc-side="${side}" data-calc-martial><option value="none" ${draft.martialKatah === "none" ? "selected" : ""}>不启用</option><option value="sustained" ${draft.martialKatah === "sustained" ? "selected" : ""}>连击 1</option><option value="lethal" ${draft.martialKatah === "lethal" ? "selected" : ""}>致命一击</option></select></label>` : "";
   const hasOathOfMoment = side === "attacker" && unitHasOathOfMoment(unit, draft.entry?.faction);
@@ -765,7 +763,7 @@ function calculatorAbilityMarkup(draft, side) {
   const fallbackFaction = !factionRulesForUnit.length && hasOathOfMoment ? `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>阵营技能</strong></div><div class="calculator-ability"><strong>破敌重誓</strong><p>命中重投骰面会按当前武器显示；可在武器栏选择具体结果。</p>${oathWoundControl}</div></section>` : "";
   const unitRules = calculatorRuleMarkup(draft, side, catalog.unit, "单位技能");
   const legacy = !catalog.unit.length && (unit.abilities || unit.activeAbilities) ? `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>单位技能</strong></div><div class="calculator-ability"><p>${escapeHtml([unit.abilities, unit.activeAbilities || unit.active].filter(Boolean).join("；"))}</p><small>已显示，等待结构化规则补充。</small></div></section>` : "";
-  return `<div class="calculator-abilities">${factionRules}${fallbackFaction}${unitRules}${legacy}${martialControl}${weaponAbilities.length ? `<div class="calculator-ability"><strong>武器关键词</strong><p>${escapeHtml(weaponAbilities.join("、"))}</p><small>武器关键词会自动并入骰子计算。</small></div>` : ""}</div>`;
+  return `<div class="calculator-abilities">${factionRules}${fallbackFaction}${unitRules}${legacy}${martialControl}</div>`;
 }
 
 function calculatorRerollKey(kind, sourceKey, weaponIndex) {
@@ -1122,9 +1120,12 @@ function buildSelectedRoundPayload() {
   if (!attackerData?.unit || !Array.isArray(attackerData.weapons) || !attackerData.weapons.length) throw new Error(`进攻单位“${attacker.name}”没有可计算的结构化武器数据`);
   if (!defenderData?.unit || !defenderUnit.woundsPerModel) throw new Error(`防御单位“${defender.name}”没有可计算的属性数据`);
   const attackerFactionEffects = resolvedFactionEffects(attackerDraft).attack || {};
-  const defenderFactionEffects = resolvedFactionEffects(defenderDraft).attack || {};
+  const defenderFactionResolved = resolvedFactionEffects(defenderDraft);
+  const defenderFactionEffects = defenderFactionResolved.attack || {};
   const toughness = Math.max(1, Number(defenderUnit.toughness || 0) + Number(attackerFactionEffects.targetToughnessModifier || 0));
-  const defenderFactionHitModifier = state.attackMode === "melee" ? Number(defenderFactionEffects.targetMeleeHitModifier || 0) : 0;
+  const defenderFactionHitModifier = window.WarhammerRuleEffects?.defenderAttackModifiers
+    ? Number(window.WarhammerRuleEffects.defenderAttackModifiers(defenderFactionResolved, state.attackMode).hitModifier || 0)
+    : (state.attackMode === "melee" ? Number(defenderFactionEffects.targetMeleeHitModifier || 0) : 0);
   const defenderRuleEffects = [defender.name, ...(defenderDraft.joinedMembers || []).map((member) => member.name)]
     .map((name) => resolvedRuleEffects(defenderDraft, name).defend || {})
     .reduce((result, effects) => ({

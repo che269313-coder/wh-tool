@@ -1,45 +1,74 @@
-# 战术助手 · GitHub Pages 试用包
+# 战术助手
 
-这是手机端 Warhammer 40,000 对局助手的静态版，适合直接发布到 GitHub Pages。
+一个面向 Warhammer 40,000 第 11 版对局的轻量级网页工具，帮助玩家整理军表、查阅规则，并估算一轮射击或近战攻击的伤害与击杀概率。
 
-## 最快发布
+## 在线使用
 
-1. 解压本压缩包，在 GitHub 新建一个仓库。
-2. 把解压后的 `docs` 文件夹完整上传到仓库根目录。
-3. 打开仓库的 **Settings → Pages**。
-4. 选择 **Deploy from a branch → main → /docs → Save**。
-5. 等待发布完成，用手机打开 GitHub Pages 地址。
+- [打开在线版](https://che269313-coder.github.io/wh-tool/)
+- [GitHub 仓库](https://github.com/che269313-coder/wh-tool)
 
-注意：GitHub 网页端不能直接把 ZIP 当作网站发布，需要先解压再上传文件。也可以用电脑执行：
+如果首次打开仍显示旧版本，请等待 GitHub Pages 完成部署后刷新，或使用无痕窗口重新打开。
 
-```bash
-git clone 你的仓库地址
-cp -r docs/. 你的仓库目录/docs/
-git add .
-git commit -m "publish tactical assistant"
-git push
+## 当前功能
+
+- 手机端友好的对局面板：记录双方军表、单位、模型和当前伤口。
+- 军表导入：支持 TXT、Markdown、JSON 和 PDF 文本提取。
+- 数据卡浏览：查看单位属性、武器配置和技能原文。
+- 规则计算器：选择进攻方、防御方和攻击类型，自动结算命中、造伤、豁免、伤害与击杀概率。
+- 本地规则引擎：计算结果由确定性的规则引擎和蒙特卡洛模拟生成，不依赖 AI 猜骰子。
+- 规则支持：帝皇禁军、星际战士、死亡守卫，以及核心规则和分遣队速查资料。
+- 浏览器本地保存：军表和计算器设置保存在当前浏览器中，不会自动上传到仓库。
+
+## 使用方式
+
+1. 打开[在线版](https://che269313-coder.github.io/wh-tool/)。
+2. 在“军表”页导入或粘贴双方军表。
+3. 在“规则计算器”页选择进攻单位、防御目标和远程/近战模式。
+4. 根据实际场景启用相应的可选技能，运行本地模拟查看结果。
+
+## 项目结构
+
+```text
+docs/
+  index.html              网页入口
+  app.js                  页面交互、军表导入和计算器组装
+  engine.js               通用战斗模拟引擎
+  rules/                  阵营规则、效果注册表和规则解析器
+  data/                   规则书、数据卡和分遣队资料
+  calculator-catalog.js   可直接打开网页时使用的结构化数据目录
+tools/
+  validate-*.mjs          规则、战斗和数据卡回归校验
+  generate-*.mjs          从结构化数据生成规则目录和计算器目录
+worker/
+  pages-proxy.js          可选的 Cloudflare Worker 代理
 ```
 
-## 页面功能
+## 本地预览
 
-- 手机端对局、资料库、规则计算器和设置页。
-- 计算器和资料库默认在浏览器本地运行。
-- 核心规则、阵营规则、分遣队速查表（`docs/data/`）会在页面打开时自动导入资料库；你只需导入自己的军表。
-- 军表、数据卡导入后保存在当前手机浏览器的 IndexedDB 中。
-- 文本资料可作为 AI 上下文；PDF 会先保存，当前版本尚未做页面内 PDF 检索。
-- DeepSeek 可以在设置页直接调用，也可以使用 `worker/` 中的 Cloudflare Worker 代理。
-- 外部基准使用固定的 Wathammer 页面，不再要求用户填写地址；计算页会提供手机直达链接：`https://wathammer.com/round`。GitHub Pages 直接请求其接口时可能受到跨域限制，遇到限制时请在该固定页面中完成外部校验。
+项目是静态网页，不需要构建工具。可以在仓库根目录运行：
 
-## DeepSeek 设置
+```bash
+python -m http.server 8080 --directory docs
+```
 
-在页面的“设置”中选择直接调用或 Worker 代理，并填写模型和地址。默认模型为 `deepseek-v4-flash`。
+然后访问 <http://localhost:8080>。
 
-如果 AI 直接调用遇到浏览器 CORS 错误，部署 `worker/pages-proxy.js`，然后填写：
+## 规则与计算说明
 
-- AI 地址：`https://你的-worker.workers.dev/api/chat`
+AI 只用于理解用户描述和整理上下文；命中、造伤、豁免、伤害和击杀概率由 `docs/engine.js` 与规则目录计算。技能原文会尽量保留，尚未结构化的规则会以说明形式展示，不会擅自改变骰子结果。
 
-API Key 不写入本压缩包，也不会写入 GitHub 文件；页面只有在你主动保存时才会保存到当前浏览器。
+## 可选 AI 代理
 
-## 当前计算示例
+如需在浏览器中调用 DeepSeek，可部署 `worker/pages-proxy.js`，再在设置页填写 Worker 地址。API Key 仅由用户在浏览器中主动配置，不写入项目文件。
 
-默认示例仍是神鸟、盾卫和冲击者突击艇。可以在“规则计算器”的高级场景配置中直接替换 `weaponGroups` 和 `defenderGroups` JSON。
+## 开发校验
+
+```bash
+node tools/validate-rules.mjs
+node tools/validate-combat.mjs
+node tools/validate-datasheets.mjs
+```
+
+## License
+
+MIT

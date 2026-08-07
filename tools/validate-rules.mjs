@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
+import engine from "../docs/engine.js";
 
 const root = path.resolve(import.meta.dirname, "..");
 const context = vm.createContext({});
@@ -129,6 +130,37 @@ const allarus = resolve("帝皇禁军", "阿拉鲁斯终结者", {}, { phase: "m
 const terminatorCaptain = resolve("帝皇禁军", "终结者盾卫连长", {}, { phase: "melee" });
 assert(allarus.defend.feelNoPain === 0, "阿拉鲁斯终结者不能被错误赋予不知疼痛");
 assert(terminatorCaptain.defend.feelNoPain === 0, "终结者盾卫连长不能被错误赋予不知疼痛");
+
+const spaceMarineRules = context.WarhammerSpaceMarineRules?.unitRules || {};
+const passiveInvulnerableRules = Object.values(spaceMarineRules).flat().filter((rule) =>
+  rule.effects?.length
+    && rule.effects.every((effect) => effect.type === "invulnerable-save")
+    && /拥\s*有/.test(rule.text || "")
+    && !/一次性|可以|获得|本阶段|持续/.test(rule.text || "")
+);
+assert(passiveInvulnerableRules.length > 0 && passiveInvulnerableRules.every((rule) => !rule.controls?.length), "拥有型特殊保护必须默认自动结算，不能要求主动勾选");
+const thorRule = Object.values(spaceMarineRules).flat().find((rule) => rule.text === "特殊保护：本模型拥有4+特殊保护");
+const thor = resolve("星际战士", "托尔连长", {}, { phase: "melee" });
+assert(thorRule && !thorRule.controls?.length && thor.defend.invulnerableSave === 4, "托尔连长的4+特殊保护必须无控件且自动进入防御结算");
+
+const enabledSkullsquirm = context.WarhammerRuleResolver.resolveFaction("死亡守卫", {
+  "death-guard-nurgles-gift.enabled": true,
+  "death-guard-nurgles-gift.plague": "skullsquirm",
+}, { phase: "melee" });
+assert(enabledSkullsquirm.attack.targetMeleeHitModifier === -1, "头骨痉挛必须产出近战命中-1");
+assert(context.WarhammerRuleEffects.defenderAttackModifiers(enabledSkullsquirm, "melee").hitModifier === -1, "死亡守卫作为防御方时，头骨痉挛必须映射到进攻方近战命中修正");
+assert(context.WarhammerRuleEffects.defenderAttackModifiers(enabledSkullsquirm, "ranged").hitModifier === 0, "头骨痉挛不得影响远程命中");
+
+const deterministic = (values) => {
+  let index = 0;
+  return () => values[Math.min(index++, values.length - 1)];
+};
+const simpleMeleeRound = (hitModifier) => engine.simulateRound({
+  simulations: 1,
+  weaponGroups: [{ name: "回归近战攻击", modelCount: 1, attacks: "1", hit: 2, wound: 2, ap: 0, damage: "1", effects: { hitModifierEnabled: Boolean(hitModifier), hitModifierValue: hitModifier } }],
+  defenderGroups: [{ name: "回归目标", modelCount: 1, wounds: 1, save: 7, invulnerableSave: 0, effects: {} }],
+}, deterministic([0.2, 0.2, 0]));
+assert(simpleMeleeRound(0).averages.totalDamage === 1 && simpleMeleeRound(-1).averages.totalDamage === 0, "近战命中-1必须真实改变最终战斗结算，而不只是显示规则状态");
 
 if (failures.length) {
   console.error("规则回归校验失败：");

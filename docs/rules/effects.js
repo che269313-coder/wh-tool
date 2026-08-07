@@ -6,6 +6,15 @@
  * neither app.js nor engine.js needs to know a faction or unit name.
  */
 (function (root) {
+  function defenderAttackModifiers(resolved, phase) {
+    const attack = resolved?.attack || {};
+    const defend = resolved?.defend || {};
+    return {
+      hitModifier: (phase === "melee" ? Number(attack.targetMeleeHitModifier || 0) : 0)
+        + Number(defend.incomingHitModifier || 0),
+    };
+  }
+
   function apply(effect, { rule, selections, context, attack, defend, selected, enabled }) {
     if (effect.condition === "underStartingStrength" && !context.underStartingStrength) return;
     if (effect.condition === "belowHalfStrength" && !context.belowHalfStrength) return;
@@ -67,5 +76,5 @@
     }
   }
 
-  root.WarhammerRuleEffects = { apply };
+  root.WarhammerRuleEffects = { apply, defenderAttackModifiers };
 })(typeof globalThis === "undefined" ? this : globalThis);

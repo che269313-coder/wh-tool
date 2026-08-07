@@ -321,13 +321,6 @@
       "name": "折射力场",
       "text": "折射力场：装备者拥有5+特殊保护",
       "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "invulnerable-save",
@@ -344,13 +337,6 @@
       "name": "风暴盾",
       "text": "风暴盾：装备者拥有4+特殊保护",
       "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "invulnerable-save",
@@ -443,13 +429,6 @@
       "name": "特殊保护",
       "text": "特殊保护：本模型拥有4+特殊保护",
       "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "invulnerable-save",
@@ -899,13 +878,6 @@
       "name": "特殊保护",
       "text": "特殊保护：本模型拥有4+特殊保护",
       "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "invulnerable-save",
@@ -1044,13 +1016,6 @@
       "name": "特殊保护",
       "text": "特殊保护：本模型拥有4+特殊保护",
       "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "invulnerable-save",
@@ -1181,13 +1146,6 @@
       "name": "特殊保护",
       "text": "特殊保护：本模型拥有4+特殊保护",
       "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "invulnerable-save",
@@ -1493,18 +1451,6 @@
       "name": "心灵壁垒【灵能】",
       "text": "心灵壁垒【灵能】：本模型所领导的单位，其中的模型拥 有4+特殊保护",
       "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        },
-        {
-          "id": "forceLeader",
-          "type": "checkbox",
-          "label": "数据卡模式下强行视为已领导单位"
-        }
-      ],
       "effects": [
         {
           "type": "invulnerable-save",
@@ -2075,13 +2021,6 @@
       "name": "特殊保护",
       "text": "特殊保护：本模型拥有4+特殊保护",
       "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
       "effects": [
         {
           "type": "invulnerable-save",

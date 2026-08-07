@@ -578,9 +578,7 @@
           "strength": 12,
           "ap": -2,
           "damage": "2",
-          "abilities": [
-            "3 无"
-          ]
+          "abilities": []
         }
       ],
       "verification": "由数字版 PDF 表格提取；动态数值或条件性规则需在计算器中确认。"

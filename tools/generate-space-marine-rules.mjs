@@ -81,13 +81,20 @@ function toRule(card, text, index) {
   if (!clean || /^【?阵营技能】?\s*[：:]?\s*破敌重誓\s*$/.test(clean) || factionOnly === "破敌重誓") return null;
   const { effects, leader } = effectDescriptors(clean);
   const declaredEffects = leader ? effects.map((effect) => ({ ...effect, requiresJoined: true })) : effects;
+  // A model that "has" a passive invulnerable save does not need an
+  // activation checkbox.  Keep controls for temporary/conditional saves
+  // such as "can gain" or "once per battle" abilities.
+  const passiveInvulnerableSave = declaredEffects.length > 0
+    && declaredEffects.every((effect) => effect.type === "invulnerable-save")
+    && /拥\s*有/.test(clean)
+    && !/一次性|可以|获得|本阶段|持续/.test(clean);
   const id = `space-marines-p${card.page}-${index}`;
   return {
     id,
     name: nameFromText(clean, index),
     text: clean,
     status: effects.length ? supported : displayOnly,
-    ...(declaredEffects.length ? { controls: controls(leader), effects: declaredEffects } : {}),
+    ...(declaredEffects.length ? { ...(passiveInvulnerableSave ? {} : { controls: controls(leader) }), effects: declaredEffects } : {}),
     source: { page: card.page, source: card.source },
   };
 }
