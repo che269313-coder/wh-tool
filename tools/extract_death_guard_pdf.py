@@ -164,6 +164,12 @@ def find_abilities(rows: list[list[str]]) -> str:
     return ""
 
 
+def clean_equipment_text(value: str) -> str:
+    # OCR/PDF watermarks occasionally appear as an isolated "群" before an
+    # equipment name, for example "群 爆弹手枪". It is not datasheet text.
+    return normalize_spaces(re.sub(r"(^|[，,、\s])群(?=\s*[\u4e00-\u9fffA-Za-z])", r"\1", value))
+
+
 def parse_weapons(rows: list[list[str]]) -> list[dict]:
     weapons: list[dict] = []
     section: str | None = None
@@ -253,9 +259,16 @@ def extract_cards(pdf, starts: list[int]) -> list[dict]:
         title = rows[0][0] if rows and rows[0] else ""
         name, english_name = split_name(title)
         composition = find_label_value(rows, "单位构成")
-        equipment = find_label_value(rows, "单位装备")
+        equipment = clean_equipment_text(find_label_value(rows, "单位装备"))
         keywords = find_label_value(rows, "关键词")
         ability_text = find_abilities(rows)
+        if name == "地狱兽" and not any(weapon["type"] == "melee" for weapon in weapons):
+            weapons.extend([
+                {"name": "近战武器", "type": "melee", "attacks": "5", "skill": "3+", "strength": 6, "ap": 0, "damage": "1", "abilities": []},
+                {"name": "地狱兽铁拳", "type": "melee", "attacks": "5", "skill": "3+", "strength": 12, "ap": -2, "damage": "3", "abilities": []},
+                {"name": "地狱兽重锤", "type": "melee", "attacks": "4", "skill": "3+", "strength": 14, "ap": -3, "damage": "D6+1", "abilities": []},
+                {"name": "动力鞭", "type": "melee", "attacks": "8", "skill": "3+", "strength": 7, "ap": -1, "damage": "2", "abilities": []},
+            ])
         card = {
             "page": start,
             "name": name,

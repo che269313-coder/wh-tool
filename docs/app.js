@@ -486,8 +486,16 @@ function normalizeCalculatorCardData(data) {
     unit: {
       ...data.unit,
       abilities: data.unit.abilities || sourceAbilities,
+      defaultEquipment: cleanPdfWatermarkText(data.unit.defaultEquipment),
     },
   };
+}
+
+function cleanPdfWatermarkText(value) {
+  return String(value ?? "")
+    .replace(/(^|[，,、\s])群(?=\s*[\u4e00-\u9fffA-Za-z])/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function getCalculatorCardData(entry) {
@@ -567,7 +575,7 @@ function enabledCalculatorWeapons(data, entryName, rosterUnit, options = {}) {
   const baseUnit = data?.unit || {};
   const baseWeapons = (Array.isArray(data?.weapons) ? cloneCalculatorValue(data.weapons) : [])
     .filter((weapon) => !Array.isArray(options.weaponNames) || options.weaponNames.some((name) => weaponMatchesEquipmentText(weapon, name)));
-  const defaultEquipment = options.defaultEquipment ?? baseUnit.defaultEquipment ?? "";
+  const defaultEquipment = cleanPdfWatermarkText(options.defaultEquipment ?? baseUnit.defaultEquipment ?? "");
   const defaultModels = Math.max(1, Number(options.modelCount ?? (rosterUnit ? activeModels(rosterUnit).length : baseUnit.models || baseUnit.defaultModels || 1)) || 1);
   const hasRosterEquipment = rosterUnit && Object.keys(countEquipment(rosterUnit)).length > 0;
   const matching = hasRosterEquipment
@@ -695,7 +703,7 @@ function getCalculatorDraft(side, index = 0, selectionKey = null) {
     : baseWeapons;
   const activeRosterModels = rosterUnit ? activeModels(rosterUnit) : [];
   state.calculatorDrafts[side][index] = {
-    key, entry, data, unit: baseUnit, weapons, modelCount: Math.max(1, modelCount || 1), source: calculatorSource(entry), joinedMembers,
+    key, entry, data, unit: baseUnit, weapons, modelCount: Math.max(1, modelCount || 1), source: calculatorSource(entry), side, joinedMembers,
     calculatorUnitIndex: index, sourceKey: `${side}-${index}`,
     compositionMode: explicitJoinedMembers.length ? "joined" : modelProfileMembers.length ? "modelProfiles" : "single",
     martialKatah: "none", oathWoundBonus: false, ruleSelections: {}, rerollSelections: {},
@@ -717,6 +725,19 @@ function isTorrentWeapon(weapon) {
 
 function unitHasOathOfMoment(unit, faction = "") {
   return /破敌重誓|oath\s+of\s+moment/i.test(String(unit?.abilities || "")) || /星际战士|阿斯塔特|白色疤痕/i.test(String(faction || ""));
+}
+
+function calculatorKeywordMarkup(draft) {
+  const sources = [draft.data, ...(draft.joinedMembers || []).map((member) => ({
+    factionKeywords: member.unit?.factionKeywords,
+    keywords: member.unit?.keywords,
+  }))];
+  const keywords = [...new Set(sources.flatMap((source) => [
+    ...(source?.factionKeywords || []),
+    ...(source?.keywords || []),
+  ]).filter(Boolean))];
+  if (!keywords.length) return "";
+  return `<section class="calculator-keywords"><div class="calculator-section-heading"><strong>关键词</strong></div><p>${escapeHtml(keywords.join("、"))}</p></section>`;
 }
 
 function calculatorRuleControlMarkup(draft, side, rule) {
@@ -763,7 +784,7 @@ function calculatorAbilityMarkup(draft, side) {
   const fallbackFaction = !factionRulesForUnit.length && hasOathOfMoment ? `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>阵营技能</strong></div><div class="calculator-ability"><strong>破敌重誓</strong><p>命中重投骰面会按当前武器显示；可在武器栏选择具体结果。</p>${oathWoundControl}</div></section>` : "";
   const unitRules = calculatorRuleMarkup(draft, side, catalog.unit, "单位技能");
   const legacy = !catalog.unit.length && (unit.abilities || unit.activeAbilities) ? `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>单位技能</strong></div><div class="calculator-ability"><p>${escapeHtml([unit.abilities, unit.activeAbilities || unit.active].filter(Boolean).join("；"))}</p><small>已显示，等待结构化规则补充。</small></div></section>` : "";
-  return `<div class="calculator-abilities">${factionRules}${fallbackFaction}${unitRules}${legacy}${martialControl}</div>`;
+  return `<div class="calculator-abilities">${factionRules}${fallbackFaction}${unitRules}${legacy}${martialControl}</div>${calculatorKeywordMarkup(draft)}`;
 }
 
 function calculatorRerollKey(kind, sourceKey, weaponIndex) {
@@ -1006,10 +1027,24 @@ function ruleContextForDraft(draft, unitName, overrides = {}) {
 
 function resolvedRuleEffects(draft, unitName, overrides = {}) {
   if (!window.WarhammerRuleResolver) return { attack: {}, defend: {}, notes: [] };
+  const selections = { ...(draft.ruleSelections || {}) };
+  if (draft.side === "attacker") {
+    const defender = getCalculatorDraft("defender");
+    const targetKeywords = new Set([
+      ...(defender?.data?.factionKeywords || []),
+      ...(defender?.data?.keywords || []),
+    ].map((keyword) => String(keyword).trim().toLowerCase()));
+    const targetMonsterVehicle = ["凶兽", "巨兽", "monster", "载具", "vehicle"].some((keyword) => targetKeywords.has(keyword));
+    const rules = window.WarhammerRuleResolver.rulesForUnit(draft.entry?.faction, unitName).unit || [];
+    rules.forEach((rule) => {
+      const effects = Array.isArray(rule.effects) ? rule.effects : (rule.effect ? [rule.effect] : []);
+      if (effects.some((effect) => effect.requiresTargetMonsterVehicle)) selections[`${rule.id}.targetMonsterVehicle`] = targetMonsterVehicle;
+    });
+  }
   return window.WarhammerRuleResolver.resolveUnit(
     draft.entry?.faction,
     unitName,
-    draft.ruleSelections || {},
+    selections,
     ruleContextForDraft(draft, unitName, overrides),
   );
 }
@@ -1369,7 +1404,7 @@ async function getDatasheetPreview(faction, unitName) {
       }
     }
   }
-  if (structured?.data?.unit) return { type: "structured", data: structured.data };
+  if (structured?.data?.unit) return { type: "structured", data: normalizeCalculatorCardData(structured.data) };
   const path = DATASHEET_FILES[faction];
   if (!path) return null;
   if (!state.datasheetCache[path]) {
@@ -1396,7 +1431,8 @@ function datasheetPreviewMarkup(preview) {
     const fallbackRows = rows.map((cells) => {
       const label = cells[0] || "";
       const value = cells.slice(1).filter(Boolean).join(" · ");
-      return `<article class="datasheet-fallback-row"><strong>${escapeHtml(label)}</strong><span>${escapeHtml(value || "—")}</span></article>`;
+      const displayValue = /单位装备|默认装备/.test(label) ? cleanPdfWatermarkText(value) : value;
+      return `<article class="datasheet-fallback-row"><strong>${escapeHtml(label)}</strong><span>${escapeHtml(displayValue || "—")}</span></article>`;
     }).join("");
     const content = fallbackRows ? `<div class="datasheet-fallback-list">${fallbackRows}</div>` : `<pre>${escapeHtml(preview.text)}</pre>`;
     return `<details open><summary>数据卡属性</summary><div class="datasheet-card-preview">${content}</div></details>`;

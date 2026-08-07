@@ -32,6 +32,10 @@ const keywordRows = (markdown, page) => {
   };
   return { factionKeywords: fallbackRead("阵营关键词"), keywords: fallbackRead("关键词") };
 };
+const cleanEquipmentText = (value) => String(value ?? "")
+  .replace(/(^|[，,、\s])群(?=\s*[\u4e00-\u9fffA-Za-z])/g, "$1")
+  .replace(/\s+/g, " ")
+  .trim();
 
 const sourceMarkdown = new Map([
   ["帝皇禁军", "docs/data/帝皇禁军/数据卡-OCR-可检索.md"],
@@ -45,7 +49,13 @@ const catalog = inputs.map((file) => {
   const markdown = markdownPath ? fs.readFileSync(path.join(root, markdownPath), "utf8") : "";
   return { ...data, cards: (data.cards || []).map((card) => {
     const extracted = keywordRows(markdown, card.page);
-    return { ...card, factionKeywords: card.factionKeywords?.length ? card.factionKeywords : (extracted.factionKeywords.length ? extracted.factionKeywords : [faction]), keywords: card.keywords?.length ? card.keywords : extracted.keywords };
+    return {
+      ...card,
+      unit: card.unit ? { ...card.unit, defaultEquipment: cleanEquipmentText(card.unit.defaultEquipment) } : card.unit,
+      modelProfiles: (card.modelProfiles || []).map((profile) => ({ ...profile, defaultEquipment: cleanEquipmentText(profile.defaultEquipment) })),
+      factionKeywords: card.factionKeywords?.length ? card.factionKeywords : (extracted.factionKeywords.length ? extracted.factionKeywords : [faction]),
+      keywords: card.keywords?.length ? card.keywords : extracted.keywords,
+    };
   }) };
 });
 const output = [

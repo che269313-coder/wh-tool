@@ -57,9 +57,12 @@ spaceMarines.cards.filter((card) => card.unit).forEach((card) => validateCard(ca
 assert(deathGuard.kind === "datasheet-profiles" && deathGuard.schemaVersion === 1, "死亡守卫结构化数据卡必须使用 schemaVersion 1");
 const thorCard = catalogCards.find((card) => card.unit?.name === "托尔连长");
 const mortarionCard = catalogCards.find((card) => card.unit?.name === "莫塔里安");
+const hellbruteCard = deathGuard.cards.find((card) => card.unit?.name === "地狱兽");
 assert(thorCard?.factionKeywords?.includes("阿斯塔特修会") && thorCard?.factionKeywords?.includes("帝国之拳"), "托尔连长必须保留阵营关键词");
 assert(thorCard?.keywords?.includes("步兵") && thorCard?.keywords?.includes("人物"), "托尔连长必须保留单位关键词");
 assert(mortarionCard?.factionKeywords?.includes("死亡守卫") && mortarionCard?.keywords?.includes("凶兽"), "莫塔里安必须保留阵营和单位关键词");
+assert(hellbruteCard?.weapons?.filter((weapon) => weapon.type === "melee").length === 4, "地狱兽必须保留数据卡上的 4 把近战武器");
+assert(hellbruteCard?.weapons?.some((weapon) => weapon.name === "地狱兽铁拳" && weapon.type === "melee"), "地狱兽必须包含近战地狱兽铁拳");
 assert(deathGuard.cards.length === 36, "死亡守卫数据卡必须覆盖 PDF 中的 36 张卡");
 const deathshroud = deathGuard.cards.find((card) => card.name === "死亡寿衣终结者");
 const plagueMarines = deathGuard.cards.find((card) => card.name === "瘟疫战士");

@@ -32,6 +32,7 @@ assert(blightlordVolley?.effects?.some((effect) => effect.type === "weapon-ap-mo
 const tankHunters = deathGuardRules?.unitRules?.["恶臭疫病引擎"]?.find((rule) => rule.name.includes("坦克猎手"));
 assert(tankHunters?.effects?.some((effect) => effect.type === "hit-modifier" && effect.requiresTargetMonsterVehicle), "恶臭疫病引擎必须声明坦克猎手命中+1");
 assert(tankHunters?.effects?.some((effect) => effect.type === "wound-modifier" && effect.requiresTargetMonsterVehicle), "恶臭疫病引擎必须声明坦克猎手造伤+1");
+assert(tankHunters?.controls?.filter((control) => control.id === "targetMonsterVehicle").length === 0, "坦克猎手不应再显示重复的目标关键词控件");
 const contagionGift = deathGuardRules?.unitRules?.["恶瘟投放者"]?.find((rule) => rule.name.includes("传染馈赠"));
 assert(contagionGift?.effects?.some((effect) => effect.type === "sustained-hits" && effect.requiresTargetInfected && effect.requiresJoined), "恶瘟投放者必须声明传染馈赠的感染目标连击1效果");
 assert(contagionGift?.controls?.some((control) => control.id === "targetInfected"), "传染馈赠必须提供目标已感染选项");

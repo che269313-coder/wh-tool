@@ -2286,6 +2286,46 @@
           "abilities": [
             "双联"
           ]
+        },
+        {
+          "name": "近战武器",
+          "type": "melee",
+          "attacks": "5",
+          "skill": "3+",
+          "strength": 6,
+          "ap": 0,
+          "damage": "1",
+          "abilities": []
+        },
+        {
+          "name": "地狱兽铁拳",
+          "type": "melee",
+          "attacks": "5",
+          "skill": "3+",
+          "strength": 12,
+          "ap": -2,
+          "damage": "3",
+          "abilities": []
+        },
+        {
+          "name": "地狱兽重锤",
+          "type": "melee",
+          "attacks": "4",
+          "skill": "3+",
+          "strength": 14,
+          "ap": -3,
+          "damage": "D6+1",
+          "abilities": []
+        },
+        {
+          "name": "动力鞭",
+          "type": "melee",
+          "attacks": "8",
+          "skill": "3+",
+          "strength": 7,
+          "ap": -1,
+          "damage": "2",
+          "abilities": []
         }
       ],
       "wargearOptions": [

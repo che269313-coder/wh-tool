@@ -1127,11 +1127,6 @@
           "id": "enabled",
           "type": "checkbox",
           "label": "本次启用此技能"
-        },
-        {
-          "id": "targetMonsterVehicle",
-          "type": "checkbox",
-          "label": "目标为凶兽或载具"
         }
       ],
       "effects": [
