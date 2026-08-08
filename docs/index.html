@@ -94,9 +94,7 @@
               <div id="calculatorDefenderPickers" class="calculator-picker-list"></div>
             </div>
             <label>攻击类型<select id="calculatorAttackMode"><option value="ranged">远程射击</option><option value="melee">近战</option></select></label>
-            <label class="check-row"><input id="enableExternalCalc" type="checkbox" checked /> <span>启用固定外部基准</span></label>
-            <div class="button-row"><button id="runCalc" class="secondary-button">本地模拟 1,000 次</button><button id="runExternalCalc" class="primary-button">外部基准计算</button></div>
-            <p class="form-hint"><a href="https://wathammer.com/round" target="_blank" rel="noreferrer">在手机上打开 Wathammer 外部计算页</a>（固定地址，不需要配置）。</p>
+            <div class="button-row"><button id="runCalc" class="secondary-button">本地模拟 1,000 次</button></div>
             <p class="form-hint">计算只使用已选择的军表单位或结构化数据卡；未选择双方单位，或数据卡缺少可计算属性时不会开始计算。</p>
           </div>
           <section id="calculatorDetails" class="calculator-details" aria-live="polite"></section>
@@ -109,7 +107,6 @@
             <div class="distribution-block"><span class="card-label">总伤害分布</span><div id="damageDistribution" class="distribution-chart" aria-label="总伤害分布直方图"></div><small id="damageDistributionNote" class="muted-copy">运行本地模拟后显示</small></div>
             <div class="distribution-block"><span class="card-label">击杀模型数分布</span><div id="killsDistribution" class="distribution-chart" aria-label="击杀模型数分布直方图"></div><small id="killsDistributionNote" class="muted-copy">运行本地模拟后显示</small></div>
           </div>
-          <div class="external-check" id="externalResult"><div><span class="card-label">外部基准校验</span><strong id="externalChance">—</strong><small id="externalNote">启用后运行固定 Wathammer 计算</small></div><div><span class="card-label">外部平均伤害</span><strong id="externalDamage">—</strong><small>wathammer /simulate-round</small></div><div class="external-distributions"><div class="distribution-block"><span class="card-label">外部总伤害分布</span><div id="externalDamageDistribution" class="distribution-chart" aria-label="外部总伤害分布直方图"></div></div><div class="distribution-block"><span class="card-label">外部击杀分布</span><div id="externalKillsDistribution" class="distribution-chart" aria-label="外部击杀模型数分布直方图"></div></div></div></div>
         </section>
 
         <section id="view-settings" class="view">
@@ -121,7 +118,7 @@
             <label>模型<input id="apiModel" value="deepseek-v4-flash" /></label>
             <label class="check-row"><input id="rememberKey" type="checkbox" /> <span>记住在本机浏览器</span></label>
             <button class="primary-button" type="submit">保存设置</button>
-            <p class="form-hint">AI 代理地址填写 Worker 的 <code>/api/chat</code>。外部 Wathammer 页面为固定地址，不需要在这里配置。</p>
+            <p class="form-hint">AI 代理地址填写 Worker 的 <code>/api/chat</code>。</p>
           </form>
           <div class="info-box"><strong>对局数据</strong><p>AI 会结合双方军表中的存活模型、装备和血量进行判断。单位的血量可在“军表”中点开详情后修改；移除模型会立即同步到总览。</p></div>
         </section>

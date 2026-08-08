@@ -33,7 +33,7 @@
     {
       "id": "space-marines-p47-2",
       "name": "圣典权威",
-      "text": "圣典权威：在你的指挥阶段开始时，选择以下效果之二对 本模型生效，持续到下个你的指挥阶段开始时 ◼ 十三军团原体【光环】：本模型6寸内的友军阿斯塔 特修会单位，可以重投震慑和领导力测试结果，并且 这些单位中的模型OC值+1 ◼ 战争之主：在你的指挥阶段开始时，为你的【破敌重 誓】技能选择目标后，再选择一个敌方单位，直到下 个你的指挥阶段开始时，如果破敌重誓技能的目标被 消灭了，则这个敌方单位将被视作破敌重誓技能的目 标，直到你选择新的目标 ◼ 超级战略：每个游戏大回合一次，你可以对本模型 12寸内的一个友军阿斯塔特修会单位使用战略技能 2 时少消耗1CP 5",
+      "text": "圣典权威：在你的指挥阶段开始时，选择以下效果之二对 本模型生效，持续到下个你的指挥阶段开始时 ◼ 十三军团原体【光环】：本模型6寸内的友军阿斯塔 特修会单位，可以重投震慑和领导力测试结果，并且 这些单位中的模型OC值+1 ◼ 战争之主：在你的指挥阶段开始时，为你的【破敌重 誓】技能选择目标后，再选择一个敌方单位，直到下 个你的指挥阶段开始时，如果破敌重誓技能的目标被 消灭了，则这个敌方单位将被视作破敌重誓技能的目 标，直到你选择新的目标 ◼ 超级战略：每个游戏大回合一次，你可以对本模型 12寸内的一个友军阿斯塔特修会单位使用战略技能时少消耗1CP",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 47,
@@ -43,7 +43,7 @@
     {
       "id": "space-marines-p47-3",
       "name": "极限战士卫队",
-      "text": "极限战士卫队：如果本模型位于至少一个友群军阿斯塔特修 会步兵单位3寸内，则本模型获得【独行特工】技能",
+      "text": "极限战士卫队：如果本模型位于至少一个友军阿斯塔特修 会步兵单位3寸内，则本模型获得【独行特工】技能",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 47,
@@ -53,7 +53,7 @@
     {
       "id": "space-marines-p47-4",
       "name": "命运战甲",
-      "text": "命运战甲：当本模型第一次被消灭时，锤在这个阶段结束时 投D6，3+则他以6点W的状态复活，将其放置在尽可 战 能接近他的阵亡地点，但不能位于敌方单位接战范围内。",
+      "text": "命运战甲：当本模型第一次被消灭时，在这个阶段结束时 投D6，3+则他以6点W的状态复活，将其放置在尽可 战 能接近他的阵亡地点，但不能位于敌方单位接战范围内。",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 47,
@@ -344,18 +344,12 @@
           "id": "enabled",
           "type": "checkbox",
           "label": "本次启用此技能"
-        },
-        {
-          "id": "forceLeader",
-          "type": "checkbox",
-          "label": "数据卡模式下强行视为已领导单位"
         }
       ],
       "effects": [
         {
           "type": "sustained-hits",
-          "value": 1,
-          "requiresJoined": true
+          "value": 1
         }
       ],
       "source": {
@@ -475,18 +469,12 @@
           "id": "enabled",
           "type": "checkbox",
           "label": "本次启用此技能"
-        },
-        {
-          "id": "forceLeader",
-          "type": "checkbox",
-          "label": "数据卡模式下强行视为已领导单位"
         }
       ],
       "effects": [
         {
           "type": "incoming-wound-when-strength-gte",
-          "value": 1,
-          "requiresJoined": true
+          "value": 1
         }
       ],
       "source": {
@@ -703,18 +691,12 @@
           "id": "enabled",
           "type": "checkbox",
           "label": "本次启用此技能"
-        },
-        {
-          "id": "forceLeader",
-          "type": "checkbox",
-          "label": "数据卡模式下强行视为已领导单位"
         }
       ],
       "effects": [
         {
           "type": "attack-modifier",
-          "value": 1,
-          "requiresJoined": true
+          "value": 1
         }
       ],
       "source": {
@@ -1134,7 +1116,13 @@
       "id": "space-marines-p64-0",
       "name": "核心特性",
       "text": "深入打击，领袖，不觉疼痛5+",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "effects": [
+        {
+          "type": "fnp",
+          "threshold": 5
+        }
+      ],
       "source": {
         "page": 64,
         "source": "星际战士11版中文1.0.pdf"
@@ -1147,18 +1135,20 @@
       "status": "计算支持（满足条件时自动结算）",
       "controls": [
         {
-          "id": "enabled",
+          "id": "targetMonsterVehicle",
           "type": "checkbox",
-          "label": "本次启用此技能"
+          "label": "目标为巨兽、载具或工事"
         }
       ],
       "effects": [
         {
-          "type": "sustained-hits",
-          "value": 1
+          "type": "lethal-hits",
+          "requiresTargetMonsterVehicle": true
         },
         {
-          "type": "lethal-hits"
+          "type": "sustained-hits",
+          "value": 1,
+          "unlessTargetMonsterVehicle": true
         }
       ],
       "source": {
@@ -1903,7 +1893,26 @@
       "id": "space-marines-p77-3",
       "name": "憎恨祷言",
       "text": "憎恨祷言：本模型所领导单位中的模型近战攻击造伤结 果+1",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        },
+        {
+          "id": "forceLeader",
+          "type": "checkbox",
+          "label": "数据卡模式下强行视为已领导单位"
+        }
+      ],
+      "effects": [
+        {
+          "type": "wound-modifier",
+          "value": 1,
+          "requiresJoined": true
+        }
+      ],
       "source": {
         "page": 77,
         "source": "星际战士11版中文1.0.pdf"
@@ -1995,7 +2004,7 @@
       ],
       "effects": [
         {
-          "type": "fnp",
+          "type": "fnp-mortal",
           "threshold": 4,
           "requiresJoined": true
         }
@@ -2072,17 +2081,11 @@
           "id": "enabled",
           "type": "checkbox",
           "label": "本次启用此技能"
-        },
-        {
-          "id": "forceLeader",
-          "type": "checkbox",
-          "label": "数据卡模式下强行视为已领导单位"
         }
       ],
       "effects": [
         {
-          "type": "devastating-wounds",
-          "requiresJoined": true
+          "type": "devastating-wounds"
         }
       ],
       "source": {
@@ -2247,7 +2250,25 @@
       "id": "space-marines-p83-2",
       "name": "手术式精准",
       "text": "手术式精准：本模型所领导的单位所装备的武器获得【致 命一击】技能",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        },
+        {
+          "id": "forceLeader",
+          "type": "checkbox",
+          "label": "数据卡模式下强行视为已领导单位"
+        }
+      ],
+      "effects": [
+        {
+          "type": "lethal-hits",
+          "requiresJoined": true
+        }
+      ],
       "source": {
         "page": 83,
         "source": "星际战士11版中文1.0.pdf"
@@ -2289,7 +2310,20 @@
       "id": "space-marines-p84-3",
       "name": "不休职责",
       "text": "不休职责：当本模型处于以下任意状态时，获得【不知疼 痛4+】技能： ◼ 位于一个目标点范围内 ◼ 位于战场中心6寸内",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "fnp",
+          "threshold": 4
+        }
+      ],
       "source": {
         "page": 84,
         "source": "星际战士11版中文1.0.pdf"
@@ -2427,18 +2461,12 @@
           "id": "enabled",
           "type": "checkbox",
           "label": "本次启用此技能"
-        },
-        {
-          "id": "forceLeader",
-          "type": "checkbox",
-          "label": "数据卡模式下强行视为已领导单位"
         }
       ],
       "effects": [
         {
           "type": "attack-modifier",
-          "value": 1,
-          "requiresJoined": true
+          "value": 1
         }
       ],
       "source": {
@@ -2450,7 +2478,23 @@
   "裁决士": [
     {
       "id": "space-marines-p87-0",
-      "name": "核心特性",
+      "name": "特殊保护",
+      "text": "特殊保护：本模型对抗近战攻击时拥有4+特殊保护",
+      "status": "计算支持（满足条件时自动结算）",
+      "effects": [
+        {
+          "type": "invulnerable-save",
+          "value": 4
+        }
+      ],
+      "source": {
+        "page": 87,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p87-1",
+      "name": "技能 2",
       "text": "领袖",
       "status": "已显示，暂不改变本次骰子",
       "source": {
@@ -2459,7 +2503,7 @@
       }
     },
     {
-      "id": "space-marines-p87-2",
+      "id": "space-marines-p87-3",
       "name": "亡殆时计",
       "text": "亡殆时计：本模型所领导单位获得【先攻】技能",
       "status": "已显示，暂不改变本次骰子",
@@ -2469,7 +2513,7 @@
       }
     },
     {
-      "id": "space-marines-p87-3",
+      "id": "space-marines-p87-4",
       "name": "无言怒火",
       "text": "无言怒火：每当本模型消灭一个敌方人物模型，本模型的 圣物处刑者巨剑就在本场游戏中A+1",
       "status": "已显示，暂不改变本次骰子",
@@ -2479,7 +2523,7 @@
       }
     }
   ],
-  "战术护甲步兵": [
+  "连队英雄": [
     {
       "id": "space-marines-p88-1",
       "name": "阿斯塔特旗帜",
@@ -2525,7 +2569,26 @@
       "id": "space-marines-p89-1",
       "name": "极限战士荣誉卫队",
       "text": "极限战士荣誉卫队：当连长或战团长领导本单位时，本单 位遭受的攻击造伤结果减1",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        },
+        {
+          "id": "forceLeader",
+          "type": "checkbox",
+          "label": "数据卡模式下强行视为已领导单位"
+        }
+      ],
+      "effects": [
+        {
+          "type": "incoming-wound-minus",
+          "value": 1,
+          "requiresJoined": true
+        }
+      ],
       "source": {
         "page": 89,
         "source": "星际战士11版中文1.0.pdf"
@@ -2545,7 +2608,26 @@
       "id": "space-marines-p89-3",
       "name": "马库拉格旗帜",
       "text": "马库拉格旗帜：每场战斗一次，在近战阶段开始时，装备 者可以使用本技能，让本单位在本阶段中近战武器的S和 A都+1",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "attack-modifier",
+          "value": 1,
+          "phase": "melee"
+        },
+        {
+          "type": "weapon-strength-modifier",
+          "value": 1,
+          "phase": "melee"
+        }
+      ],
       "source": {
         "page": 89,
         "source": "星际战士11版中文1.0.pdf"
@@ -2721,12 +2803,24 @@
       }
     }
   ],
-  "重装护甲步兵": [
+  "重装仲裁者小队": [
     {
       "id": "space-marines-p98-1",
       "name": "拒不屈服",
       "text": "拒不屈服：如果本单位位于你占领的目标点范围内，本单 位模型对抗破坏力（D）为1的攻击时，护甲保护投掷结 果+1",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "save-bonus-vs-d1"
+        }
+      ],
       "source": {
         "page": 98,
         "source": "星际战士11版中文1.0.pdf"
@@ -2738,7 +2832,20 @@
       "id": "space-marines-p99-1",
       "name": "近距离火力",
       "text": "近距离火力：如果本单位中模型的射击目标是当前最近的 可选目标，则本轮攻击中AP值增强1点",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "weapon-ap-modifier",
+          "value": 1
+        }
+      ],
       "source": {
         "page": 99,
         "source": "星际战士11版中文1.0.pdf"
@@ -2753,19 +2860,25 @@
       "status": "计算支持（满足条件时自动结算）",
       "controls": [
         {
-          "id": "enabled",
+          "id": "targetMonsterVehicle",
           "type": "checkbox",
-          "label": "本次启用此技能"
+          "label": "目标为巨兽、载具或工事"
         }
       ],
       "effects": [
         {
           "type": "space-hit-reroll",
-          "mode": "failed"
+          "mode": "failed",
+          "requiresTargetMonsterVehicle": true
         },
         {
           "type": "space-wound-reroll",
-          "mode": "failed"
+          "mode": "failed",
+          "requiresTargetMonsterVehicle": true
+        },
+        {
+          "type": "damage-reroll",
+          "requiresTargetMonsterVehicle": true
         }
       ],
       "source": {
@@ -2808,7 +2921,7 @@
       }
     }
   ],
-  "福波斯护甲步兵": [
+  "渗透者小队": [
     {
       "id": "space-marines-p103-0",
       "name": "核心特性",
@@ -2928,10 +3041,74 @@
       }
     }
   ],
+  "突击终结者小队": [
+    {
+      "id": "space-marines-p107-0",
+      "name": "特殊保护",
+      "text": "特殊保护：本单位模型拥有4+特殊保护",
+      "status": "计算支持（满足条件时自动结算）",
+      "effects": [
+        {
+          "type": "invulnerable-save",
+          "value": 4
+        }
+      ],
+      "source": {
+        "page": 107,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p107-1",
+      "name": "技能 2",
+      "text": "深入打击",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 107,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p107-3",
+      "name": "传送信标",
+      "text": "传送信标：游戏开始时，你可以在除了敌方部署区的任意位 置放置一个传送信标指示物，整场游戏一次，你可以消耗 0CP对本单位使用【快速部署】战略技能（见总规则）， 但这样做时必须将本单位模型部署于这个传送信标指示物水 平3寸内，敌方模型水平8寸外，之后移除这个标记物",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 107,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p107-4",
+      "name": "终结者突击",
+      "text": "终结者突击：近战阶段开始时，本单位接战范围内每个敌方 单位必须进行一次震慑测试",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 107,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    }
+  ],
   "终结者小队": [
     {
       "id": "space-marines-p108-0",
-      "name": "核心特性",
+      "name": "特殊保护",
+      "text": "特殊保护：本单位模型拥有4+特殊保护",
+      "status": "计算支持（满足条件时自动结算）",
+      "effects": [
+        {
+          "type": "invulnerable-save",
+          "value": 4
+        }
+      ],
+      "source": {
+        "page": 108,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p108-1",
+      "name": "技能 2",
       "text": "深入打击",
       "status": "已显示，暂不改变本次骰子",
       "source": {
@@ -2940,7 +3117,7 @@
       }
     },
     {
-      "id": "space-marines-p108-2",
+      "id": "space-marines-p108-3",
       "name": "传送信标",
       "text": "传送信标：游戏开始时，你可以在除了敌方部署区的任意 位置放置一个传送信标指示物，整场游戏一次，你可以消 耗0CP对本单位使用【快速响应】战略技能（见总规 则），但这样做时必须将本单位模型部署于这个传送信标 指示物水平3寸内，敌方模型水平8寸外，之后移除这个 标记物",
       "status": "已显示，暂不改变本次骰子",
@@ -2950,12 +3127,37 @@
       }
     },
     {
-      "id": "space-marines-p108-3",
+      "id": "space-marines-p108-4",
       "name": "一连之怒",
       "text": "一连之怒：本单位模型攻击你的【破敌重誓】目标时命中 结果+1",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "oath-target-hit-modifier",
+          "value": 1
+        }
+      ],
       "source": {
         "page": 108,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    }
+  ],
+  "战术小队": [
+    {
+      "id": "space-marines-p109-1",
+      "name": "战斗小组",
+      "text": "战斗小组：在宣布战斗阵容步骤开始时，任意单位部署之 前，本单位可以分成两组各5个模型的单位",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 109,
         "source": "星际战士11版中文1.0.pdf"
       }
     }
@@ -3114,12 +3316,23 @@
       "effects": [
         {
           "type": "incoming-hit-minus",
-          "value": 1,
-          "phase": "ranged"
+          "value": 1
         }
       ],
       "source": {
         "page": 117,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    }
+  ],
+  "先遣者摩托小队": [
+    {
+      "id": "space-marines-p119-1",
+      "name": "雷霆冲撞",
+      "text": "雷霆冲撞：每当本单位模型进行近战攻击时，如果本回合 进行过冲锋移动，则本轮攻击S和D都+1",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 119,
         "source": "星际战士11版中文1.0.pdf"
       }
     }
@@ -3132,6 +3345,51 @@
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 120,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    }
+  ],
+  "不屈型战术机甲": [
+    {
+      "id": "space-marines-p121-0",
+      "name": "核心特性",
+      "text": "致命破灭D3，斥候8",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 121,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p121-2",
+      "name": "先锋支援",
+      "text": "先锋支援：每回合一次，在对手的射击阶段，当本模型6 寸内一个友军阿斯塔特福波斯护甲步兵单位被选为攻击目 标时，你军队中最多一个模型可以使用本技能，当那个敌 方单位完成本轮攻击后，本模型可以如同你的射击阶段一 样对那个敌方单位进行一轮射击（如果对方对本模型而言 是一个可选的射击目标）",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 121,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p121-3",
+      "name": "严重损伤",
+      "text": "严重损伤：本模型W值为1-4时，攻击命中结果-1",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "damaged-hit-minus",
+          "threshold": 4
+        }
+      ],
+      "source": {
+        "page": 121,
         "source": "星际战士11版中文1.0.pdf"
       }
     }
@@ -3186,7 +3444,19 @@
       "id": "space-marines-p123-2",
       "name": "永恒职责",
       "text": "永恒职责：本分配给本模型的每下攻击破坏力降低1",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "damage-minus"
+        }
+      ],
       "source": {
         "page": 123,
         "source": "星际战士11版中文1.0.pdf"
@@ -3319,6 +3589,18 @@
       }
     }
   ],
+  "烈火炮台": [
+    {
+      "id": "space-marines-p126-1",
+      "name": "哨兵协议",
+      "text": "哨兵协议：每当你对本单位使用坚守射击战略技能时，未 修正命中结果为4+即可命中",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 126,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    }
+  ],
   "旋风火箭炮": [
     {
       "id": "space-marines-p127-0",
@@ -3379,7 +3661,21 @@
       "id": "space-marines-p128-2",
       "name": "破坏者",
       "text": "破坏者：本模型射击步兵单位时AP增强1点",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "targetInfantry",
+          "type": "checkbox",
+          "label": "目标是步兵单位"
+        }
+      ],
+      "effects": [
+        {
+          "type": "ap-vs-infantry",
+          "value": 1,
+          "requiresTargetInfantry": true
+        }
+      ],
       "source": {
         "page": 128,
         "source": "星际战士11版中文1.0.pdf"
@@ -3424,7 +3720,20 @@
       "id": "space-marines-p129-2",
       "name": "歼灭者",
       "text": "歼灭者：本模型的射击攻击被分配给巨兽或载具单位时， 你可以重投破坏力（D）",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "targetMonsterVehicle",
+          "type": "checkbox",
+          "label": "目标为巨兽、载具或工事"
+        }
+      ],
+      "effects": [
+        {
+          "type": "damage-reroll",
+          "requiresTargetMonsterVehicle": true
+        }
+      ],
       "source": {
         "page": 129,
         "source": "星际战士11版中文1.0.pdf"
@@ -3660,6 +3969,51 @@
       }
     }
   ],
+  "兰德掠袭者坦克": [
+    {
+      "id": "space-marines-p134-0",
+      "name": "核心特性",
+      "text": "致命破灭D6",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 134,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p134-2",
+      "name": "突击载具",
+      "text": "突击载具：本模型进行标准移动后，从中脱离的单位本回 合依然可以发动冲锋",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 134,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p134-3",
+      "name": "严重损伤",
+      "text": "严重损伤：本模型W值为1-5时，攻击命中结果-1",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "damaged-hit-minus",
+          "threshold": 5
+        }
+      ],
+      "source": {
+        "page": 134,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    }
+  ],
   "十字军型兰德掠袭者坦克": [
     {
       "id": "space-marines-p135-0",
@@ -3810,7 +4164,21 @@
       "id": "space-marines-p138-2",
       "name": "处决者",
       "text": "处决者：每当本模型攻击【低于半数】的目标时，命中结 果+1",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "targetBelowHalf",
+          "type": "checkbox",
+          "label": "目标低于半数"
+        }
+      ],
+      "effects": [
+        {
+          "type": "hit-modifier",
+          "value": 1,
+          "condition": "targetBelowHalf"
+        }
+      ],
       "source": {
         "page": 138,
         "source": "星际战士11版中文1.0.pdf"
@@ -3887,11 +4255,6 @@
       ],
       "effects": [
         {
-          "type": "space-hit-reroll",
-          "mode": "failed",
-          "phase": "ranged"
-        },
-        {
           "type": "space-wound-reroll",
           "mode": "failed",
           "phase": "ranged"
@@ -3943,6 +4306,28 @@
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 142,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    }
+  ],
+  "冰雹型风暴速攻艇": [
+    {
+      "id": "space-marines-p143-0",
+      "name": "核心特性",
+      "text": "致命破灭D3，深入打击",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 143,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p143-2",
+      "name": "冰雹轰炸",
+      "text": "冰雹轰炸：当本模型射击完成后，你可以选择被本模型命 中过的一个敌方单位（不能是巨兽和载具单位），本阶段 中，每当阿斯塔特修会友军单位射击攻击那个敌方单位 时，武器AP增强1点，多个本技能不能累计",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 143,
         "source": "星际战士11版中文1.0.pdf"
       }
     }
@@ -4098,7 +4483,19 @@
       "id": "space-marines-p149-2",
       "name": "坚韧装甲",
       "text": "坚韧装甲：被分配给本模型的攻击，破坏力-1",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "damage-minus"
+        }
+      ],
       "source": {
         "page": 149,
         "source": "星际战士11版中文1.0.pdf"
@@ -4124,6 +4521,71 @@
       ],
       "source": {
         "page": 149,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    }
+  ],
+  "落锤堡": [
+    {
+      "id": "space-marines-p150-0",
+      "name": "核心特性",
+      "text": "致命破灭D6",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 150,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p150-2",
+      "name": "防御阵列",
+      "text": "防御阵列：你可以消耗0CP而对本单位使用【坚守射击】 战略技能，即便本回合已经对其他友军使用过也可以，但 本模型一回合只能被使用这个技能一次",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 150,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p150-3",
+      "name": "严重损伤",
+      "text": "严重损伤：本模型W值为1-5时，攻击命中结果-1",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "damaged-hit-minus",
+          "threshold": 5
+        }
+      ],
+      "source": {
+        "page": 150,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p150-4",
+      "name": "陶钢掩体",
+      "text": "陶钢掩体：如果某个模型因为本模型的遮挡而对进行这下 射击攻击的单位来说是【不完全可见】，则那个模型此时 算作拥有掩体效果",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 150,
+        "source": "星际战士11版中文1.0.pdf"
+      }
+    },
+    {
+      "id": "space-marines-p150-5",
+      "name": "防御工事",
+      "text": "防御工事：当一个敌方单位只处于你的工事单位接战范围 中时， ◼ 那个敌方单位依然能被你选为射击目标，但是非手枪 类武器命中结果-1 ◼ 这种敌方单位即使处于【被震慑】状态下选择撤退2与 5 本模型脱离接战范围也不会触发绝望逃脱规则（注意 如果穿越其他模型还是会）",
+      "status": "已显示，暂不改变本次骰子",
+      "source": {
+        "page": 150,
         "source": "星际战士11版中文1.0.pdf"
       }
     }

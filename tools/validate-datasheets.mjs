@@ -19,8 +19,8 @@ assert(custodesProfiles.schemaVersion === 1, "禁军结构化数据卡 schemaVer
 
 const profilesByName = new Map(custodesProfiles.cards.map((card) => [card.name, card]));
 for (const [label, profiles, names] of [
-  ["帝皇禁军队长成员", custodesProfiles.cards, ["控诉者", "戒卫者", "猎巫者"]],
-  ["星际战士队长成员", spaceMarines.cards, ["战术护甲步兵", "常胜荣誉卫队"]],
+  ["帝皇禁军队长成员", custodesProfiles.cards, ["控诉者", "警戒者", "猎巫者"]],
+  ["星际战士队长成员", spaceMarines.cards, ["连队英雄", "常胜荣誉卫队"]],
 ]) {
   for (const name of names) {
     const card = profiles.find((candidate) => candidate.name === name);
@@ -29,7 +29,7 @@ for (const [label, profiles, names] of [
     assert(card?.modelProfiles?.some((profile) => profile.id !== "champion"), `${label} ${name} 缺少普通成员配置`);
   }
 }
-assert(custodesProfiles.cards.length === 20, "禁军结构化数据卡必须保留 20 份当前档案");
+assert(custodesProfiles.cards.length === 19, "禁军结构化数据卡必须保留 19 份当前档案（戒卫者/警戒者已合并，神鸟反重力坦克不在本 PDF 内）");
 assert(custodesProfiles.cards.filter((card) => Number.isInteger(card.page)).length >= 18, "禁军结构化数据卡至少应保留 18 份带来源页码的档案");
 
 const requiredUnitFields = ["name", "models", "movement", "toughness", "save", "woundsPerModel", "leadership", "objectiveControl"];

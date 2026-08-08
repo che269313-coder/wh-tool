@@ -19,12 +19,21 @@
     if (effect.condition === "underStartingStrength" && !context.underStartingStrength && !selected(selections, rule, "underStartingStrength", false)) return;
     if (effect.condition === "belowHalfStrength" && !context.belowHalfStrength && !selected(selections, rule, "belowHalfStrength", false)) return;
     if (effect.condition === "large-or-led" && !(Number(context.initialModelCount || 0) >= 5 || Number(context.modelCount || 0) >= 5 || context.isJoined || enabled(selections, rule, "forceLeader"))) return;
+    if (effect.condition === "targetBelowHalf" && !selected(selections, rule, "targetBelowHalf", false)) return;
     if (effect.requiresTargetInfected && !selected(selections, rule, "targetInfected", false)) return;
     if (effect.requiresTargetMonsterVehicle && !selected(selections, rule, "targetMonsterVehicle", false)) return;
+    if (effect.requiresTargetInfantry && !selected(selections, rule, "targetInfantry", false)) return;
+    if (effect.unlessTargetMonsterVehicle && selected(selections, rule, "targetMonsterVehicle", false)) return;
     if (effect.requiresPlague && selected(selections, rule, "plague", "none") !== effect.requiresPlague) return;
     switch (effect.type) {
       case "fnp":
         if (enabled(selections, rule) || !rule.controls?.length) defend.feelNoPain = Math.max(defend.feelNoPain, Number(effect.threshold));
+        break;
+      case "fnp-mortal":
+        if (enabled(selections, rule) || !rule.controls?.length) defend.feelNoPainMortal = Math.max(defend.feelNoPainMortal, Number(effect.threshold));
+        break;
+      case "leader-fnp":
+        if (enabled(selections, rule) || !rule.controls?.length) defend.leaderFeelNoPain = Math.max(defend.leaderFeelNoPain, Number(effect.threshold));
         break;
       case "ignore-hit-modifiers": attack.ignoreHitModifiers = true; break;
       case "time-lock": {
@@ -47,7 +56,9 @@
       case "damaged-hit-minus": if ((!rule.controls?.length || enabled(selections, rule)) && Number(context.remainingWounds || 999) <= Number(effect.threshold)) attack.hitModifier -= 1; break;
       case "deep-daughter":
         defend.feelNoPainMortal = Math.max(defend.feelNoPainMortal, 3);
-        if (enabled(selections, rule, "psychic")) defend.feelNoPain = Math.max(defend.feelNoPain, 3);
+        // 深渊之女 replaces the model's own feel-no-pain against psychic
+        // attacks; a plain Math.max would keep a worse base save instead.
+        if (enabled(selections, rule, "psychic")) defend.feelNoPain = 3;
         break;
       case "under-strength-bonuses":
         if (context.underStartingStrength || enabled(selections, rule, "forceLeader")) attack.hitModifier += 1;
@@ -67,6 +78,21 @@
       case "target-melee-hit-minus": if (!rule.controls?.length || enabled(selections, rule)) attack.targetMeleeHitModifier += Number(effect.value || -1); break;
       case "weapon-strength-modifier": if (!rule.controls?.length || enabled(selections, rule)) attack.strengthModifier = Number(attack.strengthModifier || 0) + Number(effect.value || 0); break;
       case "weapon-ap-modifier": if (!rule.controls?.length || enabled(selections, rule)) attack.apModifier = Number(attack.apModifier || 0) + Number(effect.value || 0); break;
+      case "ap-vs-infantry": if (enabled(selections, rule, "targetInfantry")) attack.apModifier = Number(attack.apModifier || 0) + Number(effect.value || 1); break;
+      case "damage-modifier": if (!rule.controls?.length || enabled(selections, rule)) attack.damageModifier = Number(attack.damageModifier || 0) + Number(effect.value || 0); break;
+      case "damage-minus": attack.damageModifier = Number(attack.damageModifier || 0) - 1; break;
+      case "damage-reroll": if (!rule.controls?.length || enabled(selections, rule)) attack.damageReroll = true; break;
+      case "oath-target-hit-modifier": if (!rule.controls?.length || enabled(selections, rule)) attack.oathTargetHitModifier = Number(attack.oathTargetHitModifier || 0) + Number(effect.value || 1); break;
+      case "hit-critical-threshold": {
+        const threshold = effect.condition === "targetBelowHalf" && selected(selections, rule, "targetBelowHalf", false)
+          ? Number(effect.belowHalfValue || effect.value || 0)
+          : Number(effect.value || 0);
+        if (threshold) {
+          attack.hitCriticalThreshold = Math.max(Number(attack.hitCriticalThreshold || 0), threshold);
+          defend.hitCriticalThreshold = Math.max(Number(defend.hitCriticalThreshold || 0), threshold);
+        }
+        break;
+      }
       case "siege-commander":
         if (!rule.controls?.length || enabled(selections, rule, "targetMonsterVehicle")) {
           attack.strengthModifier = Number(attack.strengthModifier || 0) + 2;
@@ -79,6 +105,7 @@
       case "incoming-wound-minus": if (!rule.controls?.length || enabled(selections, rule)) defend.incomingWoundModifier -= Math.abs(Number(effect.value || 1)); break;
       case "incoming-wound-when-strength-gte": if (!rule.controls?.length || enabled(selections, rule)) defend.incomingWoundWhenStrengthGreaterOrEqual = -Math.abs(Number(effect.value || 1)); break;
       case "damage-halving": defend.damageMultiplier = Math.min(Number(defend.damageMultiplier || 1), 0.5); break;
+      case "save-bonus-vs-d1": defend.saveBonusVsDamage1 = true; break;
       case "invulnerable-save":
         // Passive (no controls) saves stack by best value. A controllable
         // one-shot/phase override (e.g. 金刚不破's 2+ for the phase) replaces

@@ -50,7 +50,7 @@
       { id: "custodes-guard-stance", name: "保持警戒", text: "保持警戒：本单位模型攻击时重投造伤结果中的 1，如果本单位位于你占领的目标点范围内，则可以重投造伤结果", status: supported, controls: [{ id: "onObjective", type: "checkbox", label: "本单位位于你占领的目标点范围内" }], effect: { type: "guard-wound-reroll" } },
       { id: "custodes-guard-volley", name: "枪林弹雨", text: "枪林弹雨：一次性技能，你的射击阶段中，本单位射击之后可以再次射击", status: supported, controls: [{ id: "enabled", type: "checkbox", label: "本次额外进行一次射击" }], effect: { type: "repeat-ranged" } },
     ]),
-    unit("阿拉鲁斯终结者", [
+    unit("阿拉琉斯终结者", [
       common("allarus-core", "【核心技能】：深入打击"),
       { id: "custodes-allarus-slayer", name: "暴君杀手", text: "暴君杀手：本单位模型攻击人物，巨兽或载具时，可以重投造伤结果", status: supported, controls: [{ id: "targetElite", type: "checkbox", label: "目标是人物、巨兽或载具" }], effect: { type: "elite-wound-reroll" } },
       common("allarus-golden-light", "自金光降下：一次性技能，在对手的回合结束时，如果本单位不在敌方接战范围内，则你可以将其移除出场放入战略预备队"),
@@ -74,7 +74,7 @@
       common("land-raider-assault", "突击载具：本模型进行标准移动后，从中脱离的单位本回合依然可以发动冲锋"),
       common("land-raider-damaged", "严重损伤：本模型 W 值为 1-5 时，攻击命中结果-1", { type: "damaged-hit-minus", threshold: 5 }),
     ]),
-    unit("灭魔教团百夫长", [
+    unit("灭魔教团百骑长", [
       common("centura-core", "【核心技能】：领袖，斥候 6"),
       common("centura-tracker", "追踪本能：本模型所领导的单位，其中的模型 M+2，加速和冲锋结果+2"),
       { id: "custodes-centura-deep", name: "深渊之女", text: "深渊之女：本模型在对抗【灵能】攻击和致命伤害时算作拥有【不知疼痛 3+】", status: supported, controls: [{ id: "psychic", type: "checkbox", label: "来袭攻击具有【灵能】关键词" }], effect: { type: "deep-daughter" } },
@@ -89,10 +89,6 @@
     unit("控诉者", [
       { id: "custodes-prosecutors-purge", name: "净化处决", text: "净化处决：本单位模型射击攻击灵能者单位时算作拥有【精准】和【毁灭伤害】技能", status: supported, controls: [{ id: "targetPsychic", type: "checkbox", label: "目标是灵能者单位" }], effect: { type: "anti-psyker-weapons" } },
       { id: "custodes-prosecutors-deep", name: "深渊之女", text: "深渊之女：本模型在对抗【灵能】攻击和致命伤害时算作拥有【不知疼痛 3+】", status: supported, controls: [{ id: "psychic", type: "checkbox", label: "来袭攻击具有【灵能】关键词" }], effect: { type: "deep-daughter" } },
-    ]),
-    unit("戒卫者", [
-      { id: "custodes-vigilators-parry", name: "迅捷格挡", text: "迅捷格挡：对本单位模型的近战攻击命中结果减 1", status: supported, effect: { type: "incoming-melee-hit-minus" } },
-      { id: "custodes-vigilators-deep", name: "深渊之女", text: "深渊之女：本模型在对抗【灵能】攻击和致命伤害时算作拥有【不知疼痛 3+】", status: supported, controls: [{ id: "psychic", type: "checkbox", label: "来袭攻击具有【灵能】关键词" }], effect: { type: "deep-daughter" } },
     ]),
     unit("警戒者", [
       { id: "custodes-vigilators-parry", name: "迅捷格挡", text: "迅捷格挡：对本单位模型的近战攻击命中结果减 1", status: supported, effect: { type: "incoming-melee-hit-minus" } },

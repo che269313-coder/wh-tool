@@ -28,7 +28,7 @@ function abilityName(text, index) {
 }
 
 function phaseFor(text) {
-  if (/近战阶段|近战攻击/.test(text)) return "melee";
+  if (/近战阶段|近战攻击|近战武器|近战装备/.test(text)) return "melee";
   if (/射击阶段|远程攻击/.test(text)) return "ranged";
   return undefined;
 }
@@ -38,15 +38,25 @@ function effectDescriptors(text) {
   const customControls = [];
   const leader = /本模型领导单位|此模型领导单位|该模型领导单位|本模型领导的单位|此模型领导的单位|该模型领导的单位|有角色领导此单位|此模型所领导/.test(text);
   const add = (effect) => effects.push({ ...effect, ...(phaseFor(text) ? { phase: phaseFor(text) } : {}) });
-  const fnp = text.match(/不知疼痛\s*([3456])\s*\+/);
-  if (fnp) add({ type: "fnp", threshold: Number(fnp[1]) });
-  if (/命中.*重掷|命中.*重投|重掷.*命中|重投.*命中/.test(text)) add({ type: "space-hit-reroll", mode: /命中1|命中结果为1|重掷命中1/.test(text) ? "ones" : "failed" });
-  if (/造伤.*重掷|造伤.*重投|重掷.*造伤|重投.*造伤/.test(text)) add({ type: "space-wound-reroll", mode: /造伤1|造伤结果为1/.test(text) ? "ones" : "failed" });
-  const damaged = text.match(/(?:W\s*剩余|剩余)\s*1\s*-\s*([4-7])(?:\s*点耐伤)?[^。]{0,120}命\s*中(?:掷骰)?(?:结果)?\s*(?:-|减)\s*1/);
-  const hitBonus = text.match(/命中(?:\s*与\s*造伤骰)?(?:\s*结果)?\s*([+＋-])\s*1/);
-  if (hitBonus && !damaged) add({ type: "hit-modifier", value: hitBonus[1] === "-" ? -1 : 1 });
-  const woundBonus = text.match(/造伤(?:结果)?\s*([+＋-])\s*1/);
-  if (woundBonus) add({ type: "wound-modifier", value: woundBonus[1] === "-" ? -1 : 1 });
+  const fnp = text.match(/不(?:知|觉)\s*疼\s*痛\s*([3456])\s*\+/);
+  const leaderFnp = text.match(/有角色领导此单位时[^。]{0,30}该角色[^。]{0,20}不知疼\s*痛\s*([3456])\s*\+/);
+  if (fnp && !leaderFnp) add({ type: "fnp", threshold: Number(fnp[1]) });
+  if (leaderFnp) add({ type: "leader-fnp", threshold: Number(leaderFnp[1]) });
+  const hitRerollText = /命中(?:结?\s*果|骰|投掷).*(?:重掷|重投)|(?:重掷|重投).*命中(?:结?\s*果|骰|投掷)?[,，和]?/;
+  const woundRerollText = /造伤(?:结?\s*果|骰|投掷).*(?:重掷|重投)|(?:重掷|重投).*造伤(?:结?\s*果|骰|投掷)?[,，和]?/;
+  if (hitRerollText.test(text)) add({ type: "space-hit-reroll", mode: /(?:重掷|重投)\s*命中(?:结?\s*果)?\s*[1一]|命中(?:结?\s*果)?(?:中)?的?\s*[1一]/.test(text) ? "ones" : "failed" });
+  if (woundRerollText.test(text)) add({ type: "space-wound-reroll", mode: /(?:重掷|重投)\s*造伤(?:结?\s*果)?\s*[1一]/.test(text) ? "ones" : "failed" });
+  const damaged = text.match(/(?:W\s*剩余|剩余)\s*1\s*-\s*([4-7])(?:\s*点耐伤)?[^。]{0,120}命\s*中(?:掷骰)?(?:结?\s*果)?\s*(?:-|减)\s*1/);
+  const meleeHitMinus = /近战攻击命中(?:投掷)?结?\s*果\s*(?:-|减)\s*1/.test(text);
+  const infectedWoundBonus = /攻击受【感染】的敌方单位\s*时，造伤\s*结?\s*果[+＋]\s*1/.test(text);
+  const hitBonus = text.match(/命中(?:\s*与\s*造伤骰)?(?:\s*结?\s*果)?\s*([+＋-])\s*1/);
+  if (hitBonus && !damaged && !meleeHitMinus) add({ type: "hit-modifier", value: hitBonus[1] === "-" ? -1 : 1 });
+  const woundBonus = text.match(/造伤(?:结?\s*果)?\s*([+＋-])\s*1/);
+  if (woundBonus && !infectedWoundBonus) add({ type: "wound-modifier", value: woundBonus[1] === "-" ? -1 : 1 });
+  if (infectedWoundBonus) {
+    effects.push({ type: "wound-modifier", value: 1, requiresTargetInfected: true });
+    customControls.push(...targetControls);
+  }
   if (/命\s*中\s*与\s*造伤骰\s*结果\s*各\s*[+＋]\s*1/.test(text)) {
     effects.push({ type: "hit-modifier", value: 1, requiresTargetMonsterVehicle: true });
     effects.push({ type: "wound-modifier", value: 1, requiresTargetMonsterVehicle: true });
@@ -63,6 +73,7 @@ function effectDescriptors(text) {
   } else if (/连\s*击\s*(\d+)/.test(text)) {
     add({ type: "sustained-hits", value: Number(text.match(/连\s*击\s*(\d+)/)?.[1] || 1) });
   }
+  if (/【骑枪】/.test(text)) add({ type: "weapon-strength-modifier", value: 1 });
   if (/致命一击|致命命中/.test(text)) add({ type: "lethal-hits" });
   if (/毁灭伤害|毁灭性伤口/.test(text)) add({ type: "devastating-wounds" });
   const attackBonus = text.match(/攻击次数\s*A\s*([+＋-])\s*(\d+)|\bA\s*([+＋-])\s*(\d+)/);
@@ -72,9 +83,19 @@ function effectDescriptors(text) {
     add({ type: "attack-modifier", value: sign === "-" ? -amount : amount });
   }
   if (damaged) add({ type: "damaged-hit-minus", threshold: Number(damaged[1]) });
-  else if (/攻击命\s*中结果\s*-\s*1|攻击.*命\s*中结果\s*-\s*1/.test(text)) add({ type: "incoming-hit-minus", value: 1 });
+  else if (meleeHitMinus) add({ type: "incoming-melee-hit-minus", value: -1 });
+  else if (/攻击命\s*中结?\s*果\s*-\s*1|攻击.*命\s*中结?\s*果\s*-\s*1/.test(text)) add({ type: "incoming-hit-minus", value: 1 });
   const invulnerable = text.match(/([23456])\s*\+\s*特殊保护/);
   if (invulnerable) add({ type: "invulnerable-save", value: Number(invulnerable[1]) });
+  if (/未修正\s*的命中骰\s*5\+即为暴击命中/.test(text)) add({ type: "hit-critical-threshold", value: 5 });
+  if (/命中5\+触发暴击.{0,100}低于其一半的初始数量.{0,30}4\+/.test(text)) {
+    effects.push({ type: "hit-critical-threshold", value: 5, belowHalfValue: 4, condition: "targetBelowHalf" });
+    customControls.push({ id: "targetBelowHalf", type: "checkbox", label: "目标低于其一半的初始数量" });
+  }
+  if (/无视对攻击的命中骰与武器技能BS\/WS\s*的\s*修正|无视命中修正/.test(text)) add({ type: "ignore-hit-modifiers" });
+  if (/穿甲值AP\+1|穿透值AP\+1|AP增强1点/.test(text)) add({ type: "weapon-ap-modifier", value: 1 });
+  if (/韧性值T-1/.test(text)) add({ type: "target-toughness-modifier", value: -1 });
+  if (/伤害值D\+1/.test(text)) add({ type: "damage-modifier", value: 1 });
   return { effects, leader, controls: [...new Map(customControls.map((control) => [control.id, control])).values()] };
 }
 

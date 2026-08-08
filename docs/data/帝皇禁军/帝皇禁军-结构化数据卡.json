@@ -22,7 +22,7 @@
         "invulnerableSave": 4,
         "woundsPerModel": 7,
         "models": 1,
-        "leadership": "6+",
+        "leadership": "5+",
         "objectiveControl": 2,
         "abilities": "领袖；深入打击；不知疼痛 5+；禁军武艺；禁军元帅",
         "activeAbilities": "时间锁（每场游戏一次，近战阶段开始时）",
@@ -52,7 +52,17 @@
           "abilities": []
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "步兵",
+        "人物",
+        "传奇英雄",
+        "帝国",
+        "图拉真元帅"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.02",
@@ -73,7 +83,7 @@
         "models": 1,
         "leadership": "6+",
         "objectiveControl": 2,
-        "abilities": "领袖；深入打击；不知疼痛 6+；禁军武艺",
+        "abilities": "领袖；深入打击；不知疼痛 6+；禁军武艺；黄金桂冠",
         "activeAbilities": "狮门英杰（一次性）",
         "defaultEquipment": ""
       },
@@ -101,7 +111,17 @@
           "abilities": []
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "步兵",
+        "人物",
+        "传奇英雄",
+        "帝国",
+        "瓦雷利安连长"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.03",
@@ -122,7 +142,7 @@
         "models": 1,
         "leadership": "6+",
         "objectiveControl": 2,
-        "abilities": "领袖；深入打击；禁军武艺",
+        "abilities": "领袖；深入打击；禁军武艺；精熟战略；守护之盾",
         "activeAbilities": "武艺大师（每场游戏一次）",
         "defaultEquipment": "卫士之矛"
       },
@@ -154,7 +174,7 @@
         {
           "name": "热熔长矛",
           "type": "ranged",
-          "attacks": "2",
+          "attacks": "1",
           "skill": "2+",
           "strength": 9,
           "ap": -4,
@@ -217,7 +237,16 @@
           "abilities": []
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "步兵",
+        "人物",
+        "帝国",
+        "盾卫连长"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.04",
@@ -238,13 +267,13 @@
         "models": 1,
         "leadership": "6+",
         "objectiveControl": 2,
-        "abilities": "领袖；深入打击；禁军武艺",
+        "abilities": "领袖；深入打击；禁军武艺；迅猛冲锋；武艺绝伦",
         "activeAbilities": "",
         "defaultEquipment": ""
       },
       "weapons": [
         {
-          "name": "宝库之剑（斩首）",
+          "name": "宝库之剑（斩兽）",
           "selectionGroup": "宝库之剑",
           "type": "melee",
           "attacks": "6",
@@ -283,7 +312,16 @@
           ]
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "步兵",
+        "人物",
+        "帝国",
+        "剑锋冠军"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.05",
@@ -334,7 +372,7 @@
           ]
         },
         {
-          "name": "强势榴弹发射器",
+          "name": "强弩榴弹发射器",
           "type": "ranged",
           "attacks": "d6",
           "skill": "2+",
@@ -366,7 +404,17 @@
           "abilities": []
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "步兵",
+        "人物",
+        "帝国",
+        "终结者",
+        "盾卫连长"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.06",
@@ -393,7 +441,7 @@
       },
       "weapons": [
         {
-          "name": "晨鹰风暴爆弹枪",
+          "name": "晨鹰飓风爆弹枪",
           "type": "ranged",
           "attacks": "3",
           "skill": "2+",
@@ -430,7 +478,18 @@
           ]
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "骑乘",
+        "人物",
+        "飞行",
+        "帝国",
+        "晨鹰摩托",
+        "盾卫连长"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.07",
@@ -452,7 +511,7 @@
         "leadership": "6+",
         "objectiveControl": 2,
         "abilities": "深入打击；禁军武艺",
-        "activeAbilities": "坚守阵地（按数据卡选择）",
+        "activeAbilities": "保持警戒；枪林弹雨；守护之盾；禁军鹰旗",
         "defaultEquipment": "卫士之矛"
       },
       "weapons": [
@@ -512,11 +571,20 @@
           "abilities": []
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "步兵",
+        "战线",
+        "帝国",
+        "禁军盾卫"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.08",
-      "name": "阿拉鲁斯终结者",
+      "name": "阿拉琉斯终结者",
       "page": 21,
       "source": {
         "file": "帝皇禁军10版中文老湿腐版1.07.pdf",
@@ -524,7 +592,7 @@
         "extraction": "Manually verified against original PDF table"
       },
       "unit": {
-        "name": "阿拉鲁斯终结者",
+        "name": "阿拉琉斯终结者",
         "movement": 5,
         "toughness": 7,
         "save": 2,
@@ -583,7 +651,7 @@
           "abilities": []
         },
         {
-          "name": "强势榴弹发射器",
+          "name": "强弩榴弹发射器",
           "type": "ranged",
           "attacks": "d6",
           "skill": "2+",
@@ -605,7 +673,16 @@
           "abilities": []
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "步兵",
+        "帝国",
+        "终结者",
+        "阿拉琉斯终结者"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.09",
@@ -627,7 +704,7 @@
         "leadership": "6+",
         "objectiveControl": 2,
         "abilities": "深入打击；禁军武艺；坚定意志",
-        "activeAbilities": "坚守阵地（按数据卡选择）",
+        "activeAbilities": "坚定意志；人形要塞；禁军鹰旗",
         "defaultEquipment": "卫士之矛"
       },
       "weapons": [
@@ -676,7 +753,15 @@
           "abilities": []
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "步兵",
+        "帝国",
+        "禁军守望者"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.10",
@@ -697,13 +782,13 @@
         "models": 2,
         "leadership": "6+",
         "objectiveControl": 2,
-        "abilities": "禁军武艺",
+        "abilities": "禁军武艺；炫光击杀",
         "activeAbilities": "涡轮加速（本单位加速时）",
         "defaultEquipment": "晨鹰风暴爆弹枪"
       },
       "weapons": [
         {
-          "name": "晨鹰风暴爆弹枪",
+          "name": "晨鹰飓风爆弹枪",
           "type": "ranged",
           "attacks": "3",
           "skill": "2+",
@@ -740,7 +825,16 @@
           ]
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "骑乘",
+        "飞行",
+        "帝国",
+        "晨鹰摩托队"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.11",
@@ -761,8 +855,8 @@
         "models": 1,
         "leadership": "6+",
         "objectiveControl": 3,
-        "abilities": "致命破坏；无畏机甲协议",
-        "activeAbilities": "自动修复（每回合一次）",
+        "abilities": "致命破灭1；禁军武艺；不倒旗帜",
+        "activeAbilities": "",
         "defaultEquipment": ""
       },
       "weapons": [
@@ -779,7 +873,7 @@
           ]
         },
         {
-          "name": "可瑞斯斩击炮",
+          "name": "凯瑞斯突击炮",
           "type": "ranged",
           "attacks": "6",
           "skill": "2+",
@@ -813,7 +907,16 @@
           "abilities": []
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "载具",
+        "机甲",
+        "帝国",
+        "神圣蔑视者无畏机甲"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.12",
@@ -834,8 +937,8 @@
         "models": 1,
         "leadership": "6+",
         "objectiveControl": 5,
-        "abilities": "致命破坏；坚固装甲",
-        "activeAbilities": "自动修复（每回合一次）",
+        "abilities": "致命破灭D6；禁军武艺；突击载具；严重损伤",
+        "activeAbilities": "",
         "defaultEquipment": ""
       },
       "weapons": [
@@ -897,11 +1000,21 @@
           "abilities": []
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "载具",
+        "烟雾弹",
+        "运输工具",
+        "帝国",
+        "神圣兰德掠袭者坦克"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.13",
-      "name": "灭魔教团百夫长",
+      "name": "灭魔教团百骑长",
       "page": 27,
       "source": {
         "file": "帝皇禁军10版中文老湿腐版1.07.pdf",
@@ -909,7 +1022,7 @@
         "extraction": "Manually verified against original PDF table"
       },
       "unit": {
-        "name": "灭魔教团百夫长",
+        "name": "灭魔教团百骑长",
         "movement": 6,
         "toughness": 3,
         "save": 3,
@@ -918,8 +1031,8 @@
         "models": 1,
         "leadership": "6+",
         "objectiveControl": 1,
-        "abilities": "领袖；扩候；不知疼痛 5+",
-        "activeAbilities": "处决协议（一次性）",
+        "abilities": "领袖；斥候6；追踪本能；深渊之女；追杀殆尽",
+        "activeAbilities": "",
         "defaultEquipment": ""
       },
       "weapons": [
@@ -944,7 +1057,7 @@
           "ap": 0,
           "damage": "1",
           "abilities": [
-            "torrent"
+            "忽视掩体，喷射"
           ]
         },
         {
@@ -971,7 +1084,17 @@
           ]
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "步兵",
+        "人物",
+        "帝国",
+        "灭魔教团",
+        "百骑长"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.14",
@@ -992,8 +1115,8 @@
         "models": 1,
         "leadership": "6+",
         "objectiveControl": 1,
-        "abilities": "领袖；慰候 6+；不知疼痛 5+",
-        "activeAbilities": "战术洞察（一次性）",
+        "abilities": "领袖；斥候6；不知疼痛5+；战术洞察；深渊之女；坚毅灵魂",
+        "activeAbilities": "",
         "defaultEquipment": ""
       },
       "weapons": [
@@ -1011,7 +1134,18 @@
           ]
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "步兵",
+        "人物",
+        "传奇英雄",
+        "帝国",
+        "灭魔教团",
+        "艾蕾雅"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.15",
@@ -1032,8 +1166,8 @@
         "models": 3,
         "leadership": "6+",
         "objectiveControl": 2,
-        "abilities": "净化处决；拥有精准和毁灭性伤口",
-        "activeAbilities": "灵能猎杀（条件性）",
+        "abilities": "净化处决；拥有精准和毁灭性伤口；深渊之女",
+        "activeAbilities": "",
         "defaultEquipment": ""
       },
       "modelProfiles": [
@@ -1041,7 +1175,9 @@
           "id": "champion",
           "name": "静修女队长",
           "role": "队长",
-          "matchIncludes": ["队长"],
+          "matchIncludes": [
+            "队长"
+          ],
           "count": 1,
           "defaultEquipment": "爆弹枪，格斗武器"
         },
@@ -1077,11 +1213,20 @@
           "abilities": []
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "步兵",
+        "帝国",
+        "灭魔教团",
+        "控诉者"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.16",
-      "name": "戒卫者",
+      "name": "警戒者",
       "page": 30,
       "source": {
         "file": "帝皇禁军10版中文老湿腐版1.07.pdf",
@@ -1089,17 +1234,17 @@
         "extraction": "Manually verified against original PDF table"
       },
       "unit": {
-        "name": "戒卫者",
+        "name": "警戒者",
         "movement": 6,
         "toughness": 3,
         "save": 3,
         "invulnerableSave": 0,
         "woundsPerModel": 1,
-        "models": 3,
+        "models": 4,
         "leadership": "6+",
         "objectiveControl": 1,
-        "abilities": "迅捷格挡；深沉之女",
-        "activeAbilities": "反灵能者姿态（条件性）",
+        "abilities": "迅捷格挡；深渊之女",
+        "activeAbilities": "",
         "defaultEquipment": ""
       },
       "modelProfiles": [
@@ -1107,7 +1252,9 @@
           "id": "champion",
           "name": "宁静修女队长",
           "role": "队长",
-          "matchIncludes": ["队长"],
+          "matchIncludes": [
+            "队长"
+          ],
           "count": 1,
           "defaultEquipment": "处决者巨剑"
         },
@@ -1134,7 +1281,16 @@
           ]
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "步兵",
+        "帝国",
+        "灭魔教团",
+        "警戒者"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.17",
@@ -1155,8 +1311,8 @@
         "models": 3,
         "leadership": "6+",
         "objectiveControl": 1,
-        "abilities": "斥候 6；猎巫者",
-        "activeAbilities": "利刃烈焰（条件性）",
+        "abilities": "斥候6；制裁烈焰；深渊之女",
+        "activeAbilities": "制裁烈焰",
         "defaultEquipment": ""
       },
       "modelProfiles": [
@@ -1164,7 +1320,9 @@
           "id": "champion",
           "name": "净洁修女队长",
           "role": "队长",
-          "matchIncludes": ["队长"],
+          "matchIncludes": [
+            "队长"
+          ],
           "count": 1,
           "defaultEquipment": "猎巫喷火器，格斗武器"
         },
@@ -1186,7 +1344,7 @@
           "ap": 0,
           "damage": "1",
           "abilities": [
-            "torrent"
+            "忽视掩体，喷射"
           ]
         },
         {
@@ -1200,7 +1358,16 @@
           "abilities": []
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "步兵",
+        "帝国",
+        "灭魔教团",
+        "猎巫者"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.18",
@@ -1221,8 +1388,8 @@
         "models": 1,
         "leadership": "6+",
         "objectiveControl": 2,
-        "abilities": "致命破坏；自行修理",
-        "activeAbilities": "烟幕（一次性）",
+        "abilities": "致命破灭D3；开火口2；自行修理；深渊之女",
+        "activeAbilities": "",
         "defaultEquipment": ""
       },
       "weapons": [
@@ -1261,7 +1428,19 @@
           "abilities": []
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "keywords": [
+        "载具",
+        "运输工具",
+        "专属运输",
+        "烟雾弹",
+        "帝国",
+        "灭魔教团",
+        "犀牛装甲车"
+      ],
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     },
     {
       "id": "custodes.profile.19",
@@ -1322,47 +1501,10 @@
           "abilities": []
         }
       ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
-    },
-    {
-      "id": "custodes.profile.20",
-      "name": "警戒者",
-      "page": null,
-      "source": {
-        "file": "帝皇禁军10版中文老湿腐版1.07.pdf",
-        "page": null,
-        "extraction": "Historical manual verification; source page pending"
-      },
-      "unit": {
-        "name": "警戒者",
-        "movement": 6,
-        "toughness": 3,
-        "save": 3,
-        "invulnerableSave": 0,
-        "woundsPerModel": 1,
-        "models": 4,
-        "leadership": "6+",
-        "objectiveControl": 1,
-        "abilities": "迅捷格挡；深沉之女",
-        "activeAbilities": "反灵能者姿态（条件性）",
-        "defaultEquipment": "处决者巨剑"
-      },
-      "weapons": [
-        {
-          "name": "处决者巨剑",
-          "type": "melee",
-          "attacks": "2",
-          "skill": "3+",
-          "strength": 5,
-          "ap": -2,
-          "damage": "2",
-          "abilities": [
-            "反灵能者 5+",
-            "毁灭性伤口"
-          ]
-        }
-      ],
-      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js."
+      "verification": "Stats, model count, weapons, and default equipment were manually checked against the original card; rules live in rules/custodes.js.",
+      "factionKeywords": [
+        "帝皇禁军"
+      ]
     }
   ]
 }

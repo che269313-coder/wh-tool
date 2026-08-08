@@ -2,8 +2,6 @@ const STORAGE_KEY = "warhammer-tactical-assistant-settings";
 const DB_NAME = "warhammer-tactical-assistant-v1";
 const DB_STORE = "library";
 const ROSTER_STORAGE_KEY = "warhammer-tactical-assistant-rosters-v2";
-const FIXED_CALCULATOR_ENDPOINT = "https://wathammer.com/simulate-round";
-const FIXED_CALCULATOR_PAGE = "https://wathammer.com/round";
 const BUILTIN_LIBRARY_FILES = [
   "data/规则书/核心规则-可检索.md",
   "data/规则书/分遣队速查-可检索.md",
@@ -68,7 +66,7 @@ const state = {
   calculatorPickerSearch: { attacker: [""], defender: [""] },
   calculatorPickerOpen: { attacker: [false], defender: [false] },
   calculatorDrafts: { attacker: [], defender: [] },
-  externalCalculatorEnabled: true,
+  
   attackMode: "ranged",
 };
 
@@ -86,8 +84,8 @@ const DATASHEET_JSON_FILES = {
 const DATASHEET_ALIASES = {
   "帝皇禁军": {
     "盾卫连长(主将)": ["盾卫连长"],
-    "阿拉琉斯终结者": ["阿拉鲁斯终结者"],
-    "警戒者": ["戒卫者"],
+    "阿拉鲁斯终结者": ["阿拉琉斯终结者"],
+    "戒卫者": ["警戒者"],
   },
   "白色疤痕": {
     "苏博登可汗(主将)": ["速不台可汗"],
@@ -456,10 +454,6 @@ $("#calculatorAttackMode")?.addEventListener("change", (event) => {
   state.attackMode = event.target.value;
   $("#calcNote").textContent = `已选择${state.attackMode === "ranged" ? "远程射击" : "近战"}；请确认双方后开始计算。`;
   renderCalculatorDetails();
-});
-$("#enableExternalCalc")?.addEventListener("change", (event) => {
-  state.externalCalculatorEnabled = event.target.checked;
-  $("#runExternalCalc").disabled = !state.externalCalculatorEnabled;
 });
 
 function getCalculatorEntry(side, selectionKey = null) {
@@ -904,9 +898,11 @@ function defenderWoundModifierForDisplay(attackerStrength, defenderToughness) {
       incomingWoundWhenStrengthGreater: Math.min(result.incomingWoundWhenStrengthGreater, Number(defend.incomingWoundWhenStrengthGreater || 0)),
       incomingWoundWhenStrengthGreaterOrEqual: Math.min(result.incomingWoundWhenStrengthGreaterOrEqual, Number(defend.incomingWoundWhenStrengthGreaterOrEqual || 0)),
     }), { incomingWoundModifier: 0, incomingWoundWhenStrengthGreater: 0, incomingWoundWhenStrengthGreaterOrEqual: 0 });
-  const conditional = attackerStrength >= defenderToughness
-    ? effects.incomingWoundWhenStrengthGreaterOrEqual
-    : (attackerStrength > defenderToughness ? effects.incomingWoundWhenStrengthGreater : 0);
+  const conditional = attackerStrength > defenderToughness
+    ? (effects.incomingWoundWhenStrengthGreater < 0
+      ? effects.incomingWoundWhenStrengthGreater
+      : effects.incomingWoundWhenStrengthGreaterOrEqual)
+    : (attackerStrength === defenderToughness ? effects.incomingWoundWhenStrengthGreaterOrEqual : 0);
   return effects.incomingWoundModifier + conditional;
 }
 
@@ -1110,10 +1106,12 @@ function resolvedRuleEffects(draft, unitName, overrides = {}) {
       ...(defender?.data?.keywords || []),
     ].map((keyword) => String(keyword).trim().toLowerCase()));
     const targetMonsterVehicle = ["凶兽", "巨兽", "monster", "载具", "vehicle"].some((keyword) => targetKeywords.has(keyword));
+    const targetInfantry = ["步兵", "infantry"].some((keyword) => targetKeywords.has(keyword));
     const rules = window.WarhammerRuleResolver.rulesForUnit(draft.entry?.faction, unitName).unit || [];
     rules.forEach((rule) => {
       const effects = Array.isArray(rule.effects) ? rule.effects : (rule.effect ? [rule.effect] : []);
       if (effects.some((effect) => effect.requiresTargetMonsterVehicle)) selections[`${rule.id}.targetMonsterVehicle`] = targetMonsterVehicle;
+      if (effects.some((effect) => effect.requiresTargetInfantry)) selections[`${rule.id}.targetInfantry`] = targetInfantry;
     });
   }
   return window.WarhammerRuleResolver.resolveUnit(
@@ -1145,9 +1143,11 @@ function defenderEffectsFromUnit(unit, draft, unitName) {
     effects.feelNoPainMortalEnabled = true;
     effects.feelNoPainMortalThreshold = defend.feelNoPainMortal;
   }
+  if (defend.leaderFeelNoPain) effects.leaderFeelNoPain = defend.leaderFeelNoPain;
   if (defend.damageOverride) effects.damageOverride = defend.damageOverride;
   if (defend.damageMultiplier) effects.damageMultiplier = defend.damageMultiplier;
   if (defend.invulnerableSave) effects.ruleInvulnerableSave = defend.invulnerableSave;
+  if (defend.saveBonusVsDamage1) effects.saveBonusVsDamage1 = true;
   return effects;
 }
 
@@ -1193,7 +1193,7 @@ function buildDefenderGroups(defender, draft, attackerFactionEffects = {}) {
       modelCount: activeModels(unit).length,
       ruleName: unit.name,
     }));
-  return members.map((member) => {
+  const grouped = members.map((member) => {
     const roleText = String(member.parentRole || member.role || "");
     const isLeader = /角色|领导|主将|领袖|character|leader/i.test(roleText) && !/护卫/.test(roleText);
     const isGuard = /护卫|bodyguard|普通队员/i.test(roleText);
@@ -1204,9 +1204,24 @@ function buildDefenderGroups(defender, draft, attackerFactionEffects = {}) {
       save: Math.max(2, Number(member.unit?.save || 7) + Number(attackerFactionEffects.targetSaveModifier || 0)),
       invulnerableSave: Number(member.unit?.invulnerableSave || 0),
       allocationOrder: isGuard && !isLeader ? 1 : 2,
+      isLeader,
       effects: defenderEffectsFromUnit(member.unit, draft, member.ruleName || member.name),
     };
-  }).sort((a, b) => a.allocationOrder - b.allocationOrder);
+  });
+  return grouped.map((group) => {
+    // leader-fnp: a bodyguard rule that grants 不知疼痛 to the leading
+    // character (e.g. 死亡寿衣 · 无声护卫) must land on the leader group.
+    if (!group.isLeader) return group;
+    const threshold = grouped
+      .filter((candidate) => !candidate.isLeader)
+      .reduce((result, candidate) => {
+        const value = candidate.effects.leaderFeelNoPain || 0;
+        return result ? Math.min(result, value) : value;
+      }, 0);
+    if (!threshold) return group;
+    const effects = { ...group.effects, feelNoPainEnabled: true, feelNoPainThreshold: threshold };
+    return { ...group, effects };
+  }).map(({ isLeader, ...group }) => group).sort((a, b) => a.allocationOrder - b.allocationOrder);
 }
 
 function buildMultiSelectedRoundPayload(attackerKeys, defenderKeys) {
@@ -1273,7 +1288,6 @@ function buildSelectedRoundPayload() {
   const attackerFactionEffects = resolvedFactionEffects(attackerDraft).attack || {};
   const defenderFactionResolved = resolvedFactionEffects(defenderDraft);
   const defenderFactionEffects = defenderFactionResolved.attack || {};
-  const toughness = Math.max(1, Number(defenderUnit.toughness || 0) + Number(attackerFactionEffects.targetToughnessModifier || 0));
   const defenderFactionHitModifier = window.WarhammerRuleEffects?.defenderAttackModifiers
     ? Number(window.WarhammerRuleEffects.defenderAttackModifiers(defenderFactionResolved, state.attackMode).hitModifier || 0)
     : (state.attackMode === "melee" ? Number(defenderFactionEffects.targetMeleeHitModifier || 0) : 0);
@@ -1285,7 +1299,8 @@ function buildSelectedRoundPayload() {
       incomingWoundModifier: Math.min(result.incomingWoundModifier, Number(effects.incomingWoundModifier || 0)),
       incomingWoundWhenStrengthGreater: Math.min(result.incomingWoundWhenStrengthGreater, Number(effects.incomingWoundWhenStrengthGreater || 0)),
       incomingWoundWhenStrengthGreaterOrEqual: Math.min(result.incomingWoundWhenStrengthGreaterOrEqual, Number(effects.incomingWoundWhenStrengthGreaterOrEqual || 0)),
-    }), { incomingApModifier: 0, incomingHitModifier: 0, incomingWoundModifier: 0, incomingWoundWhenStrengthGreater: 0, incomingWoundWhenStrengthGreaterOrEqual: 0 });
+      hitCriticalThreshold: Math.max(result.hitCriticalThreshold, Number(effects.hitCriticalThreshold || 0)),
+    }), { incomingApModifier: 0, incomingHitModifier: 0, incomingWoundModifier: 0, incomingWoundWhenStrengthGreater: 0, incomingWoundWhenStrengthGreaterOrEqual: 0, hitCriticalThreshold: 0 });
   const attackerSources = attackerDraft.joinedMembers?.length
     ? attackerDraft.joinedMembers.map((member) => member.id === attacker.rosterUnit?.id
       ? {
@@ -1318,9 +1333,13 @@ function buildSelectedRoundPayload() {
     strengthModifier: result.strengthModifier + Number(entry.effects.strengthModifier || 0),
     apModifier: result.apModifier + Number(entry.effects.apModifier || 0),
     damageModifier: result.damageModifier + Number(entry.effects.damageModifier || 0),
+    damageReroll: result.damageReroll || Boolean(entry.effects.damageReroll),
+    targetToughnessModifier: result.targetToughnessModifier + Number(entry.effects.targetToughnessModifier || 0),
+    oathTargetHitModifier: result.oathTargetHitModifier + Number(entry.effects.oathTargetHitModifier || 0),
     ignoreHitModifiers: result.ignoreHitModifiers || Boolean(entry.effects.ignoreHitModifiers),
     martialChoices: [...new Set([...result.martialChoices, ...(entry.effects.martialChoices || [])])],
-  }), { hitModifier: 0, woundModifier: 0, hitReroll: null, sustainedHits: 0, lethalHits: false, devastating: false, attackModifier: 0, strengthModifier: 0, apModifier: 0, damageModifier: 0, ignoreHitModifiers: false, martialChoices: [] });
+  }), { hitModifier: 0, woundModifier: 0, hitReroll: null, sustainedHits: 0, lethalHits: false, devastating: false, attackModifier: 0, strengthModifier: 0, apModifier: 0, damageModifier: 0, damageReroll: false, targetToughnessModifier: 0, oathTargetHitModifier: 0, ignoreHitModifiers: false, martialChoices: [] });
+  const toughness = Math.max(1, Number(defenderUnit.toughness || 0) + Number(attackerFactionEffects.targetToughnessModifier || 0) + Number(sharedJoinedRules.targetToughnessModifier || 0));
   const weaponGroups = attackerSources.flatMap((source) => {
     const sourceRules = sourceRuleEntries.find((entry) => entry.source === source)?.effects || {};
     const sourceKey = !attackerDraft.joinedMembers.length || (source.id && source.id === attacker.rosterUnit?.id) ? "unit" : `member-${attackerDraft.joinedMembers.indexOf(source)}`;
@@ -1337,11 +1356,15 @@ function buildSelectedRoundPayload() {
         : (Number(sourceRules.attackModifier || sharedJoinedRules.attackModifier || 0) && Number.isFinite(Number(weapon.attacks))
           ? String(Number(weapon.attacks) + Number(sourceRules.attackModifier || sharedJoinedRules.attackModifier || 0))
           : weapon.attacks);
-      const hitModifier = sharedJoinedRules.hitModifier + (sharedJoinedRules.ignoreHitModifiers ? 0 : defenderFactionHitModifier + defenderRuleEffects.incomingHitModifier);
+      const hitModifier = sharedJoinedRules.hitModifier
+        + Number(sourceRules.oathTargetHitModifier || sharedJoinedRules.oathTargetHitModifier || 0)
+        + (sharedJoinedRules.ignoreHitModifiers ? 0 : defenderFactionHitModifier + defenderRuleEffects.incomingHitModifier);
       const effectiveStrength = Number(weapon.strength || 0) + Number(sourceRules.strengthModifier || sharedJoinedRules.strengthModifier || 0);
-      const conditionalWoundModifier = effectiveStrength >= toughness
-        ? defenderRuleEffects.incomingWoundWhenStrengthGreaterOrEqual
-        : (effectiveStrength > toughness ? defenderRuleEffects.incomingWoundWhenStrengthGreater : 0);
+      const conditionalWoundModifier = effectiveStrength > toughness
+        ? (defenderRuleEffects.incomingWoundWhenStrengthGreater < 0
+          ? defenderRuleEffects.incomingWoundWhenStrengthGreater
+          : defenderRuleEffects.incomingWoundWhenStrengthGreaterOrEqual)
+        : (effectiveStrength === toughness ? defenderRuleEffects.incomingWoundWhenStrengthGreaterOrEqual : 0);
       const woundModifier = sharedJoinedRules.woundModifier + defenderRuleEffects.incomingWoundModifier + conditionalWoundModifier;
       const hitThreshold = isTorrentWeapon(weapon) ? 7 : parseSkill(weapon.skill);
       const woundThreshold = woundTarget(effectiveStrength, toughness);
@@ -1366,7 +1389,7 @@ function buildSelectedRoundPayload() {
         wound: woundThreshold,
         ap: Math.max(0, Math.abs(Number(weapon.ap || 0)) + Number(sourceRules.apModifier || sharedJoinedRules.apModifier || 0) + defenderRuleEffects.incomingApModifier),
         damage: modifyDamageExpression(weapon.damage, Number(sourceRules.damageModifier || sharedJoinedRules.damageModifier || 0)),
-        effects: weaponEffectsFromKeywords(weapon, martialKatah, { ...oathOfMoment, hitReroll: effectiveHitReroll }, { ...sourceRules, sustainedHits: sharedJoinedRules.sustainedHits, lethalHits: sharedJoinedRules.lethalHits, devastating: sharedJoinedRules.devastating, woundReroll: guardReroll.type, woundRerollValues: guardReroll.values }, { hitModifier, woundModifier, targetKeywords: [...(defenderData.factionKeywords || []), ...(defenderData.keywords || [])] }),
+        effects: weaponEffectsFromKeywords(weapon, martialKatah, { ...oathOfMoment, hitReroll: effectiveHitReroll }, { ...sourceRules, sustainedHits: sharedJoinedRules.sustainedHits, lethalHits: sharedJoinedRules.lethalHits, devastating: sharedJoinedRules.devastating, damageReroll: Boolean(sourceRules.damageReroll || sharedJoinedRules.damageReroll), woundReroll: guardReroll.type, woundRerollValues: guardReroll.values }, { hitModifier, woundModifier, criticalHitThreshold: defenderRuleEffects.hitCriticalThreshold, targetKeywords: [...(defenderData.factionKeywords || []), ...(defenderData.keywords || [])] }),
       };
     });
     return sourceRules.repeatRanged ? [...groups, ...groups.map((group) => ({ ...group, name: `${group.name}（枪林弹雨）` }))] : groups;
@@ -2070,6 +2093,7 @@ function emptyDefenderEffects() {
     saveRerollFixedEnabled: false, saveRerollFixedAmount: 1, saveRerollFixedType: "ones", saveRerollFixedValues: [],
     saveRerollAllEnabled: false, saveRerollAllType: "ones", saveRerollAllValues: [], feelNoPainEnabled: false,
     feelNoPainThreshold: 6, feelNoPainMortalEnabled: false, feelNoPainMortalThreshold: 6, damageOverride: 0, damageMultiplier: 1, ruleInvulnerableSave: 0, oneUseInvulnerableEnabled: false, oneUseInvulnerableSave: 2,
+    leaderFeelNoPain: 0, saveBonusVsDamage1: false,
   };
 }
 
@@ -2088,10 +2112,11 @@ function weaponEffectsFromKeywords(weapon, martialKatah = [], oathOfMoment = {},
     const aliases = {
       infantry: ["步兵", "infantry"], vehicle: ["载具", "vehicle"], monster: ["巨兽", "凶兽", "monster"],
       character: ["人物", "character"], fortification: ["工事", "fortification"], titanic: ["泰坦级", "titanic"],
+      flying: ["飞行", "flying"], psyker: ["灵能者", "灵能", "psyker"],
     };
     return (aliases[keyword] || [keyword]).some((candidate) => targetKeywords.has(candidate));
   };
-  const antiKeyword = [...keywords.matchAll(/反(步兵|载具|巨兽|工事|泰坦级)\s*([2-6])\+|anti[- ]?(infantry|vehicle|monster|fortification|titanic)\s*([2-6])\+/gi)]
+  const antiKeyword = [...keywords.matchAll(/反(步兵|载具|巨兽|工事|泰坦级|飞行|灵能者)\s*([2-6])\+|anti[- ]?(infantry|vehicle|monster|fortification|titanic|flying|psyker)\s*([2-6])\+/gi)]
     .find((match) => targetHasKeyword(String(match[1] || match[3]).toLowerCase()));
   const criticalWoundThreshold = antiKeyword ? Number(antiKeyword[2] || antiKeyword[4]) : 6;
   const hasTwinLinked = /双联|twin-?linked/i.test(keywords);
@@ -2113,7 +2138,11 @@ function weaponEffectsFromKeywords(weapon, martialKatah = [], oathOfMoment = {},
     sustainedHitsValue: sustainedValue,
     lethalHitsEnabled: hasLethal || martialChoices.includes("lethal"),
     devastatingWoundsEnabled: hasDevastating || Boolean(ruleEffects.devastating),
-    criticalWoundThreshold,
+    hitCriticalEnabled: Boolean(modifiers.criticalHitThreshold || ruleEffects.hitCriticalThreshold) || criticalWoundThreshold < 6,
+    criticalHitThreshold: Math.min(criticalWoundThreshold, Number(modifiers.criticalHitThreshold || ruleEffects.hitCriticalThreshold || 6)),
+    damageRerollEnabled: Boolean(ruleEffects.damageReroll),
+    damageRerollType: "ones",
+    damageRerollAmount: "all",
     woundRerollAllEnabled: hasTwinLinked || Boolean(ruleWoundReroll),
     woundRerollAllType: ruleWoundReroll || "failed",
     woundRerollAllValues: ruleWoundRerollValues,
@@ -2124,75 +2153,6 @@ function buildExternalRoundPayload() {
   const payload = buildSelectedRoundPayload();
   payload.simulations = 1000;
   return payload;
-}
-
-function calculatorEndpointError(endpoint) {
-  try {
-    const target = new URL(endpoint, window.location.href);
-    const current = new URL(window.location.href);
-    if (target.hostname === "wathammer.com" && target.origin !== current.origin) {
-      return `GitHub Pages 不能直接读取固定 Wathammer 接口（服务器未开放跨域）。请点击页面中的“在手机上打开 Wathammer 外部计算页”：${FIXED_CALCULATOR_PAGE}`;
-    }
-  } catch {
-    return "外部计算器地址格式不正确";
-  }
-  return "外部计算器请求失败";
-}
-
-async function runExternalCalculator() {
-  if (!state.externalCalculatorEnabled) throw new Error("外部基准已关闭，请先勾选“启用固定外部基准”");
-  const endpoint = FIXED_CALCULATOR_ENDPOINT;
-  const directError = calculatorEndpointError(endpoint);
-  if (directError.includes("GitHub Pages")) {
-    const opened = typeof window.open === "function" ? window.open(FIXED_CALCULATOR_PAGE, "_blank", "noopener,noreferrer") : null;
-    const message = opened ? "已打开固定 Wathammer 外部计算页，请在该页面完成计算。" : `浏览器未能自动打开外部页面，请点击固定链接：${FIXED_CALCULATOR_PAGE}`;
-    $("#externalNote").textContent = message;
-    return { opened: Boolean(opened), averageDamage: null, averageKills: null, chanceDelta: null, damageDelta: null };
-  }
-  const payload = buildExternalRoundPayload();
-  const requiredModels = payload.defenderGroups.reduce((sum, group) => sum + Math.max(0, Number(group.modelCount || 0)), 0) || 1;
-  const response = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-  const contentType = response.headers?.get?.("content-type") || "";
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`${response.status || "请求失败"} ${text.slice(0, 240) || calculatorEndpointError(endpoint)}`);
-  }
-  if (!contentType.includes("json")) {
-    const text = await response.text();
-    throw new Error(`外部计算器返回的不是 JSON（${contentType || "无 Content-Type"}）：${text.slice(0, 180)}`);
-  }
-  const data = await response.json();
-  const summary = data.roundSummary || {};
-  const weapons = summary.weaponGroups || [];
-  const histogramAverage = (histogram) => {
-    if (!histogram?.x?.length || !histogram?.y?.length) return null;
-    const total = Number(histogram.total || data.total || histogram.y.reduce((sum, value) => sum + Number(value || 0), 0));
-    return histogram.x.reduce((sum, value, index) => sum + Number(value) * Number(histogram.y[index] || 0), 0) / total;
-  };
-  const histogramKillChance = (histogram, threshold = 1) => {
-    if (!histogram?.x?.length || !histogram?.y?.length) return null;
-    const total = Number(histogram.total || data.total || histogram.y.reduce((sum, value) => sum + Number(value || 0), 0));
-    return histogram.x.reduce((sum, value, index) => sum + (Number(value) >= threshold ? Number(histogram.y[index] || 0) : 0), 0) / total;
-  };
-  const averageDamage = histogramAverage(data.totalDamage) ?? weapons.reduce((sum, group) => sum + Number(group.averageDamage || 0), 0);
-  const averageHits = histogramAverage(data.hit) ?? weapons.reduce((sum, group) => sum + Number(group.averageHits || 0), 0);
-  const averageWounds = histogramAverage(data.wound) ?? weapons.reduce((sum, group) => sum + Number(group.averageWounds || 0), 0);
-  const averageKills = histogramKillChance(data.kills, requiredModels);
-  if (averageKills === null) {
-    $("#externalChance").textContent = "—";
-    $("#externalDamage").textContent = averageDamage.toFixed(2);
-    $("#externalNote").textContent = "外部结果没有返回完整击杀分布，无法判断整队全歼概率。";
-    return { averageDamage, averageKills: null, chanceDelta: null, damageDelta: null };
-  }
-  $("#externalChance").textContent = `${(averageKills * 100).toFixed(1)}%`;
-  $("#externalDamage").textContent = averageDamage.toFixed(2);
-  const local = state.localCalculation || simulateScenario(1000);
-  const chanceDelta = (local.chance - averageKills) * 100;
-  const damageDelta = local.averageDamage - averageDamage;
-  $("#externalNote").textContent = `1000 次 · ${averageHits.toFixed(2)} 命中 · ${averageWounds.toFixed(2)} 造伤 · 本地偏差 ${chanceDelta >= 0 ? "+" : ""}${chanceDelta.toFixed(1)} 个百分点 / ${damageDelta >= 0 ? "+" : ""}${damageDelta.toFixed(2)} 伤害`;
-  renderHistogram("externalDamageDistribution", null, data.totalDamage, "外部总伤害 ");
-  renderHistogram("externalKillsDistribution", null, data.kills, "外部击杀 ");
-  return { averageDamage, averageKills, chanceDelta, damageDelta };
 }
 
 function renderHistogram(containerId, noteId, histogram, label = "") {
@@ -2260,23 +2220,6 @@ $("#runCalc").addEventListener("click", () => {
     button.disabled = false;
     button.textContent = "模拟 1,000 次";
   }, 30);
-});
-
-$("#runExternalCalc").addEventListener("click", async () => {
-  const button = $("#runExternalCalc");
-  button.disabled = true;
-  button.textContent = "外部计算中…";
-  try {
-    const result = await runExternalCalculator();
-    showToast(result?.opened ? "已打开固定外部计算页" : result?.averageDamage === null ? "请点击固定链接打开外部页面" : "外部基准计算完成");
-  } catch (error) {
-    console.error(error);
-    $("#externalNote").textContent = error.message;
-    showToast("外部计算失败");
-  } finally {
-    button.disabled = false;
-    button.textContent = "外部基准计算";
-  }
 });
 
 function loadSettingsForm() {

@@ -4,7 +4,7 @@
   const custodesNames = new Set(["帝皇禁军", "禁军"]);
   const spaceMarineNames = new Set(["星际战士", "阿斯塔特修会"]);
   const deathGuardNames = new Set(["死亡守卫", "Death Guard"]);
-  const anathemaPsykanaUnits = new Set(["灭魔教团百夫长", "艾雷雅", "控诉者", "戒卫者", "警戒者", "猎巫者", "灭魔教团犀牛装甲车"]);
+  const anathemaPsykanaUnits = new Set(["灭魔教团百骑长", "艾雷雅", "控诉者", "警戒者", "猎巫者", "灭魔教团犀牛装甲车"]);
   const isCustodes = (faction) => custodesNames.has(String(faction || "").trim()) || /禁军/.test(String(faction || ""));
   const isSpaceMarines = (faction) => spaceMarineNames.has(String(faction || "").trim()) || /星际战士|阿斯塔特修会/.test(String(faction || ""));
   const isDeathGuard = (faction) => deathGuardNames.has(String(faction || "").trim()) || /死亡守卫|Death Guard/i.test(String(faction || ""));
@@ -21,8 +21,9 @@
     const data = isCustodesFaction ? catalog() : (isSpaceMarineFaction ? spaceMarineCatalog() : deathGuardCatalog());
     const aliases = {
       "盾卫连长(主将)": "盾卫连长",
-      "阿拉琉斯终结者": "阿拉鲁斯终结者",
-      "警戒者": "警戒者",
+      "阿拉鲁斯终结者": "阿拉琉斯终结者",
+      "灭魔教团百夫长": "灭魔教团百骑长",
+      "戒卫者": "警戒者",
       "带翼恶魔亲王": "有翼纳垢恶魔亲王",
       "死亡守卫带翼恶魔亲王": "有翼纳垢恶魔亲王",
       "恶疾使者": "恶瘟投放者",

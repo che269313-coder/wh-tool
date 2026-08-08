@@ -89,10 +89,10 @@ const spaceMarineDir = fs.readdirSync(dataRoot).find((name) => {
 });
 const spaceMarineFile = fs.readdirSync(path.join(dataRoot, spaceMarineDir)).find((file) => file.endsWith("全部数据卡.json"));
 const spaceMarineData = JSON.parse(fs.readFileSync(path.join(dataRoot, spaceMarineDir, spaceMarineFile), "utf8"));
-const categoryNames = new Set(["传奇英雄人物", "战术小队", "其他步兵", "军表构成", "3", "骑乘", "终结者", "机甲", "载具", "运输载具", "飞行载具", "工事"]);
+const categoryNames = new Set(["传奇英雄人物", "其他步兵", "军表构成", "3", "骑乘", "终结者", "机甲", "载具", "运输载具", "飞行载具", "工事"]);
 const structuredSpaceMarineCards = (spaceMarineData.cards || []).filter((card) => card.unit?.name && !categoryNames.has(card.name) && !String(card.name || "").startsWith("⚫"));
 assert(structuredSpaceMarineCards.every((card) => !String(card.unit.abilities || "").split("⚫").some((segment) => /^\s*】\s*[：:]/.test(segment))), "星际战士技能文本不能残留孤立的 】： 前缀");
-assert(Object.keys(context.WarhammerSpaceMarineRules.unitRules).length === structuredSpaceMarineCards.length && structuredSpaceMarineCards.length === 93, "星际战士规则目录必须覆盖全部 93 个可载入单位");
+assert(Object.keys(context.WarhammerSpaceMarineRules.unitRules).length === structuredSpaceMarineCards.length && structuredSpaceMarineCards.length === 101, "星际战士规则目录必须覆盖全部 101 个可载入单位");
 assert(structuredSpaceMarineCards.every((card) => context.WarhammerSpaceMarineRules.unitRules[card.unit.name]?.length), "每个星际战士单位都必须至少有一条原文技能规则");
 const torrentWeapons = structuredSpaceMarineCards.flatMap((card) => (card.weapons || []).filter((weapon) => (weapon.abilities || []).some((ability) => /喷射|torrent/i.test(String(ability)))));
 assert(torrentWeapons.length > 0 && torrentWeapons.every((weapon) => String(weapon.skill || "").toLowerCase() === "torrent"), "所有带喷射关键词的武器必须标记为自动命中，不能回退为 7+");
@@ -129,8 +129,11 @@ assert(aleyaForcedLeader.attack.hitModifier === 1, "艾雷雅强制按已领导�
 
 const allarus = resolve("帝皇禁军", "阿拉鲁斯终结者", {}, { phase: "melee" });
 const terminatorCaptain = resolve("帝皇禁军", "终结者盾卫连长", {}, { phase: "melee" });
+const allarusTerminators = resolve("帝皇禁军", "阿拉琉斯终结者", {}, { phase: "melee" });
+const vigilators = resolve("帝皇禁军", "警戒者", {}, { phase: "melee" });
 assert(allarus.defend.feelNoPain === 0, "阿拉鲁斯终结者不能被错误赋予不知疼痛");
 assert(terminatorCaptain.defend.feelNoPain === 0, "终结者盾卫连长不能被错误赋予不知疼痛");
+assert(allarusTerminators.defend.feelNoPain === 0 && vigilators.defend.feelNoPain === 0, "阿拉琉斯终结者与警戒者不能被错误赋予不知疼痛");
 
 const spaceMarineRules = context.WarhammerSpaceMarineRules?.unitRules || {};
 const passiveInvulnerableRules = Object.values(spaceMarineRules).flat().filter((rule) =>
@@ -195,6 +198,75 @@ assert(["格斗武器", "精工动力武器", "动力拳"].every((name) => gener
 const neverYieldRule = spaceMarineRules["重装连长"]?.find((rule) => rule.name === "永不屈服");
 const neverYield = resolve(spaceMarineData.faction, "重装连长", {}, { phase: "melee", isJoined: false });
 assert(neverYieldRule?.effects?.some((effect) => effect.type === "damage-halving") && !neverYieldRule.controls?.length && neverYield.defend.damageMultiplier === 0.5, "永不屈服必须作为默认的被分配攻击 D 减半");
+
+// 2026-08 audit regression: previously-missing/incorrect skill implementations
+const kanoCore = spaceMarineRules["卡诺克.瓦"]?.find((rule) => rule.effects?.some((effect) => effect.type === "fnp" && effect.threshold === 5));
+assert(kanoCore && !kanoCore.controls?.length, "卡诺克.瓦核心不知疼痛5+必须默认生效（不觉疼痛）");
+const coldCalculus = spaceMarineRules["卡诺克.瓦"]?.find((rule) => rule.name === "冷酷演算");
+assert(coldCalculus?.effects?.some((effect) => effect.type === "lethal-hits" && effect.requiresTargetMonsterVehicle)
+  && coldCalculus?.effects?.some((effect) => effect.type === "sustained-hits" && effect.unlessTargetMonsterVehicle), "冷酷演算必须按目标类型二选一（巨兽/载具致命一击，其余连击1）");
+for (const priest of ["牧师", "终结者牧师", "摩托牧师", "跳跃背包牧师"]) {
+  const hatred = spaceMarineRules[priest]?.find((rule) => rule.name === "憎恨祷言");
+  assert(hatred?.effects?.some((effect) => effect.type === "wound-modifier" && effect.value === 1), `${priest}憎恨祷言必须提供近战造伤+1`);
+}
+const faith = spaceMarineRules["终结者牧师"]?.find((rule) => rule.name === "信仰护体");
+assert(faith?.effects?.some((effect) => effect.type === "fnp-mortal" && effect.threshold === 4) && !faith?.effects?.some((effect) => effect.type === "fnp"), "信仰护体必须仅对致命伤害提供不知疼痛4+，不能作用于普通伤害");
+assert(spaceMarineRules["生物学药剂师"]?.some((rule) => rule.effects?.some((effect) => effect.type === "lethal-hits")), "手术式精准必须提供致命一击");
+const undying = spaceMarineRules["旗手"]?.find((rule) => rule.name === "不休职责");
+assert(undying?.effects?.some((effect) => effect.type === "fnp" && effect.threshold === 4), "旗手不休职责必须提供条件性不知疼痛4+");
+const honorGuard = spaceMarineRules["常胜荣誉卫队"]?.find((rule) => rule.name === "极限战士荣誉卫队");
+assert(honorGuard?.effects?.some((effect) => effect.type === "incoming-wound-minus"), "极限战士荣誉卫队必须提供被领导时的造伤-1");
+const macragge = spaceMarineRules["常胜荣誉卫队"]?.find((rule) => rule.name === "马库拉格旗帜");
+assert(macragge?.effects?.some((effect) => effect.type === "attack-modifier") && macragge?.effects?.some((effect) => effect.type === "weapon-strength-modifier"), "马库拉格旗帜必须提供近战武器 S 和 A 都+1");
+const stubborn = spaceMarineRules["重装仲裁者小队"]?.find((rule) => rule.name === "拒不屈服");
+assert(stubborn?.effects?.some((effect) => effect.type === "save-bonus-vs-d1"), "拒不屈服必须提供对抗 D1 攻击的护甲+1");
+const closeRange = spaceMarineRules["侵略者小队"]?.find((rule) => rule.name === "近距离火力");
+assert(closeRange?.effects?.some((effect) => effect.type === "weapon-ap-modifier" && effect.value === 1), "近距离火力必须提供 AP+1");
+const totalAnnihilation = spaceMarineRules["根除者小队"]?.find((rule) => rule.name === "完全湮灭");
+assert(totalAnnihilation?.effects?.some((effect) => effect.type === "damage-reroll")
+  && totalAnnihilation.effects.every((effect) => effect.requiresTargetMonsterVehicle), "完全湮灭必须提供对巨兽/载具的命中、造伤和破坏力重投");
+const chainRage = spaceMarineRules["终结者小队"]?.find((rule) => rule.name === "一连之怒");
+assert(chainRage?.effects?.some((effect) => effect.type === "oath-target-hit-modifier" && effect.value === 1), "一连之怒必须提供对破敌重誓目标的命中+1");
+const suppressor = spaceMarineRules["压制者小队"]?.find((rule) => rule.name === "压制火力");
+assert(suppressor?.effects?.some((effect) => effect.type === "incoming-hit-minus" && !effect.phase), "压制火力不能被限定为仅远程");
+const eternalDuty = spaceMarineRules["救赎者型无畏机甲"]?.find((rule) => rule.name === "永恒职责");
+const toughArmor = spaceMarineRules["风暴鸦炮艇"]?.find((rule) => rule.name === "坚韧装甲");
+assert(eternalDuty?.effects?.some((effect) => effect.type === "damage-minus") && toughArmor?.effects?.some((effect) => effect.type === "damage-minus"), "永恒职责/坚韧装甲必须提供破坏力-1");
+const saboteur = spaceMarineRules["破坏者型猎食者坦克"]?.find((rule) => rule.name === "破坏者");
+assert(saboteur?.effects?.some((effect) => effect.type === "ap-vs-infantry" && effect.requiresTargetInfantry), "破坏者必须提供对步兵的 AP+1");
+const annihilator = spaceMarineRules["歼灭者型猎食者坦克"]?.find((rule) => rule.name === "歼灭者");
+assert(annihilator?.effects?.some((effect) => effect.type === "damage-reroll" && effect.requiresTargetMonsterVehicle), "歼灭者必须提供对巨兽/载具的破坏力重投");
+const executioner = spaceMarineRules["处决者型反击者坦克"]?.find((rule) => rule.name === "处决者");
+assert(executioner?.effects?.some((effect) => effect.type === "hit-modifier" && effect.condition === "targetBelowHalf"), "处决者必须提供对低于半数目标的命中+1");
+const porcupine = spaceMarineRules["豪猪装甲车"]?.find((rule) => rule.name === "火力支援");
+assert(porcupine?.effects?.some((effect) => effect.type === "space-wound-reroll") && !porcupine?.effects?.some((effect) => effect.type === "space-hit-reroll"), "豪猪火力支援只能提供造伤重投，不得附带命中重投");
+const heroics = spaceMarineRules["剑卫旗手"]?.find((rule) => rule.name === "英雄伟业");
+assert(heroics?.effects?.some((effect) => effect.type === "attack-modifier") && !heroics?.effects?.some((effect) => effect.requiresJoined), "英雄伟业不得误加 requiresJoined");
+
+// 死亡守卫审计回归
+const dgUnitRules = context.WarhammerDeathGuardRules?.unitRules || {};
+const typhusDefend = resolve("死亡守卫", "泰弗斯", { "death-guard-p25-1.enabled": true, "death-guard-p25-1.forceLeader": true }, { phase: "melee", isJoined: false });
+assert(typhusDefend.defend.incomingHitModifier === -1, "泰弗斯毁灭虫群必须提供近战命中-1");
+assert(dgUnitRules["混沌犀牛战车"]?.find((rule) => rule.name === "火力支援")?.effects?.some((effect) => effect.type === "space-wound-reroll")
+  && !dgUnitRules["混沌犀牛战车"]?.find((rule) => rule.name === "火力支援")?.effects?.some((effect) => effect.type === "space-hit-reroll"), "犀牛火力支援只能提供造伤重投");
+const scribe = dgUnitRules["书记官"]?.find((rule) => rule.name === "恶意计算");
+assert(scribe?.effects?.some((effect) => effect.type === "ignore-hit-modifiers"), "书记官恶意计算必须提供无视命中修正");
+const silent = dgUnitRules["死亡寿衣终结者"]?.find((rule) => rule.name === "无声护卫");
+assert(silent?.effects?.some((effect) => effect.type === "leader-fnp" && effect.threshold === 4) && !silent?.effects?.some((effect) => effect.type === "fnp"), "无声护卫必须把不知疼痛4+授予领导角色而非护卫");
+const malice = dgUnitRules["地狱兽"]?.find((rule) => rule.name === "疫病恶意");
+assert(malice?.effects?.some((effect) => effect.type === "wound-modifier" && effect.requiresTargetInfected), "疫病恶意必须要求目标已感染");
+const virulent = dgUnitRules["大不净者"]?.find((rule) => rule.name === "纳垢之腐（灵能）");
+assert(virulent?.effects?.some((effect) => effect.type === "target-toughness-modifier" && effect.value === -1), "纳垢之腐必须提供目标T-1");
+const poison = dgUnitRules["烂格斯"]?.find((rule) => rule.name === "剧毒赐福（灵能）");
+assert(poison?.effects?.some((effect) => effect.type === "damage-modifier" && effect.value === 1), "剧毒赐福必须提供伤害D+1");
+const trickster = dgUnitRules["纳垢灵"]?.find((rule) => rule.name === "恶作剧制造者");
+assert(trickster?.effects?.some((effect) => effect.type === "incoming-melee-hit-minus") && !trickster?.effects?.some((effect) => effect.type === "hit-modifier"), "恶作剧制造者必须作为防守方修正，不得惩罚纳垢灵自身命中");
+
+// 禁军审计回归
+const aleyaPsychic = resolve("帝皇禁军", "艾雷雅", { "custodes-aleya-deep.psychic": true }, { phase: "melee", isJoined: false });
+const aleyaPlain = resolve("帝皇禁军", "艾雷雅", {}, { phase: "melee", isJoined: false });
+assert(aleyaPlain.defend.feelNoPain === 5 && aleyaPsychic.defend.feelNoPain === 3 && aleyaPsychic.defend.feelNoPainMortal === 3, "深渊之女对灵能攻击必须覆盖为基础不知疼痛3+");
+assert(context.WarhammerCustodesRules.unitRules["警戒者"]?.length && !context.WarhammerCustodesRules.unitRules["戒卫者"], "禁军警戒者/戒卫者重复卡必须合并为警戒者");
 
 const enabledSkullsquirm = context.WarhammerRuleResolver.resolveFaction("死亡守卫", {
   "death-guard-nurgles-gift.enabled": true,

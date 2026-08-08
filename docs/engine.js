@@ -64,6 +64,7 @@
     ruleInvulnerableSave: 0,
     oneUseInvulnerableEnabled: false,
     oneUseInvulnerableSave: 2,
+    saveBonusVsDamage1: false,
   };
 
   const CHART_NAMES = [
@@ -315,8 +316,8 @@
     };
   }
 
-  function getSaveOption(group, model, ap) {
-    const candidates = [{ threshold: number(group.save, 7) + number(ap), kind: "armor" }];
+  function getSaveOption(group, model, ap, armorBonus = 0) {
+    const candidates = [{ threshold: number(group.save, 7) + number(ap) + armorBonus, kind: "armor" }];
     if (number(group.invulnerableSave) > 0) {
       candidates.push({ threshold: number(group.invulnerableSave), kind: "invulnerable" });
     }
@@ -330,8 +331,8 @@
     return candidates[0];
   }
 
-  function resolveSave(group, model, ap, rng) {
-    const option = getSaveOption(group, model, ap);
+  function resolveSave(group, model, ap, rng, armorBonus = 0) {
+    const option = getSaveOption(group, model, ap, armorBonus);
     let value = rollD6(rng);
     let wasFixedRerolled = false;
     const context = {
@@ -482,7 +483,8 @@
     let saved = false;
     let saveResult = null;
     if (!event.mortal) {
-      saveResult = resolveSave(defenderGroup, defenderModel, event.ap, rng);
+      const armorBonus = defenderGroup.effects.saveBonusVsDamage1 && String(event.damage || "").replace(/\s+/g, "") === "1" ? 1 : 0;
+      saveResult = resolveSave(defenderGroup, defenderModel, event.ap, rng, armorBonus);
       saved = saveResult.saved;
     }
     if (saved) return { damage: 0, saved: true, killed: false, saveResult };

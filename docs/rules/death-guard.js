@@ -147,7 +147,27 @@
       "id": "death-guard-p25-1",
       "name": "毁灭虫群",
       "text": "毁灭虫群: 当此模型领导单位时，每次以该单 位为目标的近战攻击命中投掷结果-1",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        },
+        {
+          "id": "forceLeader",
+          "type": "checkbox",
+          "label": "数据卡模式下强行视为已领导单位"
+        }
+      ],
+      "effects": [
+        {
+          "type": "incoming-melee-hit-minus",
+          "value": -1,
+          "phase": "melee",
+          "requiresJoined": true
+        }
+      ],
       "source": {
         "page": 25,
         "source": {
@@ -310,6 +330,13 @@
         {
           "type": "sustained-hits",
           "value": 1,
+          "phase": "melee",
+          "requiresJoined": true
+        },
+        {
+          "type": "weapon-strength-modifier",
+          "value": 1,
+          "phase": "melee",
           "requiresJoined": true
         }
       ],
@@ -393,7 +420,7 @@
       "effects": [
         {
           "type": "space-hit-reroll",
-          "mode": "failed",
+          "mode": "ones",
           "phase": "ranged"
         }
       ],
@@ -600,6 +627,11 @@
         {
           "type": "lethal-hits",
           "requiresJoined": true
+        },
+        {
+          "type": "hit-critical-threshold",
+          "value": 5,
+          "requiresJoined": true
         }
       ],
       "source": {
@@ -689,7 +721,25 @@
       "id": "death-guard-p35-1",
       "name": "恶意计算",
       "text": "恶意计算: 此模型领导单位时，该单位内的模 型无视对攻击的命中骰与武器技能BS/WS的 修正",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        },
+        {
+          "id": "forceLeader",
+          "type": "checkbox",
+          "label": "数据卡模式下强行视为已领导单位"
+        }
+      ],
+      "effects": [
+        {
+          "type": "ignore-hit-modifiers",
+          "requiresJoined": true
+        }
+      ],
       "source": {
         "page": 35,
         "source": {
@@ -747,7 +797,22 @@
       "id": "death-guard-p36-2",
       "name": "感染激化",
       "text": "感染激化: 在近战阶段开始时，选择该模型接 战范围内的一个敌方单位。本阶段内，此模型 攻击该单位时命中5+触发暴击；若该敌方单 位低于其一半的初始数量，则4+触发暴击",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "targetBelowHalf",
+          "type": "checkbox",
+          "label": "目标低于其一半的初始数量"
+        }
+      ],
+      "effects": [
+        {
+          "type": "hit-critical-threshold",
+          "value": 5,
+          "belowHalfValue": 4,
+          "condition": "targetBelowHalf"
+        }
+      ],
       "source": {
         "page": 36,
         "source": {
@@ -963,7 +1028,7 @@
       ],
       "effects": [
         {
-          "type": "fnp",
+          "type": "leader-fnp",
           "threshold": 4,
           "requiresJoined": true
         }
@@ -1221,10 +1286,23 @@
       "name": "疫病恶意",
       "text": "疫病恶意：此模型攻击受【感染】的敌方单位 时，造伤结果+1",
       "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        },
+        {
+          "id": "targetInfected",
+          "type": "checkbox",
+          "label": "目标已感染"
+        }
+      ],
       "effects": [
         {
           "type": "wound-modifier",
-          "value": 1
+          "value": 1,
+          "requiresTargetInfected": true
         }
       ],
       "source": {
@@ -1244,7 +1322,8 @@
       "effects": [
         {
           "type": "attack-modifier",
-          "value": 2
+          "value": 2,
+          "phase": "melee"
         }
       ],
       "source": {
@@ -1326,7 +1405,21 @@
       "id": "death-guard-p51-1",
       "name": "腐蚀疫病之雨",
       "text": "腐蚀疫病之雨：在你的射击阶段，此模型完成 攻击后，选择一个被其攻击命中过的敌方单位 （凶兽与载具除外）。直至该阶段结束，每当 友方死亡守卫单位对该目标进行远程攻击时， 该攻击的装甲穿透值AP+1。同一敌方单位每 阶段仅能受此能力影响一次",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "本次启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "weapon-ap-modifier",
+          "value": 1,
+          "phase": "ranged"
+        }
+      ],
       "source": {
         "page": 51,
         "source": {
@@ -1385,11 +1478,6 @@
         }
       ],
       "effects": [
-        {
-          "type": "space-hit-reroll",
-          "mode": "failed",
-          "phase": "ranged"
-        },
         {
           "type": "space-wound-reroll",
           "mode": "failed",
@@ -1666,7 +1754,13 @@
       "id": "death-guard-p57-3",
       "name": "纳垢之腐（灵能）",
       "text": "纳垢之腐（灵能）：在你的移动阶段结束时， 选择12寸内一个敌方单位，直到下个移动阶 段开始前，该单位陷入腐烂状态。腐烂单位模 型的韧性值T-1",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "target-toughness-modifier",
+          "value": -1
+        }
+      ],
       "source": {
         "page": 57,
         "source": {
@@ -1736,7 +1830,13 @@
       "id": "death-guard-p58-2",
       "name": "剧毒赐福（灵能）",
       "text": "剧毒赐福（灵能）：战斗阶段开始时，选择该 模型24寸内可见的敌方单位。本阶段内，瘟 疫军团单位攻击该单位时伤害值D+1",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "damage-modifier",
+          "value": 1
+        }
+      ],
       "source": {
         "page": 58,
         "source": {
@@ -1817,13 +1917,8 @@
       "status": "计算支持（满足条件时自动计入）",
       "effects": [
         {
-          "type": "hit-modifier",
+          "type": "incoming-melee-hit-minus",
           "value": -1,
-          "phase": "melee"
-        },
-        {
-          "type": "incoming-hit-minus",
-          "value": 1,
           "phase": "melee"
         }
       ],
@@ -1995,11 +2090,6 @@
         }
       ],
       "effects": [
-        {
-          "type": "space-hit-reroll",
-          "mode": "failed",
-          "phase": "ranged"
-        },
         {
           "type": "space-wound-reroll",
           "mode": "failed",
