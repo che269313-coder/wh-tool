@@ -1,0 +1,718 @@
+{
+  "factionId": "adeptus-custodes",
+  "sourceUrl": "https://www.40k.app/factions/adeptus-custodes",
+  "units": [
+    {
+      "slug": "aleya",
+      "name": "Aleya",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/aleya",
+      "identities": [
+        {
+          "id": "adeptus-custodes.aleya.tactical-perception",
+          "factionId": "adeptus-custodes",
+          "scopeId": "aleya",
+          "unitEnglishName": "Aleya",
+          "englishName": "Tactical Perception",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/aleya"
+        },
+        {
+          "id": "adeptus-custodes.aleya.tenacious-spirit",
+          "factionId": "adeptus-custodes",
+          "scopeId": "aleya",
+          "unitEnglishName": "Aleya",
+          "englishName": "Tenacious Spirit",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/aleya"
+        },
+        {
+          "id": "adeptus-custodes.aleya.daughter-of-the-abyss",
+          "factionId": "adeptus-custodes",
+          "scopeId": "aleya",
+          "unitEnglishName": "Aleya",
+          "englishName": "Daughter of the Abyss",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/aleya"
+        }
+      ]
+    },
+    {
+      "slug": "trajann-valoris",
+      "name": "Trajann Valoris",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/trajann-valoris",
+      "identities": [
+        {
+          "id": "adeptus-custodes.trajann-valoris.captain-general",
+          "factionId": "adeptus-custodes",
+          "scopeId": "trajann-valoris",
+          "unitEnglishName": "Trajann Valoris",
+          "englishName": "Captain-General",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/trajann-valoris"
+        },
+        {
+          "id": "adeptus-custodes.trajann-valoris.moment-shackle",
+          "factionId": "adeptus-custodes",
+          "scopeId": "trajann-valoris",
+          "unitEnglishName": "Trajann Valoris",
+          "englishName": "Moment Shackle",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/trajann-valoris"
+        }
+      ]
+    },
+    {
+      "slug": "valerian",
+      "name": "Valerian",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/valerian",
+      "identities": [
+        {
+          "id": "adeptus-custodes.valerian.golden-laurels",
+          "factionId": "adeptus-custodes",
+          "scopeId": "valerian",
+          "unitEnglishName": "Valerian",
+          "englishName": "Golden Laurels",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/valerian"
+        },
+        {
+          "id": "adeptus-custodes.valerian.hero-of-lions-gate",
+          "factionId": "adeptus-custodes",
+          "scopeId": "valerian",
+          "unitEnglishName": "Valerian",
+          "englishName": "Hero of Lion’s Gate",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/valerian"
+        }
+      ]
+    },
+    {
+      "slug": "blade-champion",
+      "name": "Blade Champion",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/blade-champion",
+      "identities": [
+        {
+          "id": "adeptus-custodes.blade-champion.swift-onslaught",
+          "factionId": "adeptus-custodes",
+          "scopeId": "blade-champion",
+          "unitEnglishName": "Blade Champion",
+          "englishName": "Swift Onslaught",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/blade-champion"
+        },
+        {
+          "id": "adeptus-custodes.blade-champion.martial-inspiration",
+          "factionId": "adeptus-custodes",
+          "scopeId": "blade-champion",
+          "unitEnglishName": "Blade Champion",
+          "englishName": "Martial Inspiration",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/blade-champion"
+        }
+      ]
+    },
+    {
+      "slug": "knight-centura",
+      "name": "Knight-Centura",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/knight-centura",
+      "identities": [
+        {
+          "id": "adeptus-custodes.knight-centura.seekers-instincts",
+          "factionId": "adeptus-custodes",
+          "scopeId": "knight-centura",
+          "unitEnglishName": "Knight-Centura",
+          "englishName": "Seeker’s Instincts",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/knight-centura"
+        },
+        {
+          "id": "adeptus-custodes.knight-centura.daughter-of-the-abyss",
+          "factionId": "adeptus-custodes",
+          "scopeId": "knight-centura",
+          "unitEnglishName": "Knight-Centura",
+          "englishName": "Daughter of the Abyss",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/knight-centura"
+        },
+        {
+          "id": "adeptus-custodes.knight-centura.corner-the-quarry",
+          "factionId": "adeptus-custodes",
+          "scopeId": "knight-centura",
+          "unitEnglishName": "Knight-Centura",
+          "englishName": "Corner the Quarry",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/knight-centura"
+        }
+      ]
+    },
+    {
+      "slug": "shield-captain",
+      "name": "Shield-Captain",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/shield-captain",
+      "identities": [
+        {
+          "id": "adeptus-custodes.shield-captain.master-of-the-stances",
+          "factionId": "adeptus-custodes",
+          "scopeId": "shield-captain",
+          "unitEnglishName": "Shield-Captain",
+          "englishName": "Master of the Stances",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/shield-captain"
+        },
+        {
+          "id": "adeptus-custodes.shield-captain.strategic-mastery",
+          "factionId": "adeptus-custodes",
+          "scopeId": "shield-captain",
+          "unitEnglishName": "Shield-Captain",
+          "englishName": "Strategic Mastery",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/shield-captain"
+        }
+      ]
+    },
+    {
+      "slug": "shield-captain-in-allarus-terminator-armour",
+      "name": "Shield-Captain in Allarus Terminator Armour",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/shield-captain-in-allarus-terminator-armour",
+      "identities": [
+        {
+          "id": "adeptus-custodes.shield-captain-in-allarus-terminator-armour.auramite-and-adamantine",
+          "factionId": "adeptus-custodes",
+          "scopeId": "shield-captain-in-allarus-terminator-armour",
+          "unitEnglishName": "Shield-Captain in Allarus Terminator Armour",
+          "englishName": "Auramite and Adamantine",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/shield-captain-in-allarus-terminator-armour"
+        },
+        {
+          "id": "adeptus-custodes.shield-captain-in-allarus-terminator-armour.strategic-mastery",
+          "factionId": "adeptus-custodes",
+          "scopeId": "shield-captain-in-allarus-terminator-armour",
+          "unitEnglishName": "Shield-Captain in Allarus Terminator Armour",
+          "englishName": "Strategic Mastery",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/shield-captain-in-allarus-terminator-armour"
+        }
+      ]
+    },
+    {
+      "slug": "shield-captain-on-dawneagle-jetbike",
+      "name": "Shield-Captain on Dawneagle Jetbike",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/shield-captain-on-dawneagle-jetbike",
+      "identities": [
+        {
+          "id": "adeptus-custodes.shield-captain-on-dawneagle-jetbike.sweeping-advance",
+          "factionId": "adeptus-custodes",
+          "scopeId": "shield-captain-on-dawneagle-jetbike",
+          "unitEnglishName": "Shield-Captain on Dawneagle Jetbike",
+          "englishName": "Sweeping Advance",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/shield-captain-on-dawneagle-jetbike"
+        },
+        {
+          "id": "adeptus-custodes.shield-captain-on-dawneagle-jetbike.strategic-mastery",
+          "factionId": "adeptus-custodes",
+          "scopeId": "shield-captain-on-dawneagle-jetbike",
+          "unitEnglishName": "Shield-Captain on Dawneagle Jetbike",
+          "englishName": "Strategic Mastery",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/shield-captain-on-dawneagle-jetbike"
+        }
+      ]
+    },
+    {
+      "slug": "custodian-guard",
+      "name": "Custodian Guard",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/custodian-guard",
+      "identities": [
+        {
+          "id": "adeptus-custodes.custodian-guard.stand-vigil",
+          "factionId": "adeptus-custodes",
+          "scopeId": "custodian-guard",
+          "unitEnglishName": "Custodian Guard",
+          "englishName": "Stand Vigil",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/custodian-guard"
+        },
+        {
+          "id": "adeptus-custodes.custodian-guard.sentinel-storm",
+          "factionId": "adeptus-custodes",
+          "scopeId": "custodian-guard",
+          "unitEnglishName": "Custodian Guard",
+          "englishName": "Sentinel Storm",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/custodian-guard"
+        }
+      ]
+    },
+    {
+      "slug": "agamatus-custodians",
+      "name": "Agamatus Custodians",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/agamatus-custodians",
+      "identities": [
+        {
+          "id": "adeptus-custodes.agamatus-custodians.turbo-boost",
+          "factionId": "adeptus-custodes",
+          "scopeId": "agamatus-custodians",
+          "unitEnglishName": "Agamatus Custodians",
+          "englishName": "Turbo-boost",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/agamatus-custodians"
+        },
+        {
+          "id": "adeptus-custodes.agamatus-custodians.implacable-vanguard",
+          "factionId": "adeptus-custodes",
+          "scopeId": "agamatus-custodians",
+          "unitEnglishName": "Agamatus Custodians",
+          "englishName": "Implacable Vanguard",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/agamatus-custodians"
+        }
+      ]
+    },
+    {
+      "slug": "vertus-praetors",
+      "name": "Vertus Praetors",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/vertus-praetors",
+      "identities": [
+        {
+          "id": "adeptus-custodes.vertus-praetors.turbo-boost",
+          "factionId": "adeptus-custodes",
+          "scopeId": "vertus-praetors",
+          "unitEnglishName": "Vertus Praetors",
+          "englishName": "Turbo-boost",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/vertus-praetors"
+        },
+        {
+          "id": "adeptus-custodes.vertus-praetors.quicksilver-execution",
+          "factionId": "adeptus-custodes",
+          "scopeId": "vertus-praetors",
+          "unitEnglishName": "Vertus Praetors",
+          "englishName": "Quicksilver Execution",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/vertus-praetors"
+        }
+      ]
+    },
+    {
+      "slug": "allarus-custodians",
+      "name": "Allarus Custodians",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/allarus-custodians",
+      "identities": [
+        {
+          "id": "adeptus-custodes.allarus-custodians.slayers-of-tyrants",
+          "factionId": "adeptus-custodes",
+          "scopeId": "allarus-custodians",
+          "unitEnglishName": "Allarus Custodians",
+          "englishName": "Slayers of Tyrants",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/allarus-custodians"
+        },
+        {
+          "id": "adeptus-custodes.allarus-custodians.from-golden-light",
+          "factionId": "adeptus-custodes",
+          "scopeId": "allarus-custodians",
+          "unitEnglishName": "Allarus Custodians",
+          "englishName": "From Golden Light",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/allarus-custodians"
+        }
+      ]
+    },
+    {
+      "slug": "aquilon-custodians",
+      "name": "Aquilon Custodians",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/aquilon-custodians",
+      "identities": [
+        {
+          "id": "adeptus-custodes.aquilon-custodians.heavy-assault-infantry",
+          "factionId": "adeptus-custodes",
+          "scopeId": "aquilon-custodians",
+          "unitEnglishName": "Aquilon Custodians",
+          "englishName": "Heavy Assault Infantry",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/aquilon-custodians"
+        },
+        {
+          "id": "adeptus-custodes.aquilon-custodians.from-golden-light",
+          "factionId": "adeptus-custodes",
+          "scopeId": "aquilon-custodians",
+          "unitEnglishName": "Aquilon Custodians",
+          "englishName": "From Golden Light",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/aquilon-custodians"
+        }
+      ]
+    },
+    {
+      "slug": "custodian-guard-with-adrasite-and-pyrithite-spears",
+      "name": "Custodian Guard with Adrasite and Pyrithite Spears",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/custodian-guard-with-adrasite-and-pyrithite-spears",
+      "identities": [
+        {
+          "id": "adeptus-custodes.custodian-guard-with-adrasite-and-pyrithite-spears.stand-vigil",
+          "factionId": "adeptus-custodes",
+          "scopeId": "custodian-guard-with-adrasite-and-pyrithite-spears",
+          "unitEnglishName": "Custodian Guard with Adrasite and Pyrithite Spears",
+          "englishName": "Stand Vigil",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/custodian-guard-with-adrasite-and-pyrithite-spears"
+        },
+        {
+          "id": "adeptus-custodes.custodian-guard-with-adrasite-and-pyrithite-spears.no-foe-shall-stand",
+          "factionId": "adeptus-custodes",
+          "scopeId": "custodian-guard-with-adrasite-and-pyrithite-spears",
+          "unitEnglishName": "Custodian Guard with Adrasite and Pyrithite Spears",
+          "englishName": "No Foe Shall Stand",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/custodian-guard-with-adrasite-and-pyrithite-spears"
+        }
+      ]
+    },
+    {
+      "slug": "custodian-wardens",
+      "name": "Custodian Wardens",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/custodian-wardens",
+      "identities": [
+        {
+          "id": "adeptus-custodes.custodian-wardens.resolute-will",
+          "factionId": "adeptus-custodes",
+          "scopeId": "custodian-wardens",
+          "unitEnglishName": "Custodian Wardens",
+          "englishName": "Resolute Will",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/custodian-wardens"
+        },
+        {
+          "id": "adeptus-custodes.custodian-wardens.living-fortress",
+          "factionId": "adeptus-custodes",
+          "scopeId": "custodian-wardens",
+          "unitEnglishName": "Custodian Wardens",
+          "englishName": "Living Fortress",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/custodian-wardens"
+        }
+      ]
+    },
+    {
+      "slug": "prosecutors",
+      "name": "Prosecutors",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/prosecutors",
+      "identities": [
+        {
+          "id": "adeptus-custodes.prosecutors.daughters-of-the-abyss",
+          "factionId": "adeptus-custodes",
+          "scopeId": "prosecutors",
+          "unitEnglishName": "Prosecutors",
+          "englishName": "Daughters of the Abyss",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/prosecutors"
+        },
+        {
+          "id": "adeptus-custodes.prosecutors.purity-of-execution",
+          "factionId": "adeptus-custodes",
+          "scopeId": "prosecutors",
+          "unitEnglishName": "Prosecutors",
+          "englishName": "Purity of Execution",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/prosecutors"
+        }
+      ]
+    },
+    {
+      "slug": "sagittarum-custodians",
+      "name": "Sagittarum Custodians",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/sagittarum-custodians",
+      "identities": [
+        {
+          "id": "adeptus-custodes.sagittarum-custodians.saturation-volleys",
+          "factionId": "adeptus-custodes",
+          "scopeId": "sagittarum-custodians",
+          "unitEnglishName": "Sagittarum Custodians",
+          "englishName": "Saturation Volleys",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/sagittarum-custodians"
+        },
+        {
+          "id": "adeptus-custodes.sagittarum-custodians.disintegration-beams",
+          "factionId": "adeptus-custodes",
+          "scopeId": "sagittarum-custodians",
+          "unitEnglishName": "Sagittarum Custodians",
+          "englishName": "Disintegration Beams",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/sagittarum-custodians"
+        }
+      ]
+    },
+    {
+      "slug": "venatari-custodians",
+      "name": "Venatari Custodians",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/venatari-custodians",
+      "identities": [
+        {
+          "id": "adeptus-custodes.venatari-custodians.strike-from-the-skies",
+          "factionId": "adeptus-custodes",
+          "scopeId": "venatari-custodians",
+          "unitEnglishName": "Venatari Custodians",
+          "englishName": "Strike from the Skies",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/venatari-custodians"
+        },
+        {
+          "id": "adeptus-custodes.venatari-custodians.swooping-dive",
+          "factionId": "adeptus-custodes",
+          "scopeId": "venatari-custodians",
+          "unitEnglishName": "Venatari Custodians",
+          "englishName": "Swooping Dive",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/venatari-custodians"
+        }
+      ]
+    },
+    {
+      "slug": "vigilators",
+      "name": "Vigilators",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/vigilators",
+      "identities": [
+        {
+          "id": "adeptus-custodes.vigilators.daughters-of-the-abyss",
+          "factionId": "adeptus-custodes",
+          "scopeId": "vigilators",
+          "unitEnglishName": "Vigilators",
+          "englishName": "Daughters of the Abyss",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/vigilators"
+        },
+        {
+          "id": "adeptus-custodes.vigilators.deft-parry",
+          "factionId": "adeptus-custodes",
+          "scopeId": "vigilators",
+          "unitEnglishName": "Vigilators",
+          "englishName": "Deft Parry",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/vigilators"
+        }
+      ]
+    },
+    {
+      "slug": "witchseekers",
+      "name": "Witchseekers",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/witchseekers",
+      "identities": [
+        {
+          "id": "adeptus-custodes.witchseekers.daughters-of-the-abyss",
+          "factionId": "adeptus-custodes",
+          "scopeId": "witchseekers",
+          "unitEnglishName": "Witchseekers",
+          "englishName": "Daughters of the Abyss",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/witchseekers"
+        },
+        {
+          "id": "adeptus-custodes.witchseekers.sanctified-flames",
+          "factionId": "adeptus-custodes",
+          "scopeId": "witchseekers",
+          "unitEnglishName": "Witchseekers",
+          "englishName": "Sanctified Flames",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/witchseekers"
+        }
+      ]
+    },
+    {
+      "slug": "ares-gunship",
+      "name": "Ares Gunship",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/ares-gunship",
+      "identities": [
+        {
+          "id": "adeptus-custodes.ares-gunship.infernus-firebombs",
+          "factionId": "adeptus-custodes",
+          "scopeId": "ares-gunship",
+          "unitEnglishName": "Ares Gunship",
+          "englishName": "Infernus Firebombs",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/ares-gunship"
+        }
+      ]
+    },
+    {
+      "slug": "anathema-psykana-rhino",
+      "name": "Anathema Psykana Rhino",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/anathema-psykana-rhino",
+      "identities": [
+        {
+          "id": "adeptus-custodes.anathema-psykana-rhino.daughters-of-the-abyss",
+          "factionId": "adeptus-custodes",
+          "scopeId": "anathema-psykana-rhino",
+          "unitEnglishName": "Anathema Psykana Rhino",
+          "englishName": "Daughters of the Abyss",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/anathema-psykana-rhino"
+        },
+        {
+          "id": "adeptus-custodes.anathema-psykana-rhino.self-repair",
+          "factionId": "adeptus-custodes",
+          "scopeId": "anathema-psykana-rhino",
+          "unitEnglishName": "Anathema Psykana Rhino",
+          "englishName": "Self Repair",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/anathema-psykana-rhino"
+        }
+      ]
+    },
+    {
+      "slug": "caladius-grav-tank",
+      "name": "Caladius Grav-tank",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/caladius-grav-tank",
+      "identities": [
+        {
+          "id": "adeptus-custodes.caladius-grav-tank.advanced-firepower",
+          "factionId": "adeptus-custodes",
+          "scopeId": "caladius-grav-tank",
+          "unitEnglishName": "Caladius Grav-tank",
+          "englishName": "Advanced Firepower",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/caladius-grav-tank"
+        }
+      ]
+    },
+    {
+      "slug": "contemptor-achillus-dreadnought",
+      "name": "Contemptor-Achillus Dreadnought",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/contemptor-achillus-dreadnought",
+      "identities": [
+        {
+          "id": "adeptus-custodes.contemptor-achillus-dreadnought.dread-foe",
+          "factionId": "adeptus-custodes",
+          "scopeId": "contemptor-achillus-dreadnought",
+          "unitEnglishName": "Contemptor-Achillus Dreadnought",
+          "englishName": "Dread Foe",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/contemptor-achillus-dreadnought"
+        }
+      ]
+    },
+    {
+      "slug": "contemptor-galatus-dreadnought",
+      "name": "Contemptor-Galatus Dreadnought",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/contemptor-galatus-dreadnought",
+      "identities": [
+        {
+          "id": "adeptus-custodes.contemptor-galatus-dreadnought.galatus-shield",
+          "factionId": "adeptus-custodes",
+          "scopeId": "contemptor-galatus-dreadnought",
+          "unitEnglishName": "Contemptor-Galatus Dreadnought",
+          "englishName": "Galatus Shield",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/contemptor-galatus-dreadnought"
+        }
+      ]
+    },
+    {
+      "slug": "coronus-grav-carrier",
+      "name": "Coronus Grav-carrier",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/coronus-grav-carrier",
+      "identities": [
+        {
+          "id": "adeptus-custodes.coronus-grav-carrier.fire-support",
+          "factionId": "adeptus-custodes",
+          "scopeId": "coronus-grav-carrier",
+          "unitEnglishName": "Coronus Grav-carrier",
+          "englishName": "Fire Support",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/coronus-grav-carrier"
+        }
+      ]
+    },
+    {
+      "slug": "orion-assault-dropship",
+      "name": "Orion Assault Dropship",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/orion-assault-dropship",
+      "identities": [
+        {
+          "id": "adeptus-custodes.orion-assault-dropship.assault-dropship",
+          "factionId": "adeptus-custodes",
+          "scopeId": "orion-assault-dropship",
+          "unitEnglishName": "Orion Assault Dropship",
+          "englishName": "Assault Dropship",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/orion-assault-dropship"
+        }
+      ]
+    },
+    {
+      "slug": "pallas-grav-attack",
+      "name": "Pallas Grav-attack",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/pallas-grav-attack",
+      "identities": [
+        {
+          "id": "adeptus-custodes.pallas-grav-attack.merciless-hunter",
+          "factionId": "adeptus-custodes",
+          "scopeId": "pallas-grav-attack",
+          "unitEnglishName": "Pallas Grav-attack",
+          "englishName": "Merciless Hunter",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/pallas-grav-attack"
+        }
+      ]
+    },
+    {
+      "slug": "telemon-heavy-dreadnought",
+      "name": "Telemon Heavy Dreadnought",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/telemon-heavy-dreadnought",
+      "identities": [
+        {
+          "id": "adeptus-custodes.telemon-heavy-dreadnought.guardian-eternal",
+          "factionId": "adeptus-custodes",
+          "scopeId": "telemon-heavy-dreadnought",
+          "unitEnglishName": "Telemon Heavy Dreadnought",
+          "englishName": "Guardian Eternal",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/telemon-heavy-dreadnought"
+        },
+        {
+          "id": "adeptus-custodes.telemon-heavy-dreadnought.devoted-to-destruction",
+          "factionId": "adeptus-custodes",
+          "scopeId": "telemon-heavy-dreadnought",
+          "unitEnglishName": "Telemon Heavy Dreadnought",
+          "englishName": "Devoted to Destruction",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/telemon-heavy-dreadnought"
+        }
+      ]
+    },
+    {
+      "slug": "venerable-contemptor-dreadnought",
+      "name": "Venerable Contemptor Dreadnought",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/venerable-contemptor-dreadnought",
+      "identities": [
+        {
+          "id": "adeptus-custodes.venerable-contemptor-dreadnought.unyielding-ancient",
+          "factionId": "adeptus-custodes",
+          "scopeId": "venerable-contemptor-dreadnought",
+          "unitEnglishName": "Venerable Contemptor Dreadnought",
+          "englishName": "Unyielding Ancient",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/venerable-contemptor-dreadnought"
+        }
+      ]
+    },
+    {
+      "slug": "venerable-land-raider",
+      "name": "Venerable Land Raider",
+      "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/venerable-land-raider",
+      "identities": [
+        {
+          "id": "adeptus-custodes.venerable-land-raider.assault-ramp",
+          "factionId": "adeptus-custodes",
+          "scopeId": "venerable-land-raider",
+          "unitEnglishName": "Venerable Land Raider",
+          "englishName": "Assault Ramp",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/adeptus-custodes/units/venerable-land-raider"
+        }
+      ]
+    }
+  ]
+}

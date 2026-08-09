@@ -2,13 +2,50 @@
 (function (root) {
   const factionRules = [
   {
-    "id": "space-marines-oath-of-moment",
+    "id": "space-marines.army.oath-of-moment",
+    "legacyIds": [
+      "space-marines-oath-of-moment"
+    ],
+    "identity": {
+      "id": "space-marines.army.oath-of-moment",
+      "factionId": "space-marines",
+      "scopeId": "army",
+      "englishName": "Oath of Moment",
+      "chineseName": "破敌重誓",
+      "matchStatus": "official",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/army-rules",
+      "legacyIds": [
+        "space-marines-oath-of-moment"
+      ]
+    },
     "name": "破敌重誓",
     "text": "破敌重誓：如果你的军队阵营是阿斯塔特修会，则在你的指挥阶段开始时，从对手的军队中选择一个单位，直到你的下个指挥阶段开始时为止，你的军队中拥有本能力的模型攻击那个敌方单位时可以重投命中结果。并且如果你使用的是本文中的分队，军队中的任意单位都不包含圣血天使，黑暗天使，死亡守望，太空野狼关键词之一，则对那个敌方单位的攻击造伤结果也+1",
-    "status": "计算支持（命中重投和造伤加成由专用控件处理）",
-    "uiControl": "oath-wound-bonus",
+    "status": "计算支持（命中重投默认生效，造伤加成由通用控件处理）",
+    "controls": [
+      {
+        "id": "woundBonus",
+        "type": "checkbox",
+        "label": "本次对破敌重誓目标造伤 +1"
+      }
+    ],
+    "effects": [
+      {
+        "type": "hit-reroll",
+        "mode": "failed",
+        "activation": "passive"
+      },
+      {
+        "type": "wound-modifier",
+        "value": 1,
+        "selection": {
+          "controlId": "woundBonus",
+          "equals": true
+        }
+      }
+    ],
     "source": {
-      "file": "分遣队规则-可检索.md"
+      "file": "分遣队规则-可检索.md",
+      "url": "https://www.40k.app/factions/space-marines/army-rules"
     }
   }
 ];
@@ -53,7 +90,7 @@
     {
       "id": "space-marines-p47-4",
       "name": "命运战甲",
-      "text": "命运战甲：当本模型第一次被消灭时，在这个阶段结束时 投D6，3+则他以6点W的状态复活，将其放置在尽可 战 能接近他的阵亡地点，但不能位于敌方单位接战范围内。",
+      "text": "命运战甲：当本模型第一次被消灭时，在这个阶段结束时 投D6，3+则他以6点W的状态复活，将其放置在尽可能接近他的阵亡地点，但不能位于敌方单位接战范围内。",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 47,
@@ -153,9 +190,10 @@
       "status": "计算支持（满足条件时自动结算）",
       "controls": [
         {
-          "id": "enabled",
+          "id": "incomingPsychic",
+          "semanticType": "incoming-psychic",
           "type": "checkbox",
-          "label": "本次启用此技能"
+          "label": "来袭攻击具有【灵能】关键词"
         },
         {
           "id": "forceLeader",
@@ -167,6 +205,16 @@
         {
           "type": "fnp",
           "threshold": 4,
+          "selection": {
+            "controlId": "incomingPsychic",
+            "equals": true
+          },
+          "requiresJoined": true
+        },
+        {
+          "type": "fnp-mortal",
+          "threshold": 4,
+          "activation": "passive",
           "requiresJoined": true
         }
       ],
@@ -497,7 +545,8 @@
       "effects": [
         {
           "type": "invulnerable-save",
-          "value": 2
+          "value": 2,
+          "operation": "override"
         }
       ],
       "source": {
@@ -567,8 +616,28 @@
       ],
       "effects": [
         {
-          "type": "siege-commander",
-          "requiresTargetMonsterVehicle": true
+          "type": "weapon-strength-modifier",
+          "value": 2,
+          "selection": {
+            "controlId": "targetMonsterVehicle",
+            "equals": true
+          }
+        },
+        {
+          "type": "weapon-ap-modifier",
+          "value": 2,
+          "selection": {
+            "controlId": "targetMonsterVehicle",
+            "equals": true
+          }
+        },
+        {
+          "type": "damage-modifier",
+          "value": 2,
+          "selection": {
+            "controlId": "targetMonsterVehicle",
+            "equals": true
+          }
         }
       ],
       "source": {
@@ -1000,8 +1069,9 @@
       ],
       "effects": [
         {
-          "type": "space-wound-reroll",
+          "type": "wound-reroll",
           "mode": "failed",
+          "phase": "melee",
           "requiresJoined": true
         }
       ],
@@ -1159,7 +1229,7 @@
     {
       "id": "space-marines-p64-3",
       "name": "主脑逻辑引擎",
-      "text": "主脑逻辑引擎：在你宣布军表构成时，你可以选择军队中 的一个友军阿斯塔特修会步兵单位，在本场战斗中，那个 单位中的所有模型拥有【斥候6】，此外在双方玩家完成 部署后，你可以重新部署一个友军阿斯塔特修会单位， （可以无视战略预备队分数限制，将其置入战略预备 队）。",
+      "text": "主脑逻辑引擎：在你宣布军表构成时，你可以选择军队中的一个友军阿斯塔特修会步兵单位，在本场战斗中，那个单位中的所有模型拥有【斥候6】，此外在双方玩家完成部署后，你可以重新部署一个友军阿斯塔特修会单位（可以无视战略预备队分数限制，将其置入战略预备队）。",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 64,
@@ -1440,6 +1510,7 @@
         {
           "type": "weapon-strength-modifier",
           "value": 1,
+          "phase": "melee",
           "requiresJoined": true
         }
       ],
@@ -1637,7 +1708,7 @@
       ],
       "effects": [
         {
-          "type": "space-wound-reroll",
+          "type": "wound-reroll",
           "mode": "ones"
         }
       ],
@@ -1685,9 +1756,10 @@
       "status": "计算支持（满足条件时自动结算）",
       "controls": [
         {
-          "id": "enabled",
+          "id": "incomingPsychic",
+          "semanticType": "incoming-psychic",
           "type": "checkbox",
-          "label": "本次启用此技能"
+          "label": "来袭攻击具有【灵能】关键词"
         },
         {
           "id": "forceLeader",
@@ -1699,6 +1771,10 @@
         {
           "type": "fnp",
           "threshold": 4,
+          "selection": {
+            "controlId": "incomingPsychic",
+            "equals": true
+          },
           "requiresJoined": true
         }
       ],
@@ -1743,9 +1819,10 @@
       "status": "计算支持（满足条件时自动结算）",
       "controls": [
         {
-          "id": "enabled",
+          "id": "incomingPsychic",
+          "semanticType": "incoming-psychic",
           "type": "checkbox",
-          "label": "本次启用此技能"
+          "label": "来袭攻击具有【灵能】关键词"
         },
         {
           "id": "forceLeader",
@@ -1757,6 +1834,10 @@
         {
           "type": "fnp",
           "threshold": 4,
+          "selection": {
+            "controlId": "incomingPsychic",
+            "equals": true
+          },
           "requiresJoined": true
         }
       ],
@@ -1810,9 +1891,10 @@
       "status": "计算支持（满足条件时自动结算）",
       "controls": [
         {
-          "id": "enabled",
+          "id": "incomingPsychic",
+          "semanticType": "incoming-psychic",
           "type": "checkbox",
-          "label": "本次启用此技能"
+          "label": "来袭攻击具有【灵能】关键词"
         },
         {
           "id": "forceLeader",
@@ -1824,6 +1906,10 @@
         {
           "type": "fnp",
           "threshold": 4,
+          "selection": {
+            "controlId": "incomingPsychic",
+            "equals": true
+          },
           "requiresJoined": true
         }
       ],
@@ -1910,6 +1996,7 @@
         {
           "type": "wound-modifier",
           "value": 1,
+          "phase": "melee",
           "requiresJoined": true
         }
       ],
@@ -1977,6 +2064,7 @@
         {
           "type": "wound-modifier",
           "value": 1,
+          "phase": "melee",
           "requiresJoined": true
         }
       ],
@@ -2063,6 +2151,7 @@
         {
           "type": "wound-modifier",
           "value": 1,
+          "phase": "melee",
           "requiresJoined": true
         }
       ],
@@ -2085,7 +2174,8 @@
       ],
       "effects": [
         {
-          "type": "devastating-wounds"
+          "type": "devastating-wounds",
+          "phase": "ranged"
         }
       ],
       "source": {
@@ -2142,6 +2232,7 @@
         {
           "type": "wound-modifier",
           "value": 1,
+          "phase": "melee",
           "requiresJoined": true
         }
       ],
@@ -2466,7 +2557,8 @@
       "effects": [
         {
           "type": "attack-modifier",
-          "value": 1
+          "value": 1,
+          "phase": "melee"
         }
       ],
       "source": {
@@ -2484,7 +2576,8 @@
       "effects": [
         {
           "type": "invulnerable-save",
-          "value": 4
+          "value": 4,
+          "phase": "melee"
         }
       ],
       "source": {
@@ -2659,8 +2752,10 @@
       ],
       "effects": [
         {
-          "type": "attack-modifier",
-          "value": 2
+          "type": "weapon-attack-modifier",
+          "weaponName": "爆弹步枪",
+          "value": 2,
+          "phase": "ranged"
         }
       ],
       "source": {
@@ -2706,8 +2801,9 @@
       ],
       "effects": [
         {
-          "type": "space-wound-reroll",
-          "mode": "ones"
+          "type": "wound-reroll",
+          "mode": "ones",
+          "phase": "melee"
         }
       ],
       "source": {
@@ -2736,16 +2832,45 @@
       "status": "计算支持（满足条件时自动结算）",
       "controls": [
         {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
+          "id": "mode",
+          "type": "select",
+          "label": "本阶段选择",
+          "options": [
+            [
+              "none",
+              "不启用"
+            ],
+            [
+              "hit-ones",
+              "重投近战命中结果中的 1"
+            ],
+            [
+              "save-ones",
+              "重投特殊保护结果中的 1"
+            ]
+          ]
         }
       ],
       "effects": [
         {
-          "type": "space-hit-reroll",
+          "type": "hit-reroll",
           "mode": "ones",
-          "phase": "melee"
+          "phase": "melee",
+          "selection": {
+            "controlId": "mode",
+            "equals": "hit-ones",
+            "fallback": "none"
+          }
+        },
+        {
+          "type": "save-reroll",
+          "mode": "ones",
+          "phase": "melee",
+          "selection": {
+            "controlId": "mode",
+            "equals": "save-ones",
+            "fallback": "none"
+          }
         }
       ],
       "source": {
@@ -2769,7 +2894,7 @@
       ],
       "effects": [
         {
-          "type": "space-wound-reroll",
+          "type": "wound-reroll",
           "mode": "failed"
         }
       ],
@@ -2843,7 +2968,8 @@
       "effects": [
         {
           "type": "weapon-ap-modifier",
-          "value": 1
+          "value": 1,
+          "phase": "ranged"
         }
       ],
       "source": {
@@ -2867,17 +2993,20 @@
       ],
       "effects": [
         {
-          "type": "space-hit-reroll",
+          "type": "hit-reroll",
           "mode": "failed",
+          "phase": "ranged",
           "requiresTargetMonsterVehicle": true
         },
         {
-          "type": "space-wound-reroll",
+          "type": "wound-reroll",
           "mode": "failed",
+          "phase": "ranged",
           "requiresTargetMonsterVehicle": true
         },
         {
           "type": "damage-reroll",
+          "phase": "ranged",
           "requiresTargetMonsterVehicle": true
         }
       ],
@@ -3032,7 +3161,8 @@
       ],
       "effects": [
         {
-          "type": "devastating-wounds"
+          "type": "devastating-wounds",
+          "phase": "ranged"
         }
       ],
       "source": {
@@ -3140,7 +3270,7 @@
       ],
       "effects": [
         {
-          "type": "oath-target-hit-modifier",
+          "type": "hit-modifier",
           "value": 1
         }
       ],
@@ -3222,7 +3352,8 @@
       "effects": [
         {
           "type": "sustained-hits",
-          "value": 2
+          "value": 2,
+          "phase": "melee"
         }
       ],
       "source": {
@@ -3246,8 +3377,9 @@
       ],
       "effects": [
         {
-          "type": "space-hit-reroll",
-          "mode": "ones"
+          "type": "hit-reroll",
+          "mode": "ones",
+          "phase": "ranged"
         }
       ],
       "source": {
@@ -3281,7 +3413,8 @@
       ],
       "effects": [
         {
-          "type": "lethal-hits"
+          "type": "lethal-hits",
+          "phase": "melee"
         }
       ],
       "source": {
@@ -3330,7 +3463,34 @@
       "id": "space-marines-p119-1",
       "name": "雷霆冲撞",
       "text": "雷霆冲撞：每当本单位模型进行近战攻击时，如果本回合 进行过冲锋移动，则本轮攻击S和D都+1",
-      "status": "已显示，暂不改变本次骰子",
+      "status": "计算支持（满足条件时自动结算）",
+      "controls": [
+        {
+          "id": "charged",
+          "type": "checkbox",
+          "label": "本单位本回合进行过冲锋移动"
+        }
+      ],
+      "effects": [
+        {
+          "type": "weapon-strength-modifier",
+          "value": 1,
+          "selection": {
+            "controlId": "charged",
+            "equals": true
+          },
+          "phase": "melee"
+        },
+        {
+          "type": "damage-modifier",
+          "value": 1,
+          "selection": {
+            "controlId": "charged",
+            "equals": true
+          },
+          "phase": "melee"
+        }
+      ],
       "source": {
         "page": 119,
         "source": "星际战士11版中文1.0.pdf"
@@ -3409,20 +3569,7 @@
       "id": "space-marines-p122-2",
       "name": "长者智慧【光环】",
       "text": "长者智慧【光环】：本模型6寸内的友军阿斯塔特步兵单 位，其中的模型攻击时可以重投命中结果中的1",
-      "status": "计算支持（满足条件时自动结算）",
-      "controls": [
-        {
-          "id": "enabled",
-          "type": "checkbox",
-          "label": "本次启用此技能"
-        }
-      ],
-      "effects": [
-        {
-          "type": "space-hit-reroll",
-          "mode": "ones"
-        }
-      ],
+      "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 122,
         "source": "星际战士11版中文1.0.pdf"
@@ -3556,8 +3703,9 @@
       ],
       "effects": [
         {
-          "type": "space-hit-reroll",
-          "mode": "failed"
+          "type": "hit-reroll",
+          "mode": "failed",
+          "phase": "ranged"
         }
       ],
       "source": {
@@ -3673,7 +3821,8 @@
         {
           "type": "ap-vs-infantry",
           "value": 1,
-          "requiresTargetInfantry": true
+          "requiresTargetInfantry": true,
+          "phase": "ranged"
         }
       ],
       "source": {
@@ -3731,6 +3880,7 @@
       "effects": [
         {
           "type": "damage-reroll",
+          "phase": "ranged",
           "requiresTargetMonsterVehicle": true
         }
       ],
@@ -4255,7 +4405,7 @@
       ],
       "effects": [
         {
-          "type": "space-wound-reroll",
+          "type": "wound-reroll",
           "mode": "failed",
           "phase": "ranged"
         }
@@ -4424,7 +4574,8 @@
       "effects": [
         {
           "type": "hit-modifier",
-          "value": 1
+          "value": 1,
+          "phase": "ranged"
         }
       ],
       "source": {
@@ -4459,7 +4610,8 @@
       "effects": [
         {
           "type": "hit-modifier",
-          "value": 1
+          "value": 1,
+          "phase": "ranged"
         }
       ],
       "source": {
@@ -4582,7 +4734,7 @@
     {
       "id": "space-marines-p150-5",
       "name": "防御工事",
-      "text": "防御工事：当一个敌方单位只处于你的工事单位接战范围 中时， ◼ 那个敌方单位依然能被你选为射击目标，但是非手枪 类武器命中结果-1 ◼ 这种敌方单位即使处于【被震慑】状态下选择撤退2与 5 本模型脱离接战范围也不会触发绝望逃脱规则（注意 如果穿越其他模型还是会）",
+      "text": "防御工事：当一个敌方单位只处于你的工事单位接战范围 中时， ◼ 那个敌方单位依然能被你选为射击目标，但是非手枪 类武器命中结果-1 ◼ 这种敌方单位即使处于【被震慑】状态下选择撤退与本模型脱离接战范围也不会触发绝望逃脱规则（注意 如果穿越其他模型还是会）",
       "status": "已显示，暂不改变本次骰子",
       "source": {
         "page": 150,
@@ -4591,5 +4743,6 @@
     }
   ]
 };
-  root.WarhammerSpaceMarineRules = { factionRules, unitRules };
+  const catalog = { factionRules, unitRules };
+  root.WarhammerSpaceMarineRules = root.WarhammerSpaceMarineRuleIdentities?.apply(catalog) || catalog;
 })(typeof globalThis === "undefined" ? this : globalThis);

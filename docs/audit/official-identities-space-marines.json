@@ -1,0 +1,1665 @@
+{
+  "factionId": "space-marines",
+  "sourceUrl": "https://www.40k.app/factions/space-marines",
+  "units": [
+    {
+      "slug": "ancient",
+      "name": "Ancient",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/ancient",
+      "identities": [
+        {
+          "id": "space-marines.ancient.astartes-banner",
+          "factionId": "space-marines",
+          "scopeId": "ancient",
+          "unitEnglishName": "Ancient",
+          "englishName": "Astartes Banner",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/ancient"
+        },
+        {
+          "id": "space-marines.ancient.unbreakable-duty",
+          "factionId": "space-marines",
+          "scopeId": "ancient",
+          "unitEnglishName": "Ancient",
+          "englishName": "Unbreakable Duty",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/ancient"
+        }
+      ]
+    },
+    {
+      "slug": "ancient-in-terminator-armour",
+      "name": "Ancient in Terminator Armour",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/ancient-in-terminator-armour",
+      "identities": [
+        {
+          "id": "space-marines.ancient-in-terminator-armour.astartes-banner",
+          "factionId": "space-marines",
+          "scopeId": "ancient-in-terminator-armour",
+          "unitEnglishName": "Ancient in Terminator Armour",
+          "englishName": "Astartes Banner",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/ancient-in-terminator-armour"
+        },
+        {
+          "id": "space-marines.ancient-in-terminator-armour.keep-the-banner-high",
+          "factionId": "space-marines",
+          "scopeId": "ancient-in-terminator-armour",
+          "unitEnglishName": "Ancient in Terminator Armour",
+          "englishName": "Keep the Banner High",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/ancient-in-terminator-armour"
+        }
+      ]
+    },
+    {
+      "slug": "apothecary",
+      "name": "Apothecary",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/apothecary",
+      "identities": [
+        {
+          "id": "space-marines.apothecary.narthecium",
+          "factionId": "space-marines",
+          "scopeId": "apothecary",
+          "unitEnglishName": "Apothecary",
+          "englishName": "Narthecium",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/apothecary"
+        },
+        {
+          "id": "space-marines.apothecary.gene-seed-recovery",
+          "factionId": "space-marines",
+          "scopeId": "apothecary",
+          "unitEnglishName": "Apothecary",
+          "englishName": "Gene-seed Recovery",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/apothecary"
+        }
+      ]
+    },
+    {
+      "slug": "apothecary-biologis",
+      "name": "Apothecary Biologis",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/apothecary-biologis",
+      "identities": [
+        {
+          "id": "space-marines.apothecary-biologis.surgical-precision",
+          "factionId": "space-marines",
+          "scopeId": "apothecary-biologis",
+          "unitEnglishName": "Apothecary Biologis",
+          "englishName": "Surgical Precision",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/apothecary-biologis"
+        },
+        {
+          "id": "space-marines.apothecary-biologis.vivispectrum",
+          "factionId": "space-marines",
+          "scopeId": "apothecary-biologis",
+          "unitEnglishName": "Apothecary Biologis",
+          "englishName": "Vivispectrum",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/apothecary-biologis"
+        }
+      ]
+    },
+    {
+      "slug": "bladeguard-ancient",
+      "name": "Bladeguard Ancient",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/bladeguard-ancient",
+      "identities": [
+        {
+          "id": "space-marines.bladeguard-ancient.astartes-banner",
+          "factionId": "space-marines",
+          "scopeId": "bladeguard-ancient",
+          "unitEnglishName": "Bladeguard Ancient",
+          "englishName": "Astartes Banner",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/bladeguard-ancient"
+        },
+        {
+          "id": "space-marines.bladeguard-ancient.deeds-of-heroism",
+          "factionId": "space-marines",
+          "scopeId": "bladeguard-ancient",
+          "unitEnglishName": "Bladeguard Ancient",
+          "englishName": "Deeds of Heroism",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/bladeguard-ancient"
+        }
+      ]
+    },
+    {
+      "slug": "captain",
+      "name": "Captain",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/captain",
+      "identities": [
+        {
+          "id": "space-marines.captain.rites-of-battle",
+          "factionId": "space-marines",
+          "scopeId": "captain",
+          "unitEnglishName": "Captain",
+          "englishName": "Rites of Battle",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/captain"
+        },
+        {
+          "id": "space-marines.captain.finest-hour",
+          "factionId": "space-marines",
+          "scopeId": "captain",
+          "unitEnglishName": "Captain",
+          "englishName": "Finest Hour",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/captain"
+        }
+      ]
+    },
+    {
+      "slug": "captain-in-gravis-armour",
+      "name": "Captain in Gravis Armour",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/captain-in-gravis-armour",
+      "identities": [
+        {
+          "id": "space-marines.captain-in-gravis-armour.rites-of-battle",
+          "factionId": "space-marines",
+          "scopeId": "captain-in-gravis-armour",
+          "unitEnglishName": "Captain in Gravis Armour",
+          "englishName": "Rites of Battle",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/captain-in-gravis-armour"
+        },
+        {
+          "id": "space-marines.captain-in-gravis-armour.refuse-to-yield",
+          "factionId": "space-marines",
+          "scopeId": "captain-in-gravis-armour",
+          "unitEnglishName": "Captain in Gravis Armour",
+          "englishName": "Refuse to Yield",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/captain-in-gravis-armour"
+        }
+      ]
+    },
+    {
+      "slug": "captain-in-phobos-armour",
+      "name": "Captain in Phobos Armour",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/captain-in-phobos-armour",
+      "identities": [
+        {
+          "id": "space-marines.captain-in-phobos-armour.rites-of-battle",
+          "factionId": "space-marines",
+          "scopeId": "captain-in-phobos-armour",
+          "unitEnglishName": "Captain in Phobos Armour",
+          "englishName": "Rites of Battle",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/captain-in-phobos-armour"
+        },
+        {
+          "id": "space-marines.captain-in-phobos-armour.master-of-deceit",
+          "factionId": "space-marines",
+          "scopeId": "captain-in-phobos-armour",
+          "unitEnglishName": "Captain in Phobos Armour",
+          "englishName": "Master of Deceit",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/captain-in-phobos-armour"
+        }
+      ]
+    },
+    {
+      "slug": "captain-in-terminator-armour",
+      "name": "Captain in Terminator Armour",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/captain-in-terminator-armour",
+      "identities": [
+        {
+          "id": "space-marines.captain-in-terminator-armour.rites-of-battle",
+          "factionId": "space-marines",
+          "scopeId": "captain-in-terminator-armour",
+          "unitEnglishName": "Captain in Terminator Armour",
+          "englishName": "Rites of Battle",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/captain-in-terminator-armour"
+        },
+        {
+          "id": "space-marines.captain-in-terminator-armour.unstoppable-valour",
+          "factionId": "space-marines",
+          "scopeId": "captain-in-terminator-armour",
+          "unitEnglishName": "Captain in Terminator Armour",
+          "englishName": "Unstoppable Valour",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/captain-in-terminator-armour"
+        }
+      ]
+    },
+    {
+      "slug": "captain-with-jump-pack",
+      "name": "Captain with Jump Pack",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/captain-with-jump-pack",
+      "identities": [
+        {
+          "id": "space-marines.captain-with-jump-pack.angels-wrath",
+          "factionId": "space-marines",
+          "scopeId": "captain-with-jump-pack",
+          "unitEnglishName": "Captain with Jump Pack",
+          "englishName": "Angel’s Wrath",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/captain-with-jump-pack"
+        },
+        {
+          "id": "space-marines.captain-with-jump-pack.rites-of-battle",
+          "factionId": "space-marines",
+          "scopeId": "captain-with-jump-pack",
+          "unitEnglishName": "Captain with Jump Pack",
+          "englishName": "Rites of Battle",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/captain-with-jump-pack"
+        }
+      ]
+    },
+    {
+      "slug": "chaplain",
+      "name": "Chaplain",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/chaplain",
+      "identities": [
+        {
+          "id": "space-marines.chaplain.litany-of-hate",
+          "factionId": "space-marines",
+          "scopeId": "chaplain",
+          "unitEnglishName": "Chaplain",
+          "englishName": "Litany of Hate",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/chaplain"
+        },
+        {
+          "id": "space-marines.chaplain.spiritual-leader",
+          "factionId": "space-marines",
+          "scopeId": "chaplain",
+          "unitEnglishName": "Chaplain",
+          "englishName": "Spiritual Leader",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/chaplain"
+        }
+      ]
+    },
+    {
+      "slug": "chaplain-in-terminator-armour",
+      "name": "Chaplain in Terminator Armour",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/chaplain-in-terminator-armour",
+      "identities": [
+        {
+          "id": "space-marines.chaplain-in-terminator-armour.litany-of-hate",
+          "factionId": "space-marines",
+          "scopeId": "chaplain-in-terminator-armour",
+          "unitEnglishName": "Chaplain in Terminator Armour",
+          "englishName": "Litany of Hate",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/chaplain-in-terminator-armour"
+        },
+        {
+          "id": "space-marines.chaplain-in-terminator-armour.recitation-of-faith",
+          "factionId": "space-marines",
+          "scopeId": "chaplain-in-terminator-armour",
+          "unitEnglishName": "Chaplain in Terminator Armour",
+          "englishName": "Recitation of Faith",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/chaplain-in-terminator-armour"
+        }
+      ]
+    },
+    {
+      "slug": "chaplain-on-bike",
+      "name": "Chaplain on Bike",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/chaplain-on-bike",
+      "identities": [
+        {
+          "id": "space-marines.chaplain-on-bike.litany-of-hate",
+          "factionId": "space-marines",
+          "scopeId": "chaplain-on-bike",
+          "unitEnglishName": "Chaplain on Bike",
+          "englishName": "Litany of Hate",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/chaplain-on-bike"
+        },
+        {
+          "id": "space-marines.chaplain-on-bike.catechism-of-fire",
+          "factionId": "space-marines",
+          "scopeId": "chaplain-on-bike",
+          "unitEnglishName": "Chaplain on Bike",
+          "englishName": "Catechism of Fire",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/chaplain-on-bike"
+        }
+      ]
+    },
+    {
+      "slug": "chaplain-with-jump-pack",
+      "name": "Chaplain with Jump Pack",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/chaplain-with-jump-pack",
+      "identities": [
+        {
+          "id": "space-marines.chaplain-with-jump-pack.litany-of-hate",
+          "factionId": "space-marines",
+          "scopeId": "chaplain-with-jump-pack",
+          "unitEnglishName": "Chaplain with Jump Pack",
+          "englishName": "Litany of Hate",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/chaplain-with-jump-pack"
+        },
+        {
+          "id": "space-marines.chaplain-with-jump-pack.exhortation-of-rage",
+          "factionId": "space-marines",
+          "scopeId": "chaplain-with-jump-pack",
+          "unitEnglishName": "Chaplain with Jump Pack",
+          "englishName": "Exhortation of Rage",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/chaplain-with-jump-pack"
+        }
+      ]
+    },
+    {
+      "slug": "judiciar",
+      "name": "Judiciar",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/judiciar",
+      "identities": [
+        {
+          "id": "space-marines.judiciar.tempormortis",
+          "factionId": "space-marines",
+          "scopeId": "judiciar",
+          "unitEnglishName": "Judiciar",
+          "englishName": "Tempormortis",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/judiciar"
+        },
+        {
+          "id": "space-marines.judiciar.silent-fury",
+          "factionId": "space-marines",
+          "scopeId": "judiciar",
+          "unitEnglishName": "Judiciar",
+          "englishName": "Silent Fury",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/judiciar"
+        }
+      ]
+    },
+    {
+      "slug": "librarian",
+      "name": "Librarian",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/librarian",
+      "identities": [
+        {
+          "id": "space-marines.librarian.psychic-hood",
+          "factionId": "space-marines",
+          "scopeId": "librarian",
+          "unitEnglishName": "Librarian",
+          "englishName": "Psychic Hood",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/librarian"
+        },
+        {
+          "id": "space-marines.librarian.mental-fortress",
+          "factionId": "space-marines",
+          "scopeId": "librarian",
+          "unitEnglishName": "Librarian",
+          "englishName": "Mental Fortress",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/librarian"
+        }
+      ]
+    },
+    {
+      "slug": "librarian-in-phobos-armour",
+      "name": "Librarian in Phobos Armour",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/librarian-in-phobos-armour",
+      "identities": [
+        {
+          "id": "space-marines.librarian-in-phobos-armour.psychic-hood",
+          "factionId": "space-marines",
+          "scopeId": "librarian-in-phobos-armour",
+          "unitEnglishName": "Librarian in Phobos Armour",
+          "englishName": "Psychic Hood",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/librarian-in-phobos-armour"
+        },
+        {
+          "id": "space-marines.librarian-in-phobos-armour.shrouding",
+          "factionId": "space-marines",
+          "scopeId": "librarian-in-phobos-armour",
+          "unitEnglishName": "Librarian in Phobos Armour",
+          "englishName": "Shrouding",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/librarian-in-phobos-armour"
+        }
+      ]
+    },
+    {
+      "slug": "librarian-in-terminator-armour",
+      "name": "Librarian in Terminator Armour",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/librarian-in-terminator-armour",
+      "identities": [
+        {
+          "id": "space-marines.librarian-in-terminator-armour.psychic-hood",
+          "factionId": "space-marines",
+          "scopeId": "librarian-in-terminator-armour",
+          "unitEnglishName": "Librarian in Terminator Armour",
+          "englishName": "Psychic Hood",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/librarian-in-terminator-armour"
+        },
+        {
+          "id": "space-marines.librarian-in-terminator-armour.veil-of-time",
+          "factionId": "space-marines",
+          "scopeId": "librarian-in-terminator-armour",
+          "unitEnglishName": "Librarian in Terminator Armour",
+          "englishName": "Veil of Time",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/librarian-in-terminator-armour"
+        }
+      ]
+    },
+    {
+      "slug": "lieutenant",
+      "name": "Lieutenant",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/lieutenant",
+      "identities": [
+        {
+          "id": "space-marines.lieutenant.tactical-precision",
+          "factionId": "space-marines",
+          "scopeId": "lieutenant",
+          "unitEnglishName": "Lieutenant",
+          "englishName": "Tactical Precision",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/lieutenant"
+        },
+        {
+          "id": "space-marines.lieutenant.target-priority",
+          "factionId": "space-marines",
+          "scopeId": "lieutenant",
+          "unitEnglishName": "Lieutenant",
+          "englishName": "Target Priority",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/lieutenant"
+        }
+      ]
+    },
+    {
+      "slug": "lieutenant-in-phobos-armour",
+      "name": "Lieutenant in Phobos Armour",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/lieutenant-in-phobos-armour",
+      "identities": [
+        {
+          "id": "space-marines.lieutenant-in-phobos-armour.tactical-precision",
+          "factionId": "space-marines",
+          "scopeId": "lieutenant-in-phobos-armour",
+          "unitEnglishName": "Lieutenant in Phobos Armour",
+          "englishName": "Tactical Precision",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/lieutenant-in-phobos-armour"
+        },
+        {
+          "id": "space-marines.lieutenant-in-phobos-armour.strategic-dispersal",
+          "factionId": "space-marines",
+          "scopeId": "lieutenant-in-phobos-armour",
+          "unitEnglishName": "Lieutenant in Phobos Armour",
+          "englishName": "Strategic Dispersal",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/lieutenant-in-phobos-armour"
+        }
+      ]
+    },
+    {
+      "slug": "lieutenant-in-reiver-armour",
+      "name": "Lieutenant in Reiver Armour",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/lieutenant-in-reiver-armour",
+      "identities": [
+        {
+          "id": "space-marines.lieutenant-in-reiver-armour.tactical-precision",
+          "factionId": "space-marines",
+          "scopeId": "lieutenant-in-reiver-armour",
+          "unitEnglishName": "Lieutenant in Reiver Armour",
+          "englishName": "Tactical Precision",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/lieutenant-in-reiver-armour"
+        },
+        {
+          "id": "space-marines.lieutenant-in-reiver-armour.deadly-terror",
+          "factionId": "space-marines",
+          "scopeId": "lieutenant-in-reiver-armour",
+          "unitEnglishName": "Lieutenant in Reiver Armour",
+          "englishName": "Deadly Terror",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/lieutenant-in-reiver-armour"
+        }
+      ]
+    },
+    {
+      "slug": "lieutenant-with-combi-weapon",
+      "name": "Lieutenant with Combi-weapon",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/lieutenant-with-combi-weapon",
+      "identities": [
+        {
+          "id": "space-marines.lieutenant-with-combi-weapon.priority-objective-identified",
+          "factionId": "space-marines",
+          "scopeId": "lieutenant-with-combi-weapon",
+          "unitEnglishName": "Lieutenant with Combi-weapon",
+          "englishName": "Priority Objective Identified",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/lieutenant-with-combi-weapon"
+        },
+        {
+          "id": "space-marines.lieutenant-with-combi-weapon.evade-and-survive",
+          "factionId": "space-marines",
+          "scopeId": "lieutenant-with-combi-weapon",
+          "unitEnglishName": "Lieutenant with Combi-weapon",
+          "englishName": "Evade and Survive",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/lieutenant-with-combi-weapon"
+        }
+      ]
+    },
+    {
+      "slug": "techmarine",
+      "name": "Techmarine",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/techmarine",
+      "identities": [
+        {
+          "id": "space-marines.techmarine.techmarine",
+          "factionId": "space-marines",
+          "scopeId": "techmarine",
+          "unitEnglishName": "Techmarine",
+          "englishName": "Techmarine",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/techmarine"
+        },
+        {
+          "id": "space-marines.techmarine.blessing-of-the-omnissiah",
+          "factionId": "space-marines",
+          "scopeId": "techmarine",
+          "unitEnglishName": "Techmarine",
+          "englishName": "Blessing of the Omnissiah",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/techmarine"
+        },
+        {
+          "id": "space-marines.techmarine.vengeance-of-the-omnissiah",
+          "factionId": "space-marines",
+          "scopeId": "techmarine",
+          "unitEnglishName": "Techmarine",
+          "englishName": "Vengeance of the Omnissiah",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/techmarine"
+        }
+      ]
+    },
+    {
+      "slug": "assault-intercessor-squad",
+      "name": "Assault Intercessor Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/assault-intercessor-squad",
+      "identities": [
+        {
+          "id": "space-marines.assault-intercessor-squad.targeted-intercession",
+          "factionId": "space-marines",
+          "scopeId": "assault-intercessor-squad",
+          "unitEnglishName": "Assault Intercessor Squad",
+          "englishName": "Targeted Intercession",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/assault-intercessor-squad"
+        }
+      ]
+    },
+    {
+      "slug": "heavy-intercessor-squad",
+      "name": "Heavy Intercessor Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/heavy-intercessor-squad",
+      "identities": [
+        {
+          "id": "space-marines.heavy-intercessor-squad.unyielding-in-the-face-of-the-foe",
+          "factionId": "space-marines",
+          "scopeId": "heavy-intercessor-squad",
+          "unitEnglishName": "Heavy Intercessor Squad",
+          "englishName": "Unyielding in the Face of the Foe",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/heavy-intercessor-squad"
+        }
+      ]
+    },
+    {
+      "slug": "intercessor-squad",
+      "name": "Intercessor Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/intercessor-squad",
+      "identities": [
+        {
+          "id": "space-marines.intercessor-squad.objective-secured",
+          "factionId": "space-marines",
+          "scopeId": "intercessor-squad",
+          "unitEnglishName": "Intercessor Squad",
+          "englishName": "Objective Secured",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/intercessor-squad"
+        },
+        {
+          "id": "space-marines.intercessor-squad.hail-of-bolts",
+          "factionId": "space-marines",
+          "scopeId": "intercessor-squad",
+          "unitEnglishName": "Intercessor Squad",
+          "englishName": "Hail of Bolts",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/intercessor-squad"
+        }
+      ]
+    },
+    {
+      "slug": "tactical-squad",
+      "name": "Tactical Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/tactical-squad",
+      "identities": [
+        {
+          "id": "space-marines.tactical-squad.combat-squads",
+          "factionId": "space-marines",
+          "scopeId": "tactical-squad",
+          "unitEnglishName": "Tactical Squad",
+          "englishName": "Combat Squads",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/tactical-squad"
+        }
+      ]
+    },
+    {
+      "slug": "invader-atv",
+      "name": "Invader ATV",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/invader-atv",
+      "identities": [
+        {
+          "id": "space-marines.invader-atv.outrider-escort",
+          "factionId": "space-marines",
+          "scopeId": "invader-atv",
+          "unitEnglishName": "Invader ATV",
+          "englishName": "Outrider Escort",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/invader-atv"
+        }
+      ]
+    },
+    {
+      "slug": "outrider-squad",
+      "name": "Outrider Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/outrider-squad",
+      "identities": [
+        {
+          "id": "space-marines.outrider-squad.thunderous-impact",
+          "factionId": "space-marines",
+          "scopeId": "outrider-squad",
+          "unitEnglishName": "Outrider Squad",
+          "englishName": "Thunderous Impact",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/outrider-squad"
+        }
+      ]
+    },
+    {
+      "slug": "aggressor-squad",
+      "name": "Aggressor Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/aggressor-squad",
+      "identities": [
+        {
+          "id": "space-marines.aggressor-squad.close-quarters-firepower",
+          "factionId": "space-marines",
+          "scopeId": "aggressor-squad",
+          "unitEnglishName": "Aggressor Squad",
+          "englishName": "Close-quarters Firepower",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/aggressor-squad"
+        }
+      ]
+    },
+    {
+      "slug": "assault-intercessors-with-jump-packs",
+      "name": "Assault Intercessors with Jump Packs",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/assault-intercessors-with-jump-packs",
+      "identities": [
+        {
+          "id": "space-marines.assault-intercessors-with-jump-packs.hammer-of-wrath",
+          "factionId": "space-marines",
+          "scopeId": "assault-intercessors-with-jump-packs",
+          "unitEnglishName": "Assault Intercessors with Jump Packs",
+          "englishName": "Hammer of Wrath",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/assault-intercessors-with-jump-packs"
+        }
+      ]
+    },
+    {
+      "slug": "bladeguard-veteran-squad",
+      "name": "Bladeguard Veteran Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/bladeguard-veteran-squad",
+      "identities": [
+        {
+          "id": "space-marines.bladeguard-veteran-squad.bladeguard",
+          "factionId": "space-marines",
+          "scopeId": "bladeguard-veteran-squad",
+          "unitEnglishName": "Bladeguard Veteran Squad",
+          "englishName": "Bladeguard",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/bladeguard-veteran-squad"
+        }
+      ]
+    },
+    {
+      "slug": "centurion-assault-squad",
+      "name": "Centurion Assault Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/centurion-assault-squad",
+      "identities": [
+        {
+          "id": "space-marines.centurion-assault-squad.annihilator-protocols",
+          "factionId": "space-marines",
+          "scopeId": "centurion-assault-squad",
+          "unitEnglishName": "Centurion Assault Squad",
+          "englishName": "Annihilator Protocols",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/centurion-assault-squad"
+        }
+      ]
+    },
+    {
+      "slug": "centurion-devastator-squad",
+      "name": "Centurion Devastator Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/centurion-devastator-squad",
+      "identities": [
+        {
+          "id": "space-marines.centurion-devastator-squad.decimator-protocols",
+          "factionId": "space-marines",
+          "scopeId": "centurion-devastator-squad",
+          "unitEnglishName": "Centurion Devastator Squad",
+          "englishName": "Decimator Protocols",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/centurion-devastator-squad"
+        }
+      ]
+    },
+    {
+      "slug": "company-heroes",
+      "name": "Company Heroes",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/company-heroes",
+      "identities": [
+        {
+          "id": "space-marines.company-heroes.astartes-banner",
+          "factionId": "space-marines",
+          "scopeId": "company-heroes",
+          "unitEnglishName": "Company Heroes",
+          "englishName": "Astartes Banner",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/company-heroes"
+        },
+        {
+          "id": "space-marines.company-heroes.command-squad",
+          "factionId": "space-marines",
+          "scopeId": "company-heroes",
+          "unitEnglishName": "Company Heroes",
+          "englishName": "Command Squad",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/company-heroes"
+        }
+      ]
+    },
+    {
+      "slug": "desolation-squad",
+      "name": "Desolation Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/desolation-squad",
+      "identities": [
+        {
+          "id": "space-marines.desolation-squad.targeter-optics",
+          "factionId": "space-marines",
+          "scopeId": "desolation-squad",
+          "unitEnglishName": "Desolation Squad",
+          "englishName": "Targeter Optics",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/desolation-squad"
+        }
+      ]
+    },
+    {
+      "slug": "devastator-squad",
+      "name": "Devastator Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/devastator-squad",
+      "identities": [
+        {
+          "id": "space-marines.devastator-squad.signum",
+          "factionId": "space-marines",
+          "scopeId": "devastator-squad",
+          "unitEnglishName": "Devastator Squad",
+          "englishName": "Signum",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/devastator-squad"
+        },
+        {
+          "id": "space-marines.devastator-squad.armorium-cherub",
+          "factionId": "space-marines",
+          "scopeId": "devastator-squad",
+          "unitEnglishName": "Devastator Squad",
+          "englishName": "Armorium Cherub",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/devastator-squad"
+        }
+      ]
+    },
+    {
+      "slug": "eliminator-squad",
+      "name": "Eliminator Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/eliminator-squad",
+      "identities": [
+        {
+          "id": "space-marines.eliminator-squad.reposition-under-covering-fire",
+          "factionId": "space-marines",
+          "scopeId": "eliminator-squad",
+          "unitEnglishName": "Eliminator Squad",
+          "englishName": "Reposition Under Covering Fire",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/eliminator-squad"
+        },
+        {
+          "id": "space-marines.eliminator-squad.mark-the-target",
+          "factionId": "space-marines",
+          "scopeId": "eliminator-squad",
+          "unitEnglishName": "Eliminator Squad",
+          "englishName": "Mark the Target",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/eliminator-squad"
+        }
+      ]
+    },
+    {
+      "slug": "eradicator-squad",
+      "name": "Eradicator Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/eradicator-squad",
+      "identities": [
+        {
+          "id": "space-marines.eradicator-squad.total-obliteration",
+          "factionId": "space-marines",
+          "scopeId": "eradicator-squad",
+          "unitEnglishName": "Eradicator Squad",
+          "englishName": "Total Obliteration",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/eradicator-squad"
+        }
+      ]
+    },
+    {
+      "slug": "eradicator-squad-with-heavy-bolters",
+      "name": "Eradicator Squad with Heavy Bolters",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/eradicator-squad-with-heavy-bolters",
+      "identities": [
+        {
+          "id": "space-marines.eradicator-squad-with-heavy-bolters.overlapping-detonations",
+          "factionId": "space-marines",
+          "scopeId": "eradicator-squad-with-heavy-bolters",
+          "unitEnglishName": "Eradicator Squad with Heavy Bolters",
+          "englishName": "Overlapping Detonations",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/eradicator-squad-with-heavy-bolters"
+        }
+      ]
+    },
+    {
+      "slug": "hellblaster-squad",
+      "name": "Hellblaster Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/hellblaster-squad",
+      "identities": [
+        {
+          "id": "space-marines.hellblaster-squad.for-the-chapter",
+          "factionId": "space-marines",
+          "scopeId": "hellblaster-squad",
+          "unitEnglishName": "Hellblaster Squad",
+          "englishName": "For the Chapter!",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/hellblaster-squad"
+        }
+      ]
+    },
+    {
+      "slug": "inceptor-squad",
+      "name": "Inceptor Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/inceptor-squad",
+      "identities": [
+        {
+          "id": "space-marines.inceptor-squad.meteoric-descent",
+          "factionId": "space-marines",
+          "scopeId": "inceptor-squad",
+          "unitEnglishName": "Inceptor Squad",
+          "englishName": "Meteoric Descent",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/inceptor-squad"
+        }
+      ]
+    },
+    {
+      "slug": "incursor-squad",
+      "name": "Incursor Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/incursor-squad",
+      "identities": [
+        {
+          "id": "space-marines.incursor-squad.multi-spectrum-array",
+          "factionId": "space-marines",
+          "scopeId": "incursor-squad",
+          "unitEnglishName": "Incursor Squad",
+          "englishName": "Multi-spectrum Array",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/incursor-squad"
+        }
+      ]
+    },
+    {
+      "slug": "infernus-squad",
+      "name": "Infernus Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/infernus-squad",
+      "identities": [
+        {
+          "id": "space-marines.infernus-squad.incendiary-terror",
+          "factionId": "space-marines",
+          "scopeId": "infernus-squad",
+          "unitEnglishName": "Infernus Squad",
+          "englishName": "Incendiary Terror",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/infernus-squad"
+        }
+      ]
+    },
+    {
+      "slug": "infiltrator-squad",
+      "name": "Infiltrator Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/infiltrator-squad",
+      "identities": [
+        {
+          "id": "space-marines.infiltrator-squad.omni-scramblers",
+          "factionId": "space-marines",
+          "scopeId": "infiltrator-squad",
+          "unitEnglishName": "Infiltrator Squad",
+          "englishName": "Omni-scramblers",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/infiltrator-squad"
+        }
+      ]
+    },
+    {
+      "slug": "reiver-squad",
+      "name": "Reiver Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/reiver-squad",
+      "identities": [
+        {
+          "id": "space-marines.reiver-squad.fearsome-assault",
+          "factionId": "space-marines",
+          "scopeId": "reiver-squad",
+          "unitEnglishName": "Reiver Squad",
+          "englishName": "Fearsome Assault",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/reiver-squad"
+        },
+        {
+          "id": "space-marines.reiver-squad.terror-troops",
+          "factionId": "space-marines",
+          "scopeId": "reiver-squad",
+          "unitEnglishName": "Reiver Squad",
+          "englishName": "Terror Troops",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/reiver-squad"
+        }
+      ]
+    },
+    {
+      "slug": "scout-squad",
+      "name": "Scout Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/scout-squad",
+      "identities": [
+        {
+          "id": "space-marines.scout-squad.guerrilla-tactics",
+          "factionId": "space-marines",
+          "scopeId": "scout-squad",
+          "unitEnglishName": "Scout Squad",
+          "englishName": "Guerrilla Tactics",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/scout-squad"
+        }
+      ]
+    },
+    {
+      "slug": "sternguard-veteran-squad",
+      "name": "Sternguard Veteran Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/sternguard-veteran-squad",
+      "identities": [
+        {
+          "id": "space-marines.sternguard-veteran-squad.sternguard-focus",
+          "factionId": "space-marines",
+          "scopeId": "sternguard-veteran-squad",
+          "unitEnglishName": "Sternguard Veteran Squad",
+          "englishName": "Sternguard Focus",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/sternguard-veteran-squad"
+        }
+      ]
+    },
+    {
+      "slug": "suppressor-squad",
+      "name": "Suppressor Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/suppressor-squad",
+      "identities": [
+        {
+          "id": "space-marines.suppressor-squad.suppression-fire",
+          "factionId": "space-marines",
+          "scopeId": "suppressor-squad",
+          "unitEnglishName": "Suppressor Squad",
+          "englishName": "Suppression Fire",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/suppressor-squad"
+        }
+      ]
+    },
+    {
+      "slug": "terminator-assault-squad",
+      "name": "Terminator Assault Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/terminator-assault-squad",
+      "identities": [
+        {
+          "id": "space-marines.terminator-assault-squad.teleport-homer",
+          "factionId": "space-marines",
+          "scopeId": "terminator-assault-squad",
+          "unitEnglishName": "Terminator Assault Squad",
+          "englishName": "Teleport Homer",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/terminator-assault-squad"
+        },
+        {
+          "id": "space-marines.terminator-assault-squad.terminatus-assault",
+          "factionId": "space-marines",
+          "scopeId": "terminator-assault-squad",
+          "unitEnglishName": "Terminator Assault Squad",
+          "englishName": "Terminatus Assault",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/terminator-assault-squad"
+        }
+      ]
+    },
+    {
+      "slug": "terminator-squad",
+      "name": "Terminator Squad",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/terminator-squad",
+      "identities": [
+        {
+          "id": "space-marines.terminator-squad.teleport-homer",
+          "factionId": "space-marines",
+          "scopeId": "terminator-squad",
+          "unitEnglishName": "Terminator Squad",
+          "englishName": "Teleport Homer",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/terminator-squad"
+        },
+        {
+          "id": "space-marines.terminator-squad.fury-of-the-first",
+          "factionId": "space-marines",
+          "scopeId": "terminator-squad",
+          "unitEnglishName": "Terminator Squad",
+          "englishName": "Fury of the First",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/terminator-squad"
+        }
+      ]
+    },
+    {
+      "slug": "vanguard-veteran-squad-with-jump-packs",
+      "name": "Vanguard Veteran Squad with Jump Packs",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/vanguard-veteran-squad-with-jump-packs",
+      "identities": [
+        {
+          "id": "space-marines.vanguard-veteran-squad-with-jump-packs.vanguard-assault",
+          "factionId": "space-marines",
+          "scopeId": "vanguard-veteran-squad-with-jump-packs",
+          "unitEnglishName": "Vanguard Veteran Squad with Jump Packs",
+          "englishName": "Vanguard Assault",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/vanguard-veteran-squad-with-jump-packs"
+        }
+      ]
+    },
+    {
+      "slug": "stormhawk-interceptor",
+      "name": "Stormhawk Interceptor",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/stormhawk-interceptor",
+      "identities": [
+        {
+          "id": "space-marines.stormhawk-interceptor.interceptor",
+          "factionId": "space-marines",
+          "scopeId": "stormhawk-interceptor",
+          "unitEnglishName": "Stormhawk Interceptor",
+          "englishName": "Interceptor",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/stormhawk-interceptor"
+        }
+      ]
+    },
+    {
+      "slug": "stormtalon-gunship",
+      "name": "Stormtalon Gunship",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/stormtalon-gunship",
+      "identities": [
+        {
+          "id": "space-marines.stormtalon-gunship.strafing-run",
+          "factionId": "space-marines",
+          "scopeId": "stormtalon-gunship",
+          "unitEnglishName": "Stormtalon Gunship",
+          "englishName": "Strafing Run",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/stormtalon-gunship"
+        }
+      ]
+    },
+    {
+      "slug": "astraeus",
+      "name": "Astraeus",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/astraeus",
+      "identities": [
+        {
+          "id": "space-marines.astraeus.suppression-fire",
+          "factionId": "space-marines",
+          "scopeId": "astraeus",
+          "unitEnglishName": "Astraeus",
+          "englishName": "Suppression Fire",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/astraeus"
+        }
+      ]
+    },
+    {
+      "slug": "thunderhawk-gunship",
+      "name": "Thunderhawk Gunship",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/thunderhawk-gunship",
+      "identities": [
+        {
+          "id": "space-marines.thunderhawk-gunship.aerial-assault",
+          "factionId": "space-marines",
+          "scopeId": "thunderhawk-gunship",
+          "unitEnglishName": "Thunderhawk Gunship",
+          "englishName": "Aerial Assault",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/thunderhawk-gunship"
+        }
+      ]
+    },
+    {
+      "slug": "drop-pod",
+      "name": "Drop Pod",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/drop-pod",
+      "identities": [
+        {
+          "id": "space-marines.drop-pod.drop-pod-assault",
+          "factionId": "space-marines",
+          "scopeId": "drop-pod",
+          "unitEnglishName": "Drop Pod",
+          "englishName": "Drop Pod Assault",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/drop-pod"
+        },
+        {
+          "id": "space-marines.drop-pod.combat-disembarkation",
+          "factionId": "space-marines",
+          "scopeId": "drop-pod",
+          "unitEnglishName": "Drop Pod",
+          "englishName": "Combat Disembarkation",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/drop-pod"
+        },
+        {
+          "id": "space-marines.drop-pod.deployment-complete",
+          "factionId": "space-marines",
+          "scopeId": "drop-pod",
+          "unitEnglishName": "Drop Pod",
+          "englishName": "Deployment Complete",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/drop-pod"
+        }
+      ]
+    },
+    {
+      "slug": "impulsor",
+      "name": "Impulsor",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/impulsor",
+      "identities": [
+        {
+          "id": "space-marines.impulsor.assault-vehicle",
+          "factionId": "space-marines",
+          "scopeId": "impulsor",
+          "unitEnglishName": "Impulsor",
+          "englishName": "Assault Vehicle",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/impulsor"
+        }
+      ]
+    },
+    {
+      "slug": "razorback",
+      "name": "Razorback",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/razorback",
+      "identities": [
+        {
+          "id": "space-marines.razorback.fire-support",
+          "factionId": "space-marines",
+          "scopeId": "razorback",
+          "unitEnglishName": "Razorback",
+          "englishName": "Fire Support",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/razorback"
+        }
+      ]
+    },
+    {
+      "slug": "rhino",
+      "name": "Rhino",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/rhino",
+      "identities": [
+        {
+          "id": "space-marines.rhino.self-repair",
+          "factionId": "space-marines",
+          "scopeId": "rhino",
+          "unitEnglishName": "Rhino",
+          "englishName": "Self Repair",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/rhino"
+        }
+      ]
+    },
+    {
+      "slug": "ballistus-dreadnought",
+      "name": "Ballistus Dreadnought",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/ballistus-dreadnought",
+      "identities": [
+        {
+          "id": "space-marines.ballistus-dreadnought.ballistus-strike",
+          "factionId": "space-marines",
+          "scopeId": "ballistus-dreadnought",
+          "unitEnglishName": "Ballistus Dreadnought",
+          "englishName": "Ballistus Strike",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/ballistus-dreadnought"
+        }
+      ]
+    },
+    {
+      "slug": "brutalis-dreadnought",
+      "name": "Brutalis Dreadnought",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/brutalis-dreadnought",
+      "identities": [
+        {
+          "id": "space-marines.brutalis-dreadnought.brutalis-charge",
+          "factionId": "space-marines",
+          "scopeId": "brutalis-dreadnought",
+          "unitEnglishName": "Brutalis Dreadnought",
+          "englishName": "Brutalis Charge",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/brutalis-dreadnought"
+        }
+      ]
+    },
+    {
+      "slug": "dreadnought",
+      "name": "Dreadnought",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/dreadnought",
+      "identities": [
+        {
+          "id": "space-marines.dreadnought.wisdom-of-the-ancients",
+          "factionId": "space-marines",
+          "scopeId": "dreadnought",
+          "unitEnglishName": "Dreadnought",
+          "englishName": "Wisdom of the Ancients",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/dreadnought"
+        }
+      ]
+    },
+    {
+      "slug": "firestrike-servo-turrets",
+      "name": "Firestrike Servo-turrets",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/firestrike-servo-turrets",
+      "identities": [
+        {
+          "id": "space-marines.firestrike-servo-turrets.sentinel-protocols",
+          "factionId": "space-marines",
+          "scopeId": "firestrike-servo-turrets",
+          "unitEnglishName": "Firestrike Servo-turrets",
+          "englishName": "Sentinel Protocols",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/firestrike-servo-turrets"
+        }
+      ]
+    },
+    {
+      "slug": "gladiator-lancer",
+      "name": "Gladiator Lancer",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/gladiator-lancer",
+      "identities": [
+        {
+          "id": "space-marines.gladiator-lancer.aquilon-optics",
+          "factionId": "space-marines",
+          "scopeId": "gladiator-lancer",
+          "unitEnglishName": "Gladiator Lancer",
+          "englishName": "Aquilon Optics",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/gladiator-lancer"
+        }
+      ]
+    },
+    {
+      "slug": "gladiator-reaper",
+      "name": "Gladiator Reaper",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/gladiator-reaper",
+      "identities": [
+        {
+          "id": "space-marines.gladiator-reaper.reaping-tally",
+          "factionId": "space-marines",
+          "scopeId": "gladiator-reaper",
+          "unitEnglishName": "Gladiator Reaper",
+          "englishName": "Reaping Tally",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/gladiator-reaper"
+        }
+      ]
+    },
+    {
+      "slug": "gladiator-valiant",
+      "name": "Gladiator Valiant",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/gladiator-valiant",
+      "identities": [
+        {
+          "id": "space-marines.gladiator-valiant.priority-target-acquisition",
+          "factionId": "space-marines",
+          "scopeId": "gladiator-valiant",
+          "unitEnglishName": "Gladiator Valiant",
+          "englishName": "Priority Target Acquisition",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/gladiator-valiant"
+        }
+      ]
+    },
+    {
+      "slug": "hammerfall-bunker",
+      "name": "Hammerfall Bunker",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/hammerfall-bunker",
+      "identities": [
+        {
+          "id": "space-marines.hammerfall-bunker.fortification",
+          "factionId": "space-marines",
+          "scopeId": "hammerfall-bunker",
+          "unitEnglishName": "Hammerfall Bunker",
+          "englishName": "Fortification",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/hammerfall-bunker"
+        },
+        {
+          "id": "space-marines.hammerfall-bunker.ceramite-cover",
+          "factionId": "space-marines",
+          "scopeId": "hammerfall-bunker",
+          "unitEnglishName": "Hammerfall Bunker",
+          "englishName": "Ceramite Cover",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/hammerfall-bunker"
+        },
+        {
+          "id": "space-marines.hammerfall-bunker.defensive-array",
+          "factionId": "space-marines",
+          "scopeId": "hammerfall-bunker",
+          "unitEnglishName": "Hammerfall Bunker",
+          "englishName": "Defensive Array",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/hammerfall-bunker"
+        }
+      ]
+    },
+    {
+      "slug": "invictor-tactical-warsuit",
+      "name": "Invictor Tactical Warsuit",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/invictor-tactical-warsuit",
+      "identities": [
+        {
+          "id": "space-marines.invictor-tactical-warsuit.vanguard-support",
+          "factionId": "space-marines",
+          "scopeId": "invictor-tactical-warsuit",
+          "unitEnglishName": "Invictor Tactical Warsuit",
+          "englishName": "Vanguard Support",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/invictor-tactical-warsuit"
+        }
+      ]
+    },
+    {
+      "slug": "land-raider",
+      "name": "Land Raider",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/land-raider",
+      "identities": [
+        {
+          "id": "space-marines.land-raider.assault-ramp",
+          "factionId": "space-marines",
+          "scopeId": "land-raider",
+          "unitEnglishName": "Land Raider",
+          "englishName": "Assault Ramp",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/land-raider"
+        }
+      ]
+    },
+    {
+      "slug": "land-raider-crusader",
+      "name": "Land Raider Crusader",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/land-raider-crusader",
+      "identities": [
+        {
+          "id": "space-marines.land-raider-crusader.assault-ramp",
+          "factionId": "space-marines",
+          "scopeId": "land-raider-crusader",
+          "unitEnglishName": "Land Raider Crusader",
+          "englishName": "Assault Ramp",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/land-raider-crusader"
+        }
+      ]
+    },
+    {
+      "slug": "land-raider-redeemer",
+      "name": "Land Raider Redeemer",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/land-raider-redeemer",
+      "identities": [
+        {
+          "id": "space-marines.land-raider-redeemer.assault-ramp",
+          "factionId": "space-marines",
+          "scopeId": "land-raider-redeemer",
+          "unitEnglishName": "Land Raider Redeemer",
+          "englishName": "Assault Ramp",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/land-raider-redeemer"
+        }
+      ]
+    },
+    {
+      "slug": "land-speeder",
+      "name": "Land Speeder",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/land-speeder",
+      "identities": [
+        {
+          "id": "space-marines.land-speeder.purgation-run",
+          "factionId": "space-marines",
+          "scopeId": "land-speeder",
+          "unitEnglishName": "Land Speeder",
+          "englishName": "Purgation Run",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/land-speeder"
+        }
+      ]
+    },
+    {
+      "slug": "predator-annihilator",
+      "name": "Predator Annihilator",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/predator-annihilator",
+      "identities": [
+        {
+          "id": "space-marines.predator-annihilator.annihilator",
+          "factionId": "space-marines",
+          "scopeId": "predator-annihilator",
+          "unitEnglishName": "Predator Annihilator",
+          "englishName": "Annihilator",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/predator-annihilator"
+        }
+      ]
+    },
+    {
+      "slug": "predator-destructor",
+      "name": "Predator Destructor",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/predator-destructor",
+      "identities": [
+        {
+          "id": "space-marines.predator-destructor.destructor",
+          "factionId": "space-marines",
+          "scopeId": "predator-destructor",
+          "unitEnglishName": "Predator Destructor",
+          "englishName": "Destructor",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/predator-destructor"
+        }
+      ]
+    },
+    {
+      "slug": "redemptor-dreadnought",
+      "name": "Redemptor Dreadnought",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/redemptor-dreadnought",
+      "identities": [
+        {
+          "id": "space-marines.redemptor-dreadnought.duty-eternal",
+          "factionId": "space-marines",
+          "scopeId": "redemptor-dreadnought",
+          "unitEnglishName": "Redemptor Dreadnought",
+          "englishName": "Duty Eternal",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/redemptor-dreadnought"
+        }
+      ]
+    },
+    {
+      "slug": "repulsor",
+      "name": "Repulsor",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/repulsor",
+      "identities": [
+        {
+          "id": "space-marines.repulsor.emergency-combat-embarkation",
+          "factionId": "space-marines",
+          "scopeId": "repulsor",
+          "unitEnglishName": "Repulsor",
+          "englishName": "Emergency Combat Embarkation",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/repulsor"
+        }
+      ]
+    },
+    {
+      "slug": "repulsor-executioner",
+      "name": "Repulsor Executioner",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/repulsor-executioner",
+      "identities": [
+        {
+          "id": "space-marines.repulsor-executioner.executioner",
+          "factionId": "space-marines",
+          "scopeId": "repulsor-executioner",
+          "unitEnglishName": "Repulsor Executioner",
+          "englishName": "Executioner",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/repulsor-executioner"
+        }
+      ]
+    },
+    {
+      "slug": "storm-speeder-hailstrike",
+      "name": "Storm Speeder Hailstrike",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/storm-speeder-hailstrike",
+      "identities": [
+        {
+          "id": "space-marines.storm-speeder-hailstrike.hailstrike",
+          "factionId": "space-marines",
+          "scopeId": "storm-speeder-hailstrike",
+          "unitEnglishName": "Storm Speeder Hailstrike",
+          "englishName": "Hailstrike",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/storm-speeder-hailstrike"
+        }
+      ]
+    },
+    {
+      "slug": "storm-speeder-hammerstrike",
+      "name": "Storm Speeder Hammerstrike",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/storm-speeder-hammerstrike",
+      "identities": [
+        {
+          "id": "space-marines.storm-speeder-hammerstrike.hammerstrike",
+          "factionId": "space-marines",
+          "scopeId": "storm-speeder-hammerstrike",
+          "unitEnglishName": "Storm Speeder Hammerstrike",
+          "englishName": "Hammerstrike",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/storm-speeder-hammerstrike"
+        }
+      ]
+    },
+    {
+      "slug": "storm-speeder-thunderstrike",
+      "name": "Storm Speeder Thunderstrike",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/storm-speeder-thunderstrike",
+      "identities": [
+        {
+          "id": "space-marines.storm-speeder-thunderstrike.thunderstrike",
+          "factionId": "space-marines",
+          "scopeId": "storm-speeder-thunderstrike",
+          "unitEnglishName": "Storm Speeder Thunderstrike",
+          "englishName": "Thunderstrike",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/storm-speeder-thunderstrike"
+        }
+      ]
+    },
+    {
+      "slug": "stormraven-gunship",
+      "name": "Stormraven Gunship",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/stormraven-gunship",
+      "identities": [
+        {
+          "id": "space-marines.stormraven-gunship.armoured-resilience",
+          "factionId": "space-marines",
+          "scopeId": "stormraven-gunship",
+          "unitEnglishName": "Stormraven Gunship",
+          "englishName": "Armoured Resilience",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/stormraven-gunship"
+        }
+      ]
+    },
+    {
+      "slug": "vindicator",
+      "name": "Vindicator",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/vindicator",
+      "identities": [
+        {
+          "id": "space-marines.vindicator.siege-shield",
+          "factionId": "space-marines",
+          "scopeId": "vindicator",
+          "unitEnglishName": "Vindicator",
+          "englishName": "Siege Shield",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/vindicator"
+        }
+      ]
+    },
+    {
+      "slug": "whirlwind",
+      "name": "Whirlwind",
+      "sourceUrl": "https://www.40k.app/factions/space-marines/units/whirlwind",
+      "identities": [
+        {
+          "id": "space-marines.whirlwind.pinning-bombardment",
+          "factionId": "space-marines",
+          "scopeId": "whirlwind",
+          "unitEnglishName": "Whirlwind",
+          "englishName": "Pinning Bombardment",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/space-marines/units/whirlwind"
+        }
+      ]
+    }
+  ]
+}

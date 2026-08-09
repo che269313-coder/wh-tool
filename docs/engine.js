@@ -7,65 +7,13 @@
  * never decides the dice result.
  */
 (function (root, factory) {
-  const api = factory();
+  const payloadSchema = root?.WarhammerPayloadSchema
+    || (typeof module !== "undefined" && module.exports ? require("./rules/payload-schema.js") : null);
+  const api = factory(payloadSchema);
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   if (root) root.WarhammerEngine = api;
-})(typeof globalThis === "undefined" ? this : globalThis, function () {
-  const WEAPON_DEFAULTS = {
-    hitRerollFixedEnabled: false,
-    hitRerollFixedAmount: 1,
-    hitRerollFixedType: "ones",
-    hitRerollFixedValues: [],
-    hitRerollAllEnabled: false,
-    hitRerollAllType: "ones",
-    hitRerollAllValues: [],
-    hitModifierEnabled: false,
-    hitModifierValue: 0,
-    hitCriticalEnabled: false,
-    criticalHitThreshold: 6,
-    woundRerollFixedEnabled: false,
-    woundRerollFixedAmount: 1,
-    woundRerollFixedType: "ones",
-    woundRerollFixedValues: [],
-    woundRerollAllEnabled: false,
-    woundRerollAllType: "ones",
-    woundRerollAllValues: [],
-    woundModifierEnabled: false,
-    woundModifierValue: 0,
-    woundCriticalEnabled: false,
-    criticalWoundThreshold: 6,
-    sustainedHitsEnabled: false,
-    sustainedHitsValue: "1",
-    lethalHitsEnabled: false,
-    devastatingWoundsEnabled: false,
-    damageRerollEnabled: false,
-    damageRerollType: "ones",
-    damageRerollAmount: "1",
-    damageRerollValues: [],
-    criticalWoundApEnabled: false,
-    criticalWoundApValue: 1,
-    negatedWoundsEnabled: false,
-    negatedWoundsCount: 1,
-  };
-
-  const DEFENDER_DEFAULTS = {
-    saveRerollFixedEnabled: false,
-    saveRerollFixedAmount: 1,
-    saveRerollFixedType: "ones",
-    saveRerollFixedValues: [],
-    saveRerollAllEnabled: false,
-    saveRerollAllType: "ones",
-    saveRerollAllValues: [],
-    feelNoPainEnabled: false,
-    feelNoPainThreshold: 6,
-    feelNoPainMortalEnabled: false,
-    feelNoPainMortalThreshold: 6,
-    damageOverride: 0,
-    ruleInvulnerableSave: 0,
-    oneUseInvulnerableEnabled: false,
-    oneUseInvulnerableSave: 2,
-    saveBonusVsDamage1: false,
-  };
+})(typeof globalThis === "undefined" ? this : globalThis, function (payloadSchema) {
+  if (!payloadSchema) throw new Error("payload-schema.js must load before engine.js");
 
   const CHART_NAMES = [
     "hit",
@@ -79,6 +27,9 @@
     "lethalHits",
     "criticalWounds",
     "devastatingWounds",
+    "hazardousTests",
+    "hazardousFailures",
+    "hazardousSelfDamage",
   ];
 
   function number(value, fallback = 0) {
@@ -91,11 +42,11 @@
   }
 
   function normalizeWeaponEffects(effects) {
-    return { ...WEAPON_DEFAULTS, ...(effects || {}) };
+    return payloadSchema.createWeaponEffects(effects || {});
   }
 
   function normalizeDefenderEffects(effects) {
-    return { ...DEFENDER_DEFAULTS, ...(effects || {}) };
+    return payloadSchema.createDefenderEffects(effects || {});
   }
 
   function parseExpression(value) {
@@ -266,6 +217,9 @@
       lethalHits: 0,
       criticalWounds: 0,
       devastatingWounds: 0,
+      hazardousTests: 0,
+      hazardousFailures: 0,
+      hazardousSelfDamage: 0,
     };
   }
 
@@ -299,6 +253,7 @@
       save: number(group?.save, 7),
       invulnerableSave: number(group?.invulnerableSave, 0),
       allocationOrder: number(group?.allocationOrder, index + 1),
+      isCharacter: Boolean(group?.isCharacter),
       effects: normalizeDefenderEffects(group?.effects),
     };
   }
@@ -389,9 +344,10 @@
       hitRolls = rawHitValues.map(() => ({ value: 0, critical: false, success: true }));
     } else {
       const hitModifier = effects.hitModifierEnabled ? number(effects.hitModifierValue) : 0;
+      const minimumUnmodifiedHit = Math.max(0, Math.min(6, number(effects.minimumUnmodifiedHit)));
       const context = {
         criticalThreshold: hitCritical,
-        success: (die) => thresholdSuccess(die, weapon.hit, hitModifier),
+        success: (die) => (!minimumUnmodifiedHit || die >= minimumUnmodifiedHit) && thresholdSuccess(die, weapon.hit, hitModifier),
       };
       // Reroll quantities are scoped to the whole public weapon-group
       // request, not separately to every model inside modelCount.
@@ -399,7 +355,7 @@
       hitRolls = rerolled.map((value) => ({
         value,
         critical: value >= hitCritical,
-        success: context.success(value) || value >= hitCritical,
+        success: context.success(value) || (value >= hitCritical && (!minimumUnmodifiedHit || value >= minimumUnmodifiedHit)),
       })).filter((result) => result.success);
     }
 
@@ -492,11 +448,17 @@
     let amount = event.negated ? 0 : rollDamageExpression(event.damage, weaponEffects, rng);
     const defenderEffects = defenderGroup.effects;
     if (Number(defenderEffects.damageOverride) > 0 && amount > 0) amount = Number(defenderEffects.damageOverride);
+    if (!event.mortal && Number(defenderEffects.incomingDamageModifier) && amount > 0) amount = Math.max(1, amount + Number(defenderEffects.incomingDamageModifier));
     if (!event.mortal && Number(defenderEffects.damageMultiplier) > 0 && Number(defenderEffects.damageMultiplier) < 1 && amount > 0) {
       amount = Math.ceil(amount * Number(defenderEffects.damageMultiplier));
     }
-    const fnpEnabled = event.mortal ? defenderEffects.feelNoPainMortalEnabled : defenderEffects.feelNoPainEnabled;
-    const fnpThreshold = event.mortal ? defenderEffects.feelNoPainMortalThreshold : defenderEffects.feelNoPainThreshold;
+    const regularFnpEnabled = event.mortal ? defenderEffects.feelNoPainMortalEnabled : defenderEffects.feelNoPainEnabled;
+    const regularFnpThreshold = event.mortal ? defenderEffects.feelNoPainMortalThreshold : defenderEffects.feelNoPainThreshold;
+    const psychicFnpEnabled = weaponEffects.psychicAttackEnabled && defenderEffects.feelNoPainPsychicEnabled;
+    const fnpEnabled = regularFnpEnabled || psychicFnpEnabled;
+    const fnpThreshold = regularFnpEnabled && psychicFnpEnabled
+      ? Math.min(number(regularFnpThreshold, 6), number(defenderEffects.feelNoPainPsychicThreshold, 6))
+      : psychicFnpEnabled ? defenderEffects.feelNoPainPsychicThreshold : regularFnpThreshold;
     if (fnpEnabled) amount = applyFeelNoPain(amount, fnpThreshold, rng);
 
     const before = defenderModel.remaining;
@@ -520,12 +482,30 @@
       .map(makeDefenderState);
   }
 
-  function findTarget(defenders) {
+  function findTarget(defenders, weapon = null) {
+    if (weapon?.effects?.precisionEnabled) {
+      for (const group of defenders) {
+        if (!group.isCharacter) continue;
+        const model = group.models.find((candidate) => candidate.remaining > 0);
+        if (model) return { group, model };
+      }
+    }
     for (const group of defenders) {
       const model = group.models.find((candidate) => candidate.remaining > 0);
       if (model) return { group, model };
     }
     return null;
+  }
+
+  function resolveHazardous(weapon, counters, rng) {
+    if (!weapon.effects.hazardousEnabled) return;
+    const tests = Math.max(0, integer(weapon.modelCount));
+    counters.hazardousTests += tests;
+    for (let index = 0; index < tests; index += 1) {
+      if (rollD6(rng) > 2) continue;
+      counters.hazardousFailures += 1;
+      counters.hazardousSelfDamage += Math.max(1, integer(weapon.effects.hazardousDamage, 1));
+    }
   }
 
   function chartSet(runs) {
@@ -566,6 +546,8 @@
         // defender model is destroyed. A single group still rolls its entire
         // attack batch, so the stop check belongs between groups.
         if (!findTarget(defenders)) {
+          resolveHazardous(weapon, groupCounters, rng);
+          addCounters(global, groupCounters);
           weaponRuns[weaponIndex].push(groupCounters);
           return;
         }
@@ -575,7 +557,7 @@
         groupEvents.push(...groupResult.woundEvents);
         applyNegatedWounds(groupEvents, weapon.effects, rng);
         for (const event of groupEvents) {
-          const target = findTarget(defenders);
+          const target = findTarget(defenders, weapon);
           if (!target) continue;
           const targetIndex = defenders.indexOf(target.group);
           const result = resolveDamageEvent(event, weapon.effects, target.group, target.model, rng);
@@ -586,6 +568,7 @@
             if (targetIndex >= 0) killsAtStart[targetIndex] += 1;
           }
         }
+        resolveHazardous(weapon, groupCounters, rng);
         addCounters(global, groupCounters);
         weaponRuns[weaponIndex].push(groupCounters);
         killsAtStart.forEach((count, index) => {
@@ -688,6 +671,7 @@
         counter.save += resolved.saveResult?.saved ? 1 : 0;
         counter.totalDamage += resolved.damage;
       }
+      resolveHazardous(weapon, counter, rng);
       counter.kills = Math.floor(counter.totalDamage / defender.wounds);
       runs.push(counter);
     }

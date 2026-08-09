@@ -94,19 +94,49 @@
               <div id="calculatorDefenderPickers" class="calculator-picker-list"></div>
             </div>
             <label>攻击类型<select id="calculatorAttackMode"><option value="ranged">远程射击</option><option value="melee">近战</option></select></label>
+            <details class="calculator-core-context">
+              <summary>通用武器规则条件</summary>
+              <div id="calculatorCoreContext" class="calculator-context-grid">
+                <fieldset class="calculator-context-group" data-context-group="distance-target">
+                  <legend>距离与目标状态</legend>
+                  <label class="check-row"><input type="checkbox" data-calc-context="targetWithinHalfRange" /><span>目标位于武器半射程内（【速射】/【热熔】）</span></label>
+                  <label class="check-row"><input type="checkbox" data-calc-context="targetHasCover" /><span>目标拥有掩体增益（【无视掩体】/【曲射】）</span></label>
+                </fieldset>
+                <fieldset class="calculator-context-group" data-context-group="movement-charge">
+                  <legend>移动与冲锋</legend>
+                  <label class="check-row"><input type="checkbox" data-calc-context="attackerAdvanced" /><span>攻击单位本回合进行过突进移动（【突击】）</span></label>
+                  <label class="check-row"><input type="checkbox" data-calc-context="attackerCharged" /><span>攻击单位本回合进行过冲锋移动（【骑枪】）</span></label>
+                </fieldset>
+                <fieldset class="calculator-context-group" data-context-group="engagement">
+                  <legend>交战状态</legend>
+                  <label class="check-row"><input type="checkbox" data-calc-context="attackerEngaged" /><span>攻击单位处于交战状态（【近距离】/【手枪】/【爆炸】/【重型】）</span></label>
+                </fieldset>
+                <fieldset class="calculator-context-group" data-context-keyword="heavy">
+                  <legend>重型条件（【重型】）</legend>
+                  <label class="check-row"><input type="checkbox" data-calc-context="attackerDeployedThisTurn" /><span>攻击单位本回合部署至战场（【重型】）</span></label>
+                  <label class="check-row"><input type="checkbox" data-calc-context="attackerMovedOver3" /><span>攻击单位本回合移动超过 3 英寸（【重型】）</span></label>
+                </fieldset>
+                <fieldset class="calculator-context-group" data-context-keyword="indirect-fire">
+                  <legend>曲射条件（【曲射】）</legend>
+                  <label class="check-row"><input type="checkbox" data-calc-context="usingIndirectFire" /><span>使用曲射攻击不可见目标（【曲射】）</span></label>
+                  <label class="check-row"><input type="checkbox" data-calc-context="attackerRemainedStationary" /><span>攻击单位本回合保持静止（【曲射】）</span></label>
+                  <label class="check-row"><input type="checkbox" data-calc-context="targetVisibleToFriendly" /><span>目标对至少一个己方单位可见（【曲射】）</span></label>
+                </fieldset>
+              </div>
+            </details>
             <div class="button-row"><button id="runCalc" class="secondary-button">本地模拟 1,000 次</button></div>
+            <div class="calculation-result">
+              <div><span class="card-label">模拟结果</span><strong id="calcChance">—</strong><small>全歼概率</small></div>
+              <div><span class="card-label">平均有效伤害</span><strong id="calcDamage">—</strong><small id="calcTargetWounds">请先选择目标</small></div>
+              <div><span class="card-label">说明</span><p id="calcNote">请选择进攻单位和防御目标后开始计算。</p></div>
+            </div>
+            <div class="distribution-panel">
+              <div class="distribution-block"><span class="card-label">总伤害分布</span><div id="damageDistribution" class="distribution-chart" aria-label="总伤害分布直方图"></div><small id="damageDistributionNote" class="muted-copy">运行本地模拟后显示</small></div>
+              <div class="distribution-block"><span class="card-label">击杀模型数分布</span><div id="killsDistribution" class="distribution-chart" aria-label="击杀模型数分布直方图"></div><small id="killsDistributionNote" class="muted-copy">运行本地模拟后显示</small></div>
+            </div>
             <p class="form-hint">计算只使用已选择的军表单位或结构化数据卡；未选择双方单位，或数据卡缺少可计算属性时不会开始计算。</p>
           </div>
           <section id="calculatorDetails" class="calculator-details" aria-live="polite"></section>
-          <div class="calculation-result">
-            <div><span class="card-label">模拟结果</span><strong id="calcChance">—</strong><small>全歼概率</small></div>
-            <div><span class="card-label">平均有效伤害</span><strong id="calcDamage">—</strong><small id="calcTargetWounds">请先选择目标</small></div>
-            <div><span class="card-label">说明</span><p id="calcNote">请选择进攻单位和防御目标后开始计算。</p></div>
-          </div>
-          <div class="distribution-panel">
-            <div class="distribution-block"><span class="card-label">总伤害分布</span><div id="damageDistribution" class="distribution-chart" aria-label="总伤害分布直方图"></div><small id="damageDistributionNote" class="muted-copy">运行本地模拟后显示</small></div>
-            <div class="distribution-block"><span class="card-label">击杀模型数分布</span><div id="killsDistribution" class="distribution-chart" aria-label="击杀模型数分布直方图"></div><small id="killsDistributionNote" class="muted-copy">运行本地模拟后显示</small></div>
-          </div>
         </section>
 
         <section id="view-settings" class="view">
@@ -121,6 +151,7 @@
             <p class="form-hint">AI 代理地址填写 Worker 的 <code>/api/chat</code>。</p>
           </form>
           <div class="info-box"><strong>对局数据</strong><p>AI 会结合双方军表中的存活模型、装备和血量进行判断。单位的血量可在“军表”中点开详情后修改；移除模型会立即同步到总览。</p></div>
+          <div class="info-box"><strong>许可与使用</strong><p>允许克隆、查看、学习，以及个人非商业的本地运行；转载、公开部署或二次分发需事先获得书面授权，禁止商业使用。完整条款见仓库 LICENSE。</p></div>
         </section>
       </main>
 
@@ -134,12 +165,27 @@
     <dialog id="unitDetail" class="unit-detail-dialog"><div id="unitDetailContent"></div></dialog>
     <div id="toast" class="toast" role="status"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+    <script src="rules/identity.js" defer></script>
+    <script src="rules/faction-registry.js" defer></script>
+    <script src="rules/detachment-registry.js" defer></script>
+    <script src="rules/effect-schema.js" defer></script>
+    <script src="rules/payload-schema.js" defer></script>
+    <script src="rules/keyword-dictionary.js" defer></script>
+    <script src="rules/combat-state.js" defer></script>
+    <script src="rules/factions.js" defer></script>
     <script src="engine.js" defer></script>
+    <script src="rules/custodes-identities.js" defer></script>
     <script src="rules/custodes.js" defer></script>
+    <script src="rules/space-marines-identities.js" defer></script>
     <script src="rules/space-marines.js" defer></script>
+    <script src="rules/death-guard-identities.js" defer></script>
     <script src="rules/death-guard.js" defer></script>
+    <script src="rules/detachments/adeptus-custodes.js" defer></script>
+    <script src="rules/detachments/space-marines.js" defer></script>
+    <script src="rules/detachments/death-guard.js" defer></script>
     <script src="rules/effects.js" defer></script>
     <script src="rules/resolver.js" defer></script>
+    <script src="rules/roster-context.js" defer></script>
     <script src="calculator-catalog.js" defer></script>
     <script src="app.js?v=catalog-20260806" defer></script>
   </body>

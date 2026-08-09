@@ -1,0 +1,4 @@
+# Original rulebook and faction PDFs are kept locally for verification only.
+# Searchable Markdown/JSON derivatives remain tracked and are used by deploys.
+/docs/data/*.pdf
+/docs/data/**/*.pdf

@@ -4,7 +4,7 @@
   {
     "id": "death-guard-nurgles-gift",
     "name": "纳垢赐福",
-    "text": "纳垢赐福（光环）：当敌方单位处于感染范围内时，该敌方单位模型的韧性值T-1；该单位额外受到以下一种瘟疫的影响（三选一）：头骨痉挛：模型进行近战攻击时命中结果-1；颤骨瘟疫：模型的保护值SV-1；烂魂伤风：模型的移动、领导和目标控制属性各-1。",
+    "text": "纳垢赐福（光环）：当敌方单位处于感染范围内时，该敌方单位模型的韧性值T-1；该单位额外受到以下一种瘟疫的影响（三选一）：扭颅疫病：模型进行近战攻击时命中结果-1；颤骨瘟疫：模型的保护值SV-1；烂魂伤风：模型的移动、领导和目标控制属性各-1。",
     "status": "计算支持（T-1与头骨痉挛/颤骨瘟疫会计入伤害计算；烂魂伤风仅显示）",
     "controls": [
       {
@@ -23,7 +23,7 @@
           ],
           [
             "skullsquirm",
-            "头骨痉挛：近战命中 -1"
+            "扭颅疫病：近战攻击命中 -1"
           ],
           [
             "rattlejoint",
@@ -162,8 +162,8 @@
       ],
       "effects": [
         {
-          "type": "incoming-melee-hit-minus",
-          "value": -1,
+          "type": "incoming-hit-minus",
+          "value": 1,
           "phase": "melee",
           "requiresJoined": true
         }
@@ -398,8 +398,9 @@
       ],
       "effects": [
         {
-          "type": "space-wound-reroll",
+          "type": "wound-reroll",
           "mode": "failed",
+          "phase": "ranged",
           "requiresJoined": true
         }
       ],
@@ -419,7 +420,7 @@
       "status": "计算支持（满足条件时自动计入）",
       "effects": [
         {
-          "type": "space-hit-reroll",
+          "type": "hit-reroll",
           "mode": "ones",
           "phase": "ranged"
         }
@@ -810,7 +811,8 @@
           "type": "hit-critical-threshold",
           "value": 5,
           "belowHalfValue": 4,
-          "condition": "targetBelowHalf"
+          "condition": "targetBelowHalf",
+          "phase": "melee"
         }
       ],
       "source": {
@@ -975,13 +977,15 @@
           "type": "weapon-strength-modifier",
           "value": 1,
           "condition": "large-or-led",
-          "requiresTargetInfected": true
+          "requiresTargetInfected": true,
+          "phase": "ranged"
         },
         {
           "type": "weapon-ap-modifier",
           "value": 1,
           "condition": "large-or-led",
-          "requiresTargetInfected": true
+          "requiresTargetInfected": true,
+          "phase": "ranged"
         }
       ],
       "source": {
@@ -1198,12 +1202,14 @@
         {
           "type": "hit-modifier",
           "value": 1,
-          "requiresTargetMonsterVehicle": true
+          "requiresTargetMonsterVehicle": true,
+          "phase": "ranged"
         },
         {
           "type": "wound-modifier",
           "value": 1,
-          "requiresTargetMonsterVehicle": true
+          "requiresTargetMonsterVehicle": true,
+          "phase": "ranged"
         }
       ],
       "source": {
@@ -1479,7 +1485,7 @@
       ],
       "effects": [
         {
-          "type": "space-wound-reroll",
+          "type": "wound-reroll",
           "mode": "failed",
           "phase": "ranged"
         }
@@ -1917,8 +1923,8 @@
       "status": "计算支持（满足条件时自动计入）",
       "effects": [
         {
-          "type": "incoming-melee-hit-minus",
-          "value": -1,
+          "type": "incoming-hit-minus",
+          "value": 1,
           "phase": "melee"
         }
       ],
@@ -2091,7 +2097,7 @@
       ],
       "effects": [
         {
-          "type": "space-wound-reroll",
+          "type": "wound-reroll",
           "mode": "failed",
           "phase": "ranged"
         }
@@ -2135,5 +2141,6 @@
     }
   ]
 };
-  root.WarhammerDeathGuardRules = { factionRules, unitRules };
+  const catalog = { factionRules, unitRules };
+  root.WarhammerDeathGuardRules = root.WarhammerDeathGuardRuleIdentities?.apply(catalog) || catalog;
 })(typeof globalThis === "undefined" ? this : globalThis);

@@ -1,0 +1,666 @@
+{
+  "factionId": "death-guard",
+  "sourceUrl": "https://www.40k.app/factions/death-guard",
+  "units": [
+    {
+      "slug": "mortarion",
+      "name": "Mortarion",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/mortarion",
+      "identities": [
+        {
+          "id": "death-guard.mortarion.lord-of-the-death-guard",
+          "factionId": "death-guard",
+          "scopeId": "mortarion",
+          "unitEnglishName": "Mortarion",
+          "englishName": "Lord of the Death Guard",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/mortarion"
+        },
+        {
+          "id": "death-guard.mortarion.host-of-plagues",
+          "factionId": "death-guard",
+          "scopeId": "mortarion",
+          "unitEnglishName": "Mortarion",
+          "englishName": "Host of Plagues",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/mortarion"
+        }
+      ]
+    },
+    {
+      "slug": "typhus",
+      "name": "Typhus",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/typhus",
+      "identities": [
+        {
+          "id": "death-guard.typhus.destroyer-hive",
+          "factionId": "death-guard",
+          "scopeId": "typhus",
+          "unitEnglishName": "Typhus",
+          "englishName": "Destroyer Hive",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/typhus"
+        },
+        {
+          "id": "death-guard.typhus.eater-plague",
+          "factionId": "death-guard",
+          "scopeId": "typhus",
+          "unitEnglishName": "Typhus",
+          "englishName": "Eater Plague",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/typhus"
+        }
+      ]
+    },
+    {
+      "slug": "biologus-putrifier",
+      "name": "Biologus Putrifier",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/biologus-putrifier",
+      "identities": [
+        {
+          "id": "death-guard.biologus-putrifier.foul-infusion",
+          "factionId": "death-guard",
+          "scopeId": "biologus-putrifier",
+          "unitEnglishName": "Biologus Putrifier",
+          "englishName": "Foul Infusion",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/biologus-putrifier"
+        },
+        {
+          "id": "death-guard.biologus-putrifier.extraction-of-fresh-disease",
+          "factionId": "death-guard",
+          "scopeId": "biologus-putrifier",
+          "unitEnglishName": "Biologus Putrifier",
+          "englishName": "Extraction of Fresh Disease",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/biologus-putrifier"
+        }
+      ]
+    },
+    {
+      "slug": "daemon-prince-of-nurgle",
+      "name": "Daemon Prince of Nurgle",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/daemon-prince-of-nurgle",
+      "identities": [
+        {
+          "id": "death-guard.daemon-prince-of-nurgle.death-guard-defenders",
+          "factionId": "death-guard",
+          "scopeId": "daemon-prince-of-nurgle",
+          "unitEnglishName": "Daemon Prince of Nurgle",
+          "englishName": "Death Guard Defenders",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/daemon-prince-of-nurgle"
+        },
+        {
+          "id": "death-guard.daemon-prince-of-nurgle.fevered-strategist",
+          "factionId": "death-guard",
+          "scopeId": "daemon-prince-of-nurgle",
+          "unitEnglishName": "Daemon Prince of Nurgle",
+          "englishName": "Fevered Strategist",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/daemon-prince-of-nurgle"
+        },
+        {
+          "id": "death-guard.daemon-prince-of-nurgle.miasma-of-pestilence",
+          "factionId": "death-guard",
+          "scopeId": "daemon-prince-of-nurgle",
+          "unitEnglishName": "Daemon Prince of Nurgle",
+          "englishName": "Miasma of Pestilence",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/daemon-prince-of-nurgle"
+        }
+      ]
+    },
+    {
+      "slug": "daemon-prince-of-nurgle-with-wings",
+      "name": "Daemon Prince of Nurgle with Wings",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/daemon-prince-of-nurgle-with-wings",
+      "identities": [
+        {
+          "id": "death-guard.daemon-prince-of-nurgle-with-wings.horrifying-visage",
+          "factionId": "death-guard",
+          "scopeId": "daemon-prince-of-nurgle-with-wings",
+          "unitEnglishName": "Daemon Prince of Nurgle with Wings",
+          "englishName": "Horrifying Visage",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/daemon-prince-of-nurgle-with-wings"
+        },
+        {
+          "id": "death-guard.daemon-prince-of-nurgle-with-wings.enfeebling-miasma",
+          "factionId": "death-guard",
+          "scopeId": "daemon-prince-of-nurgle-with-wings",
+          "unitEnglishName": "Daemon Prince of Nurgle with Wings",
+          "englishName": "Enfeebling Miasma",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/daemon-prince-of-nurgle-with-wings"
+        }
+      ]
+    },
+    {
+      "slug": "foul-blightspawn",
+      "name": "Foul Blightspawn",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/foul-blightspawn",
+      "identities": [
+        {
+          "id": "death-guard.foul-blightspawn.blinding-spray",
+          "factionId": "death-guard",
+          "scopeId": "foul-blightspawn",
+          "unitEnglishName": "Foul Blightspawn",
+          "englishName": "Blinding Spray",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/foul-blightspawn"
+        },
+        {
+          "id": "death-guard.foul-blightspawn.putrefying-stink",
+          "factionId": "death-guard",
+          "scopeId": "foul-blightspawn",
+          "unitEnglishName": "Foul Blightspawn",
+          "englishName": "Putrefying Stink",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/foul-blightspawn"
+        }
+      ]
+    },
+    {
+      "slug": "icon-bearer",
+      "name": "Icon Bearer",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/icon-bearer",
+      "identities": [
+        {
+          "id": "death-guard.icon-bearer.unclean-icon",
+          "factionId": "death-guard",
+          "scopeId": "icon-bearer",
+          "unitEnglishName": "Icon Bearer",
+          "englishName": "Unclean Icon",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/icon-bearer"
+        },
+        {
+          "id": "death-guard.icon-bearer.blessed-icon-of-disease",
+          "factionId": "death-guard",
+          "scopeId": "icon-bearer",
+          "unitEnglishName": "Icon Bearer",
+          "englishName": "Blessed Icon of Disease",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/icon-bearer"
+        }
+      ]
+    },
+    {
+      "slug": "lord-of-contagion",
+      "name": "Lord of Contagion",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/lord-of-contagion",
+      "identities": [
+        {
+          "id": "death-guard.lord-of-contagion.vector-of-disease",
+          "factionId": "death-guard",
+          "scopeId": "lord-of-contagion",
+          "unitEnglishName": "Lord of Contagion",
+          "englishName": "Vector of Disease",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/lord-of-contagion"
+        },
+        {
+          "id": "death-guard.lord-of-contagion.unholy-resilience",
+          "factionId": "death-guard",
+          "scopeId": "lord-of-contagion",
+          "unitEnglishName": "Lord of Contagion",
+          "englishName": "Unholy Resilience",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/lord-of-contagion"
+        }
+      ]
+    },
+    {
+      "slug": "lord-of-poxes",
+      "name": "Lord of Poxes",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/lord-of-poxes",
+      "identities": [
+        {
+          "id": "death-guard.lord-of-poxes.gift-of-poxes",
+          "factionId": "death-guard",
+          "scopeId": "lord-of-poxes",
+          "unitEnglishName": "Lord of Poxes",
+          "englishName": "Gift of Poxes",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/lord-of-poxes"
+        },
+        {
+          "id": "death-guard.lord-of-poxes.shroud-of-disease",
+          "factionId": "death-guard",
+          "scopeId": "lord-of-poxes",
+          "unitEnglishName": "Lord of Poxes",
+          "englishName": "Shroud of Disease",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/lord-of-poxes"
+        }
+      ]
+    },
+    {
+      "slug": "lord-of-virulence",
+      "name": "Lord of Virulence",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/lord-of-virulence",
+      "identities": [
+        {
+          "id": "death-guard.lord-of-virulence.virulent-aura",
+          "factionId": "death-guard",
+          "scopeId": "lord-of-virulence",
+          "unitEnglishName": "Lord of Virulence",
+          "englishName": "Virulent Aura",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/lord-of-virulence"
+        },
+        {
+          "id": "death-guard.lord-of-virulence.blight-bombardment",
+          "factionId": "death-guard",
+          "scopeId": "lord-of-virulence",
+          "unitEnglishName": "Lord of Virulence",
+          "englishName": "Blight Bombardment",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/lord-of-virulence"
+        }
+      ]
+    },
+    {
+      "slug": "malignant-plaguecaster",
+      "name": "Malignant Plaguecaster",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/malignant-plaguecaster",
+      "identities": [
+        {
+          "id": "death-guard.malignant-plaguecaster.gift-of-contagion",
+          "factionId": "death-guard",
+          "scopeId": "malignant-plaguecaster",
+          "unitEnglishName": "Malignant Plaguecaster",
+          "englishName": "Gift of Contagion",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/malignant-plaguecaster"
+        },
+        {
+          "id": "death-guard.malignant-plaguecaster.pestilent-fallout",
+          "factionId": "death-guard",
+          "scopeId": "malignant-plaguecaster",
+          "unitEnglishName": "Malignant Plaguecaster",
+          "englishName": "Pestilent Fallout",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/malignant-plaguecaster"
+        }
+      ]
+    },
+    {
+      "slug": "noxious-blightbringer",
+      "name": "Noxious Blightbringer",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/noxious-blightbringer",
+      "identities": [
+        {
+          "id": "death-guard.noxious-blightbringer.sickening-vitality",
+          "factionId": "death-guard",
+          "scopeId": "noxious-blightbringer",
+          "unitEnglishName": "Noxious Blightbringer",
+          "englishName": "Sickening Vitality",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/noxious-blightbringer"
+        },
+        {
+          "id": "death-guard.noxious-blightbringer.tocsin-of-misery",
+          "factionId": "death-guard",
+          "scopeId": "noxious-blightbringer",
+          "unitEnglishName": "Noxious Blightbringer",
+          "englishName": "Tocsin of Misery",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/noxious-blightbringer"
+        }
+      ]
+    },
+    {
+      "slug": "plague-surgeon",
+      "name": "Plague Surgeon",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/plague-surgeon",
+      "identities": [
+        {
+          "id": "death-guard.plague-surgeon.tainted-narthecium",
+          "factionId": "death-guard",
+          "scopeId": "plague-surgeon",
+          "unitEnglishName": "Plague Surgeon",
+          "englishName": "Tainted Narthecium",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/plague-surgeon"
+        },
+        {
+          "id": "death-guard.plague-surgeon.inflamed-infections",
+          "factionId": "death-guard",
+          "scopeId": "plague-surgeon",
+          "unitEnglishName": "Plague Surgeon",
+          "englishName": "Inflamed Infections",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/plague-surgeon"
+        }
+      ]
+    },
+    {
+      "slug": "tallyman",
+      "name": "Tallyman",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/tallyman",
+      "identities": [
+        {
+          "id": "death-guard.tallyman.malicious-calculations",
+          "factionId": "death-guard",
+          "scopeId": "tallyman",
+          "unitEnglishName": "Tallyman",
+          "englishName": "Malicious Calculations",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/tallyman"
+        },
+        {
+          "id": "death-guard.tallyman.sevenfold-chant",
+          "factionId": "death-guard",
+          "scopeId": "tallyman",
+          "unitEnglishName": "Tallyman",
+          "englishName": "Sevenfold Chant",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/tallyman"
+        }
+      ]
+    },
+    {
+      "slug": "plague-marines",
+      "name": "Plague Marines",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/plague-marines",
+      "identities": [
+        {
+          "id": "death-guard.plague-marines.infused-with-the-blessings-of-nurgle",
+          "factionId": "death-guard",
+          "scopeId": "plague-marines",
+          "unitEnglishName": "Plague Marines",
+          "englishName": "Infused with the Blessings of Nurgle",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/plague-marines"
+        }
+      ]
+    },
+    {
+      "slug": "blightlord-terminators",
+      "name": "Blightlord Terminators",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/blightlord-terminators",
+      "identities": [
+        {
+          "id": "death-guard.blightlord-terminators.blistering-fusillade",
+          "factionId": "death-guard",
+          "scopeId": "blightlord-terminators",
+          "unitEnglishName": "Blightlord Terminators",
+          "englishName": "Blistering Fusillade",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/blightlord-terminators"
+        }
+      ]
+    },
+    {
+      "slug": "chaos-spawn",
+      "name": "Chaos Spawn",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/chaos-spawn",
+      "identities": [
+        {
+          "id": "death-guard.chaos-spawn.lethal-ichor",
+          "factionId": "death-guard",
+          "scopeId": "chaos-spawn",
+          "unitEnglishName": "Chaos Spawn",
+          "englishName": "Lethal Ichor",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/chaos-spawn"
+        }
+      ]
+    },
+    {
+      "slug": "deathshroud-terminators",
+      "name": "Deathshroud Terminators",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/deathshroud-terminators",
+      "identities": [
+        {
+          "id": "death-guard.deathshroud-terminators.silent-bodyguard",
+          "factionId": "death-guard",
+          "scopeId": "deathshroud-terminators",
+          "unitEnglishName": "Deathshroud Terminators",
+          "englishName": "Silent Bodyguard",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/deathshroud-terminators"
+        },
+        {
+          "id": "death-guard.deathshroud-terminators.death-approaches",
+          "factionId": "death-guard",
+          "scopeId": "deathshroud-terminators",
+          "unitEnglishName": "Deathshroud Terminators",
+          "englishName": "Death Approaches",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/deathshroud-terminators"
+        }
+      ]
+    },
+    {
+      "slug": "poxwalkers",
+      "name": "Poxwalkers",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/poxwalkers",
+      "identities": [
+        {
+          "id": "death-guard.poxwalkers.curse-of-the-walking-pox",
+          "factionId": "death-guard",
+          "scopeId": "poxwalkers",
+          "unitEnglishName": "Poxwalkers",
+          "englishName": "Curse of the Walking Pox",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/poxwalkers"
+        }
+      ]
+    },
+    {
+      "slug": "chaos-rhino",
+      "name": "Chaos Rhino",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/chaos-rhino",
+      "identities": [
+        {
+          "id": "death-guard.chaos-rhino.fire-support",
+          "factionId": "death-guard",
+          "scopeId": "chaos-rhino",
+          "unitEnglishName": "Chaos Rhino",
+          "englishName": "Fire Support",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/chaos-rhino"
+        }
+      ]
+    },
+    {
+      "slug": "chaos-land-raider",
+      "name": "Chaos Land Raider",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/chaos-land-raider",
+      "identities": [
+        {
+          "id": "death-guard.chaos-land-raider.assault-ramp",
+          "factionId": "death-guard",
+          "scopeId": "chaos-land-raider",
+          "unitEnglishName": "Chaos Land Raider",
+          "englishName": "Assault Ramp",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/chaos-land-raider"
+        }
+      ]
+    },
+    {
+      "slug": "chaos-predator-annihilator",
+      "name": "Chaos Predator Annihilator",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/chaos-predator-annihilator",
+      "identities": [
+        {
+          "id": "death-guard.chaos-predator-annihilator.metalophagic-infection",
+          "factionId": "death-guard",
+          "scopeId": "chaos-predator-annihilator",
+          "unitEnglishName": "Chaos Predator Annihilator",
+          "englishName": "Metalophagic Infection",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/chaos-predator-annihilator"
+        }
+      ]
+    },
+    {
+      "slug": "chaos-predator-destructor",
+      "name": "Chaos Predator Destructor",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/chaos-predator-destructor",
+      "identities": [
+        {
+          "id": "death-guard.chaos-predator-destructor.hail-of-corrosive-disease",
+          "factionId": "death-guard",
+          "scopeId": "chaos-predator-destructor",
+          "unitEnglishName": "Chaos Predator Destructor",
+          "englishName": "Hail of Corrosive Disease",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/chaos-predator-destructor"
+        }
+      ]
+    },
+    {
+      "slug": "defiler",
+      "name": "Defiler",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/defiler",
+      "identities": [
+        {
+          "id": "death-guard.defiler.scuttling-walker",
+          "factionId": "death-guard",
+          "scopeId": "defiler",
+          "unitEnglishName": "Defiler",
+          "englishName": "Scuttling Walker",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/defiler"
+        },
+        {
+          "id": "death-guard.defiler.barrage-of-filth",
+          "factionId": "death-guard",
+          "scopeId": "defiler",
+          "unitEnglishName": "Defiler",
+          "englishName": "Barrage of Filth",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/defiler"
+        }
+      ]
+    },
+    {
+      "slug": "foetid-bloat-drone",
+      "name": "Foetid Bloat-Drone",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/foetid-bloat-drone",
+      "identities": [
+        {
+          "id": "death-guard.foetid-bloat-drone.hovering-death",
+          "factionId": "death-guard",
+          "scopeId": "foetid-bloat-drone",
+          "unitEnglishName": "Foetid Bloat-Drone",
+          "englishName": "Hovering Death",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/foetid-bloat-drone"
+        }
+      ]
+    },
+    {
+      "slug": "foetid-bloat-drone-with-heavy-blight-launcher",
+      "name": "Foetid Bloat-Drone with Heavy Blight Launcher",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/foetid-bloat-drone-with-heavy-blight-launcher",
+      "identities": [
+        {
+          "id": "death-guard.foetid-bloat-drone-with-heavy-blight-launcher.explosive-blight",
+          "factionId": "death-guard",
+          "scopeId": "foetid-bloat-drone-with-heavy-blight-launcher",
+          "unitEnglishName": "Foetid Bloat-Drone with Heavy Blight Launcher",
+          "englishName": "Explosive Blight",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/foetid-bloat-drone-with-heavy-blight-launcher"
+        }
+      ]
+    },
+    {
+      "slug": "helbrute",
+      "name": "Helbrute",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/helbrute",
+      "identities": [
+        {
+          "id": "death-guard.helbrute.diseased-malice",
+          "factionId": "death-guard",
+          "scopeId": "helbrute",
+          "unitEnglishName": "Helbrute",
+          "englishName": "Diseased Malice",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/helbrute"
+        },
+        {
+          "id": "death-guard.helbrute.froth-spattered-frenzy",
+          "factionId": "death-guard",
+          "scopeId": "helbrute",
+          "unitEnglishName": "Helbrute",
+          "englishName": "Froth-spattered Frenzy",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/helbrute"
+        }
+      ]
+    },
+    {
+      "slug": "myphitic-blight-haulers",
+      "name": "Myphitic Blight-haulers",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/myphitic-blight-haulers",
+      "identities": [
+        {
+          "id": "death-guard.myphitic-blight-haulers.tank-hunters",
+          "factionId": "death-guard",
+          "scopeId": "myphitic-blight-haulers",
+          "unitEnglishName": "Myphitic Blight-haulers",
+          "englishName": "Tank Hunters",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/myphitic-blight-haulers"
+        }
+      ]
+    },
+    {
+      "slug": "plagueburst-crawler",
+      "name": "Plagueburst Crawler",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/plagueburst-crawler",
+      "identities": [
+        {
+          "id": "death-guard.plagueburst-crawler.spore-laced-shock-waves",
+          "factionId": "death-guard",
+          "scopeId": "plagueburst-crawler",
+          "unitEnglishName": "Plagueburst Crawler",
+          "englishName": "Spore-laced Shock Waves",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/plagueburst-crawler"
+        }
+      ]
+    },
+    {
+      "slug": "miasmic-malignifier",
+      "name": "Miasmic Malignifier",
+      "sourceUrl": "https://www.40k.app/factions/death-guard/units/miasmic-malignifier",
+      "identities": [
+        {
+          "id": "death-guard.miasmic-malignifier.putrescent-fog",
+          "factionId": "death-guard",
+          "scopeId": "miasmic-malignifier",
+          "unitEnglishName": "Miasmic Malignifier",
+          "englishName": "Putrescent Fog",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/miasmic-malignifier"
+        },
+        {
+          "id": "death-guard.miasmic-malignifier.diseased-cover",
+          "factionId": "death-guard",
+          "scopeId": "miasmic-malignifier",
+          "unitEnglishName": "Miasmic Malignifier",
+          "englishName": "Diseased Cover",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/miasmic-malignifier"
+        },
+        {
+          "id": "death-guard.miasmic-malignifier.fortification",
+          "factionId": "death-guard",
+          "scopeId": "miasmic-malignifier",
+          "unitEnglishName": "Miasmic Malignifier",
+          "englishName": "Fortification",
+          "matchStatus": "official",
+          "sourceUrl": "https://www.40k.app/factions/death-guard/units/miasmic-malignifier"
+        }
+      ]
+    }
+  ]
+}

@@ -1,21 +1,59 @@
-MIT License
+WH Tool Personal Non-Commercial Source License 1.0
 
-Copyright (c) 2026 che269313-coder
+Copyright (c) 2026 che269313-coder. All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This repository is source-available software. It is not open-source software as
+that term is commonly defined.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. Limited permission
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Without prior permission, you may:
+
+- access, download, and clone this repository;
+- view and study the source code; and
+- run an unmodified copy privately for personal, non-commercial gameplay,
+  evaluation, or learning.
+
+These permissions do not transfer ownership and are subject to every term in
+this license.
+
+2. Written authorization required
+
+You must obtain prior written authorization from the copyright holder before
+you may:
+
+- modify, adapt, translate, or create derivative works;
+- copy the work except for a permitted clone or a reasonable personal backup;
+- distribute, redistribute, publish, republish, mirror, or sublicense the work
+  or any substantial portion of it;
+- host or deploy the work for public or third-party access; or
+- incorporate the work into another project, product, or service.
+
+3. No commercial use
+
+Commercial use is strictly prohibited under this license. This includes use
+intended for commercial advantage, monetary compensation, paid services,
+advertising-supported services, or use within a commercial product or
+organization. Only a separate written license issued by the copyright holder
+can grant commercial rights.
+
+4. Notices and third-party rights
+
+You may not remove or alter copyright, license, attribution, or rights notices.
+Names, trademarks, game rules, artwork, and other third-party materials remain
+the property of their respective rights holders. This license grants no rights
+to third-party materials or trademarks.
+
+5. Termination
+
+Your permissions under this license terminate automatically if you breach any
+term. Upon termination, you must stop using the work and delete all copies in
+your possession or control, except where retention is required by law.
+
+6. Disclaimer
+
+THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. TO THE MAXIMUM EXTENT
+PERMITTED BY LAW, THE COPYRIGHT HOLDER SHALL NOT BE LIABLE FOR ANY CLAIM,
+DAMAGES, OR OTHER LIABILITY ARISING FROM THE WORK OR ITS USE.
