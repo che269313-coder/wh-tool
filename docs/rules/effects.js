@@ -76,6 +76,7 @@
       case "lethal-hits": if (active) attack.lethalHits = true; break;
       case "devastating-wounds": if (active) attack.devastating = true; break;
       case "attack-modifier": if (active) attack.attackModifier += Number(effect.value || 0); break;
+      case "rapid-fire-attack-modifier": if (active) attack.rapidFireAttackModifier += Number(effect.value || 0); break;
       case "target-toughness-modifier": if (active) attack.targetToughnessModifier += Number(effect.value || 0); break;
       case "target-melee-hit-minus": if (active) { const value = Number(effect.value || -1); attack.targetMeleeHitModifier += value; contribute(attack, "targetMeleeHitModifier", value); } break;
       case "target-hit-minus": if (active) { const value = -Math.abs(Number(effect.value || 1)); attack.targetHitModifier = Number(attack.targetHitModifier || 0) + value; contribute(attack, "targetHitModifier", value); } break;
@@ -101,6 +102,14 @@
         }
         break;
       }
+      case "wound-critical-threshold": {
+        if (!active) break;
+        const threshold = Number(effect.value || 0);
+        if (threshold) attack.woundCriticalThreshold = attack.woundCriticalThreshold
+          ? Math.min(Number(attack.woundCriticalThreshold), threshold)
+          : threshold;
+        break;
+      }
       case "target-save-modifier": if (active) attack.targetSaveModifier = Number(attack.targetSaveModifier || 0) + Number(effect.value || 0); break;
       case "incoming-hit-minus": if (active) { const value = -Math.abs(Number(effect.value || 1)); defend.incomingHitModifier += value; contribute(defend, "incomingHitModifier", value); } break;
       case "incoming-wound-minus": if (active) defend.incomingWoundModifier -= Math.abs(Number(effect.value || 1)); break;
@@ -113,9 +122,12 @@
         // Passive (no controls) saves stack by best value. A controllable
         // one-shot/phase override (e.g. 金刚不破's 2+ for the phase) replaces
         // the base save instead of being capped by Math.max.
-        if (active) defend.invulnerableSave = effect.operation === "override"
-          ? Number(effect.value || 0)
-          : Math.max(Number(defend.invulnerableSave || 0), Number(effect.value || 0));
+        if (active) {
+          const value = Number(effect.value || 0);
+          defend.invulnerableSave = effect.operation === "override"
+            ? value
+            : (defend.invulnerableSave ? Math.min(Number(defend.invulnerableSave), value) : value);
+        }
         break;
       default: throw new Error(`Unregistered effect type: ${effect.type || "<empty>"}`);
     }

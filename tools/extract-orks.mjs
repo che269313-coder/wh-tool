@@ -20,6 +20,7 @@ const numberOrText = (value) => {
   return match ? Number(match[1]) : text;
 };
 const quoteRange = (value) => clean(value).replace(/\s*\"$/, "\"");
+const datasheetAbilities = (unit) => (unit.abilities || []).filter((ability) => String(ability?.kind || "").toLowerCase() !== "wargear");
 const unitId = (unit, index) => `orks.${slug(unit.unit.name)}.${String(unit.unit.id || index + 1).slice(0, 8)}`;
 const weaponNameMap = (unit) => new Map((unit.weapons || []).map(({ weapon }) => {
   const key = clean(weapon.name).toLowerCase();
@@ -51,7 +52,7 @@ function weaponCard(entry, nameMap) {
 }
 
 function unitText(unit) {
-  const abilityText = (unit.abilities || []).map((ability) => {
+  const abilityText = datasheetAbilities(unit).map((ability) => {
     const name = displayName(ability.name_zh, ability.name);
     return `${name}${ability.text_zh ? `：${clean(ability.text_zh)}` : ""}`;
   });
@@ -62,15 +63,21 @@ function unitText(unit) {
 function modelProfiles(unit, composition) {
   const models = composition?.models || [];
   if (models.length < 2) return undefined;
+  const fixedOne = models.map((model, index) => ({ model, index }))
+    .filter(({ model }) => Number(model.min) === 1 && Number(model.max) === 1);
+  const namedChampion = fixedOne.find(({ model }) => /boss|nob|sergeant|champion|justicar|exarch|alpha|leader/i.test(model.model_name || ""));
+  const championIndex = namedChampion?.index ?? (unit.unit.has_champion && fixedOne.length === 1 ? fixedOne[0].index : -1);
+  const remainingIndex = models.map((model, index) => ({ model, index }))
+    .filter(({ index }) => index !== championIndex)
+    .sort((left, right) => Number(right.model.max || right.model.min || 0) - Number(left.model.max || left.model.min || 0))[0]?.index ?? -1;
   return models.map((model, index) => ({
-    id: index === 0 && unit.unit.has_champion ? "champion" : `model-${slug(model.model_name)}`,
+    id: index === championIndex ? "champion" : index === remainingIndex ? "trooper" : `model-${slug(model.model_name)}`,
     name: displayName(model.model_name_zh, model.model_name),
     englishName: model.model_name || "",
-    role: index === 0 && unit.unit.has_champion ? "队长" : "普通成员",
+    role: index === championIndex ? "队长" : "普通成员",
     min: model.min,
     max: model.max,
-    ...(index === 0 && unit.unit.has_champion ? { count: 1 } : {}),
-    ...(index > 0 ? { remaining: model.max === null || model.max === undefined } : {}),
+    ...(index === championIndex ? { count: 1 } : index === remainingIndex ? { remaining: true } : Number(model.min) === Number(model.max) ? { count: Number(model.min) } : {}),
   }));
 }
 
@@ -90,7 +97,7 @@ function structuredCard(unit, index, faction, nameOverride = "") {
       .map((option) => names.get(clean(option.item_name).toLowerCase()) || clean(option.item_name))))]
     .filter(Boolean)
     .join("，");
-  const abilities = (unit.abilities || []).map((ability, abilityIndex) => ({
+  const abilities = datasheetAbilities(unit).map((ability, abilityIndex) => ({
     id: `${cardId}.ability.${abilityIndex + 1}-${slug(ability.name)}`,
     name: displayName(ability.name_zh, ability.name),
     englishName: clean(ability.name),

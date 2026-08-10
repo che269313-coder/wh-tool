@@ -105,66 +105,6 @@
     },
     {
       "id": "orks.battlewagon.ability-5",
-      "name": "装备选项",
-      "text": "■ 此模型可配备以下其中之一： ? 1 把大炮 ? 1 把杀戮炮 ? 1 把滋滋枪",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 1,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.battlewagon.ability-6",
-      "name": "装备选项",
-      "text": "■ 此模型可以配备： ? 1 个 吼吼炮",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 1,
-        "englishName": "Wargear ability 2",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.battlewagon.ability-7",
-      "name": "装备选项",
-      "text": "■ 此模型可配备最多 4 把大射枪。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 1,
-        "englishName": "Wargear ability 3",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.battlewagon.ability-8",
-      "name": "装备选项",
-      "text": "■ 此模型的履带和轮子可被替换为 1 部破坏滚筒。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 1,
-        "englishName": "Wargear ability 4",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.battlewagon.ability-9",
-      "name": "装备选项",
-      "text": "■ 此模型可配备下列任一项： ? 1 个钢盔舱 ? 1 只掠夺爪 ? 1 条破坏球",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 1,
-        "englishName": "Wargear ability 5",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.battlewagon.ability-10",
       "name": "硬壳装甲",
       "text": "为持有者的强韧(T)特性 +2，但其不再拥有射击甲板能力。",
       "status": "已结构化，当前仅供查阅",
@@ -181,7 +121,13 @@
       "id": "orks.beastboss.ability-1",
       "name": "不觉疼痛6+",
       "text": "某些模型的能力栏中列有「不觉疼痛x+」。每次具此能力的模型受到伤害并将失去一个伤口时（包括因致命伤而失去的伤口），掷一次D6：若结果大于或等于「x」所示的数字，该伤口被忽略且不失去。若一个模型拥有多个不觉疼痛能力，你每次该模型受到伤害并将失去伤口时只能使用其中一个能力。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "fnp",
+          "threshold": 6
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 2,
@@ -264,7 +210,13 @@
       "id": "orks.beastboss-on-squigosaur.ability-1",
       "name": "不觉疼痛5+",
       "text": "某些模型的能力栏中列有「不觉疼痛x+」。每次具此能力的模型受到伤害并将失去一个伤口时（包括因致命伤而失去的伤口），掷一次D6：若结果大于或等于「x」所示的数字，该伤口被忽略且不失去。若一个模型拥有多个不觉疼痛能力，你每次该模型受到伤害并将失去伤口时只能使用其中一个能力。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "fnp",
+          "threshold": 5
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 3,
@@ -314,18 +266,6 @@
         "englishName": "Single-minded Predator",
         "kind": "unique"
       }
-    },
-    {
-      "id": "orks.beastboss-on-squigosaur.ability-5",
-      "name": "装备选项",
-      "text": "■ 此模型可配备 1 把重拳枪。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 3,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
     }
   ],
   "豢兽师小子": [
@@ -333,7 +273,13 @@
       "id": "orks.beast-snagga-boyz.ability-1",
       "name": "不觉疼痛6+",
       "text": "某些模型的能力栏中列有「不觉疼痛x+」。每次具此能力的模型受到伤害并将失去一个伤口时（包括因致命伤而失去的伤口），掷一次D6：若结果大于或等于「x」所示的数字，该伤口被忽略且不失去。若一个模型拥有多个不觉疼痛能力，你每次该模型受到伤害并将失去伤口时只能使用其中一个能力。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "fnp",
+          "threshold": 6
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 4,
@@ -369,18 +315,6 @@
         "file": "欧克兽人-网站原始数据.json",
         "record": 4,
         "englishName": "Monster Hunters",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.beast-snagga-boyz.ability-3",
-      "name": "装备选项",
-      "text": "■ 此单位每 10 个模型中，1 个蛮兽猎手的散弹枪和劈刀可替换为 1 把巨击枪和 1 把近战武器。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 4,
-        "englishName": "Wargear ability",
         "kind": "unique"
       }
     }
@@ -475,18 +409,6 @@
         "englishName": "Transport",
         "kind": "unique"
       }
-    },
-    {
-      "id": "orks.biged-bossbunka.ability-7",
-      "name": "装备选项",
-      "text": "■ 此模型可配备最多 3 个额外的大射手枪。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 5,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
     }
   ],
   "大技师": [
@@ -545,30 +467,6 @@
         "englishName": "Shokk-boosta",
         "kind": "unique"
       }
-    },
-    {
-      "id": "orks.big-mek.ability-4",
-      "name": "装备选项",
-      "text": "■ 此模型的卡斯多姆巨型爆炸枪可替换为 1 拖拉机爆炸枪。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 6,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.big-mek.ability-5",
-      "name": "装备选项",
-      "text": "■ 此模型的能量爪可被替换为 1 把钻机。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 6,
-        "englishName": "Wargear ability 2",
-        "kind": "unique"
-      }
     }
   ],
   "超重型护甲蛮人大技师": [
@@ -599,7 +497,7 @@
       "effects": [
         {
           "type": "hit-reroll",
-          "mode": "failed",
+          "mode": "ones",
           "phase": "ranged",
           "requiresJoined": true,
           "activation": "passive"
@@ -633,42 +531,6 @@
     },
     {
       "id": "orks.big-mek-in-mega-armour.ability-4",
-      "name": "装备选项",
-      "text": "■ 此模型的kustom-mega blasta可被替换为以下之一： ? 1把旋锯 ? 1把火爆连射枪 ? 1把改装射击枪",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 7,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.big-mek-in-mega-armour.ability-5",
-      "name": "装备选项",
-      "text": "■ 此模型可装备以下其中之一： ? 1 把传送炮 ? 1 个客制化力场",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 7,
-        "englishName": "Wargear ability 2",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.big-mek-in-mega-armour.ability-6",
-      "name": "装备选项",
-      "text": "■ 此模型可配备1名小妖精技工。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 7,
-        "englishName": "Wargear ability 3",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.big-mek-in-mega-armour.ability-7",
       "name": "葛切钦注油工",
       "text": "每场战斗一次，于你的移动阶段结束时，持有者所在的单位中的一个模型恢复 D3 点失去的伤口。 *",
       "status": "已结构化，当前仅供查阅",
@@ -680,7 +542,7 @@
       }
     },
     {
-      "id": "orks.big-mek-in-mega-armour.ability-8",
+      "id": "orks.big-mek-in-mega-armour.ability-5",
       "name": "客制力场",
       "text": "当持有者正在带领一个单位时，该单位中的模型对远程攻击具有 4+ 无敌豁免(InSv)。",
       "status": "计算支持（满足条件时自动计入）",
@@ -736,7 +598,7 @@
       "effects": [
         {
           "type": "hit-reroll",
-          "mode": "failed",
+          "mode": "ones",
           "phase": "ranged",
           "requiresJoined": true,
           "activation": "passive"
@@ -763,18 +625,6 @@
     },
     {
       "id": "orks.big-mek-with-shokk-attack-gun.ability-4",
-      "name": "装备选项",
-      "text": "■ 此模型可配备 1 名地精助手。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 8,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.big-mek-with-shokk-attack-gun.ability-5",
       "name": "葛切钦助手",
       "text": "每场战斗可进行一次，在掷骰决定持有者的冲击攻击炮进行多少次攻击后，你可重掷该骰。",
       "status": "已结构化，当前仅供查阅",
@@ -835,12 +685,21 @@
           "id": "targetMonsterVehicle",
           "type": "checkbox",
           "label": "目标为凶兽或载具"
+        },
+        {
+          "id": "targetWithin6",
+          "type": "checkbox",
+          "label": "敌方单位位于本模型 6\" 内"
         }
       ],
       "effects": [
         {
           "type": "incoming-hit-minus",
-          "value": 1
+          "value": 1,
+          "selection": {
+            "controlId": "targetWithin6",
+            "equals": true
+          }
         }
       ],
       "source": {
@@ -892,7 +751,14 @@
       "id": "orks.boss-snikrot.ability-4",
       "name": "潜行",
       "text": "若此单位的每个模型都具有此能力，则每次对其进行远程攻击时，从该攻击的命中掷骰中减去 1。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "incoming-hit-minus",
+          "value": 1,
+          "phase": "ranged"
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 11,
@@ -916,7 +782,20 @@
       "id": "orks.boss-snikrot.ability-6",
       "name": "狡猾潜行者",
       "text": "每场战斗一次，在你的移动阶段，此模型的单位可不进行一般移动，而是从战场移除，并在战场上距所有敌方模型横向超过 9\" 的任何地点重新布署。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "满足原文条件并启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "incoming-hit-minus",
+          "value": 1
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 11,
@@ -935,54 +814,6 @@
         "file": "欧克兽人-网站原始数据.json",
         "record": 12,
         "englishName": "Get Da Good Bitz",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.boyz.ability-2",
-      "name": "装备选项",
-      "text": "■ 头目恶棍的大砍刀可被替换为 1 把力量爪。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 12,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.boyz.ability-3",
-      "name": "装备选项",
-      "text": "■ 大头目的大砍刀和火枪可替换为 1 件复合武器和 1 件近战武器。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 12,
-        "englishName": "Wargear ability 2",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.boyz.ability-4",
-      "name": "装备选项",
-      "text": "■ 任意数量的兽人小子可各自将其黑颈枪和砍刀替换为 1 把射手枪和 1 把近战武器。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 12,
-        "englishName": "Wargear ability 3",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.boyz.ability-5",
-      "name": "装备选项",
-      "text": "■ 此单位每 10 个模型中，1 个小子的砍刀和枪管可替换为下列其中之一： ? 1 门大枪和 1 件近战武器 ? 1 门火箭炮和 1 件近战武器",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 12,
-        "englishName": "Wargear ability 4",
         "kind": "unique"
       }
     }
@@ -1011,42 +842,6 @@
         "englishName": "Bomb Squigs",
         "kind": "unique"
       }
-    },
-    {
-      "id": "orks.breaka-boyz.ability-3",
-      "name": "装备选项",
-      "text": "■ 首领诺柏的粉碎锤可替换为 1 火箭手枪。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 13,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.breaka-boyz.ability-4",
-      "name": "装备选项",
-      "text": "■ 一个碎裂男孩的粉碎锤可替换为 1 关节破裂枪。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 13,
-        "englishName": "Wargear ability 2",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.breaka-boyz.ability-5",
-      "name": "装备选项",
-      "text": "■ 一名碎骨少年的击碎锤可替换为 1 把坦克锤。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 13,
-        "englishName": "Wargear ability 3",
-        "kind": "unique"
-      }
     }
   ],
   "烈火轰炸机": [
@@ -1073,18 +868,6 @@
         "englishName": "Burna Bomb",
         "kind": "unique"
       }
-    },
-    {
-      "id": "orks.burna-bommer.ability-3",
-      "name": "装备选项",
-      "text": "■ 此模型可配备 1 个 焦灭枪 飞弹架。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 14,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
     }
   ],
   "喷火小子": [
@@ -1098,31 +881,51 @@
           "id": "enabled",
           "type": "checkbox",
           "label": "本次启用此技能"
+        },
+        {
+          "id": "rerollMode",
+          "type": "select",
+          "label": "目标在 6\" 内；若也在目标标记范围内可选全重掷",
+          "options": [
+            [
+              "none",
+              "不启用"
+            ],
+            [
+              "ones",
+              "重掷致伤 1"
+            ],
+            [
+              "failed",
+              "重掷全部失败致伤"
+            ]
+          ]
         }
       ],
       "effects": [
         {
           "type": "wound-reroll",
+          "mode": "ones",
+          "phase": "ranged",
+          "selection": {
+            "controlId": "rerollMode",
+            "equals": "ones"
+          }
+        },
+        {
+          "type": "wound-reroll",
           "mode": "failed",
-          "phase": "ranged"
+          "phase": "ranged",
+          "selection": {
+            "controlId": "rerollMode",
+            "equals": "failed"
+          }
         }
       ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 15,
         "englishName": "Pyromaniaks",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.burna-boyz.ability-2",
-      "name": "装备选项",
-      "text": "■ 任意数量的机修工可各自将其大射击枪替换为下列其中一项： ? 1 改造超级炮 ? 1 火箭筒",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 15,
-        "englishName": "Wargear ability",
         "kind": "unique"
       }
     }
@@ -1151,18 +954,6 @@
         "englishName": "Dakkastorm",
         "kind": "unique"
       }
-    },
-    {
-      "id": "orks.dakkajet.ability-3",
-      "name": "装备选项",
-      "text": "■ 此模型可配备 1 具额外的双重超级射枪。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 16,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
     }
   ],
   "死亡无畏机甲": [
@@ -1187,30 +978,6 @@
         "file": "欧克兽人-网站原始数据.json",
         "record": 17,
         "englishName": "Piston-driven Brutality",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.deff-dread.ability-3",
-      "name": "装备选项",
-      "text": "■ 此模型的巨型枪可各自替换为以下其中之一： ? 1把恐惧爪 ? 1门客制超级枪 ? 1具火箭炮 ? 1门烧烤炮",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 17,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.deff-dread.ability-4",
-      "name": "装备选项",
-      "text": "■ 此模型的恐惧爪可各自被替换为下列其中之一： ? 1 门大口径枪 ? 1 门客制-超级爆裂炮 ? 1 门火箭炮 ? 1 门火焰炮",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 17,
-        "englishName": "Wargear ability 2",
         "kind": "unique"
       }
     }
@@ -1305,18 +1072,6 @@
         "englishName": "Deff from Above",
         "kind": "unique"
       }
-    },
-    {
-      "id": "orks.deffkoptas.ability-3",
-      "name": "装备选项",
-      "text": "■ 每3个此单位中的模型，1架战斗直升机可以将其炮火火箭替换为1把客制巨型爆枪。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 19,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
     }
   ],
   "怪枪小子": [
@@ -1334,18 +1089,6 @@
     },
     {
       "id": "orks.flash-gitz.ability-2",
-      "name": "装备选项",
-      "text": "■ 此单位可配备 1 只弹药小鬼。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 20,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.flash-gitz.ability-3",
       "name": "弹药格雷特",
       "text": "每场战斗一次，当此单位被选择进行射击时，其可以使用此能力。若如此做，直到该阶段结束，此单位中的模型装备的远程武器具有 **[致命一击]** 能力。 *",
       "status": "计算支持（满足条件时自动计入）",
@@ -1405,23 +1148,28 @@
           "type": "hit-modifier",
           "value": 1,
           "phase": "melee",
-          "selection": {
-            "controlId": "waaghActive",
-            "equals": true
-          },
           "requiresJoined": true,
+          "effectScope": "unit",
           "activation": "passive"
         },
         {
           "type": "wound-modifier",
           "value": 1,
           "phase": "melee",
+          "requiresJoined": true,
+          "effectScope": "unit",
+          "activation": "passive"
+        },
+        {
+          "type": "wound-critical-threshold",
+          "value": 5,
+          "phase": "melee",
+          "requiresJoined": true,
+          "effectScope": "unit",
           "selection": {
             "controlId": "waaghActive",
             "equals": true
-          },
-          "requiresJoined": true,
-          "activation": "passive"
+          }
         }
       ],
       "source": {
@@ -1436,10 +1184,21 @@
       "name": "葛兹古尔的瓦戈！ 旗帜",
       "text": "当己方 **欧克蛮人(Orks)** 单位在马卡利12\"范围内时，如果你的军队的瓦戈！处于活跃状态，该单位中的模型配备的近战武器具有 **[致命一击]** 能力。",
       "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "waaghActive",
+          "type": "checkbox",
+          "label": "瓦戈！对本军队处于启动状态"
+        }
+      ],
       "effects": [
         {
           "type": "lethal-hits",
-          "phase": "melee"
+          "phase": "melee",
+          "selection": {
+            "controlId": "waaghActive",
+            "equals": true
+          }
         }
       ],
       "source": {
@@ -1597,18 +1356,6 @@
         "englishName": "Transport",
         "kind": "unique"
       }
-    },
-    {
-      "id": "orks.gargantuan-squiggoth.ability-6",
-      "name": "装备选项",
-      "text": "此模型可配备下列其一： ? 1 门炮 ? 1 门超级炮",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 23,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
     }
   ],
   "屁精": [
@@ -1654,7 +1401,13 @@
       "id": "orks.hunta-rig.ability-2",
       "name": "不觉疼痛6+",
       "text": "某些模型的能力栏中列有「不觉疼痛x+」。每次具此能力的模型受到伤害并将失去一个伤口时（包括因致命伤而失去的伤口），掷一次D6：若结果大于或等于「x」所示的数字，该伤口被忽略且不失去。若一个模型拥有多个不觉疼痛能力，你每次该模型受到伤害并将失去伤口时只能使用其中一个能力。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "fnp",
+          "threshold": 6
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 25,
@@ -1678,7 +1431,20 @@
       "id": "orks.hunta-rig.ability-4",
       "name": "狩猎进行中",
       "text": "对于此 **运输工具(Transport)** 内搭乘的每个模型，将此模型的屠夫兽人小子武器的攻击次数特性加 1（最多加到 +6）。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "满足原文条件并启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "attack-modifier",
+          "value": 6
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 25,
@@ -1764,18 +1530,6 @@
         "englishName": "Shooty Power Trip",
         "kind": "unique"
       }
-    },
-    {
-      "id": "orks.killa-kans.ability-3",
-      "name": "装备选项",
-      "text": "■ 每个杀戮罐的罐枪可替换为下列其中一项： ? 1 件兽咆炮 ? 1 件火箭炮 ? 1 件烧枪",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 26,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
     }
   ],
   "杀戮战车（Kill Rig）": [
@@ -1795,7 +1549,13 @@
       "id": "orks.kill-rig.ability-2",
       "name": "不觉疼痛6+",
       "text": "某些模型的能力栏中列有「不觉疼痛x+」。每次具此能力的模型受到伤害并将失去一个伤口时（包括因致命伤而失去的伤口），掷一次D6：若结果大于或等于「x」所示的数字，该伤口被忽略且不失去。若一个模型拥有多个不觉疼痛能力，你每次该模型受到伤害并将失去伤口时只能使用其中一个能力。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "fnp",
+          "threshold": 6
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 27,
@@ -1807,7 +1567,25 @@
       "id": "orks.kill-rig.ability-3",
       "name": "戈尔克之灵",
       "text": "在近战阶段开始时，你可选择此模型 12\" 内的一个己方 **欧克蛮人(Orks)** 单位并掷一颗 D6：若掷出 1，此模型承受 D3 点致命伤；若掷出 2-5，直到阶段结束，将该单位模型配备的近战武器的力量特性加 1；若掷出 6，直到阶段结束，将该单位模型配备的近战武器的力量特性加 1，且这些武器具有 **[致命一击]** 能力。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "满足原文条件并启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "lethal-hits",
+          "phase": "melee"
+        },
+        {
+          "type": "weapon-strength-modifier",
+          "value": 1,
+          "phase": "melee"
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 27,
@@ -1845,7 +1623,14 @@
       "id": "orks.kommandos.ability-2",
       "name": "潜行",
       "text": "若此单位的每个模型都具有此能力，则每次对其进行远程攻击时，从该攻击的命中掷骰中减去 1。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "incoming-hit-minus",
+          "value": 1,
+          "phase": "ranged"
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 28,
@@ -1879,90 +1664,6 @@
     },
     {
       "id": "orks.kommandos.ability-5",
-      "name": "装备选项",
-      "text": "■ 首领诺布的砍刀可替换为以下之一： ? 1 把大砍刀 ? 1 把动力爪",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 28,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.kommandos.ability-6",
-      "name": "装备选项",
-      "text": "■ 最多 2 个特种兵可各自将其枪与斩刀替换为 1 把客制化枪与 1 件近战武器。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 28,
-        "englishName": "Wargear ability 2",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.kommandos.ability-7",
-      "name": "装备选项",
-      "text": "■ 1 突击队员的猎枪和砍刀可用 1 破城锤替换。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 28,
-        "englishName": "Wargear ability 3",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.kommandos.ability-8",
-      "name": "装备选项",
-      "text": "■ 1 名通常兵的枪和砍刀可被替换为 1 支火焰枪和 1 件近战武器。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 28,
-        "englishName": "Wargear ability 4",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.kommandos.ability-9",
-      "name": "装备选项",
-      "text": "■ 1 个突击队员的小枪和砍刀可替换为 1 个火箭发射器和 1 把近战武器。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 28,
-        "englishName": "Wargear ability 5",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.kommandos.ability-10",
-      "name": "装备选项",
-      "text": "■ 此单位可配备 1 颗炸弹蛊。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 28,
-        "englishName": "Wargear ability 6",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.kommandos.ability-11",
-      "name": "装备选项",
-      "text": "■ 此单位可配备 1 个分心小怪。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 28,
-        "englishName": "Wargear ability 7",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.kommandos.ability-12",
       "name": "诱饵葛切钦",
       "text": "每场战斗一次，在你对手的射击阶段，于为此单位中的一个模型进行防护掷骰之前，它可以部署诱饵格罗（distraction grot）。若如此做，直到该阶段结束，此单位中的模型具有 5+ 无敌豁免(InSv)。 *",
       "status": "计算支持（满足条件时自动计入）",
@@ -1988,7 +1689,7 @@
       }
     },
     {
-      "id": "orks.kommandos.ability-13",
+      "id": "orks.kommandos.ability-6",
       "name": "炸弹史奎格",
       "text": "此单位每拥有一只炸弹鼠猪，每场战斗可进行一次：在此单位结束一次正常移动后，你可使用一次炸弹鼠猪。若如此做，选择此单位 12\" 内且其可见的一个敌方单位并掷一颗 D6：掷出 3+ 时，该敌方单位受到 D3 致命伤。",
       "status": "已结构化，当前仅供查阅",
@@ -2066,18 +1767,6 @@
         "englishName": "Dat’s Our Loot!",
         "kind": "unique"
       }
-    },
-    {
-      "id": "orks.lootas.ability-2",
-      "name": "装备选项",
-      "text": "■ 任意数量的扳手工人可各自将其大炮替换为以下之一： ? 1 门克斯汀超级爆破枪 ? 1 门火箭炮",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 30,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
     }
   ],
   "重甲强蛮人": [
@@ -2086,28 +1775,27 @@
       "name": "痛扁时刻",
       "text": "当「咻啊！」对你的军队活跃时，此单位中的模型具有不觉疼痛5+ 能力。",
       "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "waaghActive",
+          "type": "checkbox",
+          "label": "瓦戈！对本军队处于启动状态"
+        }
+      ],
       "effects": [
         {
           "type": "fnp",
-          "threshold": 5
+          "threshold": 5,
+          "selection": {
+            "controlId": "waaghActive",
+            "equals": true
+          }
         }
       ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 31,
         "englishName": "Krumpin’ Time",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.meganobz.ability-2",
-      "name": "装备选项",
-      "text": "■ 任意数量的模型各可将其自订射击枪和强力爪替换为以下之一： ? 1把复合式武器和1个强力爪 ? 1把复合式武器和1把杀戮锯 ? 1把自订射击枪和1把杀戮锯 ? 1把杀戮锯和1个强力爪 ? 1把双联杀戮锯",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 31,
-        "englishName": "Wargear ability",
         "kind": "unique"
       }
     }
@@ -2174,23 +1862,24 @@
       "id": "orks.mek.ability-3",
       "name": "修修补补",
       "text": "在你的移动阶段结束时，你可以选择一个在此模型3\"范围内的己方 **欧克蛮人(Orks)载具(Vehicle)** 模型。该 **载具(Vehicle)** 模型回复最多D3点失去的伤口，并且直到你下个移动阶段开始为止，每次该 **载具(Vehicle)** 模型发动攻击时，命中掷骰+1。每个模型每回合只能被选择一次用于此能力。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "满足原文条件并启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "hit-modifier",
+          "value": 1
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 33,
         "englishName": "Mekaniak",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.mek.ability-4",
-      "name": "装备选项",
-      "text": "■ 此模型的近战武器可被替换为 1 杀戮锯。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 33,
-        "englishName": "Wargear ability",
         "kind": "unique"
       }
     }
@@ -2206,32 +1895,29 @@
           "id": "targetMonsterVehicle",
           "type": "checkbox",
           "label": "目标为凶兽或载具"
+        },
+        {
+          "id": "targetAtStartingStrength",
+          "type": "checkbox",
+          "label": "目标仍处于起始兵力且不是凶兽/载具"
         }
       ],
       "effects": [
         {
           "type": "hit-reroll",
-          "mode": "failed",
-          "requiresTargetMonsterVehicle": true,
-          "phase": "ranged"
+          "mode": "ones",
+          "phase": "ranged",
+          "unlessTargetMonsterVehicle": true,
+          "selection": {
+            "controlId": "targetAtStartingStrength",
+            "equals": true
+          }
         }
       ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 34,
         "englishName": "Splat!",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.mek-gunz.ability-2",
-      "name": "装备选项",
-      "text": "■ 每个模型的碎岩枪可被替换为以下任意一项： ? 1 把泡沫发射枪 ? 1 把客制超级巨炮 ? 1 把牵引炮",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 34,
-        "englishName": "Wargear ability",
         "kind": "unique"
       }
     }
@@ -2273,11 +1959,22 @@
       "name": "大而善射",
       "text": "此模型每次进行远距攻击时，若咻啊！对你的军队生效，命中掷骰 +1。",
       "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "waaghActive",
+          "type": "checkbox",
+          "label": "瓦戈！对本军队处于启动状态"
+        }
+      ],
       "effects": [
         {
           "type": "hit-modifier",
           "value": 1,
-          "phase": "ranged"
+          "phase": "ranged",
+          "selection": {
+            "controlId": "waaghActive",
+            "equals": true
+          }
         }
       ],
       "source": {
@@ -2305,7 +2002,13 @@
       "id": "orks.mozrog-skragbad.ability-1",
       "name": "不觉疼痛5+",
       "text": "某些模型的能力栏中列有「不觉疼痛x+」。每次具此能力的模型受到伤害并将失去一个伤口时（包括因致命伤而失去的伤口），掷一次D6：若结果大于或等于「x」所示的数字，该伤口被忽略且不失去。若一个模型拥有多个不觉疼痛能力，你每次该模型受到伤害并将失去伤口时只能使用其中一个能力。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "fnp",
+          "threshold": 5
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 36,
@@ -2378,10 +2081,20 @@
       "name": "头目的小子们",
       "text": "当 **战斧头** 模型率领此单位时，每次攻击以此单位为目标，若该攻击的力量特性大于此单位的韧性特性，从致伤掷骰减 1。",
       "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "forceLeader",
+          "type": "checkbox",
+          "label": "数据卡模式下视为战斧头正在率领此单位"
+        }
+      ],
       "effects": [
         {
-          "type": "incoming-wound-minus",
-          "value": 1
+          "type": "incoming-wound-when-strength-gt",
+          "value": -1,
+          "requiresJoined": true,
+          "effectScope": "unit",
+          "activation": "passive"
         }
       ],
       "source": {
@@ -2393,42 +2106,6 @@
     },
     {
       "id": "orks.nobz.ability-2",
-      "name": "装备选项",
-      "text": "■ 任意数量的模型各自可将其大砍刀替换为 1 把力量爪。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 37,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.nobz.ability-3",
-      "name": "装备选项",
-      "text": "■ 任意数量的模型可各自将其 粗暴手枪 和 大砍刀 替换为 1 个组合武器和 1 个近战武器。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 37,
-        "englishName": "Wargear ability 2",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.nobz.ability-4",
-      "name": "装备选项",
-      "text": "■ 每5个此单位中的模型，此单位可配备1个弹药小鬼。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 37,
-        "englishName": "Wargear ability 3",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.nobz.ability-5",
       "name": "弹药格雷特",
       "text": "此单位每拥有一个弹药侏儒，每场战斗可进行一次：当此单位被选择射击时，其可使用此能力。若如此做，直到该阶段结束，此单位中模型所装备的远程武器拥有 **[致命一击]** 能力。",
       "status": "计算支持（满足条件时自动计入）",
@@ -2458,7 +2135,13 @@
       "id": "orks.painboss.ability-1",
       "name": "不觉疼痛5+",
       "text": "某些模型的能力栏中列有「不觉疼痛x+」。每次具此能力的模型受到伤害并将失去一个伤口时（包括因致命伤而失去的伤口），掷一次D6：若结果大于或等于「x」所示的数字，该伤口被忽略且不失去。若一个模型拥有多个不觉疼痛能力，你每次该模型受到伤害并将失去伤口时只能使用其中一个能力。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "fnp",
+          "threshold": 5
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 38,
@@ -2519,18 +2202,6 @@
     },
     {
       "id": "orks.painboss.ability-5",
-      "name": "装备选项",
-      "text": "■ 此模型可以配备1个地精护士。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 38,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.painboss.ability-6",
       "name": "葛切钦勤务员",
       "text": "每场战斗一次，在你的指挥阶段，若持有者正在带领一个低于其起始兵力的单位，你可以将至多 D3 个被消灭的护卫（Bodyguard）模型放回该单位。 *",
       "status": "已结构化，当前仅供查阅",
@@ -2603,18 +2274,6 @@
     },
     {
       "id": "orks.painboy.ability-4",
-      "name": "装备选项",
-      "text": "■ 此模型可配备 1 个地精侍从。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 39,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.painboy.ability-5",
       "name": "葛切钦勤务员",
       "text": "每场战斗一次，在你的指挥阶段，若持有者正在带领一个低于其起始兵力的单位，你可以将至多 D3 个被消灭的护卫（Bodyguard）模型放回该单位。 *",
       "status": "已结构化，当前仅供查阅",
@@ -2695,7 +2354,13 @@
       "id": "orks.squighog-boyz.ability-1",
       "name": "不觉疼痛5+",
       "text": "某些模型的能力栏中列有「不觉疼痛x+」。每次具此能力的模型受到伤害并将失去一个伤口时（包括因致命伤而失去的伤口），掷一次D6：若结果大于或等于「x」所示的数字，该伤口被忽略且不失去。若一个模型拥有多个不觉疼痛能力，你每次该模型受到伤害并将失去伤口时只能使用其中一个能力。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "fnp",
+          "threshold": 5
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 42,
@@ -2717,18 +2382,6 @@
     },
     {
       "id": "orks.squighog-boyz.ability-3",
-      "name": "装备选项",
-      "text": "■ 此单位每 4 个模型可配备 1 只炸弹地鼠。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 42,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.squighog-boyz.ability-4",
       "name": "炸弹史奎格",
       "text": "此单位每拥有一只炸弹鼠猪，每场战斗可进行一次：在此单位结束一次正常移动后，你可使用一次炸弹鼠猪。若如此做，选择此单位 12\" 内且其可见的一个敌方单位并掷一颗 D6：掷出 3+ 时，该敌方单位受到 D3 致命伤。",
       "status": "已结构化，当前仅供查阅",
@@ -2814,18 +2467,6 @@
         "englishName": "Full Throttle",
         "kind": "unique"
       }
-    },
-    {
-      "id": "orks.stormboyz.ability-3",
-      "name": "装备选项",
-      "text": "■ 头目诺布的斩刀可改为 1 个动力利爪。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 44,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
     }
   ],
   "坦克破坏者": [
@@ -2876,30 +2517,6 @@
     },
     {
       "id": "orks.tankbustas.ability-3",
-      "name": "装备选项",
-      "text": "■ 头目诺布的 1 把火箭手枪可替换为 1 把粉碎锤。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 45,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.tankbustas.ability-4",
-      "name": "装备选项",
-      "text": "■ 1 名破坦克手可配备以下其中之一： ? 1 支脉冲火箭 ? 1 支额外的火箭炮",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 45,
-        "englishName": "Wargear ability 2",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.tankbustas.ability-5",
       "name": "脉冲火箭",
       "text": "每场战斗一次，当持有者所在的单位于你的射击阶段被选择进行射击时，持有者可以使用其脉冲火箭(pulsa rokkit)。若如此做，直到该阶段结束，持有者所在的单位中的模型装备的远程武器其力量(S)特性与护甲穿透特性 +1。",
       "status": "计算支持（满足条件时自动计入）",
@@ -2978,18 +2595,6 @@
         "englishName": "Transport",
         "kind": "unique"
       }
-    },
-    {
-      "id": "orks.trukk.ability-5",
-      "name": "装备选项",
-      "text": "■ 此模型可配备 1 件砸爆球。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 46,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
     }
   ],
   "摩托小子": [
@@ -3020,30 +2625,6 @@
         "file": "欧克兽人-网站原始数据.json",
         "record": 47,
         "englishName": "Drive-by Dakka",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.warbikers.ability-2",
-      "name": "装备选项",
-      "text": "■ 每个战争机车骑士可配备下列之一： ? 1 支粗枪 ? 1 把砍刀",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 47,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.warbikers.ability-3",
-      "name": "装备选项",
-      "text": "■ 战车首领诺布可配备以下之一： ? 1 把枪 ? 1 把大砍刀 ? 1 把动力爪",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 47,
-        "englishName": "Wargear ability 2",
         "kind": "unique"
       }
     }
@@ -3116,30 +2697,6 @@
         "file": "欧克兽人-网站原始数据.json",
         "record": 48,
         "englishName": "Da Biggest and da Best",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.warboss.ability-4",
-      "name": "装备选项",
-      "text": "■ 此模型的大刀可被替换为 1 动力爪。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 48,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.warboss.ability-5",
-      "name": "装备选项",
-      "text": "■ 此模型可配备 1 只攻击史克万。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 48,
-        "englishName": "Wargear ability 2",
         "kind": "unique"
       }
     }
@@ -3295,13 +2852,23 @@
           "id": "enabled",
           "type": "checkbox",
           "label": "本次启用此技能"
+        },
+        {
+          "id": "targetCanFly",
+          "type": "checkbox",
+          "label": "目标具有飞行关键词（勾选后本技能不生效）"
         }
       ],
       "effects": [
         {
           "type": "hit-reroll",
-          "mode": "failed",
-          "phase": "ranged"
+          "mode": "ones",
+          "phase": "ranged",
+          "selection": {
+            "controlId": "targetCanFly",
+            "equals": false,
+            "fallback": false
+          }
         }
       ],
       "source": {
@@ -3313,42 +2880,6 @@
     },
     {
       "id": "orks.wazbom-blastajet.ability-3",
-      "name": "装备选项",
-      "text": "■ 此模型的双联瓦兹轰鸣超级加农炮可替换为 1 个双联传送点超级爆枪。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 51,
-        "englishName": "Wargear ability",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.wazbom-blastajet.ability-4",
-      "name": "装备选项",
-      "text": "■ 此模型可配备 1 爆震喷射力场。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 51,
-        "englishName": "Wargear ability 2",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.wazbom-blastajet.ability-5",
-      "name": "装备选项",
-      "text": "■ 此模型可配备 1 双联超级枪。",
-      "status": "已结构化，当前仅供查阅",
-      "source": {
-        "file": "欧克兽人-网站原始数据.json",
-        "record": 51,
-        "englishName": "Wargear ability 3",
-        "kind": "unique"
-      }
-    },
-    {
-      "id": "orks.wazbom-blastajet.ability-6",
       "name": "爆破机力场",
       "text": "持有者拥有 4+ 无敌豁免(InSv)，但失去 **手榴弹(Grenades)** 关键字。",
       "status": "计算支持（满足条件时自动计入）",
@@ -3440,7 +2971,13 @@
       "id": "orks.wurrboy.ability-2",
       "name": "不觉疼痛6+",
       "text": "某些模型的能力栏中列有「不觉疼痛x+」。每次具此能力的模型受到伤害并将失去一个伤口时（包括因致命伤而失去的伤口），掷一次D6：若结果大于或等于「x」所示的数字，该伤口被忽略且不失去。若一个模型拥有多个不觉疼痛能力，你每次该模型受到伤害并将失去伤口时只能使用其中一个能力。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "fnp",
+          "threshold": 6
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 53,
@@ -3505,7 +3042,13 @@
       "id": "orks.zodgrod-wortsnagga.ability-1",
       "name": "不觉疼痛6+",
       "text": "某些模型的能力栏中列有「不觉疼痛x+」。每次具此能力的模型受到伤害并将失去一个伤口时（包括因致命伤而失去的伤口），掷一次D6：若结果大于或等于「x」所示的数字，该伤口被忽略且不失去。若一个模型拥有多个不觉疼痛能力，你每次该模型受到伤害并将失去伤口时只能使用其中一个能力。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "fnp",
+          "threshold": 6
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 54,
@@ -3549,6 +3092,12 @@
           "value": 1,
           "requiresJoined": true,
           "activation": "passive"
+        },
+        {
+          "type": "incoming-wound-minus",
+          "value": 1,
+          "requiresJoined": true,
+          "effectScope": "unit"
         }
       ],
       "source": {
@@ -3779,7 +3328,9 @@
         {
           "type": "hit-modifier",
           "value": 1,
+          "phase": "melee",
           "requiresJoined": true,
+          "effectScope": "unit",
           "activation": "passive"
         }
       ],
@@ -3884,7 +3435,20 @@
       "id": "orks.meka-dread.ability-3",
       "name": "改装力场",
       "text": "友军欧克载具在 6\" 内对远程攻击获得 5+ 无敌豁免。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "controls": [
+        {
+          "id": "enabled",
+          "type": "checkbox",
+          "label": "满足原文条件并启用此技能"
+        }
+      ],
+      "effects": [
+        {
+          "type": "invulnerable-save",
+          "value": 5
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 65,
@@ -4182,7 +3746,13 @@
       "id": "orks.mad-dok-grotsnik.ability-2",
       "name": "不觉疼痛5+",
       "text": "某些模型的能力栏中列有「不觉疼痛x+」。每次具此能力的模型受到伤害并将失去一个伤口时（包括因致命伤而失去的伤口），掷一次D6：若结果大于或等于「x」所示的数字，该伤口被忽略且不失去。若一个模型拥有多个不觉疼痛能力，你每次该模型受到伤害并将失去伤口时只能使用其中一个能力。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
+      "effects": [
+        {
+          "type": "fnp",
+          "threshold": 5
+        }
+      ],
       "source": {
         "file": "欧克兽人-网站原始数据.json",
         "record": 76,
@@ -4908,12 +4478,21 @@
       "id": "orks.big-mek-dakkarig.ability-1",
       "name": "达卡闪击",
       "text": "在你的射击阶段，当此单位进行攻击时，若其 **Blitzkannon** 以非 **凶兽(Monster)／载具(Vehicle)** 单位为目标，则该武器的 **A** +6。",
-      "status": "已结构化，当前仅供查阅",
+      "status": "计算支持（满足条件时自动计入）",
       "controls": [
         {
           "id": "targetMonsterVehicle",
           "type": "checkbox",
           "label": "目标为凶兽或载具"
+        }
+      ],
+      "effects": [
+        {
+          "type": "weapon-attack-modifier",
+          "weaponName": "闪击加农炮",
+          "value": 6,
+          "phase": "ranged",
+          "unlessTargetMonsterVehicle": true
         }
       ],
       "source": {

@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { compileAbility, compileFactionAbility } from "./faction-rule-compiler.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const factions = [
@@ -21,19 +22,27 @@ for (const [factionId, factionName] of factions) {
   const data = readJson(path.join(root, "docs", "data", factionName, `${factionName}-结构化数据卡.json`));
   const unitRules = {};
   for (const card of data.cards || []) {
-    unitRules[card.name] = (card.abilities || []).map((ability) => ({
-      id: ability.id,
-      name: ability.name,
-      text: ability.text || "",
-      status: "仅供查阅",
-      effects: [],
-    }));
+    const usedIds = new Map();
+    unitRules[card.name] = (card.abilities || []).filter((ability) => ability.category !== "faction").map((ability) => {
+      const count = (usedIds.get(ability.id) || 0) + 1;
+      usedIds.set(ability.id, count);
+      const compiled = compileAbility(ability);
+      return {
+        id: count === 1 ? ability.id : `${ability.id}-${count}`,
+        name: ability.name,
+        text: ability.text || "",
+        status: compiled.status,
+        ...(compiled.controls.length ? { controls: compiled.controls } : {}),
+        effects: compiled.effects,
+      };
+    });
   }
   const raw = readJson(path.join(root, "docs", "data", factionName, `${factionName}-网站原始数据-简体.json`));
-  const factionRule = raw.faction?.army_rule_name_zh && raw.faction?.army_rule_text_zh ? [{
-    id: `${factionId}.army-rule`, name: raw.faction.army_rule_name_zh, text: raw.faction.army_rule_text_zh,
-    status: "仅供查阅", effects: [],
-  }] : [];
+  const factionRule = raw.faction?.army_rule_name_zh && raw.faction?.army_rule_text_zh ? (() => {
+    const ability = { id: `${factionId}.army-rule`, name: raw.faction.army_rule_name_zh, text: raw.faction.army_rule_text_zh, category: "faction" };
+    const compiled = compileFactionAbility(ability);
+    return [{ ...ability, status: compiled.status, ...(compiled.controls.length ? { controls: compiled.controls } : {}), effects: compiled.effects }];
+  })() : [];
   rules[factionId] = { factionRules: factionRule, unitRules };
 }
 const outputDirectory = path.join(root, "docs", "rules", "factions");

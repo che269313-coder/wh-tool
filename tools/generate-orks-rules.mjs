@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { compileAbility } from "./faction-rule-compiler.mjs";
 
 const sourcePath = path.resolve("docs/data/欧克兽人/欧克兽人-全部数据卡.json");
 const source = JSON.parse(fs.readFileSync(sourcePath, "utf8").replace(/^\uFEFF/, ""));
@@ -31,7 +32,8 @@ const controls = (leader = false) => [
   ...(leader ? [{ id: "forceLeader", type: "checkbox", label: "数据卡模式下强行视为已领导单位" }] : []),
 ];
 
-function describeEffects(text) {
+function describeEffects(text, abilityName = "") {
+  text = `${abilityName} ${text}`.trim();
   const result = [];
   const controlList = [];
   const compact = String(text || "").replace(/\s+/g, "");
@@ -48,19 +50,20 @@ function describeEffects(text) {
   if (fnp) add({ type: "fnp", threshold: Number(fnp[1]) });
 
   const targetMonsterVehicle = /凶兽\s*\(Monster\)|巨兽\s*\(Monster\)|载具\s*\(Vehicle\)|对抗载具|对载具|对凶兽/.test(text);
+  const excludesMonsterVehicle = targetMonsterVehicle && /(?:不包括|除外|非)\s*(?:凶兽|巨兽|载具)|凶兽[^。；]{0,8}(?:和|或|\/)[^。；]{0,8}载具[^。；]{0,8}(?:除外|除外)/.test(text);
   if (targetMonsterVehicle) addControl({ id: "targetMonsterVehicle", type: "checkbox", label: "目标为凶兽或载具" });
   const targetWithin9 = /目标距\s*9|目标在目标标记|距9"以内/.test(text);
   if (targetWithin9) addControl({ id: "targetWithin9", type: "checkbox", label: "满足目标距离或目标标记条件" });
 
   const hitReroll = /重掷命中|重投命中|重掷结果为\s*1\s*的命中|重投结果为\s*1\s*的命中|重掷命中掷骰/.test(text);
   if (hitReroll && !/冲锋掷骰/.test(text)) {
-    const mode = /结果为1|中的1/.test(text) ? "ones" : "failed";
-    add({ type: "hit-reroll", mode, ...(targetMonsterVehicle ? { requiresTargetMonsterVehicle: true } : {}) });
+    const mode = /结果为\s*1|中的\s*1/.test(text) ? "ones" : "failed";
+    add({ type: "hit-reroll", mode, ...(targetMonsterVehicle ? (excludesMonsterVehicle ? { unlessTargetMonsterVehicle: true } : { requiresTargetMonsterVehicle: true }) : {}) });
   }
   const woundReroll = /重掷致伤|重投致伤|重掷结果为\s*1\s*的致伤|重投结果为\s*1\s*的致伤/.test(text);
   if (woundReroll) {
-    const mode = /结果为1|中的1/.test(text) ? "ones" : "failed";
-    add({ type: "wound-reroll", mode, ...(targetMonsterVehicle ? { requiresTargetMonsterVehicle: true } : {}) });
+    const mode = /结果为\s*1|中的\s*1/.test(text) ? "ones" : "failed";
+    add({ type: "wound-reroll", mode, ...(targetMonsterVehicle ? (excludesMonsterVehicle ? { unlessTargetMonsterVehicle: true } : { requiresTargetMonsterVehicle: true }) : {}) });
   }
 
   const incomingHit = /攻击指向此单位|攻击以此单位为目标|对此单位的命中|敌方单位.*命中掷骰减|烟雾拖尾|潜行：|滚滚浓烟/.test(text);
@@ -133,7 +136,9 @@ function describeEffects(text) {
   }
   if (targetMonsterVehicle) {
     result.forEach((effect) => {
-      if (["hit-reroll", "wound-reroll", "hit-modifier", "wound-modifier", "damage-modifier"].includes(effect.type)) effect.requiresTargetMonsterVehicle = true;
+      if (!["hit-reroll", "wound-reroll", "hit-modifier", "wound-modifier", "damage-modifier"].includes(effect.type)) return;
+      if (excludesMonsterVehicle) effect.unlessTargetMonsterVehicle = true;
+      else effect.requiresTargetMonsterVehicle = true;
     });
   }
 
@@ -167,7 +172,7 @@ function describeEffects(text) {
   }
 
   if (waagh && !/^Waaagh！?$/.test(text.trim()) && !/军队阵营/.test(text)) {
-    const waaghEffects = result.filter((effect) => ["hit-modifier", "wound-modifier", "attack-modifier", "devastating-wounds", "invulnerable-save", "weapon-strength-modifier"].includes(effect.type));
+    const waaghEffects = result.filter((effect) => ["hit-modifier", "wound-modifier", "attack-modifier", "devastating-wounds", "invulnerable-save", "weapon-strength-modifier", "fnp", "lethal-hits", "wound-critical-threshold"].includes(effect.type));
     if (waaghEffects.length && /活跃|启动|有效/.test(text)) {
       addControl({ id: "waaghActive", type: "checkbox", label: "瓦戈！对本军队处于启动状态" });
       waaghEffects.forEach((effect) => { effect.selection = { controlId: "waaghActive", equals: true }; });
@@ -193,6 +198,74 @@ function describeEffects(text) {
   return { effects: result, controls: controlList, leader: hasLeader };
 }
 
+const normalizedRuleName = (value) => String(value || "").replace(/[\s!！]/g, "");
+const ensureControl = (described, control) => {
+  if (!described.controls.some((candidate) => candidate.id === control.id)) described.controls.push(control);
+};
+const replaceEffects = (described, effects) => { described.effects.splice(0, described.effects.length, ...effects); };
+
+function applyVerifiedCorrections(cardName, ruleName, described) {
+  const card = normalizedRuleName(cardName);
+  const name = normalizedRuleName(ruleName);
+  if (name === "更多火力") {
+    described.effects.filter((effect) => effect.type === "hit-reroll").forEach((effect) => { effect.mode = "ones"; });
+  }
+  if (card === normalizedRuleName("喷火小子") && name === "烧光一切") {
+    ensureControl(described, { id: "rerollMode", type: "select", label: "目标在 6\" 内；若也在目标标记范围内可选全重掷", options: [["none", "不启用"], ["ones", "重掷致伤 1"], ["failed", "重掷全部失败致伤"]] });
+    replaceEffects(described, [
+      { type: "wound-reroll", mode: "ones", phase: ranged, selection: { controlId: "rerollMode", equals: "ones" } },
+      { type: "wound-reroll", mode: "failed", phase: ranged, selection: { controlId: "rerollMode", equals: "failed" } },
+    ]);
+  }
+  if (card === normalizedRuleName("碎骨者·斯拉卡") && name === "大瓦戈先知") {
+    ensureControl(described, { id: "waaghActive", type: "checkbox", label: "瓦戈！对本军队处于启动状态" });
+    ensureControl(described, { id: "forceLeader", type: "checkbox", label: "数据卡模式下强行视为已领导单位" });
+    replaceEffects(described, [
+      { type: "hit-modifier", value: 1, phase: melee, requiresJoined: true, effectScope: "unit", activation: "passive" },
+      { type: "wound-modifier", value: 1, phase: melee, requiresJoined: true, effectScope: "unit", activation: "passive" },
+      { type: "wound-critical-threshold", value: 5, phase: melee, requiresJoined: true, effectScope: "unit", selection: { controlId: "waaghActive", equals: true } },
+    ]);
+  }
+  if (card === normalizedRuleName("碎骨者·斯拉卡") && name === "葛兹古尔的瓦戈旗帜") {
+    ensureControl(described, { id: "waaghActive", type: "checkbox", label: "瓦戈！对本军队处于启动状态" });
+    replaceEffects(described, [{ type: "lethal-hits", phase: melee, selection: { controlId: "waaghActive", equals: true } }]);
+  }
+  if (card === normalizedRuleName("重甲强蛮人") && name === "痛扁时刻") {
+    ensureControl(described, { id: "waaghActive", type: "checkbox", label: "瓦戈！对本军队处于启动状态" });
+    replaceEffects(described, [{ type: "fnp", threshold: 5, selection: { controlId: "waaghActive", equals: true } }]);
+  }
+  if (card === normalizedRuleName("技师炮") && name === "啪") {
+    ensureControl(described, { id: "targetAtStartingStrength", type: "checkbox", label: "目标仍处于起始兵力且不是凶兽/载具" });
+    replaceEffects(described, [{ type: "hit-reroll", mode: "ones", phase: ranged, unlessTargetMonsterVehicle: true, selection: { controlId: "targetAtStartingStrength", equals: true } }]);
+  }
+  if (card === normalizedRuleName("摩克机甲") && name === "大而善射") {
+    ensureControl(described, { id: "waaghActive", type: "checkbox", label: "瓦戈！对本军队处于启动状态" });
+    replaceEffects(described, [{ type: "hit-modifier", value: 1, phase: ranged, selection: { controlId: "waaghActive", equals: true } }]);
+  }
+  if (card === normalizedRuleName("强蛮人") && name === "头目的小子们") {
+    ensureControl(described, { id: "forceLeader", type: "checkbox", label: "数据卡模式下视为战斧头正在率领此单位" });
+    replaceEffects(described, [{ type: "incoming-wound-when-strength-gt", value: -1, requiresJoined: true, effectScope: "unit", activation: "passive" }]);
+  }
+  if (card === normalizedRuleName("爆炸喷气战机") && name === "爆射机攻击") {
+    ensureControl(described, { id: "targetCanFly", type: "checkbox", label: "目标具有飞行关键词（勾选后本技能不生效）" });
+    replaceEffects(described, [{ type: "hit-reroll", mode: "ones", phase: ranged, selection: { controlId: "targetCanFly", equals: false, fallback: false } }]);
+  }
+  if (card === normalizedRuleName("持瓦！旗帜的头目") && name === "瓦戈旗帜") {
+    ensureControl(described, { id: "forceLeader", type: "checkbox", label: "数据卡模式下强行视为已领导单位" });
+    replaceEffects(described, [{ type: "hit-modifier", value: 1, phase: melee, requiresJoined: true, effectScope: "unit", activation: "passive" }]);
+  }
+  if (card === normalizedRuleName("突突大技甲") && name === "达卡闪击") {
+    ensureControl(described, { id: "targetMonsterVehicle", type: "checkbox", label: "目标具有凶兽或载具关键词（勾选后本技能不生效）" });
+    replaceEffects(described, [{
+      type: "weapon-attack-modifier",
+      weaponName: "闪击加农炮",
+      value: 6,
+      phase: ranged,
+      unlessTargetMonsterVehicle: true,
+    }]);
+  }
+}
+
 function ruleFor(card, ability, index, duplicateCounts) {
   const text = cleanText(ability.text || ability.text_zh || ability.name || `技能 ${index + 1}`);
   const displayName = cleanText(ability.name || ability.name_zh || `技能 ${index + 1}`);
@@ -211,7 +284,14 @@ function ruleFor(card, ability, index, duplicateCounts) {
   // Keep the old ordinal ID as an alias; identity.js will replace it with
   // the stable English-name ID while preserving this source-order legacy ID.
   const legacyId = `orks.${scopeId}.ability-${index + 1}`;
-  const described = describeEffects(text);
+  const described = describeEffects(text, displayName);
+  const compiled = compileAbility({ id: ability.id, name: displayName, text, category: ability.category || ability.kind });
+  const hadDescribedEffects = described.effects.length > 0;
+  for (const effect of compiled.effects) {
+    if (!described.effects.some((candidate) => candidate.type === effect.type)) described.effects.push(effect);
+  }
+  if (!hadDescribedEffects) for (const control of compiled.controls) ensureControl(described, control);
+  applyVerifiedCorrections(card.name, displayName, described);
   const effects = described.effects;
   const controlsForRule = described.controls.length ? described.controls : undefined;
   return {

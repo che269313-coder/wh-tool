@@ -851,14 +851,21 @@ function datasheetFactionMatches(requested, actual) {
 }
 
 function modifyDamageExpression(value, modifier) {
-  const amount = Number(modifier || 0);
-  if (!amount) return value;
-  const text = String(value ?? "1").replace(/\s+/g, "");
-  if (/^[+-]?\d+$/.test(text)) return String(Number(text) + amount);
-  const match = text.match(/^(\d*[dD]\d+)([+-]\d+)?$/);
-  if (!match) return value;
-  const constant = Number(match[2] || 0) + amount;
-  return `${match[1]}${constant >= 0 ? `+${constant}` : constant}`;
+  const parse = (expression) => {
+    const text = String(expression ?? "0").replace(/\s+/g, "").toUpperCase();
+    if (/^[+-]?\d+$/.test(text)) return { count: 0, sides: 0, constant: Number(text) };
+    const match = text.match(/^(\d*)D(\d+)([+-]\d+)?$/);
+    if (!match) return null;
+    return { count: Number(match[1] || 1), sides: Number(match[2]), constant: Number(match[3] || 0) };
+  };
+  const base = parse(value ?? "1");
+  const delta = parse(modifier || 0);
+  if (!base || !delta || (base.sides && delta.sides && base.sides !== delta.sides)) return value;
+  const count = base.count + delta.count;
+  const sides = base.sides || delta.sides;
+  const constant = base.constant + delta.constant;
+  if (!count) return String(constant);
+  return `${count === 1 ? "" : count}D${sides}${constant ? `${constant > 0 ? "+" : ""}${constant}` : ""}`;
 }
 
 function effectiveWoundThresholdForDisplay(threshold, modifier) {
@@ -1088,12 +1095,12 @@ function calculatorDetailMarkup(side, index = 0) {
 function renderCalculatorDetails() {
   const container = $("#calculatorDetails");
   if (!container) return;
-  const detachmentPanelOpenStates = [...container.querySelectorAll(".calculator-detachments")].map((details) => details.open);
+  const detailOpenStates = [...container.querySelectorAll("details")].map((details) => details.open);
   const attackers = calculatorSelectionKeys("attacker").map((_, index) => calculatorDetailMarkup("attacker", index)).join("");
   const defenders = calculatorSelectionKeys("defender").map((_, index) => calculatorDetailMarkup("defender", index)).join("");
   container.innerHTML = `<div class="calculator-detail-grid">${attackers}${defenders}</div>`;
-  [...container.querySelectorAll(".calculator-detachments")].forEach((details, index) => {
-    details.open = detachmentPanelOpenStates[index] ?? false;
+  [...container.querySelectorAll("details")].forEach((details, index) => {
+    details.open = detailOpenStates[index] ?? false;
   });
   const sides = [...container.querySelectorAll(".calculator-side")];
   const attackerCount = calculatorSelectionKeys("attacker").length;
@@ -1510,6 +1517,7 @@ function buildSelectedRoundPayload() {
   const attackerFactionEffects = resolvedFactionEffects(attackerDraft).attack || {};
   const defenderFactionResolved = resolvedFactionEffects(defenderDraft);
   const defenderFactionEffects = defenderFactionResolved.attack || {};
+  const defenderFactionDefend = defenderFactionResolved.defend || {};
   const defenderFactionHitModifier = window.WarhammerRuleEffects?.defenderAttackModifiers
     ? Number(window.WarhammerRuleEffects.defenderAttackModifiers(defenderFactionResolved, state.attackMode).hitModifier || 0)
     : (state.attackMode === "melee" ? Number(defenderFactionEffects.targetMeleeHitModifier || 0) : 0);
@@ -1521,7 +1529,15 @@ function buildSelectedRoundPayload() {
       incomingWoundModifier: Math.min(result.incomingWoundModifier, Number(effects.incomingWoundModifier || 0)),
       incomingWoundWhenStrengthGreater: Math.min(result.incomingWoundWhenStrengthGreater, Number(effects.incomingWoundWhenStrengthGreater || 0)),
       incomingWoundWhenStrengthGreaterOrEqual: Math.min(result.incomingWoundWhenStrengthGreaterOrEqual, Number(effects.incomingWoundWhenStrengthGreaterOrEqual || 0)),
-    }), { incomingApModifier: 0, incomingHitModifier: 0, incomingWoundModifier: 0, incomingWoundWhenStrengthGreater: 0, incomingWoundWhenStrengthGreaterOrEqual: 0 });
+    }), {
+      incomingApModifier: Number(defenderFactionDefend.incomingApModifier || 0),
+      // Faction hit penalties are already folded into
+      // defenderFactionHitModifier above; do not count them a second time.
+      incomingHitModifier: 0,
+      incomingWoundModifier: Number(defenderFactionDefend.incomingWoundModifier || 0),
+      incomingWoundWhenStrengthGreater: Math.min(0, Number(defenderFactionDefend.incomingWoundWhenStrengthGreater || 0)),
+      incomingWoundWhenStrengthGreaterOrEqual: Math.min(0, Number(defenderFactionDefend.incomingWoundWhenStrengthGreaterOrEqual || 0)),
+    });
   const attackerSources = attackerDraft.joinedMembers?.length
     ? attackerDraft.joinedMembers.map((member) => member.id === attacker.rosterUnit?.id
       ? {
@@ -1563,6 +1579,7 @@ function buildSelectedRoundPayload() {
     lethalHits: result.lethalHits || Boolean(entry.effects.lethalHits),
     devastating: result.devastating || Boolean(entry.effects.devastating),
     attackModifier: result.attackModifier + Number(entry.effects.attackModifier || 0),
+    rapidFireAttackModifier: result.rapidFireAttackModifier + Number(entry.effects.rapidFireAttackModifier || 0),
     strengthModifier: result.strengthModifier + Number(entry.effects.strengthModifier || 0),
     apModifier: result.apModifier + Number(entry.effects.apModifier || 0),
     damageModifier: result.damageModifier + Number(entry.effects.damageModifier || 0),
@@ -1573,6 +1590,9 @@ function buildSelectedRoundPayload() {
     hitCriticalThreshold: result.hitCriticalThreshold
       ? Math.min(result.hitCriticalThreshold, Number(entry.effects.hitCriticalThreshold || result.hitCriticalThreshold))
       : Number(entry.effects.hitCriticalThreshold || 0),
+    woundCriticalThreshold: result.woundCriticalThreshold
+      ? Math.min(result.woundCriticalThreshold, Number(entry.effects.woundCriticalThreshold || result.woundCriticalThreshold))
+      : Number(entry.effects.woundCriticalThreshold || 0),
   }), {
     hitModifier: Number(detachmentSharedEffects.hitModifier || 0),
     woundModifier: Number(detachmentSharedEffects.woundModifier || 0),
@@ -1581,6 +1601,7 @@ function buildSelectedRoundPayload() {
     lethalHits: Boolean(detachmentSharedEffects.lethalHits),
     devastating: Boolean(detachmentSharedEffects.devastating),
     attackModifier: Number(detachmentSharedEffects.attackModifier || 0),
+    rapidFireAttackModifier: Number(detachmentSharedEffects.rapidFireAttackModifier || 0),
     weaponAttackModifiers: [...(detachmentSharedEffects.weaponAttackModifiers || [])],
     strengthModifier: Number(detachmentSharedEffects.strengthModifier || 0),
     apModifier: Number(detachmentSharedEffects.apModifier || 0),
@@ -1589,6 +1610,7 @@ function buildSelectedRoundPayload() {
     targetToughnessModifier: Number(detachmentSharedEffects.targetToughnessModifier || 0),
     ignoreHitModifiers: Boolean(detachmentSharedEffects.ignoreHitModifiers),
     hitCriticalThreshold: Number(detachmentSharedEffects.hitCriticalThreshold || 0),
+    woundCriticalThreshold: Number(detachmentSharedEffects.woundCriticalThreshold || 0),
   });
   const toughness = Math.max(1, Number(defenderUnit.toughness || 0) + Number(attackerFactionEffects.targetToughnessModifier || 0) + Number(sharedJoinedRules.targetToughnessModifier || 0));
   const weaponGroups = attackerSources.flatMap((source) => {
@@ -1625,22 +1647,33 @@ function buildSelectedRoundPayload() {
     }))
       .filter(({ weapon, coreProfile }) => weapon.enabled !== false && weapon.type === state.attackMode && Number(weapon.modelCount ?? source.modelCount ?? 1) > 0 && coreProfile.canAttack)
       .map(({ weapon, weaponIndex, coreProfile }) => {
-      const scopedAttackModifier = window.WarhammerCombatState.weaponAttackModifier(sharedJoinedRules.weaponAttackModifiers, weapon.name);
+      const scopedAttackModifier = window.WarhammerCombatState.weaponAttackModifier(
+        [...(sourceRules.weaponAttackModifiers || []), ...(sharedJoinedRules.weaponAttackModifiers || []), ...(sourceFactionEffects.weaponAttackModifiers || [])],
+        weapon.name,
+      );
+      const rapidFireAttackModifier = coreProfile.effects.some((effect) => effect.type === "rapid-fire")
+        ? Number(sourceRules.rapidFireAttackModifier || 0) + Number(sharedJoinedRules.rapidFireAttackModifier || 0) + Number(sourceFactionEffects.rapidFireAttackModifier || 0)
+        : 0;
       const generalAttackModifier = Number(sourceRules.attackModifier || 0) + Number(sharedJoinedRules.attackModifier || 0)
+        + Number(sourceFactionEffects.attackModifier || 0)
+        + rapidFireAttackModifier
         + scopedAttackModifier
         + Number(coreProfile.attackModifier || 0);
-      const attackOverride = sourceRules.weaponAttackOverride?.name === weapon.name
-        ? sourceRules.weaponAttackOverride.value
-        : modifyDamageExpression(weapon.attacks, generalAttackModifier);
+      const resolvedAttackOverride = sourceRules.weaponAttackOverride || sourceFactionEffects.weaponAttackOverride;
+      const attackOverride = resolvedAttackOverride?.name === weapon.name
+        ? resolvedAttackOverride.value
+        : modifyDamageExpression(modifyDamageExpression(weapon.attacks, coreProfile.attackExpressionModifier || 0), generalAttackModifier);
+      const ignoresHitModifiers = Boolean(sourceRules.ignoreHitModifiers || sharedJoinedRules.ignoreHitModifiers || sourceFactionEffects.ignoreHitModifiers);
       const hitContributions = [
         Number(sourceRules.hitModifier || 0),
         Number(sharedJoinedRules.hitModifier || 0),
-        sharedJoinedRules.ignoreHitModifiers ? 0 : Number(defenderFactionHitModifier || 0),
-        sharedJoinedRules.ignoreHitModifiers ? 0 : Number(defenderRuleEffects.incomingHitModifier || 0),
+        Number(sourceFactionEffects.hitModifier || 0),
+        ignoresHitModifiers ? 0 : Number(defenderFactionHitModifier || 0),
+        ignoresHitModifiers ? 0 : Number(defenderRuleEffects.incomingHitModifier || 0),
         Number(coreProfile.hitModifier || 0),
       ].filter((value) => !(coreProfile.ignoreNegativeHitModifiers && value < 0));
       const hitModifier = hitContributions.reduce((sum, value) => sum + value, 0);
-      const effectiveStrength = Number(weapon.strength || 0) + Number(sourceRules.strengthModifier || 0) + Number(sharedJoinedRules.strengthModifier || 0);
+      const effectiveStrength = Number(weapon.strength || 0) + Number(sourceRules.strengthModifier || 0) + Number(sharedJoinedRules.strengthModifier || 0) + Number(sourceFactionEffects.strengthModifier || 0);
       const conditionalWoundModifier = effectiveStrength > toughness
         ? (defenderRuleEffects.incomingWoundWhenStrengthGreater < 0
           ? defenderRuleEffects.incomingWoundWhenStrengthGreater
@@ -1669,23 +1702,24 @@ function buildSelectedRoundPayload() {
           : { type: "none", values: [] };
       const effectiveHitReroll = coreProfile.preventHitRerolls ? { type: "none", values: [] } : ruleHitReroll;
       const hasTwinLinked = coreProfile.effects.some((effect) => effect.type === "twin-linked");
+      const ruleWoundMode = sourceRules.woundReroll || sharedJoinedRules.woundReroll || sourceFactionEffects.woundReroll;
       const woundReroll = hasTwinLinked
         ? resolvedRerollSelection(attackerDraft, "core-wound", sourceKey, weaponIndex, woundThreshold)
-        : sourceRules.woundReroll === "failed"
+        : ruleWoundMode === "failed"
           ? resolvedRerollSelection(attackerDraft, "guard-wound", sourceKey, weaponIndex, woundThreshold)
-          : { type: sourceRules.woundReroll || "", values: [] };
+          : { type: ruleWoundMode || "", values: [] };
       return {
         name: `${source.name} · ${weapon.name}`,
         modelCount: Number(weapon.modelCount ?? source.modelCount ?? 1),
         attacks: attackOverride,
         hit: isTorrentWeapon(weapon) ? "torrent" : hitThreshold,
         wound: woundThreshold,
-        ap: Math.max(0, Math.abs(Number(weapon.ap || 0)) + Number(sourceRules.apModifier || 0) + Number(sharedJoinedRules.apModifier || 0) + defenderRuleEffects.incomingApModifier),
-        damage: modifyDamageExpression(weapon.damage, Number(sourceRules.damageModifier || 0) + Number(sharedJoinedRules.damageModifier || 0) + Number(coreProfile.damageModifier || 0)),
-        effects: weaponEffectsFromKeywords(weapon, { hitReroll: effectiveHitReroll }, { ...sourceRules, sustainedHits: Math.max(Number(sourceRules.sustainedHits || 0), Number(sharedJoinedRules.sustainedHits || 0), Number(sourceFactionEffects.sustainedHits || 0)), lethalHits: Boolean(sourceRules.lethalHits || sharedJoinedRules.lethalHits || sourceFactionEffects.lethalHits), devastating: Boolean(sourceRules.devastating || sharedJoinedRules.devastating || sourceFactionEffects.devastating), damageReroll: Boolean(sourceRules.damageReroll || sharedJoinedRules.damageReroll), woundReroll: woundReroll.type, woundRerollValues: woundReroll.values, hitCriticalThreshold: sourceRules.hitCriticalThreshold || sharedJoinedRules.hitCriticalThreshold || sourceFactionEffects.hitCriticalThreshold }, { hitModifier: resolvedHitState.modifierTotal, woundModifier, targetKeywords: [...(defenderData.factionKeywords || []), ...(defenderData.keywords || [])], coreProfile }),
+        ap: Math.max(0, Math.abs(Number(weapon.ap || 0)) + Number(sourceRules.apModifier || 0) + Number(sharedJoinedRules.apModifier || 0) + Number(sourceFactionEffects.apModifier || 0) + defenderRuleEffects.incomingApModifier),
+        damage: modifyDamageExpression(weapon.damage, Number(sourceRules.damageModifier || 0) + Number(sharedJoinedRules.damageModifier || 0) + Number(sourceFactionEffects.damageModifier || 0) + Number(coreProfile.damageModifier || 0)),
+        effects: weaponEffectsFromKeywords(weapon, { hitReroll: effectiveHitReroll }, { ...sourceRules, sustainedHits: Math.max(Number(sourceRules.sustainedHits || 0), Number(sharedJoinedRules.sustainedHits || 0), Number(sourceFactionEffects.sustainedHits || 0)), lethalHits: Boolean(sourceRules.lethalHits || sharedJoinedRules.lethalHits || sourceFactionEffects.lethalHits), devastating: Boolean(sourceRules.devastating || sharedJoinedRules.devastating || sourceFactionEffects.devastating), damageReroll: Boolean(sourceRules.damageReroll || sharedJoinedRules.damageReroll || sourceFactionEffects.damageReroll), woundReroll: woundReroll.type, woundRerollValues: woundReroll.values, hitCriticalThreshold: sourceRules.hitCriticalThreshold || sharedJoinedRules.hitCriticalThreshold || sourceFactionEffects.hitCriticalThreshold, woundCriticalThreshold: sourceRules.woundCriticalThreshold || sharedJoinedRules.woundCriticalThreshold || sourceFactionEffects.woundCriticalThreshold }, { hitModifier: resolvedHitState.modifierTotal, woundModifier, targetKeywords: [...(defenderData.factionKeywords || []), ...(defenderData.keywords || [])], coreProfile }),
       };
     });
-    return sourceRules.repeatRanged ? [...groups, ...groups.map((group) => ({ ...group, name: `${group.name}（枪林弹雨）` }))] : groups;
+    return sourceRules.repeatRanged || sourceFactionEffects.repeatRanged ? [...groups, ...groups.map((group) => ({ ...group, name: `${group.name}（枪林弹雨）` }))] : groups;
   });
   if (!weaponGroups.length) throw new Error(`进攻单位“${attacker.name}”没有当前条件下可使用的${state.attackMode === "ranged" ? "远程" : "近战"}武器，请检查突进、交战、曲射或单发状态`);
   return { simulations: 1000, weaponGroups, defenderGroups: buildDefenderGroups(defender, defenderDraft, attackerFactionEffects) };
@@ -2479,6 +2513,8 @@ function weaponEffectsFromKeywords(weapon, rollOptions = {}, ruleEffects = {}, m
     devastatingWoundsEnabled: hasDevastating || Boolean(ruleEffects.devastating),
     hitCriticalEnabled: Boolean(modifiers.criticalHitThreshold || ruleEffects.hitCriticalThreshold),
     criticalHitThreshold: Number(modifiers.criticalHitThreshold || ruleEffects.hitCriticalThreshold || 6),
+    woundCriticalEnabled: Boolean(ruleEffects.woundCriticalThreshold),
+    criticalWoundThreshold: Number(ruleEffects.woundCriticalThreshold || keywordPayload.criticalWoundThreshold || 6),
     damageRerollEnabled: Boolean(ruleEffects.damageReroll),
     damageRerollType: "ones",
     damageRerollAmount: "all",

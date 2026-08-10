@@ -36,6 +36,35 @@ const unique = (items) => [...new Set(items.map(clean).filter(Boolean))];
 const unitById = new Map(raw.units.map((entry) => [entry.unit?.id, entry.unit]));
 const unitName = (unit) => unit?.name_zh || unit?.name || "未命名单位";
 const weaponName = (weapon) => weapon?.name_zh || weapon?.profile_name_zh || weapon?.name || "未命名武器";
+const isWargearAbility = (ability) => String(ability?.kind || "").toLowerCase() === "wargear";
+const abilityEntries = (entry) => (entry.abilities || []).filter((ability) => !isWargearAbility(ability));
+const profileSlug = (value) => String(value || "model")
+  .normalize("NFKD").replace(/[’']/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "model";
+
+function toModelProfiles(models = [], unit = {}) {
+  if (models.length < 2) return [];
+  const fixedOne = models.map((model, index) => ({ model, index }))
+    .filter(({ model }) => Number(model.min) === 1 && Number(model.max) === 1);
+  const namedChampion = fixedOne.find(({ model }) => /boss|nob|sergeant|champion|justicar|exarch|alpha|leader|shas['’]?ui|sybarite|acolyte/i.test(model.model_name || ""));
+  const championIndex = namedChampion?.index ?? (unit.has_champion && fixedOne.length === 1 ? fixedOne[0].index : -1);
+  const remainingIndex = models.map((model, index) => ({ model, index }))
+    .filter(({ index }) => index !== championIndex)
+    .sort((left, right) => Number(right.model.max || right.model.min || 0) - Number(left.model.max || left.model.min || 0))[0]?.index ?? -1;
+  return models.map((model, index) => {
+    const champion = index === championIndex;
+    const remaining = index === remainingIndex;
+    const name = model.model_name_zh || model.model_name || "普通模型";
+    return {
+      id: champion ? "champion" : remaining ? "trooper" : `model-${profileSlug(model.model_name || name)}`,
+      name,
+      englishName: model.model_name || "",
+      role: champion ? "队长/首领" : "普通队员",
+      ...(champion ? { count: 1 } : remaining ? { remaining: true } : Number(model.min) === Number(model.max) ? { count: Number(model.min) } : {}),
+      min: model.min,
+      max: model.max,
+    };
+  });
+}
 
 function defaultWeaponNames(entry) {
   const byEnglish = new Map((entry.weapons || []).map(({ weapon }) => [weapon?.name, weapon]));
@@ -88,17 +117,7 @@ function toCard(entry, index) {
       ? "（源站未标明默认装备，需复核）"
       : "无（源站未提供武器档）";
   const composition = entry.compositions?.[0];
-  const allCompositionModels = (entry.compositions || []).flatMap((item) => item.models || []);
-  const modelProfiles = allCompositionModels.length > 1 ? allCompositionModels.map((model, modelIndex) => ({
-    id: modelIndex === 0 ? "champion" : `model-${modelIndex + 1}`,
-    name: model.model_name_zh || model.model_name || "普通模型",
-    role: modelIndex === 0 ? "队长/首领" : "普通队员",
-    count: model.min === model.max ? model.min : undefined,
-    min: model.min,
-    max: model.max,
-    remaining: modelIndex > 0,
-    defaultEquipment,
-  })) : [];
+  const modelProfiles = toModelProfiles(composition?.models || [], unit).map((profile) => ({ ...profile, defaultEquipment }));
   const leaderText = unit.leader_effect_zh || "";
   const leaderTargets = (entry.leads || []).map((id) => unitById.get(id)).filter(Boolean).map(unitName);
   const card = {
@@ -118,7 +137,7 @@ function toCard(entry, index) {
       objectiveControl: numberOrText(unit.oc),
       models: composition?.models?.reduce((sum, model) => sum + Number(model.min || 0), 0) || 1,
       defaultEquipment,
-      abilities: (entry.abilities || []).map((ability) => ability.name_zh || ability.name).filter(Boolean).join("；"),
+      abilities: abilityEntries(entry).map((ability) => ability.name_zh || ability.name).filter(Boolean).join("；"),
       activeAbilities: "",
     },
     composition: composition ? {
@@ -135,12 +154,12 @@ function toCard(entry, index) {
       choices: gear.choices_json || null,
       caps: gear.caps_json || null,
     })),
-    abilities: (entry.abilities || []).map(toAbility),
+    abilities: abilityEntries(entry).map(toAbility),
     keywords: unique(unit.keywords || []),
     factionKeywords: unique([...(unit.faction_keywords || []), raw.faction?.name_zh || faction]),
     leader: leaderText || leaderTargets.length ? { canLead: leaderTargets, text: leaderText } : undefined,
     extraction: {
-      rawText: [unit.damaged_text_zh, ...(entry.abilities || []).map((ability) => ability.text_zh), ...(entry.wargear_options || []).map((gear) => gear.instruction_zh)].filter(Boolean).join("\n"),
+      rawText: [unit.damaged_text_zh, ...abilityEntries(entry).map((ability) => ability.text_zh), ...(entry.wargear_options || []).map((gear) => gear.instruction_zh)].filter(Boolean).join("\n"),
       confidence: "high",
       needsReview: false,
     },

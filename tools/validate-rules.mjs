@@ -168,12 +168,7 @@ if (skullsquirm) {
 }
 
 const dataRoot = path.join(root, "docs", "data");
-const spaceMarineDir = fs.readdirSync(dataRoot).find((name) => {
-  const full = path.join(dataRoot, name);
-  return fs.statSync(full).isDirectory() && fs.readdirSync(full).some((file) => file.endsWith("全部数据卡.json"));
-});
-const spaceMarineFile = fs.readdirSync(path.join(dataRoot, spaceMarineDir)).find((file) => file.endsWith("全部数据卡.json"));
-const spaceMarineData = JSON.parse(fs.readFileSync(path.join(dataRoot, spaceMarineDir, spaceMarineFile), "utf8"));
+const spaceMarineData = JSON.parse(fs.readFileSync(path.join(dataRoot, "星际战士", "星际战士-全部数据卡.json"), "utf8"));
 const categoryNames = new Set(["传奇英雄人物", "其他步兵", "军表构成", "3", "骑乘", "终结者", "机甲", "载具", "运输载具", "飞行载具", "工事"]);
 const structuredSpaceMarineCards = (spaceMarineData.cards || []).filter((card) => card.unit?.name && !categoryNames.has(card.name) && !String(card.name || "").startsWith("⚫"));
 assert(structuredSpaceMarineCards.every((card) => !String(card.unit.abilities || "").split("⚫").some((segment) => /^\s*】\s*[：:]/.test(segment))), "星际战士技能文本不能残留孤立的 】： 前缀");

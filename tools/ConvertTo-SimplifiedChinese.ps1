@@ -106,14 +106,19 @@ function Convert-TextToSimplified {
     $count = 0
     foreach ($ch in $Text.ToCharArray()) {
         $out = $ch
-        # 第一层：StrConv 逐字转换
-        $sc = [Microsoft.VisualBasic.Strings]::StrConv([string]$ch, [Microsoft.VisualBasic.VbStrConv]::SimplifiedChinese)
-        if ($sc -ne [string]$ch) {
-            $out = $sc
-        }
-        # 第二层：补充映射表兜底
-        elseif ($Script:Map.ContainsKey($ch)) {
-            $out = $Script:Map[$ch]
+        $codePoint = [int][char]$ch
+        # StrConv 会经由系统代码页处理字符，若对拉丁扩展字母、非断行连字符
+        # 等非 CJK 字符调用，会把它们不可逆地替换为 "?"。只转换汉字区。
+        if (($codePoint -ge 0x3400 -and $codePoint -le 0x4DBF) -or
+            ($codePoint -ge 0x4E00 -and $codePoint -le 0x9FFF) -or
+            ($codePoint -ge 0xF900 -and $codePoint -le 0xFAFF)) {
+            $sc = [Microsoft.VisualBasic.Strings]::StrConv([string]$ch, [Microsoft.VisualBasic.VbStrConv]::SimplifiedChinese)
+            if ($sc -ne [string]$ch) {
+                $out = $sc
+            }
+            elseif ($Script:Map.ContainsKey($ch)) {
+                $out = $Script:Map[$ch]
+            }
         }
         if ($out -ne [string]$ch) { $count++ }
         [void]$sb.Append($out)

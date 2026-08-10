@@ -8,15 +8,19 @@ const renderStart = appSource.indexOf("function renderCalculatorDetails() {");
 const renderEnd = appSource.indexOf("function updateCalculatorDraftFromControl", renderStart);
 const renderSource = renderStart >= 0 && renderEnd > renderStart ? appSource.slice(renderStart, renderEnd) : "";
 
-test("renderCalculatorDetails keeps an expanded detachment panel open", () => {
+test("renderCalculatorDetails keeps every expanded nested details panel open", () => {
   assert.ok(renderSource, "renderCalculatorDetails should be present in docs/app.js");
 
-  const oldPanel = { open: true };
-  const newPanel = { open: false };
+  const oldPanels = [
+    { open: true, className: "calculator-detachments" },
+    { open: true, className: "calculator-detachment-rules nested-panel" },
+    { open: false, className: "calculator-rule-section" },
+  ];
+  const newPanels = oldPanels.map((panel) => ({ ...panel, open: false }));
   let rendered = false;
   const container = {
     querySelectorAll(selector) {
-      if (selector === ".calculator-detachments") return rendered ? [newPanel] : [oldPanel];
+      if (selector === "details") return rendered ? newPanels : oldPanels;
       if (selector === ".calculator-side") return [];
       return [];
     },
@@ -33,5 +37,5 @@ test("renderCalculatorDetails keeps an expanded detachment panel open", () => {
 
   vm.runInNewContext(`${renderSource}\nrenderCalculatorDetails();`, context);
 
-  assert.equal(newPanel.open, true);
+  assert.deepEqual(newPanels.map((panel) => panel.open), [true, true, false]);
 });

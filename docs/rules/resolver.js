@@ -92,7 +92,7 @@
   };
   const enabled = (selections, rule, controlId = "enabled") => Boolean(selected(selections, rule, controlId, false));
   const emptyResolution = () => ({
-    attack: { hitModifier: 0, woundModifier: 0, hitReroll: null, woundReroll: null, devastating: false, sustainedHits: 0, lethalHits: false, attackModifier: 0, weaponAttackModifiers: [], strengthModifier: 0, apModifier: 0, damageModifier: 0, targetToughnessModifier: 0, targetHitModifier: 0, targetMeleeHitModifier: 0, targetSaveModifier: 0, repeatRanged: false, weaponAttackOverride: null, ignoreHitModifiers: false, contributions: [] },
+    attack: { hitModifier: 0, woundModifier: 0, hitReroll: null, woundReroll: null, devastating: false, sustainedHits: 0, lethalHits: false, attackModifier: 0, rapidFireAttackModifier: 0, weaponAttackModifiers: [], strengthModifier: 0, apModifier: 0, damageModifier: 0, targetToughnessModifier: 0, targetHitModifier: 0, targetMeleeHitModifier: 0, targetSaveModifier: 0, repeatRanged: false, weaponAttackOverride: null, ignoreHitModifiers: false, hitCriticalThreshold: 0, woundCriticalThreshold: 0, contributions: [] },
     defend: { invulnerableSave: 0, damageOverride: 0, incomingDamageModifier: 0, feelNoPain: 0, feelNoPainMortal: 0, incomingApModifier: 0, incomingHitModifier: 0, incomingWoundModifier: 0, incomingWoundWhenStrengthGreater: 0, incomingWoundWhenStrengthGreaterOrEqual: 0, contributions: [] },
     notes: [],
   });
