@@ -13,6 +13,10 @@
       aliases: Object.freeze([...(definition.aliases || [])]),
       unitAliases: Object.freeze({ ...(definition.unitAliases || {}) }),
       data: Object.freeze({ ...(definition.data || {}) }),
+      runtime: Object.freeze({
+        ...(definition.runtime || {}),
+        rules: Object.freeze([...(definition.runtime?.rules || [])]),
+      }),
       mechanics: Object.freeze({ ...(definition.mechanics || {}) }),
       unitTags: Object.freeze(Object.fromEntries(Object.entries(definition.unitTags || {}).map(([tag, value]) => [tag, Object.freeze({ ...value, includeUnits: Object.freeze([...(value.includeUnits || [])]), excludeUnits: Object.freeze([...(value.excludeUnits || [])]) })]))),
       library: Object.freeze((definition.library || []).map((entry) => Object.freeze({ ...entry }))),

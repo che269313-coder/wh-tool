@@ -2,3 +2,6 @@
 # Searchable Markdown/JSON derivatives remain tracked and are used by deploys.
 /docs/data/*.pdf
 /docs/data/**/*.pdf
+
+# Faction source data is user-provided; generated runtime bundles are tracked.
+/docs/data/*/

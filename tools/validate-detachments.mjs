@@ -7,7 +7,7 @@ const failures = [];
 const assert = (condition, message) => { if (!condition) failures.push(message); };
 
 const generatedFactionDir = path.join(root, "docs", "rules", "detachments");
-const generatedPaths = ["adeptus-custodes", "space-marines", "death-guard"].map((factionId) => path.join(generatedFactionDir, `${factionId}.js`));
+const generatedPaths = ["adeptus-custodes", "space-marines", "death-guard", "orks"].map((factionId) => path.join(generatedFactionDir, `${factionId}.js`));
 assert(generatedPaths.every((filename) => fs.existsSync(filename)), "缺少按阵营生成的分遣队包");
 
 if (generatedPaths.every((filename) => fs.existsSync(filename))) {
@@ -21,6 +21,7 @@ if (generatedPaths.every((filename) => fs.existsSync(filename))) {
     "adeptus-custodes": { detachments: 10, stratagems: 48, enhancements: 32 },
     "space-marines": { detachments: 24, stratagems: 126, enhancements: 89 },
     "death-guard": { detachments: 10, stratagems: 48, enhancements: 32 },
+    "orks": { detachments: 14, stratagems: 69, enhancements: 46 },
   };
   const all = [];
   Object.entries(expected).forEach(([factionId, counts]) => {
@@ -95,8 +96,19 @@ if (generatedPaths.every((filename) => fs.existsSync(filename))) {
   if (fs.existsSync(rosterContextPath)) {
     vm.runInContext(fs.readFileSync(rosterContextPath, "utf8"), context, { filename: rosterContextPath });
     const rosterContext = context.WarhammerRosterContext;
-    const custodesList = fs.readFileSync(path.join(root, "禁军军表.txt"), "utf8");
-    const marineList = fs.readFileSync(path.join(root, "白色疤痕军表.txt"), "utf8");
+    const custodesList = [
+      "测试禁军(2000分)",
+      "帝皇禁军",
+      "雷灭锤击(黄),盾卫军团(红)(3DP)",
+      "盾卫连长(主将)(115分)",
+      "强化：全视仪；分数：5",
+    ].join("\n");
+    const marineList = [
+      "测试星际战士(2000分)",
+      "白色疤痕",
+      "矛尖特遣队(蓝),智库密会(青)(3DP)",
+      "速不台可汗(主将)(90分)",
+    ].join("\n");
     const custodesMetadata = rosterContext.parseMetadata("帝皇禁军", custodesList, resolver);
     const marineMetadata = rosterContext.parseMetadata("白色疤痕", marineList, resolver);
     assert(custodesMetadata.detachmentIds.length === 2 && custodesMetadata.dp === 3, "禁军军表必须导入两个分遣队并计算 3DP");
@@ -169,7 +181,7 @@ if (generatedPaths.every((filename) => fs.existsSync(filename))) {
   assert(!fs.existsSync(path.join(root, "docs", "rules", "detachments.js")), "不得保留会被单队更新整体改写的分遣队总文件");
   const generatorSource = fs.readFileSync(path.join(root, "tools", "generate-detachment-rules.mjs"), "utf8");
   assert(/--faction=/.test(generatorSource) && /selectedInputs/.test(generatorSource), "分遣队生成器必须支持只生成一个阵营");
-  assert(["帝皇禁军", "星际战士", "死亡守卫"].every((name) => generatorSource.includes(`docs/data/${name}/分遣队规则-11版原始文本.txt`)), "生成器必须从各队资料目录读取分遣队原文");
+  assert(["帝皇禁军", "星际战士", "死亡守卫", "欧克兽人"].every((name) => generatorSource.includes(`docs/data/${name}/分遣队规则-11版原始文本.txt`)), "生成器必须从各队资料目录读取分遣队原文");
 }
 
 if (failures.length) {

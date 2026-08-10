@@ -6,7 +6,7 @@ import engine from "../docs/engine.js";
 const root = path.resolve(import.meta.dirname, "..");
 const context = vm.createContext({});
 context.globalThis = context;
-for (const file of ["identity.js", "faction-registry.js", "effect-schema.js", "keyword-dictionary.js", "combat-state.js", "factions.js", "custodes-identities.js", "custodes.js", "space-marines-identities.js", "space-marines.js", "death-guard-identities.js", "death-guard.js", "effects.js", "resolver.js"]) {
+for (const file of ["identity.js", "faction-registry.js", "effect-schema.js", "keyword-dictionary.js", "combat-state.js", "factions.js", "custodes-identities.js", "custodes.js", "space-marines-identities.js", "space-marines.js", "death-guard-identities.js", "death-guard.js", "orks-identities.js", "orks.js", "effects.js", "resolver.js"]) {
   vm.runInContext(fs.readFileSync(path.join(root, "docs", "rules", file), "utf8"), context, { filename: file });
 }
 
@@ -44,6 +44,7 @@ for (const [name, catalog] of [
   ["帝皇禁军", context.WarhammerCustodesRules],
   ["星际战士", context.WarhammerSpaceMarineRules],
   ["死亡守卫", context.WarhammerDeathGuardRules],
+  ["欧克兽人", context.WarhammerOrksRules],
 ]) {
   const schemaErrors = context.WarhammerEffectSchema.validateCatalog(catalog);
   assert(schemaErrors.length === 0, `${name}效果 schema 校验失败：${schemaErrors.join("；")}`);
@@ -59,9 +60,14 @@ const deathGuardRuleList = [
   ...(context.WarhammerDeathGuardRules?.factionRules || []),
   ...Object.values(context.WarhammerDeathGuardRules?.unitRules || {}).flat(),
 ];
+const orksRuleList = [
+  ...(context.WarhammerOrksRules?.factionRules || []),
+  ...Object.values(context.WarhammerOrksRules?.unitRules || {}).flat(),
+];
 for (const [label, factionId, rules] of [
   ["星际战士", "space-marines", spaceMarineRuleList],
   ["死亡守卫", "death-guard", deathGuardRuleList],
+  ["欧克兽人", "orks", orksRuleList],
 ]) {
   assert(rules.every((rule) => new RegExp(`^${factionId}\\.[a-z0-9-]+\\.[a-z0-9-]+$`).test(rule.id)), `${label}规则必须全部使用阵营.单位.英文技能稳定 ID`);
   assert(rules.every((rule) => rule.identity?.matchStatus && rule.legacyIds?.length), `${label}稳定 ID 必须记录英文匹配状态和旧 ID`);
@@ -69,6 +75,25 @@ for (const [label, factionId, rules] of [
   assert(rules.every((rule) => rule.identity?.matchStatus !== "translated-needs-review"), `${label}已接受翻译不得继续标为待复核`);
   assert(new Set(rules.map((rule) => rule.id)).size === rules.length, `${label}稳定 ID 在阵营内必须唯一`);
 }
+const waagh = context.WarhammerRuleResolver.resolveFaction("欧克兽人", { "orks.army.waaagh.enabled": true }, { phase: "melee", unitName: "野兽头目" });
+assert(waagh.attack.strengthModifier === 1 && waagh.attack.attackModifier === 1 && waagh.defend.invulnerableSave === 5, "欧克兽人瓦戈！必须提供近战 S/A +1 和 5+ 无敌豁免");
+assert(Object.keys(context.WarhammerOrksRules.unitRules || {}).length === 99, "欧克兽人必须为 99 张数据卡全部生成单位技能目录");
+assert(Object.values(context.WarhammerOrksRules.unitRules || {}).every((rules) => rules.length > 0), "欧克兽人每张数据卡都必须至少有一条结构化技能规则，不能回退到旧占位提示");
+const orksUnitRule = (unitName, englishName) => context.WarhammerOrksRules.unitRules[unitName]?.find((rule) => rule.source?.englishName === englishName);
+const beastboss = orksUnitRule("野兽头目", "Beastboss");
+const beastbossResolved = context.WarhammerRuleResolver.resolveUnit("欧克兽人", "野兽头目", {}, { phase: "melee", isJoined: true });
+assert(beastboss?.effects?.some((effect) => effect.type === "hit-modifier" && effect.value === 1 && effect.requiresJoined), "欧克兽人野兽头目必须声明领导单位时近战命中 +1");
+assert(beastbossResolved.attack.hitModifier === 1, "欧克兽人野兽头目领导单位时近战命中 +1 必须进入计算");
+const ferociousRage = orksUnitRule("野兽头目", "Ferocious Rage");
+const ferociousResolved = context.WarhammerRuleResolver.resolveUnit("欧克兽人", "野兽头目", { [`${ferociousRage?.id}.charged`]: true }, { phase: "melee" });
+assert(ferociousRage?.effects?.some((effect) => effect.type === "devastating-wounds" && effect.selection?.controlId === "charged") && ferociousResolved.attack.devastating, "欧克兽人蛮兽之怒必须按冲锋控件提供毁灭伤害");
+const moreDakka = orksUnitRule("大技师", "More Dakka");
+const moreDakkaResolved = context.WarhammerRuleResolver.resolveUnit("欧克兽人", "大技师", { [`${moreDakka?.id}.enabled`]: true }, { phase: "ranged", isJoined: true });
+assert(moreDakka?.effects?.some((effect) => effect.type === "hit-reroll" && effect.mode === "ones") && moreDakkaResolved.attack.hitReroll === "ones", "欧克兽人更多火力必须提供远程命中 1 重投");
+const orksTankHunters = orksUnitRule("坦克破坏者", "Tank Hunters");
+const tankResolved = context.WarhammerRuleResolver.resolveUnit("欧克兽人", "坦克破坏者", { [`${orksTankHunters?.id}.targetMonsterVehicle`]: true }, { phase: "ranged" });
+assert(orksTankHunters?.effects?.some((effect) => effect.type === "hit-modifier" && effect.requiresTargetMonsterVehicle) && orksTankHunters?.effects?.some((effect) => effect.type === "wound-modifier" && effect.requiresTargetMonsterVehicle)
+  && tankResolved.attack.hitModifier === 1 && tankResolved.attack.woundModifier === 1, "欧克兽人坦克猎手必须按凶兽/载具目标提供命中与造伤 +1");
 assert(context.WarhammerSpaceMarineRules.unitRules["连长"]?.some((rule) => rule.id === "space-marines.captain.rites-of-battle"), "星际战士连长战斗之仪必须使用官方 Rites of Battle ID");
 assert(context.WarhammerSpaceMarineRules.unitRules["跳跃背包连长"]?.find((rule) => rule.name === "战斗之仪")?.id === "space-marines.captain-with-jump-pack.rites-of-battle", "跳跃背包连长技能顺序不得把战斗之仪错配为 Angel's Wrath");
 assert(context.WarhammerSpaceMarineRules.unitRules["跳跃背包连长"]?.find((rule) => rule.name === "天使之怒")?.id === "space-marines.captain-with-jump-pack.angels-wrath", "跳跃背包连长天使之怒必须使用官方 Angel's Wrath ID");
@@ -498,7 +523,7 @@ assert(!context.WarhammerKeywordDictionary.parse(["反灵能者2+"]).some((effec
 assert(typeof context.WarhammerCombatState.composeWoundModifier === "function"
   && context.WarhammerCombatState.composeWoundModifier({ unitModifier: 1, factionModifier: 0, incomingModifier: 0, conditionalModifier: 0 }) === 1, "造伤修正必须通过单一归约入口组合，同一单位修正不能重复计入");
 
-for (const rule of [...custodesRuleList, ...spaceMarineRuleList, ...deathGuardRuleList]) {
+for (const rule of [...custodesRuleList, ...spaceMarineRuleList, ...deathGuardRuleList, ...orksRuleList]) {
   assert(!(rule.legacyIds || []).includes(rule.id), `${rule.id} 不得把当前稳定 ID 重复记录为 legacy alias`);
 }
 

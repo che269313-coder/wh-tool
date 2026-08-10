@@ -55,7 +55,7 @@ assert(translated.id === "adeptus-custodes.example-unit.unyielding-sentinel", "�
 assert(context.WarhammerRuleIdentity.audit([official, translated]).length === 1, "暂译 ID 必须进入待复核清单");
 
 const registry = context.WarhammerFactionRegistry;
-assert(registry.list().length === 3, "阵营注册表必须声明当前三个阵营包");
+assert(registry.list().length === 23, "阵营注册表必须声明网站 23 个阵营包");
 assert(registry.resolve("禁军")?.id === "adeptus-custodes", "阵营别名必须解析到稳定阵营 ID");
 assert(registry.resolve("Death Guard")?.data?.catalog.endsWith("死亡守卫-全部数据卡.json"), "阵营包必须拥有自己的数据路径");
 assert(registry.resolveUnitName("死亡守卫", "泰丰斯") === "泰弗斯", "单位别名必须由阵营包维护");

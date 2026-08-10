@@ -7,6 +7,7 @@ const inputs = [
   { factionId: "adeptus-custodes", file: "docs/data/帝皇禁军/分遣队规则-11版原始文本.txt" },
   { factionId: "space-marines", file: "docs/data/星际战士/分遣队规则-11版原始文本.txt" },
   { factionId: "death-guard", file: "docs/data/死亡守卫/分遣队规则-11版原始文本.txt" },
+  { factionId: "orks", file: "docs/data/欧克兽人/分遣队规则-11版原始文本.txt" },
 ];
 const factionArgument = process.argv.find((argument) => argument.startsWith("--faction="))?.split("=")[1];
 const selectedInputs = factionArgument ? inputs.filter((input) => input.factionId === factionArgument) : inputs;

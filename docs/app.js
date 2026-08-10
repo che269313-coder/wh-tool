@@ -8,10 +8,6 @@ const CORE_LIBRARY_FILES = [
   "data/规则书/AI-战斗规则摘要.md",
 ];
 const FACTION_PACKAGES = window.WarhammerFactionRegistry?.list() || [];
-const BUILTIN_LIBRARY_FILES = [
-  ...CORE_LIBRARY_FILES,
-  ...FACTION_PACKAGES.flatMap((definition) => definition.library.map((entry) => entry.path)),
-];
 const DEFAULT_SETTINGS = {
   mode: "direct",
   key: "",
@@ -80,8 +76,8 @@ const factionLookupEntries = FACTION_PACKAGES.flatMap((definition) => [definitio
 const DATASHEET_FILES = Object.fromEntries(factionLookupEntries.filter(([, definition]) => definition.data.datasheet).map(([name, definition]) => [name, definition.data.datasheet]));
 const DATASHEET_JSON_FILES = Object.fromEntries(factionLookupEntries.filter(([, definition]) => definition.data.catalog).map(([name, definition]) => [name, definition.data.catalog]));
 const DATASHEET_ALIASES = Object.fromEntries(factionLookupEntries.map(([name, definition]) => [name, Object.fromEntries(Object.entries(definition.unitAliases).map(([alias, canonical]) => [alias, [canonical]]))]));
-const CALCULATOR_CARD_FILES = FACTION_PACKAGES.map((definition) => definition.data.catalog).filter(Boolean);
 const DIGITAL_UNIT_ALIASES = Object.fromEntries(FACTION_PACKAGES.filter((definition) => Object.keys(definition.digitalUnitAliases).length).map((definition) => [definition.name, definition.digitalUnitAliases]));
+const hydratedCalculatorFactions = new Set();
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -259,8 +255,10 @@ function calculatorLegacyCardKey(card) {
 
 function calculatorRosterOptions(side) {
   const roster = state.rosters[side];
+  const definition = window.WarhammerFactionRegistry?.resolve(roster.faction);
   return roster.groups.flatMap((group) => group.units.filter((unit) => activeModels(unit).length).map((unit) => ({
     key: `roster:${side}:${group.id}:${unit.id}`, name: unit.name, label: `${unit.name} · ${sideLabel(side)}军表「${roster.name}」 · ${group.title}`, side, groupId: group.id, unitId: unit.id,
+    faction: roster.faction, factionId: definition?.id || "",
   })));
 }
 
@@ -278,7 +276,7 @@ function calculatorSelectionKeys(side) {
 
 function calculatorPickerOptions(side) {
   const rosterOptions = ["attacker", "defender"].flatMap(calculatorRosterOptions);
-  const cardOptions = calculatorCardNames().map((card) => ({ key: calculatorCardKey(card), name: card.name, label: `${card.name} · ${card.faction || "datasheet"}`, card }));
+  const cardOptions = calculatorCardNames().map((card) => ({ key: calculatorCardKey(card), name: card.name, label: `${card.name} · ${card.faction || "datasheet"}`, faction: card.faction, factionId: card.factionId || "", card }));
   return { allOptions: [...rosterOptions, ...cardOptions] };
 }
 
@@ -374,11 +372,22 @@ function handleCalculatorPickerClick(event) {
   renderCalculatorSelectors();
 }
 
-function handleCalculatorPickerOption(event) {
+async function handleCalculatorPickerOption(event) {
   const option = event.target.closest("[data-calculator-picker-option]");
   if (!option) return;
   const side = option.dataset.side;
   const index = Number(option.dataset.index || 0);
+  const selectedOption = calculatorPickerOptions(side).allOptions.find((candidate) => candidate.key === option.dataset.key);
+  if (selectedOption?.factionId || selectedOption?.faction) {
+    $("#calcNote").textContent = `正在加载${selectedOption.faction || "对应阵营"}数据…`;
+    try {
+      await ensureFactionRuntimeLoaded(selectedOption.factionId || selectedOption.faction);
+    } catch (error) {
+      console.error(error);
+      showToast("阵营数据加载失败，请检查资源是否完整");
+      return;
+    }
+  }
   const keys = calculatorSelectionKeys(side);
   keys[index] = option.dataset.key || "";
   state.calculatorPickerSearch[side] ||= [];
@@ -1079,9 +1088,13 @@ function calculatorDetailMarkup(side, index = 0) {
 function renderCalculatorDetails() {
   const container = $("#calculatorDetails");
   if (!container) return;
+  const detachmentPanelOpenStates = [...container.querySelectorAll(".calculator-detachments")].map((details) => details.open);
   const attackers = calculatorSelectionKeys("attacker").map((_, index) => calculatorDetailMarkup("attacker", index)).join("");
   const defenders = calculatorSelectionKeys("defender").map((_, index) => calculatorDetailMarkup("defender", index)).join("");
   container.innerHTML = `<div class="calculator-detail-grid">${attackers}${defenders}</div>`;
+  [...container.querySelectorAll(".calculator-detachments")].forEach((details, index) => {
+    details.open = detachmentPanelOpenStates[index] ?? false;
+  });
   const sides = [...container.querySelectorAll(".calculator-side")];
   const attackerCount = calculatorSelectionKeys("attacker").length;
   sides.slice(0, attackerCount).forEach((element, index) => { element.dataset.calculatorUnitIndex = index; });
@@ -1693,12 +1706,13 @@ function unitOverviewMarkup(unit, side, groupId) {
 function renderRosterWarnings() {
   const container = $("#rosterWarnings");
   if (!container) return;
-  const hasCards = state.calculatorCards.some((card) => card.structured && card.data?.unit);
-  const unmatched = hasCards
-    ? ["attacker", "defender"].flatMap((side) => getRosterUnits(state.rosters[side])
+  const unmatched = ["attacker", "defender"].flatMap((side) => {
+    const definition = window.WarhammerFactionRegistry?.resolve(state.rosters[side].faction);
+    const hasFactionCards = Boolean(definition && hydratedCalculatorFactions.has(definition.id));
+    return hasFactionCards ? getRosterUnits(state.rosters[side])
       .filter((unit) => !findStructuredCalculatorCard(unit.name))
-      .map((unit) => ({ side, name: unit.name })))
-    : [];
+      .map((unit) => ({ side, name: unit.name })) : [];
+  });
   if (!unmatched.length) {
     container.hidden = true;
     container.innerHTML = "";
@@ -1742,6 +1756,11 @@ function renderRosters() {
 
 async function getDatasheetPreview(faction, unitName) {
   if (!state.calculatorCards.length) await loadCalculatorCards();
+  try {
+    await ensureFactionRuntimeLoaded(faction);
+  } catch (error) {
+    console.error(error);
+  }
   const names = [...new Set([...unitNameCandidates(unitName), ...(DATASHEET_ALIASES[faction]?.[unitName] || [])].filter(Boolean))];
   const normalizeName = (value) => String(value || "")
     .replace(/[\s\u00a0·•・,，。.!！:：;；/\\_\-—–]/g, "")
@@ -1759,10 +1778,7 @@ async function getDatasheetPreview(faction, unitName) {
   // faction label. Resolve directly from the structured catalogue before
   // falling back to the legacy Markdown section.
   if (!structured) {
-    const jsonPaths = [...new Set([
-      ...(faction && DATASHEET_JSON_FILES[faction] ? [DATASHEET_JSON_FILES[faction]] : []),
-      ...Object.values(DATASHEET_JSON_FILES),
-    ])];
+    const jsonPaths = faction && DATASHEET_JSON_FILES[faction] ? [DATASHEET_JSON_FILES[faction]] : [];
     for (const path of jsonPaths) {
       try {
         const response = await fetch(path);
@@ -1954,21 +1970,29 @@ async function addLibraryFile(file, metadata = {}) {
   });
 }
 
-async function importBuiltinLibraryFiles() {
+function libraryFileKey(file) {
+  const metadata = BUILTIN_FILE_METADATA[file.path] || BUILTIN_FILE_METADATA[file.name] || {};
+  return `${file.faction || metadata.faction || "未分类"}:${file.name || ""}`;
+}
+
+async function importBuiltinLibraryFiles(paths = CORE_LIBRARY_FILES) {
   if (window.pdfjsLib) window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
   try {
     const existing = await getLibraryFiles();
-    const existingNames = new Set(existing.map((file) => file.name));
+    const existingKeys = new Set(existing.map(libraryFileKey));
     const imported = [];
-    for (const path of BUILTIN_LIBRARY_FILES) {
+    for (const path of [...new Set(paths)]) {
       const name = path.split("/").pop();
-      if (existingNames.has(name)) continue;
+      const metadata = BUILTIN_FILE_METADATA[path] || BUILTIN_FILE_METADATA[name] || {};
+      const key = libraryFileKey({ path, name, faction: metadata.faction });
+      if (existingKeys.has(key)) continue;
       try {
         const response = await fetch(path);
         if (!response.ok) continue;
         const blob = await response.blob();
         const file = new File([blob], name, { type: blob.type || "application/pdf" });
-        await addLibraryFile(file, BUILTIN_FILE_METADATA[path] || BUILTIN_FILE_METADATA[name] || {});
+        await addLibraryFile(file, metadata);
+        existingKeys.add(key);
         imported.push(name);
       } catch {
         // 本地 file:// 预览无法 fetch，跳过即可
@@ -1982,12 +2006,16 @@ async function importBuiltinLibraryFiles() {
 
 function appendDigitalUnitAliases(parsed = null) {
   for (const [faction, pages] of Object.entries(DIGITAL_UNIT_ALIASES)) {
+    const definition = window.WarhammerFactionRegistry?.resolve(faction);
     for (const [page, names] of Object.entries(pages)) {
       const key = `${faction}:${page}`;
-      const source = parsed?.get(key) || state.calculatorCards.find((card) => card.faction === faction && Number(card.page) === Number(page) && card.data?.unit)?.data;
-      if (!source?.unit) continue;
+      const sourceCard = state.calculatorCards.find((card) => card.faction === faction && Number(card.page) === Number(page));
+      const source = parsed?.get(key) || sourceCard?.data;
+      if (!sourceCard && !source?.unit) continue;
       names.forEach((name) => {
-        const virtualCard = { faction, name, page: Number(page), structured: true, data: { ...source, unit: { ...source.unit, name } } };
+        const virtualCard = source?.unit
+          ? { factionId: definition?.id || sourceCard?.factionId || "", faction, name, page: Number(page), structured: true, data: { ...source, unit: { ...source.unit, name } } }
+          : { factionId: definition?.id || sourceCard?.factionId || "", faction, name, page: Number(page), structured: false, indexed: true, data: null };
         const existingIndex = state.calculatorCards.findIndex((card) => card.faction === faction && card.name === name);
         if (existingIndex >= 0) state.calculatorCards[existingIndex] = virtualCard;
         else state.calculatorCards.push(virtualCard);
@@ -1996,65 +2024,75 @@ function appendDigitalUnitAliases(parsed = null) {
   }
 }
 
-async function loadCalculatorCards() {
-  const cards = new Map();
+async function ensureFactionLibraryFiles(faction) {
+  const definition = window.WarhammerFactionRegistry?.resolve(faction);
+  if (!definition) return;
+  const searchableTextPaths = (definition.library || [])
+    .map((entry) => entry.path)
+    .filter((path) => /\.(?:md|txt)$/i.test(path));
+  await importBuiltinLibraryFiles(searchableTextPaths);
+}
+
+async function ensureLibraryFilesForFolders(folders) {
+  await Promise.all([...folders]
+    .filter((folder) => folder && folder !== "规则书")
+    .map((folder) => ensureFactionLibraryFiles(folder)));
+}
+
+function appendCalculatorCatalog(cards, parsed, factionId = "") {
   const categoryNames = new Set(["传奇英雄人物", "战术小队", "其他步兵", "军表构成", "3", "骑乘", "终结者", "机甲", "载具", "运输载具", "飞行载具", "工事"]);
-  const appendCards = (parsed) => {
-    if (!parsed || typeof parsed !== "object") return;
-    if (parsed.unit?.name) cards.set(`${parsed.faction}:${parsed.unit.name}`, { faction: parsed.faction, name: parsed.unit.name, structured: true, data: parsed });
-    for (const card of parsed.cards || []) {
-      if (!card.name || categoryNames.has(card.name) || card.name.startsWith("⚫") || /爆弹枪|复合武器|雷霆锤/.test(card.name)) continue;
-      const key = `${parsed.faction}:${card.name}`;
-      const candidate = { faction: parsed.faction, name: card.name, page: card.page, structured: Boolean(card.unit), data: card.unit ? card : null };
-      const existing = cards.get(key);
-      if (!existing || (candidate.structured && !existing.structured)) cards.set(key, candidate);
-    }
-  };
-  const embeddedCatalog = Array.isArray(window.WARHAMMER_CALCULATOR_CATALOG)
-    ? window.WARHAMMER_CALCULATOR_CATALOG
-    : [];
-  for (const parsed of embeddedCatalog) appendCards(parsed);
-  for (const path of embeddedCatalog.length ? [] : CALCULATOR_CARD_FILES) {
-    try {
-      const response = await fetch(path);
-      if (!response.ok) continue;
-      appendCards(await response.json());
-    } catch {
-      // 本地 file:// 预览可能禁止 fetch；军表选项仍然可用。
-    }
+  if (!parsed || typeof parsed !== "object") return;
+  if (parsed.unit?.name) cards.set(`${parsed.faction}:${parsed.unit.name}`, { factionId, faction: parsed.faction, name: parsed.unit.name, structured: true, data: parsed });
+  for (const card of parsed.cards || []) {
+    if (!card.name || categoryNames.has(card.name) || card.name.startsWith("⚫") || /爆弹枪|复合武器|雷霆锤/.test(card.name)) continue;
+    const key = `${parsed.faction}:${card.name}`;
+    const candidate = { factionId, faction: parsed.faction, name: card.name, page: card.page, structured: Boolean(card.unit), data: card.unit ? card : null };
+    const existing = cards.get(key);
+    if (!existing || (candidate.structured && !existing.structured)) cards.set(key, candidate);
   }
+}
+
+function hydrateCalculatorCatalog(faction) {
+  const definition = window.WarhammerFactionRegistry?.resolve(faction);
+  if (!definition || hydratedCalculatorFactions.has(definition.id)) return definition || null;
+  const parsed = window.WarhammerCalculatorCatalogRegistry?.get(definition.id);
+  if (!parsed) throw new Error(`阵营 ${definition.name} 的数据卡包未注册`);
+  const cards = new Map(state.calculatorCards
+    .filter((card) => card.factionId !== definition.id)
+    .map((card) => [`${card.faction}:${card.name}`, card]));
+  appendCalculatorCatalog(cards, parsed, definition.id);
   state.calculatorCards = [...cards.values()];
-  // Keep digital aliases available even when the Markdown fallback is slow or
-  // unavailable. The structured catalogue already contains page 65, so the
-  // generic Captain alias must be searchable from the first render.
+  hydratedCalculatorFactions.add(definition.id);
   appendDigitalUnitAliases();
-  // The picker may already be open while the async catalogue arrives.
-  // Refresh it here so a valid search (for example “图拉真”) is not left empty.
+  return definition;
+}
+
+async function ensureFactionRuntimeLoaded(faction) {
+  const definition = window.WarhammerFactionRegistry?.resolve(faction);
+  if (!definition) return null;
+  if (!hydratedCalculatorFactions.has(definition.id)) {
+    if (!window.WarhammerFactionRuntimeLoader?.load) throw new Error("阵营运行时加载器不可用");
+    await window.WarhammerFactionRuntimeLoader.load(definition.id);
+    hydrateCalculatorCatalog(definition.id);
+  }
+  return definition;
+}
+
+async function loadCalculatorCards() {
+  state.calculatorCards = (Array.isArray(window.WARHAMMER_CALCULATOR_INDEX) ? window.WARHAMMER_CALCULATOR_INDEX : [])
+    .map((card) => ({ ...card, structured: false, indexed: true, data: null }));
+  appendDigitalUnitAliases();
   renderCalculatorSelectors();
-  const digitalSources = FACTION_PACKAGES
-    .filter((definition) => definition.data.datasheet && Object.keys(definition.digitalUnitAliases || {}).length)
-    .map((definition) => ({ faction: definition.name, path: definition.data.datasheet }));
-  for (const source of digitalSources) {
+
+  const rosterFactions = [...new Set([state.rosters.attacker.faction, state.rosters.defender.faction].filter(Boolean))];
+  for (const faction of rosterFactions) {
     try {
-      const response = await fetch(source.path);
-      if (!response.ok) continue;
-      const parsed = parseDigitalDatasheets(await response.text(), source.faction);
-      // The JSON catalogue is extracted directly from the source PDF and is
-      // authoritative when present.  Keep the Markdown parser only as a
-      // fallback for old/unstructured entries.
-      state.calculatorCards = state.calculatorCards.map((card) => !card.data?.unit && parsed.get(`${card.faction}:${card.page}`)
-        ? { ...card, structured: true, data: parsed.get(`${card.faction}:${card.page}`) }
-        : card);
-      appendDigitalUnitAliases(parsed);
-      renderCalculatorSelectors();
-    } catch {
-      // 页面离线时仍保留已经加载的军表和 JSON 数据卡。
+      await ensureFactionRuntimeLoaded(faction);
+    } catch (error) {
+      console.error(error);
     }
   }
   applyDatasheetWoundsToRosters();
-  // The roster warning is rendered before asynchronous catalogue loading.
-  // Render the whole roster again so canonical names are not reported as
-  // missing merely because the cards arrived after the initial render.
   renderRosters();
 }
 
@@ -2264,20 +2302,46 @@ function importArmyToRoster(army, side) {
   return true;
 }
 
-function importRosterText(content, side) {
+function rosterRuntimeFactions(content) {
+  const values = [];
+  try {
+    const parsed = JSON.parse(content);
+    [parsed?.faction, parsed?.army, parsed?.attacker?.faction, parsed?.defender?.faction].filter(Boolean).forEach((value) => values.push(value));
+  } catch {
+    // Plain-text roster detection continues below.
+  }
+  const source = String(content || "").toLocaleLowerCase();
+  FACTION_PACKAGES.forEach((definition) => {
+    if ([definition.name, definition.englishName, ...(definition.aliases || [])]
+      .filter(Boolean)
+      .some((alias) => source.includes(String(alias).toLocaleLowerCase()))) values.push(definition.id);
+  });
+  return [...new Set(values.map((value) => window.WarhammerFactionRegistry?.resolve(value)?.id).filter(Boolean))];
+}
+
+async function prepareRosterRuntime(content) {
+  const factionIds = rosterRuntimeFactions(content);
+  await Promise.all(factionIds.map(async (factionId) => {
+    await ensureFactionRuntimeLoaded(factionId);
+    await ensureFactionLibraryFiles(factionId);
+  }));
+}
+
+async function importRosterText(content, side) {
+  await prepareRosterRuntime(content);
   const parsed = parseArmyList(content);
   if (!parsed) return false;
   if (parsed.attacker || parsed.defender) return importArmyToRoster(parsed[side], side);
   return importArmyToRoster(parsed, side);
 }
 
-$$('[data-paste-side]').forEach((button) => button.addEventListener("click", () => {
+$$('[data-paste-side]').forEach((button) => button.addEventListener("click", async () => {
   const content = $("#rosterPaste")?.value.trim();
   if (!content) {
     showToast("请先粘贴军表内容");
     return;
   }
-  if (importRosterText(content, button.dataset.pasteSide)) {
+  if (await importRosterText(content, button.dataset.pasteSide)) {
     showToast(`已解析并导入${sideLabel(button.dataset.pasteSide)}军表`);
   } else showToast("未识别军表格式，请检查粘贴内容是否完整");
 }));
@@ -2313,6 +2377,7 @@ $("#rosterFiles")?.addEventListener("change", async (event) => {
     for (const file of files) {
       if (/text|json|markdown/.test(file.type) || /\.(txt|md|json|pdf)$/i.test(file.name)) {
         const content = /\.pdf$/i.test(file.name) ? await extractPdfText(file) : await file.text();
+        await prepareRosterRuntime(content);
         const army = parseArmyList(content);
         if (army?.attacker || army?.defender) {
           ["attacker", "defender"].forEach((side) => {
@@ -2575,6 +2640,7 @@ function relevantExcerpt(content, question) {
 
 async function buildLibraryContext(question) {
   const folders = getRelevantFolders(question);
+  await ensureLibraryFilesForFolders(folders);
   const kinds = getRelevantKinds(question);
   const files = await getLibraryFiles();
   const normalized = files.map((file) => ({ ...file, faction: file.faction || BUILTIN_FILE_METADATA[file.name]?.faction || "未分类", kind: file.kind || BUILTIN_FILE_METADATA[file.name]?.kind || "supplement" }));

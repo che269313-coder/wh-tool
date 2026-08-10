@@ -65,7 +65,10 @@
     const data = root[definition.rulesGlobal] || emptyCatalog;
     const name = registry.resolveUnitName(definition.id, unitName);
     const factionRules = (data.factionRules || []).filter((rule) => !rule.appliesTo?.unitTag || registry.unitHasTag(definition.id, name, rule.appliesTo.unitTag));
-    return { faction: factionRules, unit: data.unitRules?.[name] || [] };
+    // Prefer the exact catalogue key before the registry's generic
+    // parenthetical-name fallback (some website datasheets distinguish
+    // mounted/daemon variants using full-width parentheses).
+    return { faction: factionRules, unit: data.unitRules?.[unitName] || data.unitRules?.[name] || [] };
   }
 
   function rulesForUnits(faction, unitNames) {

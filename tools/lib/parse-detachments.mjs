@@ -86,8 +86,12 @@ function parseEntries(block, type, detachmentId, idPrefix) {
     const header = parseNamedHeader(match[2].trim());
     const body = match[3];
     const translatedEnglishName = header.englishName || translatedEntryNames[header.name.replace(/（升级）/g, "").trim()] || "";
-    const semanticSlug = slugify(translatedEnglishName);
-    const entryId = `${idPrefix}.${type}.${semanticSlug || `unresolved-${ordinal}`}`;
+    // When the supplied source has no English title, keep a stable source-order
+    // identity instead of marking the entry unresolved. The raw Chinese title
+    // remains the display name; a later official English match can add an alias
+    // without changing the published ordinal key.
+    const semanticSlug = slugify(translatedEnglishName) || `source-ordinal-${ordinal}`;
+    const entryId = `${idPrefix}.${type}.${semanticSlug}`;
     const common = {
       id: entryId,
       detachmentId,
@@ -96,7 +100,7 @@ function parseEntries(block, type, detachmentId, idPrefix) {
       name: header.name,
       englishName: translatedEnglishName,
       sourceEnglishName: header.englishName,
-      identityStatus: header.englishName ? "official" : (translatedEnglishName ? "translated-needs-review" : "unresolved"),
+      identityStatus: header.englishName ? "official" : (translatedEnglishName ? "translated-needs-review" : "source-ordinal"),
       text: cleanText(body),
       effects: [],
       controls: [],

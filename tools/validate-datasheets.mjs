@@ -5,14 +5,35 @@ import vm from "node:vm";
 const root = path.resolve(import.meta.dirname, "..");
 const failures = [];
 const assert = (condition, message) => { if (!condition) failures.push(message); };
-const readJson = (...parts) => JSON.parse(fs.readFileSync(path.join(root, ...parts), "utf8"));
+const readJson = (...parts) => {
+  let text = fs.readFileSync(path.join(root, ...parts), "utf8");
+  if (text.charCodeAt(0) === 0xfeff) text = text.slice(1);
+  return JSON.parse(text);
+};
+
+const websiteFactions = [
+  ["grey-knights", "灰骑士"], ["adepta-sororitas", "修女会"], ["astra-militarum", "星界军"],
+  ["imperial-knights", "帝国骑士"], ["adeptus-mechanicus", "机械修会"], ["agents-of-imperium", "帝国特勤"],
+  ["chaos-space-marines", "混沌星际战士"], ["thousand-sons", "千子"], ["world-eaters", "吞世者"],
+  ["chaos-daemons", "混沌恶魔"], ["chaos-knights", "混沌骑士"], ["aeldari", "艾达灵族"],
+  ["drukhari", "黑暗灵族"], ["tyranids", "泰伦虫族"], ["necrons", "太空死灵"],
+  ["tau-empire", "钛帝国"], ["genestealer-cults", "基因窃取者教派"], ["leagues-of-votann", "沃坦联盟"],
+  ["emperors-children", "帝皇之子"],
+];
 
 const custodesProfiles = readJson("docs", "data", "帝皇禁军", "帝皇禁军-结构化数据卡.json");
 const spaceMarines = readJson("docs", "data", "星际战士", "星际战士-全部数据卡.json");
 const deathGuard = readJson("docs", "data", "死亡守卫", "死亡守卫-全部数据卡.json");
-const catalogContext = { window: {} };
-vm.runInNewContext(fs.readFileSync(path.join(root, "docs", "calculator-catalog.js"), "utf8"), catalogContext);
-const catalogCards = catalogContext.window.WARHAMMER_CALCULATOR_CATALOG.flatMap((catalog) => catalog.cards || []);
+const orks = readJson("docs", "data", "欧克兽人", "欧克兽人-全部数据卡.json");
+const catalogContext = vm.createContext({ console });
+catalogContext.globalThis = catalogContext;
+for (const relativePath of ["rules/faction-registry.js", "rules/factions.js", "rules/catalog-registry.js"]) {
+  vm.runInContext(fs.readFileSync(path.join(root, "docs", relativePath), "utf8"), catalogContext, { filename: relativePath });
+}
+for (const definition of catalogContext.WarhammerFactionRegistry.list()) {
+  vm.runInContext(fs.readFileSync(path.join(root, "docs", definition.runtime.catalog), "utf8"), catalogContext, { filename: definition.runtime.catalog });
+}
+const catalogCards = Object.values(catalogContext.WarhammerCalculatorCatalogRegistry.list()).flatMap((catalog) => catalog.cards || []);
 
 assert(custodesProfiles.kind === "datasheet-profiles", "禁军结构化数据卡 kind 必须为 datasheet-profiles");
 assert(custodesProfiles.schemaVersion === 1, "禁军结构化数据卡 schemaVersion 必须为 1");
@@ -55,6 +76,14 @@ const validateCard = (card, label, { strictWeapons = false } = {}) => {
 custodesProfiles.cards.forEach((card) => validateCard(card, `禁军 ${card.name}`, { strictWeapons: true }));
 spaceMarines.cards.filter((card) => card.unit).forEach((card) => validateCard(card, `星际战士 ${card.name}`));
 assert(deathGuard.kind === "datasheet-profiles" && deathGuard.schemaVersion === 1, "死亡守卫结构化数据卡必须使用 schemaVersion 1");
+assert(orks.kind === "datasheet-profiles" && orks.schemaVersion === 1, "欧克兽人结构化数据卡必须使用 schemaVersion 1");
+assert(orks.cards.length === 99, "欧克兽人结构化数据卡必须保留网站返回的 99 张单位卡");
+const orksNames = new Set();
+orks.cards.forEach((card) => {
+  assert(!orksNames.has(card.name), `欧克兽人存在重复单位名：${card.name}`);
+  orksNames.add(card.name);
+  validateCard(card, `欧克兽人 ${card.name}`);
+});
 const thorCard = catalogCards.find((card) => card.unit?.name === "托尔连长");
 const mortarionCard = catalogCards.find((card) => card.unit?.name === "莫塔里安");
 const hellbruteCard = deathGuard.cards.find((card) => card.unit?.name === "地狱兽");
@@ -136,6 +165,26 @@ deathGuard.cards.forEach((card) => {
     }
   }
 });
+
+for (const [factionId, factionName] of websiteFactions) {
+  const raw = readJson("docs", "data", factionName, `${factionName}-网站原始数据-简体.json`);
+  const structured = readJson("docs", "data", factionName, `${factionName}-结构化数据卡.json`);
+  assert(structured.kind === "datasheet-profiles" && structured.schemaVersion === 1, `${factionName} 结构化数据卡必须使用 schemaVersion 1`);
+  assert(Array.isArray(raw.units) && raw.units.length === structured.cards.length, `${factionName} 结构化卡数量必须与 API units 一致`);
+  const names = new Set();
+  structured.cards.forEach((card) => {
+    assert(!names.has(card.name), `${factionName} 存在重复单位名：${card.name}`);
+    names.add(card.name);
+    assert(card.unit?.defaultEquipment, `${factionName} ${card.name} 缺少默认装备声明`);
+    validateCard(card, `${factionName} ${card.name}`);
+    for (const weapon of card.weapons || []) {
+      for (const field of ["name", "type", "attacks", "skill", "strength", "ap", "damage"]) {
+        assert(weapon[field] !== undefined && weapon[field] !== null && weapon[field] !== "", `${factionName} ${card.name} 的武器缺少 ${field}`);
+      }
+    }
+  });
+  assert(raw.detachments?.length >= 0, `${factionId} 缺少分遣队数组`);
+}
 
 const bladeChampion = profilesByName.get("剑锋冠军");
 const swordModes = bladeChampion?.weapons?.filter((weapon) => weapon.selectionGroup === "宝库之剑") || [];
