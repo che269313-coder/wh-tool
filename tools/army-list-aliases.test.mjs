@@ -1,0 +1,168 @@
+/* Regression: 中文军表(黑图书馆军表软件)的单位/分遣队译名必须能映射到
+ * 数据卡规范名；携带的互斥武器档案必须默认选中一项。 */
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import test from "node:test";
+import vm from "node:vm";
+
+const context = {};
+vm.createContext(context);
+const load = (path) => vm.runInContext(fs.readFileSync(new URL(`../${path}`, import.meta.url), "utf8"), context, { filename: path });
+
+for (const file of [
+  "docs/rules/identity.js",
+  "docs/rules/faction-registry.js",
+  "docs/rules/catalog-registry.js",
+  "docs/rules/detachment-registry.js",
+  "docs/rules/factions.js",
+  "docs/rules/keyword-dictionary.js",
+  "docs/rules/combat-state.js",
+  "docs/rules/effects.js",
+  "docs/rules/resolver.js",
+]) load(file);
+
+for (const pkg of context.WarhammerFactionRegistry.list()) {
+  for (const src of [...(pkg.runtime?.rules || []), pkg.runtime?.detachment, pkg.runtime?.catalog].filter(Boolean)) {
+    const path = `docs/${src}`;
+    if (!fs.existsSync(new URL(`../${path}`, import.meta.url))) continue;
+    load(path);
+  }
+}
+
+const cards = [];
+for (const pkg of context.WarhammerFactionRegistry.list()) {
+  for (const card of context.WarhammerCalculatorCatalogRegistry.get(pkg.id)?.cards || []) {
+    if (card.unit) cards.push({ factionId: pkg.id, faction: pkg.name, name: card.name, englishName: card.englishName, data: card });
+  }
+}
+
+const normalize = (value) => String(value || "")
+  .replace(/[\s\u00a0·•・,，。.!！:：;；/\\_\-—–]/g, "")
+  .replace(/[（(][^）)]*[）)]/g, "")
+  .toLowerCase();
+
+function findCard(faction, name) {
+  const source = String(name || "");
+  const stripped = source.replace(/[（(][^）)]*[）)]/g, "").trim();
+  const aliases = [];
+  for (const pkg of context.WarhammerFactionRegistry.list()) {
+    for (const [alias, canonical] of Object.entries(pkg.unitAliases || {})) {
+      if (alias === source || alias === stripped) aliases.push(canonical);
+    }
+  }
+  const candidates = new Set([source, stripped, ...aliases].map(normalize));
+  return cards.find((card) => card.factionId === faction && [card.name, card.data.unit.name, card.englishName]
+    .some((candidate) => candidates.has(normalize(candidate))));
+}
+
+// 11e 数据卡尚未收录的禁军单位（数据缺口，不是别名问题）
+const knownMissingCustodes = new Set([
+  "阿伽马图斯枪骑士", "天鹰终结者", "阿瑞斯炮艇机", "阿克琉斯蔑视者无畏机甲",
+  "伽拉图斯蔑视者无畏机甲", "克洛努斯反重力运兵车", "装备遗迹长矛或炙烈长矛的禁军卫队",
+  "猎户座强袭炮艇", "帕拉斯反重力战车", "射手座射击士", "特拉蒙重型无畏机甲", "禁军鹰猎士",
+]);
+
+function parseSampleArmies() {
+  const text = fs.readFileSync(new URL("../docs/中文军表示例.txt", import.meta.url), "utf8").replace(/\r/g, "");
+  const armies = [];
+  let current = null;
+  let inUnits = false;
+  let sawCode = false;
+  for (const raw of text.split("\n")) {
+    const line = raw.trim();
+    if (!line) continue;
+    if (/^编码：/.test(line)) { sawCode = true; continue; }
+    if (/^[^\s·()]+\(\d{4,}分\)\s*$/.test(line) || (/^.+?\(\d+分\)\s*$/.test(line) && sawCode && !current)) {
+      current = { name: line.match(/^(.+?)\((\d+)分\)\s*$/)[1], faction: "", detachments: "", units: [] };
+      armies.push(current);
+      sawCode = false;
+      inUnits = false;
+      continue;
+    }
+    if (!current) continue;
+    if (!current.faction) {
+      const pkg = context.WarhammerFactionRegistry.list().find((p) => [p.name, ...(p.aliases || [])].some((alias) => line === alias));
+      if (pkg) { current.faction = pkg.id; continue; }
+    }
+    if (current.faction && !current.detachments && /\(重要资产\)/.test(line) && /\d+DP/.test(line)) { current.detachments = line; continue; }
+    if (/^由黑图书馆|^版本号|^感\//.test(line)) continue;
+    if (/^-+$/.test(line)) { inUnits = true; continue; }
+    if (inUnits) {
+      if (/^联合单位/.test(line) || /^(人物|战线|其他单位|专属运输载具|角色|部队|CHARACTERS|BATTLELINE|OTHER DATASHEETS)/i.test(line)) continue;
+      const unit = line.match(/^(.+?)\((\d+)分\)\s*$/);
+      if (unit) current.units.push(unit[1].trim());
+    }
+  }
+  return armies;
+}
+
+test("示例中文军表的单位全部能映射到数据卡或属于已知数据缺口", () => {
+  const armies = parseSampleArmies();
+  assert.ok(armies.length >= 3, "示例军表应包含兽人/死亡守卫/禁军三个军表");
+  const extra = [];
+  for (const army of armies) {
+    for (const unit of army.units) {
+      if (unit.startsWith("·")) continue;
+      if (!findCard(army.faction, unit) && !knownMissingCustodes.has(unit)) extra.push(`${army.faction}:${unit}`);
+    }
+  }
+  assert.deepEqual(extra, [], `军表单位未匹配：${extra.join("；")}`);
+});
+
+test("示例中文军表的分遣队全部能匹配到分遣队包", () => {
+  const armies = parseSampleArmies();
+  const missing = [];
+  for (const army of armies) {
+    if (!army.detachments) continue;
+    const detLine = army.detachments.replace(/\(重要资产\)|\(\d+DP\)/g, "").trim();
+    const names = detLine.split(",").map((name) => name.trim()).filter(Boolean);
+    const found = context.WarhammerRuleResolver.matchDetachments(army.faction, detLine);
+    const matchedAliases = new Set(found.flatMap((detachment) => [detachment.name, ...(detachment.aliases || [])]));
+    names.forEach((name) => { if (!matchedAliases.has(name)) missing.push(`${army.faction}:${name}`); });
+  }
+  assert.deepEqual(missing, [], `分遣队未匹配：${missing.join("；")}`);
+});
+
+test("别名必须同时用于搜索候选（泰丰斯→泰弗斯）", () => {
+  const aliases = new Map();
+  for (const pkg of context.WarhammerFactionRegistry.list()) {
+    for (const [alias, canonical] of Object.entries(pkg.unitAliases || {})) {
+      const list = aliases.get(canonical) || [];
+      list.push(alias);
+      aliases.set(canonical, list);
+    }
+  }
+  assert.ok(aliases.get("泰弗斯").includes("泰丰斯"), "泰丰斯必须作为泰弗斯的搜索别名");
+  assert.ok(aliases.get("野兽头目").includes("兽霸头目"), "兽霸头目必须作为野兽头目的搜索别名");
+  assert.ok(aliases.get("灭魔教团百骑长").includes("百骑长"), "百骑长必须作为灭魔教团百骑长的搜索别名");
+});
+
+test("污染者(Defiler)携带的互斥武器档案默认选中一项", () => {
+  const card = cards.find((c) => c.name === "污染者" && c.factionId === "death-guard");
+  assert.ok(card, "死亡守卫污染者数据卡必须存在");
+  const rosterEquipment = ["哈迪斯战斗炮", "2个酷刑炮", "重型导弹发射器", "重型灾厄火焰喷射器", "剪切爪"];
+  const weapons = (card.data.weapons || []).map((weapon) => {
+    const candidates = [weapon.name, weapon.selectionGroup]
+      .map((value) => String(value || "").replace(/[（(].*?[）)]/g, "").trim())
+      .filter(Boolean);
+    const matched = rosterEquipment.some((item) => {
+      const normalized = String(item).replace(/[（(].*?[）)]/g, "").trim();
+      return normalized && candidates.some((name) => name.includes(normalized) || normalized.includes(name));
+    });
+    return { ...weapon, enabled: matched };
+  });
+  const initialized = context.WarhammerCombatState.initializeOptionalExclusiveWeapons(weapons);
+  const carried = initialized.filter((weapon) => ["重型导弹发射器", "剪切爪"].includes(weapon.selectionGroup));
+  assert.equal(carried.filter((weapon) => weapon.enabled).length, 2, "重型导弹发射器与剪切爪应各默认选中一个档案");
+  assert.ok(initialized.find((weapon) => weapon.name === "哈迪斯战斗炮").enabled, "军表选择的哈迪斯战斗炮必须启用");
+  assert.ok(!initialized.find((weapon) => weapon.name === "哈迪斯激光炮").enabled, "军表未选择的哈迪斯激光炮必须停用");
+});
+
+test("泰丰斯(泰弗斯)的悲泣战镰默认选中重击或横扫", () => {
+  const card = cards.find((c) => c.name === "泰弗斯" && c.factionId === "death-guard");
+  assert.ok(card, "死亡守卫泰弗斯数据卡必须存在");
+  const weapons = (card.data.weapons || []).map((weapon) => ({ ...weapon, enabled: true }));
+  const initialized = context.WarhammerCombatState.initializeOptionalExclusiveWeapons(weapons);
+  const scythe = initialized.filter((weapon) => weapon.selectionGroup === "悲泣战镰");
+  assert.equal(scythe.filter((weapon) => weapon.enabled).length, 1, "悲泣战镰必须默认选中一个档案");
+});

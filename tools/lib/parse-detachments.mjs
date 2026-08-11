@@ -17,6 +17,15 @@ const translatedDetachmentNames = Object.freeze({
   "蛆虫领主": "Lords of Maggots",
 });
 
+// 中文军表(黑图书馆军表软件)对分遣队使用另一套译名，映射回源文件规范名后
+// 追加到 aliases，使 matchDetachments 能按军表名称识别同一个分遣队 ID。
+const detachmentChineseAliases = Object.freeze({
+  "死亡领主亲信": ["死亡之主亲选"],
+  "蹒跚腐病疫军": ["蹒跚腐化"],
+  "记账队召唤师": ["腐音召唤者"],
+  "病毒疫军": ["剧毒特勤"],
+});
+
 const translatedEntryNames = Object.freeze({
   "完美造物": "Flawless Creation", "势如破竹": "Unstoppable Momentum", "优先消除": "Priority Elimination",
   "亡者专精": "Mastery of the Fallen", "耀金棺柩": "Auric Sarcophagus", "暗影审判": "Judgement from the Shadows",
@@ -152,7 +161,7 @@ export function parseDetachmentSource(source, { factionId, sourcePath }) {
       englishName: translatedEnglishName,
       sourceEnglishName: named.englishName,
       identityStatus: named.englishName ? "official" : (translatedEnglishName ? "translated-needs-review" : "source-ordinal"),
-      aliases: [...new Set([named.name, named.englishName, translatedEnglishName].filter(Boolean))],
+      aliases: [...new Set([named.name, named.englishName, translatedEnglishName, ...(detachmentChineseAliases[named.name] || [])].filter(Boolean))],
       dp,
       source: { path: sourcePath, detachmentNumber: ordinal },
       rule: {

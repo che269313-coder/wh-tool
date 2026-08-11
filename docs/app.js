@@ -79,6 +79,20 @@ const DATASHEET_ALIASES = Object.fromEntries(factionLookupEntries.map(([name, de
 const DIGITAL_UNIT_ALIASES = Object.fromEntries(FACTION_PACKAGES.filter((definition) => Object.keys(definition.digitalUnitAliases).length).map((definition) => [definition.name, definition.digitalUnitAliases]));
 const hydratedCalculatorFactions = new Set();
 
+// Canonical unit name -> every alias declared by any faction package. Used to
+// let the picker search find a card by any of its Chinese aliases (e.g. typing
+// 泰丰斯 finds 泰弗斯) without loading any faction runtime data.
+const DATASHEET_CANONICAL_ALIASES = Object.values(DATASHEET_ALIASES)
+  .flatMap((factionAliases) => Object.entries(factionAliases))
+  .reduce((index, [alias, canonicals]) => {
+    canonicals.forEach((canonical) => {
+      const list = index.get(canonical) || [];
+      list.push(alias);
+      index.set(canonical, list);
+    });
+    return index;
+  }, new Map());
+
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 
@@ -274,10 +288,23 @@ function calculatorSelectionKeys(side) {
   return keys;
 }
 
+let calculatorPickerOptionsCache = null;
+
 function calculatorPickerOptions(side) {
-  const rosterOptions = ["attacker", "defender"].flatMap(calculatorRosterOptions);
-  const cardOptions = calculatorCardNames().map((card) => ({ key: calculatorCardKey(card), name: card.name, label: `${card.name} · ${card.faction || "datasheet"}`, faction: card.faction, factionId: card.factionId || "", card }));
-  return { allOptions: [...rosterOptions, ...cardOptions] };
+  if (!calculatorPickerOptionsCache) {
+    const rosterOptions = ["attacker", "defender"].flatMap(calculatorRosterOptions);
+    const cardOptions = calculatorCardNames().map((card) => ({
+      key: calculatorCardKey(card),
+      name: card.name,
+      label: `${card.name} · ${card.faction || "datasheet"}`,
+      faction: card.faction,
+      factionId: card.factionId || "",
+      search: [card.name, card.faction, ...(DATASHEET_CANONICAL_ALIASES.get(card.name) || [])].join(" "),
+      card,
+    }));
+    calculatorPickerOptionsCache = { allOptions: [...rosterOptions, ...cardOptions] };
+  }
+  return calculatorPickerOptionsCache;
 }
 
 function calculatorPickerMenuMarkup(side, index, options) {
@@ -285,9 +312,15 @@ function calculatorPickerMenuMarkup(side, index, options) {
   const key = keys[index] || "";
   const search = state.calculatorPickerSearch[side]?.[index] || "";
   const query = String(search).trim().toLocaleLowerCase();
-  const filtered = options.allOptions.filter((option) => !query || `${option.name} ${option.label}`.toLocaleLowerCase().includes(query) || option.key === key);
+  const filtered = options.allOptions.filter((option) => !query || `${option.name} ${option.label} ${option.search || ""}`.toLocaleLowerCase().includes(query) || option.key === key);
   if (!filtered.length) return `<span class="calculator-picker-empty">没有匹配单位</span>`;
-  return filtered.map((option) => `<button type="button" class="calculator-picker-option" data-calculator-picker-option data-side="${side}" data-index="${index}" data-key="${escapeHtml(option.key)}"><strong>${escapeHtml(option.name)}</strong><small>${escapeHtml(option.label)}</small></button>`).join("");
+  const pinned = key ? filtered.find((option) => option.key === key) : null;
+  const rest = pinned ? filtered.filter((option) => option.key !== key) : filtered;
+  const visible = [...(pinned ? [pinned] : []), ...rest].slice(0, 60);
+  const hint = filtered.length > visible.length
+    ? `<span class="calculator-picker-more">共 ${filtered.length} 个匹配，显示前 ${visible.length} 个，继续输入缩小范围</span>`
+    : "";
+  return `${visible.map((option) => `<button type="button" class="calculator-picker-option" data-calculator-picker-option data-side="${side}" data-index="${index}" data-key="${escapeHtml(option.key)}"><strong>${escapeHtml(option.name)}</strong><small>${escapeHtml(option.label)}</small></button>`).join("")}${hint}`;
 }
 
 function calculatorPickerMarkup(side, index, options) {
@@ -302,6 +335,7 @@ function calculatorPickerMarkup(side, index, options) {
 }
 
 function renderCalculatorSelectors() {
+  calculatorPickerOptionsCache = null;
   ["attacker", "defender"].forEach((side) => {
     const container = $(`#calculator${side === "attacker" ? "Attacker" : "Defender"}Pickers`);
     if (!container) return;
@@ -336,7 +370,10 @@ function handleCalculatorPickerInput(event) {
   state.calculatorPickerOpen[side][index] = true;
   state.calculatorSelection[side] = keys[0] || "";
   state.calculatorDrafts[side][index] = null;
-  refreshCalculatorPickerMenu(side, index);
+  // Rebuilding hundreds of option buttons on every keystroke is the main
+  // source of picker jank; debounce the re-render to keep typing responsive.
+  window.clearTimeout(refreshCalculatorPickerMenu.timer);
+  refreshCalculatorPickerMenu.timer = window.setTimeout(() => refreshCalculatorPickerMenu(side, index), 120);
 }
 
 function refreshCalculatorPickerMenu(side, index) {
@@ -529,21 +566,25 @@ function calculatorSource(entry) {
 function weaponMatchesRoster(weapon, rosterUnit) {
   const equipment = Object.keys(countEquipment(rosterUnit || {}));
   if (!equipment.length) return true;
-  const name = String(weapon?.name || "").replace(/[（(].*?[）)]/g, "").trim();
+  const candidates = [weapon?.name, weapon?.selectionGroup]
+    .map((value) => String(value || "").replace(/[（(].*?[）)]/g, "").trim())
+    .filter(Boolean);
   return equipment.some((item) => {
     const normalized = String(item).replace(/[（(].*?[）)]/g, "").trim();
-    return normalized && (name.includes(normalized) || normalized.includes(name));
+    return normalized && candidates.some((name) => name.includes(normalized) || normalized.includes(name));
   });
 }
 
 function weaponModelCount(weapon, rosterUnit, fallback = 1) {
   const models = activeModels(rosterUnit || {});
   if (!models.length) return 0;
-  const name = String(weapon?.name || "").replace(/[（(].*?[）)]/g, "").trim();
-  if (!name) return models.length;
+  const candidates = [weapon?.name, weapon?.selectionGroup]
+    .map((value) => String(value || "").replace(/[（(].*?[）)]/g, "").trim())
+    .filter(Boolean);
+  if (!candidates.some(Boolean)) return models.length;
   const count = models.filter((model) => model.equipment.some((item) => {
     const normalized = String(item.name || "").replace(/[（(].*?[）)]/g, "").trim();
-    return normalized && (name.includes(normalized) || normalized.includes(name));
+    return normalized && candidates.some((name) => name.includes(normalized) || normalized.includes(name));
   })).length;
   return count || (Object.keys(countEquipment(rosterUnit || {})).length ? 0 : fallback);
 }
@@ -1056,7 +1097,6 @@ function calculatorWeaponControlMarkup(weapon, side, index, groupIndex = null, d
   const coreControls = side === "attacker" ? [
     coreEffects.some((effect) => effect.type === "one-shot") ? `<label class="check-row"><input type="checkbox" data-calc-side="${side}" ${scope} data-calc-weapon-one-shot-used ${weapon.oneShotUsed ? "checked" : ""} /><span>这件[单发]武器本场已经使用</span></label>` : "",
     coreEffects.some((effect) => effect.type === "precision") ? `<label class="check-row"><input type="checkbox" data-calc-side="${side}" ${scope} data-calc-weapon-precision-target ${weapon.precisionTargetsCharacter ? "checked" : ""} /><span>使用[精准]优先向可见角色分配伤害</span></label>` : "",
-    coreEffects.some((effect) => effect.type === "lethal-hits") ? `<label class="check-row"><input type="checkbox" data-calc-side="${side}" ${scope} data-calc-weapon-lethal-auto-wound ${weapon.lethalAutoWound !== false ? "checked" : ""} /><span>使用[致命一击]将暴击命中自动转为致伤</span></label>` : "",
   ].filter(Boolean).join("") : "";
   const currentClass = weapon.type === state.attackMode ? "is-current" : "";
   const ineligibleClass = coreProfile && !coreProfile.canAttack ? "is-ineligible" : "";
@@ -1218,7 +1258,6 @@ function updateCalculatorDraftFromControl(control) {
           if (control.dataset.calcWeaponField) weapon[control.dataset.calcWeaponField] = value;
           if (control.dataset.calcWeaponOneShotUsed !== undefined) weapon.oneShotUsed = Boolean(control.checked);
           if (control.dataset.calcWeaponPrecisionTarget !== undefined) weapon.precisionTargetsCharacter = Boolean(control.checked);
-          if (control.dataset.calcWeaponLethalAutoWound !== undefined) weapon.lethalAutoWound = Boolean(control.checked);
         }
       }
     }
@@ -1231,7 +1270,6 @@ function updateCalculatorDraftFromControl(control) {
     if (control.dataset.calcWeaponField) weapon[control.dataset.calcWeaponField] = value;
     if (control.dataset.calcWeaponOneShotUsed !== undefined) weapon.oneShotUsed = Boolean(control.checked);
     if (control.dataset.calcWeaponPrecisionTarget !== undefined) weapon.precisionTargetsCharacter = Boolean(control.checked);
-    if (control.dataset.calcWeaponLethalAutoWound !== undefined) weapon.lethalAutoWound = Boolean(control.checked);
   }
 }
 

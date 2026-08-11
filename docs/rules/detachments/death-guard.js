@@ -517,7 +517,8 @@
     "identityStatus": "official",
     "aliases": [
       "病毒疫军",
-      "Virulent Vectorium"
+      "Virulent Vectorium",
+      "剧毒特勤"
     ],
     "dp": 3,
     "source": {
@@ -1403,7 +1404,8 @@
     "identityStatus": "official",
     "aliases": [
       "记账队召唤师",
-      "Tallyband Summoners"
+      "Tallyband Summoners",
+      "腐音召唤者"
     ],
     "dp": 2,
     "source": {
@@ -1670,7 +1672,8 @@
     "identityStatus": "official",
     "aliases": [
       "蹒跚腐病疫军",
-      "Shamblerot Vectorium"
+      "Shamblerot Vectorium",
+      "蹒跚腐化"
     ],
     "dp": 2,
     "source": {
@@ -1923,7 +1926,8 @@
     "identityStatus": "official",
     "aliases": [
       "死亡领主亲信",
-      "Death Lord’s Chosen"
+      "Death Lord’s Chosen",
+      "死亡之主亲选"
     ],
     "dp": 2,
     "source": {

@@ -39,10 +39,13 @@
 
   function validateRangedWeaponAllocation({ modelCount = 0, closeRangeModelCounts = [], otherModelCounts = [] } = {}) {
     const capacity = Math.max(0, Number(modelCount || 0));
+    // Each model shoots with one Pistol weapon or one of its other ranged
+    // weapons, so a model carrying both counts once; the binding limit is the
+    // larger of the two groups, never their sum.
     const closeRangeModels = Math.max(0, ...(closeRangeModelCounts || []).map((value) => Number(value || 0)));
     const otherModels = Math.max(0, ...(otherModelCounts || []).map((value) => Number(value || 0)));
     return Object.freeze({
-      valid: closeRangeModels + otherModels <= capacity,
+      valid: Math.max(closeRangeModels, otherModels) <= capacity,
       modelCount: capacity,
       closeRangeModels,
       otherModels,
@@ -51,8 +54,11 @@
 
   function validateMeleeWeaponAllocation({ modelCount = 0, extraAttackModelCounts = [], otherModelCounts = [] } = {}) {
     const capacity = Math.max(0, Number(modelCount || 0));
+    // Every model can use all of its [额外攻击] weapons plus at most one other
+    // melee weapon; a model carrying several other melee weapons still fights
+    // with only one of them, so overlapping carries must not be double-counted.
     const extraAttackModels = Math.max(0, ...(extraAttackModelCounts || []).map((value) => Number(value || 0)));
-    const otherModels = (otherModelCounts || []).reduce((sum, value) => sum + Math.max(0, Number(value || 0)), 0);
+    const otherModels = Math.max(0, ...(otherModelCounts || []).map((value) => Number(value || 0)));
     return Object.freeze({
       valid: extraAttackModels <= capacity && otherModels <= capacity,
       modelCount: capacity,
@@ -96,7 +102,13 @@
     });
     groups.forEach((indexes) => {
       if (indexes.length < 2) return;
-      const selectedIndex = indexes.find((index) => initialized[index].enabled && initialized[index].defaultSelected);
+      // A selection group is "最多选一项，可不选". When the unit carries the
+      // weapon (at least one profile matched), pre-select the first enabled
+      // profile so dual-form weapons (重击/横扫) stay usable without a manual
+      // click; when the unit does not carry it, every profile stays disabled.
+      const selectedIndex = indexes.find((index) => initialized[index].enabled && initialized[index].defaultSelected)
+        ?? indexes.find((index) => initialized[index].enabled);
+      if (selectedIndex === undefined) return;
       indexes.forEach((index) => { initialized[index].enabled = index === selectedIndex; });
     });
     return initialized;

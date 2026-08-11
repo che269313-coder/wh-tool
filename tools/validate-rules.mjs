@@ -485,24 +485,31 @@ const closeRangeProfile = context.WarhammerKeywordDictionary.resolve(["近距离
 const invalidEngagedProfile = context.WarhammerKeywordDictionary.resolve(["速射1"], { mode: "ranged", attackerEngaged: true, attackerMonsterVehicle: false });
 assert(closeRangeProfile.canAttack && !invalidEngagedProfile.canAttack, "非凶兽/载具处于交战状态时只能使用近距离/手枪武器");
 const validSplitFire = context.WarhammerCombatState.validateRangedWeaponAllocation({ modelCount: 5, closeRangeModelCounts: [1], otherModelCounts: [4] });
-const invalidDoubleUse = context.WarhammerCombatState.validateRangedWeaponAllocation({ modelCount: 5, closeRangeModelCounts: [5], otherModelCounts: [5] });
-assert(validSplitFire.valid && !invalidDoubleUse.valid, "近距离/手枪与其他远程武器必须按模型数量二选一，同时允许不同模型分组射击");
+const overlappingCarry = context.WarhammerCombatState.validateRangedWeaponAllocation({ modelCount: 5, closeRangeModelCounts: [5], otherModelCounts: [5] });
+const overCapacityRanged = context.WarhammerCombatState.validateRangedWeaponAllocation({ modelCount: 3, closeRangeModelCounts: [4], otherModelCounts: [0] });
+assert(validSplitFire.valid && overlappingCarry.valid && !overCapacityRanged.valid, "每个模型射击时在手枪与其他远程武器间二选一，同一模型同时携带两组武器只计一次，武器组需求超过模型数才非法");
 const validExtraAttacks = context.WarhammerCombatState.validateMeleeWeaponAllocation({ modelCount: 3, extraAttackModelCounts: [3, 3], otherModelCounts: [3] });
-const invalidMultipleMeleeChoices = context.WarhammerCombatState.validateMeleeWeaponAllocation({ modelCount: 3, extraAttackModelCounts: [3], otherModelCounts: [3, 1] });
-assert(validExtraAttacks.valid, "每个模型必须能同时使用所有额外攻击武器与一件其他近战武器");
-assert(!invalidMultipleMeleeChoices.valid, "每个模型至多选择一件非额外攻击近战武器");
+const overlappingMeleeCarry = context.WarhammerCombatState.validateMeleeWeaponAllocation({ modelCount: 3, extraAttackModelCounts: [3], otherModelCounts: [3, 1] });
+const overCapacityMelee = context.WarhammerCombatState.validateMeleeWeaponAllocation({ modelCount: 2, extraAttackModelCounts: [2], otherModelCounts: [3] });
+assert(validExtraAttacks.valid && overlappingMeleeCarry.valid && !overCapacityMelee.valid, "每个模型可使用全部额外攻击武器加至多一件其他近战武器，同一模型携带多件其他近战武器只计一次，需求超过模型数才非法");
 const optionalPlasmaProfiles = context.WarhammerCombatState.initializeOptionalExclusiveWeapons([
   { name: "等离子手枪（标准）", selectionGroup: "等离子手枪", enabled: true },
   { name: "等离子手枪（过载）", selectionGroup: "等离子手枪", enabled: true },
   { name: "精工爆弹枪", enabled: true },
 ]);
-assert(optionalPlasmaProfiles.filter((weapon) => weapon.selectionGroup === "等离子手枪").every((weapon) => weapon.enabled === false)
-  && optionalPlasmaProfiles.find((weapon) => weapon.name === "精工爆弹枪").enabled, "互斥武器档案没有显式默认项时必须允许全部不选，并保留其他武器选择");
+assert(optionalPlasmaProfiles.find((weapon) => weapon.name === "等离子手枪（标准）").enabled
+  && !optionalPlasmaProfiles.find((weapon) => weapon.name === "等离子手枪（过载）").enabled
+  && optionalPlasmaProfiles.find((weapon) => weapon.name === "精工爆弹枪").enabled, "单位携带互斥武器组时必须默认选中首个档案（如泰丰斯悲泣战镰重击/横扫），并保留其他武器选择");
+const notCarriedPlasmaProfiles = context.WarhammerCombatState.initializeOptionalExclusiveWeapons([
+  { name: "等离子手枪（标准）", selectionGroup: "等离子手枪", enabled: false },
+  { name: "等离子手枪（过载）", selectionGroup: "等离子手枪", enabled: false },
+]);
+assert(notCarriedPlasmaProfiles.every((weapon) => weapon.enabled === false), "单位未携带互斥武器组时必须保持全部不选，不能强制选中");
 const explicitDefaultProfile = context.WarhammerCombatState.initializeOptionalExclusiveWeapons([
   { name: "标准", selectionGroup: "等离子", enabled: true, defaultSelected: true },
   { name: "过载", selectionGroup: "等离子", enabled: true },
 ]);
-assert(explicitDefaultProfile[0].enabled && !explicitDefaultProfile[1].enabled, "只有显式 defaultSelected 才能初始化选中一个互斥武器档案");
+assert(explicitDefaultProfile[0].enabled && !explicitDefaultProfile[1].enabled, "显式 defaultSelected 必须优先于默认选中首项");
 const advancedAssault = context.WarhammerKeywordDictionary.resolve(["突击"], { mode: "ranged", attackerAdvanced: true });
 const advancedHeavy = context.WarhammerKeywordDictionary.resolve(["重型"], { mode: "ranged", attackerAdvanced: true });
 assert(advancedAssault.canAttack && !advancedHeavy.canAttack, "突进后必须只能选择突击武器");

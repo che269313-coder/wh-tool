@@ -122,7 +122,7 @@ const indirectContextGroup = indexSource.match(/<fieldset[^>]+data-context-keywo
 assert(["usingIndirectFire", "attackerRemainedStationary", "targetVisibleToFriendly"].every((field) => indirectContextGroup.includes(`data-calc-context="${field}"`)), "曲射的三个条件必须显示在同一关键词分组中");
 assert(/oneShotUsed/.test(appSource), "[单发]必须拥有武器级已使用状态并阻止再次攻击");
 assert(/precisionTargetsCharacter/.test(appSource) && /isCharacter/.test(appSource), "[精准]必须将武器级角色选择连接到防守分配群组");
-assert(/lethalAutoWound/.test(appSource), "[致命一击]必须允许玩家决定是否把暴击命中自动转为致伤");
+assert(/lethalAutoWound/.test(appSource) && !/data-calc-weapon-lethal-auto-wound/.test(appSource), "[致命一击]默认启用且不再提供按武器开关");
 assert(/core-wound/.test(appSource), "[双联]必须允许玩家按骰面选择致伤重投，而不是强制只重投失败骰");
 assert(/hazardousSelfDamage/.test(appSource), "[危险]造成的进攻方反噬必须显示在计算结果中");
 assert((appSource.match(/WarhammerCombatState\.resolveHit/g) || []).length >= 2, "命中 UI 与 payload 必须共同消费归约状态");
