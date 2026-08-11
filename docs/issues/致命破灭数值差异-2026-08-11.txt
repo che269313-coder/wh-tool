@@ -1,3 +1,4 @@
+审核结论(2026-08-12)：以中文为准，英文为提取错误，致命破灭无 D6+2 说法。
 AUDIT_ROWS=17
 
 factions/aeldari.js | core-deadly-demise-d6-6 | "致命破灭 D6" | unit=幻影泰坦 | 原名数值「D6」与官方英文能力数值「D6+6」不一致，按官方数值写入（来源：raw:Deadly Demise D6+6） | TEXT: 致命破灭D6+6

@@ -1,3 +1,4 @@
+审核结论(2026-08-12)：已完成，不修改。
 KEPT_ATTACH=24
 
 factions/adepta-sororitas.js | unique-leader | "领袖" | unit=圣地大修女阿达娅 | TEXT: 该模型可以附加至以下单位：
