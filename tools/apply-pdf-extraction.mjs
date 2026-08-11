@@ -384,7 +384,7 @@ for (const file of files) {
   summary.detachmentAliases += d;
 }
 if (aliasConflicts.length) {
-  console.log(`\n别名冲突 ${aliasConflicts.length} 处（见 docs/audit/别名冲突待审核-2026-08-11.md）：`);
+  console.log(`\n别名冲突 ${aliasConflicts.length} 处（见 docs/issues/别名冲突待审核-2026-08-11.md）：`);
   aliasConflicts.forEach((c) => console.log(`  ${c.factionId} | ${c.alias} | ${c.oldValue} | ${c.newValue} | ${c.source}`));
 }
 fs.mkdirSync(path.join(root, "docs", "audit"), { recursive: true });
