@@ -1,0 +1,955 @@
+{
+  "faction": "太空死灵",
+  "factionId": "necrons",
+  "pdfFile": "10版太空死灵奥法之星版2.5.pdf",
+  "extractionMethod": "text",
+  "dataCardFile": "docs/data/太空死灵/太空死灵-结构化数据卡.json",
+  "units": [
+    {
+      "pdfName": "斯扎拉克，寂静之王",
+      "cardName": "寂静王",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 斯扎拉克装备有：永世荣光节杖；星辉之杖；最后的三圣议会武器；每个三圣石碑装备有：湮灭光束；装甲船体",
+      "defaultEquipment": "永恒荣耀权杖；星辰之杖；最终三王之武器；歼灭光束；装甲巨体",
+      "isDefaultWeapons": [
+        "永恒荣耀权杖",
+        "星辰之杖",
+        "最终三王之武器",
+        "歼灭光束",
+        "装甲巨体"
+      ],
+      "pdfPage": 20,
+      "notes": ""
+    },
+    {
+      "pdfName": "风暴之王伊莫泰克",
+      "cardName": "风暴王伊摩特克",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 火焰臂铠；毁灭者之杖",
+      "defaultEquipment": "火焰护手；毁灭之杖",
+      "isDefaultWeapons": [
+        "火焰护手",
+        "毁灭之杖"
+      ],
+      "pdfPage": 22,
+      "notes": ""
+    },
+    {
+      "pdfName": "无尽者塔拉辛",
+      "cardName": "无尽者塔拉辛",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 移情湮灭杖",
+      "defaultEquipment": "心灵碎裂者",
+      "isDefaultWeapons": [
+        "心灵碎裂者"
+      ],
+      "pdfPage": 23,
+      "notes": ""
+    },
+    {
+      "pdfName": "欺诈者星神碎片",
+      "cardName": "欺诈者星神碎片",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 宇宙癫狂；黄金神拳",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 24,
+      "notes": "未匹配装备项：宇宙癫狂；未匹配装备项：黄金神拳"
+    },
+    {
+      "pdfName": "拥夜者星神碎片",
+      "cardName": "拥夜者星神碎片",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 死亡凝视；拥夜者之镰",
+      "defaultEquipment": "死亡凝视；夜魂使镰刀",
+      "isDefaultWeapons": [
+        "死亡凝视",
+        "夜魂使镰刀"
+      ],
+      "pdfPage": 25,
+      "notes": ""
+    },
+    {
+      "pdfName": "虚空龙星神碎片",
+      "cardName": "虚空龙星神碎片",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 虚空龙之矛；雷闪电爆",
+      "defaultEquipment": "虚空龙之矛；电压风暴",
+      "isDefaultWeapons": [
+        "虚空龙之矛",
+        "电压风暴"
+      ],
+      "pdfPage": 26,
+      "notes": ""
+    },
+    {
+      "pdfName": "旅行者安拉凯尔",
+      "cardName": "旅者 安拉基尔",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 超光速粒子箭；战镰",
+      "defaultEquipment": "速子箭；战镰",
+      "isDefaultWeapons": [
+        "速子箭",
+        "战镰"
+      ],
+      "pdfPage": 27,
+      "notes": ""
+    },
+    {
+      "pdfName": "禁卫奥比隆",
+      "cardName": "瓦尔加德·奥拜伦",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 战镰",
+      "defaultEquipment": "战镰",
+      "isDefaultWeapons": [
+        "战镰"
+      ],
+      "pdfPage": 28,
+      "notes": ""
+    },
+    {
+      "pdfName": "戴冠将军赞德瑞克",
+      "cardName": "尼莫索·赞德雷克",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 光之杖",
+      "defaultEquipment": "光明之杖",
+      "isDefaultWeapons": [
+        "光明之杖"
+      ],
+      "pdfPage": 29,
+      "notes": ""
+    },
+    {
+      "pdfName": "皇家督军",
+      "cardName": "皇家监军",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 圣物高斯爆裂枪；格斗武器",
+      "defaultEquipment": "遗物高斯爆弹枪；近战武器",
+      "isDefaultWeapons": [
+        "遗物高斯爆弹枪",
+        "近战武器"
+      ],
+      "pdfPage": 30,
+      "notes": ""
+    },
+    {
+      "pdfName": "古墓指挥艇",
+      "cardName": "墓穴指挥舰",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 高斯炮；光之杖",
+      "defaultEquipment": "高斯加农炮；光明之杖",
+      "isDefaultWeapons": [
+        "高斯加农炮",
+        "光明之杖"
+      ],
+      "pdfPage": 31,
+      "notes": ""
+    },
+    {
+      "pdfName": "至尊星神",
+      "cardName": "超群星神",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 震荡突击；爆裂触须",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 32,
+      "notes": "未匹配装备项：震荡突击；未匹配装备项：爆裂触须"
+    },
+    {
+      "pdfName": "领主",
+      "cardName": "领主",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 光之杖",
+      "defaultEquipment": "光明之杖",
+      "isDefaultWeapons": [
+        "光明之杖"
+      ],
+      "pdfPage": 33,
+      "notes": ""
+    },
+    {
+      "pdfName": "霸主",
+      "cardName": "霸主",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 超光速粒子箭；霸主之刃",
+      "defaultEquipment": "速子箭；霸主之刃",
+      "isDefaultWeapons": [
+        "速子箭",
+        "霸主之刃"
+      ],
+      "pdfPage": 34,
+      "notes": ""
+    },
+    {
+      "pdfName": "传送霸主",
+      "cardName": "装备传送斗篷的霸主",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 复活宝珠；霸主之刃",
+      "defaultEquipment": "霸主之刃",
+      "isDefaultWeapons": [
+        "霸主之刃"
+      ],
+      "pdfPage": 35,
+      "notes": "未匹配装备项：复活宝珠"
+    },
+    {
+      "pdfName": "启明者萨拉斯",
+      "cardName": "光耀者泽拉斯",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 恐怖之矛；穿刺肢体",
+      "defaultEquipment": "远古之光；穿刺肢足",
+      "isDefaultWeapons": [
+        "远古之光",
+        "穿刺肢足"
+      ],
+      "pdfPage": 36,
+      "notes": ""
+    },
+    {
+      "pdfName": "预言者欧瑞坎",
+      "cardName": "占卜者欧瑞肯",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 明日之杖",
+      "defaultEquipment": "明日之杖",
+      "isDefaultWeapons": [
+        "明日之杖"
+      ],
+      "pdfPage": 37,
+      "notes": ""
+    },
+    {
+      "pdfName": "科技技师",
+      "cardName": "机械技师",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 光之杖",
+      "defaultEquipment": "光明之杖",
+      "isDefaultWeapons": [
+        "光明之杖"
+      ],
+      "pdfPage": 38,
+      "notes": ""
+    },
+    {
+      "pdfName": "恐惧技师",
+      "cardName": "精神技师",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 深渊长枪",
+      "defaultEquipment": "深渊之矛",
+      "isDefaultWeapons": [
+        "深渊之矛"
+      ],
+      "pdfPage": 39,
+      "notes": ""
+    },
+    {
+      "pdfName": "时间技师",
+      "cardName": "时间技师",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 时光法杖",
+      "defaultEquipment": "时间技师之杖",
+      "isDefaultWeapons": [
+        "时间技师之杖"
+      ],
+      "pdfPage": 40,
+      "notes": ""
+    },
+    {
+      "pdfName": "离子技师",
+      "cardName": "等离子技师",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 离子长矛",
+      "defaultEquipment": "电浆之矛",
+      "isDefaultWeapons": [
+        "电浆之矛"
+      ],
+      "pdfPage": 41,
+      "notes": ""
+    },
+    {
+      "pdfName": "荒蝎领主",
+      "cardName": "荒蠍领主",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 憎火歼灭炮；剥皮爪；超相位掠命巨刃",
+      "defaultEquipment": "异能歼灭器；剥皮之爪；超相位收割器",
+      "isDefaultWeapons": [
+        "异能歼灭器",
+        "剥皮之爪",
+        "超相位收割器"
+      ],
+      "pdfPage": 42,
+      "notes": ""
+    },
+    {
+      "pdfName": "灾蝗领主",
+      "cardName": "灾蝗领主",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 光之杖",
+      "defaultEquipment": "光明之杖",
+      "isDefaultWeapons": [
+        "光明之杖"
+      ],
+      "pdfPage": 43,
+      "notes": ""
+    },
+    {
+      "pdfName": "六印驱逐者",
+      "cardName": "巫印毁灭者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 憎火裂解者手枪；格斗武器",
+      "defaultEquipment": "异能分解手枪；近战武器",
+      "isDefaultWeapons": [
+        "异能分解手枪",
+        "近战武器"
+      ],
+      "pdfPage": 44,
+      "notes": ""
+    },
+    {
+      "pdfName": "荒蝎驱逐者 3 模型",
+      "cardName": "荒蠍毁灭者",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 荒蝎超相位武器",
+      "defaultEquipment": "蠍型超相位武器",
+      "isDefaultWeapons": [
+        "蠍型超相位武器"
+      ],
+      "pdfPage": 45,
+      "notes": ""
+    },
+    {
+      "pdfName": "幽蛇驱逐者 3 模型",
+      "cardName": "潜蛇毁灭者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 幽蛇超相位武器",
+      "defaultEquipment": "蛇型超相位武器",
+      "isDefaultWeapons": [
+        "蛇型超相位武器"
+      ],
+      "pdfPage": 46,
+      "notes": ""
+    },
+    {
+      "pdfName": "灾蝗驱逐者 1 模型",
+      "cardName": "灾蝗毁灭者",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 高斯炮；格斗武器",
+      "defaultEquipment": "高斯加农炮；近战武器",
+      "isDefaultWeapons": [
+        "高斯加农炮",
+        "近战武器"
+      ],
+      "pdfPage": 47,
+      "notes": ""
+    },
+    {
+      "pdfName": "重装灾蝗驱逐者 1 模型",
+      "cardName": "灾蝗重装毁灭者",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 高斯破坏炮；格斗武器",
+      "defaultEquipment": "高斯毁灭炮；近战武器",
+      "isDefaultWeapons": [
+        "高斯毁灭炮",
+        "近战武器"
+      ],
+      "pdfPage": 48,
+      "notes": ""
+    },
+    {
+      "pdfName": "剥皮者 5 模型",
+      "cardName": "剥皮者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 剥皮利爪",
+      "defaultEquipment": "剥皮者之爪",
+      "isDefaultWeapons": [
+        "剥皮者之爪"
+      ],
+      "pdfPage": 49,
+      "notes": ""
+    },
+    {
+      "pdfName": "三圣禁卫 5 模型",
+      "cardName": "三圣禁卫",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 盟誓之杖",
+      "defaultEquipment": "亡者之棍",
+      "isDefaultWeapons": [
+        "亡者之棍"
+      ],
+      "pdfPage": 50,
+      "notes": ""
+    },
+    {
+      "pdfName": "三圣追猎者",
+      "cardName": "三圣追猎者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 灼热射线；巨型前肢",
+      "defaultEquipment": "热线射线；猎手之爪",
+      "isDefaultWeapons": [
+        "热线射线",
+        "猎手之爪"
+      ],
+      "pdfPage": 51,
+      "notes": ""
+    },
+    {
+      "pdfName": "冥工赋生者",
+      "cardName": "冥工复生械",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 2 个雾化射线；赋生者利爪",
+      "defaultEquipment": "原子崩解器；复活者之爪",
+      "isDefaultWeapons": [
+        "原子崩解器",
+        "复活者之爪"
+      ],
+      "pdfPage": 52,
+      "notes": "2x雾化射线"
+    },
+    {
+      "pdfName": "冥工蜘蛛 1 模型",
+      "cardName": "冥工蜘蛛",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "单位装备 机械爪",
+      "defaultEquipment": "工匠之爪",
+      "isDefaultWeapons": [
+        "工匠之爪"
+      ],
+      "pdfPage": 53,
+      "notes": ""
+    },
+    {
+      "pdfName": "冥工圣甲虫群 3 模型",
+      "cardName": "冥工圣甲虫群",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 捕食下颚",
+      "defaultEquipment": "虫群之噬",
+      "isDefaultWeapons": [
+        "虫群之噬"
+      ],
+      "pdfPage": 54,
+      "notes": ""
+    },
+    {
+      "pdfName": "冥工幽魂 3 模型",
+      "cardName": "冥工幽魂",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 邪恶利爪",
+      "defaultEquipment": "反物质之爪",
+      "isDefaultWeapons": [
+        "反物质之爪"
+      ],
+      "pdfPage": 55,
+      "notes": ""
+    },
+    {
+      "pdfName": "冥工末日行者",
+      "cardName": "冥工末日追猎者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 末日爆裂炮；双联高斯撕裂枪；末日行者肢体。",
+      "defaultEquipment": "末日冲击炮；双联高斯射线枪；猎手之肢",
+      "isDefaultWeapons": [
+        "末日冲击炮",
+        "双联高斯射线枪",
+        "猎手之肢"
+      ],
+      "pdfPage": 56,
+      "notes": ""
+    },
+    {
+      "pdfName": "冥工追猎蜈蚣",
+      "cardName": "冥工墓穴潜行者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 高斯切削枪；追猎机械利爪；幽光棱镜",
+      "defaultEquipment": "高斯切片器",
+      "isDefaultWeapons": [
+        "高斯切片器"
+      ],
+      "pdfPage": 57,
+      "notes": "未匹配装备项：追猎机械利爪；未匹配装备项：幽光棱镜"
+    },
+    {
+      "pdfName": "冥工哨戒蜈蚣",
+      "cardName": "冥工墓穴哨兵",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 放逐大炮；哨戒机械利爪；幽光棱镜",
+      "defaultEquipment": "传导吞噬炮",
+      "isDefaultWeapons": [
+        "传导吞噬炮"
+      ],
+      "pdfPage": 58,
+      "notes": "未匹配装备项：哨戒机械利爪；未匹配装备项：幽光棱镜"
+    },
+    {
+      "pdfName": "冥工针尾幽魂 3 模型",
+      "cardName": "冥工棘刺者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 切割光束；虚空之刃",
+      "defaultEquipment": "切割光束",
+      "isDefaultWeapons": [
+        "切割光束"
+      ],
+      "pdfPage": 59,
+      "notes": "未匹配装备项：虚空之刃"
+    },
+    {
+      "pdfName": "太空死灵武士 10 模型",
+      "cardName": "太空死灵武士",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 高斯撕裂枪；格斗武器",
+      "defaultEquipment": "高斯射线枪；近战武器",
+      "isDefaultWeapons": [
+        "高斯射线枪",
+        "近战武器"
+      ],
+      "pdfPage": 60,
+      "notes": ""
+    },
+    {
+      "pdfName": "不朽者 5 模型",
+      "cardName": "不朽者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 高斯爆裂枪；格斗武器。",
+      "defaultEquipment": "高斯爆弹枪；近战武器",
+      "isDefaultWeapons": [
+        "高斯爆弹枪",
+        "近战武器"
+      ],
+      "pdfPage": 61,
+      "notes": ""
+    },
+    {
+      "pdfName": "巫妖卫士 5 模型",
+      "cardName": "巫妖卫士",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 战镰",
+      "defaultEquipment": "战镰",
+      "isDefaultWeapons": [
+        "战镰"
+      ],
+      "pdfPage": 62,
+      "notes": ""
+    },
+    {
+      "pdfName": "死亡之印 5 模型",
+      "cardName": "死印战士",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 神经元粉碎枪；格斗武器",
+      "defaultEquipment": "突触分解器；近战武器",
+      "isDefaultWeapons": [
+        "突触分解器",
+        "近战武器"
+      ],
+      "pdfPage": 63,
+      "notes": ""
+    },
+    {
+      "pdfName": "古墓机奴",
+      "cardName": "墓穴奴仆",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 探查之眼；镰爪",
+      "defaultEquipment": "灼热之眼；镰刃肢体",
+      "isDefaultWeapons": [
+        "灼热之眼",
+        "镰刃肢体"
+      ],
+      "pdfPage": 64,
+      "notes": ""
+    },
+    {
+      "pdfName": "毁灭炮艇",
+      "cardName": "毁灭炮艇",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 高斯炮；双联特斯拉毁灭者；装甲船体",
+      "defaultEquipment": "高斯加农炮；双联特斯拉毁灭者；装甲巨体",
+      "isDefaultWeapons": [
+        "高斯加农炮",
+        "双联特斯拉毁灭者",
+        "装甲巨体"
+      ],
+      "pdfPage": 65,
+      "notes": ""
+    },
+    {
+      "pdfName": "末日方舟",
+      "cardName": "末日方舟",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 末日炮；2 个高斯撕裂阵列；装甲船体",
+      "defaultEquipment": "末日加农炮；高斯射线阵列；装甲巨体",
+      "isDefaultWeapons": [
+        "末日加农炮",
+        "高斯射线阵列",
+        "装甲巨体"
+      ],
+      "pdfPage": 66,
+      "notes": "2x高斯撕裂阵列"
+    },
+    {
+      "pdfName": "末日灾镰",
+      "cardName": "毁灭之镰",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 重型死光；双联特斯拉毁灭者；装甲船体",
+      "defaultEquipment": "重型死亡射线；双联特斯拉毁灭者；装甲巨体",
+      "isDefaultWeapons": [
+        "重型死亡射线",
+        "双联特斯拉毁灭者",
+        "装甲巨体"
+      ],
+      "pdfPage": 67,
+      "notes": ""
+    },
+    {
+      "pdfName": "暗夜之镰",
+      "cardName": "暗夜之镰",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 双联特斯拉毁灭者；装甲船体",
+      "defaultEquipment": "双联特斯拉毁灭者；装甲巨体",
+      "isDefaultWeapons": [
+        "双联特斯拉毁灭者",
+        "装甲巨体"
+      ],
+      "pdfPage": 68,
+      "notes": ""
+    },
+    {
+      "pdfName": "幽灵方舟",
+      "cardName": "幽灵方舟",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 2 个高斯撕裂阵列；装甲船体",
+      "defaultEquipment": "高斯射线阵列；装甲巨体",
+      "isDefaultWeapons": [
+        "高斯射线阵列",
+        "装甲巨体"
+      ],
+      "pdfPage": 69,
+      "notes": "2x高斯撕裂阵列"
+    },
+    {
+      "pdfName": "古墓飞刃 3 模型",
+      "cardName": "墓穴之刃",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 双联高斯爆裂枪；格斗武器",
+      "defaultEquipment": "双联高斯爆弹枪；近战武器",
+      "isDefaultWeapons": [
+        "双联高斯爆弹枪",
+        "近战武器"
+      ],
+      "pdfPage": 70,
+      "notes": ""
+    },
+    {
+      "pdfName": "超维方舟",
+      "cardName": "立方体方舟",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 超维奇点阵列；2 门特斯拉炮；装甲船体",
+      "defaultEquipment": "传导奇点室（粒子）；特斯拉加农炮；装甲巨体",
+      "isDefaultWeapons": [
+        "传导奇点室（粒子）",
+        "特斯拉加农炮",
+        "装甲巨体"
+      ],
+      "pdfPage": 71,
+      "notes": "2x特斯拉炮"
+    },
+    {
+      "pdfName": "午夜寿衣",
+      "cardName": "夜幕轰炸机",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 双联特斯拉毁灭者；装甲船体",
+      "defaultEquipment": "双联特斯拉毁灭者",
+      "isDefaultWeapons": [
+        "双联特斯拉毁灭者"
+      ],
+      "pdfPage": 72,
+      "notes": "未匹配装备项：装甲船体"
+    },
+    {
+      "pdfName": "古墓方尖碑",
+      "cardName": "巨石堡垒",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 4 个高斯电弧；粒子长鞭；放逐之门",
+      "defaultEquipment": "高斯流弧；粒子鞭；流放之门",
+      "isDefaultWeapons": [
+        "高斯流弧",
+        "粒子鞭",
+        "流放之门"
+      ],
+      "pdfPage": 73,
+      "notes": "4x高斯电弧"
+    },
+    {
+      "pdfName": "黑石浮塔",
+      "cardName": "方尖碑",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 4 个特斯拉球；装甲船体",
+      "defaultEquipment": "特斯拉球体；装甲巨体",
+      "isDefaultWeapons": [
+        "特斯拉球体",
+        "装甲巨体"
+      ],
+      "pdfPage": 74,
+      "notes": "4x特斯拉球"
+    },
+    {
+      "pdfName": "超维魔方牢笼",
+      "cardName": "超立方迷宫",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 4 个特斯拉球；装甲船体",
+      "defaultEquipment": "特斯拉球体；装甲巨体",
+      "isDefaultWeapons": [
+        "特斯拉球体",
+        "装甲巨体"
+      ],
+      "pdfPage": 75,
+      "notes": "4x特斯拉球"
+    },
+    {
+      "pdfName": "炽天使重型构造体",
+      "cardName": "炎工重型构造体",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 2 门奇点发生器；巨型前足",
+      "defaultEquipment": "奇点产生器；泰坦级前肢",
+      "isDefaultWeapons": [
+        "奇点产生器",
+        "泰坦级前肢"
+      ],
+      "pdfPage": 76,
+      "notes": "2x奇点发生器"
+    },
+    {
+      "pdfName": "高斯巨石碑",
+      "cardName": "高斯塔柱",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 高斯歼灭炮；特斯拉电弧",
+      "defaultEquipment": "高斯歼灭者；特斯拉电弧",
+      "isDefaultWeapons": [
+        "高斯歼灭者",
+        "特斯拉电弧"
+      ],
+      "pdfPage": 77,
+      "notes": ""
+    },
+    {
+      "pdfName": "主宰圣碑 1 模型",
+      "cardName": "统御碑阵",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 超维劫夺光束",
+      "defaultEquipment": "传导粒子射线",
+      "isDefaultWeapons": [
+        "传导粒子射线"
+      ],
+      "pdfPage": 78,
+      "notes": ""
+    },
+    {
+      "pdfName": "哨戒石碑塔",
+      "cardName": "哨兵塔柱",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "单位装备 高斯灭绝炮",
+      "defaultEquipment": "高斯吞噬炮",
+      "isDefaultWeapons": [
+        "高斯吞噬炮"
+      ],
+      "pdfPage": 79,
+      "notes": ""
+    },
+    {
+      "pdfName": "宏墓要塞",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "",
+      "pdfDefaultEquipment": "单位装备 无",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 80,
+      "notes": ""
+    }
+  ],
+  "detachments": [
+    {
+      "pdfName": "觉醒王朝",
+      "detachmentName": "觉醒王朝",
+      "matchBasis": "rule-name",
+      "confidence": "high",
+      "pdfPage": 2,
+      "pdfRuleName": "指挥协议",
+      "notes": ""
+    },
+    {
+      "pdfName": "湮灭军团",
+      "detachmentName": "湮灭军团",
+      "matchBasis": "rule-name",
+      "confidence": "high",
+      "pdfPage": 5,
+      "pdfRuleName": "歼灭协议",
+      "notes": ""
+    },
+    {
+      "pdfName": "仪仗方阵",
+      "detachmentName": "仪仗方阵",
+      "matchBasis": "rule-text",
+      "confidence": "high",
+      "pdfPage": 8,
+      "pdfRuleName": "有价值的敌人",
+      "notes": "团策规则名不一致（PDF「有价值的敌人」vs 规范「可敬之敌（暂译）」）；规则文本内容基本吻合"
+    },
+    {
+      "pdfName": "冥工王庭",
+      "detachmentName": "冥工王庭",
+      "matchBasis": "rule-name",
+      "confidence": "high",
+      "pdfPage": 11,
+      "pdfRuleName": "能量矩阵",
+      "notes": ""
+    },
+    {
+      "pdfName": "超维度军团",
+      "detachmentName": "超维度军团",
+      "matchBasis": "rule-name",
+      "confidence": "high",
+      "pdfPage": 14,
+      "pdfRuleName": "超相位",
+      "notes": ""
+    },
+    {
+      "pdfName": "碎星宝库",
+      "detachmentName": "碎星宝库",
+      "matchBasis": "rule-name",
+      "confidence": "high",
+      "pdfPage": 17,
+      "pdfRuleName": "无息攻势",
+      "notes": ""
+    }
+  ],
+  "unitAliases": {
+    "斯扎拉克，寂静之王": "寂静王",
+    "风暴之王伊莫泰克": "风暴王伊摩特克",
+    "旅行者安拉凯尔": "旅者 安拉基尔",
+    "禁卫奥比隆": "瓦尔加德·奥拜伦",
+    "戴冠将军赞德瑞克": "尼莫索·赞德雷克",
+    "皇家督军": "皇家监军",
+    "古墓指挥艇": "墓穴指挥舰",
+    "至尊星神": "超群星神",
+    "传送霸主": "装备传送斗篷的霸主",
+    "启明者萨拉斯": "光耀者泽拉斯",
+    "预言者欧瑞坎": "占卜者欧瑞肯",
+    "科技技师": "机械技师",
+    "恐惧技师": "精神技师",
+    "离子技师": "等离子技师",
+    "荒蝎领主": "荒蠍领主",
+    "六印驱逐者": "巫印毁灭者",
+    "荒蝎驱逐者 3 模型": "荒蠍毁灭者",
+    "幽蛇驱逐者 3 模型": "潜蛇毁灭者",
+    "灾蝗驱逐者 1 模型": "灾蝗毁灭者",
+    "重装灾蝗驱逐者 1 模型": "灾蝗重装毁灭者",
+    "剥皮者 5 模型": "剥皮者",
+    "三圣禁卫 5 模型": "三圣禁卫",
+    "冥工赋生者": "冥工复生械",
+    "冥工蜘蛛 1 模型": "冥工蜘蛛",
+    "冥工圣甲虫群 3 模型": "冥工圣甲虫群",
+    "冥工幽魂 3 模型": "冥工幽魂",
+    "冥工末日行者": "冥工末日追猎者",
+    "冥工追猎蜈蚣": "冥工墓穴潜行者",
+    "冥工哨戒蜈蚣": "冥工墓穴哨兵",
+    "冥工针尾幽魂 3 模型": "冥工棘刺者",
+    "太空死灵武士 10 模型": "太空死灵武士",
+    "不朽者 5 模型": "不朽者",
+    "巫妖卫士 5 模型": "巫妖卫士",
+    "死亡之印 5 模型": "死印战士",
+    "古墓机奴": "墓穴奴仆",
+    "末日灾镰": "毁灭之镰",
+    "古墓飞刃 3 模型": "墓穴之刃",
+    "超维方舟": "立方体方舟",
+    "午夜寿衣": "夜幕轰炸机",
+    "古墓方尖碑": "巨石堡垒",
+    "黑石浮塔": "方尖碑",
+    "超维魔方牢笼": "超立方迷宫",
+    "炽天使重型构造体": "炎工重型构造体",
+    "高斯巨石碑": "高斯塔柱",
+    "主宰圣碑 1 模型": "统御碑阵",
+    "哨戒石碑塔": "哨兵塔柱"
+  },
+  "detachmentAliases": {},
+  "issues": [
+    "装备无法匹配：宇宙癫狂（欺诈者星神碎片）",
+    "欺诈者星神碎片(欺诈者星神碎片) 装备项无法匹配：宇宙癫狂",
+    "装备无法匹配：黄金神拳（欺诈者星神碎片）",
+    "欺诈者星神碎片(欺诈者星神碎片) 装备项无法匹配：黄金神拳",
+    "装备无法匹配：震荡突击（超群星神）",
+    "至尊星神(超群星神) 装备项无法匹配：震荡突击",
+    "装备无法匹配：爆裂触须（超群星神）",
+    "至尊星神(超群星神) 装备项无法匹配：爆裂触须",
+    "装备无法匹配：复活宝珠（装备传送斗篷的霸主）",
+    "传送霸主(装备传送斗篷的霸主) 装备项无法匹配：复活宝珠",
+    "装备无法匹配：追猎机械利爪（冥工墓穴潜行者）",
+    "冥工追猎蜈蚣(冥工墓穴潜行者) 装备项无法匹配：追猎机械利爪",
+    "装备无法匹配：幽光棱镜（冥工墓穴潜行者）",
+    "冥工追猎蜈蚣(冥工墓穴潜行者) 装备项无法匹配：幽光棱镜",
+    "装备无法匹配：哨戒机械利爪（冥工墓穴哨兵）",
+    "冥工哨戒蜈蚣(冥工墓穴哨兵) 装备项无法匹配：哨戒机械利爪",
+    "装备无法匹配：幽光棱镜（冥工墓穴哨兵）",
+    "冥工哨戒蜈蚣(冥工墓穴哨兵) 装备项无法匹配：幽光棱镜",
+    "装备无法匹配：虚空之刃（冥工棘刺者）",
+    "冥工针尾幽魂 3 模型(冥工棘刺者) 装备项无法匹配：虚空之刃",
+    "装备无法匹配：装甲船体（夜幕轰炸机）",
+    "午夜寿衣(夜幕轰炸机) 装备项无法匹配：装甲船体",
+    "单位无法匹配：宏墓要塞 (page 80)"
+  ]
+}

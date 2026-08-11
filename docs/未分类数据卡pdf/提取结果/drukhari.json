@@ -1,0 +1,395 @@
+{
+  "faction": "黑暗灵族",
+  "factionId": "drukhari",
+  "pdfFile": "黑豆芽.pdf",
+  "extractionMethod": "text",
+  "dataCardFile": "docs/data/黑暗灵族/黑暗灵族-结构化数据卡.json",
+  "units": [
+    {
+      "pdfName": "执政官",
+      "cardName": "执政官",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "毒晶手枪；尸魂利刃。",
+      "defaultEquipment": "碎片手枪；魂陷",
+      "isDefaultWeapons": [
+        "碎片手枪",
+        "魂陷"
+      ],
+      "pdfPage": 10,
+      "notes": "\"毒晶手枪\"->\"碎片手枪\"按面板数据匹配；\"尸魂利刃\"->\"魂陷\"按面板数据匹配"
+    },
+    {
+      "pdfName": "驯兽师",
+      "cardName": "驯兽师",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "毒晶匣枪；折磨之鞭。；利爪魔重拳。；柯美拉尖爪。；刃翼刀羽。",
+      "defaultEquipment": "碎裂荚；苦难刺器；利爪魔拳；奇美拉爪；剃翼鸟羽",
+      "isDefaultWeapons": [
+        "碎裂荚",
+        "苦难刺器",
+        "利爪魔拳",
+        "奇美拉爪",
+        "剃翼鸟羽"
+      ],
+      "pdfPage": 12,
+      "notes": "\"利爪魔重拳\"->\"利爪魔拳\"中文名一致；\"毒晶匣枪\"->\"碎裂荚\"按面板数据匹配；\"折磨之鞭\"->\"苦难刺器\"按面板数据匹配；\"柯美拉尖爪\"->\"奇美拉爪\"按中文相似映射；\"刃翼刀羽\"->\"剃翼鸟羽\"按面板数据匹配"
+    },
+    {
+      "pdfName": "执政官廷臣",
+      "cardName": "执政官的宫廷",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "沙美什毒刃。；邪眼光束；格斗武器。；毒晶卡宾枪；毒晶手枪；西里斯战刀。；乌古尔利爪。",
+      "defaultEquipment": "乌尔古利爪；夏梅希之刃（拉玛恩）；碎片卡宾枪；近战武器；碎片手枪；塞利斯战刃",
+      "isDefaultWeapons": [
+        "乌尔古利爪",
+        "夏梅希之刃（拉玛恩）",
+        "碎片卡宾枪",
+        "近战武器",
+        "碎片手枪",
+        "塞利斯战刃"
+      ],
+      "pdfPage": 14,
+      "notes": "PDF面板(8, 3, 5, 2, 6, 1)与数据卡(7, 3, 5, 2, 7, 1)不一致；\"乌古尔利爪\"->\"乌尔古利爪\"中文名一致；\"沙美什毒刃\"->\"夏梅希之刃（拉玛恩）\"按面板数据匹配；\"邪眼光束\"->\"碎片卡宾枪\"按面板数据匹配；\"格斗武器\"->\"近战武器\"按面板数据匹配；\"毒晶卡宾枪\"->\"碎片卡宾枪\"按面板数据匹配；\"毒晶手枪\"->\"碎片手枪\"按面板数据匹配；\"西里斯战刀\"->\"塞利斯战刃\"按面板数据匹配；名称相似"
+    },
+    {
+      "pdfName": "克洛诺斯",
+      "cardName": "克洛诺斯",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "灵魂虹吸管；汲灵触手。",
+      "defaultEquipment": "灵魂虹吸；灵魂吸触手",
+      "isDefaultWeapons": [
+        "灵魂虹吸",
+        "灵魂吸触手"
+      ],
+      "pdfPage": 16,
+      "notes": "\"灵魂虹吸管\"->\"灵魂虹吸\"中文名一致；\"汲灵触手\"->\"灵魂吸触手\"按中文相似映射"
+    },
+    {
+      "pdfName": "达扎尔",
+      "cardName": "达扎尔",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "处刑者斩首对剑。",
+      "defaultEquipment": "行刑官半斧剑；行刑官半斧剑",
+      "isDefaultWeapons": [
+        "行刑官半斧剑",
+        "行刑官半斧剑"
+      ],
+      "pdfPage": 18,
+      "notes": "\"处刑者斩首对剑\"->\"行刑官半斧剑\"按面板数据匹配（巨剑档位 5 2+ 6 -2 3、双刀档位 7 2+ 5 -2 2）"
+    },
+    {
+      "pdfName": "畸人",
+      "cardName": "怪诞造物",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "液化枪；巨型武器。",
+      "defaultEquipment": "暗液喷射器；怪兽武器",
+      "isDefaultWeapons": [
+        "暗液喷射器",
+        "怪兽武器"
+      ],
+      "pdfPage": 20,
+      "notes": "畸人=Grotesques（数据卡名\"怪诞造物\"）：面板 M7 T5 Sv6+ W4 LD6+ OC1、FNP 5+、关键词步兵/血伶人巫会/艾达灵族与数据卡相符；\"液化枪\"->\"暗液喷射器\"（Liquifier Gun，12\" D6 [洪流]）；\"巨型武器\"->\"怪兽武器\"（Monstrous Weapons，近战 4 3+ 5 -2 2，PDF 显示 AP-1 与数据卡 AP-2 略异）；数据卡默认另含\"双持怪兽武器\"，PDF 页未列出"
+    },
+    {
+      "pdfName": "血伶人",
+      "cardName": "血伶人",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "毒刺手枪；血伶人刑具和剪刀手。",
+      "defaultEquipment": "毒刺手枪；造肉者工具与剪刀手",
+      "isDefaultWeapons": [
+        "毒刺手枪",
+        "造肉者工具与剪刀手"
+      ],
+      "pdfPage": 22,
+      "notes": "\"毒刺手枪\"->\"毒刺手枪\"中文名一致；\"血伶人刑具和剪刀手\"->\"造肉者工具与剪刀手\"按面板数据匹配"
+    },
+    {
+      "pdfName": "滑板暴徒",
+      "cardName": "滑板暴徒",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "毒晶匣枪；地狱长刀。",
+      "defaultEquipment": "碎裂荚；地狱钩矛",
+      "isDefaultWeapons": [
+        "碎裂荚",
+        "地狱钩矛"
+      ],
+      "pdfPage": 24,
+      "notes": "\"毒晶匣枪\"->\"碎裂荚\"按面板数据匹配；\"地狱长刀\"->\"地狱钩矛\"按面板数据匹配"
+    },
+    {
+      "pdfName": "梦魇剑客",
+      "cardName": "梦魇剑客",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "斩首剑。",
+      "defaultEquipment": "克莱夫剑",
+      "isDefaultWeapons": [
+        "克莱夫剑"
+      ],
+      "pdfPage": 26,
+      "notes": "\"斩首剑\"->\"克莱夫剑\"按面板数据匹配（近战 3 3+ 4 -2 2 vs 数据卡 3 3+ 5 -2 2）"
+    },
+    {
+      "pdfName": "阴谋团战士",
+      "cardName": "阴谋团战士",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "毒晶步枪；格斗武器。",
+      "defaultEquipment": "碎片步枪；近战武器",
+      "isDefaultWeapons": [
+        "碎片步枪",
+        "近战武器"
+      ],
+      "pdfPage": 28,
+      "notes": "\"毒晶步枪\"->\"碎片步枪\"按面板数据匹配；\"格斗武器\"->\"近战武器\"按面板数据匹配"
+    },
+    {
+      "pdfName": "莉莉丝·海斯佩拉克斯",
+      "cardName": "莉莉丝·海斯佩拉克斯",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "莉莉丝的匕首。",
+      "defaultEquipment": "莉莉丝之刃",
+      "isDefaultWeapons": [
+        "莉莉丝之刃"
+      ],
+      "pdfPage": 30,
+      "notes": "\"莉莉丝的匕首\"->\"莉莉丝之刃\"按面板数据匹配"
+    },
+    {
+      "pdfName": "曼德拉",
+      "cardName": "曼德拉",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "邪恶冲击；微光钢刃。",
+      "defaultEquipment": "微光钢刃；阴火",
+      "isDefaultWeapons": [
+        "微光钢刃",
+        "阴火"
+      ],
+      "pdfPage": 32,
+      "notes": "\"微光钢刃\"->\"微光钢刃\"中文名一致；\"邪恶冲击\"->\"阴火\"按面板数据匹配（远程 18\" 2 3+ 5 D1）"
+    },
+    {
+      "pdfName": "掠袭者飞艇",
+      "cardName": "掠袭者飞艇",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "暗黑光矛；锋刃翼。",
+      "defaultEquipment": "黑暗长矛；刀翼与链钩",
+      "isDefaultWeapons": [
+        "黑暗长矛",
+        "刀翼与链钩"
+      ],
+      "pdfPage": 34,
+      "notes": "\"暗黑光矛\"->\"黑暗长矛\"按面板数据匹配；\"锋刃翼\"->\"刀翼与链钩\"按面板数据匹配（近战，数据卡 A D3+3 与 PDF A3 略异）"
+    },
+    {
+      "pdfName": "破坏者飞艇",
+      "cardName": "破坏者飞艇",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "3 个暗黑光矛；锋刃翼。",
+      "defaultEquipment": "刃翼；黑暗长矛",
+      "isDefaultWeapons": [
+        "刃翼",
+        "黑暗长矛"
+      ],
+      "pdfPage": 36,
+      "notes": "\"锋刃翼\"->\"刃翼\"中文名一致；\"3 个暗黑光矛\"->\"黑暗长矛\"按面板数据匹配；\"3 个暗黑光矛\"数量词已剥离"
+    },
+    {
+      "pdfName": "刃翼战机",
+      "cardName": "刃翼战机",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "2 个暗黑光矛；刃翼导弹；双联毒晶步枪；锋利飞翼。",
+      "defaultEquipment": "黑暗长矛；剃刀翼飞弹；双联碎片步枪；刃翼",
+      "isDefaultWeapons": [
+        "黑暗长矛",
+        "剃刀翼飞弹",
+        "双联碎片步枪",
+        "刃翼"
+      ],
+      "pdfPage": 38,
+      "notes": "\"2 个暗黑光矛\"->\"黑暗长矛\"按面板数据匹配；\"2 个暗黑光矛\"数量词已剥离；\"刃翼导弹\"->\"剃刀翼飞弹\"按面板数据匹配；\"双联毒晶步枪\"->\"双联碎片步枪\"按中文相似映射；\"锋利飞翼\"->\"刃翼\"按面板数据匹配"
+    },
+    {
+      "pdfName": "劫掠者",
+      "cardName": "劫掠者",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "毒晶手枪；毒晶步枪；锋刃翼。",
+      "defaultEquipment": "刃翼；碎片手枪；碎片步枪",
+      "isDefaultWeapons": [
+        "刃翼",
+        "碎片手枪",
+        "碎片步枪"
+      ],
+      "pdfPage": 40,
+      "notes": "\"锋刃翼\"->\"刃翼\"中文名一致；\"毒晶手枪\"->\"碎片手枪\"按面板数据匹配；\"毒晶步枪\"->\"碎片步枪\"按面板数据匹配"
+    },
+    {
+      "pdfName": "天灾",
+      "cardName": "装备毒晶卡宾枪的天灾",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "毒晶卡宾枪；格斗武器。",
+      "defaultEquipment": "碎片卡宾枪；近战武器",
+      "isDefaultWeapons": [
+        "碎片卡宾枪",
+        "近战武器"
+      ],
+      "pdfPage": 42,
+      "notes": "PDF面板(14, 3, 4, 1, 6, 1)与数据卡(14, 3, 4, 1, 7, 1)不一致；\"毒晶卡宾枪\"->\"碎片卡宾枪\"按面板数据匹配；\"格斗武器\"->\"近战武器\"按面板数据匹配；名称包含关系"
+    },
+    {
+      "pdfName": "血腥魔女",
+      "cardName": "血腥魔女",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "血腥魔女武器。",
+      "defaultEquipment": "穿刺薙刀与苦难刺器",
+      "isDefaultWeapons": [
+        "穿刺薙刀与苦难刺器"
+      ],
+      "pdfPage": 44,
+      "notes": "\"血腥魔女武器\"->\"穿刺薙刀与苦难刺器\"按面板数据匹配（近战 6 2+ 3 -2 1 vs 数据卡 7 2+ 3 -2 1）"
+    },
+    {
+      "pdfName": "塔洛斯",
+      "cardName": "塔洛斯",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "双联毒晶炮；2 把巨型解刨刀。",
+      "defaultEquipment": "双联碎裂加农炮；巨型手术刀",
+      "isDefaultWeapons": [
+        "双联碎裂加农炮",
+        "巨型手术刀"
+      ],
+      "pdfPage": 46,
+      "notes": "\"双联毒晶炮\"->\"双联碎裂加农炮\"按面板数据匹配；\"2 把巨型解刨刀\"->\"巨型手术刀\"按中文相似映射；\"2 把巨型解刨刀\"数量词已剥离"
+    },
+    {
+      "pdfName": "尤瑞恩·拉卡斯",
+      "cardName": "尤连·拉卡斯",
+      "matchConfidence": "exact",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "剥皮之棺；血伶人刑具和剪刀手。",
+      "defaultEquipment": "剥皮匣；造肉者工具与剪刀手",
+      "isDefaultWeapons": [
+        "剥皮匣",
+        "造肉者工具与剪刀手"
+      ],
+      "pdfPage": 48,
+      "notes": "\"剥皮之棺\"->\"剥皮匣\"按面板数据匹配；\"血伶人刑具和剪刀手\"->\"造肉者工具与剪刀手\"按面板数据匹配"
+    },
+    {
+      "pdfName": "毒液飞艇",
+      "cardName": "毒液飞艇",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "毒晶炮；双联毒晶步枪；锋刃翼。",
+      "defaultEquipment": "刃翼；碎片加农炮；双联碎片步枪",
+      "isDefaultWeapons": [
+        "刃翼",
+        "碎片加农炮",
+        "双联碎片步枪"
+      ],
+      "pdfPage": 50,
+      "notes": "\"锋刃翼\"->\"刃翼\"中文名一致；\"毒晶炮\"->\"碎片加农炮\"按面板数据匹配；\"双联毒晶步枪\"->\"双联碎片步枪\"按面板数据匹配"
+    },
+    {
+      "pdfName": "虚空鸦轰炸机",
+      "cardName": "虚空鸦轰炸机",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "2 个虚空光矛；锋利飞翼。",
+      "defaultEquipment": "虚空长矛；刃翼",
+      "isDefaultWeapons": [
+        "虚空长矛",
+        "刃翼"
+      ],
+      "pdfPage": 52,
+      "notes": "\"2 个虚空光矛\"->\"虚空长矛\"按面板数据匹配；\"2 个虚空光矛\"数量词已剥离；\"锋利飞翼\"->\"刃翼\"按面板数据匹配"
+    },
+    {
+      "pdfName": "凌虐者",
+      "cardName": "凌虐者",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "凌虐者砍刀。",
+      "defaultEquipment": "双持折磨工具",
+      "isDefaultWeapons": [
+        "双持折磨工具"
+      ],
+      "pdfPage": 54,
+      "notes": "\"凌虐者砍刀\"->\"双持折磨工具\"按面板数据匹配（近战 2 3+ 3 0 1 vs 数据卡 2 3+ 4 -1 1）；PDF 页另列瘟厄步枪/液化枪/骨骼催化枪/毒刺手枪等可选武器"
+    },
+    {
+      "pdfName": "巫灵",
+      "cardName": "巫灵",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "毒晶手枪；赫卡忒里短刀。",
+      "defaultEquipment": "碎片手枪；赫卡塔利之刃",
+      "isDefaultWeapons": [
+        "碎片手枪",
+        "赫卡塔利之刃"
+      ],
+      "pdfPage": 56,
+      "notes": "\"毒晶手枪\"->\"碎片手枪\"按面板数据匹配；\"赫卡忒里短刀\"->\"赫卡塔利之刃\"按中文相似映射（近战 3 3+ 3 -1 1 vs 数据卡 4 3+ 3 -1 1）"
+    }
+  ],
+  "detachments": [
+    {
+      "pdfName": "现实空间掠袭者",
+      "detachmentName": "现实空间掠袭者",
+      "matchBasis": "english-name",
+      "confidence": "high",
+      "pdfPage": 2,
+      "notes": "registry 英文名 Realspace Raiders 完全一致；PDF 分遣队名\"现实空间掠袭者\"与 registry 名一致；团策\"现实空间掠袭者\"（痛苦标识加成）与 registry\"痛苦联盟\"规则文本相符"
+    },
+    {
+      "pdfName": "裂穹强袭",
+      "detachmentName": "裂穹强袭",
+      "matchBasis": "english-name",
+      "confidence": "high",
+      "pdfPage": 6,
+      "notes": "registry 英文名 Skysplinter Assault 完全一致；PDF 分遣队名\"裂穹强袭\"与 registry 名一致；团策\"暴虐豪雨\"与 registry\"残酷血雨\"规则文本相符（运输工具脱离时远程武器[无视掩体]、近战武器[骑枪]）"
+    }
+  ],
+  "unitAliases": {
+    "执政官廷臣": "执政官的宫廷",
+    "天灾": "装备毒晶卡宾枪的天灾",
+    "尤瑞恩·拉卡斯": "尤连·拉卡斯",
+    "畸人": "怪诞造物"
+  },
+  "detachmentAliases": {},
+  "issues": [
+    "[unit:畸人] 已修正：匹配至数据卡\"怪诞造物\"（Grotesques），液化枪->暗液喷射器、巨型武器->怪兽武器",
+    "[unit:执政官] 已补全默认装备映射：尸魂利刃->魂陷",
+    "[unit:驯兽师] 已补全默认装备映射：折磨之鞭->苦难刺器",
+    "[unit:达扎尔] 已补全默认装备映射：处刑者斩首对剑->行刑官半斧剑",
+    "[unit:梦魇剑客] 已补全默认装备映射：斩首剑->克莱夫剑",
+    "[unit:血腥魔女] 已补全默认装备映射：血腥魔女武器->穿刺薙刀与苦难刺器",
+    "[unit:凌虐者] 已补全默认装备映射：凌虐者砍刀->双持折磨工具",
+    "[unit:曼德拉] 已补全默认装备映射：邪恶冲击->阴火",
+    "[unit:巫灵] 已补全默认装备映射：赫卡忒里短刀->赫卡塔利之刃",
+    "[unit:掠袭者飞艇] 已补全默认装备映射：锋刃翼->刀翼与链钩",
+    "[unit:刃翼战机] 已补全默认装备映射：锋利飞翼->刃翼",
+    "[unit:天灾] 已补全默认装备映射：格斗武器->近战武器",
+    "[unit:虚空鸦轰炸机] 已补全默认装备映射：锋利飞翼->刃翼",
+    "[unit:尤瑞恩·拉卡斯] 已修正装备映射：剥皮之棺->剥皮匣（原误映射为造肉者工具与剪刀手）",
+    "[detachment:现实空间掠袭者] 已提升为 high（registry 英文名 Realspace Raiders）",
+    "[detachment:裂穹强袭] 已提升为 high（registry 英文名 Skysplinter Assault）"
+  ]
+}

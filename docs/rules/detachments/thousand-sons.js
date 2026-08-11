@@ -318,6 +318,7 @@
     "detachmentNumber": 4,
     "name": "至尊巫会",
     "englishName": "Grand Coven",
+    "aliases": ["至尊教会"],
     "dp": 3,
     "rule": {
       "id": "thousand-sons.detachment.thousand-sons-4.rule",
@@ -496,6 +497,7 @@
     "detachmentNumber": 5,
     "name": "红字方阵",
     "englishName": "Rubricae Phalanx",
+    "aliases": ["红字军团"],
     "dp": 3,
     "rule": {
       "id": "thousand-sons.detachment.thousand-sons-5.rule",
@@ -674,6 +676,7 @@
     "detachmentNumber": 6,
     "name": "欺诈诡变大军",
     "englishName": "Changehost of Deceit",
+    "aliases": ["诡骗魔军"],
     "dp": 2,
     "rule": {
       "id": "thousand-sons.detachment.thousand-sons-6.rule",
@@ -852,6 +855,7 @@
     "detachmentNumber": 7,
     "name": "亚空间铸造密会",
     "englishName": "Warpforged Cabal",
+    "aliases": ["魔铸密教"],
     "dp": 2,
     "rule": {
       "id": "thousand-sons.detachment.thousand-sons-7.rule",
@@ -1030,6 +1034,7 @@
     "detachmentNumber": 8,
     "name": "次元邪咒傀儡团",
     "englishName": "Hexwarp Thrallband",
+    "aliases": ["魇绞傀儡"],
     "dp": 3,
     "rule": {
       "id": "thousand-sons.detachment.thousand-sons-8.rule",
@@ -1208,6 +1213,7 @@
     "detachmentNumber": 9,
     "name": "亚空间融合契约",
     "englishName": "Warpmeld Pact",
+    "aliases": ["万变契约"],
     "dp": 2,
     "rule": {
       "id": "thousand-sons.detachment.thousand-sons-9.rule",

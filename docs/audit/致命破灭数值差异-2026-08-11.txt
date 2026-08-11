@@ -1,0 +1,19 @@
+AUDIT_ROWS=17
+
+factions/aeldari.js | core-deadly-demise-d6-6 | "致命破灭 D6" | unit=幻影泰坦 | 原名数值「D6」与官方英文能力数值「D6+6」不一致，按官方数值写入（来源：raw:Deadly Demise D6+6） | TEXT: 致命破灭D6+6
+factions/aeldari.js | core-deadly-demise-2d6 | "致命破灭 2" | unit=亡魂泰坦 | 原名数值「2」与官方英文能力数值「2D6」不一致，按官方数值写入（来源：raw:Deadly Demise 2D6） | TEXT: 致命破灭2D6
+factions/grey-knights.js | core-deadly-demise-d6-2 | "致命破灭 D6" | unit=灰骑士雷鹰炮艇 | 原名数值「D6」与官方英文能力数值「D6+2」不一致，按官方数值写入（来源：raw:Deadly Demise D6+2） | TEXT: 致命破灭D6+2
+factions/necrons.js | core-deadly-demise-d6-2 | "致命破灭 D6" | unit=炎工重型构造体 | 原名数值「D6」与官方英文能力数值「D6+2」不一致，按官方数值写入（来源：raw:Deadly Demise D6+2） | TEXT: 致命破灭D6+2
+factions/necrons.js | core-deadly-demise-d6-3 | "致命破灭 D6" | unit=超立方迷宫 | 原名数值「D6」与官方英文能力数值「D6+3」不一致，按官方数值写入（来源：raw:Deadly Demise D6+3） | TEXT: 致命破灭D6+3
+factions/necrons.js | core-deadly-demise-d6-3 | "致命破灭 D6" | unit=寂静王 | 原名数值「D6」与官方英文能力数值「D6+3」不一致，按官方数值写入（来源：raw:Deadly Demise D6+3） | TEXT: 致命破灭D6+3
+factions/tau-empire.js | core-deadly-demise-d6-2 | "致命破灭 D6" | unit=AX-1-0 虎鲨攻击机 | 原名数值「D6」与官方英文能力数值「D6+2」不一致，按官方数值写入（来源：raw:Deadly Demise D6+2） | TEXT: 致命破灭D6+2
+factions/tau-empire.js | core-deadly-demise-3d6 | "致命破灭 3" | unit=蝠鱝登陆舰 | 原名数值「3」与官方英文能力数值「3D6」不一致，按官方数值写入（来源：raw:Deadly Demise 3D6） | TEXT: 致命破灭3D6
+factions/tau-empire.js | core-deadly-demise-d6-2 | "致命破灭 D6" | unit=风暴潮 | 原名数值「D6」与官方英文能力数值「D6+2」不一致，按官方数值写入（来源：raw:Deadly Demise D6+2） | TEXT: 致命破灭D6+2
+factions/tau-empire.js | core-deadly-demise-d6-3 | "致命破灭 D6" | unit=塔’乌纳至高机甲 | 原名数值「D6」与官方英文能力数值「D6+3」不一致，按官方数值写入（来源：raw:Deadly Demise D6+3） | TEXT: 致命破灭D6+3
+factions/tau-empire.js | core-deadly-demise-d6-2 | "致命破灭 D6" | unit=虎鲨战斗轰炸机 | 原名数值「D6」与官方英文能力数值「D6+2」不一致，按官方数值写入（来源：raw:Deadly Demise D6+2） | TEXT: 致命破灭D6+2
+factions/tyranids.js | core-deadly-demise-2d6 | "致命破灭 2" | unit=悍妪兽 | 原名数值「2」与官方英文能力数值「2D6」不一致，按官方数值写入（来源：raw:Deadly Demise 2D6） | TEXT: 致命破灭2D6
+factions/tyranids.js | core-deadly-demise-2d6 | "致命破灭 2" | unit=圣师兽 | 原名数值「2」与官方英文能力数值「2D6」不一致，按官方数值写入（来源：raw:Deadly Demise 2D6） | TEXT: 致命破灭2D6
+orks.js | orks.gargantuan-squiggoth.ability-1 | "致命破灭 2" | unit=强巨史古革巨兽 | 原名数值「2」与官方英文能力数值「2D6」不一致，按官方数值写入（来源：source:Deadly Demise 2D6） | TEXT: 致命破灭2D6
+orks.js | orks.stompa.ability-1 | "致命破灭 2" | unit=践踏巨机 | 原名数值「2」与官方英文能力数值「2D6」不一致，按官方数值写入（来源：source:Deadly Demise 2D6） | TEXT: 致命破灭2D6
+orks.js | orks.kill-tank.ability-1 | "致命破灭 D6" | unit=杀戮战车（Kill Tank） | 原名数值「D6」与官方英文能力数值「D6+2」不一致，按官方数值写入（来源：source:Deadly Demise D6+2） | TEXT: 致命破灭D6+2
+orks.js | orks.deff-rolla-battle-fortress.ability-1 | "致命破灭 D6" | unit=死亡碾压战争堡垒 | 原名数值「D6」与官方英文能力数值「D6+2」不一致，按官方数值写入（来源：source:Deadly Demise D6+2） | TEXT: 致命破灭D6+2

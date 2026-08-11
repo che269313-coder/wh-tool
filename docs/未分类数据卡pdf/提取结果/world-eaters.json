@@ -1,0 +1,527 @@
+{
+  "faction": "吞世者",
+  "factionId": "world-eaters",
+  "pdfFile": "吞世者10版中文DavidZ版1.01.pdf",
+  "extractionMethod": "ocr",
+  "dataCardFile": "docs/data/吞世者/吞世者-结构化数据卡.json",
+  "units": [
+    {
+      "pdfName": "安格隆",
+      "pdfNameEn": "ANGRON",
+      "cardName": "安格隆",
+      "englishName": "Angron",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "萨米瑞斯与碎脊者",
+      "defaultEquipment": "萨姆尼亚瑞斯与脊刺绞杀者",
+      "isDefaultWeapons": [
+        "萨姆尼亚瑞斯与脊刺绞杀者"
+      ],
+      "pdfPage": 20,
+      "notes": ""
+    },
+    {
+      "pdfName": "背叛者卡恩",
+      "pdfNameEn": "KHARN THE BETRAVBR",
+      "cardName": "背叛者卡恩",
+      "englishName": "Khârn the Betrayer",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "卡恩的等离子手枪；嗜血魔",
+      "defaultEquipment": "嗜血魔；电浆手枪",
+      "isDefaultWeapons": [
+        "嗜血魔",
+        "电浆手枪"
+      ],
+      "pdfPage": 21,
+      "notes": ""
+    },
+    {
+      "pdfName": "领主因维卡图斯",
+      "pdfNameEn": "LORD INVOCATUS",
+      "cardName": "因维卡图斯尊主",
+      "englishName": "Lord Invocatus",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "爆弹手枪；懦夫之祸；钢牛锐角",
+      "defaultEquipment": "刃角；爆弹手枪；懦夫之祸",
+      "isDefaultWeapons": [
+        "刃角",
+        "爆弹手枪",
+        "懦夫之祸"
+      ],
+      "pdfPage": 22,
+      "notes": ""
+    },
+    {
+      "pdfName": "屠缚战狂",
+      "pdfNameEn": "SIAUGHTRRBOUJND",
+      "cardName": "缚魔战狂",
+      "englishName": "Slaughterbound",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "屠缚链锯拳",
+      "defaultEquipment": "撕裂者与恶魔爪",
+      "isDefaultWeapons": [
+        "撕裂者与恶魔爪"
+      ],
+      "pdfPage": 23,
+      "notes": ""
+    },
+    {
+      "pdfName": "钢牛领主",
+      "pdfNameEn": "LORD ONJUJGGERNAUT",
+      "cardName": "骑铁甲兽的领主",
+      "englishName": "Lord on Juggernaut",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "等离子手枪；神尊链锯剑；钢牛锐角",
+      "defaultEquipment": "电浆手枪；刃角；崇高链刃",
+      "isDefaultWeapons": [
+        "电浆手枪",
+        "刃角",
+        "崇高链刃"
+      ],
+      "pdfPage": 24,
+      "notes": ""
+    },
+    {
+      "pdfName": "枭首魔将",
+      "pdfNameEn": "MASTER OR EXECUJTIONS",
+      "cardName": "斩首大师",
+      "englishName": "Master of Executions",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "爆弹手枪；肢解巨斧",
+      "defaultEquipment": "斧刃重刑斧；爆弹手枪",
+      "isDefaultWeapons": [
+        "斧刃重刑斧",
+        "爆弹手枪"
+      ],
+      "pdfPage": 25,
+      "notes": ""
+    },
+    {
+      "pdfName": "恐虐恶魔壬子",
+      "pdfNameEn": "DAEMON PRINCR OF KHORNE",
+      "cardName": "恐虐恶魔亲王",
+      "englishName": "Daemon Prince of Khorne",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "狱火加农炮；狱铸武器",
+      "defaultEquipment": "地狱加农炮；地狱熔锻武器",
+      "isDefaultWeapons": [
+        "地狱加农炮",
+        "地狱熔锻武器"
+      ],
+      "pdfPage": 26,
+      "notes": ""
+    },
+    {
+      "pdfName": "有翼恐虐恶魔壬子",
+      "pdfNameEn": "DAEMON PRINCE OR KHORNE WITH",
+      "cardName": "有翼恐虐恶魔亲王",
+      "englishName": "Daemon Prince of Khorne with Wings",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "狱火加农炮；狱铸武器",
+      "defaultEquipment": "地狱加农炮；地狱熔锻武器",
+      "isDefaultWeapons": [
+        "地狱加农炮",
+        "地狱熔锻武器"
+      ],
+      "pdfPage": 27,
+      "notes": ""
+    },
+    {
+      "pdfName": "恐虐狂战士",
+      "pdfNameEn": "KHORNE BERZERKBR",
+      "cardName": "恐虐狂战士",
+      "englishName": "Khorne Berzerkers",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "所有模型均装备爆弹手枪和链锯斧",
+      "defaultEquipment": "链刃；爆弹手枪",
+      "isDefaultWeapons": [
+        "链刃",
+        "爆弹手枪"
+      ],
+      "pdfPage": 28,
+      "notes": ""
+    },
+    {
+      "pdfName": "豺狼邪教徒",
+      "pdfNameEn": "JAKHALS",
+      "cardName": "裂伤者",
+      "englishName": "Jakhals",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "豺狼领袖和豺狼邪教徒装备自动手枪和豺狼链锯剑；亵渎者装备亵渎者链锯剑",
+      "defaultEquipment": "双持捣碎器；自动手枪；链刃",
+      "isDefaultWeapons": [
+        "双持捣碎器",
+        "自动手枪",
+        "链刃"
+      ],
+      "pdfPage": 29,
+      "notes": ""
+    },
+    {
+      "pdfName": "洒血鬼教徒",
+      "pdfNameEn": "GOREMONGERS",
+      "cardName": "洒血狂",
+      "englishName": "Goremongers",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "所有模型均装备自动手枪、链锯刃和格斗武器",
+      "defaultEquipment": "自动手枪；近战武器；链刃",
+      "isDefaultWeapons": [
+        "自动手枪",
+        "近战武器",
+        "链刃"
+      ],
+      "pdfPage": 30,
+      "notes": ""
+    },
+    {
+      "pdfName": "八缚屠夫",
+      "pdfNameEn": "RIGHTBOUND",
+      "cardName": "八缚者",
+      "englishName": "Eightbound",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "八缚链锯拳",
+      "defaultEquipment": "链刃",
+      "isDefaultWeapons": [
+        "链刃"
+      ],
+      "pdfPage": 31,
+      "notes": ""
+    },
+    {
+      "pdfName": "神尊八缚屠夫",
+      "pdfNameEn": "EXALTED EIGHTBOUND",
+      "cardName": "高阶八缚者",
+      "englishName": "Exalted Eightbound",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "八缚链锯拳",
+      "defaultEquipment": "链刃",
+      "isDefaultWeapons": [
+        "链刃"
+      ],
+      "pdfPage": 32,
+      "notes": ""
+    },
+    {
+      "pdfName": "混沌终结者",
+      "pdfNameEn": "CHAOS TERMINATOR",
+      "cardName": "混沌终结者",
+      "englishName": "Chaos Terminators",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "复合爆弹枪；诅咒武器",
+      "defaultEquipment": "诅咒武器；组合爆弹枪",
+      "isDefaultWeapons": [
+        "诅咒武器",
+        "组合爆弹枪"
+      ],
+      "pdfPage": 33,
+      "notes": ""
+    },
+    {
+      "pdfName": "混沌卵",
+      "pdfNameEn": "CHAOS SPAWN",
+      "cardName": "混沌魔物",
+      "englishName": "Chaos Spawn",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "骇人畸变",
+      "defaultEquipment": "可怖突变",
+      "isDefaultWeapons": [
+        "可怖突变"
+      ],
+      "pdfPage": 34,
+      "notes": ""
+    },
+    {
+      "pdfName": "混沌犀牛运兵车",
+      "pdfNameEn": "CHAOS RHINO",
+      "cardName": "混沌犀牛战车",
+      "englishName": "Chaos Rhino",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "复合爆弹枪；装甲车体",
+      "defaultEquipment": "组合爆弹枪；装甲履带",
+      "isDefaultWeapons": [
+        "组合爆弹枪",
+        "装甲履带"
+      ],
+      "pdfPage": 35,
+      "notes": ""
+    },
+    {
+      "pdfName": "重锤魔",
+      "pdfNameEn": "MAULERFIEND",
+      "cardName": "重拳恶魔",
+      "englishName": "Maulerfiend",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "重锤魔铁拳；鞭笞触手",
+      "defaultEquipment": "撕裂魔拳；鞭击触须",
+      "isDefaultWeapons": [
+        "撕裂魔拳",
+        "鞭击触须"
+      ],
+      "pdfPage": 36,
+      "notes": ""
+    },
+    {
+      "pdfName": "煅炉魔",
+      "pdfNameEn": "FORGEFIEND",
+      "cardName": "铸造恶魔",
+      "englishName": "Forgefiend",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "2把哈迪斯自动炮；煅炉魔之颚",
+      "defaultEquipment": "黑帝斯自动炮；锻魔颚齿",
+      "isDefaultWeapons": [
+        "黑帝斯自动炮",
+        "锻魔颚齿"
+      ],
+      "pdfPage": 37,
+      "notes": ""
+    },
+    {
+      "pdfName": "亵渎者",
+      "pdfNameEn": "DEFILBR",
+      "cardName": "污染者",
+      "englishName": "Defiler",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "亵渎者加农炮；死神自动炮；双联重型喷火器；亵渎者利爪",
+      "defaultEquipment": "黑帝斯战斗加农炮；折磨者炮；重型飞弹发射器；重型业火喷射器；剪裁爪",
+      "isDefaultWeapons": [
+        "黑帝斯战斗加农炮",
+        "折磨者炮",
+        "重型飞弹发射器",
+        "重型业火喷射器",
+        "剪裁爪"
+      ],
+      "pdfPage": 38,
+      "notes": ""
+    },
+    {
+      "pdfName": "地獭兽",
+      "pdfNameEn": "HELBRUJTE",
+      "cardName": "地狱兽",
+      "englishName": "Helbrute",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "导弹发射器；多管热熔；格斗武器",
+      "defaultEquipment": "近战武器；飞弹发射器；多重热熔枪",
+      "isDefaultWeapons": [
+        "近战武器",
+        "飞弹发射器",
+        "多重热熔枪"
+      ],
+      "pdfPage": 39,
+      "notes": ""
+    },
+    {
+      "pdfName": "混沌歼灭型掠食者",
+      "pdfNameEn": "CHAOS PRADATORANNIHILATOR",
+      "cardName": "混沌歼灭者型掠食者战车",
+      "englishName": "Chaos Predator Annihilator",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "掠食者双联激光炮；装甲车体",
+      "defaultEquipment": "装甲履带；掠食者双联雷射加农炮",
+      "isDefaultWeapons": [
+        "装甲履带",
+        "掠食者双联雷射加农炮"
+      ],
+      "pdfPage": 40,
+      "notes": ""
+    },
+    {
+      "pdfName": "混沌破坏型掠食者",
+      "pdfNameEn": "CHAOS PRADATOR DESTRUCTOR",
+      "cardName": "混沌破坏者型掠食者战车",
+      "englishName": "Chaos Predator Destructor",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "掠食者自动炮；装甲车体",
+      "defaultEquipment": "装甲履带；掠食者自动加农炮",
+      "isDefaultWeapons": [
+        "装甲履带",
+        "掠食者自动加农炮"
+      ],
+      "pdfPage": 41,
+      "notes": ""
+    },
+    {
+      "pdfName": "混沌兰德掠袭者",
+      "pdfNameEn": "CHAOS IAND RADIRR",
+      "cardName": "混沌兰德掠袭者战车",
+      "englishName": "Chaos Land Raider",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "2把碎魂激光炮；双联重爆弹枪；装甲车体",
+      "defaultEquipment": "灵魂碎裂者雷射加农炮；双联重爆弹枪；装甲履带",
+      "isDefaultWeapons": [
+        "灵魂碎裂者雷射加农炮",
+        "双联重爆弹枪",
+        "装甲履带"
+      ],
+      "pdfPage": 42,
+      "notes": ""
+    },
+    {
+      "pdfName": "地狱飞龙",
+      "pdfNameEn": "HELDRAKE",
+      "cardName": "地狱魔龙",
+      "englishName": "Heldrake",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "哈迪斯自动炮；地狱龙爪",
+      "defaultEquipment": "黑帝斯自动炮；地狱龙利爪",
+      "isDefaultWeapons": [
+        "黑帝斯自动炮",
+        "地狱龙利爪"
+      ],
+      "pdfPage": 43,
+      "notes": ""
+    },
+    {
+      "pdfName": "恐虐颅骨之主",
+      "pdfNameEn": "KHORNE LORD OR SKULL",
+      "cardName": "恐虐颅骨之主",
+      "englishName": "Khorne Lord of Skulls",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "腥风加农炮；哈迪斯加特林炮；恐虐巨型砍刀",
+      "defaultEquipment": "血暴加农炮；克恩之大斩刀；黑帝斯加特林加农炮",
+      "isDefaultWeapons": [
+        "血暴加农炮",
+        "克恩之大斩刀",
+        "黑帝斯加特林加农炮"
+      ],
+      "pdfPage": 44,
+      "notes": ""
+    },
+    {
+      "pdfName": "斯卡布兰德",
+      "pdfNameEn": "SKARBRAND",
+      "cardName": "斯卡布兰德",
+      "englishName": "Skarbrand",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "无尽怒火咆哮；戮尽与屠灭",
+      "defaultEquipment": "屠杀与血腥；无尽狂怒怒吼",
+      "isDefaultWeapons": [
+        "屠杀与血腥",
+        "无尽狂怒怒吼"
+      ],
+      "pdfPage": 45,
+      "notes": ""
+    },
+    {
+      "pdfName": "嗜血狂魔",
+      "pdfNameEn": "BLOODTHIRSTER",
+      "cardName": "嗜血狂魔",
+      "englishName": "Bloodthirster",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "狱焰吐息；恐虐巨斧",
+      "defaultEquipment": "克恩大战斧；地狱火吐息",
+      "isDefaultWeapons": [
+        "克恩大战斧",
+        "地狱火吐息"
+      ],
+      "pdfPage": 46,
+      "notes": ""
+    },
+    {
+      "pdfName": "恐虐碾血者",
+      "pdfNameEn": "BLOODCRUSHRR",
+      "cardName": "碾血骑兵",
+      "englishName": "Bloodcrushers",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "地狱魔剑；钢牛锐角",
+      "defaultEquipment": "铜牛利角；地狱刃",
+      "isDefaultWeapons": [
+        "铜牛利角",
+        "地狱刃"
+      ],
+      "pdfPage": 47,
+      "notes": ""
+    },
+    {
+      "pdfName": "放血鬼",
+      "pdfNameEn": "BLOODLETTRR",
+      "cardName": "放血者",
+      "englishName": "Bloodletters",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "地狱魔剑",
+      "defaultEquipment": "地狱刃",
+      "isDefaultWeapons": [
+        "地狱刃"
+      ],
+      "pdfPage": 48,
+      "notes": ""
+    },
+    {
+      "pdfName": "觅血猎犬",
+      "pdfNameEn": "FLESH HOUNDS",
+      "cardName": "血肉猎犬",
+      "englishName": "Flesh Hounds",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "恐虐黄铜项圈；鲜血猎犬额外装备怒火咆哮",
+      "defaultEquipment": "血染獠牙；燃烧咆哮",
+      "isDefaultWeapons": [
+        "血染獠牙",
+        "燃烧咆哮"
+      ],
+      "pdfPage": 49,
+      "notes": ""
+    }
+  ],
+  "detachments": [],
+  "unitAliases": {
+    "领主因维卡图斯": "因维卡图斯尊主",
+    "屠缚战狂": "缚魔战狂",
+    "钢牛领主": "骑铁甲兽的领主",
+    "枭首魔将": "斩首大师",
+    "恐虐恶魔壬子": "恐虐恶魔亲王",
+    "有翼恐虐恶魔壬子": "有翼恐虐恶魔亲王",
+    "豺狼邪教徒": "裂伤者",
+    "洒血鬼教徒": "洒血狂",
+    "八缚屠夫": "八缚者",
+    "神尊八缚屠夫": "高阶八缚者",
+    "混沌卵": "混沌魔物",
+    "混沌犀牛运兵车": "混沌犀牛战车",
+    "重锤魔": "重拳恶魔",
+    "煅炉魔": "铸造恶魔",
+    "亵渎者": "污染者",
+    "地獭兽": "地狱兽",
+    "混沌歼灭型掠食者": "混沌歼灭者型掠食者战车",
+    "混沌破坏型掠食者": "混沌破坏者型掠食者战车",
+    "混沌兰德掠袭者": "混沌兰德掠袭者战车",
+    "地狱飞龙": "地狱魔龙",
+    "恐虐碾血者": "碾血骑兵",
+    "放血鬼": "放血者",
+    "觅血猎犬": "血肉猎犬"
+  },
+  "detachmentAliases": {},
+  "issues": [
+    "PDF 为 DavidZ 版 10 版；吞世者数据卡为 11 版网站数据。PDF 共 30 个单位卡页（p20-49），本次全部覆盖。",
+    "分遣队（狂战士战帮/鲜血邪教/渴血教群/魔缚屠夫/血履强袭/恐虐魔裔/怒火容器，p2-19）与 registry 的吞世者分遣队名称不同（DavidZ 译名 vs 网站译名），需由分遣队别名合入步骤处理。",
+    "p23 屠缚战狂、p24 钢牛领主等数据卡武器名与 PDF 名称存在译名差异，已按数据卡 weapons[] 规范名映射（核对英文名与属性）。",
+    "p44 恐虐颅骨之主 PDF 默认装备为『腥风加农炮；哈迪斯加特林炮；恐虐巨型砍刀』，数据卡默认含 克恩之大斩刀×2（重击/横扫），已按数据卡规范名收录。",
+    "p20 安格隆 PDF 装备为『萨米瑞斯与碎脊者』，数据卡武器名为 萨姆尼亚瑞斯与脊刺绞杀者（两个模式），收录一份基础名。"
+  ]
+}

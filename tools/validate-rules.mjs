@@ -461,8 +461,32 @@ assert(resolve("帝皇禁军", "控诉者", puritySelections, { phase: "ranged" 
 const spacedKeywords = context.WarhammerKeywordDictionary.parse(["毁灭伤 害", "洪流"]);
 assert(spacedKeywords.some((effect) => effect.type === "devastating-wounds"), "核心词条解析必须容忍 PDF 在毁灭伤害中插入空格");
 assert(spacedKeywords.some((effect) => effect.type === "torrent"), "核心词条字典必须识别洪流的官方中文名");
+const devastatingVariants = context.WarhammerKeywordDictionary.parse(["毁灭性创伤", "毁灭性伤害", "毁灭伤口"]);
+assert(devastatingVariants.filter((effect) => effect.type === "devastating-wounds").length === 3, "核心词条字典必须同时识别毁灭性创伤/毁灭性伤害/毁灭伤口的官方与 OCR 中文变体");
+// 40K Command Center 官方词表(11e 繁中)与社区 PDF(10e/11e 简中)的词条变体全覆盖：
+// 连击/連擊(sustained)、单发/一次性/單發(one-shot)、针对/反/針對(anti)、速射(rapid fire) 等。
+// 反X/一次性 已在星际战士11版/死亡守卫/沃坦/艾达灵族/钛帝国等 PDF 实证出现。
+const glossaryAndPdfVariants = context.WarhammerKeywordDictionary.parse([
+  "連擊2", "單發", "針對載具4+", "反步兵4+", "反載具5+", "反巨兽4+", "反人物5+",
+  "毀滅傷害", "雙聯", "突擊", "近距離", "額外攻擊", "危險", "無視掩體", "騎槍", "手槍", "精準", "靈能", "致命一擊",
+]);
+const variantTypes = {
+  "連擊2": "sustained-hits", "單發": "one-shot", "針對載具4+": "anti-keyword", "反步兵4+": "anti-keyword",
+  "反載具5+": "anti-keyword", "反巨兽4+": "anti-keyword", "反人物5+": "anti-keyword", "毀滅傷害": "devastating-wounds",
+  "雙聯": "twin-linked", "突擊": "assault", "近距離": "close-range", "額外攻擊": "extra-attacks", "危險": "hazardous",
+  "無視掩體": "ignores-cover", "騎槍": "lance", "手槍": "pistol", "精準": "precision", "靈能": "psychic", "致命一擊": "lethal-hits",
+};
+for (const [variant, expectedType] of Object.entries(variantTypes)) {
+  assert(glossaryAndPdfVariants.some((effect) => effect.type === expectedType), `词条变体「${variant}」必须解析为 ${expectedType}`);
+}
+const antiVariantTargets = context.WarhammerKeywordDictionary.parse(["反載具5+", "反巨兽4+"]);
+assert(antiVariantTargets.some((effect) => effect.type === "anti-keyword" && effect.target === "vehicle" && effect.threshold === 5), "反載具5+ 必须解析为针对载具的暴击造伤阈值");
+assert(antiVariantTargets.some((effect) => effect.type === "anti-keyword" && effect.target === "monster" && effect.threshold === 4), "反巨兽4+ 必须解析为针对巨兽的暴击造伤阈值");
+// 防误报：技能/计谋名里的词条子串不得被当作词条（炽烈连射、快速射击战略技能、爆裂枪）。
+const falsePositiveProtection = context.WarhammerKeywordDictionary.parse(["炽烈连射", "快速射击", "爆裂枪", "双管连射枪"]);
+assert(!falsePositiveProtection.some((effect) => effect.type === "sustained-hits" || effect.type === "rapid-fire" || effect.type === "blast"), "技能/计谋名中的「连射」「快速射击」「爆裂」不得被误解析为词条");
 const allCoreWeaponAbilities = context.WarhammerKeywordDictionary.parse([
-  "针对载具4+", "突击", "爆炸2", "劈砍1", "近距离", "毁灭伤害", "额外攻击", "危险", "重型",
+  "针对载具4+", "突击", "爆炸2", "劈砍1", "近距离", "毁灭性创伤", "额外攻击", "危险", "重型",
   "无视掩体", "曲射", "骑枪", "致命一击", "热熔2", "单发", "手枪", "精准", "灵能", "速射3", "连击2", "洪流", "双联",
 ]);
 for (const type of [

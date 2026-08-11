@@ -1,0 +1,281 @@
+{
+  "faction": "帝国特勤",
+  "factionId": "agents-of-imperium",
+  "pdfFile": "帝国特勤中文 (1).pdf",
+  "extractionMethod": "text",
+  "dataCardFile": "docs/data/帝国特勤/帝国特勤-结构化数据卡.json",
+  "units": [
+    {
+      "pdfName": "文迪卡刺客",
+      "cardName": "文迪卡刺客",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "致死手枪；致死步枪；文迪卡格斗刀",
+      "defaultEquipment": "鸿运手枪；鸿运步枪；刺客匕首",
+      "isDefaultWeapons": [
+        "鸿运手枪",
+        "鸿运步枪",
+        "刺客匕首"
+      ],
+      "pdfPage": 3,
+      "notes": "致死手枪->鸿运手枪(stats-3of4:A3 S5 AP-2 D3)；致死步枪->鸿运步枪(stats-3of4:A1 S7 AP-3 DD3+3)；文迪卡格斗刀->刺客匕首(stats)"
+    },
+    {
+      "pdfName": "丘里克斯刺客",
+      "cardName": "丘里克斯刺客",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "憎恶视镜；吸魂之触",
+      "defaultEquipment": "厌灵者；吸魂之触",
+      "isDefaultWeapons": [
+        "厌灵者",
+        "吸魂之触"
+      ],
+      "pdfPage": 5,
+      "notes": "憎恶视镜->厌灵者(stats)"
+    },
+    {
+      "pdfName": "艾弗森刺客",
+      "cardName": "艾弗森刺客",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "处刑者手枪；动力剑与神经拳爪",
+      "defaultEquipment": "处决者手枪；动力剑与神经手套",
+      "isDefaultWeapons": [
+        "处决者手枪",
+        "动力剑与神经手套"
+      ],
+      "pdfPage": 7,
+      "notes": "处刑者手枪->处决者手枪(stats)；动力剑与神经拳爪->动力剑与神经手套(stats;table:table-typo:动力剑和神经拳爪)"
+    },
+    {
+      "pdfName": "卡里杜斯刺客",
+      "cardName": "卡里杜斯刺客",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "神经粉碎枪；相位剑与毒刃",
+      "defaultEquipment": "神经碎裂者；相位剑与毒刃",
+      "isDefaultWeapons": [
+        "神经碎裂者",
+        "相位剑与毒刃"
+      ],
+      "pdfPage": 9,
+      "notes": "神经粉碎枪->神经碎裂者(stats)"
+    },
+    {
+      "pdfName": "行商团队",
+      "cardName": "行商团队",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "传家宝手枪；单分子杖剑；毒镖面具；死亡教派动力剑；伏打手枪；格斗武器；激光手枪；格斗武器；治疗药剂",
+      "defaultEquipment": "家族手枪；单分子杖剑；飞镖面具；死亡教团能量刃；电能手枪；近战武器；雷射手枪",
+      "isDefaultWeapons": [
+        "家族手枪",
+        "单分子杖剑",
+        "飞镖面具",
+        "死亡教团能量刃",
+        "电能手枪",
+        "近战武器",
+        "雷射手枪"
+      ],
+      "pdfPage": 11,
+      "notes": "传家宝手枪->家族手枪(stats)；毒镖面具->飞镖面具(stats;table:table-typo:飞镖面具)；死亡教派动力剑->死亡教团能量刃(stats)；伏打手枪->电能手枪(stats)；格斗武器->近战武器(stats)；激光手枪->雷射手枪(stats)；格斗武器->近战武器(stats)"
+    },
+    {
+      "pdfName": "武装船兵",
+      "cardName": "武装船兵",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "精工级霰弹枪；激光手枪；格斗武器；激光枪；激光手枪；格斗武器；凶狠撕咬",
+      "defaultEquipment": "工匠散弹枪；雷射手枪；近战武器；猛犬撕咬",
+      "isDefaultWeapons": [
+        "工匠散弹枪",
+        "雷射手枪",
+        "近战武器",
+        "猛犬撕咬"
+      ],
+      "pdfPage": 13,
+      "notes": "精工级霰弹枪->工匠散弹枪(stats)；激光手枪->雷射手枪(stats-multi:2 variants)；格斗武器->近战武器(stats)；激光枪->雷射手枪(stats-multi:2 variants)；激光手枪->雷射手枪(stats-multi:2 variants)；格斗武器->近战武器(stats)；凶狠撕咬->猛犬撕咬(stats)"
+    },
+    {
+      "pdfName": "帝国海军跳帮者",
+      "cardName": "帝国海军跳帮者",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "海军激光齐射枪；格斗武器；海军重型霰弹枪；格斗武器；◦ 1 把热熔枪 坚忍者盾牌；海军霰弹枪；格斗武器",
+      "defaultEquipment": "舰载雷射连发；近战武器；舰载重型散弹枪；舰载散弹枪",
+      "isDefaultWeapons": [
+        "舰载雷射连发",
+        "近战武器",
+        "舰载重型散弹枪",
+        "舰载散弹枪"
+      ],
+      "pdfPage": 15,
+      "notes": "海军激光齐射枪->舰载雷射连发(stats)；格斗武器->近战武器(stats)；海军重型霰弹枪->舰载重型散弹枪(stats)；格斗武器->近战武器(stats)；海军霰弹枪->舰载散弹枪(stats)；格斗武器->近战武器(stats)"
+    },
+    {
+      "pdfName": "冲覆者小队",
+      "cardName": "冲覆者小队",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "裁决官霰弹手枪；震慑之棰；机械啃咬",
+      "defaultEquipment": "仲裁者短管手枪；电击警棍；机械啃咬",
+      "isDefaultWeapons": [
+        "仲裁者短管手枪",
+        "电击警棍",
+        "机械啃咬"
+      ],
+      "pdfPage": 17,
+      "notes": "裁决官霰弹手枪->仲裁者短管手枪(stats)；震慑之棰->电击警棍(stats)"
+    },
+    {
+      "pdfName": "强征小队",
+      "cardName": "强征小队",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "裁决官战斗霰弹枪；◦ 1 把重机枪 裁决官霰弹手枪；格斗武器；机械啃咬",
+      "defaultEquipment": "仲裁者战斗散弹枪；仲裁者短管手枪；近战武器；机械啃咬",
+      "isDefaultWeapons": [
+        "仲裁者战斗散弹枪",
+        "仲裁者短管手枪",
+        "近战武器",
+        "机械啃咬"
+      ],
+      "pdfPage": 19,
+      "notes": "裁决官战斗霰弹枪->仲裁者战斗散弹枪(stats)；重机枪 裁决官霰弹手枪->仲裁者短管手枪(stats;table:table-typo:裁决官霰弹手枪)；格斗武器->近战武器(stats)"
+    },
+    {
+      "pdfName": "警戒者小队",
+      "cardName": "警戒者小队",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "裁决官战斗霰弹枪；裁决◦ 1 把重机枪 官霰弹手枪；格斗武器；机械啃咬",
+      "defaultEquipment": "仲裁者战斗散弹枪；仲裁者短管手枪；近战武器；机械啃咬",
+      "isDefaultWeapons": [
+        "仲裁者战斗散弹枪",
+        "仲裁者短管手枪",
+        "近战武器",
+        "机械啃咬"
+      ],
+      "pdfPage": 21,
+      "notes": "裁决官战斗霰弹枪->仲裁者战斗散弹枪(stats)；裁决◦ 1 把重机枪 官霰弹手枪->仲裁者短管手枪(stats;table:table-typo:裁决官霰弹手枪)；格斗武器->近战武器(stats)"
+    },
+    {
+      "pdfName": "审判领主奇莉亚·德拉克瑟斯",
+      "cardName": "审判官德拉克瑟斯",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "哀悼歌者；灵能风暴；动力拳套",
+      "defaultEquipment": "哀歌者；灵能暴风；动力拳套",
+      "isDefaultWeapons": [
+        "哀歌者",
+        "灵能暴风",
+        "动力拳套"
+      ],
+      "pdfPage": 23,
+      "notes": "哀悼歌者->哀歌者(stats)；灵能风暴->灵能暴风(stats)"
+    },
+    {
+      "pdfName": "审判官克提兹",
+      "cardName": "审判官克提兹",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "爆矢手枪；灵能冲击；天罚恶魔锤",
+      "defaultEquipment": "爆弹手枪；灵能冲击；复仇恶魔锤",
+      "isDefaultWeapons": [
+        "爆弹手枪",
+        "灵能冲击",
+        "复仇恶魔锤"
+      ],
+      "pdfPage": 25,
+      "notes": "爆矢手枪->爆弹手枪(stats)；天罚恶魔锤->复仇恶魔锤(stats)"
+    },
+    {
+      "pdfName": "审判官格雷法克斯",
+      "cardName": "审判官格雷法克斯",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "惩戒；降罪者之柱；大师级动力剑",
+      "defaultEquipment": "惩罚术；管制者钉；工匠级能量剑",
+      "isDefaultWeapons": [
+        "惩罚术",
+        "管制者钉",
+        "工匠级能量剑"
+      ],
+      "pdfPage": 27,
+      "notes": "惩戒->惩罚术(stats)；降罪者之柱->管制者钉(stats)；大师级动力剑->工匠级能量剑(stats)"
+    },
+    {
+      "pdfName": "审判官卡拉马佐夫",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "",
+      "pdfDefaultEquipment": "大师级多管热熔枪；大师级动力剑",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 29,
+      "notes": ""
+    },
+    {
+      "pdfName": "审判官",
+      "cardName": "审判官",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "爆矢手枪；审判庭近战武器；祝福守护",
+      "defaultEquipment": "爆弹手枪；审判庭近战武器",
+      "isDefaultWeapons": [
+        "爆弹手枪",
+        "审判庭近战武器"
+      ],
+      "pdfPage": 31,
+      "notes": "爆矢手枪->爆弹手枪(stats)"
+    },
+    {
+      "pdfName": "审判官艾森霍恩",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "",
+      "pdfDefaultEquipment": "精工级爆矢手枪；心灵突袭；符文杖和野蛮之剑",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 33,
+      "notes": ""
+    },
+    {
+      "pdfName": "审判官亲信",
+      "cardName": "审判庭特勤",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "侍仆枪械；侍仆近战武器；重型爆矢枪；侍仆近战武器；侍仆枪械；侍仆近战武器；太空猿猴武器；侍仆近战武器；邪恶凝视；扭曲之握",
+      "defaultEquipment": "特务火器；特务近战武器；重型爆弹枪",
+      "isDefaultWeapons": [
+        "特务火器",
+        "特务近战武器",
+        "重型爆弹枪"
+      ],
+      "pdfPage": 35,
+      "notes": "侍仆枪械->特务火器(stats)；侍仆近战武器->特务近战武器(stats)；重型爆矢枪->重型爆弹枪(stats)；侍仆近战武器->特务近战武器(stats)；侍仆枪械->特务火器(stats)；侍仆近战武器->特务近战武器(stats)；侍仆近战武器->特务近战武器(stats)"
+    }
+  ],
+  "detachments": [],
+  "unitAliases": {
+    "审判领主奇莉亚·德拉克瑟斯": "审判官德拉克瑟斯",
+    "审判官亲信": "审判庭特勤"
+  },
+  "detachmentAliases": {},
+  "issues": [
+    "unit \"行商团队\" (p11) weapon item \"治疗药剂\" unmapped",
+    "unit \"帝国海军跳帮者\" (p15) weapon item \"热熔枪 坚忍者盾牌\" unmapped",
+    "unit \"审判官卡拉马佐夫\" (p29) unmatched to any data card",
+    "unit \"审判官卡拉马佐夫\" (p29) weapon item \"大师级多管热熔枪\" unmapped",
+    "unit \"审判官卡拉马佐夫\" (p29) weapon item \"大师级动力剑\" unmapped",
+    "unit \"审判官\" (p31) weapon item \"祝福守护\" unmapped",
+    "unit \"审判官艾森霍恩\" (p33) unmatched to any data card",
+    "unit \"审判官艾森霍恩\" (p33) weapon item \"精工级爆矢手枪\" unmapped",
+    "unit \"审判官艾森霍恩\" (p33) weapon item \"心灵突袭\" unmapped",
+    "unit \"审判官艾森霍恩\" (p33) weapon item \"符文杖和野蛮之剑\" unmapped",
+    "unit \"审判官亲信\" (p35) weapon item \"太空猿猴武器\" unmapped",
+    "unit \"审判官亲信\" (p35) weapon item \"邪恶凝视\" unmapped",
+    "unit \"审判官亲信\" (p35) weapon item \"扭曲之握\" unmapped"
+  ]
+}

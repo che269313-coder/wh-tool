@@ -1,0 +1,409 @@
+{
+  "dryRun": false,
+  "summary": {
+    "factions": 19,
+    "units": 650,
+    "unitAliases": 361,
+    "detachmentAliases": 24
+  },
+  "countEnhancedUnits": 42,
+  "countExamples": [
+    {
+      "factionId": "adepta-sororitas",
+      "cardName": "悔罪者机甲",
+      "before": "双联忏悔电锯刃；重型爆弹枪",
+      "after": "双联忏悔电锯刃；2x 重型爆弹枪"
+    },
+    {
+      "factionId": "adepta-sororitas",
+      "cardName": "惩戒者坦克",
+      "before": "重型爆弹枪；装甲履带；惩罚者自动炮",
+      "after": "3x 重型爆弹枪；装甲履带；惩罚者自动炮"
+    },
+    {
+      "factionId": "adeptus-mechanicus",
+      "cardName": "始祖攻击机",
+      "before": "双联认知雷射炮；认知重型机枪；重型电磷喷射器；装甲车体",
+      "after": "双联认知雷射炮；2x 认知重型机枪；重型电磷喷射器；装甲车体"
+    },
+    {
+      "factionId": "aeldari",
+      "cardName": "战争行者",
+      "before": "星镖炮",
+      "after": "2x 星镖炮"
+    },
+    {
+      "factionId": "aeldari",
+      "cardName": "幽冥领主",
+      "before": "星镖枪；灵骨之拳",
+      "after": "2x 星镖枪；灵骨之拳"
+    },
+    {
+      "factionId": "aeldari",
+      "cardName": "织虚者飞艇",
+      "before": "星镖炮",
+      "after": "2x 星镖炮"
+    },
+    {
+      "factionId": "chaos-knights",
+      "cardName": "战犬处决者",
+      "before": "恶魔重磁暴炮；战犬自动炮；装甲足",
+      "after": "恶魔重磁暴炮；2x 战犬自动炮；装甲足"
+    },
+    {
+      "factionId": "chaos-knights",
+      "cardName": "暴君骑士",
+      "before": "硫磺火山长矛；幽灵电浆灭绝者；幽击飞弹发射器；双联恶魔吐息热熔枪；双联亵渎者加农炮；泰坦践踏",
+      "after": "硫磺火山长矛；幽灵电浆灭绝者；2x 幽击飞弹发射器；2x 双联恶魔吐息热熔枪；双联亵渎者加农炮；泰坦践踏"
+    },
+    {
+      "factionId": "chaos-knights",
+      "cardName": "混沌牛头怪型阿卡斯托斯骑士",
+      "before": "阿斯特里乌斯沃尔克特库弗林炮；卡拉克诺斯迫击炮组；双联转换光束加农炮；泰坦践踏",
+      "after": "阿斯特里乌斯沃尔克特库弗林炮；卡拉克诺斯迫击炮组；2x 双联转换光束加农炮；泰坦践踏"
+    },
+    {
+      "factionId": "chaos-knights",
+      "cardName": "混沌巨人王型阿卡斯托斯骑士",
+      "before": "阿卡斯图斯机炮；阿卡斯图斯铁风暴飞弹舱；双联玛格纳雷射炮；泰坦践踏",
+      "after": "阿卡斯图斯机炮；阿卡斯图斯铁风暴飞弹舱；2x 双联玛格纳雷射炮；泰坦践踏"
+    },
+    {
+      "factionId": "chaos-space-marines",
+      "cardName": "剧毒爬行者",
+      "before": "折磨者炮；灵魂撕裂触手和爪",
+      "after": "2x 折磨者炮；灵魂撕裂触手和爪"
+    },
+    {
+      "factionId": "chaos-space-marines",
+      "cardName": "铸造恶魔",
+      "before": "黑帝斯自动炮；锻魔颚齿",
+      "after": "2x 黑帝斯自动炮；锻魔颚齿"
+    },
+    {
+      "factionId": "chaos-space-marines",
+      "cardName": "混沌兰德掠袭者战车",
+      "before": "双联重爆弹枪；灵魂碎裂者雷射加农炮；装甲履带",
+      "after": "双联重爆弹枪；2x 灵魂碎裂者雷射加农炮；装甲履带"
+    },
+    {
+      "factionId": "drukhari",
+      "cardName": "破坏者飞艇",
+      "before": "刃翼；黑暗长矛",
+      "after": "刃翼；3x 黑暗长矛"
+    },
+    {
+      "factionId": "drukhari",
+      "cardName": "刃翼战机",
+      "before": "黑暗长矛；剃刀翼飞弹；双联碎片步枪；刃翼",
+      "after": "2x 黑暗长矛；剃刀翼飞弹；双联碎片步枪；刃翼"
+    },
+    {
+      "factionId": "drukhari",
+      "cardName": "塔洛斯",
+      "before": "双联碎裂加农炮；巨型手术刀",
+      "after": "双联碎裂加农炮；2x 巨型手术刀"
+    },
+    {
+      "factionId": "drukhari",
+      "cardName": "虚空鸦轰炸机",
+      "before": "虚空长矛；刃翼",
+      "after": "2x 虚空长矛；刃翼"
+    },
+    {
+      "factionId": "emperors-children",
+      "cardName": "混沌兰德掠袭者战车",
+      "before": "灵魂碎裂者雷射加农炮；双联重爆弹枪；装甲履带",
+      "after": "2x 灵魂碎裂者雷射加农炮；双联重爆弹枪；装甲履带"
+    },
+    {
+      "factionId": "imperial-knights",
+      "cardName": "护卫侍从",
+      "before": "装甲足；装甲骑士自动炮；奎斯托里斯重磁暴炮",
+      "after": "装甲足；2x 装甲骑士自动炮；奎斯托里斯重磁暴炮"
+    },
+    {
+      "factionId": "imperial-knights",
+      "cardName": "堡主骑士",
+      "before": "电浆毁灭者；护盾破坏飞弹发射器；双联热熔枪；双联裂空炮；火山长矛；泰坦践踏",
+      "after": "电浆毁灭者；2x 护盾破坏飞弹发射器；2x 双联热熔枪；双联裂空炮；火山长矛；泰坦践踏"
+    },
+    {
+      "factionId": "imperial-knights",
+      "cardName": "英勇骑士",
+      "before": "双联裂空炮；护盾破坏飞弹发射器；烈焰炮；泰坦践踏；双联热熔枪；雷霆线圈鱼叉",
+      "after": "双联裂空炮；2x 护盾破坏飞弹发射器；烈焰炮；泰坦践踏；2x 双联热熔枪；雷霆线圈鱼叉"
+    },
+    {
+      "factionId": "leagues-of-votann",
+      "cardName": "赫卡顿陆行要塞",
+      "before": "MATR自动加农炮；双联爆弹炮；循环离子炮；装甲轮胎",
+      "after": "MATR自动加农炮；2x 双联爆弹炮；循环离子炮；装甲轮胎"
+    },
+    {
+      "factionId": "necrons",
+      "cardName": "末日方舟",
+      "before": "末日加农炮；高斯射线阵列；装甲巨体",
+      "after": "末日加农炮；2x 高斯射线阵列；装甲巨体"
+    },
+    {
+      "factionId": "necrons",
+      "cardName": "立方体方舟",
+      "before": "传导奇点室（粒子）；特斯拉加农炮；装甲巨体",
+      "after": "传导奇点室（粒子）；2x 特斯拉加农炮；装甲巨体"
+    },
+    {
+      "factionId": "tau-empire",
+      "cardName": "指挥官影阳",
+      "before": "脉冲手枪；战斗服拳；飞镖发射器；高能融炉爆破枪；轻脉冲发射器",
+      "after": "脉冲手枪；战斗服拳；飞镖发射器；2x 高能融炉爆破枪；轻脉冲发射器"
+    },
+    {
+      "factionId": "tau-empire",
+      "cardName": "危机阳铸战斗服",
+      "before": "战斗服拳；融合爆破器",
+      "after": "战斗服拳；2x 融合爆破器"
+    },
+    {
+      "factionId": "tau-empire",
+      "cardName": "食人鱼战机",
+      "before": "比拉那炮火炮；双联脉冲卡宾枪；装甲车体",
+      "after": "比拉那炮火炮；2x 双联脉冲卡宾枪；装甲车体"
+    },
+    {
+      "factionId": "tau-empire",
+      "cardName": "锤头鲨炮艇",
+      "before": "轨道炮；双联脉冲卡宾枪",
+      "after": "轨道炮；2x 双联脉冲卡宾枪"
+    },
+    {
+      "factionId": "tau-empire",
+      "cardName": "天鳐炮艇",
+      "before": "寻的飞弹架；双联脉冲卡宾枪；装甲车体",
+      "after": "寻的飞弹架；2x 双联脉冲卡宾枪；装甲车体"
+    },
+    {
+      "factionId": "tau-empire",
+      "cardName": "魔鬼鱼运输艇",
+      "before": "加速连射炮；双联脉冲卡宾枪；装甲车体",
+      "after": "加速连射炮；2x 双联脉冲卡宾枪；装甲车体"
+    },
+    {
+      "factionId": "tau-empire",
+      "cardName": "剃刀鲨歼击机",
+      "before": "加速连射炮；四联离子炮塔；寻的飞弹",
+      "after": "加速连射炮；四联离子炮塔；2x 寻的飞弹"
+    },
+    {
+      "factionId": "tau-empire",
+      "cardName": "太阳鲨轰炸机",
+      "before": "双联离子步枪；双联飞弹炮座；寻的飞弹",
+      "after": "2x 双联离子步枪；双联飞弹炮座；2x 寻的飞弹"
+    },
+    {
+      "factionId": "tau-empire",
+      "cardName": "虎鲨战斗轰炸机",
+      "before": "连射炮；离子炮",
+      "after": "2x 连射炮；2x 离子炮"
+    },
+    {
+      "factionId": "tau-empire",
+      "cardName": "AX-1-0 虎鲨攻击机",
+      "before": "连射炮；飞弹舱",
+      "after": "2x 连射炮；2x 飞弹舱"
+    },
+    {
+      "factionId": "tau-empire",
+      "cardName": "塔’乌纳至高机甲",
+      "before": "连射炮；融合根除器；脉冲重炮驱动器；摧毁足",
+      "after": "4x 连射炮；融合根除器；3x 脉冲重炮驱动器；摧毁足"
+    },
+    {
+      "factionId": "tau-empire",
+      "cardName": "蝠鱝登陆舰",
+      "before": "重型轨道炮；离子炮；长管连射炮阵列；飞弹舱；寻的飞弹；装甲车体",
+      "after": "2x 重型轨道炮；6x 离子炮；2x 长管连射炮阵列；2x 飞弹舱；10x 寻的飞弹；装甲车体"
+    },
+    {
+      "factionId": "tau-empire",
+      "cardName": "泰特拉侦察飞艇",
+      "before": "脉冲卡宾枪",
+      "after": "2x 脉冲卡宾枪"
+    },
+    {
+      "factionId": "tau-empire",
+      "cardName": "雷莫拉隐形无人机",
+      "before": "双联远程脉冲步枪；寻的飞弹",
+      "after": "双联远程脉冲步枪；2x 寻的飞弹"
+    },
+    {
+      "factionId": "thousand-sons",
+      "cardName": "混沌兰德掠袭者战车",
+      "before": "灵魂碎裂者雷射加农炮；双联业火重爆弹枪；装甲履带",
+      "after": "2x 灵魂碎裂者雷射加农炮；双联业火重爆弹枪；装甲履带"
+    },
+    {
+      "factionId": "thousand-sons",
+      "cardName": "铸造恶魔",
+      "before": "黑帝斯自动炮；锻魔颚齿",
+      "after": "2x 黑帝斯自动炮；锻魔颚齿"
+    },
+    {
+      "factionId": "world-eaters",
+      "cardName": "铸造恶魔",
+      "before": "黑帝斯自动炮；锻魔颚齿",
+      "after": "2x 黑帝斯自动炮；锻魔颚齿"
+    },
+    {
+      "factionId": "world-eaters",
+      "cardName": "混沌兰德掠袭者战车",
+      "before": "灵魂碎裂者雷射加农炮；双联重爆弹枪；装甲履带",
+      "after": "2x 灵魂碎裂者雷射加农炮；双联重爆弹枪；装甲履带"
+    }
+  ],
+  "factionStats": [
+    {
+      "factionId": "adepta-sororitas",
+      "faction": "修女会",
+      "units": 29,
+      "unitAliases": 19,
+      "detachmentAliases": 0
+    },
+    {
+      "factionId": "adeptus-mechanicus",
+      "faction": "机械修会",
+      "units": 26,
+      "unitAliases": 22,
+      "detachmentAliases": 0
+    },
+    {
+      "factionId": "aeldari",
+      "faction": "艾达灵族",
+      "units": 55,
+      "unitAliases": 21,
+      "detachmentAliases": 4
+    },
+    {
+      "factionId": "agents-of-imperium",
+      "faction": "帝国特勤",
+      "units": 15,
+      "unitAliases": 2,
+      "detachmentAliases": 0
+    },
+    {
+      "factionId": "astra-militarum",
+      "faction": "星界军",
+      "units": 50,
+      "unitAliases": 33,
+      "detachmentAliases": 0
+    },
+    {
+      "factionId": "chaos-daemons",
+      "faction": "混沌恶魔",
+      "units": 48,
+      "unitAliases": 30,
+      "detachmentAliases": 1
+    },
+    {
+      "factionId": "chaos-knights",
+      "faction": "混沌骑士",
+      "units": 20,
+      "unitAliases": 9,
+      "detachmentAliases": 4
+    },
+    {
+      "factionId": "chaos-space-marines",
+      "faction": "混沌星际战士",
+      "units": 46,
+      "unitAliases": 27,
+      "detachmentAliases": 0
+    },
+    {
+      "factionId": "drukhari",
+      "faction": "黑暗灵族",
+      "units": 24,
+      "unitAliases": 4,
+      "detachmentAliases": 0
+    },
+    {
+      "factionId": "emperors-children",
+      "faction": "帝皇之子",
+      "units": 22,
+      "unitAliases": 12,
+      "detachmentAliases": 0
+    },
+    {
+      "factionId": "genestealer-cults",
+      "faction": "基因窃取者教派",
+      "units": 24,
+      "unitAliases": 16,
+      "detachmentAliases": 0
+    },
+    {
+      "factionId": "imperial-knights",
+      "faction": "帝国骑士",
+      "units": 12,
+      "unitAliases": 2,
+      "detachmentAliases": 0
+    },
+    {
+      "factionId": "leagues-of-votann",
+      "faction": "沃坦联盟",
+      "units": 21,
+      "unitAliases": 12,
+      "detachmentAliases": 6
+    },
+    {
+      "factionId": "necrons",
+      "faction": "太空死灵",
+      "units": 57,
+      "unitAliases": 46,
+      "detachmentAliases": 0
+    },
+    {
+      "factionId": "orks",
+      "faction": "欧克兽人",
+      "units": 52,
+      "unitAliases": 1,
+      "detachmentAliases": 0
+    },
+    {
+      "factionId": "tau-empire",
+      "faction": "钛帝国",
+      "units": 55,
+      "unitAliases": 57,
+      "detachmentAliases": 3
+    },
+    {
+      "factionId": "thousand-sons",
+      "faction": "千子",
+      "units": 34,
+      "unitAliases": 19,
+      "detachmentAliases": 6
+    },
+    {
+      "factionId": "tyranids",
+      "faction": "泰伦虫族",
+      "units": 30,
+      "unitAliases": 6,
+      "detachmentAliases": 0
+    },
+    {
+      "factionId": "world-eaters",
+      "faction": "吞世者",
+      "units": 30,
+      "unitAliases": 23,
+      "detachmentAliases": 0
+    }
+  ],
+  "aliasConflicts": [
+    {
+      "factionId": "chaos-space-marines",
+      "alias": "犀牛装用车",
+      "oldValue": "修女会犀牛装甲车",
+      "newValue": "混沌犀牛战车",
+      "source": "跨阵营重复（adepta-sororitas 已有 犀牛装用车→修女会犀牛装甲车）"
+    }
+  ],
+  "note": "数值为首次合入累计；最后一次幂等重跑未新增任何条目（unitAliases=0, detachmentAliases=0）。"
+}

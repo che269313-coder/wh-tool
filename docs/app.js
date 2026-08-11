@@ -596,6 +596,55 @@ function weaponMatchesEquipmentText(weapon, equipmentText) {
   return name && source.includes(name);
 }
 
+const normalizeCalculatorWeaponName = (value) => String(value || "")
+  .replace(/[\s\u00a0·・,，。:：()（）\[\]【】"“”'"']/g, "")
+  .toLowerCase();
+
+// 从默认装备文本解析武器数量（数据卡路径）：按 [；;，,、] 分段，段形如
+// 「2x 星镖炮」→ {星镖炮: 2}，「星镖炮」→ 1。段首紧跟人数量词（名/位/员）、
+// 名字过长或含叙述性字眼时视为对模型计数，忽略（与合入脚本的解析一致）。
+const narrativeCountPattern = /装备|携带|分别|其中|战士|士兵|老兵|奴工|成员|其余|其他|幽灵|幽魂|机组|车组|卫兵|警卫|载具|炮手|狙击手/;
+
+function parseDefaultEquipmentWeaponCounts(equipmentText) {
+  const counts = new Map();
+  for (const raw of String(equipmentText || "").split(/[；;，,、]/)) {
+    const segment = String(raw || "").trim().replace(/[（(].*?[）)]/g, "").trim();
+    if (!segment) continue;
+    let count = 1;
+    let name = segment;
+    let match = segment.match(/^(\d+)\s*[xX×门个把支套挺枚座]?\s*(?!名|位|员)(.+)$/);
+    if (match && match[2].trim()) {
+      count = Math.max(1, Number(match[1]) || 1);
+      name = match[2].trim();
+    } else if ((match = segment.match(/^两\s*[xX×门个把支套挺枚座]?\s*(?!名|位|员)(.+)$/)) && match[1].trim()) {
+      count = 2;
+      name = match[1].trim();
+    }
+    const key = normalizeCalculatorWeaponName(name);
+    if (!key || key.length < 2 || key.length > 16 || narrativeCountPattern.test(name)) continue;
+    counts.set(key, Math.max(count, counts.get(key) || 1));
+  }
+  return counts;
+}
+
+// 数据卡路径的武器数量：精确名优先，其次双向子串取最长匹配，否则 1。
+function weaponDefaultEquipmentCount(weapon, counts) {
+  const name = normalizeCalculatorWeaponName(String(weapon?.name || "").replace(/[（(].*?[）)]/g, "").trim());
+  if (!name) return 1;
+  if (counts.has(name)) return counts.get(name);
+  let best = 1;
+  let bestLen = 0;
+  for (const [segmentName, count] of counts) {
+    if (segmentName.includes(name) || name.includes(segmentName)) {
+      if (Math.max(segmentName.length, name.length) > bestLen) {
+        bestLen = Math.max(segmentName.length, name.length);
+        best = count;
+      }
+    }
+  }
+  return best;
+}
+
 function setCalculatorWeaponEnabled(weapons, index, enabled) {
   const weapon = weapons?.[Number(index)];
   if (!weapon) return;
@@ -613,6 +662,7 @@ function enabledCalculatorWeapons(data, entryName, rosterUnit, options = {}) {
   const baseWeapons = (Array.isArray(data?.weapons) ? cloneCalculatorValue(data.weapons) : [])
     .filter((weapon) => !Array.isArray(options.weaponNames) || options.weaponNames.some((name) => weaponMatchesEquipmentText(weapon, name)));
   const defaultEquipment = cleanPdfWatermarkText(options.defaultEquipment ?? baseUnit.defaultEquipment ?? "", baseWeapons);
+  const defaultEquipmentCounts = parseDefaultEquipmentWeaponCounts(defaultEquipment);
   const defaultModels = Math.max(1, Number(options.modelCount ?? (rosterUnit ? activeModels(rosterUnit).length : baseUnit.models || baseUnit.defaultModels || 1)) || 1);
   const hasRosterEquipment = rosterUnit && Object.keys(countEquipment(rosterUnit)).length > 0;
   const matching = hasRosterEquipment
@@ -623,13 +673,16 @@ function enabledCalculatorWeapons(data, entryName, rosterUnit, options = {}) {
     // modelsCarrying = 携带该武器的模型数（用于射击/近战分配校验）；
     // modelCount = 武器数量（模型数 × 单模型同型武器数 × 档案倍率），
     // 计算页的"数量"字段直接显示并编辑武器数量。
+    // 数据卡路径：默认装备文本（如「2x 星镖炮」）提供单模型同型武器数量，
+    // 对齐军表路径 modelsCarrying × equipmentMultiplier 的语义。
     const modelsCarrying = weapon.modelCount ?? (hasRosterEquipment ? weaponModelCount(weapon, rosterUnit, defaultModels) : defaultModels);
     const equipmentMultiplier = hasRosterEquipment ? weaponEquipmentMultiplier(weapon, rosterUnit, 1) : 1;
+    const defaultCount = hasRosterEquipment ? 1 : weaponDefaultEquipmentCount(weapon, defaultEquipmentCounts);
     return {
       ...weapon,
       enabled: anyMatching ? matching[index] : true,
       modelsCarrying,
-      modelCount: modelsCarrying * equipmentMultiplier * Math.max(1, Number(options.weaponMultipliers?.[weapon.name] || 1)),
+      modelCount: modelsCarrying * equipmentMultiplier * defaultCount * Math.max(1, Number(options.weaponMultipliers?.[weapon.name] || 1)),
     };
   }));
 }

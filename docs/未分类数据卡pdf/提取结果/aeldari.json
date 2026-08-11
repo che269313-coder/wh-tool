@@ -1,0 +1,1365 @@
+{
+  "faction": "艾达灵族",
+  "factionId": "aeldari",
+  "pdfFile": "艾达灵族10版中文 1.13.pdf",
+  "extractionMethod": "text",
+  "dataCardFile": "docs/data/艾达灵族/艾达灵族-结构化数据卡.json",
+  "units": [
+    {
+      "pdfName": "埃尔德拉德 · 乌斯兰",
+      "cardName": "艾尔德拉德·乌瑟兰",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖手枪；心灵战争；阿瑟玛尔之杖和巫术之刃",
+      "defaultEquipment": "星镖手枪；乌塞玛法杖与巫婆刃",
+      "isDefaultWeapons": [
+        "星镖手枪",
+        "乌塞玛法杖与巫婆刃"
+      ],
+      "pdfPage": 22,
+      "notes": "\"星镖手枪\"->\"星镖手枪\"中文名一致；\"心灵战争\"->\"星镖手枪\"按面板数据匹配；\"阿瑟玛尔之杖和巫术之刃\"->\"乌塞玛法杖与巫婆刃\"按面板数据匹配"
+    },
+    {
+      "pdfName": "凯恩化身",
+      "cardName": "凯恩化身",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "哀嚎  错  末日  鸦  关  群   Q     请",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 23,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "司战",
+      "cardName": "司战",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖手枪；星光长刀 请",
+      "defaultEquipment": "星镖手枪",
+      "isDefaultWeapons": [
+        "星镖手枪"
+      ],
+      "pdfPage": 24,
+      "notes": "\"星镖手枪\"->\"星镖手枪\"中文名一致；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "翔空司战",
+      "cardName": "翔空司战",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖 请 手枪；星光长刀",
+      "defaultEquipment": "星镖手枪；星辰战刀",
+      "isDefaultWeapons": [
+        "星镖手枪",
+        "星辰战刀"
+      ],
+      "pdfPage": 25,
+      "notes": "\"星镖 请 手枪\"->\"星镖手枪\"中文名一致；\"星光长刀\"->\"星辰战刀\"按面板数据匹配"
+    },
+    {
+      "pdfName": "大先知",
+      "cardName": "大先知",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖手枪；惊骇风暴；巫术之刃",
+      "defaultEquipment": "星镖手枪；巫刃",
+      "isDefaultWeapons": [
+        "星镖手枪",
+        "巫刃"
+      ],
+      "pdfPage": 26,
+      "notes": "\"星镖手枪\"->\"星镖手枪\"中文名一致；\"巫术之刃\"->\"巫刃\"按中文相似映射；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "天行者大先知",
+      "cardName": "天行者大先知",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖手枪；双 联 星镖枪；惊骇风暴；巫术之刃",
+      "defaultEquipment": "星镖手枪；双联星镖枪；巫刃",
+      "isDefaultWeapons": [
+        "星镖手枪",
+        "双联星镖枪",
+        "巫刃"
+      ],
+      "pdfPage": 27,
+      "notes": "\"星镖手枪\"->\"星镖手枪\"中文名一致；\"双 联 星镖枪\"->\"双联星镖枪\"中文名一致；\"巫术之刃\"->\"巫刃\"按面板数据匹配；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "灵魂先知",
+      "cardName": "灵魂先知",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "如 星 联 镖手枪族；巫术之族杖",
+      "defaultEquipment": "星镖手枪；巫术杖",
+      "isDefaultWeapons": [
+        "星镖手枪",
+        "巫术杖"
+      ],
+      "pdfPage": 28,
+      "notes": "\"如 星 联 镖手枪族\"->\"星镖手枪\"按中文相似映射；\"巫术之族杖\"->\"巫术杖\"按中文相似映射"
+    },
+    {
+      "pdfName": "战巫",
+      "cardName": "巫师",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "有星镖手 系 枪；毁 相 灭咒术；巫术之刃 Q",
+      "defaultEquipment": "星镖手枪",
+      "isDefaultWeapons": [
+        "星镖手枪"
+      ],
+      "pdfPage": 29,
+      "notes": "\"有星镖手 系 枪\"->\"星镖手枪\"中文名一致；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "阿苏曼",
+      "cardName": "阿苏曼",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "血腥双子；阿苏尔之剑",
+      "defaultEquipment": "血腥双子；阿苏尔之剑",
+      "isDefaultWeapons": [
+        "血腥双子",
+        "阿苏尔之剑"
+      ],
+      "pdfPage": 30,
+      "notes": "\"血腥双子\"->\"血腥双子\"中文名一致；\"阿苏尔之剑\"->\"阿苏尔之剑\"中文名一致"
+    },
+    {
+      "pdfName": "巴哈罗斯",
+      "cardName": "巴哈罗斯",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "风暴之怒；闪耀之刃",
+      "defaultEquipment": "风暴狂怒；闪耀刀刃",
+      "isDefaultWeapons": [
+        "风暴狂怒",
+        "闪耀刀刃"
+      ],
+      "pdfPage": 31,
+      "notes": "\"风暴之怒\"->\"风暴狂怒\"按中文相似映射；\"闪耀之刃\"->\"闪耀刀刃\"按中文相似映射"
+    },
+    {
+      "pdfName": "弗甘",
+      "cardName": "弗甘",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "灼热赞歌",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 32,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "贾因 · 扎尔",
+      "cardName": "简恩·扎尔",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "寂静死神；毁灭之刃 1",
+      "defaultEquipment": "摧毁之刃",
+      "isDefaultWeapons": [
+        "摧毁之刃"
+      ],
+      "pdfPage": 33,
+      "notes": "\"毁灭之刃 1\"->\"摧毁之刃\"按中文相似映射；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "莱凯丝",
+      "cardName": "莱吉斯",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "双子蛛 别 巢；撕 塔 网者",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 34,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "矛甘 · 拉",
+      "cardName": "矛甘·拉",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "收割者  Q",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 35,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "卫戍守护者",
+      "cardName": "卫戍守护者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖枪；星镖炮；格斗武器",
+      "defaultEquipment": "星镖枪；星镖炮",
+      "isDefaultWeapons": [
+        "星镖枪",
+        "星镖炮"
+      ],
+      "pdfPage": 36,
+      "notes": "\"星镖枪\"->\"星镖枪\"中文名一致；\"星镖炮\"->\"星镖炮\"中文名一致；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "风暴守护者",
+      "cardName": "风暴守护者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "蛇鳞护盾",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 37,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "虚空掠夺者海盗",
+      "cardName": "虚空掠夺者海盗",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖手枪；灵族动力剑；格斗武器",
+      "defaultEquipment": "星镖手枪；动力剑；近战武器",
+      "isDefaultWeapons": [
+        "星镖手枪",
+        "动力剑",
+        "近战武器"
+      ],
+      "pdfPage": 38,
+      "notes": "\"星镖手枪\"->\"星镖手枪\"中文名一致；\"灵族动力剑\"->\"动力剑\"按中文相似映射；\"格斗武器\"->\"近战武器\"按面板数据匹配"
+    },
+    {
+      "pdfName": "黑暗死神",
+      "cardName": "黑暗死神",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "死神发射器；格斗武器",
+      "defaultEquipment": "死神发射器；近战武器",
+      "isDefaultWeapons": [
+        "死神发射器",
+        "近战武器"
+      ],
+      "pdfPage": 40,
+      "notes": "\"死神发射器\"->\"死神发射器\"中文名一致；\"格斗武器\"->\"近战武器\"按面板数据匹配"
+    },
+    {
+      "pdfName": "凶暴复仇者",
+      "cardName": "凶暴复仇者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "有 复仇者  系  星镖枪 相；格斗武器 Q",
+      "defaultEquipment": "复仇者星镖枪",
+      "isDefaultWeapons": [
+        "复仇者星镖枪"
+      ],
+      "pdfPage": 41,
+      "notes": "\"有 复仇者  系  星镖枪 相\"->\"复仇者星镖枪\"中文名一致；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "烈焰火龙",
+      "cardName": "火龙",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "神官火龙热熔枪；火龙热熔枪；格斗武器",
+      "defaultEquipment": "烈火矛",
+      "isDefaultWeapons": [
+        "烈火矛"
+      ],
+      "pdfPage": 42,
+      "notes": "\"神官火龙热熔枪\"->\"烈火矛\"按面板数据匹配；\"火龙热熔枪\"->\"烈火矛\"按面板数据匹配；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "狂嚎女妖",
+      "cardName": "狂嚎女妖",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖手枪；女妖之刃",
+      "defaultEquipment": "星镖手枪；女妖之刃",
+      "isDefaultWeapons": [
+        "星镖手枪",
+        "女妖之刃"
+      ],
+      "pdfPage": 43,
+      "notes": "PDF面板(8, 3, 4, 1, 6, 1)与数据卡(8, 3, 4, 2, 6, 1)不一致；\"星镖手枪\"->\"星镖手枪\"中文名一致；\"女妖之刃\"->\"女妖之刃\"中文名一致；英文名拼写近似"
+    },
+    {
+      "pdfName": "突击蝎",
+      "cardName": "突击战蠍",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖手枪；战蝎链锯剑；星镖手枪；战蝎链锯剑",
+      "defaultEquipment": "星镖手枪；蠍尾链锯剑",
+      "isDefaultWeapons": [
+        "星镖手枪",
+        "蠍尾链锯剑"
+      ],
+      "pdfPage": 44,
+      "notes": "\"星镖手枪\"->\"星镖手枪\"中文名一致；\"星镖手枪\"->\"星镖手枪\"中文名一致；\"战蝎链锯剑\"->\"蠍尾链锯剑\"按中文相似映射；\"战蝎链锯剑\"->\"蠍尾链锯剑\"按中文相似映射"
+    },
+    {
+      "pdfName": "翔鹰",
+      "cardName": "翔鹰",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "鹰爪；激光爆能枪；格斗武器",
+      "defaultEquipment": "鹰爪；雷射爆裂枪",
+      "isDefaultWeapons": [
+        "鹰爪",
+        "雷射爆裂枪"
+      ],
+      "pdfPage": 45,
+      "notes": "\"鹰爪\"->\"鹰爪\"中文名一致；\"激光爆能枪\"->\"雷射爆裂枪\"按面板数据匹配；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "次元蜘蛛",
+      "cardName": "次元蜘蛛",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "神官死亡纺织者；死亡纺织者；格斗武器",
+      "defaultEquipment": "神官死亡纺织者；死亡纺织者",
+      "isDefaultWeapons": [
+        "神官死亡纺织者",
+        "死亡纺织者"
+      ],
+      "pdfPage": 46,
+      "notes": "\"神官死亡纺织者\"->\"神官死亡纺织者\"中文名一致；\"死亡纺织者\"->\"死亡纺织者\"中文名一致；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "闪矛",
+      "cardName": "闪矛",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "激光骑枪；双 联 星镖枪",
+      "defaultEquipment": "双联星镖枪",
+      "isDefaultWeapons": [
+        "双联星镖枪"
+      ],
+      "pdfPage": 47,
+      "notes": "PDF面板(14, 4, 3, 2, 6, 2)与数据卡(14, 4, 3, 3, 6, 2)不一致；\"双 联 星镖枪\"->\"双联星镖枪\"中文名一致；部分默认装备无法映射到数据卡武器；英文名拼写近似"
+    },
+    {
+      "pdfName": "战巫密会",
+      "cardName": "战巫密会",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖手枪；毁灭咒术；巫术之刃 请",
+      "defaultEquipment": "星镖手枪",
+      "isDefaultWeapons": [
+        "星镖手枪"
+      ],
+      "pdfPage": 48,
+      "notes": "\"星镖手枪\"->\"星镖手枪\"中文名一致；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "游侠",
+      "cardName": "游侠",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖手枪；灵族长步枪；斗武器  群   Q     请",
+      "defaultEquipment": "星镖手枪；长步枪",
+      "isDefaultWeapons": [
+        "星镖手枪",
+        "长步枪"
+      ],
+      "pdfPage": 49,
+      "notes": "\"星镖手枪\"->\"星镖手枪\"中文名一致；\"灵族长步枪\"->\"长步枪\"按中文相似映射；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "幽冥之刃",
+      "cardName": "幽冥之刃",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "幽冥双剑、 医  定  22",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 50,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "幽冥护卫",
+      "cardName": "幽冥护卫",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "幽冥炮；格斗武器 别  塔 的 4",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 51,
+      "notes": "部分默认装备无法映射到数据卡武器；英文名拼写近似"
+    },
+    {
+      "pdfName": "虚空创痕海盗",
+      "cardName": "虚空创痕海盗",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖手枪；灵族动力剑；星镖手枪；星镖手枪；灵族动力剑；星镖手枪；处刑者；巫术之杖",
+      "defaultEquipment": "星镖手枪；巫术杖；动力剑；长步枪",
+      "isDefaultWeapons": [
+        "星镖手枪",
+        "巫术杖",
+        "动力剑",
+        "长步枪"
+      ],
+      "pdfPage": 52,
+      "notes": "\"星镖手枪\"->\"星镖手枪\"中文名一致；\"星镖手枪\"->\"星镖手枪\"中文名一致；\"星镖手枪\"->\"星镖手枪\"中文名一致；\"星镖手枪\"->\"星镖手枪\"中文名一致；\"巫术之杖\"->\"巫术杖\"中文名一致；\"灵族动力剑\"->\"动力剑\"按面板数据匹配；\"灵族动力剑\"->\"动力剑\"按面板数据匹配；\"处刑者\"->\"长步枪\"按面板数据匹配"
+    },
+    {
+      "pdfName": "次元炮平台",
+      "cardName": "次元炮平台",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "次元 错 炮；星镖 鸦 枪；格 关 斗武器 群 炮火支援 有 在战斗开  系  始前；相  宣布战斗序列步骤中；本模型可以 加 入你的一个卫戍守护者单位（一个单位只",
+      "defaultEquipment": "星镖枪",
+      "isDefaultWeapons": [
+        "星镖枪"
+      ],
+      "pdfPage": 54,
+      "notes": "\"星镖 鸦 枪\"->\"星镖枪\"中文名一致；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "音波炮平台（震击炮平台）",
+      "cardName": "震击炮平台",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "音波 错 炮；星镖 鸦 枪；格 关 斗武器 群 炮火支援 有 在战斗开  系  始前；相  宣布战斗序列步骤中；本模型可以 加 入你的一个卫戍守护者单位（一个单位只",
+      "defaultEquipment": "星镖枪",
+      "isDefaultWeapons": [
+        "星镖枪"
+      ],
+      "pdfPage": 55,
+      "notes": "\"星镖 鸦 枪\"->\"星镖枪\"中文名一致；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "织影炮平台",
+      "cardName": "织影炮平台",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "织影炮；星镖枪；格斗武器 群 炮火支援 有在战斗开 系 始前；相 宣布战斗序列步骤中；本模型可以 加 入你的一个卫戍守护者单位（一个单位只",
+      "defaultEquipment": "星镖枪",
+      "isDefaultWeapons": [
+        "星镖枪"
+      ],
+      "pdfPage": 56,
+      "notes": "\"星镖枪\"->\"星镖枪\"中文名一致；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "御风者",
+      "cardName": "驭风者摩托",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "双 联 星镖枪；格斗武器 请",
+      "defaultEquipment": "双联星镖枪",
+      "isDefaultWeapons": [
+        "双联星镖枪"
+      ],
+      "pdfPage": 57,
+      "notes": "\"双 联 星镖枪\"->\"双联星镖枪\"中文名一致；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "帷幕奔行者",
+      "cardName": "帷幕奔行者",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖手枪；灵族长步枪；散射激光；格斗武器 请",
+      "defaultEquipment": "星镖手枪；长步枪",
+      "isDefaultWeapons": [
+        "星镖手枪",
+        "长步枪"
+      ],
+      "pdfPage": 58,
+      "notes": "\"星镖手枪\"->\"星镖手枪\"中文名一致；\"灵族长步枪\"->\"长步枪\"按中文相似映射；部分默认装备无法映射到数据卡武器；英文名拼写近似"
+    },
+    {
+      "pdfName": "天行者战巫",
+      "cardName": "天行者战巫",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "如 星 联 镖手枪族；毁灭咒族术；巫术之刃；双 联 星镖枪",
+      "defaultEquipment": "双联星镖枪；星镖手枪；巫刃",
+      "isDefaultWeapons": [
+        "双联星镖枪",
+        "星镖手枪",
+        "巫刃"
+      ],
+      "pdfPage": 59,
+      "notes": "\"双 联 星镖枪\"->\"双联星镖枪\"中文名一致；\"如 星 联 镖手枪族\"->\"星镖手枪\"按中文相似映射；\"巫术之刃\"->\"巫刃\"按中文相似映射；部分默认装备无法映射到数据卡武器；英文名部分匹配"
+    },
+    {
+      "pdfName": "波蛇飞艇",
+      "cardName": "波蛇飞艇",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "双 联 星镖炮；双 联 星镖枪；灵骨外壳",
+      "defaultEquipment": "双联星镖炮；双联星镖枪；灵骨船壳",
+      "isDefaultWeapons": [
+        "双联星镖炮",
+        "双联星镖枪",
+        "灵骨船壳"
+      ],
+      "pdfPage": 60,
+      "notes": "\"双 联 星镖炮\"->\"双联星镖炮\"中文名一致；\"双 联 星镖枪\"->\"双联星镖枪\"中文名一致；\"灵骨外壳\"->\"灵骨船壳\"按中文相似映射"
+    },
+    {
+      "pdfName": "猎鹰坦克",
+      "cardName": "猎鹰坦克",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "脉冲激光 请；散射激光；双 联 星镖枪；灵骨外壳",
+      "defaultEquipment": "双联星镖枪；灵骨船壳",
+      "isDefaultWeapons": [
+        "双联星镖枪",
+        "灵骨船壳"
+      ],
+      "pdfPage": 61,
+      "notes": "\"双 联 星镖枪\"->\"双联星镖枪\"中文名一致；\"灵骨外壳\"->\"灵骨船壳\"按中文相似映射；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "炎晶坦克",
+      "cardName": "炎晶坦克",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "炎晶炮；双 联 星镖枪；灵骨外壳",
+      "defaultEquipment": "双联星镖枪；棱晶炮；灵骨船壳",
+      "isDefaultWeapons": [
+        "双联星镖枪",
+        "棱晶炮",
+        "灵骨船壳"
+      ],
+      "pdfPage": 62,
+      "notes": "\"双 联 星镖枪\"->\"双联星镖枪\"中文名一致；\"炎晶炮\"->\"棱晶炮\"按中文相似映射；\"灵骨外壳\"->\"灵骨船壳\"按面板数据匹配"
+    },
+    {
+      "pdfName": "织夜者坦克",
+      "cardName": "织夜者坦克",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "末日纺织着；双 联 星镖枪；灵骨外壳",
+      "defaultEquipment": "双联星镖枪；灵骨船壳",
+      "isDefaultWeapons": [
+        "双联星镖枪",
+        "灵骨船壳"
+      ],
+      "pdfPage": 63,
+      "notes": "\"双 联 星镖枪\"->\"双联星镖枪\"中文名一致；\"灵骨外壳\"->\"灵骨船壳\"按中文相似映射；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "蝮蛇飞艇",
+      "cardName": "蝮蛇飞艇",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "星镖炮；双 联 星镖枪；灵骨外壳 请",
+      "defaultEquipment": "星镖炮；灵骨船壳",
+      "isDefaultWeapons": [
+        "星镖炮",
+        "灵骨船壳"
+      ],
+      "pdfPage": 64,
+      "notes": "\"星镖炮\"->\"星镖炮\"中文名一致；\"灵骨外壳 请\"->\"灵骨船壳\"按中文相似映射；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "战争行者",
+      "cardName": "战争行者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "2门星镖炮",
+      "defaultEquipment": "星镖炮",
+      "isDefaultWeapons": [
+        "星镖炮"
+      ],
+      "pdfPage": 65,
+      "notes": "\"2门星镖炮\"->\"星镖炮\"中文名一致；\"2门星镖炮\"数量词已剥离"
+    },
+    {
+      "pdfName": "铁杉幽冥战机",
+      "cardName": "铁杉幽冥战机",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "如 2门 联 重型次元族镰刀；族灵骨外壳",
+      "defaultEquipment": "灵骨船壳",
+      "isDefaultWeapons": [
+        "灵骨船壳"
+      ],
+      "pdfPage": 66,
+      "notes": "\"族灵骨外壳\"->\"灵骨船壳\"按中文相似映射；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "猩红猎手",
+      "cardName": "猩红猎手",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "如 2门 联 星光炮；族1门脉冲族激光；灵骨外壳",
+      "defaultEquipment": "灵骨船壳",
+      "isDefaultWeapons": [
+        "灵骨船壳"
+      ],
+      "pdfPage": 67,
+      "notes": "\"灵骨外壳\"->\"灵骨船壳\"按中文相似映射；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "幽冥领主",
+      "cardName": "幽冥领主",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "冥骨重拳；2门星镖枪",
+      "defaultEquipment": "星镖枪；灵骨之拳",
+      "isDefaultWeapons": [
+        "星镖枪",
+        "灵骨之拳"
+      ],
+      "pdfPage": 68,
+      "notes": "\"2门星镖枪\"->\"星镖枪\"中文名一致；\"2门星镖枪\"数量词已剥离；\"冥骨重拳\"->\"灵骨之拳\"按面板数据匹配；英文名拼写近似"
+    },
+    {
+      "pdfName": "幽冥骑士",
+      "cardName": "幽冥骑士",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "阳炎炮；泰坦巨足；散射护盾",
+      "defaultEquipment": "泰坦践踏",
+      "isDefaultWeapons": [
+        "泰坦践踏"
+      ],
+      "pdfPage": 69,
+      "notes": "\"阳炎炮\"->\"泰坦践踏\"按面板数据匹配；\"泰坦巨足\"->\"泰坦践踏\"按面板数据匹配；部分默认装备无法映射到数据卡武器；英文名拼写近似"
+    },
+    {
+      "pdfName": "装备巨型鬼灵长刀的幽冥骑士",
+      "cardName": "装备幽冥长刀的幽冥骑士",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "如 巨型 联 鬼灵长刀族；散射族护盾",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 70,
+      "notes": "部分默认装备无法映射到数据卡武器；英文名拼写近似"
+    },
+    {
+      "pdfName": "伊弗蕾妮",
+      "cardName": "伊芙蕾妮",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "耳语风暴；凯维尔；哀恸之剑",
+      "defaultEquipment": "卡-维",
+      "isDefaultWeapons": [
+        "卡-维"
+      ],
+      "pdfPage": 71,
+      "notes": "\"耳语风暴\"->\"卡-维\"按面板数据匹配；\"凯维尔\"->\"卡-维\"按面板数据匹配；\"哀恸之剑\"->\"卡-维\"按面板数据匹配"
+    },
+    {
+      "pdfName": "千面（维萨奇）",
+      "cardName": "维萨奇",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "阿苏瓦 别",
+      "defaultEquipment": "阿苏瓦尔",
+      "isDefaultWeapons": [
+        "阿苏瓦尔"
+      ],
+      "pdfPage": 72,
+      "notes": "\"阿苏瓦 别\"->\"阿苏瓦尔\"按中文相似映射"
+    },
+    {
+      "pdfName": "因卡恩-死神化身",
+      "cardName": "因卡恩",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "如 魂能 联 漩涡；维族利斯扎族尔 灵魂之剑",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 73,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "死神军执政官",
+      "cardName": "死神军执政官",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "毒晶手枪；尸魂利刃；影盾  群",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 74,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "死神军魅魔（血腥魔女）",
+      "cardName": "死神军血腥魔女",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "魅魔武器 字  疯  设  41",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 75,
+      "notes": "部分默认装备无法映射到数据卡武器；英文名拼写近似"
+    },
+    {
+      "pdfName": "死神军阴谋团武士",
+      "cardName": "死神军阴谋团战士",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "毒晶步枪；格斗武器",
+      "defaultEquipment": "纵欲贵族武器",
+      "isDefaultWeapons": [
+        "纵欲贵族武器"
+      ],
+      "pdfPage": 76,
+      "notes": "\"格斗武器\"->\"纵欲贵族武器\"按面板数据匹配；部分默认装备无法映射到数据卡武器；英文名部分匹配"
+    },
+    {
+      "pdfName": "死神军巫灵",
+      "cardName": "死神军巫灵",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "毒晶手枪；赫卡忒里匕首 群",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 77,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "死神军梦魇",
+      "cardName": "死神军梦魇剑客",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "如  斩首  联  剑 族族",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 78,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "死神军劫掠者",
+      "cardName": "死神军劫掠者摩托",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "毒晶步枪；毒晶手枪；锋刃翼",
+      "defaultEquipment": "刃翼；苦难刺器",
+      "isDefaultWeapons": [
+        "刃翼",
+        "苦难刺器"
+      ],
+      "pdfPage": 79,
+      "notes": "\"锋刃翼\"->\"刃翼\"中文名一致；\"毒晶步枪\"->\"苦难刺器\"按面板数据匹配；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "死神军毒灾飞艇（死神军毒液飞艇）",
+      "cardName": "死神军毒液飞艇",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "毒晶炮；双 联 毒晶步枪；锋刃翼",
+      "defaultEquipment": "刃翼；双联碎片步枪",
+      "isDefaultWeapons": [
+        "刃翼",
+        "双联碎片步枪"
+      ],
+      "pdfPage": 80,
+      "notes": "\"锋刃翼\"->\"刃翼\"中文名一致；\"双 联 毒晶步枪\"->\"双联碎片步枪\"按中文相似映射；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "死神军掠袭者飞艇",
+      "cardName": "死神军掠袭者飞艇",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "黑暗光矛；锋刃翼",
+      "defaultEquipment": "刃翼；黑暗长矛",
+      "isDefaultWeapons": [
+        "刃翼",
+        "黑暗长矛"
+      ],
+      "pdfPage": 81,
+      "notes": "\"锋刃翼\"->\"刃翼\"中文名一致；\"黑暗光矛\"->\"黑暗长矛\"按中文相似映射"
+    },
+    {
+      "pdfName": "独角",
+      "cardName": "独角",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "空舞腰带  群",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 82,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "死亡小丑",
+      "cardName": "死亡小丑",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "如  尖 联 啸者 加 族农炮；小 族丑之刃；空舞腰带",
+      "defaultEquipment": "尖啸加农炮；丑角之刃",
+      "isDefaultWeapons": [
+        "尖啸加农炮",
+        "丑角之刃"
+      ],
+      "pdfPage": 83,
+      "notes": "\"如  尖 联 啸者 加 族农炮\"->\"尖啸加农炮\"按中文相似映射；\"小 族丑之刃\"->\"丑角之刃\"按中文相似映射；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "暗影先知",
+      "cardName": "暗影先知",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖手 别 枪；迷 塔 雾法杖",
+      "defaultEquipment": "星镖手枪",
+      "isDefaultWeapons": [
+        "星镖手枪"
+      ],
+      "pdfPage": 84,
+      "notes": "\"星镖手 别 枪\"->\"星镖手枪\"中文名一致；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "剧团长",
+      "cardName": "剧团长",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "有星镖手 系 枪；剧 相 团长之刃；空舞腰带",
+      "defaultEquipment": "星镖手枪",
+      "isDefaultWeapons": [
+        "星镖手枪"
+      ],
+      "pdfPage": 85,
+      "notes": "\"有星镖手 系 枪\"->\"星镖手枪\"中文名一致；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "丑角剧团",
+      "cardName": "剧团",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖手枪；丑角之刃；空舞腰带",
+      "defaultEquipment": "星镖手枪；丑角之刃",
+      "isDefaultWeapons": [
+        "星镖手枪",
+        "丑角之刃"
+      ],
+      "pdfPage": 86,
+      "notes": "\"星镖手枪\"->\"星镖手枪\"中文名一致；\"丑角之刃\"->\"丑角之刃\"中文名一致；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "织空者摩托",
+      "cardName": "织空者摩托",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "星镖炮；星光套索；格斗武器",
+      "defaultEquipment": "星镖炮",
+      "isDefaultWeapons": [
+        "星镖炮"
+      ],
+      "pdfPage": 87,
+      "notes": "\"星镖炮\"->\"星镖炮\"中文名一致；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "织星者飞艇",
+      "cardName": "织星者飞艇",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "有2门星镖 系 炮；格斗 相 武器",
+      "defaultEquipment": "星镖炮",
+      "isDefaultWeapons": [
+        "星镖炮"
+      ],
+      "pdfPage": 88,
+      "notes": "\"有2门星镖 系 炮\"->\"星镖炮\"按中文相似映射；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "虚空编织者炮艇（织虚者飞艇）",
+      "cardName": "织虚者飞艇",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "有虚空编织 系 者紊乱 相 炮；2门星镖炮；格斗武器",
+      "defaultEquipment": "星镖炮",
+      "isDefaultWeapons": [
+        "星镖炮"
+      ],
+      "pdfPage": 89,
+      "notes": "\"2门星镖炮\"->\"星镖炮\"中文名一致；\"2门星镖炮\"数量词已剥离；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "幽魂泰坦",
+      "cardName": "亡魂泰坦",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "云爆导弹发射器；幽魂脉冲炮；音波矛；幽魂巨足",
+      "defaultEquipment": "音波长矛；亡灵脉冲者；亡灵之足",
+      "isDefaultWeapons": [
+        "音波长矛",
+        "亡灵脉冲者",
+        "亡灵之足"
+      ],
+      "pdfPage": 90,
+      "notes": "\"音波矛\"->\"音波长矛\"中文名一致；\"云爆导弹发射器\"->\"亡灵脉冲者\"按面板数据匹配；\"幽魂脉冲炮\"->\"亡灵脉冲者\"按面板数据匹配；\"幽魂巨足\"->\"亡灵之足\"按面板数据匹配"
+    },
+    {
+      "pdfName": "幻影泰坦",
+      "cardName": "幻影泰坦",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "D-轰击炮；幻影脉冲炮；幻影星光炮；虚空风暴导弹发射器；幻影巨足",
+      "defaultEquipment": "幻影脉冲者；幻影星炮；虚空风暴飞弹发射器；D 轰击器；幻影之足",
+      "isDefaultWeapons": [
+        "幻影脉冲者",
+        "幻影星炮",
+        "虚空风暴飞弹发射器",
+        "D 轰击器",
+        "幻影之足"
+      ],
+      "pdfPage": 91,
+      "notes": "\"幻影脉冲炮\"->\"幻影脉冲者\"中文名一致；\"幻影星光炮\"->\"幻影星炮\"中文名一致；\"虚空风暴导弹发射器\"->\"虚空风暴飞弹发射器\"中文名一致；\"D-轰击炮\"->\"D 轰击器\"按中文相似映射；\"幻影巨足\"->\"幻影之足\"按中文相似映射"
+    },
+    {
+      "pdfName": "伊瑞尔亲王",
+      "cardName": "伊瑞尔亲王",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "愤怒之眼；暮光之矛",
+      "defaultEquipment": "愤怒之眼；暮光之矛",
+      "isDefaultWeapons": [
+        "愤怒之眼",
+        "暮光之矛"
+      ],
+      "pdfPage": 92,
+      "notes": "PDF面板(7, 3, 3, 4, 6, 1)与数据卡(7, 3, 3, 5, 6, 1)不一致；\"愤怒之眼\"->\"愤怒之眼\"中文名一致；\"暮光之矛\"->\"暮光之矛\"中文名一致；英文名拼写近似"
+    },
+    {
+      "pdfName": "伊里克· 夜矛",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "虚 错 空使者 鸦；星镖手 关 枪；灵族动力剑 群",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 93,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "阿莫琳 · 影循",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "游侠长步枪；群   Q     请",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 94,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "天行者司战",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "格斗武器；激光骑枪；双 联 星镖枪",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 95,
+      "notes": "Autarch Skyrunner：10e PDF 独有单位，11e 数据卡无对应卡（数据卡仅有 翔空司战 Autarch Wayleaper，属性不同 M14 vs M10）",
+      "englishName": ""
+    },
+    {
+      "pdfName": "吟骨者",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "灵韵塑笛 8、 医  定  2",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 96,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "卡兰德拉斯",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "如 阿 联 赫拉之族灾；伊斯族玛希尔之剑",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 97,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "伊瑞里斯",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "星光之矛",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 98,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "暗影幽灵",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "棱镜步枪；格斗武器 请",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 99,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "海盗劫掠者战帮",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "手枪武装带；海盗火枪；格斗武器",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 100,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "海盗掠天者战帮",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "手枪武装带；海盗火枪；格斗武器",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 102,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "海盗云舞者战帮",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "手枪武装带；双 联 星镖枪；格斗武器",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 104,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "胡蜂突击机甲",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "散射激光；星镖炮；胡蜂巨足",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 105,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "烈焰风暴",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "疯  双 联 星镖 设 枪；灵骨4外壳1",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 106,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "黄蜂",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "如 2门黄 联 蜂脉冲 族 激光；灵 族 骨外壳",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 107,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "次元猎手",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "D-扫射炮；双 联 星镖枪；灵骨外壳",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 108,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "猞猁",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "星镖炮；灵骨外壳",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 109,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "天蝎",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "星镖炮；灵骨外壳",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 110,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "眼镜蛇",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "D-穿刺炮；星镖炮；灵骨外壳",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 111,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "凤凰",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "双 联 星镖炮；灵骨外壳",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 112,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "夜翼",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "双 联 光矛；双 联 星镖炮；灵骨外壳",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 113,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "吸血鬼掠袭者",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "散射激光；2 门双 联 脉冲激光；灵骨外壳运输载具 最多运载30个艾达灵族步兵模型幽冥构造体模型占双倍运输空间不能运载跳跃背包或死神军模型【伊芙蕾尼和千面（维萨奇）除外】",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 114,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "吸血鬼猎手",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "散射激光；2 门双 联 脉冲激光；双 联 吸血鬼脉冲炮；灵骨外壳",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 115,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "幽冥先知",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "毁灭咒术；鬼灵长矛",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 116,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "影痕幽冥骑士",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "炼狱光矛；泰坦巨足；散射护盾",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 117,
+      "notes": "Skathach Wraithknight：10e PDF 独有变体，11e 数据卡无对应卡（数据卡仅有 幽冥骑士 与 装备幽冥长刀的幽冥骑士）",
+      "englishName": ""
+    },
+    {
+      "pdfName": "网道传送门",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "无部署 规  则  该工事的两座灵骨拱门在放置时；其顶点之间的距离不能超过1寸；两个部件必须完全正 对",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 118,
+      "notes": "未匹配到数据卡"
+    }
+  ],
+  "detachments": [
+    {
+      "pdfName": "战火军阵（战争军团）",
+      "detachmentName": "战争军团",
+      "matchBasis": "english-name",
+      "confidence": "high",
+      "pdfPage": 3,
+      "notes": "英文名一致；PDF团策名\"战火风华\"与registry\"尚武优雅\"不同"
+    },
+    {
+      "pdfName": "御风者军阵",
+      "detachmentName": "驭风者军团",
+      "matchBasis": "english-name",
+      "confidence": "high",
+      "pdfPage": 5,
+      "notes": "英文名一致"
+    },
+    {
+      "pdfName": "先知议会",
+      "detachmentName": "先知议会",
+      "matchBasis": "english-name",
+      "confidence": "high",
+      "pdfPage": 7,
+      "notes": "英文名一致"
+    },
+    {
+      "pdfName": "灵魂密会",
+      "detachmentName": "灵魂密会",
+      "matchBasis": "english-name",
+      "confidence": "high",
+      "pdfPage": 10,
+      "notes": "英文名一致；PDF团策名\"幽魂牧者\"与registry\"亡灵牧者\"不同"
+    },
+    {
+      "pdfName": "守护者军团",
+      "detachmentName": "守护者军团",
+      "matchBasis": "english-name",
+      "confidence": "high",
+      "pdfPage": 12,
+      "notes": "英文名一致；PDF团策名\"不惜任何代价捍卫家园\"与registry\"不惜一切代价守护\"不同"
+    },
+    {
+      "pdfName": "支派军团",
+      "detachmentName": "支派军团",
+      "matchBasis": "english-name",
+      "confidence": "high",
+      "pdfPage": 14,
+      "notes": "英文名一致；PDF团策名\"战士之道\"与registry\"武士道途\"不同"
+    },
+    {
+      "pdfName": "网道幽灵（暂译）",
+      "detachmentName": "网道幽灵",
+      "matchBasis": "chinese-similarity",
+      "confidence": "medium",
+      "pdfPage": 16,
+      "notes": "名称相似0.80；PDF团策名\"幻影刀锋\"与registry\"特技猛攻\"不同"
+    },
+    {
+      "pdfName": "伊纳德信徒（暂译）",
+      "detachmentName": "伊纳德信徒",
+      "matchBasis": "english-name",
+      "confidence": "high",
+      "pdfPage": 18,
+      "notes": "英文名一致；PDF团策名\"亡者之力\"与registry\"源自死亡的力量\"不同"
+    },
+    {
+      "pdfName": "装甲战群",
+      "detachmentName": "装甲战群",
+      "matchBasis": "rule-name",
+      "confidence": "high",
+      "pdfPage": 20,
+      "notes": "团策文本相似0.53；PDF团策名\"熟练乘员\"与registry\"娴熟乘员\"不同"
+    }
+  ],
+  "unitAliases": {
+    "埃尔德拉德 · 乌斯兰": "艾尔德拉德·乌瑟兰",
+    "战巫": "巫师",
+    "贾因 · 扎尔": "简恩·扎尔",
+    "莱凯丝": "莱吉斯",
+    "矛甘 · 拉": "矛甘·拉",
+    "烈焰火龙": "火龙",
+    "突击蝎": "突击战蠍",
+    "音波炮平台（震击炮平台）": "震击炮平台",
+    "御风者": "驭风者摩托",
+    "装备巨型鬼灵长刀的幽冥骑士": "装备幽冥长刀的幽冥骑士",
+    "伊弗蕾妮": "伊芙蕾妮",
+    "千面（维萨奇）": "维萨奇",
+    "因卡恩-死神化身": "因卡恩",
+    "死神军魅魔（血腥魔女）": "死神军血腥魔女",
+    "死神军阴谋团武士": "死神军阴谋团战士",
+    "死神军梦魇": "死神军梦魇剑客",
+    "死神军劫掠者": "死神军劫掠者摩托",
+    "死神军毒灾飞艇（死神军毒液飞艇）": "死神军毒液飞艇",
+    "丑角剧团": "剧团",
+    "虚空编织者炮艇（织虚者飞艇）": "织虚者飞艇",
+    "幽魂泰坦": "亡魂泰坦"
+  },
+  "detachmentAliases": {
+    "战火军阵（战争军团）": "战争军团",
+    "御风者军阵": "驭风者军团",
+    "网道幽灵（暂译）": "网道幽灵",
+    "伊纳德信徒（暂译）": "伊纳德信徒"
+  },
+  "issues": [
+    "[unit:凯恩化身] 默认装备无法匹配: ['哀嚎  错  末日  鸦  关  群   Q     请']",
+    "[unit:司战] 默认装备无法匹配: ['星光长刀 请']",
+    "[unit:大先知] 默认装备无法匹配: ['惊骇风暴']",
+    "[unit:天行者大先知] 默认装备无法匹配: ['惊骇风暴']",
+    "[unit:战巫] 默认装备无法匹配: ['毁 相 灭咒术', '巫术之刃 Q']",
+    "[unit:弗甘] 默认装备无法匹配: ['灼热赞歌']",
+    "[unit:贾因 · 扎尔] 默认装备无法匹配: ['寂静死神']",
+    "[unit:莱凯丝] 默认装备无法匹配: ['双子蛛 别 巢', '撕 塔 网者']",
+    "[unit:矛甘 · 拉] 默认装备无法匹配: ['收割者  Q']",
+    "[unit:卫戍守护者] 默认装备无法匹配: ['格斗武器']",
+    "[unit:风暴守护者] 默认装备无法匹配: ['蛇鳞护盾']",
+    "[unit:凶暴复仇者] 默认装备无法匹配: ['格斗武器 Q']",
+    "[unit:烈焰火龙] 默认装备无法匹配: ['格斗武器']",
+    "[unit:翔鹰] 默认装备无法匹配: ['格斗武器']",
+    "[unit:次元蜘蛛] 默认装备无法匹配: ['格斗武器']",
+    "[unit:闪矛] 默认装备无法匹配: ['激光骑枪']",
+    "[unit:战巫密会] 默认装备无法匹配: ['毁灭咒术', '巫术之刃 请']",
+    "[unit:游侠] 默认装备无法匹配: ['斗武器  群   Q     请']",
+    "[unit:幽冥之刃] 默认装备无法匹配: ['幽冥双剑、 医  定  22']",
+    "[unit:幽冥护卫] 默认装备无法匹配: ['幽冥炮', '格斗武器 别  塔 的 4']",
+    "[unit:次元炮平台] 默认装备无法匹配: ['次元 错 炮', '格 关 斗武器 群 炮火支援 有 在战斗开  系  始前', '相  宣布战斗序列步骤中', '本模型可以 加 入你的一个卫戍守护者单位（一个单位只']",
+    "[unit:音波炮平台（震击炮平台）] 默认装备无法匹配: ['音波 错 炮', '格 关 斗武器 群 炮火支援 有 在战斗开  系  始前', '相  宣布战斗序列步骤中', '本模型可以 加 入你的一个卫戍守护者单位（一个单位只']",
+    "[unit:织影炮平台] 默认装备无法匹配: ['织影炮', '格斗武器 群 炮火支援 有在战斗开 系 始前', '相 宣布战斗序列步骤中', '本模型可以 加 入你的一个卫戍守护者单位（一个单位只']",
+    "[unit:御风者] 默认装备无法匹配: ['格斗武器 请']",
+    "[unit:帷幕奔行者] 默认装备无法匹配: ['散射激光', '格斗武器 请']",
+    "[unit:天行者战巫] 默认装备无法匹配: ['毁灭咒族术']",
+    "[unit:猎鹰坦克] 默认装备无法匹配: ['脉冲激光 请', '散射激光']",
+    "[unit:织夜者坦克] 默认装备无法匹配: ['末日纺织着']",
+    "[unit:蝮蛇飞艇] 默认装备无法匹配: ['双 联 星镖枪']",
+    "[unit:铁杉幽冥战机] 默认装备无法匹配: ['如 2门 联 重型次元族镰刀']",
+    "[unit:猩红猎手] 默认装备无法匹配: ['如 2门 联 星光炮', '族1门脉冲族激光']",
+    "[unit:幽冥骑士] 默认装备无法匹配: ['散射护盾']",
+    "[unit:装备巨型鬼灵长刀的幽冥骑士] 默认装备无法匹配: ['如 巨型 联 鬼灵长刀族', '散射族护盾']",
+    "[unit:因卡恩-死神化身] 默认装备无法匹配: ['如 魂能 联 漩涡', '维族利斯扎族尔 灵魂之剑']",
+    "[unit:死神军执政官] 默认装备无法匹配: ['毒晶手枪', '尸魂利刃', '影盾  群']",
+    "[unit:死神军魅魔（血腥魔女）] 默认装备无法匹配: ['魅魔武器 字  疯  设  41']",
+    "[unit:死神军阴谋团武士] 默认装备无法匹配: ['毒晶步枪']",
+    "[unit:死神军巫灵] 默认装备无法匹配: ['毒晶手枪', '赫卡忒里匕首 群']",
+    "[unit:死神军梦魇] 默认装备无法匹配: ['如  斩首  联  剑 族族']",
+    "[unit:死神军劫掠者] 默认装备无法匹配: ['毒晶手枪']",
+    "[unit:死神军毒灾飞艇（死神军毒液飞艇）] 默认装备无法匹配: ['毒晶炮']",
+    "[unit:独角] 默认装备无法匹配: ['空舞腰带  群']",
+    "[unit:死亡小丑] 默认装备无法匹配: ['空舞腰带']",
+    "[unit:暗影先知] 默认装备无法匹配: ['迷 塔 雾法杖']",
+    "[unit:剧团长] 默认装备无法匹配: ['剧 相 团长之刃', '空舞腰带']",
+    "[unit:丑角剧团] 默认装备无法匹配: ['空舞腰带']",
+    "[unit:织空者摩托] 默认装备无法匹配: ['星光套索', '格斗武器']",
+    "[unit:织星者飞艇] 默认装备无法匹配: ['格斗 相 武器']",
+    "[unit:虚空编织者炮艇（织虚者飞艇）] 默认装备无法匹配: ['有虚空编织 系 者紊乱 相 炮', '格斗武器']",
+    "[unit:伊里克· 夜矛] 页[93] 未匹配到数据卡",
+    "[unit:阿莫琳 · 影循] 页[94] 未匹配到数据卡",
+    "[unit:天行者司战] 默认装备无法匹配: ['格斗武器', '激光骑枪']",
+    "[unit:吟骨者] 页[96] 未匹配到数据卡",
+    "[unit:卡兰德拉斯] 页[97] 未匹配到数据卡",
+    "[unit:伊瑞里斯] 页[98] 未匹配到数据卡",
+    "[unit:暗影幽灵] 页[99] 未匹配到数据卡",
+    "[unit:海盗劫掠者战帮] 页[100] 未匹配到数据卡",
+    "[unit:海盗掠天者战帮] 页[102] 未匹配到数据卡",
+    "[unit:海盗云舞者战帮] 页[104] 未匹配到数据卡",
+    "[unit:胡蜂突击机甲] 页[105] 未匹配到数据卡",
+    "[unit:烈焰风暴] 页[106] 未匹配到数据卡",
+    "[unit:黄蜂] 页[107] 未匹配到数据卡",
+    "[unit:次元猎手] 页[108] 未匹配到数据卡",
+    "[unit:猞猁] 页[109] 未匹配到数据卡",
+    "[unit:天蝎] 页[110] 未匹配到数据卡",
+    "[unit:眼镜蛇] 页[111] 未匹配到数据卡",
+    "[unit:凤凰] 页[112] 未匹配到数据卡",
+    "[unit:夜翼] 页[113] 未匹配到数据卡",
+    "[unit:吸血鬼掠袭者] 页[114] 未匹配到数据卡",
+    "[unit:吸血鬼猎手] 页[115] 未匹配到数据卡",
+    "[unit:幽冥先知] 页[116] 未匹配到数据卡",
+    "[unit:影痕幽冥骑士] 默认装备无法匹配: ['炼狱光矛', '散射护盾']",
+    "[unit:网道传送门] 页[118] 未匹配到数据卡"
+  ]
+}

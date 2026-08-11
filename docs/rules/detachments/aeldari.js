@@ -421,6 +421,7 @@
     "detachmentNumber": 5,
     "name": "战争军团",
     "englishName": "Warhost",
+    "aliases": ["战火军阵（战争军团）"],
     "dp": 3,
     "rule": {
       "id": "aeldari.detachment.aeldari-7.rule",
@@ -955,6 +956,7 @@
     "detachmentNumber": 8,
     "name": "驭风者军团",
     "englishName": "Windrider Host",
+    "aliases": ["御风者军阵"],
     "dp": 2,
     "rule": {
       "id": "aeldari.detachment.aeldari-10.rule",
@@ -1667,6 +1669,7 @@
     "detachmentNumber": 12,
     "name": "网道幽灵",
     "englishName": "Ghosts of the Webway",
+    "aliases": ["网道幽灵（暂译）"],
     "dp": 2,
     "rule": {
       "id": "aeldari.detachment.aeldari-14.rule",
@@ -2023,6 +2026,7 @@
     "detachmentNumber": 14,
     "name": "伊纳德信徒",
     "englishName": "Devoted of Ynnead",
+    "aliases": ["伊纳德信徒（暂译）"],
     "dp": 2,
     "rule": {
       "id": "aeldari.detachment.aeldari-16.rule",

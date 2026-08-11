@@ -1,0 +1,378 @@
+{
+  "faction": "混沌骑士",
+  "factionId": "chaos-knights",
+  "pdfFile": "混沌骑士CODEX-双子星版 V1.02.pdf",
+  "extractionMethod": "text",
+  "dataCardFile": "docs/data/混沌骑士/混沌骑士-结构化数据卡.json",
+  "units": [
+    {
+      "pdfName": "憎恶者骑士",
+      "cardName": "憎恶者骑士",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "单位装备 爆燃喷射器；恶魔重机枪；灾祸权杖；噩梦电鞭。",
+      "defaultEquipment": "沃尔克特电弧炮；恶魔重磁暴炮；渎灵锤；电鞭",
+      "isDefaultWeapons": [
+        "沃尔克特电弧炮",
+        "恶魔重磁暴炮",
+        "渎灵锤",
+        "电鞭"
+      ],
+      "pdfPage": 17,
+      "notes": ""
+    },
+    {
+      "pdfName": "掠夺者骑士",
+      "cardName": "掠夺者骑士",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "单位装备 魔息热熔枪；死神链锯剑；巨足；亚空间攻击爪。",
+      "defaultEquipment": "恶魔吐息热熔枪；收割者电锯剑；泰坦践踏；扭曲刺突爪",
+      "isDefaultWeapons": [
+        "恶魔吐息热熔枪",
+        "收割者电锯剑",
+        "泰坦践踏",
+        "扭曲刺突爪"
+      ],
+      "pdfPage": 18,
+      "notes": ""
+    },
+    {
+      "pdfName": "渎神者骑士",
+      "cardName": "渎神者骑士",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "单位装备 渎神毁灭炮；恶魔重机枪；死神链锯剑。",
+      "defaultEquipment": "亵渎者雷射毁灭炮；恶魔重磁暴炮；收割者电锯剑",
+      "isDefaultWeapons": [
+        "亵渎者雷射毁灭炮",
+        "恶魔重磁暴炮",
+        "收割者电锯剑"
+      ],
+      "pdfPage": 20,
+      "notes": ""
+    },
+    {
+      "pdfName": "肆虐者骑士",
+      "cardName": "肆虐者骑士",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "单位装备 恶魔重机枪；死神链锯剑；亚空间攻击爪。",
+      "defaultEquipment": "恶魔重磁暴炮；收割者电锯剑；扭曲刺突爪",
+      "isDefaultWeapons": [
+        "恶魔重磁暴炮",
+        "收割者电锯剑",
+        "扭曲刺突爪"
+      ],
+      "pdfPage": 21,
+      "notes": ""
+    },
+    {
+      "pdfName": "毁灭者骑士",
+      "cardName": "毁灭者骑士",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "单位装备 黑焰矛；恐惧脉冲导弹；恶兆钻。",
+      "defaultEquipment": "黑焰矛；恐惧脉冲飞弹；地狱凿",
+      "isDefaultWeapons": [
+        "黑焰矛",
+        "恐惧脉冲飞弹",
+        "地狱凿"
+      ],
+      "pdfPage": 22,
+      "notes": ""
+    },
+    {
+      "pdfName": "复仇女神骑士",
+      "cardName": "混沌复仇女神型巡游骑士",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 闪电炮；次元离子燧发枪；死神链锯剑。",
+      "defaultEquipment": "闪电加农炮；相位电浆轻炮；收割者电锯剑",
+      "isDefaultWeapons": [
+        "闪电加农炮",
+        "相位电浆轻炮",
+        "收割者电锯剑"
+      ],
+      "pdfPage": 23,
+      "notes": ""
+    },
+    {
+      "pdfName": "冥河骑士",
+      "cardName": "混沌冥河型巡游骑士",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 引力粉碎炮；爆燃喷射器；死神链锯剑。",
+      "defaultEquipment": "重力粉碎炮；沃尔克特奇耶罗维列炮；收割者电锯剑",
+      "isDefaultWeapons": [
+        "重力粉碎炮",
+        "沃尔克特奇耶罗维列炮",
+        "收割者电锯剑"
+      ],
+      "pdfPage": 24,
+      "notes": ""
+    },
+    {
+      "pdfName": "战犬肉食者",
+      "cardName": "战犬肉食者",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "单位装备 恶魔重机枪；死神链爪；杀戮爪。",
+      "defaultEquipment": "恶魔重磁暴炮；收割者链爪；屠杀爪",
+      "isDefaultWeapons": [
+        "恶魔重磁暴炮",
+        "收割者链爪",
+        "屠杀爪"
+      ],
+      "pdfPage": 25,
+      "notes": ""
+    },
+    {
+      "pdfName": "战犬追猎者",
+      "cardName": "战犬追猎者",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "单位装备 复仇者链炮；恶魔重机枪；杀戮爪。",
+      "defaultEquipment": "复仇者链炮；恶魔重磁暴炮；屠杀爪",
+      "isDefaultWeapons": [
+        "复仇者链炮",
+        "恶魔重磁暴炮",
+        "屠杀爪"
+      ],
+      "pdfPage": 26,
+      "notes": ""
+    },
+    {
+      "pdfName": "战犬处决者",
+      "cardName": "战犬处决者",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "单位装备 恶魔重机枪；2x 战犬自动炮；装甲巨足。",
+      "defaultEquipment": "恶魔重磁暴炮；战犬自动炮；装甲足",
+      "isDefaultWeapons": [
+        "恶魔重磁暴炮",
+        "战犬自动炮",
+        "装甲足"
+      ],
+      "pdfPage": 27,
+      "notes": "2x战犬自动炮"
+    },
+    {
+      "pdfName": "战犬暴匪",
+      "cardName": "战犬暴匪",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "单位装备 复仇者链炮；魔息矛；恶魔重机枪；装甲巨足。",
+      "defaultEquipment": "复仇者链炮；恶魔吐息长矛；恶魔重磁暴炮；装甲足",
+      "isDefaultWeapons": [
+        "复仇者链炮",
+        "恶魔吐息长矛",
+        "恶魔重磁暴炮",
+        "装甲足"
+      ],
+      "pdfPage": 28,
+      "notes": ""
+    },
+    {
+      "pdfName": "战犬猎手",
+      "cardName": "战犬猎手",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "单位装备 魔息矛；恶魔重机枪；死神链爪。",
+      "defaultEquipment": "恶魔吐息长矛；恶魔重磁暴炮；收割者链爪",
+      "isDefaultWeapons": [
+        "恶魔吐息长矛",
+        "恶魔重磁暴炮",
+        "收割者链爪"
+      ],
+      "pdfPage": 29,
+      "notes": ""
+    },
+    {
+      "pdfName": "战犬天命者",
+      "cardName": "天命型战犬",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 1 门重力脉冲炮；1 门爆燃后膛炮；装甲双足。",
+      "defaultEquipment": "重力脉冲炮；沃尔克特长炮；装甲足",
+      "isDefaultWeapons": [
+        "重力脉冲炮",
+        "沃尔克特长炮",
+        "装甲足"
+      ],
+      "pdfPage": 30,
+      "notes": ""
+    },
+    {
+      "pdfName": "暴君骑士",
+      "cardName": "暴君骑士",
+      "matchConfidence": "exact",
+      "matchBasis": "name-equality",
+      "pdfDefaultEquipment": "单位装备 硫磺火山光矛；魂浆屠戮炮；2 组魂击导弹发射器；2 把双联魔息热熔枪；双联渎神者炮；巨足。",
+      "defaultEquipment": "硫磺火山长矛；幽灵电浆灭绝者；幽击飞弹发射器；双联恶魔吐息热熔枪；双联亵渎者加农炮；泰坦践踏",
+      "isDefaultWeapons": [
+        "硫磺火山长矛",
+        "幽灵电浆灭绝者",
+        "幽击飞弹发射器",
+        "双联恶魔吐息热熔枪",
+        "双联亵渎者加农炮",
+        "泰坦践踏"
+      ],
+      "pdfPage": 31,
+      "notes": "2x魂击导弹发射器；2x双联魔息热熔枪"
+    },
+    {
+      "pdfName": "枪骑兵骑士",
+      "cardName": "混沌枪骑兵型角蝰骑士",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 冲击骑枪。",
+      "defaultEquipment": "瑟拉斯图斯震击矛",
+      "isDefaultWeapons": [
+        "瑟拉斯图斯震击矛"
+      ],
+      "pdfPage": 32,
+      "notes": ""
+    },
+    {
+      "pdfName": "惩戒者骑士",
+      "cardName": "混沌惩戒者型角蝰骑士",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 惩戒者爆弹炮；风暴战刃。",
+      "defaultEquipment": "惩戒者爆弹炮；风暴战刃",
+      "isDefaultWeapons": [
+        "惩戒者爆弹炮",
+        "风暴战刃"
+      ],
+      "pdfPage": 33,
+      "notes": ""
+    },
+    {
+      "pdfName": "黄泉骑士",
+      "cardName": "混沌黄泉型角蝰骑士",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 黄泉火焰炮；双联重型爆弹枪；死神链锯拳。",
+      "defaultEquipment": "阿基隆火焰加农炮；双联重爆弹枪；收割机电链拳",
+      "isDefaultWeapons": [
+        "阿基隆火焰加农炮",
+        "双联重爆弹枪",
+        "收割机电链拳"
+      ],
+      "pdfPage": 34,
+      "notes": ""
+    },
+    {
+      "pdfName": "命运女神骑士",
+      "cardName": "混沌命运女神型角蝰骑士",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 激光切割器；引力奇点炮。",
+      "defaultEquipment": "阿特拉波斯雷射切割机；引力奇点炮",
+      "isDefaultWeapons": [
+        "阿特拉波斯雷射切割机",
+        "引力奇点炮"
+      ],
+      "pdfPage": 35,
+      "notes": ""
+    },
+    {
+      "pdfName": "牛头怪骑士",
+      "cardName": "混沌牛头怪型阿卡斯托斯骑士",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 2 门牛头怪爆燃重炮；1 组卡拉诺斯迫击炮阵；2 门双联转换光束炮；装甲巨足。",
+      "defaultEquipment": "阿斯特里乌斯沃尔克特库弗林炮；卡拉克诺斯迫击炮组；双联转换光束加农炮；泰坦践踏",
+      "isDefaultWeapons": [
+        "阿斯特里乌斯沃尔克特库弗林炮",
+        "卡拉克诺斯迫击炮组",
+        "双联转换光束加农炮",
+        "泰坦践踏"
+      ],
+      "pdfPage": 36,
+      "notes": "2x牛头怪爆燃重炮；2x双联转换光束炮"
+    },
+    {
+      "pdfName": "巨人王骑士",
+      "cardName": "混沌巨人王型阿卡斯托斯骑士",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "单位装备 2 门阿卡斯托斯自动炮；1 组钢铁风暴导弹舱；2 门双联电磁激光炮；装甲巨足。",
+      "defaultEquipment": "阿卡斯图斯机炮；阿卡斯图斯铁风暴飞弹舱；双联玛格纳雷射炮；泰坦践踏",
+      "isDefaultWeapons": [
+        "阿卡斯图斯机炮",
+        "阿卡斯图斯铁风暴飞弹舱",
+        "双联玛格纳雷射炮",
+        "泰坦践踏"
+      ],
+      "pdfPage": 37,
+      "notes": "2x阿卡斯托斯自动炮；2x双联电磁激光炮"
+    }
+  ],
+  "detachments": [
+    {
+      "pdfName": "反叛之矛",
+      "detachmentName": "叛变骑兵队",
+      "matchBasis": "rule-name",
+      "confidence": "high",
+      "pdfPage": 2,
+      "pdfRuleName": "恐惧典范",
+      "notes": "团策规则名不一致（PDF「恐惧典范」vs 规范「恐怖典范」）；规则文本内容基本吻合"
+    },
+    {
+      "pdfName": "炼狱长枪",
+      "detachmentName": "炼狱骑士队",
+      "matchBasis": "rule-text",
+      "confidence": "high",
+      "pdfPage": 5,
+      "pdfRuleName": "邪能奔涌",
+      "notes": "团策规则名不一致（PDF「邪能奔涌」vs 规范「邪恶涌动」）；规则文本内容基本吻合"
+    },
+    {
+      "pdfName": "恐惧之主",
+      "detachmentName": "恐惧之王",
+      "matchBasis": "rule-text",
+      "confidence": "high",
+      "pdfPage": 8,
+      "pdfRuleName": "暴虐王庭",
+      "notes": "团策规则名不一致（PDF「暴虐王庭」vs 规范「暴君王廷」）；规则文本内容基本吻合"
+    },
+    {
+      "pdfName": "猎群枪队",
+      "detachmentName": "战犬猎群骑士队",
+      "matchBasis": "rule-name",
+      "confidence": "high",
+      "pdfPage": 11,
+      "pdfRuleName": "标记猎物",
+      "notes": "团策规则名不一致（PDF「标记猎物」vs 规范「目标猎物」）；规则文本内容基本吻合"
+    },
+    {
+      "pdfName": "叛道封地",
+      "detachmentName": "叛道封地",
+      "matchBasis": "chinese-similarity",
+      "confidence": "medium",
+      "pdfPage": 14,
+      "pdfRuleName": "恐怖领主",
+      "notes": "名称一致但团策规则差异较大（PDF「恐怖领主」vs 规范「可悲奴仆」）；PDF 规则文本明显更长，仅部分内容吻合，需人工复核"
+    }
+  ],
+  "unitAliases": {
+    "复仇女神骑士": "混沌复仇女神型巡游骑士",
+    "冥河骑士": "混沌冥河型巡游骑士",
+    "战犬天命者": "天命型战犬",
+    "枪骑兵骑士": "混沌枪骑兵型角蝰骑士",
+    "惩戒者骑士": "混沌惩戒者型角蝰骑士",
+    "黄泉骑士": "混沌黄泉型角蝰骑士",
+    "命运女神骑士": "混沌命运女神型角蝰骑士",
+    "牛头怪骑士": "混沌牛头怪型阿卡斯托斯骑士",
+    "巨人王骑士": "混沌巨人王型阿卡斯托斯骑士"
+  },
+  "detachmentAliases": {
+    "反叛之矛": "叛变骑兵队",
+    "炼狱长枪": "炼狱骑士队",
+    "恐惧之主": "恐惧之王",
+    "猎群枪队": "战犬猎群骑士队"
+  },
+  "issues": []
+}

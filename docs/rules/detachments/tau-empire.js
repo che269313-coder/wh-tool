@@ -112,6 +112,7 @@
     "detachmentNumber": 2,
     "name": "辅助核心队",
     "englishName": "辅助核心队",
+    "aliases": ["辅助猎核"],
     "dp": 1,
     "rule": {
       "id": "tau-empire.detachment.auxiliary-cadre.rule",
@@ -303,6 +304,7 @@
     "detachmentNumber": 4,
     "name": "考雍",
     "englishName": "Kauyon",
+    "aliases": ["空育"],
     "dp": 2,
     "rule": {
       "id": "tau-empire.detachment.tau-empire-3.rule",
@@ -837,6 +839,7 @@
     "detachmentNumber": 7,
     "name": "克鲁特猎群",
     "englishName": "Kroot Hunting Pack",
+    "aliases": ["克鲁特猎群队"],
     "dp": 2,
     "rule": {
       "id": "tau-empire.detachment.tau-empire-6.rule",

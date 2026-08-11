@@ -1,13 +1,13 @@
 /* Core weapon keywords are independent of faction and datasheet names. */
 (function (root) {
   const targets = Object.freeze({
-    "步兵": "infantry", infantry: "infantry", "载具": "vehicle", vehicle: "vehicle",
+    "步兵": "infantry", infantry: "infantry", "载具": "vehicle", "載具": "vehicle", vehicle: "vehicle",
     "巨兽": "monster", "凶兽": "monster", monster: "monster", "工事": "fortification", fortification: "fortification",
-    "泰坦级": "titanic", titanic: "titanic", "飞行": "fly", flying: "fly", fly: "fly",
-    "灵能者": "psyker", "灵能": "psyker", psyker: "psyker", "人物": "character", "角色": "character", character: "character",
-    "恶魔": "daemon", daemon: "daemon", "步行机": "walker", walker: "walker",
-    "史诗英雄": "epic-hero", "史诗级英雄": "epic-hero", "epic hero": "epic-hero", "epic-hero": "epic-hero",
-    "野兽": "beast", beast: "beast", "集群": "swarm", swarm: "swarm",
+    "泰坦级": "titanic", titanic: "titanic", "飞行": "fly", "飛行": "fly", flying: "fly", fly: "fly",
+    "灵能者": "psyker", "靈能者": "psyker", "灵能": "psyker", "靈能": "psyker", psyker: "psyker", "人物": "character", "角色": "character", character: "character",
+    "恶魔": "daemon", "惡魔": "daemon", daemon: "daemon", "步行机": "walker", walker: "walker",
+    "史诗英雄": "epic-hero", "史诗级英雄": "epic-hero", "史詩英雄": "epic-hero", "epic hero": "epic-hero", "epic-hero": "epic-hero",
+    "野兽": "beast", "野獸": "beast", beast: "beast", "集群": "swarm", swarm: "swarm",
   });
 
   const normalizedText = (values) => (Array.isArray(values) ? values : [values])
@@ -25,29 +25,32 @@
   function parseSegment(value) {
     const text = normalizedText(value);
     const effects = [];
-    effects.push(...numericEffects(text, /(?:连击|sustained\s*hits?)\s*(d3|\d+)?/gi, "sustained-hits", 1));
+    // 词条变体覆盖 40K Command Center 官方繁中术语(11e)与各中文 PDF(10e/11e)社区译名；
+    // 已实证：连击/連擊(sustained hits)、单发/一次性/單發(one shot)、针对/反/針對(anti-X)。
+    // 注意不收录「连射」「快速射击」——它们是技能/计谋名（炽烈连射、快速射击战略技能），非词条。
+    effects.push(...numericEffects(text, /(?:连击|連擊|sustained\s*hits?)\s*(d3|\d+)?/gi, "sustained-hits", 1));
     effects.push(...numericEffects(text, /(?:速射|rapid\s*fire)\s*(d\d+(?:\s*[+-]\s*\d+)?|\d+)/gi, "rapid-fire"));
-    effects.push(...numericEffects(text, /(?:热熔|melta)\s*(d\d+(?:\s*[+-]\s*\d+)?|\d+)/gi, "melta"));
+    effects.push(...numericEffects(text, /(?:热熔|熱熔|melta)\s*(d\d+(?:\s*[+-]\s*\d+)?|\d+)/gi, "melta"));
     effects.push(...numericEffects(text, /(?:爆炸|blast)\s*(d3|\d+)?/gi, "blast", 1));
     effects.push(...numericEffects(text, /(?:劈砍|cleave)\s*(d3|\d+)/gi, "cleave"));
-    if (/致命(?:一击|命中)|lethal\s*hits?/i.test(text)) effects.push({ type: "lethal-hits" });
-    if (/毁灭\s*性?\s*(?:伤\s*口|伤\s*害)|devastating\s*wounds?/i.test(text)) effects.push({ type: "devastating-wounds" });
-    if (/双联|twin-?linked/i.test(text)) effects.push({ type: "twin-linked" });
+    if (/致命(?:一击|一擊|命中)|lethal\s*hits?/i.test(text)) effects.push({ type: "lethal-hits" });
+    if (/毁灭\s*性?\s*(?:伤\s*口|伤\s*害|创\s*伤)|毀滅\s*性?\s*(?:傷\s*口|傷\s*害|創\s*傷)|devastating\s*wounds?/i.test(text)) effects.push({ type: "devastating-wounds" });
+    if (/双联|雙聯|twin-?linked/i.test(text)) effects.push({ type: "twin-linked" });
     if (/喷射|洪流|torrent/i.test(text)) effects.push({ type: "torrent" });
-    if (/突击|assault/i.test(text)) effects.push({ type: "assault" });
-    if (/近距离|close\s*(?:range|quarters?)/i.test(text)) effects.push({ type: "close-range" });
-    if (/额外攻击|extra\s*attacks?/i.test(text)) effects.push({ type: "extra-attacks" });
-    if (/危险(?:武器)?|hazardous/i.test(text)) effects.push({ type: "hazardous" });
+    if (/突击|突擊|assault/i.test(text)) effects.push({ type: "assault" });
+    if (/近距离|近距離|close\s*(?:range|quarters?)/i.test(text)) effects.push({ type: "close-range" });
+    if (/额外攻击|額外攻擊|extra\s*attacks?/i.test(text)) effects.push({ type: "extra-attacks" });
+    if (/危险(?:武器)?|危險(?:武器)?|hazardous/i.test(text)) effects.push({ type: "hazardous" });
     if (/重型|heavy/i.test(text)) effects.push({ type: "heavy" });
-    if (/无视掩体|ignores?\s*cover/i.test(text)) effects.push({ type: "ignores-cover" });
+    if (/无视掩体|無視掩體|ignores?\s*cover/i.test(text)) effects.push({ type: "ignores-cover" });
     if (/曲射|indirect\s*fire/i.test(text)) effects.push({ type: "indirect-fire" });
-    if (/骑枪|迅猛冲锋|lance/i.test(text)) effects.push({ type: "lance" });
-    if (/单发|一次性(?:武器)?|one[ -]?shot/i.test(text)) effects.push({ type: "one-shot" });
-    if (/手枪|pistol/i.test(text)) effects.push({ type: "pistol" });
-    if (/精准|precision/i.test(text)) effects.push({ type: "precision" });
-    if (/^(?:灵能|psychic)(?:\s*[：:].*)?$/i.test(text)) effects.push({ type: "psychic" });
-    const targetLabels = "史诗级英雄|史诗英雄|epic[ -]hero|灵能者|步行机|infantry|vehicle|monster|fortification|titanic|flying|character|daemon|walker|psyker|步兵|载具|巨兽|凶兽|工事|泰坦级|飞行|灵能|人物|角色|恶魔";
-    const antiPattern = new RegExp(`(?:反|针对|anti)[- ]?(非)?((?:${targetLabels})(?:\\s*[/／、]\\s*(?:${targetLabels}))*)\\s*([2-6])\\+`, "gi");
+    if (/骑枪|騎槍|迅猛冲锋|lance/i.test(text)) effects.push({ type: "lance" });
+    if (/单发|單發|一次性(?:武器)?|one[ -]?shot/i.test(text)) effects.push({ type: "one-shot" });
+    if (/手枪|手槍|pistol/i.test(text)) effects.push({ type: "pistol" });
+    if (/精准|精準|precision/i.test(text)) effects.push({ type: "precision" });
+    if (/^(?:灵能|靈能|psychic)(?:\s*[：:].*)?$/i.test(text)) effects.push({ type: "psychic" });
+    const targetLabels = "史诗级英雄|史诗英雄|史詩英雄|epic[ -]hero|灵能者|靈能者|步行机|infantry|vehicle|monster|fortification|titanic|flying|character|daemon|walker|psyker|步兵|载具|載具|巨兽|凶兽|工事|泰坦级|飞行|飛行|灵能|靈能|人物|角色|恶魔|惡魔";
+    const antiPattern = new RegExp(`(?:反|针对|針對|anti)[- ]?(非)?((?:${targetLabels})(?:\\s*[/／、]\\s*(?:${targetLabels}))*)\\s*([2-6])\\+`, "gi");
     for (const match of text.matchAll(antiPattern)) {
       const resolvedTargets = String(match[2]).split(/[/／、]/).map((label) => targets[String(label).trim().toLowerCase()]).filter(Boolean);
       resolvedTargets.forEach((target) => effects.push({ type: match[1] ? "anti-keyword-exclusion" : "anti-keyword", target, excludedTargets: match[1] ? resolvedTargets : undefined, threshold: Number(match[3]) }));
@@ -77,12 +80,12 @@
   }
 
   const targetAliases = Object.freeze({
-    infantry: ["步兵", "infantry"], vehicle: ["载具", "vehicle"], monster: ["巨兽", "凶兽", "monster"],
-    fortification: ["工事", "fortification"], titanic: ["泰坦级", "titanic"], fly: ["飞行", "fly", "flying"],
-    psyker: ["灵能者", "灵能", "psyker"], character: ["人物", "角色", "character"],
-    daemon: ["恶魔", "daemon"], walker: ["步行机", "walker"],
-    "epic-hero": ["史诗英雄", "史诗级英雄", "epic hero", "epic-hero"],
-    beast: ["野兽", "beast"], swarm: ["集群", "swarm"],
+    infantry: ["步兵", "infantry"], vehicle: ["载具", "載具", "vehicle"], monster: ["巨兽", "凶兽", "monster"],
+    fortification: ["工事", "fortification"], titanic: ["泰坦级", "titanic"], fly: ["飞行", "飛行", "fly", "flying"],
+    psyker: ["灵能者", "靈能者", "灵能", "靈能", "psyker"], character: ["人物", "角色", "character"],
+    daemon: ["恶魔", "惡魔", "daemon"], walker: ["步行机", "walker"],
+    "epic-hero": ["史诗英雄", "史诗级英雄", "史詩英雄", "epic hero", "epic-hero"],
+    beast: ["野兽", "野獸", "beast"], swarm: ["集群", "swarm"],
   });
 
   function matchingTargetSet(targetKeywords = []) {

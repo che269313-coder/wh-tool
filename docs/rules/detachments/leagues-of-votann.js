@@ -318,6 +318,7 @@
     "detachmentNumber": 4,
     "name": "炉誓",
     "englishName": "Hearthband",
+    "aliases": ["炉心战团"],
     "dp": 3,
     "rule": {
       "id": "leagues-of-votann.detachment.leagues-of-votann-5.rule",
@@ -496,6 +497,7 @@
     "detachmentNumber": 5,
     "name": "炉火武库",
     "englishName": "Hearthfyre Arsenal",
+    "aliases": ["炉焰武库"],
     "dp": 2,
     "rule": {
       "id": "leagues-of-votann.detachment.leagues-of-votann-6.rule",
@@ -674,6 +676,7 @@
     "detachmentNumber": 6,
     "name": "侵害勘探团",
     "englishName": "Persecution Prospect",
+    "aliases": ["猎剿勘探队"],
     "dp": 2,
     "rule": {
       "id": "leagues-of-votann.detachment.leagues-of-votann-7.rule",
@@ -852,6 +855,7 @@
     "detachmentNumber": 7,
     "name": "需求守卫铁誓团",
     "englishName": "Needgaard Oathband",
+    "aliases": ["陨酬铁誓团"],
     "dp": 2,
     "rule": {
       "id": "leagues-of-votann.detachment.leagues-of-votann-8.rule",
@@ -1030,6 +1034,7 @@
     "detachmentNumber": 8,
     "name": "采掘突击班",
     "englishName": "Dêlve Assault Shift",
+    "aliases": ["深岩突击队"],
     "dp": 2,
     "rule": {
       "id": "leagues-of-votann.detachment.leagues-of-votann-9.rule",
@@ -1386,6 +1391,7 @@
     "detachmentNumber": 10,
     "name": "极速烙印铁誓团",
     "englishName": "Brandfast Oathband",
+    "aliases": ["烙速铁誓团"],
     "dp": 2,
     "rule": {
       "id": "leagues-of-votann.detachment.leagues-of-votann-11.rule",

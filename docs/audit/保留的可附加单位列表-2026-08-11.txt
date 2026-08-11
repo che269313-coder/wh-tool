@@ -1,0 +1,61 @@
+KEPT_ATTACH=24
+
+factions/adepta-sororitas.js | unique-leader | "领袖" | unit=圣地大修女阿达娅 | TEXT: 该模型可以附加至以下单位：
+■ **圣地铁卫战斗修女小队**
+■ **圣地铁卫洁天使圣徒**
+factions/adeptus-mechanicus.js | unique-leader | "领袖" | unit=操控师斯坎德 | TEXT: 该模型可以附加至以下单位：
+■ **净化军团护教军先锋**
+factions/agents-of-imperium.js | unique-leader | "领袖" | unit=牧师特根 | TEXT: 该模型可以附加至以下单位：
+■ **审判官之手审判庭特勤**
+factions/chaos-space-marines.js | leader-leader | "领袖" | unit=术士（纳垢轿辇） | TEXT: 此模型可附加至以下单位：
+■ 瘟疫海军陆战队
+factions/chaos-space-marines.js | leader-leader | "领袖" | unit=至尊勇士 | TEXT: 此模型可以附加至以下单位：
+■ 选民
+■ 军团兵
+
+你可以将此模型附加至上述单位之一，即使已有另一个角色模型已附加至该单
+factions/chaos-space-marines.js | leader-leader | "领袖" | unit=术士（奸奇飞盘） | TEXT: 此模型可以依附至下列单位：
+- 红宗秘仪护卫兵
+factions/chaos-space-marines.js | unique-leader | "领袖" | unit=阿兰尼斯·扎坎 | TEXT: 该模型可以附加至以下单位：
+■ **扎坎魔裔军团战士**
+■ **扎坎魔裔附魔战士**
+factions/chaos-space-marines.js | leader-leader | "领袖" | unit=术士（机车） | TEXT: 此模型可被配置到下列单位：
+- 混沌骑兵
+factions/chaos-space-marines.js | leader-leader | "领袖" | unit=叛军执法官 [Legends] | TEXT: 此模型可附属于下列单位：
+■ 叛徒守卫队
+■ 叛徒重型武器队
+factions/chaos-space-marines.js | leader-leader | "领袖" | unit=混沌领主（机车） | TEXT: 此模型可以依附至下列单位：
+■ 混沌骑士
+factions/chaos-space-marines.js | leader-leader | "领袖" | unit=混沌领主（奸奇飞盘） | TEXT: 此模型可被配置到下列单位：
+■ 精选者
+■ 军团兵
+■ 符纹战士
+factions/chaos-space-marines.js | leader-leader | "领袖" | unit=流亡灵能者 [Legends] | TEXT: 此模型可被附加至下列单位：
+■ 受诅教徒
+■ 教徒暴民
+■ 负电邪教徒 [Legends]
+factions/chaos-space-marines.js | leader-leader | "领袖" | unit=混沌领主（纳垢轿辇） | TEXT: 此模型可被附加至下列单位：
+■ 精英战士
+■ 军团战士
+■ 瘟疫战士
+factions/chaos-space-marines.js | leader-leader | "领袖" | unit=混沌领主（色孽战驹） | TEXT: 此模型可附着于以下单位：
+■ 混沌机车兵
+factions/chaos-space-marines.js | leader-leader | "领袖" | unit=混沌领主（钢牛） | TEXT: 此模型可被配置到下列单位：
+■ 混沌骑兵
+■ 恐虐狂战士
+factions/chaos-space-marines.js | leader-leader | "领袖" | unit=术士（色孽战驹） | TEXT: 此模型可以附属于以下单位：
+- 混沌机车骑兵
+factions/drukhari.js | unique-leader | "领袖" | unit=萨特罗斯福·努尔 | TEXT: 该模型可以附加至以下单位：
+■ **折磨巫会凌虐者**
+factions/emperors-children.js | unique-leader | "领袖" | unit=卡伏拉尔，冷酷利刃领主 | TEXT: 该模型可以附加至以下单位：
+■ **冷酷利刃破戒者**
+factions/genestealer-cults.js | unique-leader | "领袖" | unit=莎努斯·达斯科维安 | TEXT: 该模型可以附加至以下单位：
+■ **飞升之爪阿塔兰豺狼摩托手**
+factions/leagues-of-votann.js | unique-leader | "领袖" | unit=维恩·弑敌者 | TEXT: 该模型可以附加至以下单位：
+■ **弑敌壁垒断角炉卫**
+factions/thousand-sons.js | unique-leader | "领袖" | unit=卡’斯卡克 | TEXT: 该模型可以附加至以下单位：
+■ **扎多费恩的棱镜奸角兽开悟者**
+factions/world-eaters.js | unique-leader | "领袖" | unit=狂乱劫掠者行刑大师 | TEXT: 该模型可以附加至以下单位：
+■ **狂乱劫掠者恐虐狂战士**
+orks.js | orks.entry-05ce2343.ability-2 | "领袖" | unit=硬汉帮战争头目 | TEXT: 该模型可以附加至以下单位： ■ **硬汉帮小子**
+orks.js | orks.entry-c9184707.ability-2 | "领袖" | unit=硬汉帮灵能小子 | TEXT: 该模型可以附加至以下单位： ■ **硬汉帮小子**

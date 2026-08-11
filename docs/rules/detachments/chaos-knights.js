@@ -318,6 +318,7 @@
     "detachmentNumber": 4,
     "name": "叛变骑兵队",
     "englishName": "Traitoris Lance",
+    "aliases": ["反叛之矛"],
     "dp": 2,
     "rule": {
       "id": "chaos-knights.detachment.chaos-knights-4.rule",
@@ -496,6 +497,7 @@
     "detachmentNumber": 5,
     "name": "恐惧之王",
     "englishName": "Lords of Dread",
+    "aliases": ["恐惧之主"],
     "dp": 2,
     "rule": {
       "id": "chaos-knights.detachment.chaos-knights-5.rule",
@@ -704,6 +706,7 @@
     "detachmentNumber": 6,
     "name": "炼狱骑士队",
     "englishName": "Infernal Lance",
+    "aliases": ["炼狱长枪"],
     "dp": 3,
     "rule": {
       "id": "chaos-knights.detachment.chaos-knights-6.rule",
@@ -882,6 +885,7 @@
     "detachmentNumber": 7,
     "name": "战犬猎群骑士队",
     "englishName": "Houndpack Lance",
+    "aliases": ["猎群枪队"],
     "dp": 2,
     "rule": {
       "id": "chaos-knights.detachment.chaos-knights-7.rule",

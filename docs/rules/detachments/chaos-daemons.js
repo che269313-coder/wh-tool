@@ -1030,6 +1030,7 @@
     "detachmentNumber": 8,
     "name": "闪耀军团",
     "englishName": "Scintillating Legion",
+    "aliases": ["灵光军团"],
     "dp": 2,
     "rule": {
       "id": "chaos-daemons.detachment.chaos-daemons-10.rule",

@@ -1,0 +1,1019 @@
+{
+  "faction": "钛帝国",
+  "factionId": "tau-empire",
+  "pdfFile": "钛帝国十版CODEX-20250604.pdf",
+  "extractionMethod": "text",
+  "dataCardFile": "docs/data/钛帝国/钛帝国-结构化数据卡.json",
+  "units": [
+    {
+      "pdfName": "影阳指挥官",
+      "cardName": "指挥官影阳",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把箭弹发射器；2把高能融合炮；1把轻型导弹仓；1把脉冲手枪；战斗服铁拳；高级护盾兵蜂；指挥兵蜂。",
+      "defaultEquipment": "脉冲手枪；战斗服拳；飞镖发射器；高能融炉爆破枪；轻脉冲发射器",
+      "isDefaultWeapons": [
+        "脉冲手枪",
+        "战斗服拳",
+        "飞镖发射器",
+        "高能融炉爆破枪",
+        "轻脉冲发射器"
+      ],
+      "pdfPage": 17,
+      "notes": "\"1把脉冲手枪\"->\"脉冲手枪\"中文名一致；\"战斗服铁拳\"->\"战斗服拳\"中文名一致；\"1把箭弹发射器\"->\"飞镖发射器\"按面板数据匹配；\"2把高能融合炮\"->\"高能融炉爆破枪\"按面板数据匹配；\"2把高能融合炮\"数量词已剥离；\"1把轻型导弹仓\"->\"轻脉冲发射器\"按面板数据匹配；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "远见指挥官",
+      "cardName": "指挥官远见",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把高能等离子步枪；黎明之刃",
+      "defaultEquipment": "高强度脉冲步枪；曙光刀",
+      "isDefaultWeapons": [
+        "高强度脉冲步枪",
+        "曙光刀"
+      ],
+      "pdfPage": 18,
+      "notes": "\"1把高能等离子步枪\"->\"高强度脉冲步枪\"按面板数据匹配；\"黎明之刃\"->\"曙光刀\"按面板数据匹配"
+    },
+    {
+      "pdfName": "(XV85)强执战斗服指挥官",
+      "cardName": "执法者战斗服指挥官",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把爆裂速射炮；战斗服铁拳",
+      "defaultEquipment": "战斗服拳；连射炮",
+      "isDefaultWeapons": [
+        "战斗服拳",
+        "连射炮"
+      ],
+      "pdfPage": 19,
+      "notes": "\"战斗服铁拳\"->\"战斗服拳\"中文名一致；\"1把爆裂速射炮\"->\"连射炮\"按面板数据匹配"
+    },
+    {
+      "pdfName": "(XV86)冷星战斗服指挥官",
+      "cardName": "冷星战斗服指挥官",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把高输出爆裂速射炮；战斗服铁拳",
+      "defaultEquipment": "战斗服拳；高输出连射炮",
+      "isDefaultWeapons": [
+        "战斗服拳",
+        "高输出连射炮"
+      ],
+      "pdfPage": 20,
+      "notes": "\"战斗服铁拳\"->\"战斗服拳\"中文名一致；\"1把高输出爆裂速射炮\"->\"高输出连射炮\"按面板数据匹配"
+    },
+    {
+      "pdfName": "火刃队长",
+      "cardName": "火刃首领",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把火刃脉冲步枪；格斗武器",
+      "defaultEquipment": "火刃脉冲步枪；近战武器",
+      "isDefaultWeapons": [
+        "火刃脉冲步枪",
+        "近战武器"
+      ],
+      "pdfPage": 21,
+      "notes": "\"1把火刃脉冲步枪\"->\"火刃脉冲步枪\"中文名一致；\"格斗武器\"->\"近战武器\"按面板数据匹配"
+    },
+    {
+      "pdfName": "以太长老",
+      "cardName": "以太",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "荣耀之刃",
+      "defaultEquipment": "至高善权杖",
+      "isDefaultWeapons": [
+        "至高善权杖"
+      ],
+      "pdfPage": 22,
+      "notes": "\"荣耀之刃\"->\"至高善权杖\"按面板数据匹配"
+    },
+    {
+      "pdfName": "暗行者",
+      "cardName": "暗行",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把暗影，格斗武器。",
+      "defaultEquipment": "影袭武器；近战武器",
+      "isDefaultWeapons": [
+        "影袭武器",
+        "近战武器"
+      ],
+      "pdfPage": 23,
+      "notes": "\"1把暗影\"->\"影袭武器\"按面板数据匹配；\"格斗武器\"->\"近战武器\"按面板数据匹配"
+    },
+    {
+      "pdfName": "打击小队",
+      "cardName": "突击小队",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把脉冲步枪；1把脉冲手枪；格斗武器。",
+      "defaultEquipment": "脉冲步枪；脉冲手枪；近战武器",
+      "isDefaultWeapons": [
+        "脉冲步枪",
+        "脉冲手枪",
+        "近战武器"
+      ],
+      "pdfPage": 24,
+      "notes": "\"1把脉冲步枪\"->\"脉冲步枪\"中文名一致；\"1把脉冲手枪\"->\"脉冲手枪\"中文名一致；\"格斗武器\"->\"近战武器\"按面板数据匹配"
+    },
+    {
+      "pdfName": "破袭小队",
+      "cardName": "攻坚小队",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把脉冲爆裂枪；1把脉冲手枪；格斗武器。",
+      "defaultEquipment": "脉冲爆裂枪；脉冲手枪；近战武器",
+      "isDefaultWeapons": [
+        "脉冲爆裂枪",
+        "脉冲手枪",
+        "近战武器"
+      ],
+      "pdfPage": 25,
+      "notes": "\"1把脉冲爆裂枪\"->\"脉冲爆裂枪\"中文名一致；\"1把脉冲手枪\"->\"脉冲手枪\"中文名一致；\"格斗武器\"->\"近战武器\"按面板数据匹配"
+    },
+    {
+      "pdfName": "(XV8)危机日铸战斗服小队",
+      "cardName": "危机阳铸战斗服",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "2把融合炮；战斗服铁拳",
+      "defaultEquipment": "战斗服拳；融合爆破器",
+      "isDefaultWeapons": [
+        "战斗服拳",
+        "融合爆破器"
+      ],
+      "pdfPage": 26,
+      "notes": "\"战斗服铁拳\"->\"战斗服拳\"中文名一致；\"2把融合炮\"->\"融合爆破器\"按面板数据匹配；\"2把融合炮\"数量词已剥离"
+    },
+    {
+      "pdfName": "(XV8)危机火刃战斗服小队",
+      "cardName": "危机炎刃战斗服",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "1把等离子步枪；1把导弹仓；战斗",
+      "defaultEquipment": "电浆步枪；飞弹舱；战斗服拳",
+      "isDefaultWeapons": [
+        "电浆步枪",
+        "飞弹舱",
+        "战斗服拳"
+      ],
+      "pdfPage": 27,
+      "notes": "\"1把等离子步枪\"->\"电浆步枪\"按面板数据匹配；\"1把导弹仓\"->\"飞弹舱\"按面板数据匹配；\"战斗\"->\"战斗服拳\"按面板数据匹配"
+    },
+    {
+      "pdfName": "(XV8)危机星镰战斗服小队",
+      "cardName": "危机星镰战斗服",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "stats",
+      "pdfDefaultEquipment": "1把爆裂速射炮，1把钛式火焰喷射",
+      "defaultEquipment": "连射炮；战斗服拳",
+      "isDefaultWeapons": [
+        "连射炮",
+        "战斗服拳"
+      ],
+      "pdfPage": 28,
+      "notes": "\"1把爆裂速射炮\"->\"连射炮\"按面板数据匹配；\"1把钛式火焰喷射\"->\"战斗服拳\"按面板数据匹配"
+    },
+    {
+      "pdfName": "(XV25)潜行战斗服小队",
+      "cardName": "隐形战斗服",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把爆裂速射炮；战斗服铁拳；引导信标。；1把爆裂速射炮；战斗",
+      "defaultEquipment": "战斗服拳；连射炮",
+      "isDefaultWeapons": [
+        "战斗服拳",
+        "连射炮"
+      ],
+      "pdfPage": 29,
+      "notes": "\"战斗服铁拳\"->\"战斗服拳\"中文名一致；\"1把爆裂速射炮\"->\"连射炮\"按面板数据匹配；\"1把爆裂速射炮\"->\"连射炮\"按面板数据匹配；\"战斗\"->\"战斗服拳\"按面板数据匹配；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "(XV95)鬼覆战斗服",
+      "cardName": "鬼船战斗服",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把融合加速炮；1门并联钛式火焰喷译者注释烟幕(核心战略能力)：1CP敌方射击阶段中，选择1个你拥有烟雾弹关键词的单位射击时可以使用，直到该阶段结束前，所选单位中的所有模型获得掩体加成以及隐匿能力。",
+      "defaultEquipment": "融合冲击器",
+      "isDefaultWeapons": [
+        "融合冲击器"
+      ],
+      "pdfPage": 30,
+      "notes": "\"1把融合加速炮\"->\"融合冲击器\"按面板数据匹配；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "寻路者小队",
+      "cardName": "探路者小队",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把脉冲卡宾；1把脉冲手枪；格斗武器。",
+      "defaultEquipment": "脉冲卡宾枪；脉冲手枪；半自动榴弹发射器",
+      "isDefaultWeapons": [
+        "脉冲卡宾枪",
+        "脉冲手枪",
+        "半自动榴弹发射器"
+      ],
+      "pdfPage": 31,
+      "notes": "\"1把脉冲卡宾\"->\"脉冲卡宾枪\"中文名一致；\"1把脉冲手枪\"->\"脉冲手枪\"中文名一致；\"格斗武器\"->\"半自动榴弹发射器\"按面板数据匹配"
+    },
+    {
+      "pdfName": "神射手小队",
+      "cardName": "火眼小队",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1组长距离脉冲步枪；1把脉冲手枪；格斗武器。",
+      "defaultEquipment": "脉冲手枪；长射程脉冲步枪；近战武器",
+      "isDefaultWeapons": [
+        "脉冲手枪",
+        "长射程脉冲步枪",
+        "近战武器"
+      ],
+      "pdfPage": 32,
+      "notes": "\"1把脉冲手枪\"->\"脉冲手枪\"中文名一致；\"1组长距离脉冲步枪\"->\"长射程脉冲步枪\"按面板数据匹配；\"格斗武器\"->\"近战武器\"按面板数据匹配"
+    },
+    {
+      "pdfName": "胡蜂人尖翼小队",
+      "cardName": "胡蜂尖翼战士",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把中子爆破枪；蜇翼。",
+      "defaultEquipment": "中子枪",
+      "isDefaultWeapons": [
+        "中子枪"
+      ],
+      "pdfPage": 33,
+      "notes": "\"1把中子爆破枪\"->\"中子枪\"按面板数据匹配；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "克鲁特寻迹塑形者",
+      "cardName": "克鲁特踪迹塑形者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把克鲁特步枪；塑形者之刃",
+      "defaultEquipment": "克鲁特步枪；塑形师之刃",
+      "isDefaultWeapons": [
+        "克鲁特步枪",
+        "塑形师之刃"
+      ],
+      "pdfPage": 34,
+      "notes": "\"1把克鲁特步枪\"->\"克鲁特步枪\"中文名一致；\"塑形者之刃\"->\"塑形师之刃\"中文名一致"
+    },
+    {
+      "pdfName": "克鲁特战争塑形者",
+      "cardName": "克鲁特战争塑形者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把三刃镖弓；1把克鲁特手枪；塑形者之刃",
+      "defaultEquipment": "克鲁特手枪；塑形师之刃；飞镖弓与三刃",
+      "isDefaultWeapons": [
+        "克鲁特手枪",
+        "塑形师之刃",
+        "飞镖弓与三刃"
+      ],
+      "pdfPage": 35,
+      "notes": "\"1把克鲁特手枪\"->\"克鲁特手枪\"中文名一致；\"塑形者之刃\"->\"塑形师之刃\"中文名一致；\"1把三刃镖弓\"->\"飞镖弓与三刃\"按面板数据匹配"
+    },
+    {
+      "pdfName": "克鲁特血肉塑形者",
+      "cardName": "克鲁特血肉塑形者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把克鲁特霰弹枪；双仪式短刀",
+      "defaultEquipment": "双仪式刀；克鲁特散射枪",
+      "isDefaultWeapons": [
+        "双仪式刀",
+        "克鲁特散射枪"
+      ],
+      "pdfPage": 36,
+      "notes": "\"双仪式短刀\"->\"双仪式刀\"中文名一致；\"1把克鲁特霰弹枪\"->\"克鲁特散射枪\"按面板数据匹配"
+    },
+    {
+      "pdfName": "克鲁特独矛",
+      "cardName": "克鲁特独矛",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把克鲁特长铳；格斗武器；卡拉曼德拉啃咬",
+      "defaultEquipment": "克罗特长枪；近战武器；卡拉曼卓之咬",
+      "isDefaultWeapons": [
+        "克罗特长枪",
+        "近战武器",
+        "卡拉曼卓之咬"
+      ],
+      "pdfPage": 37,
+      "notes": "\"1把克鲁特长铳\"->\"克罗特长枪\"按面板数据匹配；\"格斗武器\"->\"近战武器\"按面板数据匹配；\"卡拉曼德拉啃咬\"->\"卡拉曼卓之咬\"按面板数据匹配"
+    },
+    {
+      "pdfName": "克鲁特食肉者小队",
+      "cardName": "克鲁特捕食者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把克鲁特步枪，1把克鲁特手枪，格斗武器",
+      "defaultEquipment": "克鲁特步枪；克鲁特手枪；近战武器",
+      "isDefaultWeapons": [
+        "克鲁特步枪",
+        "克鲁特手枪",
+        "近战武器"
+      ],
+      "pdfPage": 38,
+      "notes": "\"1把克鲁特步枪\"->\"克鲁特步枪\"中文名一致；\"1把克鲁特手枪\"->\"克鲁特手枪\"中文名一致；\"格斗武器\"->\"近战武器\"按面板数据匹配"
+    },
+    {
+      "pdfName": "克鲁特猿兽骑兵小队",
+      "cardName": "克鲁特兽骑兵",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1门转轮炮；格斗武器；克鲁特兽拳。",
+      "defaultEquipment": "克鲁特牛拳；连发炮；近战武器",
+      "isDefaultWeapons": [
+        "克鲁特牛拳",
+        "连发炮",
+        "近战武器"
+      ],
+      "pdfPage": 39,
+      "notes": "\"克鲁特兽拳\"->\"克鲁特牛拳\"中文名一致；\"1门转轮炮\"->\"连发炮\"按面板数据匹配；\"格斗武器\"->\"近战武器\"按面板数据匹配"
+    },
+    {
+      "pdfName": "克鲁特狂兽小队",
+      "cardName": "狂暴克鲁特兽",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1组克鲁特手枪与狩猎标枪；狩猎短刀；狂兽之拳。",
+      "defaultEquipment": "克罗特手枪与狩猎标枪；狩猎刀刃；横暴铁拳",
+      "isDefaultWeapons": [
+        "克罗特手枪与狩猎标枪",
+        "狩猎刀刃",
+        "横暴铁拳"
+      ],
+      "pdfPage": 40,
+      "notes": "\"1组克鲁特手枪与狩猎标枪\"->\"克罗特手枪与狩猎标枪\"中文名一致；\"狩猎短刀\"->\"狩猎刀刃\"按面板数据匹配；\"狂兽之拳\"->\"横暴铁拳\"按面板数据匹配"
+    },
+    {
+      "pdfName": "克鲁特猎犬队",
+      "cardName": "克鲁特猎犬",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "撕裂牙。",
+      "defaultEquipment": "利齿撕裂",
+      "isDefaultWeapons": [
+        "利齿撕裂"
+      ],
+      "pdfPage": 41,
+      "notes": "\"撕裂牙\"->\"利齿撕裂\"按面板数据匹配"
+    },
+    {
+      "pdfName": "克鲁特远猎者小队",
+      "cardName": "克鲁特远猎者",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把远猎者火枪；1把克鲁特手枪；仪式之刃。；1把远猎者火枪；1把克鲁特手枪；格斗武器。；撕裂牙。",
+      "defaultEquipment": "克鲁特手枪；仪式刃；近战武器；利齿撕裂",
+      "isDefaultWeapons": [
+        "克鲁特手枪",
+        "仪式刃",
+        "近战武器",
+        "利齿撕裂"
+      ],
+      "pdfPage": 42,
+      "notes": "\"1把克鲁特手枪\"->\"克鲁特手枪\"中文名一致；\"仪式之刃\"->\"仪式刃\"中文名一致；\"1把克鲁特手枪\"->\"克鲁特手枪\"中文名一致；\"1把远猎者火枪\"->\"克鲁特手枪\"按面板数据匹配；\"1把远猎者火枪\"->\"克鲁特手枪\"按面板数据匹配；\"格斗武器\"->\"近战武器\"按面板数据匹配；\"撕裂牙\"->\"利齿撕裂\"按面板数据匹配"
+    },
+    {
+      "pdfName": "(TX4)水虎鱼",
+      "cardName": "食人鱼战机",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1门水虎鱼爆裂速射炮；2门并联脉冲卡宾；装甲外壳。",
+      "defaultEquipment": "比拉那炮火炮；双联脉冲卡宾枪；装甲车体",
+      "isDefaultWeapons": [
+        "比拉那炮火炮",
+        "双联脉冲卡宾枪",
+        "装甲车体"
+      ],
+      "pdfPage": 43,
+      "notes": "\"1门水虎鱼爆裂速射炮\"->\"比拉那炮火炮\"按面板数据匹配；\"2门并联脉冲卡宾\"->\"双联脉冲卡宾枪\"按面板数据匹配；\"2门并联脉冲卡宾\"数量词已剥离；\"装甲外壳\"->\"装甲车体\"按面板数据匹配"
+    },
+    {
+      "pdfName": "(XV88)炮击战斗服小队",
+      "cardName": "舷炮战斗服",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把重型磁轨枪；粉碎冲撞",
+      "defaultEquipment": "重型轨道步枪；粉碎重击",
+      "isDefaultWeapons": [
+        "重型轨道步枪",
+        "粉碎重击"
+      ],
+      "pdfPage": 44,
+      "notes": "\"1把重型磁轨枪\"->\"重型轨道步枪\"按面板数据匹配；\"粉碎冲撞\"->\"粉碎重击\"按面板数据匹配"
+    },
+    {
+      "pdfName": "(XV104)激流战斗服",
+      "cardName": "激流战斗服",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把重型爆裂速射炮；1门并联等离",
+      "defaultEquipment": "重型连射炮；双联电浆步枪",
+      "isDefaultWeapons": [
+        "重型连射炮",
+        "双联电浆步枪"
+      ],
+      "pdfPage": 45,
+      "notes": "\"1把重型爆裂速射炮\"->\"重型连射炮\"按面板数据匹配；\"1门并联等离\"->\"双联电浆步枪\"按面板数据匹配"
+    },
+    {
+      "pdfName": "锤头鲨炮艇",
+      "cardName": "锤头鲨炮艇",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1门磁轨炮；2门并联脉冲卡宾；装甲",
+      "defaultEquipment": "轨道炮；双联脉冲卡宾枪",
+      "isDefaultWeapons": [
+        "轨道炮",
+        "双联脉冲卡宾枪"
+      ],
+      "pdfPage": 46,
+      "notes": "\"1门磁轨炮\"->\"轨道炮\"按面板数据匹配；\"2门并联脉冲卡宾\"->\"双联脉冲卡宾枪\"按面板数据匹配；\"2门并联脉冲卡宾\"数量词已剥离；\"装甲\"->\"轨道炮\"按面板数据匹配"
+    },
+    {
+      "pdfName": "(TX78)天 炮艇",
+      "cardName": "天鳐炮艇",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1组寻觅者导弹发射架；2门并联脉冲卡宾；装甲外壳。",
+      "defaultEquipment": "寻的飞弹架；双联脉冲卡宾枪；装甲车体",
+      "isDefaultWeapons": [
+        "寻的飞弹架",
+        "双联脉冲卡宾枪",
+        "装甲车体"
+      ],
+      "pdfPage": 47,
+      "notes": "\"1组寻觅者导弹发射架\"->\"寻的飞弹架\"按面板数据匹配；\"2门并联脉冲卡宾\"->\"双联脉冲卡宾枪\"按面板数据匹配；\"2门并联脉冲卡宾\"数量词已剥离；\"装甲外壳\"->\"装甲车体\"按面板数据匹配"
+    },
+    {
+      "pdfName": "(TY7)魔鬼鱼",
+      "cardName": "魔鬼鱼运输艇",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1门挂载爆裂速射炮；2门并联脉冲卡宾；装甲外壳。",
+      "defaultEquipment": "加速连射炮；双联脉冲卡宾枪；装甲车体",
+      "isDefaultWeapons": [
+        "加速连射炮",
+        "双联脉冲卡宾枪",
+        "装甲车体"
+      ],
+      "pdfPage": 48,
+      "notes": "\"1门挂载爆裂速射炮\"->\"加速连射炮\"按面板数据匹配；\"2门并联脉冲卡宾\"->\"双联脉冲卡宾枪\"按面板数据匹配；\"2门并联脉冲卡宾\"数量词已剥离；\"装甲外壳\"->\"装甲车体\"按面板数据匹配"
+    },
+    {
+      "pdfName": "(AX3)剃刀鲨战斗机",
+      "cardName": "剃刀鲨歼击机",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1门挂载爆裂速射炮；1门四管离子炮台；2枚寻觅者导弹；装甲外壳。",
+      "defaultEquipment": "加速连射炮；四联离子炮塔；寻的飞弹",
+      "isDefaultWeapons": [
+        "加速连射炮",
+        "四联离子炮塔",
+        "寻的飞弹"
+      ],
+      "pdfPage": 49,
+      "notes": "\"1门挂载爆裂速射炮\"->\"加速连射炮\"按面板数据匹配；\"1门四管离子炮台\"->\"四联离子炮塔\"按面板数据匹配；\"2枚寻觅者导弹\"->\"寻的飞弹\"按面板数据匹配；\"2枚寻觅者导弹\"数量词已剥离；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "(AX39)阳鲨轰炸机",
+      "cardName": "太阳鲨轰炸机",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1门导弹仓；2枚寻觅者导弹；2门并联离子步枪；装甲外壳。",
+      "defaultEquipment": "双联离子步枪；双联飞弹炮座；寻的飞弹",
+      "isDefaultWeapons": [
+        "双联离子步枪",
+        "双联飞弹炮座",
+        "寻的飞弹"
+      ],
+      "pdfPage": 50,
+      "notes": "\"2门并联离子步枪\"->\"双联离子步枪\"中文名一致；\"2门并联离子步枪\"数量词已剥离；\"1门导弹仓\"->\"双联飞弹炮座\"按面板数据匹配；\"2枚寻觅者导弹\"->\"寻的飞弹\"按面板数据匹配；\"2枚寻觅者导弹\"数量词已剥离；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "(KV128)雷暴",
+      "cardName": "风暴潮",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1门集束火箭系统；1组毁灭者导弹；1",
+      "defaultEquipment": "集束火箭系统；闪毁飞弹",
+      "isDefaultWeapons": [
+        "集束火箭系统",
+        "闪毁飞弹"
+      ],
+      "pdfPage": 51,
+      "notes": "\"1门集束火箭系统\"->\"集束火箭系统\"中文名一致；\"1组毁灭者导弹\"->\"闪毁飞弹\"按面板数据匹配"
+    },
+    {
+      "pdfName": "潮汐护盾墙",
+      "cardName": "潮汐壁垒防线墙",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 52,
+      "notes": "PDF无默认装备行"
+    },
+    {
+      "pdfName": "潮汐兵蜂平台",
+      "cardName": "潮汐壁垒无人机港",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1组兵蜂守护者。",
+      "defaultEquipment": "防卫无人机",
+      "isDefaultWeapons": [
+        "防卫无人机"
+      ],
+      "pdfPage": 53,
+      "notes": "\"1组兵蜂守护者\"->\"防卫无人机\"按面板数据匹配"
+    },
+    {
+      "pdfName": "潮汐炮台",
+      "cardName": "潮汐壁垒炮台",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1门超电磁炮。",
+      "defaultEquipment": "至尊轨道炮",
+      "isDefaultWeapons": [
+        "至尊轨道炮"
+      ],
+      "pdfPage": 54,
+      "notes": "\"1门超电磁炮\"->\"至尊轨道炮\"按面板数据匹配"
+    },
+    {
+      "pdfName": "虎鲨",
+      "cardName": "虎鲨战斗轰炸机",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "2门爆裂速射炮；2门离子加农；2门导",
+      "defaultEquipment": "连射炮；离子炮",
+      "isDefaultWeapons": [
+        "连射炮",
+        "离子炮"
+      ],
+      "pdfPage": 55,
+      "notes": "\"2门爆裂速射炮\"->\"连射炮\"按面板数据匹配；\"2门爆裂速射炮\"数量词已剥离；\"2门离子加农\"->\"离子炮\"按面板数据匹配；\"2门离子加农\"数量词已剥离；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "虎鲨AX-1-0",
+      "cardName": "AX-1-0 虎鲨攻击机",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "2门爆裂速射炮；2门导弹仓；1门并联重型磁轨加农；装甲外壳。",
+      "defaultEquipment": "连射炮；飞弹舱",
+      "isDefaultWeapons": [
+        "连射炮",
+        "飞弹舱"
+      ],
+      "pdfPage": 56,
+      "notes": "\"2门爆裂速射炮\"->\"连射炮\"按面板数据匹配；\"2门爆裂速射炮\"数量词已剥离；\"2门导弹仓\"->\"飞弹舱\"按面板数据匹配；\"2门导弹仓\"数量词已剥离；\"1门并联重型磁轨加农\"->\"飞弹舱\"按面板数据匹配；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "(KX139)塔'钨钠至高装甲",
+      "cardName": "塔’乌纳至高机甲",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "4门爆裂速射炮；1门核融泯灭炮；3门脉冲炮击系统；4门智能导弹系统，1门三轴离子加农炮；践踏巨足。",
+      "defaultEquipment": "连射炮；融合根除器；脉冲重炮驱动器；摧毁足",
+      "isDefaultWeapons": [
+        "连射炮",
+        "融合根除器",
+        "脉冲重炮驱动器",
+        "摧毁足"
+      ],
+      "pdfPage": 57,
+      "notes": "\"4门爆裂速射炮\"->\"连射炮\"按面板数据匹配；\"4门爆裂速射炮\"数量词已剥离；\"1门核融泯灭炮\"->\"融合根除器\"按面板数据匹配；\"3门脉冲炮击系统\"->\"脉冲重炮驱动器\"按面板数据匹配；\"3门脉冲炮击系统\"数量词已剥离；\"践踏巨足\"->\"摧毁足\"按面板数据匹配；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "蝠鲼",
+      "cardName": "蝠鱝登陆舰",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "2门重型磁轨加农；6门离子加农；2组长管爆裂速射炮阵列；2门导弹仓；10枚寻觅者导弹；装甲外壳。",
+      "defaultEquipment": "重型轨道炮；离子炮；长管连射炮阵列；飞弹舱；寻的飞弹；装甲车体",
+      "isDefaultWeapons": [
+        "重型轨道炮",
+        "离子炮",
+        "长管连射炮阵列",
+        "飞弹舱",
+        "寻的飞弹",
+        "装甲车体"
+      ],
+      "pdfPage": 58,
+      "notes": "\"2门重型磁轨加农\"->\"重型轨道炮\"按面板数据匹配；\"2门重型磁轨加农\"数量词已剥离；\"6门离子加农\"->\"离子炮\"按面板数据匹配；\"6门离子加农\"数量词已剥离；\"2组长管爆裂速射炮阵列\"->\"长管连射炮阵列\"按面板数据匹配；\"2组长管爆裂速射炮阵列\"数量词已剥离；\"2门导弹仓\"->\"飞弹舱\"按面板数据匹配；\"2门导弹仓\"数量词已剥离；\"10枚寻觅者导弹\"->\"寻的飞弹\"按面板数据匹配；\"10枚寻觅者导弹\"数量词已剥离；\"装甲外壳\"->\"装甲车体\"按面板数据匹配"
+    },
+    {
+      "pdfName": "安’瓦",
+      "cardName": "欧恩瓦",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "格斗武器。；最高荣耀之刃。",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 59,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "安’史",
+      "cardName": "欧恩希",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "忠毅之刃",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 60,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "遥击",
+      "cardName": "长击手",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1门磁轨炮；2门并联脉冲卡宾；装甲",
+      "defaultEquipment": "轨道炮",
+      "isDefaultWeapons": [
+        "轨道炮"
+      ],
+      "pdfPage": 61,
+      "notes": "\"1门磁轨炮\"->\"轨道炮\"按面板数据匹配；\"装甲\"->\"轨道炮\"按面板数据匹配；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "夏司’欧 R’ALAI",
+      "cardName": "夏斯奥·鲁阿莱",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把试验型脉冲霰弹步枪；战斗服铁拳；黑光标记蜂。",
+      "defaultEquipment": "战斗服拳；实验脉冲弹鼓步枪",
+      "isDefaultWeapons": [
+        "战斗服拳",
+        "实验脉冲弹鼓步枪"
+      ],
+      "pdfPage": 62,
+      "notes": "\"战斗服铁拳\"->\"战斗服拳\"中文名一致；\"1把试验型脉冲霰弹步枪\"->\"实验脉冲弹鼓步枪\"按面板数据匹配；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "(XV8)危机战斗服指挥官",
+      "cardName": "危机战斗服指挥官",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把爆裂速射炮；战斗服铁拳",
+      "defaultEquipment": "战斗服拳；连射炮",
+      "isDefaultWeapons": [
+        "战斗服拳",
+        "连射炮"
+      ],
+      "pdfPage": 63,
+      "notes": "\"战斗服铁拳\"->\"战斗服拳\"中文名一致；\"1把爆裂速射炮\"->\"连射炮\"按面板数据匹配"
+    },
+    {
+      "pdfName": "(XV8)危机战斗服小队",
+      "cardName": "危机战斗服",
+      "matchConfidence": "fuzzy",
+      "matchBasis": "chinese-similarity",
+      "pdfDefaultEquipment": "1把爆裂速射炮；战斗服铁拳危机保镖重复选择：",
+      "defaultEquipment": "连射炮；循环离子加速器；融合爆破器；飞弹舱；电浆步枪；战斗服拳",
+      "isDefaultWeapons": [
+        "连射炮",
+        "循环离子加速器",
+        "融合爆破器",
+        "飞弹舱",
+        "电浆步枪",
+        "战斗服拳"
+      ],
+      "pdfPage": 64,
+      "notes": "(XV8)危机战斗服小队 = 危机战斗服(Crisis Battlesuits)，非 XV9；PDF装备为可选武器池，数据卡默认装备为 6 件核心武器",
+      "englishName": "Crisis Battlesuits"
+    },
+    {
+      "pdfName": "XV9灾害战斗服小队",
+      "cardName": "XV9 危机战斗服",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把融合喷射炮；1把并联灾害爆裂速射炮；战斗服铁拳。",
+      "defaultEquipment": "战斗服拳；融合爆破级联器；双联危机连射炮",
+      "isDefaultWeapons": [
+        "战斗服拳",
+        "融合爆破级联器",
+        "双联危机连射炮"
+      ],
+      "pdfPage": 65,
+      "notes": "\"战斗服铁拳\"->\"战斗服拳\"中文名一致；\"1把融合喷射炮\"->\"融合爆破级联器\"按面板数据匹配；\"1把并联灾害爆裂速射炮\"->\"双联危机连射炮\"按面板数据匹配"
+    },
+    {
+      "pdfName": "(XV107)燃雨战斗服",
+      "cardName": "尔瓦那战斗服",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "2门脉冲霰弹加农；战斗服铁拳。",
+      "defaultEquipment": "重型脉冲爆破炮×2；巨大战斗服拳",
+      "isDefaultWeapons": [
+        "重型脉冲爆破炮×2",
+        "巨大战斗服拳"
+      ],
+      "pdfPage": 66,
+      "notes": "\"2门脉冲霰弹加农\"->\"重型脉冲爆破炮×2\"按面板数据匹配；\"2门脉冲霰弹加农\"数量词已剥离；\"战斗服铁拳\"->\"巨大战斗服拳\"按中文相似映射"
+    },
+    {
+      "pdfName": "(XV109)焰涌战斗服",
+      "cardName": "伊瓦拉战斗服",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1门集束箭形弹仓；1门离子喷射加农；1门相控等离子喷射器；战斗服铁拳。",
+      "defaultEquipment": "飞镖荚舱；离子放电炮（标准）；巨大战斗服拳",
+      "isDefaultWeapons": [
+        "飞镖荚舱",
+        "离子放电炮（标准）",
+        "巨大战斗服拳"
+      ],
+      "pdfPage": 67,
+      "notes": "\"1门集束箭形弹仓\"->\"飞镖荚舱\"按面板数据匹配；\"1门离子喷射加农\"->\"离子放电炮（标准）\"按面板数据匹配；\"战斗服铁拳\"->\"巨大战斗服拳\"按中文相似映射；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "脂鲤小队",
+      "cardName": "泰特拉侦察飞艇",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "2门脉冲卡宾；格斗武器。",
+      "defaultEquipment": "脉冲卡宾枪",
+      "isDefaultWeapons": [
+        "脉冲卡宾枪"
+      ],
+      "pdfPage": 68,
+      "notes": "\"2门脉冲卡宾\"->\"脉冲卡宾枪\"中文名一致；\"2门脉冲卡宾\"数量词已剥离；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "TX-42水虎鱼",
+      "cardName": "TX42 比拉鱼",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "2门等离子步枪；装甲外壳。",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 69,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "卡纳罗克骑兵队",
+      "cardName": "纳洛克骑兵",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1把克鲁特步枪；卡纳罗克利喙与尖爪。",
+      "defaultEquipment": "克鲁特步枪（射击）；纳洛克喙与利爪",
+      "isDefaultWeapons": [
+        "克鲁特步枪（射击）",
+        "纳洛克喙与利爪"
+      ],
+      "pdfPage": 70,
+      "notes": "\"1把克鲁特步枪\"->\"克鲁特步枪（射击）\"中文名一致；\"卡纳罗克利喙与尖爪\"->\"纳洛克喙与利爪\"按面板数据匹配"
+    },
+    {
+      "pdfName": "卡纳罗克巨兽",
+      "cardName": "大角拉克",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "卡纳罗克巨兽粉碎喙与剃刀爪。",
+      "defaultEquipment": "巨喙撕裂",
+      "isDefaultWeapons": [
+        "巨喙撕裂"
+      ],
+      "pdfPage": 71,
+      "notes": "\"卡纳罗克巨兽粉碎喙与剃刀爪\"->\"巨喙撕裂\"按面板数据匹配"
+    },
+    {
+      "pdfName": "战术兵蜂",
+      "cardName": "",
+      "matchConfidence": "unmatched",
+      "matchBasis": "unmatched",
+      "pdfDefaultEquipment": "1门并联脉冲卡宾；格斗武器。",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 72,
+      "notes": "未匹配到数据卡"
+    },
+    {
+      "pdfName": "重型枪蜂小队",
+      "cardName": "重型炮击无人机",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1门爆裂速射炮；标记光；格斗武器。",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 73,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "(DX-6) 鱼隐形兵蜂机队",
+      "cardName": "雷莫拉隐形无人机",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1门并联长管爆裂速射炮；2枚寻觅者导弹；格斗武器。",
+      "defaultEquipment": "双联远程脉冲步枪；寻的飞弹",
+      "isDefaultWeapons": [
+        "双联远程脉冲步枪",
+        "寻的飞弹"
+      ],
+      "pdfPage": 74,
+      "notes": "\"1门并联长管爆裂速射炮\"->\"双联远程脉冲步枪\"按面板数据匹配；\"2枚寻觅者导弹\"->\"寻的飞弹\"按面板数据匹配；\"2枚寻觅者导弹\"数量词已剥离；部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "(AX-5-2)梭鱼",
+      "cardName": "梭子鱼战机",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "2门长管爆裂速射炮；1门高速爆裂速",
+      "defaultEquipment": "脉冲步枪×2；迅击连射炮",
+      "isDefaultWeapons": [
+        "脉冲步枪×2",
+        "迅击连射炮"
+      ],
+      "pdfPage": 75,
+      "notes": "\"2门长管爆裂速射炮\"->\"脉冲步枪×2\"按面板数据匹配；\"2门长管爆裂速射炮\"数量词已剥离；\"1门高速爆裂速\"->\"迅击连射炮\"按面板数据匹配"
+    },
+    {
+      "pdfName": "逆戟鲸运输机",
+      "cardName": "虎鲸突击艇",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "2门长管爆裂速射炮；1门导弹仓；装甲外壳。",
+      "defaultEquipment": "长管连射炮 ×2；飞弹舱；装甲车体",
+      "isDefaultWeapons": [
+        "长管连射炮 ×2",
+        "飞弹舱",
+        "装甲车体"
+      ],
+      "pdfPage": 76,
+      "notes": "\"2门长管爆裂速射炮\"->\"长管连射炮 ×2\"按面板数据匹配；\"2门长管爆裂速射炮\"数量词已剥离；\"1门导弹仓\"->\"飞弹舱\"按面板数据匹配；\"装甲外壳\"->\"装甲车体\"按面板数据匹配"
+    },
+    {
+      "pdfName": "遥感哨塔",
+      "cardName": "远程感应塔",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "无77",
+      "defaultEquipment": "",
+      "isDefaultWeapons": [],
+      "pdfPage": 77,
+      "notes": "部分默认装备无法映射到数据卡武器"
+    },
+    {
+      "pdfName": "兵蜂哨戒炮",
+      "cardName": "无人哨塔炮座",
+      "matchConfidence": "exact",
+      "matchBasis": "english-name",
+      "pdfDefaultEquipment": "1门并联等离子步枪。",
+      "defaultEquipment": "双联电浆步枪",
+      "isDefaultWeapons": [
+        "双联电浆步枪"
+      ],
+      "pdfPage": 78,
+      "notes": "\"1门并联等离子步枪\"->\"双联电浆步枪\"按面板数据匹配"
+    }
+  ],
+  "detachments": [
+    {
+      "pdfName": "空育",
+      "detachmentName": "考雍",
+      "matchBasis": "rule-name",
+      "confidence": "high",
+      "pdfPage": 5,
+      "notes": "团策名一致"
+    },
+    {
+      "pdfName": "蒙特卡",
+      "detachmentName": "蒙特卡",
+      "matchBasis": "rule-name",
+      "confidence": "high",
+      "pdfPage": 7,
+      "notes": "团策文本相似0.51；PDF团策名\"一击必杀\"与registry\"致命一击\"不同"
+    },
+    {
+      "pdfName": "复仇猎核",
+      "detachmentName": "",
+      "matchBasis": "unmatched",
+      "confidence": "unmatched",
+      "pdfPage": 9,
+      "notes": "未匹配"
+    },
+    {
+      "pdfName": "克鲁特猎群队",
+      "detachmentName": "克鲁特猎群",
+      "matchBasis": "rule-name",
+      "confidence": "high",
+      "pdfPage": 11,
+      "notes": "团策文本相似0.48；PDF团策名\"狩猎本能\"与registry\"猎手直觉\"不同"
+    },
+    {
+      "pdfName": "辅助猎核",
+      "detachmentName": "辅助核心队",
+      "matchBasis": "rule-name",
+      "confidence": "high",
+      "pdfPage": 13,
+      "notes": "团策名一致"
+    },
+    {
+      "pdfName": "原型实验猎核",
+      "detachmentName": "",
+      "matchBasis": "unmatched",
+      "confidence": "unmatched",
+      "pdfPage": 15,
+      "notes": "未匹配"
+    }
+  ],
+  "unitAliases": {
+    "影阳指挥官": "指挥官影阳",
+    "远见指挥官": "指挥官远见",
+    "(XV85)强执战斗服指挥官": "执法者战斗服指挥官",
+    "(XV86)冷星战斗服指挥官": "冷星战斗服指挥官",
+    "火刃队长": "火刃首领",
+    "以太长老": "以太",
+    "暗行者": "暗行",
+    "打击小队": "突击小队",
+    "破袭小队": "攻坚小队",
+    "(XV8)危机日铸战斗服小队": "危机阳铸战斗服",
+    "(XV8)危机火刃战斗服小队": "危机炎刃战斗服",
+    "(XV8)危机星镰战斗服小队": "危机星镰战斗服",
+    "(XV25)潜行战斗服小队": "隐形战斗服",
+    "(XV95)鬼覆战斗服": "鬼船战斗服",
+    "寻路者小队": "探路者小队",
+    "神射手小队": "火眼小队",
+    "胡蜂人尖翼小队": "胡蜂尖翼战士",
+    "克鲁特寻迹塑形者": "克鲁特踪迹塑形者",
+    "克鲁特食肉者小队": "克鲁特捕食者",
+    "克鲁特猿兽骑兵小队": "克鲁特兽骑兵",
+    "克鲁特狂兽小队": "狂暴克鲁特兽",
+    "克鲁特猎犬队": "克鲁特猎犬",
+    "克鲁特远猎者小队": "克鲁特远猎者",
+    "(TX4)水虎鱼": "食人鱼战机",
+    "(XV88)炮击战斗服小队": "舷炮战斗服",
+    "(XV104)激流战斗服": "激流战斗服",
+    "(TX78)天 炮艇": "天鳐炮艇",
+    "(TY7)魔鬼鱼": "魔鬼鱼运输艇",
+    "(AX3)剃刀鲨战斗机": "剃刀鲨歼击机",
+    "(AX39)阳鲨轰炸机": "太阳鲨轰炸机",
+    "(KV128)雷暴": "风暴潮",
+    "潮汐护盾墙": "潮汐壁垒防线墙",
+    "潮汐兵蜂平台": "潮汐壁垒无人机港",
+    "潮汐炮台": "潮汐壁垒炮台",
+    "虎鲨": "虎鲨战斗轰炸机",
+    "虎鲨AX-1-0": "AX-1-0 虎鲨攻击机",
+    "(KX139)塔'钨钠至高装甲": "塔’乌纳至高机甲",
+    "蝠鲼": "蝠鱝登陆舰",
+    "安’瓦": "欧恩瓦",
+    "安’史": "欧恩希",
+    "遥击": "长击手",
+    "夏司’欧 R’ALAI": "夏斯奥·鲁阿莱",
+    "(XV8)危机战斗服指挥官": "危机战斗服指挥官",
+    "(XV8)危机战斗服小队": "危机战斗服",
+    "XV9灾害战斗服小队": "XV9 危机战斗服",
+    "(XV107)燃雨战斗服": "尔瓦那战斗服",
+    "(XV109)焰涌战斗服": "伊瓦拉战斗服",
+    "脂鲤小队": "泰特拉侦察飞艇",
+    "TX-42水虎鱼": "TX42 比拉鱼",
+    "卡纳罗克骑兵队": "纳洛克骑兵",
+    "卡纳罗克巨兽": "大角拉克",
+    "重型枪蜂小队": "重型炮击无人机",
+    "(DX-6) 鱼隐形兵蜂机队": "雷莫拉隐形无人机",
+    "(AX-5-2)梭鱼": "梭子鱼战机",
+    "逆戟鲸运输机": "虎鲸突击艇",
+    "遥感哨塔": "远程感应塔",
+    "兵蜂哨戒炮": "无人哨塔炮座"
+  },
+  "detachmentAliases": {
+    "空育": "考雍",
+    "克鲁特猎群队": "克鲁特猎群",
+    "辅助猎核": "辅助核心队"
+  },
+  "issues": [
+    "[unit:影阳指挥官] 默认装备无法匹配: ['高级护盾兵蜂', '指挥兵蜂']",
+    "[unit:(XV25)潜行战斗服小队] 默认装备无法匹配: ['引导信标']",
+    "[unit:(XV95)鬼覆战斗服] 默认装备无法匹配: ['1门并联钛式火焰喷译者注释烟幕(核心战略能力)']",
+    "[unit:胡蜂人尖翼小队] 默认装备无法匹配: ['蜇翼']",
+    "[unit:(AX3)剃刀鲨战斗机] 默认装备无法匹配: ['装甲外壳']",
+    "[unit:(AX39)阳鲨轰炸机] 默认装备无法匹配: ['装甲外壳']",
+    "[unit:虎鲨] 默认装备无法匹配: ['2门导']",
+    "[unit:虎鲨AX-1-0] 默认装备无法匹配: ['装甲外壳']",
+    "[unit:(KX139)塔'钨钠至高装甲] 默认装备无法匹配: ['4门智能导弹系统，1门三轴离子加农炮']",
+    "[unit:安’瓦] 默认装备无法匹配: ['格斗武器', '最高荣耀之刃']",
+    "[unit:安’史] 默认装备无法匹配: ['忠毅之刃']",
+    "[unit:遥击] 默认装备无法匹配: ['2门并联脉冲卡宾']",
+    "[unit:夏司’欧 R’ALAI] 默认装备无法匹配: ['黑光标记蜂']",
+    "[unit:(XV8)危机战斗服小队] 默认装备无法匹配: ['战斗服铁拳危机保镖重复选择']",
+    "[unit:(XV109)焰涌战斗服] 默认装备无法匹配: ['1门相控等离子喷射器']",
+    "[unit:脂鲤小队] 默认装备无法匹配: ['格斗武器']",
+    "[unit:TX-42水虎鱼] 默认装备无法匹配: ['2门等离子步枪', '装甲外壳']",
+    "[unit:战术兵蜂] 页[72] 未匹配到数据卡",
+    "[unit:重型枪蜂小队] 默认装备无法匹配: ['1门爆裂速射炮', '标记光', '格斗武器']",
+    "[unit:(DX-6) 鱼隐形兵蜂机队] 默认装备无法匹配: ['格斗武器']",
+    "[unit:遥感哨塔] 默认装备无法匹配: ['无77']",
+    "[detachment:复仇猎核] 页9 未匹配到registry分遣队",
+    "[detachment:原型实验猎核] 页15 未匹配到registry分遣队"
+  ]
+}
