@@ -1509,8 +1509,23 @@ function resolvedFactionEffects(draft, overrides = {}) {
 }
 
 function defenderEffectsFromUnit(unit, draft, unitName) {
-  const rules = draft ? resolvedRuleEffects(draft, unitName || unit?.name || draft.entry?.name) : { defend: {} };
-  const defend = rules.defend || {};
+  const resolvedName = unitName || unit?.name || draft?.entry?.name;
+  const rules = draft ? resolvedRuleEffects(draft, resolvedName) : { defend: {} };
+  const defend = { ...(rules.defend || {}) };
+  if (draft && window.WarhammerRuleResolver) {
+    // 阵营规则同样作用于防守单位：欧克兽人瓦戈！开启后获得 5+ 无敌豁免，
+    // 属于阵营规则的 defend 效果，必须并入防守方 payload 才会进入豁免结算。
+    const factionDefend = resolvedFactionEffects(draft, { unitName: resolvedName }).defend || {};
+    const pickBest = (left, right) => (left && right ? Math.min(left, right) : left || right);
+    defend.invulnerableSave = pickBest(defend.invulnerableSave, factionDefend.invulnerableSave);
+    defend.feelNoPain = pickBest(defend.feelNoPain, factionDefend.feelNoPain);
+    defend.feelNoPainMortal = pickBest(defend.feelNoPainMortal, factionDefend.feelNoPainMortal);
+    defend.leaderFeelNoPain = pickBest(defend.leaderFeelNoPain, factionDefend.leaderFeelNoPain);
+    defend.incomingDamageModifier = Number(defend.incomingDamageModifier || 0) + Number(factionDefend.incomingDamageModifier || 0);
+    defend.damageOverride = defend.damageOverride || factionDefend.damageOverride;
+    defend.damageMultiplier = defend.damageMultiplier || factionDefend.damageMultiplier;
+    defend.saveReroll = defend.saveReroll || factionDefend.saveReroll;
+  }
   const effects = emptyDefenderEffects();
   if (defend.feelNoPain) {
     effects.feelNoPainEnabled = true;

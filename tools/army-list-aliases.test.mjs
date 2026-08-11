@@ -237,3 +237,10 @@ test("计算页修改 W/模型 必须同步剩余伤口以触发严重损伤", (
   assert.ok(cacheHit[0].includes("remainingWounds"), "草稿复用必须重新计算剩余伤口");
   assert.ok(cacheHit[0].includes("remainingWoundsManual"), "手动改过 W/模型 的单位不能被军表伤口覆盖");
 });
+
+test("防守方效果装配必须并入阵营规则的 defend 效果(瓦戈！5+ 无敌豁免)", () => {
+  const appSource = fs.readFileSync(new URL("../docs/app.js", import.meta.url), "utf8");
+  const defenderSource = appSource.match(/function defenderEffectsFromUnit[\s\S]*?function calculatorDataForUnit/)?.[0] || "";
+  assert.ok(defenderSource.includes("resolvedFactionEffects"), "defenderEffectsFromUnit 必须解析阵营规则的防守效果");
+  assert.ok(defenderSource.includes("factionDefend.invulnerableSave"), "阵营规则的无敌豁免必须并入防守方 payload");
+});

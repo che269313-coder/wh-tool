@@ -5,7 +5,14 @@ import vm from "node:vm";
 
 const context = vm.createContext({ console });
 context.globalThis = context;
-vm.runInContext(fs.readFileSync(new URL("../docs/rules/orks.js", import.meta.url), "utf8"), context);
+for (const file of [
+  "docs/rules/faction-registry.js",
+  "docs/rules/factions.js",
+  "docs/rules/effect-schema.js",
+  "docs/rules/effects.js",
+  "docs/rules/resolver.js",
+  "docs/rules/orks.js",
+]) vm.runInContext(fs.readFileSync(new URL(`../${file}`, import.meta.url), "utf8"), context);
 const rules = context.WarhammerOrksRules.unitRules;
 const normalized = (value) => String(value || "").replace(/[\s!！]/g, "");
 const find = (unit, name) => Object.entries(rules).find(([candidate]) => normalized(candidate) === normalized(unit))?.[1]
@@ -70,4 +77,16 @@ test("Dakkablitz adds six attacks only to the Blitzkannon against non-Monster/Ve
     && effect.value === 6
     && effect.phase === "ranged"
     && effect.unlessTargetMonsterVehicle));
+});
+
+test("瓦戈！开启后阵营规则必须同时提供近战加值与 5+ 无敌豁免", () => {
+  const selections = { "orks.army.waagh.enabled": true };
+  const waaghOn = context.WarhammerRuleResolver.resolveFaction("欧克兽人", selections, { phase: "melee" });
+  assert.equal(waaghOn.defend.invulnerableSave, 5, "瓦戈！开启后防守方必须获得 5+ 无敌豁免");
+  assert.equal(waaghOn.attack.attackModifier, 1, "瓦戈！开启后近战攻击次数 +1");
+  assert.ok(waaghOn.attack.strengthModifier === 1, "瓦戈！开启后近战力量 +1");
+  const waaghOff = context.WarhammerRuleResolver.resolveFaction("欧克兽人", {}, { phase: "melee" });
+  assert.equal(waaghOff.defend.invulnerableSave, 0, "瓦戈！未开启时没有无敌豁免");
+  const ranged = context.WarhammerRuleResolver.resolveFaction("欧克兽人", selections, { phase: "ranged" });
+  assert.equal(ranged.attack.attackModifier, 0, "瓦戈！的近战加值不得影响远程攻击");
 });
