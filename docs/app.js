@@ -619,12 +619,19 @@ function enabledCalculatorWeapons(data, entryName, rosterUnit, options = {}) {
     ? baseWeapons.map((weapon) => weaponMatchesRoster(weapon, rosterUnit))
     : baseWeapons.map((weapon) => weaponMatchesEquipmentText(weapon, defaultEquipment));
   const anyMatching = matching.some(Boolean);
-  return window.WarhammerCombatState.initializeOptionalExclusiveWeapons(baseWeapons.map((weapon, index) => ({
-    ...weapon,
-    enabled: anyMatching ? matching[index] : true,
-    modelCount: (weapon.modelCount ?? (hasRosterEquipment ? weaponModelCount(weapon, rosterUnit, defaultModels) : defaultModels)) * Math.max(1, Number(options.weaponMultipliers?.[weapon.name] || 1)),
-    equipmentMultiplier: hasRosterEquipment ? weaponEquipmentMultiplier(weapon, rosterUnit, 1) : 1,
-  })));
+  return window.WarhammerCombatState.initializeOptionalExclusiveWeapons(baseWeapons.map((weapon, index) => {
+    // modelsCarrying = 携带该武器的模型数（用于射击/近战分配校验）；
+    // modelCount = 武器数量（模型数 × 单模型同型武器数 × 档案倍率），
+    // 计算页的"数量"字段直接显示并编辑武器数量。
+    const modelsCarrying = weapon.modelCount ?? (hasRosterEquipment ? weaponModelCount(weapon, rosterUnit, defaultModels) : defaultModels);
+    const equipmentMultiplier = hasRosterEquipment ? weaponEquipmentMultiplier(weapon, rosterUnit, 1) : 1;
+    return {
+      ...weapon,
+      enabled: anyMatching ? matching[index] : true,
+      modelsCarrying,
+      modelCount: modelsCarrying * equipmentMultiplier * Math.max(1, Number(options.weaponMultipliers?.[weapon.name] || 1)),
+    };
+  }));
 }
 
 function normalizeModelProfileText(value) {
@@ -706,8 +713,9 @@ function getCalculatorDraft(side, index = 0, selectionKey = null) {
   if (state.calculatorDrafts[side]?.[index]?.key === key) {
     // 军表伤口在详情弹窗中修改后，草稿按 key 复用会保留旧的剩余伤口，
     // 导致"严重损伤"等按剩余血量生效的技能不触发；这里每次取用时刷新。
+    // 计算页手动改过 W/模型 的单位以页面数值为准，不再被军表覆盖。
     const draft = state.calculatorDrafts[side][index];
-    if (entry?.rosterUnit) {
+    if (entry?.rosterUnit && !draft.remainingWoundsManual) {
       draft.remainingWounds = activeModels(entry.rosterUnit).reduce((sum, model) => sum + Number(model.currentWounds || 0), 0);
       if (draft.joinedMembers?.length) {
         const groupUnits = entry.group?.units || [];
@@ -715,7 +723,7 @@ function getCalculatorDraft(side, index = 0, selectionKey = null) {
           const rosterMember = member.parentId
             ? groupUnits.find((unit) => unit.id === member.parentId)
             : (groupUnits.find((unit) => unit.id === member.id) || (member.id === entry.rosterUnit.id ? entry.rosterUnit : null));
-          if (rosterMember) {
+          if (rosterMember && !member.remainingWoundsManual) {
             member.remainingWounds = activeModels(rosterMember).reduce((sum, model) => sum + Number(model.currentWounds || 0), 0);
           }
         });
@@ -929,20 +937,6 @@ function modifyDamageExpression(value, modifier) {
   return `${count === 1 ? "" : count}D${sides}${constant ? `${constant > 0 ? "+" : ""}${constant}` : ""}`;
 }
 
-// 同型武器数量倍率（如军表中 2x 酷刑炮）：按"单模型携带数量 × 掷骰次数"缩放攻击次数。
-function multiplyDamageExpression(value, multiplier) {
-  const amount = Math.max(1, Number(multiplier || 1));
-  if (amount === 1) return value;
-  const text = String(value ?? "1").replace(/\s+/g, "").toUpperCase();
-  if (/^[+-]?\d+$/.test(text)) return String(Number(text) * amount);
-  const match = text.match(/^(\d*)D(\d+)([+-]\d+)?$/);
-  if (!match) return value;
-  const count = Number(match[1] || 1) * amount;
-  const sides = Number(match[2]);
-  const constant = Number(match[3] || 0) * amount;
-  return `${count === 1 ? "" : count}D${sides}${constant ? `${constant > 0 ? "+" : ""}${constant}` : ""}`;
-}
-
 // 军表中某武器在每个携带模型上的数量（默认 1）。兼容旧数据把"2个酷刑炮"
 // 写在装备名里的格式。
 function weaponEquipmentMultiplier(weapon, rosterUnit, fallback = 1) {
@@ -1138,14 +1132,11 @@ function calculatorWeaponControlMarkup(weapon, side, index, groupIndex = null, d
   const coreProfile = draft && side === "attacker" ? coreWeaponResolution(weapon, draft, sourceName) : null;
   const attackModifier = Number(sourceRules.attackModifier || 0) + Number(coreProfile?.attackModifier || 0);
   const strengthModifier = Number(sourceRules.strengthModifier || 0);
-  const equipmentMultiplier = Math.max(1, Number(weapon.equipmentMultiplier || 1));
-  const effectiveAttacks = (attackModifier || equipmentMultiplier > 1)
-    ? multiplyDamageExpression(modifyDamageExpression(weapon.attacks, attackModifier), equipmentMultiplier)
-    : "";
+  const effectiveAttacks = attackModifier ? modifyDamageExpression(weapon.attacks, attackModifier) : "";
   const effectiveStrength = strengthModifier && Number.isFinite(Number(weapon.strength)) ? String(Number(weapon.strength) + strengthModifier) : "";
   const effectiveDamage = coreProfile?.damageModifier ? modifyDamageExpression(weapon.damage, coreProfile.damageModifier) : "";
   const modifierNotes = [
-    effectiveAttacks ? `有效攻击：A${effectiveAttacks}${attackModifier ? `（${attackModifier > 0 ? "+" : ""}${attackModifier}）` : ""}${equipmentMultiplier > 1 ? `（军表 ${equipmentMultiplier} 件同型武器）` : ""}` : "",
+    effectiveAttacks ? `有效攻击：A${effectiveAttacks}（${attackModifier > 0 ? "+" : ""}${attackModifier}）` : "",
     effectiveStrength ? `有效力量：S${effectiveStrength}（${strengthModifier > 0 ? "+" : ""}${strengthModifier}）` : "",
     effectiveDamage ? `有效伤害：D${effectiveDamage}（热熔 +${coreProfile.damageModifier}）` : "",
     coreProfile?.hitModifier ? `通用命中修正：${coreProfile.hitModifier > 0 ? "+" : ""}${coreProfile.hitModifier}` : "",
@@ -1276,7 +1267,13 @@ function updateCalculatorDraftFromControl(control) {
       }
     }
   }
-  if (control.dataset.calcModelCount !== undefined) draft.modelCount = Math.max(1, Number(value) || 1);
+  if (control.dataset.calcModelCount !== undefined) {
+    draft.modelCount = Math.max(1, Number(value) || 1);
+    // 数量变化时同步剩余伤口，保证"严重损伤"等按剩余血量生效的技能正确。
+    if (draft.remainingWoundsManual || !draft.entry?.rosterUnit) {
+      draft.remainingWounds = Number(draft.unit.woundsPerModel || 1) * draft.modelCount;
+    }
+  }
   if (control.dataset.calcRule !== undefined) {
     draft.ruleSelections ||= {};
     draft.ruleSelections[control.dataset.calcRule] = control.type === "checkbox" ? Boolean(control.checked) : value;
@@ -1296,6 +1293,12 @@ function updateCalculatorDraftFromControl(control) {
   if (control.dataset.calcStat) {
     const field = control.dataset.calcStat;
     draft.unit[field] = ["movement", "toughness", "save", "invulnerableSave", "woundsPerModel", "objectiveControl"].includes(field) ? Math.max(0, Number(value) || 0) : value;
+    if (field === "woundsPerModel") {
+      // 计算页直接修改 W/模型 时按"每模型 W × 模型数"刷新剩余伤口，
+      // 让严重损伤(剩余 1-N 时命中 -1)立即生效；军表单位此后以本页数值为准。
+      draft.remainingWounds = Math.max(1, Number(draft.unit.woundsPerModel) || 1) * Math.max(1, Number(draft.modelCount || 1));
+      draft.remainingWoundsManual = true;
+    }
   }
   if (control.dataset.calcGroupIndex !== undefined) {
     const member = draft.joinedMembers?.[Number(control.dataset.calcGroupIndex)];
@@ -1303,11 +1306,18 @@ function updateCalculatorDraftFromControl(control) {
       if (control.dataset.calcGroupModelCount !== undefined) {
         member.modelCount = Math.max(1, Number(value) || 1);
         if (draft.entry?.rosterUnit?.id === member.id) draft.modelCount = member.modelCount;
+        if (member.remainingWoundsManual || !draft.entry?.rosterUnit) {
+          member.remainingWounds = Number(member.unit.woundsPerModel || 1) * member.modelCount;
+        }
       }
       if (control.dataset.calcGroupStat) {
         const field = control.dataset.calcGroupStat;
         member.unit[field] = Math.max(0, Number(value) || 0);
         if (draft.entry?.rosterUnit?.id === member.id) draft.unit[field] = member.unit[field];
+        if (field === "woundsPerModel") {
+          member.remainingWounds = Math.max(1, Number(member.unit.woundsPerModel) || 1) * Math.max(1, Number(member.modelCount || 1));
+          member.remainingWoundsManual = true;
+        }
       }
       if (control.dataset.calcGroupWeaponIndex !== undefined) {
         const weapon = member.weapons?.[Number(control.dataset.calcGroupWeaponIndex)];
@@ -1717,23 +1727,25 @@ function buildSelectedRoundPayload() {
     const sourceWeapons = source.weapons || [];
     if (state.attackMode === "ranged" && !state.combatContext.attackerEngaged && !calculatorSourceIsMonsterVehicle(attackerDraft, source.ruleName || source.name)) {
       const selected = sourceWeapons.filter((weapon) => weapon.enabled !== false && weapon.type === "ranged");
+      const carrying = (weapon) => Number(weapon.modelsCarrying ?? weapon.modelCount ?? source.modelCount ?? 1);
       const closeRangeModelCounts = selected
         .filter((weapon) => window.WarhammerKeywordDictionary.parse(weapon.abilities || []).some((effect) => effect.type === "close-range" || effect.type === "pistol"))
-        .map((weapon) => Number(weapon.modelCount ?? source.modelCount ?? 1));
+        .map(carrying);
       const otherModelCounts = selected
         .filter((weapon) => !window.WarhammerKeywordDictionary.parse(weapon.abilities || []).some((effect) => effect.type === "close-range" || effect.type === "pistol"))
-        .map((weapon) => Number(weapon.modelCount ?? source.modelCount ?? 1));
+        .map(carrying);
       const allocation = window.WarhammerCombatState.validateRangedWeaponAllocation({ modelCount: source.modelCount, closeRangeModelCounts, otherModelCounts });
       if (!allocation.valid) throw new Error(`${source.name} 的近距离/手枪武器组使用 ${allocation.closeRangeModels} 个模型，其他远程武器组使用 ${allocation.otherModels} 个模型，超过当前 ${allocation.modelCount} 个模型；同一模型在常规射击时必须二选一`);
     }
     if (state.attackMode === "melee") {
       const selected = sourceWeapons.filter((weapon) => weapon.enabled !== false && weapon.type === "melee");
+      const carrying = (weapon) => Number(weapon.modelsCarrying ?? weapon.modelCount ?? source.modelCount ?? 1);
       const extraAttackModelCounts = selected
         .filter((weapon) => window.WarhammerKeywordDictionary.parse(weapon.abilities || []).some((effect) => effect.type === "extra-attacks"))
-        .map((weapon) => Number(weapon.modelCount ?? source.modelCount ?? 1));
+        .map(carrying);
       const otherModelCounts = selected
         .filter((weapon) => !window.WarhammerKeywordDictionary.parse(weapon.abilities || []).some((effect) => effect.type === "extra-attacks"))
-        .map((weapon) => Number(weapon.modelCount ?? source.modelCount ?? 1));
+        .map(carrying);
       const allocation = window.WarhammerCombatState.validateMeleeWeaponAllocation({ modelCount: source.modelCount, extraAttackModelCounts, otherModelCounts });
       if (!allocation.valid) throw new Error(`${source.name} 的普通近战武器组使用 ${allocation.otherModels} 个模型，超过当前 ${allocation.modelCount} 个模型；每个模型可以使用所有[额外攻击]武器，但至多再选择一件其他近战武器`);
     }
@@ -1757,14 +1769,9 @@ function buildSelectedRoundPayload() {
         + scopedAttackModifier
         + Number(coreProfile.attackModifier || 0);
       const resolvedAttackOverride = sourceRules.weaponAttackOverride || sourceFactionEffects.weaponAttackOverride;
-      // 军表同型武器数量（如 2x 酷刑炮）按倍率放大攻击次数。
-      const equipmentMultiplier = Math.max(1, Number(weapon.equipmentMultiplier || 1));
-      const attackOverride = multiplyDamageExpression(
-        resolvedAttackOverride?.name === weapon.name
-          ? resolvedAttackOverride.value
-          : modifyDamageExpression(modifyDamageExpression(weapon.attacks, coreProfile.attackExpressionModifier || 0), generalAttackModifier),
-        equipmentMultiplier,
-      );
+      const attackOverride = resolvedAttackOverride?.name === weapon.name
+        ? resolvedAttackOverride.value
+        : modifyDamageExpression(modifyDamageExpression(weapon.attacks, coreProfile.attackExpressionModifier || 0), generalAttackModifier);
       const ignoresHitModifiers = Boolean(sourceRules.ignoreHitModifiers || sharedJoinedRules.ignoreHitModifiers || sourceFactionEffects.ignoreHitModifiers);
       const hitContributions = [
         Number(sourceRules.hitModifier || 0),

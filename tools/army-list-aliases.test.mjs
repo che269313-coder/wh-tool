@@ -203,29 +203,37 @@ test("军表装备数量导入必须保留同型武器数量", () => {
   assert.equal(squadWithHeavy.filter((model) => model.equipment.length === 1).length, 2, "2 件重型武器必须分给 2 个模型");
 });
 
-test("同型武器倍率缩放攻击次数且保留骰子表达式", () => {
-  const scale = (value, multiplier) => {
-    const amount = Math.max(1, Number(multiplier || 1));
-    if (amount === 1) return value;
-    const text = String(value ?? "1").replace(/\s+/g, "").toUpperCase();
-    if (/^[+-]?\d+$/.test(text)) return String(Number(text) * amount);
-    const match = text.match(/^(\d*)D(\d+)([+-]\d+)?$/);
-    if (!match) return value;
-    const count = Number(match[1] || 1) * amount;
-    const sides = Number(match[2]);
-    const constant = Number(match[3] || 0) * amount;
-    return `${count === 1 ? "" : count}D${sides}${constant ? `${constant > 0 ? "+" : ""}${constant}` : ""}`;
+test("武器数量直接进入计算页数量字段，引擎按数量×A掷骰", () => {
+  // 污染者：1 个模型携带 2x 酷刑炮 → 数量字段 = 2（= 携带模型数 × 单模型同型武器数）
+  const card = cards.find((c) => c.name === "污染者" && c.factionId === "death-guard");
+  const battlecannon = card.data.weapons.find((w) => w.name === "酷刑炮");
+  const rosterEquipment = [{ name: "酷刑炮", count: 2 }];
+  const modelsCarrying = 1;
+  const itemCount = (item) => Math.max(1, Number(item.count || 1));
+  const multiplier = itemCount(rosterEquipment[0]);
+  const weaponCount = modelsCarrying * multiplier;
+  assert.equal(weaponCount, 2, "2x 酷刑炮的数量必须为 2");
+
+  // 引擎：数量 2 × A6 = 12 次攻击（3+ 命中期望 8）
+  for (const f of ["docs/rules/effect-schema.js", "docs/rules/payload-schema.js", "docs/rules/keyword-dictionary.js"]) load(f);
+  load("docs/engine.js");
+  const group = {
+    name: "酷刑炮", modelCount: weaponCount, attacks: "6", hit: 3, wound: 5, ap: -1, damage: "2",
+    effects: context.WarhammerPayloadSchema.createWeaponEffects({ lethalHitsEnabled: true }),
   };
-  assert.equal(scale("6", 2), "12", "固定攻击次数必须按倍率翻倍");
-  assert.equal(scale("D6", 2), "2D6", "骰子表达式必须翻倍骰数");
-  assert.equal(scale("D6+3", 2), "2D6+6", "骰子加常数必须整体翻倍");
-  assert.equal(scale("2D6", 3), "6D6", "多骰表达式必须按倍率缩放");
-  assert.equal(scale("D6", 1), "D6", "单件武器不缩放");
+  const result = context.WarhammerEngine.simulateRound({
+    simulations: 20000,
+    weaponGroups: [group],
+    defenderGroups: [{ name: "目标", modelCount: 1, wounds: 18, save: 3, invulnerableSave: 5, effects: context.WarhammerPayloadSchema.createDefenderEffects() }],
+  });
+  assert.ok(Math.abs(result.roundSummary.weaponGroups[0].averageHits - 8) < 0.2, `2x 酷刑炮平均命中应约 8，实际 ${result.roundSummary.weaponGroups[0].averageHits.toFixed(2)}`);
 });
 
-test("严重损伤等按剩余伤口生效的技能必须随军表伤口修改刷新", () => {
+test("计算页修改 W/模型 必须同步剩余伤口以触发严重损伤", () => {
   const appSource = fs.readFileSync(new URL("../docs/app.js", import.meta.url), "utf8");
+  assert.ok(/data-calc-stat="woundsPerModel"[\s\S]{0,400}remainingWoundsManual = true/.test(appSource) || /field === "woundsPerModel"[\s\S]{0,300}remainingWoundsManual = true/.test(appSource), "计算页 W/模型 编辑必须同步剩余伤口并标记手动模式");
   const cacheHit = appSource.match(/state\.calculatorDrafts\[side\]\?\.\[index\]\?\.key === key[\s\S]*?return draft;/);
   assert.ok(cacheHit, "草稿复用路径必须刷新 remainingWounds 后返回");
   assert.ok(cacheHit[0].includes("remainingWounds"), "草稿复用必须重新计算剩余伤口");
+  assert.ok(cacheHit[0].includes("remainingWoundsManual"), "手动改过 W/模型 的单位不能被军表伤口覆盖");
 });
