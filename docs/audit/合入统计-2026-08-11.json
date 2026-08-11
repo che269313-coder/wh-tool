@@ -3,10 +3,11 @@
   "summary": {
     "factions": 19,
     "units": 650,
-    "unitAliases": 361,
-    "detachmentAliases": 24
+    "unitAliases": 0,
+    "detachmentAliases": 0
   },
-  "countEnhancedUnits": 42,
+  "countEnhancedUnits": 44,
+  "profileEnhancedUnits": 11,
   "countExamples": [
     {
       "factionId": "adepta-sororitas",
@@ -136,6 +137,12 @@
     },
     {
       "factionId": "leagues-of-votann",
+      "cardName": "深岩撼地者",
+      "before": "自动模式手枪；震动炮弹；电浆镐",
+      "after": "2x 自动模式手枪；震动炮弹；电浆镐"
+    },
+    {
+      "factionId": "leagues-of-votann",
       "cardName": "赫卡顿陆行要塞",
       "before": "MATR自动加农炮；双联爆弹炮；循环离子炮；装甲轮胎",
       "after": "MATR自动加农炮；2x 双联爆弹炮；循环离子炮；装甲轮胎"
@@ -151,6 +158,12 @@
       "cardName": "立方体方舟",
       "before": "传导奇点室（粒子）；特斯拉加农炮；装甲巨体",
       "after": "传导奇点室（粒子）；2x 特斯拉加农炮；装甲巨体"
+    },
+    {
+      "factionId": "orks",
+      "cardName": "坦克破坏者",
+      "before": "火箭手枪；大砍刀；火箭炮；近战武器",
+      "after": "2x 火箭手枪；大砍刀；火箭炮；近战武器"
     },
     {
       "factionId": "tau-empire",
@@ -261,149 +274,272 @@
       "after": "2x 灵魂碎裂者雷射加农炮；双联重爆弹枪；装甲履带"
     }
   ],
+  "profileExamples": [
+    {
+      "factionId": "adepta-sororitas",
+      "cardName": "圣塞莱斯汀",
+      "changes": [
+        {
+          "profile": "champion",
+          "equipment": "圣剑阿达拉"
+        },
+        {
+          "profile": "trooper",
+          "equipment": "爆弹手枪；动力武器"
+        }
+      ]
+    },
+    {
+      "factionId": "adepta-sororitas",
+      "cardName": "恶魔驱逐者",
+      "changes": [
+        {
+          "profile": "model-kyganil-of-the-bloody-tears",
+          "equipment": "流浪者之刃"
+        }
+      ]
+    },
+    {
+      "factionId": "adepta-sororitas",
+      "cardName": "阿斯垂德·瑟加和阿加瑟·多兰",
+      "changes": [
+        {
+          "profile": "model-agathae-dolan",
+          "equipment": "爆弹手枪；抄写者之杖"
+        }
+      ]
+    },
+    {
+      "factionId": "adepta-sororitas",
+      "cardName": "见习修女小队",
+      "changes": [
+        {
+          "profile": "champion",
+          "equipment": "自动手枪；自动步枪；新兵近战武器"
+        }
+      ]
+    },
+    {
+      "factionId": "astra-militarum",
+      "cardName": "风暴天鹰",
+      "changes": [
+        {
+          "profile": "model-gunfighter",
+          "equipment": "高功率雷射卡宾枪；近战武器"
+        }
+      ]
+    },
+    {
+      "factionId": "chaos-space-marines",
+      "cardName": "法比乌斯·拜尔",
+      "changes": [
+        {
+          "profile": "trooper",
+          "equipment": "赛克洛斯针枪；折磨之杖"
+        },
+        {
+          "profile": "champion",
+          "equipment": "外科助手之工具"
+        }
+      ]
+    },
+    {
+      "factionId": "chaos-space-marines",
+      "cardName": "黑暗传教团",
+      "changes": [
+        {
+          "profile": "model-cult-demagogue",
+          "equipment": "亚空间诅咒；近战武器"
+        },
+        {
+          "profile": "model-mindwitch",
+          "equipment": "自动手枪；近战武器"
+        },
+        {
+          "profile": "model-iconarch",
+          "equipment": "公社之刃"
+        }
+      ]
+    },
+    {
+      "factionId": "chaos-space-marines",
+      "cardName": "叛变监军",
+      "changes": [
+        {
+          "profile": "model-traitor-enforcer",
+          "equipment": "欧格伦武器"
+        }
+      ]
+    },
+    {
+      "factionId": "leagues-of-votann",
+      "cardName": "机锻钢铁之主",
+      "changes": [
+        {
+          "profile": "model-e-cog",
+          "equipment": "雷射束切割器；近战武器"
+        },
+        {
+          "profile": "model-ironkin-assistant",
+          "equipment": "自动模式手枪；近战武器"
+        }
+      ]
+    },
+    {
+      "factionId": "orks",
+      "cardName": "喷火小子",
+      "changes": [
+        {
+          "profile": "champion",
+          "equipment": "近战武器；大射枪"
+        }
+      ]
+    },
+    {
+      "factionId": "orks",
+      "cardName": "蛮人拾荒者",
+      "changes": [
+        {
+          "profile": "champion",
+          "equipment": "近战武器；大射枪"
+        }
+      ]
+    }
+  ],
   "factionStats": [
     {
       "factionId": "adepta-sororitas",
       "faction": "修女会",
       "units": 29,
-      "unitAliases": 19,
+      "unitAliases": 0,
       "detachmentAliases": 0
     },
     {
       "factionId": "adeptus-mechanicus",
       "faction": "机械修会",
       "units": 26,
-      "unitAliases": 22,
+      "unitAliases": 0,
       "detachmentAliases": 0
     },
     {
       "factionId": "aeldari",
       "faction": "艾达灵族",
       "units": 55,
-      "unitAliases": 21,
-      "detachmentAliases": 4
+      "unitAliases": 0,
+      "detachmentAliases": 0
     },
     {
       "factionId": "agents-of-imperium",
       "faction": "帝国特勤",
       "units": 15,
-      "unitAliases": 2,
+      "unitAliases": 0,
       "detachmentAliases": 0
     },
     {
       "factionId": "astra-militarum",
       "faction": "星界军",
       "units": 50,
-      "unitAliases": 33,
+      "unitAliases": 0,
       "detachmentAliases": 0
     },
     {
       "factionId": "chaos-daemons",
       "faction": "混沌恶魔",
       "units": 48,
-      "unitAliases": 30,
-      "detachmentAliases": 1
+      "unitAliases": 0,
+      "detachmentAliases": 0
     },
     {
       "factionId": "chaos-knights",
       "faction": "混沌骑士",
       "units": 20,
-      "unitAliases": 9,
-      "detachmentAliases": 4
+      "unitAliases": 0,
+      "detachmentAliases": 0
     },
     {
       "factionId": "chaos-space-marines",
       "faction": "混沌星际战士",
       "units": 46,
-      "unitAliases": 27,
+      "unitAliases": 0,
       "detachmentAliases": 0
     },
     {
       "factionId": "drukhari",
       "faction": "黑暗灵族",
       "units": 24,
-      "unitAliases": 4,
+      "unitAliases": 0,
       "detachmentAliases": 0
     },
     {
       "factionId": "emperors-children",
       "faction": "帝皇之子",
       "units": 22,
-      "unitAliases": 12,
+      "unitAliases": 0,
       "detachmentAliases": 0
     },
     {
       "factionId": "genestealer-cults",
       "faction": "基因窃取者教派",
       "units": 24,
-      "unitAliases": 16,
+      "unitAliases": 0,
       "detachmentAliases": 0
     },
     {
       "factionId": "imperial-knights",
       "faction": "帝国骑士",
       "units": 12,
-      "unitAliases": 2,
+      "unitAliases": 0,
       "detachmentAliases": 0
     },
     {
       "factionId": "leagues-of-votann",
       "faction": "沃坦联盟",
       "units": 21,
-      "unitAliases": 12,
-      "detachmentAliases": 6
+      "unitAliases": 0,
+      "detachmentAliases": 0
     },
     {
       "factionId": "necrons",
       "faction": "太空死灵",
       "units": 57,
-      "unitAliases": 46,
+      "unitAliases": 0,
       "detachmentAliases": 0
     },
     {
       "factionId": "orks",
       "faction": "欧克兽人",
       "units": 52,
-      "unitAliases": 1,
+      "unitAliases": 0,
       "detachmentAliases": 0
     },
     {
       "factionId": "tau-empire",
       "faction": "钛帝国",
       "units": 55,
-      "unitAliases": 57,
-      "detachmentAliases": 3
+      "unitAliases": 0,
+      "detachmentAliases": 0
     },
     {
       "factionId": "thousand-sons",
       "faction": "千子",
       "units": 34,
-      "unitAliases": 19,
-      "detachmentAliases": 6
+      "unitAliases": 0,
+      "detachmentAliases": 0
     },
     {
       "factionId": "tyranids",
       "faction": "泰伦虫族",
       "units": 30,
-      "unitAliases": 6,
+      "unitAliases": 0,
       "detachmentAliases": 0
     },
     {
       "factionId": "world-eaters",
       "faction": "吞世者",
       "units": 30,
-      "unitAliases": 23,
+      "unitAliases": 0,
       "detachmentAliases": 0
     }
   ],
-  "aliasConflicts": [
-    {
-      "factionId": "chaos-space-marines",
-      "alias": "犀牛装用车",
-      "oldValue": "修女会犀牛装甲车",
-      "newValue": "混沌犀牛战车",
-      "source": "跨阵营重复（adepta-sororitas 已有 犀牛装用车→修女会犀牛装甲车）"
-    }
-  ],
-  "note": "数值为首次合入累计；最后一次幂等重跑未新增任何条目（unitAliases=0, detachmentAliases=0）。"
+  "aliasConflicts": []
 }

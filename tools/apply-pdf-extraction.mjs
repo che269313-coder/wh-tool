@@ -229,13 +229,16 @@ function parsePdfWeaponCounts(pdfEquipmentText) {
   String(pdfEquipmentText || "").split(/[；;，,、]/).forEach((raw, index) => {
     const segment = String(raw || "").trim();
     if (!segment) return;
+    // 去掉模型名前缀（如「老大队长：两把火箭手枪」「坦爆小子：火箭炮」），
+    // 否则数量正则锚定段首会漏掉「两把」这类计数（坦爆队问题根因）。
+    const withoutModelPrefix = segment.replace(/^[^：:]{1,15}[：:]\s*/, "").trim() || segment;
     let count = 1;
-    let name = segment;
-    let match = segment.match(/^(\d+)\s*[xX×门个把支套挺枚座]?\s*(?!名|位|员)(.+)$/);
+    let name = withoutModelPrefix;
+    let match = withoutModelPrefix.match(/^(\d+)\s*[xX×门个把支套挺枚座]?\s*(?!名|位|员)(.+)$/);
     if (match && match[2].trim()) {
       count = Number(match[1]) || 1;
       name = match[2].trim();
-    } else if ((match = segment.match(/^两\s*[xX×门个把支套挺枚座]?\s*(?!名|位|员)(.+)$/)) && match[1].trim()) {
+    } else if ((match = withoutModelPrefix.match(/^两\s*[xX×门个把支套挺枚座]?\s*(?!名|位|员)(.+)$/)) && match[1].trim()) {
       count = 2;
       name = match[1].trim();
     }
@@ -306,6 +309,143 @@ function applyDefaultWeaponCounts(canonicalText, pdfCounts) {
   return segments.map((segment, index) => segment + (separators[index] || "")).join("");
 }
 
+// ---- 队长/队员默认装备分离 ----
+// PDF「单位装备」常按模型分组书写（如「老大队长：两把火箭手枪；砌刀；坦爆小子：火箭筒+格斗武器」）。
+// 数据卡的 modelProfiles（队长/普通成员分开计算）需要各自独立的 defaultEquipment，
+// 否则队长与队员的武器混在同一串里，无军表计算时每个档案都会启用全部武器。
+const profileLeaderHint = /队长|老大|冠军|士官|指挥官|首领|督长|阿尔法|主将|领导|主教|司祭|巫师|祭司|贤者|使徒|执事|掌旗|Boss|Nob|Prime|Sergeant|Watchmaster|Celestine|Tempestor/;
+const profileMemberHint = /小子|战士|士兵|队员|成员|护林员|暴风兵|突击兵|死兵|侍僧|侍女|侍从|卫兵|教徒|Boy|Trooper|Disciple|Geminae|Repentia|Guard|Sister|Mutant/;
+const narrativePrefixHint = /装备|携带|都有|分别|其中|每个|所有|全部|单位/;
+
+const normalizeModelLabel = (value) => String(value || "")
+  .replace(/[\s\u00a0·•・,，。:：()（）\[\]【】"“”'"'-]/g, "")
+  .toLowerCase();
+
+function splitModelGroups(pdfEquipmentText) {
+  const groups = [];
+  let current = null;
+  for (const raw of String(pdfEquipmentText || "").split(/[；;，,、+＋]/)) {
+    let segment = String(raw || "").trim();
+    if (!segment) continue;
+    const prefix = segment.match(/^([^：:]{1,16})[：:]\s*(.+)$/);
+    if (prefix && !narrativePrefixHint.test(prefix[1]) && prefix[2].trim()) {
+      current = { modelName: prefix[1].trim(), items: [] };
+      groups.push(current);
+      segment = prefix[2].trim();
+    } else if (!current) {
+      continue;
+    }
+    if (!segment) continue;
+    let count = 1;
+    let name = segment;
+    let match = segment.match(/^(\d+)\s*[xX×门个把支套挺枚座]?\s*(?!名|位|员)(.+)$/);
+    if (match && match[2].trim()) {
+      count = Number(match[1]) || 1;
+      name = match[2].trim();
+    } else if ((match = segment.match(/^两\s*[xX×门个把支套挺枚座]?\s*(?!名|位|员)(.+)$/)) && match[1].trim()) {
+      count = 2;
+      name = match[1].trim();
+    }
+    if (name) current.items.push({ name, count });
+  }
+  return groups;
+}
+
+function mapItemsToCanonical(items, cardWeapons) {
+  const used = new Set();
+  const out = [];
+  for (const item of items) {
+    const pdf = normalizeWeaponName(item.name);
+    let best = -1;
+    let bestScore = -1;
+    cardWeapons.forEach((weapon, index) => {
+      if (used.has(index)) return;
+      const base = normalizeWeaponName(String(weapon.name || "").replace(/[（(].*?[）)]/g, "").trim());
+      const full = normalizeWeaponName(weapon.name);
+      let score = -1;
+      if (pdf && (pdf === base || pdf === full)) score = 1e9;
+      else if (pdf && (base.includes(pdf) || pdf.includes(base))) score = 1e6 + Math.min(base.length, pdf.length);
+      else if (pdf && (sharedCharCount(pdf, base) >= 2 || (pdf.length <= 4 && sharedCharCount(pdf, base) >= 1))) score = sharedCharCount(pdf, base);
+      if (score > bestScore) { bestScore = score; best = index; }
+    });
+    if (best < 0) continue;
+    used.add(best);
+    const canonical = cardWeapons[best].name;
+    out.push(item.count > 1 ? `${item.count}x ${canonical}` : canonical);
+  }
+  return out;
+}
+
+function assignGroupsToProfiles(groups, profiles) {
+  const champion = profiles.find((profile) => profile.id === "champion" || /队长|首领|领导/.test(String(profile.role || "")));
+  const members = profiles.filter((profile) => profile !== champion);
+  const assignments = [];
+  const used = new Set();
+  const pending = [];
+  for (const group of groups) {
+    const label = normalizeModelLabel(group.modelName);
+    const exact = profiles.find((profile) => !used.has(profile.id)
+      && (normalizeModelLabel(profile.name) === label || normalizeModelLabel(profile.englishName) === label));
+    if (exact) { used.add(exact.id); assignments.push({ profile: exact, items: group.items }); continue; }
+    if (champion && !used.has(champion.id) && profileLeaderHint.test(group.modelName)) {
+      used.add(champion.id);
+      assignments.push({ profile: champion, items: group.items });
+      continue;
+    }
+    if (profileMemberHint.test(group.modelName)) {
+      let best = null;
+      let bestScore = -1;
+      members.forEach((profile) => {
+        if (used.has(profile.id)) return;
+        const hay = normalizeModelLabel(`${profile.name}${profile.englishName || ""}${profile.role || ""}`);
+        const score = sharedCharCount(label, hay);
+        if (score > bestScore) { bestScore = score; best = profile; }
+      });
+      if (best && bestScore >= 2) {
+        used.add(best.id);
+        assignments.push({ profile: best, items: group.items });
+        continue;
+      }
+    }
+    pending.push(group);
+  }
+  // 兜底：剩余组按 PDF 顺序分配给未占用的档案（PDF 首位通常即队长/主角，
+  // 如 塞勒斯丁+双生侍女、艾佛瑞尔+凯甘尼尔、法比乌斯+王术侍僧）。
+  const unassigned = profiles.filter((profile) => !used.has(profile.id));
+  let cursor = 0;
+  pending.forEach((group, index) => {
+    let profile = null;
+    if (index === 0 && champion && !used.has(champion.id)) profile = champion;
+    else {
+      while (cursor < unassigned.length && used.has(unassigned[cursor].id)) cursor += 1;
+      profile = unassigned[cursor];
+    }
+    if (!profile) return;
+    used.add(profile.id);
+    assignments.push({ profile, items: group.items });
+  });
+  return assignments;
+}
+
+function patchModelProfileEquipment(unit, card) {
+  const profiles = Array.isArray(card.modelProfiles) ? card.modelProfiles.filter((profile) => profile.id !== "champion" || true) : [];
+  if (profiles.length < 2) return null;
+  const groups = splitModelGroups(unit.pdfDefaultEquipment);
+  if (!groups.length) return null;
+  const assignments = assignGroupsToProfiles(groups, profiles);
+  const changed = [];
+  for (const { profile, items } of assignments) {
+    const canonical = mapItemsToCanonical(items, card.weapons || []);
+    if (!canonical.length) continue;
+    const next = canonical.join("；");
+    if (profile.defaultEquipment !== next) {
+      profile.defaultEquipment = next;
+      changed.push({ profile: profile.id, equipment: next });
+    }
+  }
+  return changed.length ? changed : null;
+}
+
 function patchDataCards(extraction, factionId) {
   const dirName = factionDirs[factionId];
   if (!dirName) throw new Error(`未知阵营 ${factionId}`);
@@ -337,6 +477,13 @@ function patchDataCards(extraction, factionId) {
         countExamples.push({ factionId, cardName: unit.cardName, before: unit.defaultEquipment, after: counted });
       }
       card.unit.defaultEquipment = counted;
+      // 队长/队员装备分离：PDF 按模型分组书写时，把各组武器映射到规范名并
+      // 写入对应 modelProfile.defaultEquipment，避免混在一起。
+      const profileChanges = patchModelProfileEquipment(unit, card);
+      if (profileChanges) {
+        profileEnhancedUnits += 1;
+        profileExamples.push({ factionId, cardName: unit.cardName, changes: profileChanges });
+      }
       unitsUpdated += 1;
       const defaults = new Set(unit.isDefaultWeapons || []);
       (card.weapons || []).forEach((w) => {
@@ -363,7 +510,9 @@ if (!files.length) throw new Error(`提取目录为空：${extractionDir}`);
 
 let summary = { factions: 0, units: 0, unitAliases: 0, detachmentAliases: 0 };
 let countEnhancedUnits = 0;
+let profileEnhancedUnits = 0;
 const countExamples = [];
+const profileExamples = [];
 const factionStats = [];
 for (const file of files) {
   const extraction = readJson(path.join(extractionDir, file));
@@ -389,7 +538,7 @@ if (aliasConflicts.length) {
 }
 fs.mkdirSync(path.join(root, "docs", "audit"), { recursive: true });
 const statsPath = path.join(root, "docs", "audit", `合入统计-${new Date().toISOString().slice(0, 10)}.json`);
-fs.writeFileSync(statsPath, JSON.stringify({ dryRun, summary, countEnhancedUnits, countExamples, factionStats, aliasConflicts }, null, 2), "utf8");
+fs.writeFileSync(statsPath, JSON.stringify({ dryRun, summary, countEnhancedUnits, profileEnhancedUnits, countExamples, profileExamples, factionStats, aliasConflicts }, null, 2), "utf8");
 console.log(`\n统计已写入 ${path.relative(root, statsPath)}`);
-console.log(`\n完成：${summary.factions} 阵营，${summary.units} 单位默认装备（其中 ${countEnhancedUnits} 单位带数量），${summary.unitAliases} unitAliases，${summary.detachmentAliases} detachmentAliases${dryRun ? "（dry-run，未写入）" : ""}`);
+console.log(`\n完成：${summary.factions} 阵营，${summary.units} 单位默认装备（其中 ${countEnhancedUnits} 单位带数量，${profileEnhancedUnits} 单位队长/队员装备分离），${summary.unitAliases} unitAliases，${summary.detachmentAliases} detachmentAliases${dryRun ? "（dry-run，未写入）" : ""}`);
 console.log("\n下一步：\n  node tools/generate-calculator-catalog.mjs\n  node tools/validate-datasheets.mjs\n  node tools/validate-rules.mjs\n  node tools/validate-detachments.mjs\n  node tools/validate-40k-app.mjs\n  node tools/army-list-aliases.test.mjs");

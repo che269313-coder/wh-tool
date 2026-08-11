@@ -244,3 +244,23 @@ test("防守方效果装配必须并入阵营规则的 defend 效果(瓦戈！5+
   assert.ok(defenderSource.includes("resolvedFactionEffects"), "defenderEffectsFromUnit 必须解析阵营规则的防守效果");
   assert.ok(defenderSource.includes("factionDefend.invulnerableSave"), "阵营规则的无敌豁免必须并入防守方 payload");
 });
+
+test("队长与队员的默认装备必须分离(modelProfile.defaultEquipment)", () => {
+  // 坦爆队 PDF: 老大队长=两把火箭手枪+砌刀；坦爆小子=火箭筒+格斗武器。
+  const card = cards.find((c) => c.name === "坦克破坏者" && c.factionId === "orks");
+  assert.ok(card, "欧克兽人坦克破坏者数据卡必须存在");
+  const byId = Object.fromEntries((card.data.modelProfiles || []).map((profile) => [profile.id, profile]));
+  assert.ok(byId.champion && byId.trooper, "坦克破坏者必须拥有队长/普通成员两个档案");
+  assert.equal(byId.champion.defaultEquipment, "2x 火箭手枪；大砍刀", "队长档案必须只含老大队长的装备(2x 火箭手枪+大砍刀)");
+  assert.equal(byId.trooper.defaultEquipment, "火箭炮；近战武器", "普通成员档案必须只含坦爆小子的装备(火箭炮+近战武器)");
+  assert.ok(!byId.champion.defaultEquipment.includes("火箭炮"), "队长的装备不得混入队员的火箭炮");
+  assert.ok(!byId.trooper.defaultEquipment.includes("火箭手枪"), "队员的装备不得混入队长的火箭手枪");
+
+  // 圣塞莱斯汀 PDF: 塞勒斯丁=炽热圣剑；双生侍女=爆弹手枪+动力武器。
+  const celestine = cards.find((c) => c.name === "圣塞莱斯汀" && c.factionId === "adepta-sororitas");
+  if (celestine) {
+    const celestineById = Object.fromEntries((celestine.data.modelProfiles || []).map((profile) => [profile.id, profile]));
+    assert.ok(celestineById.champion?.defaultEquipment && celestineById.trooper?.defaultEquipment, "圣塞莱斯汀两个档案都必须有默认装备");
+    assert.ok(!celestineById.champion.defaultEquipment.includes("爆弹手枪") || !celestineById.champion.defaultEquipment.includes("动力武器"), "塞勒斯丁的档案不得混入双生侍女的装备");
+  }
+});
