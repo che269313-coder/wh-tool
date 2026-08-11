@@ -166,3 +166,66 @@ test("泰丰斯(泰弗斯)的悲泣战镰默认选中重击或横扫", () => {
   const scythe = initialized.filter((weapon) => weapon.selectionGroup === "悲泣战镰");
   assert.equal(scythe.filter((weapon) => weapon.enabled).length, 1, "悲泣战镰必须默认选中一个档案");
 });
+
+// 复刻 parseArmyList 的装备数量逻辑：单模型载具携带 2x 同型武器必须保留数量。
+function parseEquipmentLine(count, rawName) {
+  let name = rawName;
+  const countPrefix = name.match(/^(\d+)个(.+)$/);
+  if (countPrefix) { count = Math.max(1, Number(countPrefix[1])) * count; name = countPrefix[2].trim(); }
+  return { count, name };
+}
+
+function distributeEquipment(count, name, targets, lastTargets = []) {
+  const chosen = count === 1 && lastTargets.length === 1
+    ? lastTargets
+    : [...targets].sort((a, b) => a.equipment.length - b.equipment.length).slice(0, Math.min(count, targets.length));
+  const perModel = Math.floor(Math.max(1, count) / Math.max(1, chosen.length));
+  const remainder = Math.max(1, count) % Math.max(1, chosen.length);
+  chosen.forEach((model, index) => model.equipment.push({ name, count: perModel + (index < remainder ? 1 : 0) }));
+  return chosen;
+}
+
+test("军表装备数量导入必须保留同型武器数量", () => {
+  assert.deepEqual(parseEquipmentLine(1, "2个酷刑炮"), { count: 2, name: "酷刑炮" }, "\"2个酷刑炮\" 必须解析为 2 件酷刑炮");
+  assert.deepEqual(parseEquipmentLine(2, "神锤激光炮"), { count: 2, name: "神锤激光炮" }, "\"2x 神锤激光炮\" 必须保留数量 2");
+  assert.deepEqual(parseEquipmentLine(1, "重型导弹发射器"), { count: 1, name: "重型导弹发射器" }, "单件装备数量必须为 1");
+
+  const singleModel = [{ name: "污染者", equipment: [] }];
+  distributeEquipment(2, "神锤激光炮", singleModel);
+  assert.deepEqual(singleModel[0].equipment, [{ name: "神锤激光炮", count: 2 }], "单模型携带 2x 武器必须记录 count=2");
+
+  const squad = Array.from({ length: 10 }, () => ({ name: "瘟疫战士", equipment: [] }));
+  distributeEquipment(10, "瘟疫毒刃", squad);
+  assert.ok(squad.every((model) => model.equipment.length === 1 && model.equipment[0].count === 1), "10 个模型每人 1 件必须各记 1");
+
+  const squadWithHeavy = Array.from({ length: 10 }, () => ({ name: "瘟疫战士", equipment: [] }));
+  distributeEquipment(2, "热熔枪", squadWithHeavy);
+  assert.equal(squadWithHeavy.filter((model) => model.equipment.length === 1).length, 2, "2 件重型武器必须分给 2 个模型");
+});
+
+test("同型武器倍率缩放攻击次数且保留骰子表达式", () => {
+  const scale = (value, multiplier) => {
+    const amount = Math.max(1, Number(multiplier || 1));
+    if (amount === 1) return value;
+    const text = String(value ?? "1").replace(/\s+/g, "").toUpperCase();
+    if (/^[+-]?\d+$/.test(text)) return String(Number(text) * amount);
+    const match = text.match(/^(\d*)D(\d+)([+-]\d+)?$/);
+    if (!match) return value;
+    const count = Number(match[1] || 1) * amount;
+    const sides = Number(match[2]);
+    const constant = Number(match[3] || 0) * amount;
+    return `${count === 1 ? "" : count}D${sides}${constant ? `${constant > 0 ? "+" : ""}${constant}` : ""}`;
+  };
+  assert.equal(scale("6", 2), "12", "固定攻击次数必须按倍率翻倍");
+  assert.equal(scale("D6", 2), "2D6", "骰子表达式必须翻倍骰数");
+  assert.equal(scale("D6+3", 2), "2D6+6", "骰子加常数必须整体翻倍");
+  assert.equal(scale("2D6", 3), "6D6", "多骰表达式必须按倍率缩放");
+  assert.equal(scale("D6", 1), "D6", "单件武器不缩放");
+});
+
+test("严重损伤等按剩余伤口生效的技能必须随军表伤口修改刷新", () => {
+  const appSource = fs.readFileSync(new URL("../docs/app.js", import.meta.url), "utf8");
+  const cacheHit = appSource.match(/state\.calculatorDrafts\[side\]\?\.\[index\]\?\.key === key[\s\S]*?return draft;/);
+  assert.ok(cacheHit, "草稿复用路径必须刷新 remainingWounds 后返回");
+  assert.ok(cacheHit[0].includes("remainingWounds"), "草稿复用必须重新计算剩余伤口");
+});

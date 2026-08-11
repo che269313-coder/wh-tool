@@ -623,6 +623,7 @@ function enabledCalculatorWeapons(data, entryName, rosterUnit, options = {}) {
     ...weapon,
     enabled: anyMatching ? matching[index] : true,
     modelCount: (weapon.modelCount ?? (hasRosterEquipment ? weaponModelCount(weapon, rosterUnit, defaultModels) : defaultModels)) * Math.max(1, Number(options.weaponMultipliers?.[weapon.name] || 1)),
+    equipmentMultiplier: hasRosterEquipment ? weaponEquipmentMultiplier(weapon, rosterUnit, 1) : 1,
   })));
 }
 
@@ -702,7 +703,26 @@ function getCalculatorDraft(side, index = 0, selectionKey = null) {
     state.calculatorDrafts[side][index] = null;
     return null;
   }
-  if (state.calculatorDrafts[side]?.[index]?.key === key) return state.calculatorDrafts[side][index];
+  if (state.calculatorDrafts[side]?.[index]?.key === key) {
+    // 军表伤口在详情弹窗中修改后，草稿按 key 复用会保留旧的剩余伤口，
+    // 导致"严重损伤"等按剩余血量生效的技能不触发；这里每次取用时刷新。
+    const draft = state.calculatorDrafts[side][index];
+    if (entry?.rosterUnit) {
+      draft.remainingWounds = activeModels(entry.rosterUnit).reduce((sum, model) => sum + Number(model.currentWounds || 0), 0);
+      if (draft.joinedMembers?.length) {
+        const groupUnits = entry.group?.units || [];
+        draft.joinedMembers.forEach((member) => {
+          const rosterMember = member.parentId
+            ? groupUnits.find((unit) => unit.id === member.parentId)
+            : (groupUnits.find((unit) => unit.id === member.id) || (member.id === entry.rosterUnit.id ? entry.rosterUnit : null));
+          if (rosterMember) {
+            member.remainingWounds = activeModels(rosterMember).reduce((sum, model) => sum + Number(model.currentWounds || 0), 0);
+          }
+        });
+      }
+    }
+    return draft;
+  }
   const card = entry.structured ? entry : findStructuredCalculatorCard(entry.name);
   const data = getCalculatorCardData(card || entry);
   const baseUnit = cloneCalculatorValue(data?.unit || {});
@@ -909,6 +929,42 @@ function modifyDamageExpression(value, modifier) {
   return `${count === 1 ? "" : count}D${sides}${constant ? `${constant > 0 ? "+" : ""}${constant}` : ""}`;
 }
 
+// 同型武器数量倍率（如军表中 2x 酷刑炮）：按"单模型携带数量 × 掷骰次数"缩放攻击次数。
+function multiplyDamageExpression(value, multiplier) {
+  const amount = Math.max(1, Number(multiplier || 1));
+  if (amount === 1) return value;
+  const text = String(value ?? "1").replace(/\s+/g, "").toUpperCase();
+  if (/^[+-]?\d+$/.test(text)) return String(Number(text) * amount);
+  const match = text.match(/^(\d*)D(\d+)([+-]\d+)?$/);
+  if (!match) return value;
+  const count = Number(match[1] || 1) * amount;
+  const sides = Number(match[2]);
+  const constant = Number(match[3] || 0) * amount;
+  return `${count === 1 ? "" : count}D${sides}${constant ? `${constant > 0 ? "+" : ""}${constant}` : ""}`;
+}
+
+// 军表中某武器在每个携带模型上的数量（默认 1）。兼容旧数据把"2个酷刑炮"
+// 写在装备名里的格式。
+function weaponEquipmentMultiplier(weapon, rosterUnit, fallback = 1) {
+  const models = activeModels(rosterUnit || {});
+  const candidates = [weapon?.name, weapon?.selectionGroup]
+    .map((value) => String(value || "").replace(/[（(].*?[）)]/g, "").trim())
+    .filter(Boolean);
+  if (!candidates.some(Boolean) || !models.length) return fallback;
+  const itemCount = (item) => {
+    const countMatch = String(item.name || "").match(/^(\d+)个(.+)$/);
+    return Math.max(1, Number(item.count || 1)) * (countMatch ? Math.max(1, Number(countMatch[1])) : 1);
+  };
+  const matches = (item) => {
+    const normalized = String(item.name || "").replace(/[（(].*?[）)]/g, "").trim();
+    return normalized && candidates.some((name) => name.includes(normalized) || normalized.includes(name));
+  };
+  const carrying = models.filter((model) => model.equipment.some(matches));
+  if (!carrying.length) return fallback;
+  const total = carrying.reduce((sum, model) => sum + model.equipment.filter(matches).reduce((count, item) => count + itemCount(item), 0), 0);
+  return Math.max(1, Math.round(total / carrying.length));
+}
+
 function effectiveWoundThresholdForDisplay(threshold, modifier) {
   const base = Number(threshold || 0);
   if (!base) return base;
@@ -1082,11 +1138,14 @@ function calculatorWeaponControlMarkup(weapon, side, index, groupIndex = null, d
   const coreProfile = draft && side === "attacker" ? coreWeaponResolution(weapon, draft, sourceName) : null;
   const attackModifier = Number(sourceRules.attackModifier || 0) + Number(coreProfile?.attackModifier || 0);
   const strengthModifier = Number(sourceRules.strengthModifier || 0);
-  const effectiveAttacks = attackModifier ? modifyDamageExpression(weapon.attacks, attackModifier) : "";
+  const equipmentMultiplier = Math.max(1, Number(weapon.equipmentMultiplier || 1));
+  const effectiveAttacks = (attackModifier || equipmentMultiplier > 1)
+    ? multiplyDamageExpression(modifyDamageExpression(weapon.attacks, attackModifier), equipmentMultiplier)
+    : "";
   const effectiveStrength = strengthModifier && Number.isFinite(Number(weapon.strength)) ? String(Number(weapon.strength) + strengthModifier) : "";
   const effectiveDamage = coreProfile?.damageModifier ? modifyDamageExpression(weapon.damage, coreProfile.damageModifier) : "";
   const modifierNotes = [
-    effectiveAttacks ? `有效攻击：A${effectiveAttacks}（${attackModifier > 0 ? "+" : ""}${attackModifier}）` : "",
+    effectiveAttacks ? `有效攻击：A${effectiveAttacks}${attackModifier ? `（${attackModifier > 0 ? "+" : ""}${attackModifier}）` : ""}${equipmentMultiplier > 1 ? `（军表 ${equipmentMultiplier} 件同型武器）` : ""}` : "",
     effectiveStrength ? `有效力量：S${effectiveStrength}（${strengthModifier > 0 ? "+" : ""}${strengthModifier}）` : "",
     effectiveDamage ? `有效伤害：D${effectiveDamage}（热熔 +${coreProfile.damageModifier}）` : "",
     coreProfile?.hitModifier ? `通用命中修正：${coreProfile.hitModifier > 0 ? "+" : ""}${coreProfile.hitModifier}` : "",
@@ -1698,9 +1757,14 @@ function buildSelectedRoundPayload() {
         + scopedAttackModifier
         + Number(coreProfile.attackModifier || 0);
       const resolvedAttackOverride = sourceRules.weaponAttackOverride || sourceFactionEffects.weaponAttackOverride;
-      const attackOverride = resolvedAttackOverride?.name === weapon.name
-        ? resolvedAttackOverride.value
-        : modifyDamageExpression(modifyDamageExpression(weapon.attacks, coreProfile.attackExpressionModifier || 0), generalAttackModifier);
+      // 军表同型武器数量（如 2x 酷刑炮）按倍率放大攻击次数。
+      const equipmentMultiplier = Math.max(1, Number(weapon.equipmentMultiplier || 1));
+      const attackOverride = multiplyDamageExpression(
+        resolvedAttackOverride?.name === weapon.name
+          ? resolvedAttackOverride.value
+          : modifyDamageExpression(modifyDamageExpression(weapon.attacks, coreProfile.attackExpressionModifier || 0), generalAttackModifier),
+        equipmentMultiplier,
+      );
       const ignoresHitModifiers = Boolean(sourceRules.ignoreHitModifiers || sharedJoinedRules.ignoreHitModifiers || sourceFactionEffects.ignoreHitModifiers);
       const hitContributions = [
         Number(sourceRules.hitModifier || 0),
@@ -2302,7 +2366,11 @@ function parseArmyList(content) {
   const addEquipment = (count, name) => {
     const targets = modelBatch.length ? modelBatch : ensureUnitModel();
     const chosen = count === 1 && lastTargets.length === 1 ? lastTargets : [...targets].sort((a, b) => a.equipment.length - b.equipment.length).slice(0, Math.min(count, targets.length));
-    chosen.forEach((model) => model.equipment.push({ name, count: 1 }));
+    // 数量保留在模型装备上：单模型载具携带 2x 同型武器时记录 count=2，
+    // 多模型单位仍按"每模型一件"分配。
+    const perModel = Math.floor(Math.max(1, count) / Math.max(1, chosen.length));
+    const remainder = Math.max(1, count) % Math.max(1, chosen.length);
+    chosen.forEach((model, index) => model.equipment.push({ name, count: perModel + (index < remainder ? 1 : 0) }));
     lastTargets = chosen;
   };
   for (const raw of lines) {
@@ -2329,7 +2397,10 @@ function parseArmyList(content) {
     if (/^(单位组成|扩编次数)/.test(trimmed)) { inComposition = /^单位组成/.test(trimmed); if (inComposition) unit.hasComposition = true; continue; }
     const item = raw.match(/^\s*·\s*(\d+)x\s*(.+?)\s*$/);
     if (!item) continue;
-    const count = Number(item[1]); const name = item[2]; const depth = (raw.match(/^\s*/)?.[0].replace(/\t/g, "  ").length || 0);
+    let count = Number(item[1]); let name = item[2]; const depth = (raw.match(/^\s*/)?.[0].replace(/\t/g, "  ").length || 0);
+    // 军表软件把"2个酷刑炮"写成单件装备名，提取数量前缀以免导入后变成 1 件。
+    const countPrefix = name.match(/^(\d+)个(.+)$/);
+    if (countPrefix) { count = Math.max(1, Number(countPrefix[1])) * count; name = countPrefix[2].trim(); }
     if (inComposition && depth <= 2) {
       modelBatch = Array.from({ length: count }, () => normalizeModel({ name }, name));
       unit.models.push(...modelBatch); lastTargets = [];
