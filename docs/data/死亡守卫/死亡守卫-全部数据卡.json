@@ -1165,7 +1165,8 @@
           "name": "瘟疫战士",
           "role": "普通队员",
           "remaining": true,
-          "defaultEquipment": "爆弹枪，瘟疫短刀"
+          "defaultEquipment": "爆弹枪，瘟疫短刀",
+          "weaponNames": ["爆弹枪","瘟疫短刀","瘟疫榴弹炮","热熔枪","瘟疫喷枪","瘟疫喷射炮","等离子枪","重型瘟疫武器"]
         }
       ],
       "keywords": [

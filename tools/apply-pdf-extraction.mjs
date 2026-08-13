@@ -254,6 +254,33 @@ const normalizeWeaponName = (value) => String(value || "")
   .replace(/[\s\u00a0·・,，。:：()（）\[\]【】"“”'"']/g, "")
   .toLowerCase();
 
+// PDF 原文武器名 → 数据卡规范武器名。黑图书馆 PDF 与网站数据卡使用不同
+// 译名（如「手铳」vs「鼻涕虫枪」），字符无交集、模糊匹配必然失败，需显式
+// 归一后再做匹配。
+const pdfWeaponAliases = {
+  "手铳": "鼻涕虫枪",
+  "屁精手铳": "鼻涕虫枪",
+  "大砌刀": "大砍刀",
+  "砌刀": "大砍刀",
+  "砺万": "砍刀",
+  "格斗武器": "近战武器",
+  "橙武器": "近战武器",
+  "动力钳": "力量咬杀器",
+  "电屁精棍": "猎群者工具",
+  "魔改炫枪": "华丽枪",
+  "突突枪": "双联达卡枪",
+  "跳跳撕咬": "史奎格獠牙",
+  "简陋投掷武器": "鞍马枪械",
+  "喷火器": "燃烧枪",
+  "死枪": "克瑞枪",
+  "大突突枪": "大射枪",
+  "搞哥巨爪": "横扫",
+};
+const resolvePdfWeaponAlias = (value) => {
+  const cleaned = String(value || "").replace(/[（(].*?[）)]/g, "").trim();
+  return pdfWeaponAliases[cleaned] || pdfWeaponAliases[normalizeWeaponName(cleaned)] || cleaned;
+};
+
 const hasCountPrefix = (value) => /^\s*(?:\d+\s*[xX×门个把支套挺枚座]?|两\s*[xX×门个把支套挺枚座]?)\s*/.test(value);
 
 const hasCountSuffix = (value) => /[xX×]\s*\d|\d\s*[xX×]/.test(value);
@@ -333,7 +360,10 @@ function splitModelGroups(pdfEquipmentText) {
       groups.push(current);
       segment = prefix[2].trim();
     } else if (!current) {
-      continue;
+      // 前缀前的前导装备（如「手铳；砍刀；老大队长：大砌刀+手铳」里的
+      // 「手铳；砍刀」）是单位默认装备（普通成员），不能丢弃。
+      current = { modelName: "", items: [] };
+      groups.push(current);
     }
     if (!segment) continue;
     let count = 1;
@@ -355,7 +385,7 @@ function mapItemsToCanonical(items, cardWeapons) {
   const used = new Set();
   const out = [];
   for (const item of items) {
-    const pdf = normalizeWeaponName(item.name);
+    const pdf = normalizeWeaponName(resolvePdfWeaponAlias(item.name));
     let best = -1;
     let bestScore = -1;
     cardWeapons.forEach((weapon, index) => {
@@ -387,6 +417,11 @@ function assignGroupsToProfiles(groups, profiles) {
     const exact = profiles.find((profile) => !used.has(profile.id)
       && (normalizeModelLabel(profile.name) === label || normalizeModelLabel(profile.englishName) === label));
     if (exact) { used.add(exact.id); assignments.push({ profile: exact, items: group.items }); continue; }
+    // 空 modelName 是单位默认装备组，分配给普通成员（非队长）。
+    if (!group.modelName) {
+      const member = members.find((profile) => !used.has(profile.id));
+      if (member) { used.add(member.id); assignments.push({ profile: member, items: group.items }); continue; }
+    }
     if (champion && !used.has(champion.id) && profileLeaderHint.test(group.modelName)) {
       used.add(champion.id);
       assignments.push({ profile: champion, items: group.items });

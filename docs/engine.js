@@ -445,7 +445,7 @@
     }
     if (saved) return { damage: 0, saved: true, killed: false, saveResult };
 
-    let amount = event.negated ? 0 : rollDamageExpression(event.damage, weaponEffects, rng);
+    let amount = event.negated ? 0 : Math.max(1, rollDamageExpression(event.damage, weaponEffects, rng));
     const defenderEffects = defenderGroup.effects;
     if (Number(defenderEffects.damageOverride) > 0 && amount > 0) amount = Number(defenderEffects.damageOverride);
     if (!event.mortal && Number(defenderEffects.incomingDamageModifier) && amount > 0) amount = Math.max(1, amount + Number(defenderEffects.incomingDamageModifier));

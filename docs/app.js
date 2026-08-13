@@ -563,16 +563,36 @@ function calculatorSource(entry) {
   return entry?.rosterUnit ? "军表" : "数据卡";
 }
 
+// 军表装备名与数据卡武器名的同义映射：黑图书馆军表软件与数据卡使用了
+// 不同的译名（如「瘟疫毒刃」vs「瘟疫短刀」），导入后按此表双向归一后再做
+// 子串匹配，避免默认武器数量被判成 0。
+const WEAPON_ALIASES = {
+  "瘟疫毒刃": "瘟疫短刀",
+  "凋零榴弹炮": "瘟疫榴弹炮",
+  "重型瘟疫喷射器": "瘟疫喷射炮",
+  "瘟疫爆弹枪": "爆弹枪",
+};
+
+function weaponAliasVariants(value) {
+  const cleaned = String(value || "").replace(/[（(].*?[）)]/g, "").trim();
+  const canonical = WEAPON_ALIASES[cleaned];
+  return canonical && canonical !== cleaned ? [cleaned, canonical] : [cleaned];
+}
+
+function weaponNameOverlaps(rosterName, catalogNames) {
+  return weaponAliasVariants(rosterName).some((roster) => {
+    if (!roster) return false;
+    return catalogNames.some((catalogName) => weaponAliasVariants(catalogName).some((catalog) => catalog && (catalog.includes(roster) || roster.includes(catalog))));
+  });
+}
+
 function weaponMatchesRoster(weapon, rosterUnit) {
   const equipment = Object.keys(countEquipment(rosterUnit || {}));
   if (!equipment.length) return true;
   const candidates = [weapon?.name, weapon?.selectionGroup]
     .map((value) => String(value || "").replace(/[（(].*?[）)]/g, "").trim())
     .filter(Boolean);
-  return equipment.some((item) => {
-    const normalized = String(item).replace(/[（(].*?[）)]/g, "").trim();
-    return normalized && candidates.some((name) => name.includes(normalized) || normalized.includes(name));
-  });
+  return equipment.some((item) => weaponNameOverlaps(item, candidates));
 }
 
 function weaponModelCount(weapon, rosterUnit, fallback = 1) {
@@ -582,10 +602,7 @@ function weaponModelCount(weapon, rosterUnit, fallback = 1) {
     .map((value) => String(value || "").replace(/[（(].*?[）)]/g, "").trim())
     .filter(Boolean);
   if (!candidates.some(Boolean)) return models.length;
-  const count = models.filter((model) => model.equipment.some((item) => {
-    const normalized = String(item.name || "").replace(/[（(].*?[）)]/g, "").trim();
-    return normalized && candidates.some((name) => name.includes(normalized) || normalized.includes(name));
-  })).length;
+  const count = models.filter((model) => model.equipment.some((item) => weaponNameOverlaps(item.name, candidates))).length;
   return count || (Object.keys(countEquipment(rosterUnit || {})).length ? 0 : fallback);
 }
 
@@ -794,10 +811,8 @@ function getCalculatorDraft(side, index = 0, selectionKey = null) {
   const explicitJoinedMembers = joined ? entry.group.units.filter((member) => activeModels(member).length).flatMap((member) => {
     const memberData = member.id === rosterUnit.id ? data : calculatorDataForUnit(member, entry.faction);
     const memberUnit = cloneCalculatorValue(memberData?.unit || {});
-    const explicitLeader = entry.group.units.some((candidate) => /领导|主将|领袖|character|leader/i.test(String(candidate.role || "")));
-    const explicitGuard = entry.group.units.some((candidate) => /护卫|bodyguard/i.test(String(candidate.role || "")));
-    const memberIndex = entry.group.units.indexOf(member);
-    const role = /领导|主将|领袖|character|leader/i.test(String(member.role || "")) ? "角色" : /护卫|bodyguard/i.test(String(member.role || "")) ? "护卫" : (explicitGuard && !explicitLeader ? "角色" : (memberIndex === 0 ? "角色" : "护卫"));
+    const memberKeywords = [...(memberData?.keywords || []), ...(memberData?.factionKeywords || [])];
+    const role = /领导|主将|领袖|character|leader/i.test(String(member.role || "")) ? "角色" : /护卫|bodyguard/i.test(String(member.role || "")) ? "护卫" : (memberKeywords.some((keyword) => /人物|character/i.test(String(keyword))) ? "角色" : "护卫");
     const livingModels = activeModels(member);
     const profileMembers = calculatorModelProfileMembers(memberData, member, member.name);
     if (profileMembers.length) return profileMembers.map((profileMember) => ({
@@ -986,7 +1001,7 @@ function modifyDamageExpression(value, modifier) {
   const count = base.count + delta.count;
   const sides = base.sides || delta.sides;
   const constant = base.constant + delta.constant;
-  if (!count) return String(constant);
+  if (!count) return String(Math.max(1, constant));
   return `${count === 1 ? "" : count}D${sides}${constant ? `${constant > 0 ? "+" : ""}${constant}` : ""}`;
 }
 
@@ -1002,10 +1017,7 @@ function weaponEquipmentMultiplier(weapon, rosterUnit, fallback = 1) {
     const countMatch = String(item.name || "").match(/^(\d+)个(.+)$/);
     return Math.max(1, Number(item.count || 1)) * (countMatch ? Math.max(1, Number(countMatch[1])) : 1);
   };
-  const matches = (item) => {
-    const normalized = String(item.name || "").replace(/[（(].*?[）)]/g, "").trim();
-    return normalized && candidates.some((name) => name.includes(normalized) || normalized.includes(name));
-  };
+  const matches = (item) => weaponNameOverlaps(item.name, candidates);
   const carrying = models.filter((model) => model.equipment.some(matches));
   if (!carrying.length) return fallback;
   const total = carrying.reduce((sum, model) => sum + model.equipment.filter(matches).reduce((count, item) => count + itemCount(item), 0), 0);
@@ -1595,18 +1607,20 @@ function buildDefenderGroups(defender, draft, attackerFactionEffects = {}) {
       effects: defenderEffectsFromUnit(draft.unit, draft, defender.name),
     }];
   }
-  const explicitLeader = group.units.some((unit) => /领导|主将|领袖|character|leader/i.test(String(unit.role || "")));
-  const explicitGuard = group.units.some((unit) => /护卫|bodyguard/i.test(String(unit.role || "")));
   const members = draft.joinedMembers?.length
     ? draft.joinedMembers
-    : group.units.filter((unit) => activeModels(unit).length).map((unit, index) => ({
-      id: unit.id,
-      name: unit.name,
-      role: /领导|主将|领袖|character|leader/i.test(String(unit.role || "")) ? "角色" : /护卫|bodyguard/i.test(String(unit.role || "")) ? "护卫" : (explicitGuard && !explicitLeader ? "角色" : (index === 0 ? "角色" : "护卫")),
-      unit: calculatorDataForUnit(unit, defender.faction)?.unit || {},
-      modelCount: activeModels(unit).length,
-      ruleName: unit.name,
-    }));
+    : group.units.filter((unit) => activeModels(unit).length).map((unit) => {
+      const memberData = calculatorDataForUnit(unit, defender.faction);
+      const memberKeywords = [...(memberData?.keywords || []), ...(memberData?.factionKeywords || [])];
+      return {
+        id: unit.id,
+        name: unit.name,
+        role: /领导|主将|领袖|character|leader/i.test(String(unit.role || "")) ? "角色" : /护卫|bodyguard/i.test(String(unit.role || "")) ? "护卫" : (memberKeywords.some((keyword) => /人物|character/i.test(String(keyword))) ? "角色" : "护卫"),
+        unit: memberData?.unit || {},
+        modelCount: activeModels(unit).length,
+        ruleName: unit.name,
+      };
+    });
   const grouped = members.map((member) => {
     const roleText = String(member.parentRole || member.role || "");
     const isLeader = /角色|领导|主将|领袖|character|leader/i.test(roleText) && !/护卫/.test(roleText);
