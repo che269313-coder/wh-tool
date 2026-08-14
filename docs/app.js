@@ -47,7 +47,6 @@ const LEGACY_AUTO_EXTRACTS = new Set([
 
 const state = {
   settings: loadSettings(),
-  messages: [],
   rosters: loadRosters(),
   datasheetCache: {},
   calculatorCards: [],
@@ -2900,31 +2899,186 @@ function appendMessage(role, text) {
   container.scrollTop = container.scrollHeight;
 }
 
-async function callAssistant(text) {
-  const settings = state.settings;
-  const library = await buildLibraryContext(text);
-  const system = `你是战锤40,000对局助手。只能根据提供的资料、当前军表和明确写出的核心流程回答；不要臆造数据卡、分遣队、计谋或版本。
+function assistantUnitNameKey(value) {
+  return String(value || "")
+    .replace(/[\s\u00a0·・，,。.!！?？()（）\[\]【】_-]/g, "")
+    .toLowerCase();
+}
 
-检索工作流：先识别问题是射击、近战、冲锋、移动、计谋还是规则解释；再使用当前双方军表识别阵营和单位；优先查该阵营的数据卡，其次分遣队规则/补充；仅在通用流程时查规则书。在缺少武器档案、目标属性、距离/视线、CP、阶段或版本时明确追问。数字版 PDF 已按原页和表格单元格整理为 Markdown；扫描版禁军数据卡由逐页中文 OCR 生成。两者都用来定位并解释资料，但扫描版 OCR 不能自动拼出 WS/BS、S、AP、D、伤口等数值用于计算。数值计算只接受结构化 JSON/明确文本字段，或先请用户确认原始数据卡。
+function assistantUnitCandidates(name, side = "") {
+  const query = assistantUnitNameKey(name);
+  if (!query) return [];
+  const options = calculatorPickerOptions(side === "attacker" || side === "defender" ? side : "attacker").allOptions;
+  const unique = new Map();
+  options.forEach((option) => {
+    const optionName = assistantUnitNameKey(option.name);
+    if (!optionName || !(optionName === query || optionName.includes(query) || query.includes(optionName))) return;
+    const priority = option.key.startsWith(`roster:${side}:`) ? 0 : option.key.startsWith("roster:") ? 1 : 2;
+    const existing = unique.get(`${option.name}:${option.faction || ""}`);
+    if (!existing || priority < existing.priority) unique.set(`${option.name}:${option.faction || ""}`, { ...option, priority });
+  });
+  return [...unique.values()].sort((left, right) => left.priority - right.priority || left.name.length - right.name.length);
+}
 
-核心战斗规则摘要（项目内核心规则书）：一回合依次经过指挥、移动、射击、冲锋、近战阶段。射击阶段仅用远程武器，逐个选择可射击单位和合法目标；近战阶段先跟进，再在符合条件的交战/本回合冲锋单位之间按先攻与交替选择结算近战，最后重整。一次攻击通常依次：选武器/目标与攻击次数 → 命中掷骰（WS/BS与修正、暴击）→ 造伤掷骰（力量对坚韧）→ 目标进行护甲或无敌豁免（AP会影响护甲）→ 分配伤害和失去伤口；不觉疼痛在每一点伤口失去时处理。必须以数据卡、武器技能和分遣队规则为准确认重掷、致命命中、连击、毁灭伤害、掩体等特例。警戒射击是对手移动阶段结束时的专门射击，通常仅未修正 6 命中且不可重掷，不能当作常规射击。计算时先用资料构造明确的参数，再建议或调用确定性骰子计算器。
+async function resolveAssistantCalculatorEntry(name, side) {
+  const candidates = assistantUnitCandidates(name, side);
+  if (!candidates.length) throw new Error(`未找到“${name}”对应的数据卡或当前军表单位。请使用完整单位名称。`);
+  const candidate = candidates[0];
+  if (candidate.factionId || candidate.faction) await ensureFactionRuntimeLoaded(candidate.factionId || candidate.faction);
+  const entry = getCalculatorEntry(side, candidate.key);
+  const data = getCalculatorCardData(entry);
+  if (!entry || !data?.unit) throw new Error(`“${candidate.name}”没有可计算的结构化数据卡。`);
+  return { key: candidate.key, entry, data, candidate };
+}
 
-回答简洁：先给结论，再列出依据和缺失项。`;
-  const messages = [
-    { role: "system", content: system },
-    ...state.messages.slice(-8),
-    { role: "user", content: `${text}\n\n当前双方军表与伤口：\n${currentBattleState()}\n\n本次选中的资料：${library.selected.join("；") || "无可检索文本资料"}\n\n资料摘录：\n${library.excerpts || "暂无文本摘录（PDF 已归档但未转为可检索文本）"}` },
-  ];
-  if (settings.mode === "direct" && !settings.key) return localAssistantReply(text);
+function assistantRuleSuggestions(resolved) {
+  const rules = window.WarhammerRuleResolver?.rulesForUnit(resolved.entry.faction || resolved.candidate.faction, resolved.entry.name) || { faction: [], unit: [] };
+  const seen = new Set();
+  return [...rules.faction, ...rules.unit]
+    .filter((rule) => rule?.name && Array.isArray(rule.controls) && rule.controls.length)
+    .filter((rule) => !seen.has(rule.id) && seen.add(rule.id))
+    .map((rule) => ({
+      name: rule.name,
+      controls: rule.controls.map((control) => control.label).filter(Boolean),
+      phases: [...new Set([rule.effect, ...(rule.effects || [])].filter(Boolean).map((effect) => effect.phase).filter(Boolean))],
+    }));
+}
+
+function assistantProfileSummary(resolved) {
+  const { entry, data, candidate } = resolved;
+  return {
+    name: entry.name,
+    faction: entry.faction || candidate.faction || "",
+    source: entry.rosterUnit ? "当前军表（存活模型与装备已计入）" : "内置结构化数据卡",
+    unit: data.unit,
+    weapons: (data.weapons || []).map(({ name, type, attacks, skill, strength, ap, damage, abilities }) => ({ name, type, attacks, skill, strength, ap, damage, abilities })),
+    abilities: data.abilities || [],
+    availableOptions: assistantRuleSuggestions(resolved),
+  };
+}
+
+async function executeAssistantToolCall(toolCall) {
+  let args;
+  try { args = JSON.parse(toolCall.function?.arguments || "{}"); } catch { return { ok: false, error: "工具参数不是有效 JSON。" }; }
+  const name = toolCall.function?.name;
+  if (name === "find_units") {
+    const candidates = assistantUnitCandidates(args.query, args.side).slice(0, 12);
+    return candidates.length
+      ? { ok: true, units: candidates.map(({ name: unitName, faction, key }) => ({ name: unitName, faction: faction || "", source: key.startsWith("roster:") ? "当前军表" : "内置数据卡" })) }
+      : { ok: false, error: `没有找到“${args.query || ""}”。` };
+  }
+  if (name === "get_unit_profile") {
+    try { return { ok: true, profile: assistantProfileSummary(await resolveAssistantCalculatorEntry(args.name, args.side || "attacker")) }; } catch (error) { return { ok: false, error: error.message }; }
+  }
+  if (name === "calculate_combat") {
+    if (!args.attacker || !args.defender || !["ranged", "melee"].includes(args.attackMode)) return { ok: false, error: "计算需要 attacker、defender 和 ranged 或 melee 攻击类型。" };
+    const previous = {
+      selection: { ...state.calculatorSelection }, selections: { attacker: [...calculatorSelectionKeys("attacker")], defender: [...calculatorSelectionKeys("defender")] },
+      drafts: state.calculatorDrafts, context: { ...state.combatContext }, attackMode: state.attackMode,
+    };
+    try {
+      const [attacker, defender] = await Promise.all([resolveAssistantCalculatorEntry(args.attacker, "attacker"), resolveAssistantCalculatorEntry(args.defender, "defender")]);
+      state.calculatorSelection = { attacker: attacker.key, defender: defender.key };
+      state.calculatorSelections = { attacker: [attacker.key], defender: [defender.key] };
+      state.calculatorDrafts = { attacker: [], defender: [] };
+      state.attackMode = args.attackMode;
+      Object.keys(state.combatContext).forEach((key) => { state.combatContext[key] = Boolean(args.context?.[key]); });
+      const result = simulateScenario(1000);
+      renderCalculation(result);
+      renderCalculatorSelectors();
+      $$("[data-calc-context]").forEach((input) => { input.checked = Boolean(state.combatContext[input.dataset.calcContext]); });
+      $("#calculatorAttackMode").value = state.attackMode;
+      return {
+        ok: true,
+        calculator: "本地规则引擎（1,000 次模拟）",
+        attacker: assistantProfileSummary(attacker), defender: assistantProfileSummary(defender), attackMode: state.attackMode, context: state.combatContext,
+        averageDamage: Number(result.averageDamage.toFixed(2)), killProbability: Number((result.chance * 100).toFixed(1)), killProbabilityUnit: "%",
+      };
+    } catch (error) {
+      state.calculatorSelection = previous.selection;
+      state.calculatorSelections = previous.selections;
+      state.calculatorDrafts = previous.drafts;
+      state.combatContext = previous.context;
+      state.attackMode = previous.attackMode;
+      return { ok: false, error: error.message };
+    }
+  }
+  return { ok: false, error: `不支持的工具：${name || "unknown"}` };
+}
+
+async function requestAssistantCompletion(settings, messages, tools = []) {
   const endpoint = settings.endpoint || (settings.mode === "direct" ? "https://api.deepseek.com/chat/completions" : "");
-  if (!endpoint) return "请先在设置页填入 Worker 地址。";
+  if (!endpoint) throw new Error("请先在设置页填入 Worker 地址。");
   const headers = { "Content-Type": "application/json" };
   if (settings.mode === "direct") headers.Authorization = `Bearer ${settings.key}`;
-  const payload = settings.mode === "proxy" ? { messages, model: settings.model } : { model: settings.model, messages, stream: false };
+  const payload = { model: settings.model, messages, stream: false };
+  if (tools.length) { payload.tools = tools; payload.tool_choice = "auto"; }
   const response = await fetch(endpoint, { method: "POST", headers, body: JSON.stringify(payload) });
   if (!response.ok) throw new Error(`${response.status} ${await response.text()}`);
   const data = await response.json();
-  return data.choices?.[0]?.message?.content || data.output?.[0]?.content?.[0]?.text || "接口没有返回可显示的回答。";
+  return data.choices?.[0]?.message || null;
+}
+
+function formatAssistantToolResult(_route, result) {
+  if (_route?.intent === "combat-summary" && Array.isArray(result)) {
+    const melee = result.find((item) => item?.attackMode === "melee");
+    const ranged = result.find((item) => item?.attackMode === "ranged");
+    const failures = result.filter((item) => !item?.ok);
+    if (failures.length) return `未能完成完整的一轮伤害比较：${failures.map((item) => item.error || "本地规则引擎没有返回结果。").join("；")}`;
+    const describe = (item, label) => `${label}：平均 ${item.averageDamage} 点有效伤害，全歼概率 ${item.killProbability}${item.killProbabilityUnit || "%"}`;
+    const reminders = [
+      "未启用掩体、半程、冲锋或一次性技能等修正。",
+      "可在计算器展开单位技能；若攻击方的技能带有开关，按实际条件开启后会重新结算。",
+      "常见需要确认的条件：目标是否有掩体、远程是否在半程、近战是否本回合冲锋，以及是否使用可计算的技能或计谋。",
+    ];
+    const availableOptions = [...(melee?.attacker?.availableOptions || []), ...(ranged?.attacker?.availableOptions || [])]
+      .filter((option, index, all) => all.findIndex((item) => item.name === option.name) === index)
+      .map((option) => `${option.name}${option.controls.length ? `（${option.controls.join("、")}）` : ""}`);
+    return [
+      `结论：${melee?.attacker?.name || ranged?.attacker?.name || "攻击方"}对${melee?.defender?.name || ranged?.defender?.name || "目标"}的一轮攻击比较。`,
+      describe(melee, "近战"),
+      describe(ranged, "远程"),
+      "这两项是各阶段独立结果，不相加；实际一回合能否同时发生取决于单位位置与对局流程。",
+      availableOptions.length ? `可计算的可选技能：${availableOptions.join("；")}。` : "可计算的可选技能：当前数据卡没有带开关的已建模选项。",
+      `提醒：${reminders.join(" ")}`,
+      "计算依据：本地规则引擎（每种攻击方式各进行 1,000 次模拟）。",
+    ].join("\n\n");
+  }
+  if (!result?.ok) return `未能计算：${result?.error || "本地规则引擎没有返回结果。"}`;
+  if (result.attackMode !== "ranged" && result.attackMode !== "melee") return JSON.stringify(result);
+  const mode = result.attackMode === "ranged" ? "远程射击" : "近战攻击";
+  const conditions = Object.entries(result.context || {})
+    .filter(([, enabled]) => enabled)
+    .map(([key]) => ({ targetWithinHalfRange: "半程", targetHasCover: "目标在掩体", attackerCharged: "攻击者冲锋" }[key] || key));
+  return [
+    `结论：${result.attacker.name}以${mode}攻击${result.defender.name}，平均造成 ${result.averageDamage} 点有效伤害。`,
+    `全歼目标单位的概率：${result.killProbability}${result.killProbabilityUnit || "%"}。`,
+    `计算依据：${result.calculator || "本地规则引擎"}${conditions.length ? `；条件：${conditions.join("、")}` : "；未额外启用战场修正"}。`,
+  ].join("\n\n");
+}
+
+async function callAssistant(text) {
+  const settings = state.settings;
+  if (!state.tacticalAgent) {
+    if (!window.WarhammerTacticalAgent?.create || !window.WarhammerTacticalConstitution?.toolDefinitions) throw new Error("战术 Agent 模块未加载。");
+    state.tacticalAgent = window.WarhammerTacticalAgent.create({
+      tools: window.WarhammerTacticalConstitution.toolDefinitions,
+      request: (messages, tools) => requestAssistantCompletion(state.settings, messages, tools),
+      executeTool: executeAssistantToolCall,
+      routeQuestion: window.WarhammerTacticalCorpus?.route,
+      formatToolResult: formatAssistantToolResult,
+      buildContext: async (question) => {
+        const library = await buildLibraryContext(question);
+        return {
+          battle: currentBattleState(),
+          library: `已选资料：${library.selected.join("；") || "无可检索文本资料"}\n\n资料摘录：\n${library.excerpts || "暂无文本摘录（PDF 已归档但未转为可检索文本）"}`,
+        };
+      },
+    });
+  }
+  const route = window.WarhammerTacticalCorpus?.route?.(text, state.tacticalAgent.getMemory());
+  if (settings.mode === "direct" && !settings.key && !route) return localAssistantReply(text);
+  return state.tacticalAgent.answer(text);
 }
 
 $("#chatForm").addEventListener("submit", async (event) => {
@@ -2934,14 +3088,12 @@ $("#chatForm").addEventListener("submit", async (event) => {
   if (!text) return;
   input.value = "";
   appendMessage("user", text);
-  state.messages.push({ role: "user", content: text });
   const pending = "正在分析并计算…";
   appendMessage("assistant", pending);
   const pendingNode = $("#chatMessages").lastElementChild;
   try {
     const reply = await callAssistant(text);
     pendingNode.querySelector("p").innerHTML = escapeHtml(reply).replace(/\n/g, "<br />");
-    state.messages.push({ role: "assistant", content: reply });
     $("#connectionStatus").textContent = state.settings.mode === "proxy" || state.settings.key ? "AI 已连接" : "本地预览";
     $("#connectionStatus").classList.remove("muted");
   } catch (error) {

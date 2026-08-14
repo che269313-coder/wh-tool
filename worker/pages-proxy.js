@@ -46,7 +46,12 @@ export default {
     if (!env.DEEPSEEK_API_KEY) return json({ error: "DEEPSEEK_API_KEY is not configured" }, request, env, 500);
     try {
       const body = await request.json();
-      const messages = Array.isArray(body.messages) ? body.messages.slice(-10) : [];
+      const suppliedMessages = Array.isArray(body.messages) ? body.messages : [];
+      // Tool exchanges need the original assistant tool_call plus its tool
+      // result. Keep the system instruction while bounding the conversation.
+      const system = suppliedMessages.find((message) => message?.role === "system");
+      const conversation = suppliedMessages.filter((message) => message !== system).slice(-24);
+      const messages = system ? [system, ...conversation] : conversation;
       if (!messages.length) return json({ error: "messages is required" }, request, env, 400);
       const upstream = await fetch("https://api.deepseek.com/chat/completions", {
         method: "POST",
@@ -54,6 +59,8 @@ export default {
         body: JSON.stringify({
           model: env.DEEPSEEK_MODEL || body.model || "deepseek-v4-flash",
           messages,
+          tools: Array.isArray(body.tools) ? body.tools : undefined,
+          tool_choice: body.tool_choice,
           stream: false,
         }),
       });

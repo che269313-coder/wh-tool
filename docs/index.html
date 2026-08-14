@@ -148,7 +148,7 @@
             <label>模型<input id="apiModel" value="deepseek-v4-flash" /></label>
             <label class="check-row"><input id="rememberKey" type="checkbox" /> <span>记住在本机浏览器</span></label>
             <button class="primary-button" type="submit">保存设置</button>
-            <p class="form-hint">AI 代理地址填写 Worker 的 <code>/api/chat</code>。</p>
+            <p class="form-hint">AI 代理地址填写 Worker 的 <code>/api/chat</code>；数值问答需要所选模型支持 OpenAI 兼容工具调用。</p>
           </form>
           <div class="info-box"><strong>对局数据</strong><p>AI 会结合双方军表中的存活模型、装备和血量进行判断。单位的血量可在“军表”中点开详情后修改；移除模型会立即同步到总览。</p></div>
           <div class="info-box"><strong>许可与使用</strong><p>允许克隆、查看、学习，以及个人非商业的本地运行；转载、公开部署或二次分发需事先获得书面授权，禁止商业使用。完整条款见仓库 LICENSE。</p></div>
@@ -180,6 +180,9 @@
     <script src="rules/resolver.js" defer></script>
     <script src="rules/roster-context.js" defer></script>
     <script src="calculator-catalog.js" defer></script>
-    <script src="app.js?v=catalog-20260806" defer></script>
+    <script src="assistant/corpus.js" defer></script>
+    <script src="assistant/constitution.js" defer></script>
+    <script src="assistant/tactical-agent.js" defer></script>
+    <script src="app.js?v=agent-memory-20260813" defer></script>
   </body>
 </html>
