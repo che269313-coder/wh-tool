@@ -1,0 +1,365 @@
+{
+  "schemaVersion": 1,
+  "order": 9,
+  "definition": {
+    "id": "agents-of-imperium",
+    "name": "帝国特勤",
+    "englishName": "Agents of the Imperium",
+    "aliases": [
+      "Agents of the Imperium"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_agents_of_imperium",
+    "runtime": {
+      "catalog": "catalogs/agents-of-imperium.json",
+      "rules": [
+        "rules/factions/agents-of-imperium.js"
+      ],
+      "detachment": "rules/detachments/agents-of-imperium.js"
+    },
+    "data": {
+      "catalog": "data/帝国特勤/帝国特勤-结构化数据卡.json",
+      "datasheet": "data/帝国特勤/帝国特勤-数据卡-可检索.md",
+      "detachment": "data/帝国特勤/分遣队规则-可检索.md",
+      "detachmentSource": "data/帝国特勤/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/帝国特勤/帝国特勤-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/帝国特勤/帝国特勤-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/帝国特勤/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/帝国特勤/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/帝国特勤/帝国特勤-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/帝国特勤/帝国特勤-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/帝国特勤/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=agents-of-imperium",
+      "inputPath": "docs/data/帝国特勤/帝国特勤-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/agents-of-imperium/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "审判领主奇莉亚·德拉克瑟斯": "审判官德拉克瑟斯",
+      "审判官亲信": "审判庭特勤"
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "隐藏利刃歼灭部队": "隐藏利刃歼灭部队",
+      "Veiled Blade Elimination Force": "隐藏利刃歼灭部队",
+      "帝国舰队": "帝国舰队",
+      "Imperialis Fleet": "帝国舰队",
+      "异形审判庭，异形猎手": "异形审判庭，异形猎手",
+      "Ordo Xenos, Alien Hunters": "异形审判庭，异形猎手",
+      "异端审判庭，净化部队": "异端审判庭，净化部队",
+      "Ordo Hereticus, Purgation Force": "异端审判庭，净化部队",
+      "恶魔审判庭，恶魔猎手": "恶魔审判庭，恶魔猎手",
+      "Ordo Malleus, Daemon Hunters": "恶魔审判庭，恶魔猎手",
+      "审判官之手": "审判官之手"
+    },
+    "weapons": {}
+  },
+  "overrides": [
+    {
+      "path": "cards[id=agents-of-imperium.9c20e4f6-fe52-42e5-9269-c0e61148cc6c].modelProfiles[id=trooper].weaponNames",
+      "value": [
+        "异形剑",
+        "特制爆弹手枪",
+        "动力武器",
+        "电浆手枪",
+        "重型雷霆之锤",
+        "追踪者爆弹步枪",
+        "近战武器",
+        "推进火焰炮",
+        "死亡守卫射手枪管卡宾枪",
+        "破片加农炮",
+        "地狱风暴爆弹步枪",
+        "阿斯塔特手榴弹发射器",
+        "电浆焚化器",
+        "战斗刀"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=agents-of-imperium.9c20e4f6-fe52-42e5-9269-c0e61148cc6c].modelProfiles[id=champion].weaponNames",
+      "value": [
+        "异形剑",
+        "特制爆弹手枪",
+        "动力武器",
+        "电浆手枪",
+        "重型雷霆之锤",
+        "追踪者爆弹步枪",
+        "近战武器",
+        "推进火焰炮",
+        "死亡守卫射手枪管卡宾枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=agents-of-imperium.9c20e4f6-fe52-42e5-9269-c0e61148cc6c].modelProfiles[profileKey=model-deathwatch-veteran#1].weaponNames",
+      "value": [
+        "异形剑",
+        "特制爆弹手枪",
+        "动力武器",
+        "电浆手枪",
+        "重型雷霆之锤",
+        "追踪者爆弹步枪",
+        "近战武器",
+        "推进火焰炮",
+        "死亡守卫射手枪管卡宾枪",
+        "破片加农炮",
+        "地狱风暴爆弹步枪",
+        "阿斯塔特手榴弹发射器",
+        "电浆焚化器",
+        "战斗刀"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=agents-of-imperium.9c20e4f6-fe52-42e5-9269-c0e61148cc6c].modelProfiles[profileKey=model-deathwatch-veteran#2].weaponNames",
+      "value": [
+        "异形剑",
+        "特制爆弹手枪",
+        "动力武器",
+        "电浆手枪",
+        "重型雷霆之锤",
+        "追踪者爆弹步枪",
+        "近战武器",
+        "推进火焰炮",
+        "死亡守卫射手枪管卡宾枪",
+        "破片加农炮",
+        "地狱风暴爆弹步枪",
+        "阿斯塔特手榴弹发射器",
+        "电浆焚化器",
+        "战斗刀"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=agents-of-imperium.9c20e4f6-fe52-42e5-9269-c0e61148cc6c].modelProfiles[id=model-gravis-veteran].weaponNames",
+      "value": [
+        "异形剑",
+        "特制爆弹手枪",
+        "动力武器",
+        "电浆手枪",
+        "重型雷霆之锤",
+        "追踪者爆弹步枪",
+        "近战武器",
+        "推进火焰炮",
+        "死亡守卫射手枪管卡宾枪",
+        "破片加农炮",
+        "地狱风暴爆弹步枪",
+        "阿斯塔特手榴弹发射器",
+        "电浆焚化器",
+        "战斗刀"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=agents-of-imperium.9c20e4f6-fe52-42e5-9269-c0e61148cc6c].modelProfiles[profileKey=model-deathwatch-veteran#3].weaponNames",
+      "value": [
+        "异形剑",
+        "特制爆弹手枪",
+        "动力武器",
+        "电浆手枪",
+        "重型雷霆之锤",
+        "追踪者爆弹步枪",
+        "近战武器",
+        "推进火焰炮",
+        "死亡守卫射手枪管卡宾枪",
+        "破片加农炮",
+        "地狱风暴爆弹步枪",
+        "阿斯塔特手榴弹发射器",
+        "电浆焚化器",
+        "战斗刀"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=agents-of-imperium.21751bff-e7e5-4aa8-88a2-d1558a7c5110].modelProfiles[id=trooper].weaponNames",
+      "value": [
+        "圣火",
+        "焚烧之手",
+        "近战武器",
+        "死亡教团刀刃",
+        "电浆枪",
+        "教会火焰枪",
+        "教会手持火焰喷射器",
+        "热熔枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=agents-of-imperium.21751bff-e7e5-4aa8-88a2-d1558a7c5110].modelProfiles[id=model-missionary].weaponNames",
+      "value": [
+        "圣火",
+        "焚烧之手",
+        "近战武器",
+        "死亡教团刀刃",
+        "电浆枪",
+        "教会火焰枪",
+        "教会手持火焰喷射器",
+        "热熔枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=agents-of-imperium.21751bff-e7e5-4aa8-88a2-d1558a7c5110].modelProfiles[id=model-salvationist].weaponNames",
+      "value": [
+        "圣火",
+        "焚烧之手",
+        "近战武器",
+        "死亡教团刀刃",
+        "电浆枪",
+        "教会火焰枪",
+        "教会手持火焰喷射器",
+        "热熔枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=agents-of-imperium.21751bff-e7e5-4aa8-88a2-d1558a7c5110].modelProfiles[id=model-death-cult-assassin].weaponNames",
+      "value": [
+        "圣火",
+        "焚烧之手",
+        "近战武器",
+        "死亡教团刀刃",
+        "电浆枪",
+        "教会火焰枪",
+        "教会手持火焰喷射器",
+        "热熔枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=agents-of-imperium.21751bff-e7e5-4aa8-88a2-d1558a7c5110].modelProfiles[id=model-miraculist].weaponNames",
+      "value": [
+        "圣火",
+        "焚烧之手",
+        "近战武器",
+        "死亡教团刀刃",
+        "电浆枪",
+        "教会火焰枪",
+        "教会手持火焰喷射器",
+        "热熔枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    }
+  ]
+}

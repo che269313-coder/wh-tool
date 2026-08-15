@@ -66,7 +66,7 @@ python -m http.server 8080 --directory docs
 
 然后访问 <http://localhost:8080>。
 
-维护者文档位于 `docs/项目架构.md`、`docs/资料提取.md` 和 `docs/审核机制.md`。
+维护者只需阅读 [ARCHITECTURE.md](ARCHITECTURE.md)。阵营数据统一用 `node tools/build-data.mjs --check` 重建并验收。
 
 ## 许可证
 

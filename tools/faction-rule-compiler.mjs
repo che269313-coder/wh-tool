@@ -68,6 +68,11 @@ export function compileAbility(ability, { factionRule = false } = {}) {
   const singleWoundReroll = /重(?:掷|投)(?:一次|一个)[^。；]{0,18}(?:致伤|造伤)掷骰/.test(source);
   if (woundReroll && !singleWoundReroll) add({ type: "wound-reroll", mode: woundRerollOnes ? "ones" : "failed" });
 
+  const damageRerollOnes = /重(?:掷|投)[^。；]{0,35}(?:结果为\s*1|伤害掷骰[^。；]{0,12}(?:(?:中的|为)\s*)?1)|重(?:掷|投)结果为\s*1[^。；]{0,20}伤害/.test(source);
+  const damageReroll = /重(?:掷|投)[^。；]{0,45}(?:伤害掷骰|该攻击的伤害)|(?:伤害掷骰|该攻击的伤害)[^。；]{0,45}重(?:掷|投)/.test(source);
+  const singleDamageReroll = /重(?:掷|投)(?:一次|一个)[^。；]{0,18}(?:伤害掷骰|伤害)/.test(source);
+  if (damageReroll && !singleDamageReroll) add({ type: "damage-reroll", mode: damageRerollOnes ? "ones" : "failed" });
+
   if (!incomingHitMinus && /(?:命中掷骰|命中结果)[^。；]{0,18}(?:加|提高|\+)\s*1/.test(source)) add({ type: "hit-modifier", value: 1 });
   if (/(?:致伤掷骰|造伤结果)[^。；]{0,18}(?:加|提高|\+)\s*1/.test(source)) add({ type: "wound-modifier", value: 1 });
 

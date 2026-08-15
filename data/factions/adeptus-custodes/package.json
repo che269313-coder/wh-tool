@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "order": 0,
+  "definition": {
+    "id": "adeptus-custodes",
+    "name": "帝皇禁军",
+    "englishName": "Adeptus Custodes",
+    "aliases": [
+      "禁军",
+      "Adeptus Custodes"
+    ],
+    "rulesGlobal": "WarhammerCustodesRules",
+    "runtime": {
+      "catalog": "catalogs/adeptus-custodes.json",
+      "rules": [
+        "rules/custodes-identities.js",
+        "rules/custodes.js"
+      ],
+      "detachment": "rules/detachments/adeptus-custodes.js"
+    },
+    "data": {
+      "catalog": "data/帝皇禁军/帝皇禁军-结构化数据卡.json",
+      "datasheet": "data/帝皇禁军/数据卡-OCR-可检索.md",
+      "detachmentSource": "data/帝皇禁军/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/帝皇禁军/数据卡-OCR-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/帝皇禁军/帝皇禁军-结构化数据卡.json",
+        "kind": "datasheet"
+      }
+    ],
+    "unitTags": {
+      "adeptus-custodes.martial-katah": {
+        "default": true,
+        "excludeUnits": [
+          "灭魔教团百骑长",
+          "艾雷雅",
+          "控诉者",
+          "警戒者",
+          "猎巫者",
+          "灭魔教团犀牛装甲车"
+        ],
+        "includeUnits": []
+      }
+    },
+    "mechanics": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-derived",
+      "edition": "10e",
+      "version": "老湿腐版1.07",
+      "fetchedAt": "",
+      "url": "",
+      "inputPath": "docs/data/帝皇禁军/帝皇禁军-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "百骑长": {
+        "canonical": "灭魔教团百骑长",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "艾蕾雅": {
+        "canonical": "艾雷雅",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "盾卫连长(主将)": {
+        "canonical": "盾卫连长",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "阿拉鲁斯终结者": {
+        "canonical": "阿拉琉斯终结者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "灭魔教团百夫长": {
+        "canonical": "灭魔教团百骑长",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "戒卫者": {
+        "canonical": "警戒者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      }
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "亡者之势": {
+        "canonical": "亡者之势",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "March of the Fallen": {
+        "canonical": "亡者之势",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "寂静猎手": {
+        "canonical": "寂静猎手",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Silent Hunters": {
+        "canonical": "寂静猎手",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "雷灭锤击": {
+        "canonical": "雷灭锤击",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Thunderous Annihilation": {
+        "canonical": "雷灭锤击",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "帝皇之狮": {
+        "canonical": "帝皇之狮",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Lions of the Emperor": {
+        "canonical": "帝皇之狮",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "耀日矛头": {
+        "canonical": "耀日矛头",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Solar Spearhead": {
+        "canonical": "耀日矛头",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "虚无之女警戒团": {
+        "canonical": "虚无之女警戒团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Null Maiden Vigil": {
+        "canonical": "虚无之女警戒团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "盾卫军团": {
+        "canonical": "盾卫军团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Shield Host": {
+        "canonical": "盾卫军团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "帝皇之爪": {
+        "canonical": "帝皇之爪",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Talons of the Emperor": {
+        "canonical": "帝皇之爪",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "金甲勇士": {
+        "canonical": "金甲勇士",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Auric Champions": {
+        "canonical": "金甲勇士",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "崔斯蒂安的鎏金之刃": {
+        "canonical": "崔斯蒂安的鎏金之刃",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Tristian's Gilded Blades": {
+        "canonical": "崔斯蒂安的鎏金之刃",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      }
+    },
+    "weapons": {}
+  },
+  "overrides": []
+}

@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "order": 15,
+  "definition": {
+    "id": "aeldari",
+    "name": "艾达灵族",
+    "englishName": "Aeldari",
+    "aliases": [
+      "Aeldari"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_aeldari",
+    "runtime": {
+      "catalog": "catalogs/aeldari.json",
+      "rules": [
+        "rules/factions/aeldari.js"
+      ],
+      "detachment": "rules/detachments/aeldari.js"
+    },
+    "data": {
+      "catalog": "data/艾达灵族/艾达灵族-结构化数据卡.json",
+      "datasheet": "data/艾达灵族/艾达灵族-数据卡-可检索.md",
+      "detachment": "data/艾达灵族/分遣队规则-可检索.md",
+      "detachmentSource": "data/艾达灵族/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/艾达灵族/艾达灵族-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/艾达灵族/艾达灵族-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/艾达灵族/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/艾达灵族/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/艾达灵族/艾达灵族-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/艾达灵族/艾达灵族-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/艾达灵族/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=aeldari",
+      "inputPath": "docs/data/艾达灵族/艾达灵族-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/aeldari/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "埃尔德拉德 · 乌斯兰": "艾尔德拉德·乌瑟兰",
+      "战巫": "巫师",
+      "贾因 · 扎尔": "简恩·扎尔",
+      "莱凯丝": "莱吉斯",
+      "矛甘 · 拉": "矛甘·拉",
+      "烈焰火龙": "火龙",
+      "突击蝎": "突击战蠍",
+      "音波炮平台（震击炮平台）": "震击炮平台",
+      "御风者": "驭风者摩托",
+      "装备巨型鬼灵长刀的幽冥骑士": "装备幽冥长刀的幽冥骑士",
+      "伊弗蕾妮": "伊芙蕾妮",
+      "千面（维萨奇）": "维萨奇",
+      "因卡恩-死神化身": "因卡恩",
+      "死神军魅魔（血腥魔女）": "死神军血腥魔女",
+      "死神军阴谋团武士": "死神军阴谋团战士",
+      "死神军梦魇": "死神军梦魇剑客",
+      "死神军劫掠者": "死神军劫掠者摩托",
+      "死神军毒灾飞艇（死神军毒液飞艇）": "死神军毒液飞艇",
+      "丑角剧团": "剧团",
+      "虚空编织者炮艇（织虚者飞艇）": "织虚者飞艇",
+      "幽魂泰坦": "亡魂泰坦"
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "装甲战群": "装甲战群",
+      "宿命的演出": "宿命的演出",
+      "流放者之道": "流放者之道",
+      "暮光闪现": "暮光闪现",
+      "战争军团": "战争军团",
+      "Warhost": "战争军团",
+      "战火军阵（战争军团）": "战争军团",
+      "支派军团": "支派军团",
+      "Aspect Host": "支派军团",
+      "守护者军团": "守护者军团",
+      "Guardian Battlehost": "守护者军团",
+      "驭风者军团": "驭风者军团",
+      "Windrider Host": "驭风者军团",
+      "御风者军阵": "驭风者军团",
+      "先知议会": "先知议会",
+      "Seer Council": "先知议会",
+      "灵魂密会": "灵魂密会",
+      "Spirit Conclave": "灵魂密会",
+      "骇人劫掠者": "骇人劫掠者",
+      "Eldritch Raiders": "骇人劫掠者",
+      "网道幽灵": "网道幽灵",
+      "Ghosts of the Webway": "网道幽灵",
+      "网道幽灵（暂译）": "网道幽灵",
+      "巨蛇族群": "巨蛇族群",
+      "Serpent’s Brood": "巨蛇族群",
+      "伊纳德信徒": "伊纳德信徒",
+      "Devoted of Ynnead": "伊纳德信徒",
+      "伊纳德信徒（暂译）": "伊纳德信徒",
+      "海盗劫掠团": "海盗劫掠团",
+      "Corsair Coterie": "海盗劫掠团",
+      "凯格瑞尔的守护者": "凯格瑞尔的守护者"
+    },
+    "weapons": {}
+  },
+  "overrides": [
+    {
+      "path": "cards[id=aeldari.e6422e2a-6934-4f5d-91d9-a855d0edd686].modelProfiles[id=trooper].weaponNames",
+      "value": [
+        "神官龙焰熔毁枪",
+        "近战武器"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=aeldari.e6422e2a-6934-4f5d-91d9-a855d0edd686].modelProfiles[id=champion].weaponNames",
+      "value": [
+        "近战武器",
+        "神官龙焰熔毁枪",
+        "龙息焰枪",
+        "龙焰手枪",
+        "龙焰战斧",
+        "烈火矛"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=aeldari.433a2ffb-6bf7-4992-9172-797ed3021d4e].modelProfiles[id=trooper].weaponNames",
+      "value": [
+        "死亡纺织者",
+        "近战武器"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=aeldari.433a2ffb-6bf7-4992-9172-797ed3021d4e].modelProfiles[id=champion].weaponNames",
+      "value": [
+        "死亡纺织者",
+        "近战武器",
+        "动力刃",
+        "动力刃阵列",
+        "纺锤步枪",
+        "死亡织者"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    }
+  ]
+}

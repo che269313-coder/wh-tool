@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "order": 12,
+  "definition": {
+    "id": "world-eaters",
+    "name": "吞世者",
+    "englishName": "World Eaters",
+    "aliases": [
+      "World Eaters"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_world_eaters",
+    "runtime": {
+      "catalog": "catalogs/world-eaters.json",
+      "rules": [
+        "rules/factions/world-eaters.js"
+      ],
+      "detachment": "rules/detachments/world-eaters.js"
+    },
+    "data": {
+      "catalog": "data/吞世者/吞世者-结构化数据卡.json",
+      "datasheet": "data/吞世者/吞世者-数据卡-可检索.md",
+      "detachment": "data/吞世者/分遣队规则-可检索.md",
+      "detachmentSource": "data/吞世者/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/吞世者/吞世者-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/吞世者/吞世者-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/吞世者/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/吞世者/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/吞世者/吞世者-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/吞世者/吞世者-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/吞世者/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=world-eaters",
+      "inputPath": "docs/data/吞世者/吞世者-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/world-eaters/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "领主因维卡图斯": "因维卡图斯尊主",
+      "屠缚战狂": "缚魔战狂",
+      "钢牛领主": "骑铁甲兽的领主",
+      "枭首魔将": "斩首大师",
+      "恐虐恶魔壬子": "恐虐恶魔亲王",
+      "有翼恐虐恶魔壬子": "有翼恐虐恶魔亲王",
+      "豺狼邪教徒": "裂伤者",
+      "洒血鬼教徒": "洒血狂",
+      "八缚屠夫": "八缚者",
+      "神尊八缚屠夫": "高阶八缚者",
+      "混沌卵": "混沌魔物",
+      "混沌犀牛运兵车": "混沌犀牛战车",
+      "重锤魔": "重拳恶魔",
+      "煅炉魔": "铸造恶魔",
+      "亵渎者": "污染者",
+      "地獭兽": "地狱兽",
+      "混沌歼灭型掠食者": "混沌歼灭者型掠食者战车",
+      "混沌破坏型掠食者": "混沌破坏者型掠食者战车",
+      "混沌兰德掠袭者": "混沌兰德掠袭者战车",
+      "地狱飞龙": "地狱魔龙",
+      "恐虐碾血者": "碾血骑兵",
+      "放血鬼": "放血者",
+      "觅血猎犬": "血肉猎犬"
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "好战机械": "好战机械",
+      "恐虐屠夫": "恐虐屠夫",
+      "怒火容器": "怒火容器",
+      "狂战士战帮": "狂战士战帮",
+      "Berzerker Warband": "狂战士战帮",
+      "恐虐魔族": "恐虐魔族",
+      "Khorne Daemonkin": "恐虐魔族",
+      "血轮狂攻队": "血轮狂攻队",
+      "Goretrack Onslaught": "血轮狂攻队",
+      "附魔杀戮团": "附魔杀戮团",
+      "Possessed Slaughterband": "附魔杀戮团",
+      "鲜血教派": "鲜血教派",
+      "Cult of Blood": "鲜血教派",
+      "狂乱劫掠者": "狂乱劫掠者"
+    },
+    "weapons": {}
+  },
+  "overrides": []
+}

@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "order": 8,
+  "definition": {
+    "id": "adeptus-mechanicus",
+    "name": "机械修会",
+    "englishName": "Adeptus Mechanicus",
+    "aliases": [
+      "Adeptus Mechanicus"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_adeptus_mechanicus",
+    "runtime": {
+      "catalog": "catalogs/adeptus-mechanicus.json",
+      "rules": [
+        "rules/factions/adeptus-mechanicus.js"
+      ],
+      "detachment": "rules/detachments/adeptus-mechanicus.js"
+    },
+    "data": {
+      "catalog": "data/机械修会/机械修会-结构化数据卡.json",
+      "datasheet": "data/机械修会/机械修会-数据卡-可检索.md",
+      "detachment": "data/机械修会/分遣队规则-可检索.md",
+      "detachmentSource": "data/机械修会/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/机械修会/机械修会-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/机械修会/机械修会-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/机械修会/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/机械修会/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/机械修会/机械修会-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/机械修会/机械修会-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/机械修会/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=adeptus-mechanicus",
+      "inputPath": "docs/data/机械修会/机械修会-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/adeptus-mechanicus/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "酵尼安哨兵": "西多尼亚斯卡特罗射手",
+      "护教军游猎兵": "护教军游骑兵",
+      "护教军先锋兵": "护教军先锋",
+      "西卡利安渗透者": "斯卡里亚渗透者",
+      "西卡利安铁锈追踪者": "斯卡里亚锈蚀追猎者",
+      "翼龙军天猎兵": "佩莱克斯天空追猎者",
+      "翼龙军净炎兵": "佩莱克斯净化者",
+      "瑟贝利游骑兵": "塞波利斯掠夺者",
+      "瑟贝利硫火犬": "塞波利斯硫磺猎手",
+      "武装奴工突破者": "铁甲攻坚者",
+      "武装奴工毁灭者": "铁甲破坏者",
+      "奴工战斗队": "奴工战斗支队",
+      "雷鸣宗电祭司": "科普斯卡驭电祭司",
+      "法身宗电祭司": "电岩驭电祭司",
+      "酵尼亚枪骑兵": "装备电击长枪的西多尼亚龙骑兵",
+      "酩尼亚龙骑兵": "装备辐射长管枪的西多尼亚龙骑兵",
+      "天蝎座粉碎者坦克": "天蠍粉碎者",
+      "天蝎座沙丘行者运输船": "天蠍沙行船",
+      "沙丘爬行者机甲": "沙丘爬行者",
+      "始祖鸟燧火轰炸机": "始祖轰炸机",
+      "始祖鸟层云猛禽": "始祖攻击机",
+      "始祖鸟矢量飞梭": "始祖运输机"
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "求知大队": "求知大队",
+      "熔炉领主": "熔炉领主",
+      "启明自动合唱团": "启明自动合唱团",
+      "启明??自动合唱团": "启明自动合唱团",
+      "辐射军团": "辐射军团",
+      "Rad-Zone Corps": "辐射军团",
+      "数据圣歌评议会": "数据圣歌评议会",
+      "Data-psalm Conclave": "数据圣歌评议会",
+      "护教军猎手大队": "护教军猎手大队",
+      "Skitarii Hunter Cohort": "护教军猎手大队",
+      "圣智战斗支队": "圣智战斗支队",
+      "Haloscreed Battle Clade": "圣智战斗支队",
+      "智控大队": "智控大队",
+      "Cohort Cybernetica": "智控大队",
+      "探索者小队": "探索者小队",
+      "Explorator Maniple": "探索者小队",
+      "根除大队": "根除大队",
+      "Eradication Cohort": "根除大队",
+      "净化军团德尔塔-9号": "净化军团德尔塔-9号"
+    },
+    "weapons": {}
+  },
+  "overrides": []
+}

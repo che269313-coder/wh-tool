@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "order": 14,
+  "definition": {
+    "id": "chaos-knights",
+    "name": "混沌骑士",
+    "englishName": "Chaos Knights",
+    "aliases": [
+      "Chaos Knights"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_chaos_knights",
+    "runtime": {
+      "catalog": "catalogs/chaos-knights.json",
+      "rules": [
+        "rules/factions/chaos-knights.js"
+      ],
+      "detachment": "rules/detachments/chaos-knights.js"
+    },
+    "data": {
+      "catalog": "data/混沌骑士/混沌骑士-结构化数据卡.json",
+      "datasheet": "data/混沌骑士/混沌骑士-数据卡-可检索.md",
+      "detachment": "data/混沌骑士/分遣队规则-可检索.md",
+      "detachmentSource": "data/混沌骑士/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/混沌骑士/混沌骑士-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/混沌骑士/混沌骑士-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/混沌骑士/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/混沌骑士/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/混沌骑士/混沌骑士-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/混沌骑士/混沌骑士-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/混沌骑士/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=chaos-knights",
+      "inputPath": "docs/data/混沌骑士/混沌骑士-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/chaos-knights/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "复仇女神骑士": "混沌复仇女神型巡游骑士",
+      "冥河骑士": "混沌冥河型巡游骑士",
+      "战犬天命者": "天命型战犬",
+      "枪骑兵骑士": "混沌枪骑兵型角蝰骑士",
+      "惩戒者骑士": "混沌惩戒者型角蝰骑士",
+      "黄泉骑士": "混沌黄泉型角蝰骑士",
+      "命运女神骑士": "混沌命运女神型角蝰骑士",
+      "牛头怪骑士": "混沌牛头怪型阿卡斯托斯骑士",
+      "巨人王骑士": "混沌巨人王型阿卡斯托斯骑士"
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "暴虐要塞": "暴虐要塞",
+      "猎犬战群": "猎犬战群",
+      "叛道封地": "叛道封地",
+      "叛变骑兵队": "叛变骑兵队",
+      "Traitoris Lance": "叛变骑兵队",
+      "反叛之矛": "叛变骑兵队",
+      "恐惧之王": "恐惧之王",
+      "Lords of Dread": "恐惧之王",
+      "恐惧之主": "恐惧之王",
+      "炼狱骑士队": "炼狱骑士队",
+      "Infernal Lance": "炼狱骑士队",
+      "炼狱长枪": "炼狱骑士队",
+      "战犬猎群骑士队": "战犬猎群骑士队",
+      "Houndpack Lance": "战犬猎群骑士队",
+      "猎群枪队": "战犬猎群骑士队",
+      "地狱猎手骑兵队": "地狱猎手骑兵队",
+      "Helhunt Lance": "地狱猎手骑兵队"
+    },
+    "weapons": {}
+  },
+  "overrides": []
+}

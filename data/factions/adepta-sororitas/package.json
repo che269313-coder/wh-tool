@@ -1,0 +1,480 @@
+{
+  "schemaVersion": 1,
+  "order": 5,
+  "definition": {
+    "id": "adepta-sororitas",
+    "name": "修女会",
+    "englishName": "Adepta Sororitas",
+    "aliases": [
+      "Adepta Sororitas"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_adepta_sororitas",
+    "runtime": {
+      "catalog": "catalogs/adepta-sororitas.json",
+      "rules": [
+        "rules/factions/adepta-sororitas.js"
+      ],
+      "detachment": "rules/detachments/adepta-sororitas.js"
+    },
+    "data": {
+      "catalog": "data/修女会/修女会-结构化数据卡.json",
+      "datasheet": "data/修女会/修女会-数据卡-可检索.md",
+      "detachment": "data/修女会/分遣队规则-可检索.md",
+      "detachmentSource": "data/修女会/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/修女会/修女会-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/修女会/修女会-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/修女会/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/修女会/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/修女会/修女会-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/修女会/修女会-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/修女会/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=adepta-sororitas",
+      "inputPath": "docs/data/修女会/修女会-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/adepta-sororitas/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "圣塞勒斯丁": {
+        "canonical": "圣塞莱斯汀",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "驱魔圣卫": {
+        "canonical": "恶魔驱逐者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "朱妮斯优瑞塔修女长": {
+        "canonical": "茱妮丝·伊瑞塔",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "圣凯瑟琳巡礼团": {
+        "canonical": "凯旋之圣凯瑟琳",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "修女长装备跳跃背包": {
+        "canonical": "跳跃背包大修女",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "阿斯特雷德与阿加瑟": {
+        "canonical": "阿斯垂德·瑟加和阿加瑟·多兰",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "圣像旗手": {
+        "canonical": "持像者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "宣讲修女": {
+        "canonical": "书记修女",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "权天使小队": {
+        "canonical": "御天使小队",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "罚罪者小队": {
+        "canonical": "仇天使小队",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "赎罪修女小队": {
+        "canonical": "忏悔修女小队",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "鞭笞机仆": {
+        "canonical": "鞭挞苦修者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "罚罪者机甲": {
+        "canonical": "悔罪者机甲",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "赎罪引擎": {
+        "canonical": "忏悔者机甲",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "楷模机甲小队": {
+        "canonical": "楷模机甲",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "犀牛装用车": {
+        "canonical": "修女会犀牛装甲车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "献祭者坦克": {
+        "canonical": "献祭者装甲车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "驱魔人坦克": {
+        "canonical": "驱魔人导弹车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "惩罚者坦克": {
+        "canonical": "惩戒者坦克",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      }
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "定罪合唱": {
+        "canonical": "定罪合唱",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "神圣冠军": {
+        "canonical": "神圣冠军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "祝圣演说者": {
+        "canonical": "祝圣演说者",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "信仰冠军": {
+        "canonical": "信仰冠军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Champions of Faith": {
+        "canonical": "信仰冠军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "神圣殉道者": {
+        "canonical": "神圣殉道者",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Hallowed Martyrs": {
+        "canonical": "神圣殉道者",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "烈焰使者": {
+        "canonical": "烈焰使者",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Bringers of Flame": {
+        "canonical": "烈焰使者",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "悔罪军团": {
+        "canonical": "悔罪军团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Penitent Host": {
+        "canonical": "悔罪军团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "信仰之军": {
+        "canonical": "信仰之军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Army of Faith": {
+        "canonical": "信仰之军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "圣地铁卫": {
+        "canonical": "圣地铁卫",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      }
+    },
+    "weapons": {}
+  },
+  "overrides": [
+    {
+      "path": "cards[id=adepta-sororitas.d8b4a7d8-0149-4ff6-903f-31bf4cfa3699].modelProfiles[id=trooper].weaponNames",
+      "value": [
+        "爆弹手枪",
+        "谴罪爆弹枪",
+        "近战武器",
+        "工匠风暴爆弹枪",
+        "热熔枪",
+        "教会火焰枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=adepta-sororitas.d8b4a7d8-0149-4ff6-903f-31bf4cfa3699].modelProfiles[id=champion].weaponNames",
+      "value": [
+        "爆弹手枪",
+        "谴罪爆弹枪",
+        "近战武器",
+        "组合武器",
+        "圣焰手枪",
+        "教会手持火焰喷射器",
+        "电浆手枪",
+        "链锯剑",
+        "动力武器"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=adepta-sororitas.09e60adc-37ff-4e7b-ab1a-40762d48e085].modelProfiles[id=trooper].weaponNames",
+      "value": [
+        "爆弹手枪",
+        "谴罪爆弹枪",
+        "近战武器",
+        "爆弹枪",
+        "组合武器",
+        "教廷重型喷火器",
+        "多重热熔枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=adepta-sororitas.09e60adc-37ff-4e7b-ab1a-40762d48e085].modelProfiles[id=champion].weaponNames",
+      "value": [
+        "爆弹手枪",
+        "近战武器",
+        "谴罪爆弹枪",
+        "爆弹枪",
+        "组合武器",
+        "圣焰手枪",
+        "教会手持火焰喷射器",
+        "电浆手枪",
+        "链锯剑",
+        "动力武器"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=adepta-sororitas.ae6f1edd-efee-4aaf-a198-7396c16fe6ab].modelProfiles[id=trooper].weaponNames",
+      "value": [
+        "圣火",
+        "焚烧之手",
+        "近战武器",
+        "死亡教团刀刃",
+        "电浆枪",
+        "教会火焰枪",
+        "教会手持火焰喷射器",
+        "热熔枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=adepta-sororitas.ae6f1edd-efee-4aaf-a198-7396c16fe6ab].modelProfiles[id=model-missionary].weaponNames",
+      "value": [
+        "圣火",
+        "焚烧之手",
+        "近战武器",
+        "死亡教团刀刃",
+        "电浆枪",
+        "教会火焰枪",
+        "教会手持火焰喷射器",
+        "热熔枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=adepta-sororitas.ae6f1edd-efee-4aaf-a198-7396c16fe6ab].modelProfiles[id=model-miraculist].weaponNames",
+      "value": [
+        "圣火",
+        "焚烧之手",
+        "近战武器",
+        "死亡教团刀刃",
+        "电浆枪",
+        "教会火焰枪",
+        "教会手持火焰喷射器",
+        "热熔枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=adepta-sororitas.ae6f1edd-efee-4aaf-a198-7396c16fe6ab].modelProfiles[id=model-death-cult-assassin].weaponNames",
+      "value": [
+        "圣火",
+        "焚烧之手",
+        "近战武器",
+        "死亡教团刀刃",
+        "电浆枪",
+        "教会火焰枪",
+        "教会手持火焰喷射器",
+        "热熔枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=adepta-sororitas.ae6f1edd-efee-4aaf-a198-7396c16fe6ab].modelProfiles[id=model-salvationist].weaponNames",
+      "value": [
+        "圣火",
+        "焚烧之手",
+        "近战武器",
+        "死亡教团刀刃",
+        "电浆枪",
+        "教会火焰枪",
+        "教会手持火焰喷射器",
+        "热熔枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=adepta-sororitas.12f69846-2b8d-49b9-bd63-36e0cbd09602].modelProfiles[id=trooper].weaponNames",
+      "value": [
+        "爆弹手枪",
+        "爆弹枪",
+        "新兵近战武器",
+        "教会火焰枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=adepta-sororitas.12f69846-2b8d-49b9-bd63-36e0cbd09602].modelProfiles[id=champion].weaponNames",
+      "value": [
+        "自动手枪",
+        "自动步枪",
+        "新兵近战武器",
+        "爆弹手枪",
+        "动力武器",
+        "电浆手枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    }
+  ]
+}

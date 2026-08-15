@@ -1,4 +1,6 @@
 const JSON_HEADERS = { "content-type": "application/json; charset=UTF-8" };
+const DEFAULT_GLM_ENDPOINT = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
+const DEFAULT_GLM_MODEL = "glm-4-flash-250414";
 
 function corsHeaders(request, env) {
   const origin = request.headers.get("Origin") || "";
@@ -43,7 +45,8 @@ export default {
       }
     }
     if (url.pathname !== "/api/chat" || request.method !== "POST") return json({ error: "Not found" }, request, env, 404);
-    if (!env.DEEPSEEK_API_KEY) return json({ error: "DEEPSEEK_API_KEY is not configured" }, request, env, 500);
+    const apiKey = env.GLM_API_KEY;
+    if (!apiKey) return json({ error: "GLM_API_KEY is not configured" }, request, env, 503);
     try {
       const body = await request.json();
       const suppliedMessages = Array.isArray(body.messages) ? body.messages : [];
@@ -53,11 +56,11 @@ export default {
       const conversation = suppliedMessages.filter((message) => message !== system).slice(-24);
       const messages = system ? [system, ...conversation] : conversation;
       if (!messages.length) return json({ error: "messages is required" }, request, env, 400);
-      const upstream = await fetch("https://api.deepseek.com/chat/completions", {
+      const upstream = await fetch(DEFAULT_GLM_ENDPOINT, {
         method: "POST",
-        headers: { "content-type": "application/json", authorization: `Bearer ${env.DEEPSEEK_API_KEY}` },
+        headers: { "content-type": "application/json", authorization: `Bearer ${apiKey}` },
         body: JSON.stringify({
-          model: env.DEEPSEEK_MODEL || body.model || "deepseek-v4-flash",
+          model: env.GLM_MODEL || body.model || DEFAULT_GLM_MODEL,
           messages,
           tools: Array.isArray(body.tools) ? body.tools : undefined,
           tool_choice: body.tool_choice,

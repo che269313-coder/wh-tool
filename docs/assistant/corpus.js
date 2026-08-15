@@ -25,6 +25,10 @@
     return /平均伤害|伤害|击杀|概率|期望|算一下|计算|能杀|多少伤害|多少个/.test(String(question || ""));
   }
 
+  function isActionPhrase(question) {
+    return /近战|肉搏|挥刀|远程|射击|开火|攻击|对战|\bvs\b|打/.test(String(question || "").toLowerCase());
+  }
+
   function combatCall(attacker, defender, attackMode, context = {}) {
     return { name: "calculate_combat", arguments: { attacker, defender, attackMode, context } };
   }
@@ -33,7 +37,7 @@
     return /^(远程|射击|开火|近战|肉搏|挥刀|shoot|ranged|melee|fight)(呢|吗|怎么样|如何|呢？|吗？)?[？?！!。.]?$/i.test(String(question || "").trim());
   }
 
-  function route(question, memory = null) {
+  function route(question, memory = null, hasUnitCandidates = null) {
     const mentions = findUnitMentions(question);
     const attackMode = detectAttackMode(question);
     if (mentions.length >= 2 && attackMode && requestedCalculation(question)) {
@@ -53,6 +57,12 @@
     }
     if (/掩体|cover/.test(String(question || "")) && memory?.lastScenario) {
       return combatCall(memory.lastScenario.attacker, memory.lastScenario.defender, memory.lastScenario.attackMode, { ...(memory.lastScenario.context || {}), targetHasCover: true });
+    }
+    // 短名称查询（如"小子"）确定性路由到 find_units：先拿真实候选清单再说话，
+    // 模型不再凭空判断"这个单位不存在"或自行猜测规范名。
+    const text = String(question || "").trim();
+    if (text && text.length <= 12 && !requestedCalculation(text) && !isActionPhrase(text) && typeof hasUnitCandidates === "function" && hasUnitCandidates(text) > 0) {
+      return { name: "find_units", arguments: { query: text } };
     }
     return null;
   }

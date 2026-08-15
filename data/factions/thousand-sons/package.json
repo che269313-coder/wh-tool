@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "order": 11,
+  "definition": {
+    "id": "thousand-sons",
+    "name": "千子",
+    "englishName": "Thousand Sons",
+    "aliases": [
+      "Thousand Sons"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_thousand_sons",
+    "runtime": {
+      "catalog": "catalogs/thousand-sons.json",
+      "rules": [
+        "rules/factions/thousand-sons.js"
+      ],
+      "detachment": "rules/detachments/thousand-sons.js"
+    },
+    "data": {
+      "catalog": "data/千子/千子-结构化数据卡.json",
+      "datasheet": "data/千子/千子-数据卡-可检索.md",
+      "detachment": "data/千子/分遣队规则-可检索.md",
+      "detachmentSource": "data/千子/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/千子/千子-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/千子/千子-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/千子/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/千子/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/千子/千子-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/千子/千子-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/千子/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=thousand-sons",
+      "inputPath": "docs/data/千子/千子-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/thousand-sons/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "猩红之王 红魔马格努斯": "红魔马格努斯",
+      "骑乘奸奇魔盘的高阶巫师": "乘坐奸奇魔碟的高阶巫师",
+      "终结者巫师": "终结者护甲巫师",
+      "带翼奸奇恶魔亲王": "有翼奸奇恶魔亲王",
+      "装备巨弓的奸角兽开悟者": "装备命运掌握者巨弓的奸角兽开悟者",
+      "千子混沌卵": "混沌魔物",
+      "漩涡兽": "变异旋涡兽",
+      "千子歼灭者型掠食者坦克": "混沌歼灭者型掠食者战车",
+      "千子破坏者型掠食者坦克": "混沌破坏者型掠食者战车",
+      "千子维护者坦克": "混沌维护者战车",
+      "千子兰德掠袭者战车": "混沌兰德掠袭者战车",
+      "千子犀牛装甲车": "混沌犀牛战车",
+      "赛赫塔机器人": "塞克塔机器人",
+      "千子锻炉魔": "铸造恶魔",
+      "千子重锤魔": "重拳恶魔",
+      "千子污染者": "污染者",
+      "千子地狱兽": "地狱兽",
+      "千子地狱飞龙": "地狱魔龙",
+      "万变之主": "诡变领主"
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "再生仪式": "再生仪式",
+      "塞克塔部队": "塞克塔部队",
+      "变化的仆从": "变化的仆从",
+      "至尊巫会": "至尊巫会",
+      "Grand Coven": "至尊巫会",
+      "至尊教会": "至尊巫会",
+      "红字方阵": "红字方阵",
+      "Rubricae Phalanx": "红字方阵",
+      "红字军团": "红字方阵",
+      "欺诈诡变大军": "欺诈诡变大军",
+      "Changehost of Deceit": "欺诈诡变大军",
+      "诡骗魔军": "欺诈诡变大军",
+      "亚空间铸造密会": "亚空间铸造密会",
+      "Warpforged Cabal": "亚空间铸造密会",
+      "魔铸密教": "亚空间铸造密会",
+      "次元邪咒傀儡团": "次元邪咒傀儡团",
+      "Hexwarp Thrallband": "次元邪咒傀儡团",
+      "魇绞傀儡": "次元邪咒傀儡团",
+      "亚空间融合契约": "亚空间融合契约",
+      "Warpmeld Pact": "亚空间融合契约",
+      "万变契约": "亚空间融合契约",
+      "扎多费恩的棱镜": "扎多费恩的棱镜"
+    },
+    "weapons": {}
+  },
+  "overrides": []
+}

@@ -31,7 +31,8 @@ for (const relativePath of ["rules/faction-registry.js", "rules/factions.js", "r
   vm.runInContext(fs.readFileSync(path.join(root, "docs", relativePath), "utf8"), catalogContext, { filename: relativePath });
 }
 for (const definition of catalogContext.WarhammerFactionRegistry.list()) {
-  vm.runInContext(fs.readFileSync(path.join(root, "docs", definition.runtime.catalog), "utf8"), catalogContext, { filename: definition.runtime.catalog });
+  const parsed = JSON.parse(fs.readFileSync(path.join(root, "docs", definition.runtime.catalog), "utf8"));
+  catalogContext.WarhammerCalculatorCatalogRegistry.register(definition.id, parsed);
 }
 const catalogCards = Object.values(catalogContext.WarhammerCalculatorCatalogRegistry.list()).flatMap((catalog) => catalog.cards || []);
 

@@ -32,7 +32,7 @@ for (const unitSlug of unitSlugs) {
   });
 }
 
-const outputPath = path.resolve(outputArg || `docs/audit/official-identities-${factionSlug}.json`);
+const outputPath = path.resolve(outputArg || `data/identities/official-identities-${factionSlug}.json`);
 fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 fs.writeFileSync(outputPath, `${JSON.stringify({ factionId: factionSlug, sourceUrl: baseUrl, units }, null, 2)}\n`, "utf8");
 console.log(`已写入 ${outputPath}：${units.length} 个单位，${units.flatMap((unit) => unit.identities).length} 个官方数据卡技能标题。`);

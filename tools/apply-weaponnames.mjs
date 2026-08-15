@@ -12,7 +12,9 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const dryRun = process.argv.includes('--dry-run');
-const factions = process.argv.slice(2).filter((a) => !a.startsWith('--'));
+const requestedFactions = process.argv.slice(2).filter((a) => !a.startsWith('--'));
+const factions = requestedFactions.length ? requestedFactions : fs.readdirSync(path.join(root, "data", "factions"))
+  .filter((factionId) => fs.existsSync(path.join(root, "data", "factions", factionId, "package.json")));
 const dir = path.join(root, 'docs', 'catalogs');
 
 const norm = (s) => String(s || '').replace(/[\s\u00a0·・,，。:：()（）\[\]【】"“”'"']/g, '').toLowerCase();
@@ -120,8 +122,14 @@ for (const faction of factions) {
     }
     if (close < 0) { console.log(`SERIALIZE FAIL ${faction}`); continue; }
     const newSource = source.slice(0, openBrace) + JSON.stringify(data) + source.slice(close + 1);
-    if (!dryRun) fs.writeFileSync(file, newSource);
-    else console.log(`  [dry-run] ${faction} would write`);
+    if (!dryRun) {
+      fs.writeFileSync(file, newSource);
+      // 同步写出 JSON 产物：fetch 优先路径与 file:// 脚本回退必须内容一致。
+      const jsonFile = file.replace(/\.js$/, ".json");
+      if (fs.existsSync(jsonFile)) fs.writeFileSync(jsonFile, JSON.stringify(data, null, 2) + "\n");
+    } else {
+      console.log(`  [dry-run] ${faction} would write`);
+    }
     changed += factionCardsChanged;
     totalProfiles += factionProfiles;
   }

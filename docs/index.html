@@ -32,7 +32,17 @@
             <button id="importShortcut" class="secondary-button">＋ 导入军表</button>
           </div>
 
-          <div class="ai-routing-note"><span class="ai-mark">AI</span><p>无需手动选择“射击 / 近战”轮次。直接描述行动，AI 会判断阶段并给出计算过程与结果。</p></div>
+          <section class="assistant-card">
+            <div class="section-title"><div><span class="ai-mark">AI</span><h3>战术询问</h3></div><span class="muted-copy">直接描述你要计算的行动</span></div>
+            <div id="chatMessages" class="chat-messages">
+              <div class="message assistant"><span class="avatar">✦</span><p>导入军表后，直接描述对局即可。例如：“图拉真这一队禁军近战攻击剑锋冠军这一队，算伤害。”我会优先使用军表中的联合单位、存活模型和装备。</p></div>
+            </div>
+            <form id="chatForm" class="chat-form">
+              <textarea id="chatInput" rows="1" placeholder="描述你的诉求……" aria-label="输入战术诉求"></textarea>
+              <button type="submit" class="send-button" aria-label="发送">↑</button>
+            </form>
+            <div class="quick-prompts"><button data-prompt="计算图拉真这一队禁军近战攻击剑锋冠军这一队的平均伤害">计算联合单位近战</button><button data-prompt="这次攻击和被攻击的单位有哪些可用技能或计谋">查相关技能</button></div>
+          </section>
 
           <section class="hero-grid">
             <article class="result-card">
@@ -51,22 +61,6 @@
             </article>
           </section>
 
-          <section class="section-block">
-            <div class="section-title"><h3>双方军表</h3><button class="text-button" data-view="roster">管理军表 →</button></div>
-            <div id="battleRoster" class="units-grid"></div>
-          </section>
-
-          <section class="assistant-card">
-            <div class="section-title"><div><span class="ai-mark">AI</span><h3>战术询问</h3></div><span class="muted-copy">直接描述你要计算的行动</span></div>
-            <div id="chatMessages" class="chat-messages">
-              <div class="message assistant"><span class="avatar">⚔</span><p>先导入双方军表；随后直接问我，例如：“禁军盾卫射击星际战士终结者，算平均伤害。”我会判断是射击、近战或其他行动。</p></div>
-            </div>
-            <form id="chatForm" class="chat-form">
-              <textarea id="chatInput" rows="1" placeholder="描述你的诉求……" aria-label="输入战术诉求"></textarea>
-              <button type="submit" class="send-button" aria-label="发送">↑</button>
-            </form>
-            <div class="quick-prompts"><button data-prompt="计算神鸟和盾卫一轮射击打冲击者突击艇的击杀概率">算一轮射击</button><button data-prompt="查一下这次攻击能开的战略计谋和限制">查可用计谋</button><button data-prompt="解释为什么保持警戒不影响本次射击">解释规则</button></div>
-          </section>
         </section>
 
         <section id="view-roster" class="view">
@@ -83,7 +77,7 @@
         </section>
 
         <section id="view-calculator" class="view">
-          <div class="page-heading"><p class="eyebrow">DICE ENGINE</p><h2>规则计算器</h2><p>AI 只负责理解诉求；命中、造伤、豁免、伤害与击杀概率由规则引擎计算。</p></div>
+          <div class="page-heading"><p class="eyebrow">DICE ENGINE</p><h2>规则计算器</h2></div>
           <div class="form-card">
             <div class="calculator-picker-block">
               <div class="calculator-picker-heading"><strong>进攻单位</strong><button id="addCalculatorAttacker" type="button" class="text-button">＋添加单位</button></div>
@@ -142,10 +136,10 @@
         <section id="view-settings" class="view">
           <div class="page-heading"><p class="eyebrow">CONFIGURATION</p><h2>连接设置</h2><p>个人测试版可以直接在手机浏览器里配置；配置只写入本机，不会进入 GitHub 文件。</p></div>
           <form id="settingsForm" class="form-card settings-form">
-            <label>调用方式<select id="apiMode"><option value="direct">直接调用 DeepSeek</option><option value="proxy">使用 Worker 代理</option></select></label>
-            <label>DeepSeek API Key<input id="apiKey" type="password" autocomplete="off" placeholder="粘贴 sk-…" /></label>
-            <label>API 地址<input id="apiEndpoint" value="https://api.deepseek.com/chat/completions" /></label>
-            <label>模型<input id="apiModel" value="deepseek-v4-flash" /></label>
+            <label>调用方式<select id="apiMode"><option value="direct">直接调用 GLM</option><option value="proxy">使用 Worker 代理</option></select></label>
+            <label>GLM API Key<input id="apiKey" type="password" autocomplete="off" placeholder="粘贴 GLM API Key" /></label>
+            <label>API 地址<input id="apiEndpoint" value="https://open.bigmodel.cn/api/paas/v4/chat/completions" /></label>
+            <label>模型<input id="apiModel" value="glm-4-flash-250414" /></label>
             <label class="check-row"><input id="rememberKey" type="checkbox" /> <span>记住在本机浏览器</span></label>
             <button class="primary-button" type="submit">保存设置</button>
             <p class="form-hint">AI 代理地址填写 Worker 的 <code>/api/chat</code>；数值问答需要所选模型支持 OpenAI 兼容工具调用。</p>
@@ -164,9 +158,10 @@
     </div>
     <dialog id="unitDetail" class="unit-detail-dialog"><div id="unitDetailContent"></div></dialog>
     <div id="toast" class="toast" role="status"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
     <script src="rules/identity.js" defer></script>
     <script src="rules/faction-registry.js" defer></script>
+    <script src="rules/alias-registry.js" defer></script>
+    <script src="aliases/index.js" defer></script>
     <script src="rules/catalog-registry.js" defer></script>
     <script src="rules/detachment-registry.js" defer></script>
     <script src="rules/effect-schema.js" defer></script>
@@ -183,6 +178,6 @@
     <script src="assistant/corpus.js" defer></script>
     <script src="assistant/constitution.js" defer></script>
     <script src="assistant/tactical-agent.js" defer></script>
-    <script src="app.js?v=agent-memory-20260813" defer></script>
+    <script src="app.js?v=glm-4-flash-250414-20260814" defer></script>
   </body>
 </html>

@@ -5,4 +5,4 @@ compatibility_date = "2026-08-04"
 [vars]
 ALLOWED_ORIGIN = "*"
 # Optional: set a fixed model here, or let the frontend send one.
-# DEEPSEEK_MODEL = "deepseek-v4-flash"
+# GLM_MODEL = "glm-4-flash-250414"

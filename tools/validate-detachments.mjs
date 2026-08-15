@@ -45,7 +45,7 @@ if (generatedPaths.every((filename) => fs.existsSync(filename))) {
   assert(!ids.some((id) => /\.(?:stratagem|enhancement)\.\d+$/.test(id)), "计谋和增强 ID 不得使用数组序号，缺官方英文名时必须使用已记录暂译 slug");
   assert(!all.flatMap((detachment) => [detachment, ...detachment.stratagems, ...detachment.enhancements]).some((item) => item.identityStatus === "unresolved"), "分遣队身份不得留下 unresolved 条目");
 
-  for (const relative of ["rules/faction-registry.js", "rules/effect-schema.js", "rules/factions.js", "rules/effects.js", "rules/resolver.js"]) {
+  for (const relative of ["rules/faction-registry.js", "rules/effect-schema.js", "rules/factions.js", "rules/alias-registry.js", "aliases/index.js", "rules/effects.js", "rules/resolver.js"]) {
     const filename = path.join(root, "docs", relative);
     vm.runInContext(fs.readFileSync(filename, "utf8"), context, { filename });
   }

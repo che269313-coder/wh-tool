@@ -6,8 +6,27 @@ import engine from "../docs/engine.js";
 const root = path.resolve(import.meta.dirname, "..");
 const context = vm.createContext({});
 context.globalThis = context;
-for (const file of ["identity.js", "faction-registry.js", "effect-schema.js", "keyword-dictionary.js", "combat-state.js", "factions.js", "custodes-identities.js", "custodes.js", "space-marines-identities.js", "space-marines.js", "death-guard-identities.js", "death-guard.js", "orks-identities.js", "orks.js", "effects.js", "resolver.js"]) {
-  vm.runInContext(fs.readFileSync(path.join(root, "docs", "rules", file), "utf8"), context, { filename: file });
+for (const [directory, file] of [
+  ["rules", "identity.js"],
+  ["rules", "faction-registry.js"],
+  ["rules", "effect-schema.js"],
+  ["rules", "keyword-dictionary.js"],
+  ["rules", "combat-state.js"],
+  ["rules", "factions.js"],
+  ["rules", "alias-registry.js"],
+  ["aliases", "index.js"],
+  ["rules", "custodes-identities.js"],
+  ["rules", "custodes.js"],
+  ["rules", "space-marines-identities.js"],
+  ["rules", "space-marines.js"],
+  ["rules", "death-guard-identities.js"],
+  ["rules", "death-guard.js"],
+  ["rules", "orks-identities.js"],
+  ["rules", "orks.js"],
+  ["rules", "effects.js"],
+  ["rules", "resolver.js"],
+]) {
+  vm.runInContext(fs.readFileSync(path.join(root, "docs", directory, file), "utf8"), context, { filename: file });
 }
 
 const resolve = context.WarhammerRuleResolver.resolveUnit;

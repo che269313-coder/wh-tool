@@ -1,0 +1,693 @@
+{
+  "schemaVersion": 1,
+  "order": 3,
+  "definition": {
+    "id": "orks",
+    "name": "欧克兽人",
+    "englishName": "Orks",
+    "aliases": [
+      "欧克蛮人",
+      "歐克蠻人",
+      "Orks"
+    ],
+    "rulesGlobal": "WarhammerOrksRules",
+    "runtime": {
+      "catalog": "catalogs/orks.json",
+      "rules": [
+        "rules/orks-identities.js",
+        "rules/orks.js"
+      ],
+      "detachment": "rules/detachments/orks.js"
+    },
+    "data": {
+      "catalog": "data/欧克兽人/欧克兽人-全部数据卡.json",
+      "datasheet": "data/欧克兽人/数据卡-可检索.md",
+      "detachmentSource": "data/欧克兽人/分遣队规则-11版原始文本.txt",
+      "supplement": "data/欧克兽人/欧克兽人-分数表-可检索.md"
+    },
+    "library": [
+      {
+        "path": "data/欧克兽人/数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/欧克兽人/欧克兽人-全部数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/欧克兽人/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/欧克兽人/欧克兽人-分数表-可检索.md",
+        "kind": "supplement"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build"
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "backend-2026-08",
+      "fetchedAt": "",
+      "url": "",
+      "inputPath": "docs/data/欧克兽人/欧克兽人-全部数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/orks/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "conflicts": [
+    {
+      "id": "boyz-display-name",
+      "field": "displayName",
+      "candidates": [
+        {
+          "source": "pdf-10e-zh",
+          "value": "小子"
+        },
+        {
+          "source": "40k11e-backend-zh-hant",
+          "value": "蛮人小子"
+        }
+      ],
+      "resolution": {
+        "source": "pdf-10e-zh",
+        "value": "小子",
+        "overridePaths": [
+          "cards[id=orks.boyz.01474b35].name",
+          "cards[id=orks.boyz.01474b35].unit.name"
+        ],
+        "preserveAliases": [
+          "蛮人小子"
+        ]
+      }
+    },
+    {
+      "id": "boyz-trooper-name",
+      "field": "displayName",
+      "candidates": [
+        {
+          "source": "pdf-10e-zh",
+          "value": "小子"
+        },
+        {
+          "source": "40k11e-backend-zh-hant",
+          "value": "男孩"
+        }
+      ],
+      "resolution": {
+        "source": "pdf-10e-zh",
+        "value": "小子",
+        "overridePaths": [
+          "cards[id=orks.boyz.01474b35].modelProfiles[id=trooper].name"
+        ],
+        "preserveAliases": [
+          "男孩"
+        ]
+      }
+    },
+    {
+      "id": "boyz-champion-name",
+      "field": "displayName",
+      "candidates": [
+        {
+          "source": "pdf-10e-zh",
+          "value": "老大队长"
+        },
+        {
+          "source": "40k11e-backend-zh-hant",
+          "value": "Boss Nob"
+        }
+      ],
+      "resolution": {
+        "source": "pdf-10e-zh",
+        "value": "老大队长",
+        "overridePaths": [
+          "cards[id=orks.boyz.01474b35].modelProfiles[id=champion].name"
+        ]
+      }
+    },
+    {
+      "id": "boyz-champion-wounds",
+      "policy": "profiles",
+      "candidates": [
+        {
+          "source": "pdf-10e-zh",
+          "value": {
+            "woundsPerModel": 2
+          }
+        },
+        {
+          "source": "40k11e-backend-zh-hant",
+          "value": {
+            "woundsPerModel": 1
+          }
+        }
+      ],
+      "resolution": {
+        "source": "pdf-10e-zh",
+        "value": {
+          "woundsPerModel": 2
+        },
+        "overridePaths": [
+          "cards[id=orks.boyz.01474b35].modelProfiles[id=champion].unit"
+        ]
+      }
+    }
+  ],
+  "aliases": {
+    "units": {
+      "烧小子": {
+        "canonical": "喷火小子",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "兽霸头目": {
+        "canonical": "野兽头目",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "骑乘跳龙的兽霸头目": {
+        "canonical": "骑跳跳恐龙的野兽头目",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "大技霸": {
+        "canonical": "大技师",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "超重装大技霸": {
+        "canonical": "超重型护甲蛮人大技师",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "次元炮大技霸": {
+        "canonical": "装备震荡攻击炮的蛮人大技师",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "鬼祟鼠": {
+        "canonical": "鬼祟鼠头目",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "杀戮摩托飚速头目": {
+        "canonical": "死亡杀手三轮战车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "碎骨者萨拉卡": {
+        "canonical": "碎骨者·斯拉卡",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "技术小子": {
+        "canonical": "蛮人技师",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "恶疤莫佐格": {
+        "canonical": "莫兹罗格·斯夸格巴德",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "剧痛头目": {
+        "canonical": "痛苦头目",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "剧痛小子": {
+        "canonical": "痛苦小子",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "超重装战争头目": {
+        "canonical": "超重型护甲战争头目",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "疯癫小子": {
+        "canonical": "灵能小子",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "巫术小子": {
+        "canonical": "战争小子",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "监工祖哥高德": {
+        "canonical": "佐德格罗德·沃茨纳加",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "兽霸小子": {
+        "canonical": "豢兽师小子",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "小子": {
+        "canonical": "小子",
+        "source": "兽人10版PDF卡面名(BOYZ), p35",
+        "scope": "faction"
+      },
+      "蛮人小子": {
+        "canonical": "小子",
+        "source": "40k11e-backend 繁中旧显示名",
+        "scope": "faction"
+      },
+      "男孩": {
+        "canonical": "小子",
+        "source": "40k11e-backend composition 旧译名",
+        "scope": "faction"
+      },
+      "Boyz": {
+        "canonical": "小子",
+        "source": "英文身份名",
+        "scope": "faction"
+      },
+      "屁精小队": {
+        "canonical": "屁精",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "卡车": {
+        "canonical": "蛮人卡车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "战斗卡车": {
+        "canonical": "战斗堡垒",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "战斗堡垒": {
+        "canonical": "死亡碾压战争堡垒",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "大头堡": {
+        "canonical": "大头头目碉堡",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "轰轰飚速车": {
+        "canonical": "爆裂靓车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "达卡战斗机": {
+        "canonical": "蛮人战斗机",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "燃烧轰炸机": {
+        "canonical": "烈火轰炸机",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "死死无畏机甲": {
+        "canonical": "死亡无畏机甲",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "死死直升机": {
+        "canonical": "死亡直升机",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "脏枪混混": {
+        "canonical": "怪枪小子",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "巨型史谷格兽": {
+        "canonical": "强巨史古革巨兽",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "搞哥金刚": {
+        "canonical": "格克机甲",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "杀戮铁罐": {
+        "canonical": "杀戮机甲",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "特战队": {
+        "canonical": "特种兵",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "魔改爆裂车": {
+        "canonical": "自制增压爆枪战车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "拾荒者": {
+        "canonical": "蛮人拾荒者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "突突大机甲": {
+        "canonical": "突突大技甲",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "超重装老大": {
+        "canonical": "重甲强蛮人",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "超霸拖垃圾": {
+        "canonical": "喷气巨卡",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "技师大炮": {
+        "canonical": "技师炮",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "毛哥金刚": {
+        "canonical": "摩克机甲",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "老大队": {
+        "canonical": "强蛮人",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "跳跳送餐车": {
+        "canonical": "跳跳越野战车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "折跃飚速车": {
+        "canonical": "激波跃变跑车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "古巨基": {
+        "canonical": "践踏巨机",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "跳跳骑兵": {
+        "canonical": "跳跳猪小子",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "坦爆队": {
+        "canonical": "坦克破坏者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "破拆小子": {
+        "canonical": "毁灭小子",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "技师轰炸机": {
+        "canonical": "爆炸喷气战机",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      }
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "死亡摇滚": {
+        "canonical": "死亡摇滚",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "更多突突！": {
+        "canonical": "更多突突！",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "战术旅": {
+        "canonical": "战术旅",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "疾速帮派": {
+        "canonical": "疾速帮派",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Kult of Speed": {
+        "canonical": "疾速帮派",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "大狩猎": {
+        "canonical": "大狩猎",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Da Big Hunt": {
+        "canonical": "大狩猎",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "战争部落": {
+        "canonical": "战争部落",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "War Horde": {
+        "canonical": "战争部落",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "绿潮": {
+        "canonical": "绿潮",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Green Tide": {
+        "canonical": "绿潮",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "可怖暴群": {
+        "canonical": "可怖暴群",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Dread Mob": {
+        "canonical": "可怖暴群",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "霸凌小子": {
+        "canonical": "霸凌小子",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Bully Boyz": {
+        "canonical": "霸凌小子",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "海盗船团": {
+        "canonical": "海盗船团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Freebooter Krew": {
+        "canonical": "海盗船团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "疾速 WAAAGH！": {
+        "canonical": "疾速 WAAAGH！",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Speedwaaagh!": {
+        "canonical": "疾速 WAAAGH！",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "闪击旅": {
+        "canonical": "闪击旅",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Blitz Brigade": {
+        "canonical": "闪击旅",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "赤道部落": {
+        "canonical": "赤道部落",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "硬汉帮": {
+        "canonical": "硬汉帮",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      }
+    },
+    "weapons": {}
+  },
+  "overrides": [
+    {
+      "path": "cards[id=orks.boyz.01474b35].modelProfiles[id=trooper].weaponNames",
+      "value": [
+        "鼻涕虫枪",
+        "砍刀",
+        "射击枪",
+        "近战武器",
+        "大射枪",
+        "火箭炮"
+      ],
+      "source": "user-fix-2026-08",
+      "rationale": "PDF：普通小子=手铳+砍刀；大砍刀仅老大队长。trooper 不得带大砍刀（用户反馈两次的 BUG）",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=orks.kommandos.4476a990].modelProfiles[id=trooper].weaponNames",
+      "value": [
+        "鼻涕虫枪",
+        "砍刀",
+        "Bomb Squig",
+        "Distraction Grot",
+        "客制射击枪",
+        "近战武器",
+        "破坏锤",
+        "燃烧枪",
+        "火箭炮"
+      ],
+      "source": "user-fix-2026-08",
+      "rationale": "特种兵 trooper 同款修复：砍刀而非大砍刀",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=orks.boyz.01474b35].name",
+      "value": "小子",
+      "source": "sources/pdfs/_originals/兽人10版中文老湿腐版1.09.pdf#page=35",
+      "rationale": "PDF 卡面规范名优先于繁中站名称‘蛮人小子’",
+      "adjudicatedBy": "user",
+      "date": "2026-08-15",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=orks.boyz.01474b35].unit.name",
+      "value": "小子",
+      "source": "sources/pdfs/_originals/兽人10版中文老湿腐版1.09.pdf#page=35",
+      "rationale": "单位属性对象与卡面规范名保持一致",
+      "adjudicatedBy": "user",
+      "date": "2026-08-15",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=orks.boyz.01474b35].modelProfiles[id=trooper].name",
+      "value": "小子",
+      "source": "sources/pdfs/_originals/兽人10版中文老湿腐版1.09.pdf#page=35",
+      "rationale": "PDF 单位构成使用‘小子’，不沿用繁中源‘男孩’",
+      "adjudicatedBy": "user",
+      "date": "2026-08-15",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=orks.boyz.01474b35].modelProfiles[id=champion].name",
+      "value": "老大队长",
+      "source": "sources/pdfs/_originals/兽人10版中文老湿腐版1.09.pdf#page=35",
+      "rationale": "PDF 单位构成中的队长规范名",
+      "adjudicatedBy": "user",
+      "date": "2026-08-15",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "op": "add",
+      "path": "cards[id=orks.boyz.01474b35].modelProfiles[id=champion].unit",
+      "value": {
+        "woundsPerModel": 2
+      },
+      "source": "sources/pdfs/_originals/兽人10版中文老湿腐版1.09.pdf#page=35",
+      "rationale": "PDF 单位构成注明老大队长额外多 1 点 W；基础 W1，因此队长 W2",
+      "adjudicatedBy": "user",
+      "date": "2026-08-15",
+      "target": "catalog"
+    },
+    {
+      "op": "add",
+      "path": "cards[id=orks.boyz.01474b35].modelProfiles[id=trooper].matchIncludes",
+      "value": [
+        "小子",
+        "男孩",
+        "Boy"
+      ],
+      "source": "multi-source compatibility",
+      "rationale": "规范显示名改为‘小子’后继续匹配繁中 composition 与英文军表模型名",
+      "adjudicatedBy": "user",
+      "date": "2026-08-15",
+      "target": "catalog"
+    },
+    {
+      "op": "add",
+      "path": "cards[id=orks.boyz.01474b35].modelProfiles[id=champion].matchIncludes",
+      "value": [
+        "老大队长",
+        "Boss Nob"
+      ],
+      "source": "multi-source compatibility",
+      "rationale": "规范显示名改为‘老大队长’后继续匹配英文军表模型名",
+      "adjudicatedBy": "user",
+      "date": "2026-08-15",
+      "target": "catalog"
+    }
+  ]
+}

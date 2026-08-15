@@ -1,0 +1,29 @@
+/* The only supported build entry for multi-source faction data. */
+import { spawnSync } from "node:child_process";
+import path from "node:path";
+
+const root = path.resolve(import.meta.dirname, "..");
+const node = process.execPath;
+const stages = [
+  ["preflight private source inputs", "tools/source-inputs.mjs"],
+  ["validate source conflict ledger", "tools/validate-source-conflicts.mjs"],
+  ["generate runtime faction registry", "tools/generate-faction-registry.mjs"],
+  ["generate browser alias index", "tools/generate-alias-index.mjs"],
+  ["generate normalized calculator catalogs", "tools/generate-calculator-catalog.mjs"],
+  ["derive model-profile weapon sets", "tools/apply-weaponnames.mjs"],
+  ["apply adjudicated source overrides", "tools/apply-patches.mjs"],
+];
+if (process.argv.includes("--check")) {
+  stages.push(
+    ["validate data packages", "--test", "tools/data-packages.test.mjs", "tools/alias-registry.test.mjs", "tools/apply-patches.test.mjs", "tools/audit-regressions.test.mjs"],
+    ["validate datasheets", "tools/validate-datasheets.mjs"],
+    ["validate architecture", "tools/validate-architecture.mjs"],
+  );
+}
+
+for (const [label, ...args] of stages) {
+  console.log(`\n== ${label} ==`);
+  const result = spawnSync(node, args, { cwd: root, stdio: "inherit" });
+  if (result.status !== 0) process.exit(result.status || 1);
+}
+console.log("\nData build completed.");

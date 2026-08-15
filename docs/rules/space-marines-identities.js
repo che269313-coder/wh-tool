@@ -669,7 +669,7 @@
   },
   "space-marines-p73-3": {
     "scopeId": "lieutenant-with-combi-weapon",
-    "englishName": "Lone Operative",
+    "englishName": "Shadow Skulk",
     "matchStatus": "translated",
     "notes": "40k.app 当前页未找到对应条目；英文名为已接受翻译。"
   },

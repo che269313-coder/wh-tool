@@ -22,7 +22,7 @@
     if (!source) return [];
     return detachmentsForFaction(faction)
       .map((detachment) => {
-        const positions = (detachment.aliases || [detachment.name, detachment.englishName])
+        const positions = (root.WarhammerAliasRegistry?.aliasesForCanonical("detachments", detachment.name, faction) || [])
           .map(normalizedMatchText)
           .filter(Boolean)
           .map((alias) => source.indexOf(alias))

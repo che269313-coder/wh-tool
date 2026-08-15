@@ -1,0 +1,376 @@
+{
+  "schemaVersion": 1,
+  "order": 6,
+  "definition": {
+    "id": "astra-militarum",
+    "name": "星界军",
+    "englishName": "Astra Militarum",
+    "aliases": [
+      "Astra Militarum"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_astra_militarum",
+    "runtime": {
+      "catalog": "catalogs/astra-militarum.json",
+      "rules": [
+        "rules/factions/astra-militarum.js"
+      ],
+      "detachment": "rules/detachments/astra-militarum.js"
+    },
+    "data": {
+      "catalog": "data/星界军/星界军-结构化数据卡.json",
+      "datasheet": "data/星界军/星界军-数据卡-可检索.md",
+      "detachment": "data/星界军/分遣队规则-可检索.md",
+      "detachmentSource": "data/星界军/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/星界军/星界军-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/星界军/星界军-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/星界军/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/星界军/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/星界军/星界军-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/星界军/星界军-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/星界军/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=astra-militarum",
+      "inputPath": "docs/data/星界军/星界军-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/astra-militarum/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "太阳领主里昂图斯": {
+        "canonical": "太阳领主雷昂图斯",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "克里德堡主": {
+        "canonical": "厄苏拉·克里德",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "卡迪安堡主": {
+        "canonical": "卡迪亚堡主",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "卡迪安指挥组": {
+        "canonical": "卡迪亚指挥组",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "领主元帅德雷尔": {
+        "canonical": "大元帅德雷尔",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "孤胆英雄马博": {
+        "canonical": "斯莱·马博",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "黎曼鲁斯坦克指挥官": {
+        "canonical": "黎曼鲁斯指挥官",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "罗格多恩坦克指挥官": {
+        "canonical": "罗格多恩指挥官",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "暴风兵指挥组": {
+        "canonical": "风暴军指挥组",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "刚特幽灵": {
+        "canonical": "冈特的幽灵",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "技术牧师工造士": {
+        "canonical": "技术祭司机械教士",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "卡迪安突击队": {
+        "canonical": "卡迪亚突击军",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "卡迪安重武器小队": {
+        "canonical": "卡迪亚重型武器小队",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "卡舍津突击队": {
+        "canonical": "卡舍津",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "卡塔昌丛林战士": {
+        "canonical": "卡塔昌丛林斗士",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "卡塔昌重武器小队": {
+        "canonical": "卡塔昌重型武器小队",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "克里格死兵队": {
+        "canonical": "克里格死亡军团",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "克里格重武器小队": {
+        "canonical": "克里格重型武器小队",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "暴风兵小队": {
+        "canonical": "风暴忠嗣军",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "暴风兵飞鹰小队": {
+        "canonical": "风暴天鹰",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "莱特林小队": {
+        "canonical": "莱特林",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "克里格死亡骑兵": {
+        "canonical": "死亡骑兵",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "野战炮兵": {
+        "canonical": "野战炮羣",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "重炮小组": {
+        "canonical": "炮兵小组",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "侦查哨兵": {
+        "canonical": "侦察哨兵",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "黎曼鲁斯坦克": {
+        "canonical": "黎曼鲁斯战斗坦克",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "罗格多恩坦克": {
+        "canonical": "罗格多恩战斗坦克",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "九头蛇高射炮": {
+        "canonical": "九头蛇自行防空炮",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "蝎尾狮火箭炮": {
+        "canonical": "蠍尾狮导弹车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "飞龙自行火炮": {
+        "canonical": "双足飞龙自行迫击炮",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "死亡直击导弹": {
+        "canonical": "死亡直击导弹车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "地狱犬喷射车": {
+        "canonical": "地狱犬战车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "毒刃系列超重型坦克": {
+        "canonical": "毒刃",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      }
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "亚人类辅助军": {
+        "canonical": "亚人类辅助军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "桥头堡突袭军": {
+        "canonical": "桥头堡突袭军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "指示部队": {
+        "canonical": "指示部队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "帝皇之锤": {
+        "canonical": "帝皇之锤",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Hammer of the Emperor": {
+        "canonical": "帝皇之锤",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "机械化突击队": {
+        "canonical": "机械化突击队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Mechanised Assault": {
+        "canonical": "机械化突击队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "联合部队": {
+        "canonical": "联合部队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Combined Arms": {
+        "canonical": "联合部队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "装甲步兵": {
+        "canonical": "装甲步兵",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Armoured Infantry": {
+        "canonical": "装甲步兵",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "攻城兵团": {
+        "canonical": "攻城兵团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Siege Regiment": {
+        "canonical": "攻城兵团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "侦察部队": {
+        "canonical": "侦察部队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Recon Element": {
+        "canonical": "侦察部队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "老兵连队": {
+        "canonical": "老兵连队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Grizzled Company": {
+        "canonical": "老兵连队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "钢铁之锤": {
+        "canonical": "钢铁之锤",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Steel Hammer": {
+        "canonical": "钢铁之锤",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "德雷登的骑兵队": {
+        "canonical": "德雷登的骑兵队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      }
+    },
+    "weapons": {}
+  },
+  "overrides": []
+}

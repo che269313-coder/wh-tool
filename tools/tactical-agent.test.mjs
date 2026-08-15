@@ -14,6 +14,29 @@ function createStorage() {
   };
 }
 
+test("short unit-name queries route deterministically to find_units", () => {
+  const context = vm.createContext({ console });
+  context.globalThis = context;
+  vm.runInContext(read("docs/assistant/corpus.js"), context);
+  const route = context.WarhammerTacticalCorpus.route;
+  const candidates = (query) => (query === "小子" ? 17 : 0);
+  assert.deepEqual(JSON.parse(JSON.stringify(route("小子", null, candidates))), { name: "find_units", arguments: { query: "小子" } });
+  assert.equal(route("查计谋", null, candidates), null, "无候选命中的短问句不得被误路由");
+  assert.equal(route("小子打终结者，算平均伤害", null, candidates), null, "计算请求仍走模型工具流程");
+});
+
+test("action phrases never degrade into deterministic unit lookups", () => {
+  const context = vm.createContext({ console });
+  context.globalThis = context;
+  vm.runInContext(read("docs/assistant/corpus.js"), context);
+  const question = "\u83ab\u5854\u91cc\u5b89\u8fd1\u6218\u6253\u56fe\u62c9\u771f";
+  assert.equal(
+    context.WarhammerTacticalCorpus.route(question, null, () => 1),
+    null,
+    "包含单位名的战斗表达必须交给 AI，而非被当成单个单位短名",
+  );
+});
+
 test("tactical agent is independent from the calculator and remembers the latest scenario", async () => {
   assert.ok(fs.existsSync(new URL("docs/assistant/constitution.js", root)), "constitution should be a standalone module");
   assert.ok(fs.existsSync(new URL("docs/assistant/corpus.js", root)), "curated scenario corpus should be a standalone module");
@@ -69,7 +92,7 @@ test("tactical agent keeps bounded local memory and does not persist tool payloa
   assert.equal(JSON.stringify(agent.getMemory()).includes("tool_call_id"), false);
 });
 
-test("common explicit shooting scenario bypasses model discretion and calls the calculator", async () => {
+test("an explicit combat route is a fallback and does not bypass AI", async () => {
   const storage = createStorage();
   const context = vm.createContext({ console, localStorage: storage });
   context.globalThis = context;
@@ -83,20 +106,42 @@ test("common explicit shooting scenario bypasses model discretion and calls the 
   });
 
   let modelRequested = false;
+  let toolExecuted = false;
   const agent = context.WarhammerTacticalAgent.create({
     storage,
     routeQuestion: context.WarhammerTacticalCorpus.route,
-    request: async () => { modelRequested = true; return { content: "模型不应参与这条确定性路径" }; },
+    request: async () => { modelRequested = true; return { content: "AI 已理解这是一场远程攻击，并会在需要数值时调用本地计算器。" }; },
+    tools: [],
+    buildContext: async () => ({}),
+    executeTool: async () => { toolExecuted = true; return { ok: true, attacker: { name: "禁军盾卫" }, defender: { name: "终结者小队" }, attackMode: "ranged", context: {}, averageDamage: 3.25, killProbability: 12.5 }; },
+    formatToolResult: (_route, result) => `平均伤害 ${result.averageDamage}`,
+  });
+  assert.equal(await agent.answer("禁军盾卫射击星际战士终结者，算平均伤害"), "AI 已理解这是一场远程攻击，并会在需要数值时调用本地计算器。");
+  assert.equal(modelRequested, true);
+  assert.equal(toolExecuted, false);
+});
+
+test("a deterministic route runs only after the AI request fails", async () => {
+  const storage = createStorage();
+  const context = vm.createContext({ console, localStorage: storage });
+  context.globalThis = context;
+  vm.runInContext(read("docs/assistant/corpus.js"), context);
+  vm.runInContext(read("docs/assistant/tactical-agent.js"), context);
+  let modelRequests = 0;
+  const agent = context.WarhammerTacticalAgent.create({
+    storage,
+    routeQuestion: context.WarhammerTacticalCorpus.route,
+    request: async () => { modelRequests += 1; throw new Error("upstream unavailable"); },
     tools: [],
     buildContext: async () => ({}),
     executeTool: async () => ({ ok: true, attacker: { name: "禁军盾卫" }, defender: { name: "终结者小队" }, attackMode: "ranged", context: {}, averageDamage: 3.25, killProbability: 12.5 }),
-    formatToolResult: (_route, result) => `平均伤害 ${result.averageDamage}`,
+    formatToolResult: (_route, result) => `本地兜底：平均伤害 ${result.averageDamage}`,
   });
-  assert.equal(await agent.answer("禁军盾卫射击星际战士终结者，算平均伤害"), "平均伤害 3.25");
-  assert.equal(modelRequested, false);
+  assert.equal(await agent.answer("禁军盾卫射击星际战士终结者，算平均伤害"), "本地兜底：平均伤害 3.25");
+  assert.equal(modelRequests, 1);
 });
 
-test("an unspecified damage request calculates both attack modes without asking the model", async () => {
+test("an unspecified damage request is deferred to AI before local fallback", async () => {
   const storage = createStorage();
   const context = vm.createContext({ console, localStorage: storage });
   context.globalThis = context;
@@ -119,7 +164,7 @@ test("an unspecified damage request calculates both attack modes without asking 
   const agent = context.WarhammerTacticalAgent.create({
     storage,
     routeQuestion: context.WarhammerTacticalCorpus.route,
-    request: async () => { modelRequested = true; return { content: "不应调用模型" }; },
+    request: async () => { modelRequested = true; return { content: "AI 会结合上下文确认应比较哪些攻击阶段。" }; },
     executeTool: async (call) => {
       calls.push(call.function.name);
       const args = JSON.parse(call.function.arguments);
@@ -127,9 +172,9 @@ test("an unspecified damage request calculates both attack modes without asking 
     },
     formatToolResult: (_route, results) => `已比较 ${results.length} 种攻击方式`,
   });
-  assert.equal(await agent.answer(question), "已比较 2 种攻击方式");
-  assert.deepEqual(calls, ["calculate_combat", "calculate_combat"]);
-  assert.equal(modelRequested, false);
+  assert.equal(await agent.answer(question), "AI 会结合上下文确认应比较哪些攻击阶段。");
+  assert.deepEqual(calls, []);
+  assert.equal(modelRequested, true);
 });
 
 test("short attack-mode follow-up reuses the previous scenario locally", async () => {

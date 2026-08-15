@@ -2,17 +2,27 @@ const STORAGE_KEY = "warhammer-tactical-assistant-settings";
 const DB_NAME = "warhammer-tactical-assistant-v1";
 const DB_STORE = "library";
 const ROSTER_STORAGE_KEY = "warhammer-tactical-assistant-rosters-v2";
+const BATTLE_SESSION_KEY = "warhammer-tactical-assistant-battle-session-v1";
 const CORE_LIBRARY_FILES = [
   "data/规则书/核心规则-可检索.md",
   "data/规则书/分遣队速查-可检索.md",
   "data/规则书/AI-战斗规则摘要.md",
 ];
 const FACTION_PACKAGES = window.WarhammerFactionRegistry?.list() || [];
+// aliases/index.js 是 data/factions/<id>/package.json 的构建产物；缺失即构建错误，
+// 不再从运行时阵营注册表维护第二份回退别名。
+const DEFAULT_GLM_API_KEY = "";
+const DEFAULT_GLM_ENDPOINT = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
+const DEFAULT_GLM_MODEL = "glm-4-flash-250414";
+const PDFJS_CDN_URL = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+const PDFJS_WORKER_URL = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+const PDFJS_LOAD_TIMEOUT_MS = 8000;
+let pdfJsLoadPromise = null;
 const DEFAULT_SETTINGS = {
   mode: "direct",
-  key: "",
-  endpoint: "https://api.deepseek.com/chat/completions",
-  model: "deepseek-v4-flash",
+  key: DEFAULT_GLM_API_KEY,
+  endpoint: DEFAULT_GLM_ENDPOINT,
+  model: DEFAULT_GLM_MODEL,
   rememberKey: false,
 };
 
@@ -45,77 +55,73 @@ const LEGACY_AUTO_EXTRACTS = new Set([
   "星际战士11版中文1.0.txt",
 ]);
 
+// 对局会话：手动计算与 AI 计算共享同一份场景状态（双方选择、战斗上下文、
+// 攻击模式），随军表一起持久化；刷新页面后伤口与计算现场都不丢失。
+const savedBattleSession = loadBattleSession();
+
 const state = {
   settings: loadSettings(),
   rosters: loadRosters(),
   datasheetCache: {},
   calculatorCards: [],
-  calculatorSelection: { attacker: "", defender: "" },
-  calculatorSelections: { attacker: [""], defender: [""] },
+  calculatorSelection: { attacker: "", defender: "", ...(savedBattleSession?.calculatorSelection || {}) },
+  calculatorSelections: { attacker: [""], defender: [""], ...(savedBattleSession?.calculatorSelections || {}) },
   calculatorSearch: { attacker: "", defender: "" },
   calculatorPickerSearch: { attacker: [""], defender: [""] },
   calculatorPickerOpen: { attacker: [false], defender: [false] },
   calculatorDrafts: { attacker: [], defender: [] },
-  combatContext: {
-    targetWithinHalfRange: false,
-    attackerAdvanced: false,
-    attackerEngaged: false,
-    attackerDeployedThisTurn: false,
-    attackerMovedOver3: false,
-    attackerCharged: false,
-    targetHasCover: false,
-    usingIndirectFire: false,
-    attackerRemainedStationary: false,
-    targetVisibleToFriendly: false,
-  },
-  attackMode: "ranged",
+  combatContext: normalizeCombatContext(savedBattleSession?.combatContext),
+  attackMode: savedBattleSession?.attackMode === "melee" ? "melee" : "ranged",
 };
 
 const factionLookupEntries = FACTION_PACKAGES.flatMap((definition) => [definition.name, ...definition.aliases].map((name) => [name, definition]));
 const DATASHEET_FILES = Object.fromEntries(factionLookupEntries.filter(([, definition]) => definition.data.datasheet).map(([name, definition]) => [name, definition.data.datasheet]));
 const DATASHEET_JSON_FILES = Object.fromEntries(factionLookupEntries.filter(([, definition]) => definition.data.catalog).map(([name, definition]) => [name, definition.data.catalog]));
-const DATASHEET_ALIASES = Object.fromEntries(factionLookupEntries.map(([name, definition]) => [name, Object.fromEntries(Object.entries(definition.unitAliases).map(([alias, canonical]) => [alias, [canonical]]))]));
-const DIGITAL_UNIT_ALIASES = Object.fromEntries(FACTION_PACKAGES.filter((definition) => Object.keys(definition.digitalUnitAliases).length).map((definition) => [definition.name, definition.digitalUnitAliases]));
+// 单位/数字版别名统一由 WarhammerAliasRegistry 提供（aliases/index.js 生成物）。
+// 规范名 → 别名反向查询、候选匹配与数字版按页别名均走注册表。
 const hydratedCalculatorFactions = new Set();
-
-// Canonical unit name -> every alias declared by any faction package. Used to
-// let the picker search find a card by any of its Chinese aliases (e.g. typing
-// 泰丰斯 finds 泰弗斯) without loading any faction runtime data.
-const DATASHEET_CANONICAL_ALIASES = Object.values(DATASHEET_ALIASES)
-  .flatMap((factionAliases) => Object.entries(factionAliases))
-  .reduce((index, [alias, canonicals]) => {
-    canonicals.forEach((canonical) => {
-      const list = index.get(canonical) || [];
-      list.push(alias);
-      index.set(canonical, list);
-    });
-    return index;
-  }, new Map());
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 
-function unitNameCandidates(name) {
+function unitNameCandidates(name, faction = "") {
   const source = String(name || "");
   const normalized = source.replace(/\([^)]*\)/g, "").trim();
-  const withoutFactionPrefixes = factionLookupEntries
-    .map(([prefix]) => source.startsWith(prefix) ? source.slice(prefix.length).trim() : "")
+  const definition = window.WarhammerFactionRegistry?.resolve(faction);
+  const prefixes = definition
+    ? [definition.name, ...(definition.aliases || [])]
+    : factionLookupEntries.map(([prefix]) => prefix);
+  const withoutFactionPrefixes = prefixes
+    .map((prefix) => source.startsWith(prefix) ? source.slice(prefix.length).trim() : "")
     .filter(Boolean);
-  const aliases = Object.values(DATASHEET_ALIASES).flatMap((factionAliases) => [
-    ...(factionAliases[source] || []),
-    ...(factionAliases[normalized] || []),
-    ...withoutFactionPrefixes.flatMap((candidate) => factionAliases[candidate] || []),
-  ]);
+  const registry = window.WarhammerAliasRegistry;
+  const aliases = registry
+    ? [source, normalized, ...withoutFactionPrefixes]
+      .flatMap((candidate) => registry.unitCandidates(candidate, faction).map((entry) => entry.canonical))
+    : [];
   return [...new Set([source, normalized, ...withoutFactionPrefixes, ...aliases].filter(Boolean))];
 }
 
-function getUnitProfile(name) {
-  return findStructuredCalculatorCard(name)?.data?.unit || null;
+function getUnitProfile(name, faction = "") {
+  return findStructuredCalculatorCard(name, faction)?.data?.unit || null;
 }
 
 function loadSettings() {
   try {
-    return { ...DEFAULT_SETTINGS, ...(JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}) };
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    const settings = { ...DEFAULT_SETTINGS, ...saved };
+    // 将已有浏览器设置中的旧默认值整体迁移到 GLM，避免旧 Key 与新接口混用。
+    const legacyDefault = saved.endpoint === "https://api.deepseek.com/chat/completions"
+      || saved.model === "deepseek-v4-flash"
+      || saved.model === "glm-4.7-flash";
+    if (legacyDefault) {
+      settings.mode = "direct";
+      settings.key = DEFAULT_GLM_API_KEY;
+      settings.endpoint = DEFAULT_GLM_ENDPOINT;
+      settings.model = DEFAULT_GLM_MODEL;
+    }
+    if (!settings.key) settings.key = DEFAULT_GLM_API_KEY;
+    return settings;
   } catch {
     return { ...DEFAULT_SETTINGS };
   }
@@ -162,8 +168,8 @@ function normalizeModel(model, unitName) {
   };
 }
 
-function normalizeRosterUnit(unit) {
-  const profile = getUnitProfile(unit.name);
+function normalizeRosterUnit(unit, faction = "") {
+  const profile = getUnitProfile(unit.name, faction);
   const datasheetWounds = Number(profile?.woundsPerModel || 0);
   const models = Array.isArray(unit.models) && unit.models.length ? unit.models.map((model) => {
     const normalized = normalizeModel(model, unit.name);
@@ -188,8 +194,8 @@ function normalizeRosterUnit(unit) {
   };
 }
 
-function normalizeGroup(group) {
-  return { id: group.id || makeId("group"), title: group.title || "单位", category: group.category || "", units: (group.units || []).map(normalizeRosterUnit) };
+function normalizeGroup(group, faction = "") {
+  return { id: group.id || makeId("group"), title: group.title || "单位", category: group.category || "", units: (group.units || []).map((unit) => normalizeRosterUnit(unit, faction)) };
 }
 
 function loadRosters() {
@@ -206,7 +212,7 @@ function loadRosters() {
         detachmentNames: Array.isArray(roster.detachmentNames) ? [...roster.detachmentNames] : [],
         detachmentDp: Number(roster.detachmentDp || 0),
         detachmentSourceText: roster.detachmentSourceText || "",
-        groups: Array.isArray(roster.groups) ? roster.groups.map(normalizeGroup) : (Array.isArray(roster.units) ? [{ id: makeId("group"), title: "已导入单位", units: roster.units.map(normalizeRosterUnit) }] : []),
+        groups: Array.isArray(roster.groups) ? roster.groups.map((group) => normalizeGroup(group, roster.faction)) : (Array.isArray(roster.units) ? [{ id: makeId("group"), title: "已导入单位", units: roster.units.map((unit) => normalizeRosterUnit(unit, roster.faction)) }] : []),
       };
       return result;
     }, {});
@@ -217,6 +223,46 @@ function loadRosters() {
 
 function saveRosters() {
   localStorage.setItem(ROSTER_STORAGE_KEY, JSON.stringify(state.rosters));
+}
+
+function normalizeCombatContext(saved) {
+  const defaults = {
+    targetWithinHalfRange: false, attackerAdvanced: false, attackerEngaged: false,
+    attackerDeployedThisTurn: false, attackerMovedOver3: false, attackerCharged: false,
+    targetHasCover: false, usingIndirectFire: false, attackerRemainedStationary: false,
+    targetVisibleToFriendly: false,
+  };
+  const result = {};
+  Object.keys(defaults).forEach((key) => { result[key] = Boolean(saved?.[key]); });
+  return result;
+}
+
+function loadBattleSession() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(BATTLE_SESSION_KEY));
+    return saved && typeof saved === "object" ? saved : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveBattleSession() {
+  try {
+    localStorage.setItem(BATTLE_SESSION_KEY, JSON.stringify({
+      calculatorSelection: state.calculatorSelection,
+      calculatorSelections: state.calculatorSelections,
+      combatContext: state.combatContext,
+      attackMode: state.attackMode,
+    }));
+  } catch {
+    // 存储不可用或已满时静默降级：对局信息仍在内存中可用。
+  }
+}
+
+let battleSessionSaveTimer = 0;
+function scheduleBattleSessionSave() {
+  window.clearTimeout(battleSessionSaveTimer);
+  battleSessionSaveTimer = window.setTimeout(saveBattleSession, 250);
 }
 
 function showToast(message) {
@@ -271,6 +317,7 @@ function calculatorRosterOptions(side) {
   const definition = window.WarhammerFactionRegistry?.resolve(roster.faction);
   return roster.groups.flatMap((group) => group.units.filter((unit) => activeModels(unit).length).map((unit) => ({
     key: `roster:${side}:${group.id}:${unit.id}`, name: unit.name, label: `${unit.name} · ${sideLabel(side)}军表「${roster.name}」 · ${group.title}`, side, groupId: group.id, unitId: unit.id,
+    groupTitle: group.title, groupCategory: group.category, joined: group.category === "联合单位" || /^联合单位/.test(group.title || ""),
     faction: roster.faction, factionId: definition?.id || "",
   })));
 }
@@ -289,37 +336,60 @@ function calculatorSelectionKeys(side) {
 
 let calculatorPickerOptionsCache = null;
 
+// 搜索语料在选项缓存构建时一次性预计算；按键过滤只做 haystack.includes，
+// 不再为每个候选临时拼字符串 + toLocaleLowerCase。
+const pickerOptionHaystack = (option) => [option.name, option.label, option.search].filter(Boolean).join(" ").toLocaleLowerCase();
+const pickerMenuSlots = new WeakMap();
+const pickerFilterCache = { attacker: {}, defender: {} };
+
 function calculatorPickerOptions(side) {
   if (!calculatorPickerOptionsCache) {
-    const rosterOptions = ["attacker", "defender"].flatMap(calculatorRosterOptions);
+    const rosterOptions = ["attacker", "defender"].flatMap(calculatorRosterOptions)
+      .map((option) => ({ ...option, haystack: pickerOptionHaystack(option) }));
     const cardOptions = calculatorCardNames().map((card) => ({
       key: calculatorCardKey(card),
       name: card.name,
-      label: `${card.name} · ${card.faction || "datasheet"}`,
+      label: card.name + " · " + (card.faction || "datasheet"),
       faction: card.faction,
       factionId: card.factionId || "",
-      search: [card.name, card.faction, ...(DATASHEET_CANONICAL_ALIASES.get(card.name) || [])].join(" "),
+      search: [card.name, card.faction, ...(window.WarhammerAliasRegistry?.aliasesForCanonical?.("units", card.name) || [])].join(" "),
       card,
-    }));
+    })).map((option) => ({ ...option, haystack: pickerOptionHaystack(option) }));
     calculatorPickerOptionsCache = { allOptions: [...rosterOptions, ...cardOptions] };
   }
   return calculatorPickerOptionsCache;
 }
 
-function calculatorPickerMenuMarkup(side, index, options) {
+// 过滤结果与增量状态：新 query 以旧 query 开头时只在上一轮结果里筛，
+// 输入逐字变长时不再全量扫描。
+function calculatorPickerMatches(side, index, options) {
   const keys = calculatorSelectionKeys(side);
   const key = keys[index] || "";
   const search = state.calculatorPickerSearch[side]?.[index] || "";
   const query = String(search).trim().toLocaleLowerCase();
-  const filtered = options.allOptions.filter((option) => !query || `${option.name} ${option.label} ${option.search || ""}`.toLocaleLowerCase().includes(query) || option.key === key);
-  if (!filtered.length) return `<span class="calculator-picker-empty">没有匹配单位</span>`;
+  const cached = pickerFilterCache[side][index];
+  const base = query && cached?.query && query.startsWith(cached.query)
+    ? cached.matches
+    : options.allOptions;
+  const filtered = !query ? base : base.filter((option) => option.haystack?.includes(query) || option.key === key);
+  pickerFilterCache[side][index] = { query, matches: filtered };
   const pinned = key ? filtered.find((option) => option.key === key) : null;
   const rest = pinned ? filtered.filter((option) => option.key !== key) : filtered;
-  const visible = [...(pinned ? [pinned] : []), ...rest].slice(0, 60);
-  const hint = filtered.length > visible.length
-    ? `<span class="calculator-picker-more">共 ${filtered.length} 个匹配，显示前 ${visible.length} 个，继续输入缩小范围</span>`
+  return { query, visible: [...(pinned ? [pinned] : []), ...rest].slice(0, 60), total: filtered.length };
+}
+
+function calculatorPickerMenuMarkup(side, index, options) {
+  const { visible, total } = calculatorPickerMatches(side, index, options);
+  if (!visible.length) return '<span class="calculator-picker-empty">没有匹配单位</span>';
+  const slots = Array.from({ length: 60 }, (_, slot) => {
+    const option = visible[slot];
+    if (!option) return '<button type="button" class="calculator-picker-option" data-calculator-picker-option data-side="' + side + '" data-index="' + index + '" data-key="" hidden></button>';
+    return '<button type="button" class="calculator-picker-option" data-calculator-picker-option data-side="' + side + '" data-index="' + index + '" data-key="' + escapeHtml(option.key) + '"><strong>' + escapeHtml(option.name) + '</strong><small>' + escapeHtml(option.label) + '</small></button>';
+  }).join("");
+  const hint = total > 60
+    ? '<span class="calculator-picker-more" data-calculator-picker-more>共 ' + total + ' 个匹配，显示前 60 个，继续输入缩小范围</span>'
     : "";
-  return `${visible.map((option) => `<button type="button" class="calculator-picker-option" data-calculator-picker-option data-side="${side}" data-index="${index}" data-key="${escapeHtml(option.key)}"><strong>${escapeHtml(option.name)}</strong><small>${escapeHtml(option.label)}</small></button>`).join("")}${hint}`;
+  return slots + hint;
 }
 
 function calculatorPickerMarkup(side, index, options) {
@@ -335,6 +405,8 @@ function calculatorPickerMarkup(side, index, options) {
 
 function renderCalculatorSelectors() {
   calculatorPickerOptionsCache = null;
+  // 选项集合整体重建（换阵营水合等）后，旧增量过滤缓存不再与选项集一致。
+  ["attacker", "defender"].forEach((side) => { pickerFilterCache[side] = {}; });
   ["attacker", "defender"].forEach((side) => {
     const container = $(`#calculator${side === "attacker" ? "Attacker" : "Defender"}Pickers`);
     if (!container) return;
@@ -376,10 +448,40 @@ function handleCalculatorPickerInput(event) {
 }
 
 function refreshCalculatorPickerMenu(side, index) {
-  const row = document.querySelector(`[data-calculator-picker-row][data-side="${side}"][data-index="${index}"]`);
+  const row = document.querySelector('[data-calculator-picker-row][data-side="' + side + '"][data-index="' + index + '"]');
   const menu = row?.querySelector("[data-calculator-picker-menu]");
   if (!menu) return;
-  menu.innerHTML = calculatorPickerMenuMarkup(side, index, calculatorPickerOptions(side));
+  const { visible, total } = calculatorPickerMatches(side, index, calculatorPickerOptions(side));
+  if (!visible.length) {
+    menu.innerHTML = '<span class="calculator-picker-empty">没有匹配单位</span>';
+    pickerMenuSlots.set(menu, []);
+    menu.classList.add("is-open");
+    return;
+  }
+  let slots = pickerMenuSlots.get(menu);
+  if (!slots || !slots.length) {
+    if (!menu.querySelector("[data-calculator-picker-option]")) {
+      menu.innerHTML = calculatorPickerMenuMarkup(side, index, calculatorPickerOptions(side));
+    }
+    slots = [...menu.querySelectorAll("[data-calculator-picker-option]")].map((button) => ({
+      root: button, strong: button.querySelector("strong"), small: button.querySelector("small"),
+    }));
+    pickerMenuSlots.set(menu, slots);
+  }
+  slots.forEach((slot, position) => {
+    const option = visible[position];
+    if (!option) { slot.root.hidden = true; slot.root.dataset.key = ""; return; }
+    slot.root.hidden = false;
+    slot.root.dataset.key = option.key;
+    slot.strong.textContent = option.name;
+    slot.small.textContent = option.label;
+  });
+  const more = menu.querySelector("[data-calculator-picker-more]");
+  if (more) {
+    const showMore = total > visible.length;
+    more.hidden = !showMore;
+    if (showMore) more.textContent = "共 " + total + " 个匹配，显示前 " + visible.length + " 个，继续输入缩小范围";
+  }
   menu.classList.add("is-open");
 }
 
@@ -406,6 +508,7 @@ function handleCalculatorPickerClick(event) {
   state.calculatorPickerOpen[side]?.splice(index, 1);
   state.calculatorSelection[side] = keys[0] || "";
   renderCalculatorSelectors();
+  scheduleBattleSessionSave();
 }
 
 async function handleCalculatorPickerOption(event) {
@@ -434,6 +537,7 @@ async function handleCalculatorPickerOption(event) {
   state.calculatorDrafts[side][index] = null;
   renderCalculatorSelectors();
   $("#calcNote").textContent = "已选择单位；请确认双方后开始计算。";
+  scheduleBattleSessionSave();
 }
 
 ["attacker", "defender"].forEach((side) => {
@@ -442,6 +546,17 @@ async function handleCalculatorPickerOption(event) {
   container?.addEventListener("focusin", handleCalculatorPickerFocus);
   container?.addEventListener("click", handleCalculatorPickerClick);
   container?.addEventListener("click", handleCalculatorPickerOption);
+  // 悬停预取：鼠标停在候选单位上时后台加载对应阵营运行时，
+  // 点击选择时大概率已完成加载，减少换阵营的等待感。
+  container?.addEventListener("pointerover", (event) => {
+    const option = event.target?.closest?.("[data-calculator-picker-option]");
+    const key = option?.dataset?.key;
+    if (!key) return;
+    const selected = calculatorPickerOptions(side).allOptions.find((candidate) => candidate.key === key);
+    const factionId = selected?.factionId || selected?.faction;
+    if (!factionId) return;
+    ensureFactionRuntimeLoaded(factionId).catch(() => {});
+  });
   $(`#addCalculator${side === "attacker" ? "Attacker" : "Defender"}`)?.addEventListener("click", () => {
     calculatorSelectionKeys(side).push("");
     state.calculatorPickerSearch[side] ||= [];
@@ -450,6 +565,7 @@ async function handleCalculatorPickerOption(event) {
     state.calculatorPickerOpen[side].push(false);
     state.calculatorDrafts[side].push(null);
     renderCalculatorSelectors();
+    scheduleBattleSessionSave();
   });
 });
 document.addEventListener("click", (event) => {
@@ -464,6 +580,7 @@ $("#calculatorAttackMode")?.addEventListener("change", (event) => {
   state.attackMode = event.target.value;
   $("#calcNote").textContent = `已选择${state.attackMode === "ranged" ? "远程射击" : "近战"}；请确认双方后开始计算。`;
   renderCalculatorDetails();
+  scheduleBattleSessionSave();
 });
 
 $("#calculatorCoreContext")?.addEventListener("change", (event) => {
@@ -471,6 +588,7 @@ $("#calculatorCoreContext")?.addEventListener("change", (event) => {
   if (!field || !Object.prototype.hasOwnProperty.call(state.combatContext, field)) return;
   state.combatContext[field] = Boolean(event.target.checked);
   renderCalculatorDetails();
+  scheduleBattleSessionSave();
 });
 
 function getCalculatorEntry(side, selectionKey = null) {
@@ -485,14 +603,17 @@ function getCalculatorEntry(side, selectionKey = null) {
   return calculatorCardNames().find((card) => calculatorCardKey(card) === key || calculatorLegacyCardKey(card) === key) || null;
 }
 
-function findStructuredCalculatorCard(name) {
-  const aliases = unitNameCandidates(name);
+function findStructuredCalculatorCard(name, faction = "") {
+  const aliases = unitNameCandidates(name, faction);
+  const definition = window.WarhammerFactionRegistry?.resolve(faction);
   const normalize = (value) => String(value || "")
     .replace(/[\s\u00a0·•・,，。.!！:：;；/\\_\-—–]/g, "")
     .replace(/[（(][^）)]*[）)]/g, "")
     .toLowerCase();
   const candidates = new Set(aliases.map(normalize));
-  return state.calculatorCards.find((card) => card.structured && card.data?.unit && [card.name, card.data.unit.name, card.data.englishName]
+  return state.calculatorCards.find((card) => card.structured && card.data?.unit
+    && (!definition || card.factionId === definition.id)
+    && [card.name, card.data.unit.name, card.data.englishName]
     .some((candidate) => candidates.has(normalize(candidate))));
 }
 
@@ -551,7 +672,7 @@ function cleanPdfWatermarkText(value, weapons = []) {
 
 function getCalculatorCardData(entry) {
   if (entry?.data?.unit) return normalizeCalculatorCardData(entry.data);
-  return normalizeCalculatorCardData(findStructuredCalculatorCard(entry?.name)?.data);
+  return normalizeCalculatorCardData(findStructuredCalculatorCard(entry?.name, entry?.faction || entry?.factionId)?.data);
 }
 
 function cloneCalculatorValue(value) {
@@ -562,19 +683,12 @@ function calculatorSource(entry) {
   return entry?.rosterUnit ? "军表" : "数据卡";
 }
 
-// 军表装备名与数据卡武器名的同义映射：黑图书馆军表软件与数据卡使用了
-// 不同的译名（如「瘟疫毒刃」vs「瘟疫短刀」），导入后按此表双向归一后再做
-// 子串匹配，避免默认武器数量被判成 0。
-const WEAPON_ALIASES = {
-  "瘟疫毒刃": "瘟疫短刀",
-  "凋零榴弹炮": "瘟疫榴弹炮",
-  "重型瘟疫喷射器": "瘟疫喷射炮",
-  "瘟疫爆弹枪": "爆弹枪",
-};
-
+// 军表装备名与数据卡武器名的同义映射（黑图书馆军表软件译名）已迁入
+// data/global/aliases.json 经 aliases/index.js 以全局 scope 注册；
+// 消费统一走别名注册表，app.js 不再持有武器别名表。
 function weaponAliasVariants(value) {
   const cleaned = String(value || "").replace(/[（(].*?[）)]/g, "").trim();
-  const canonical = WEAPON_ALIASES[cleaned];
+  const canonical = window.WarhammerAliasRegistry?.resolveWeapon("", cleaned) || cleaned;
   return canonical && canonical !== cleaned ? [cleaned, canonical] : [cleaned];
 }
 
@@ -673,10 +787,21 @@ function setCalculatorWeaponEnabled(weapons, index, enabled) {
   }
 }
 
+function weaponNameMatchesProfile(weapon, name) {
+  const clean = (value) => String(value || "")
+    .replace(/[（(].*?[）)]/g, "")
+    .replace(/[\s\u00a0·・,，。:：]/g, "")
+    .trim()
+    .toLowerCase();
+  const weaponName = clean(weapon?.name);
+  const target = clean(name);
+  return Boolean(weaponName && target && weaponName === target);
+}
+
 function enabledCalculatorWeapons(data, entryName, rosterUnit, options = {}) {
   const baseUnit = data?.unit || {};
   const baseWeapons = (Array.isArray(data?.weapons) ? cloneCalculatorValue(data.weapons) : [])
-    .filter((weapon) => !Array.isArray(options.weaponNames) || options.weaponNames.some((name) => weaponMatchesEquipmentText(weapon, name)));
+    .filter((weapon) => !Array.isArray(options.weaponNames) || options.weaponNames.some((name) => weaponNameMatchesProfile(weapon, name)));
   const defaultEquipment = cleanPdfWatermarkText(options.defaultEquipment ?? baseUnit.defaultEquipment ?? "", baseWeapons);
   const defaultEquipmentCounts = parseDefaultEquipmentWeaponCounts(defaultEquipment);
   const defaultModels = Math.max(1, Number(options.modelCount ?? (rosterUnit ? activeModels(rosterUnit).length : baseUnit.models || baseUnit.defaultModels || 1)) || 1);
@@ -800,7 +925,7 @@ function getCalculatorDraft(side, index = 0, selectionKey = null) {
     }
     return draft;
   }
-  const card = entry.structured ? entry : findStructuredCalculatorCard(entry.name);
+  const card = entry.structured ? entry : findStructuredCalculatorCard(entry.name, entry.faction || entry.factionId);
   const data = getCalculatorCardData(card || entry);
   const baseUnit = cloneCalculatorValue(data?.unit || {});
   const baseWeapons = enabledCalculatorWeapons(data, entry.name, entry.rosterUnit);
@@ -871,7 +996,7 @@ function calculatorTargetModelCount() {
 }
 
 function calculatorSourceKeywords(draft, sourceName = "") {
-  const sourceCard = sourceName && sourceName !== draft.entry?.name ? findStructuredCalculatorCard(sourceName) : null;
+  const sourceCard = sourceName && sourceName !== draft.entry?.name ? findStructuredCalculatorCard(sourceName, draft.entry?.faction || draft.entry?.factionId) : null;
   const sourceData = sourceCard ? getCalculatorCardData(sourceCard) : draft.data;
   return [...(sourceData?.factionKeywords || []), ...(sourceData?.keywords || [])]
     .map((keyword) => String(keyword).trim().toLowerCase());
@@ -941,7 +1066,10 @@ function calculatorRuleMarkup(draft, side, rules, heading) {
     });
     return active ? "本次已启用并计入骰子" : "可选效果：默认未启用";
   };
-  return `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>${heading}</strong></div>${rules.map((rule) => `<div class="calculator-ability"><strong>${escapeHtml(rule.unitName ? `${rule.unitName} · ${rule.name}` : rule.name)}</strong><p>${escapeHtml(rule.text)}</p><small>${escapeHtml(statusFor(rule))}</small>${calculatorRuleControlMarkup(draft, side, rule)}</div>`).join("")}</section>`;
+  return `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>${heading}</strong></div>${rules.map((rule) => {
+    const displayName = window.WarhammerAliasRegistry?.displayNameFor?.(draft?.entry?.faction, rule.name) || rule.name;
+    return `<div class="calculator-ability"><strong>${escapeHtml(rule.unitName ? `${rule.unitName} · ${displayName}` : displayName)}</strong><p>${escapeHtml(rule.text)}</p><small>${escapeHtml(statusFor(rule))}</small>${calculatorRuleControlMarkup(draft, side, rule)}</div>`;
+  }).join("")}</section>`;
 }
 
 function calculatorAbilityMarkup(draft, side) {
@@ -964,17 +1092,101 @@ function rerollSelection(draft, key, threshold) {
   return { configured: Boolean(configured?.configured), faces: configured?.configured ? configured.faces || [] : fallback };
 }
 
-function resolvedRerollSelection(draft, kind, sourceKey, weaponIndex, threshold) {
-  const selection = rerollSelection(draft, calculatorRerollKey(kind, sourceKey, weaponIndex), threshold);
-  return selection.configured ? { type: "specific", values: selection.faces } : { type: "failed", values: [] };
-}
-
 function rerollFacesMarkup(draft, side, { kind, sourceKey, weaponIndex, threshold, title, locked = false }) {
   const key = calculatorRerollKey(kind, sourceKey, weaponIndex);
   const selection = rerollSelection(draft, key, threshold);
   const faces = new Set((locked ? [1] : selection.faces).map(Number));
   const stateText = locked ? "规则固定：仅重投 1" : (selection.configured ? "已按所选骰面重投" : "默认重投失败骰");
   return `<div class="calculator-reroll-control ${locked ? "is-locked" : ""}"><strong>${escapeHtml(title)}</strong><small>成功：${threshold}+；${stateText}</small><div class="calculator-reroll-faces">${[1, 2, 3, 4, 5, 6].map((face) => `<label class="${face >= threshold ? "is-success" : "is-failure"} ${faces.has(face) ? "is-selected" : ""}"><input type="checkbox" value="${face}" data-calc-side="${side}" data-calc-reroll-kind="${kind}" data-calc-reroll-key="${escapeHtml(key)}" data-calc-reroll-face ${faces.has(face) ? "checked" : ""} ${locked && face !== 1 ? "disabled" : ""} />${face}</label>`).join("")}</div>${locked ? "" : "<small>可选择成功骰来赌暴击；选择后会覆盖默认的失败骰重投。</small>"}</div>`;
+}
+
+// ---- 重投计划（单一事实源）----
+// 引擎载荷与 UI 骰面框都从这里取重投来源，不再各自推导显示条件。
+// 每个授权(grant)携带来源 kind、规则 ID/名称、模式 ones|failed。
+
+function rerollRuleIndexForFaction(draft, unitNames) {
+  const index = new Map();
+  const collect = (rules) => (rules || []).forEach((rule) => { if (rule?.id && !index.has(rule.id)) index.set(rule.id, rule); });
+  const resolver = window.WarhammerRuleResolver;
+  const faction = draft?.entry?.faction;
+  if (!resolver || !faction) return index;
+  collect(resolver.rulesForUnit(faction, unitNames[0] || "").faction);
+  unitNames.filter(Boolean).forEach((name) => collect(resolver.rulesForUnit(faction, name).unit));
+  const detachmentCatalog = resolver.rulesForDetachments(faction, draft.detachmentIds || []);
+  collect(detachmentCatalog.rules);
+  collect(detachmentCatalog.enhancements);
+  return index;
+}
+
+function rerollGrantsFromResolution(kind, resolution, ruleIndex) {
+  const grants = [];
+  (resolution?.attack?.contributions || []).forEach((entry) => {
+    if (entry.field !== "hitReroll" && entry.field !== "woundReroll") return;
+    grants.push({
+      kind,
+      dice: entry.field === "hitReroll" ? "hit" : "wound",
+      mode: entry.mode || "failed",
+      ruleId: entry.sourceId,
+      ruleName: ruleIndex.get(entry.sourceId)?.name || "规则",
+    });
+  });
+  return grants;
+}
+
+// 按武器类型解析（相位不再用全局 attackMode），与引擎归约的来源一一对应：
+// unit（含分遣队/增强）→ joined（联合单位共享）→ faction → twin-linked。
+function calculatorRerollPlan(draft, sourceName, weapon, coreProfile) {
+  const grants = { hit: [], wound: [] };
+  const resolver = window.WarhammerRuleResolver;
+  const faction = draft?.entry?.faction;
+  if (!resolver || !faction) return grants;
+  const joinedMembers = (draft.joinedMembers || [])
+    .filter((member) => member && (member.ruleName || member.name) !== sourceName);
+  const memberNames = [sourceName, ...joinedMembers.map((member) => member.ruleName || member.name)].filter(Boolean);
+  const ruleIndex = rerollRuleIndexForFaction(draft, memberNames);
+  const phaseOverride = { phase: weapon.type };
+  const add = (resolution, kind) => {
+    rerollGrantsFromResolution(kind, resolution, ruleIndex).forEach((grant) => {
+      grants[grant.dice].push(grant);
+    });
+  };
+  add(resolvedRuleEffects(draft, sourceName, phaseOverride), "unit");
+  joinedMembers.forEach((member) => {
+    const name = member.ruleName || member.name;
+    const resolution = resolver.resolveUnitScoped(
+      faction, name, "unit", draft.ruleSelections || {},
+      ruleContextForDraft(draft, name, {
+        ...phaseOverride,
+        modelCount: member.modelCount,
+        initialModelCount: member.initialModelCount,
+        remainingWounds: member.remainingWounds,
+      }),
+    );
+    add(resolution, "joined");
+  });
+  add(resolvedFactionEffects(draft, { unitName: sourceName, ...phaseOverride }), "faction");
+  if ((coreProfile?.effects || []).some((effect) => effect.type === "twin-linked")) {
+    grants.wound.push({ kind: "twin", dice: "wound", mode: "failed", ruleId: "core.twin-linked", ruleName: "双联" });
+  }
+  return grants;
+}
+
+// 多个重投来源合并：骰子至多重投一次。全部为 ones → 锁定重投 1；
+// 否则按各来源框中选择的骰面取并集（未选择时默认重投失败骰）。
+function composeRerollSelection(draft, grants, keyPrefix, sourceKey, weaponIndex, threshold) {
+  if (!grants.length) return { type: "none", values: [] };
+  if (grants.every((grant) => grant.mode === "ones")) return { type: "ones", values: [] };
+  const faces = new Set();
+  let anyConfigured = false;
+  grants.forEach((grant) => {
+    if (grant.mode === "ones") { faces.add(1); return; }
+    const selection = rerollSelection(draft, calculatorRerollKey(keyPrefix + ":" + grant.kind + ":" + grant.ruleId, sourceKey, weaponIndex), threshold);
+    if (selection.configured) anyConfigured = true;
+    (selection.faces || []).forEach((face) => faces.add(Number(face)));
+  });
+  if (!faces.size) return { type: "failed", values: [] };
+  if (anyConfigured) return { type: "specific", values: [...faces].sort((a, b) => a - b) };
+  return { type: "failed", values: [] };
 }
 
 function datasheetFactionMatches(requested, actual) {
@@ -1066,10 +1278,11 @@ function calculatorWeaponRerollMarkup(weapon, draft, side, sourceName, sourceKey
   if (side !== "attacker") return "";
   const sections = [];
   const coreProfile = coreWeaponResolution(weapon, draft, sourceName);
+  const phaseOverride = { phase: weapon.type };
   const hitThreshold = isTorrentWeapon(weapon) ? 0 : parseSkill(weapon.skill);
   const defenderHitModifier = defenderHitModifierForDisplay();
-  const sourceRules = resolvedRuleEffects(draft, sourceName).attack || {};
-  const factionEffects = resolvedFactionEffects(draft, { unitName: sourceName }).attack || {};
+  const sourceRules = resolvedRuleEffects(draft, sourceName, phaseOverride).attack || {};
+  const factionEffects = resolvedFactionEffects(draft, { unitName: sourceName, ...phaseOverride }).attack || {};
   const hitModifiers = [
     defenderHitModifier,
     Number(sourceRules.hitModifier || 0),
@@ -1083,36 +1296,41 @@ function calculatorWeaponRerollMarkup(weapon, draft, side, sourceName, sourceKey
     minimumUnmodifiedHit: coreProfile.unmodifiedHitThreshold,
   });
   const displayedHitThreshold = hitState.effectiveTarget;
-  if (sourceRules.hitReroll && hitThreshold > 0 && !coreProfile.preventHitRerolls) {
-    const rerollRule = window.WarhammerRuleResolver?.rulesForUnit(draft.entry?.faction, sourceName).unit.find((rule) => rule.effects?.some((effect) => effect.type === "hit-reroll"));
+  // 骰面框直接渲染重投计划：来源齐全（单位/联合/阵营/双联），相位按武器类型，
+  // 与引擎载荷使用同一 composeRerollSelection 归约，不再手写显示条件。
+  const plan = calculatorRerollPlan(draft, sourceName, weapon, coreProfile);
+  const hitTitle = (grant) => grant.kind === "joined"
+    ? grant.ruleName + " · 联合单位命中重投"
+    : grant.kind === "faction"
+      ? grant.ruleName + " · 阵营命中重投"
+      : grant.ruleName + " · 命中重投";
+  if (hitThreshold > 0 && !coreProfile.preventHitRerolls) {
+    plan.hit.forEach((grant) => {
+      sections.push(rerollFacesMarkup(draft, side, {
+        kind: "hit:" + grant.kind + ":" + grant.ruleId, sourceKey, weaponIndex, threshold: displayedHitThreshold,
+        title: hitTitle(grant), locked: grant.mode === "ones",
+      }));
+    });
+  }
+  const defenderDraft = getCalculatorDraft("defender");
+  const defenderToughness = Number(defenderDraft?.unit?.toughness || 0);
+  const attackerStrength = Number(weapon.strength || 0) + Number(sourceRules.strengthModifier || 0);
+  const baseWoundThreshold = defenderToughness ? woundTarget(attackerStrength, defenderToughness) : 4;
+  const woundModifier = Number(sourceRules.woundModifier || 0) + Number(factionEffects.woundModifier || 0) + defenderWoundModifierForDisplay(attackerStrength, defenderToughness) + Number(coreProfile.woundModifier || 0);
+  const woundThreshold = effectiveWoundThresholdForDisplay(baseWoundThreshold, woundModifier);
+  const woundTitle = (grant) => grant.kind === "twin"
+    ? "双联 · 造伤重投"
+    : grant.kind === "joined"
+      ? grant.ruleName + " · 联合单位造伤重投"
+      : grant.kind === "faction"
+        ? grant.ruleName + " · 阵营造伤重投"
+        : grant.ruleName + " · 造伤重投";
+  plan.wound.forEach((grant) => {
     sections.push(rerollFacesMarkup(draft, side, {
-      kind: "rule-hit", sourceKey, weaponIndex, threshold: displayedHitThreshold,
-      title: `${rerollRule?.name || "命中重投"} · 命中重投`, locked: sourceRules.hitReroll === "ones",
+      kind: "wound:" + grant.kind + ":" + grant.ruleId, sourceKey, weaponIndex, threshold: woundThreshold,
+      title: woundTitle(grant), locked: grant.mode === "ones",
     }));
-  }
-  if (factionEffects.hitReroll && hitThreshold > 0 && !coreProfile.preventHitRerolls) {
-    const rerollRule = window.WarhammerRuleResolver?.rulesForUnit(draft.entry?.faction, sourceName).faction.find((rule) => (rule.effects || []).some((effect) => effect.type === "hit-reroll"));
-    sections.push(rerollFacesMarkup(draft, side, { kind: "faction-hit", sourceKey, weaponIndex, threshold: displayedHitThreshold, title: `${rerollRule?.name || "阵营规则"} · 命中重投` }));
-  }
-  const hasTwinLinked = coreProfile.effects.some((effect) => effect.type === "twin-linked");
-  if (sourceRules.woundReroll || hasTwinLinked) {
-    const defenderDraft = getCalculatorDraft("defender");
-    const defenderToughness = Number(defenderDraft?.unit?.toughness || 0);
-    const attackerStrength = Number(weapon.strength || 0) + Number(sourceRules.strengthModifier || 0);
-    const baseWoundThreshold = defenderToughness ? woundTarget(attackerStrength, defenderToughness) : 4;
-    const woundModifier = Number(sourceRules.woundModifier || 0) + Number(factionEffects.woundModifier || 0) + defenderWoundModifierForDisplay(attackerStrength, defenderToughness) + Number(coreProfile.woundModifier || 0);
-    const woundThreshold = effectiveWoundThresholdForDisplay(baseWoundThreshold, woundModifier);
-    const rerollRule = sourceRules.woundReroll
-      ? window.WarhammerRuleResolver?.rulesForUnit(draft.entry?.faction, sourceName).unit.find((rule) => (rule.effects || (rule.effect ? [rule.effect] : [])).some((effect) => effect.type === "wound-reroll"))
-      : null;
-    sections.push(rerollFacesMarkup(draft, side, {
-      kind: hasTwinLinked ? "core-wound" : "guard-wound", sourceKey, weaponIndex, threshold: woundThreshold,
-      title: hasTwinLinked
-        ? `${sourceRules.woundReroll ? `${rerollRule?.name || "单位规则"} + ` : ""}双联 · 造伤重投`
-        : `${rerollRule?.name || "造伤重投"} · 造伤重投`,
-      locked: !hasTwinLinked && sourceRules.woundReroll === "ones",
-    }));
-  }
+  });
   if (coreProfile.preventHitRerolls) sections.push(`<div class="calculator-reroll-control is-locked"><strong>曲射限制</strong><small>本次攻击不能重投命中骰；仅按未修正命中阈值结算。</small></div>`);
   return sections.join("");
 }
@@ -1575,7 +1793,7 @@ function defenderEffectsFromUnit(unit, draft, unitName) {
 }
 
 function calculatorDataForUnit(unit, faction) {
-  const card = findStructuredCalculatorCard(unit.name);
+  const card = findStructuredCalculatorCard(unit.name, faction);
   return getCalculatorCardData(card || { name: unit.name, faction });
 }
 
@@ -1772,6 +1990,7 @@ function buildSelectedRoundPayload() {
     apModifier: result.apModifier + Number(entry.effects.apModifier || 0),
     damageModifier: result.damageModifier + Number(entry.effects.damageModifier || 0),
     damageReroll: result.damageReroll || Boolean(entry.effects.damageReroll),
+    damageRerollMode: result.damageRerollMode || entry.effects.damageRerollMode || null,
     targetToughnessModifier: result.targetToughnessModifier + Number(entry.effects.targetToughnessModifier || 0),
     ignoreHitModifiers: result.ignoreHitModifiers || Boolean(entry.effects.ignoreHitModifiers),
     weaponAttackModifiers: [...result.weaponAttackModifiers, ...(entry.effects.weaponAttackModifiers || [])],
@@ -1795,6 +2014,7 @@ function buildSelectedRoundPayload() {
     apModifier: Number(detachmentSharedEffects.apModifier || 0),
     damageModifier: Number(detachmentSharedEffects.damageModifier || 0),
     damageReroll: Boolean(detachmentSharedEffects.damageReroll),
+    damageRerollMode: detachmentSharedEffects.damageRerollMode || null,
     targetToughnessModifier: Number(detachmentSharedEffects.targetToughnessModifier || 0),
     ignoreHitModifiers: Boolean(detachmentSharedEffects.ignoreHitModifiers),
     hitCriticalThreshold: Number(detachmentSharedEffects.hitCriticalThreshold || 0),
@@ -1883,21 +2103,12 @@ function buildSelectedRoundPayload() {
         reroll: { mode: "failed" },
         minimumUnmodifiedHit: coreProfile.unmodifiedHitThreshold,
       });
-      const ruleHitMode = sourceRules.hitReroll || sharedJoinedRules.hitReroll || sourceFactionEffects.hitReroll;
-      const rerollKind = sourceRules.hitReroll || sharedJoinedRules.hitReroll ? "rule-hit" : "faction-hit";
-      const ruleHitReroll = ruleHitMode === "ones"
-        ? { type: "specific", values: [1] }
-        : ruleHitMode === "failed"
-          ? resolvedRerollSelection(attackerDraft, rerollKind, sourceKey, weaponIndex, resolvedHitState.effectiveTarget)
-          : { type: "none", values: [] };
-      const effectiveHitReroll = coreProfile.preventHitRerolls ? { type: "none", values: [] } : ruleHitReroll;
-      const hasTwinLinked = coreProfile.effects.some((effect) => effect.type === "twin-linked");
-      const ruleWoundMode = sourceRules.woundReroll || sharedJoinedRules.woundReroll || sourceFactionEffects.woundReroll;
-      const woundReroll = hasTwinLinked
-        ? resolvedRerollSelection(attackerDraft, "core-wound", sourceKey, weaponIndex, woundThreshold)
-        : ruleWoundMode === "failed"
-          ? resolvedRerollSelection(attackerDraft, "guard-wound", sourceKey, weaponIndex, woundThreshold)
-          : { type: ruleWoundMode || "", values: [] };
+      // 重投来源与 UI 骰面框共用同一计划与归约（见 calculatorRerollPlan）。
+      const rerollPlan = calculatorRerollPlan(attackerDraft, source.ruleName || source.name, weapon, coreProfile);
+      const effectiveHitReroll = coreProfile.preventHitRerolls
+        ? { type: "none", values: [] }
+        : composeRerollSelection(attackerDraft, rerollPlan.hit, "hit", sourceKey, weaponIndex, resolvedHitState.effectiveTarget);
+      const woundReroll = composeRerollSelection(attackerDraft, rerollPlan.wound, "wound", sourceKey, weaponIndex, woundThreshold);
       return {
         name: `${source.name} · ${weapon.name}`,
         modelCount: Number(weapon.modelCount ?? source.modelCount ?? 1),
@@ -1906,7 +2117,7 @@ function buildSelectedRoundPayload() {
         wound: woundThreshold,
         ap: Math.max(0, Math.abs(Number(weapon.ap || 0)) + Number(sourceRules.apModifier || 0) + Number(sharedJoinedRules.apModifier || 0) + Number(sourceFactionEffects.apModifier || 0) + defenderRuleEffects.incomingApModifier),
         damage: modifyDamageExpression(weapon.damage, Number(sourceRules.damageModifier || 0) + Number(sharedJoinedRules.damageModifier || 0) + Number(sourceFactionEffects.damageModifier || 0) + Number(coreProfile.damageModifier || 0)),
-        effects: weaponEffectsFromKeywords(weapon, { hitReroll: effectiveHitReroll }, { ...sourceRules, sustainedHits: Math.max(Number(sourceRules.sustainedHits || 0), Number(sharedJoinedRules.sustainedHits || 0), Number(sourceFactionEffects.sustainedHits || 0)), lethalHits: Boolean(sourceRules.lethalHits || sharedJoinedRules.lethalHits || sourceFactionEffects.lethalHits), devastating: Boolean(sourceRules.devastating || sharedJoinedRules.devastating || sourceFactionEffects.devastating), damageReroll: Boolean(sourceRules.damageReroll || sharedJoinedRules.damageReroll || sourceFactionEffects.damageReroll), woundReroll: woundReroll.type, woundRerollValues: woundReroll.values, hitCriticalThreshold: sourceRules.hitCriticalThreshold || sharedJoinedRules.hitCriticalThreshold || sourceFactionEffects.hitCriticalThreshold, woundCriticalThreshold: sourceRules.woundCriticalThreshold || sharedJoinedRules.woundCriticalThreshold || sourceFactionEffects.woundCriticalThreshold }, { hitModifier: resolvedHitState.modifierTotal, woundModifier, targetKeywords: [...(defenderData.factionKeywords || []), ...(defenderData.keywords || [])], coreProfile }),
+        effects: weaponEffectsFromKeywords(weapon, { hitReroll: effectiveHitReroll }, { ...sourceRules, sustainedHits: Math.max(Number(sourceRules.sustainedHits || 0), Number(sharedJoinedRules.sustainedHits || 0), Number(sourceFactionEffects.sustainedHits || 0)), lethalHits: Boolean(sourceRules.lethalHits || sharedJoinedRules.lethalHits || sourceFactionEffects.lethalHits), devastating: Boolean(sourceRules.devastating || sharedJoinedRules.devastating || sourceFactionEffects.devastating), damageReroll: Boolean(sourceRules.damageReroll || sharedJoinedRules.damageReroll || sourceFactionEffects.damageReroll), damageRerollMode: sourceRules.damageRerollMode || sharedJoinedRules.damageRerollMode || sourceFactionEffects.damageRerollMode, woundReroll: woundReroll.type, woundRerollValues: woundReroll.values, hitCriticalThreshold: sourceRules.hitCriticalThreshold || sharedJoinedRules.hitCriticalThreshold || sourceFactionEffects.hitCriticalThreshold, woundCriticalThreshold: sourceRules.woundCriticalThreshold || sharedJoinedRules.woundCriticalThreshold || sourceFactionEffects.woundCriticalThreshold }, { hitModifier: resolvedHitState.modifierTotal, woundModifier, targetKeywords: [...(defenderData.factionKeywords || []), ...(defenderData.keywords || [])], coreProfile }),
       };
     });
     return sourceRules.repeatRanged || sourceFactionEffects.repeatRanged ? [...groups, ...groups.map((group) => ({ ...group, name: `${group.name}（枪林弹雨）` }))] : groups;
@@ -1934,7 +2145,7 @@ function renderRosterWarnings() {
     const definition = window.WarhammerFactionRegistry?.resolve(state.rosters[side].faction);
     const hasFactionCards = Boolean(definition && hydratedCalculatorFactions.has(definition.id));
     return hasFactionCards ? getRosterUnits(state.rosters[side])
-      .filter((unit) => !findStructuredCalculatorCard(unit.name))
+      .filter((unit) => !findStructuredCalculatorCard(unit.name, state.rosters[side].faction))
       .map((unit) => ({ side, name: unit.name })) : [];
   });
   if (!unmatched.length) {
@@ -1985,7 +2196,8 @@ async function getDatasheetPreview(faction, unitName) {
   } catch (error) {
     console.error(error);
   }
-  const names = [...new Set([...unitNameCandidates(unitName), ...(DATASHEET_ALIASES[faction]?.[unitName] || [])].filter(Boolean))];
+  const factionCanonical = window.WarhammerAliasRegistry?.resolveUnit(faction, unitName) || "";
+  const names = [...new Set([...unitNameCandidates(unitName, faction), ...(factionCanonical && factionCanonical !== unitName ? [factionCanonical] : [])].filter(Boolean))];
   const normalizeName = (value) => String(value || "")
     .replace(/[\s\u00a0·•・,，。.!！:：;；/\\_\-—–]/g, "")
     .replace(/[（(][^）)]*[）)]/g, "")
@@ -2155,10 +2367,10 @@ async function getLibraryFiles() {
 }
 
 async function extractPdfText(file) {
-  if (!window.pdfjsLib) return "";
   try {
+    const pdfjs = await ensurePdfJsLoaded();
     const buffer = await file.arrayBuffer();
-    const pdf = await window.pdfjsLib.getDocument({ data: buffer }).promise;
+    const pdf = await pdfjs.getDocument({ data: buffer }).promise;
     const parts = [];
     for (let pageNum = 1; pageNum <= pdf.numPages; pageNum += 1) {
       const page = await pdf.getPage(pageNum);
@@ -2170,6 +2382,42 @@ async function extractPdfText(file) {
   } catch {
     return "";
   }
+}
+
+async function ensurePdfJsLoaded() {
+  if (window.pdfjsLib) {
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_URL;
+    return window.pdfjsLib;
+  }
+  if (!pdfJsLoadPromise) {
+    pdfJsLoadPromise = new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      const timeout = window.setTimeout(() => {
+        script.remove();
+        reject(new Error("PDF 解析器加载超时"));
+      }, PDFJS_LOAD_TIMEOUT_MS);
+      script.src = PDFJS_CDN_URL;
+      script.async = true;
+      script.onload = () => {
+        window.clearTimeout(timeout);
+        if (!window.pdfjsLib) {
+          reject(new Error("PDF 解析器未初始化"));
+          return;
+        }
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_URL;
+        resolve(window.pdfjsLib);
+      };
+      script.onerror = () => {
+        window.clearTimeout(timeout);
+        reject(new Error("PDF 解析器加载失败"));
+      };
+      document.head.append(script);
+    }).catch((error) => {
+      pdfJsLoadPromise = null;
+      throw error;
+    });
+  }
+  return pdfJsLoadPromise;
 }
 
 async function addLibraryFile(file, metadata = {}) {
@@ -2200,7 +2448,6 @@ function libraryFileKey(file) {
 }
 
 async function importBuiltinLibraryFiles(paths = CORE_LIBRARY_FILES) {
-  if (window.pdfjsLib) window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
   try {
     const existing = await getLibraryFiles();
     const existingKeys = new Set(existing.map(libraryFileKey));
@@ -2229,7 +2476,7 @@ async function importBuiltinLibraryFiles(paths = CORE_LIBRARY_FILES) {
 }
 
 function appendDigitalUnitAliases(parsed = null) {
-  for (const [faction, pages] of Object.entries(DIGITAL_UNIT_ALIASES)) {
+  for (const [faction, pages] of Object.entries(window.WarhammerAliasRegistry?.allDigitalUnitAliases?.() || {})) {
     const definition = window.WarhammerFactionRegistry?.resolve(faction);
     for (const [page, names] of Object.entries(pages)) {
       const key = `${faction}:${page}`;
@@ -2288,6 +2535,7 @@ function hydrateCalculatorCatalog(faction) {
   state.calculatorCards = [...cards.values()];
   hydratedCalculatorFactions.add(definition.id);
   appendDigitalUnitAliases();
+  // 分遣队别名随运行时一并进入统一别名注册表（规范名/英文名/全部别名）。
   return definition;
 }
 
@@ -2307,7 +2555,6 @@ async function loadCalculatorCards() {
     .map((card) => ({ ...card, structured: false, indexed: true, data: null }));
   appendDigitalUnitAliases();
   renderCalculatorSelectors();
-
   const rosterFactions = [...new Set([state.rosters.attacker.faction, state.rosters.defender.faction].filter(Boolean))];
   for (const faction of rosterFactions) {
     try {
@@ -2318,6 +2565,27 @@ async function loadCalculatorCards() {
   }
   applyDatasheetWoundsToRosters();
   renderRosters();
+  restoreBattleSessionRuntime();
+}
+
+// 恢复的对局场景若引用了数据卡，后台补载对应阵营运行时并重渲染计算页。
+async function restoreBattleSessionRuntime() {
+  try {
+    const options = calculatorPickerOptions("attacker").allOptions;
+    const keys = new Set([
+      ...(state.calculatorSelections?.attacker || []),
+      ...(state.calculatorSelections?.defender || []),
+    ].filter(Boolean));
+    const factionIds = new Set([...keys]
+      .map((key) => options.find((option) => option.key === key)?.factionId)
+      .filter(Boolean));
+    if (!factionIds.size) return;
+    await Promise.all([...factionIds].map((factionId) => ensureFactionRuntimeLoaded(factionId)));
+    renderCalculatorSelectors();
+    renderCalculatorDetails();
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function markdownCells(line) {
@@ -2408,8 +2676,8 @@ function parseDigitalDatasheets(markdown, faction) {
 function applyDatasheetWoundsToRosters() {
   let changed = false;
   ["attacker", "defender"].forEach((side) => state.rosters[side].groups.forEach((group) => group.units.forEach((unit) => {
-    const profile = getUnitProfile(unit.name);
-    const card = findStructuredCalculatorCard(unit.name);
+    const profile = getUnitProfile(unit.name, state.rosters[side].faction);
+    const card = findStructuredCalculatorCard(unit.name, state.rosters[side].faction);
     const wounds = Number(card?.data?.unit?.woundsPerModel || profile?.woundsPerModel || 0);
     if (!wounds) return;
     unit.models.forEach((model) => {
@@ -2523,11 +2791,11 @@ function importArmyToRoster(army, side) {
   roster.detachmentDp = Number(army.detachmentDp || 0);
   roster.detachmentSourceText = army.detachmentSourceText || "";
   roster.groups = army.groups.map((group) => normalizeGroup({ ...group, units: group.units.map((unit) => {
-    const card = findStructuredCalculatorCard(unit.name);
-    const wounds = Number(card?.data?.unit?.woundsPerModel || getUnitProfile(unit.name)?.woundsPerModel || 0);
+    const card = findStructuredCalculatorCard(unit.name, roster.faction);
+    const wounds = Number(card?.data?.unit?.woundsPerModel || getUnitProfile(unit.name, roster.faction)?.woundsPerModel || 0);
     if (!wounds || !Array.isArray(unit.models)) return unit;
     return { ...unit, models: unit.models.map((model) => model.maximumWounds === 1 && model.currentWounds === 1 ? { ...model, maximumWounds: wounds, currentWounds: wounds, woundsSource: "datasheet" } : model) };
-  }) }));
+  }) }, roster.faction));
   saveRosters();
   renderRosters();
   return true;
@@ -2713,10 +2981,13 @@ function weaponEffectsFromKeywords(weapon, rollOptions = {}, ruleEffects = {}, m
     woundCriticalEnabled: Boolean(ruleEffects.woundCriticalThreshold),
     criticalWoundThreshold: Number(ruleEffects.woundCriticalThreshold || keywordPayload.criticalWoundThreshold || 6),
     damageRerollEnabled: Boolean(ruleEffects.damageReroll),
-    damageRerollType: "ones",
+    // 模式来自效果声明：ones 只重投 1；failed（原文"重投伤害骰"）映射为
+    // 全部骰面各重投一次（specific + 1..6），不再硬编码为仅重投 1。
+    damageRerollType: ruleEffects.damageRerollMode === "failed" ? "specific" : (ruleEffects.damageRerollMode || "ones"),
+    damageRerollValues: ruleEffects.damageRerollMode === "failed" ? [1, 2, 3, 4, 5, 6] : [],
     damageRerollAmount: "all",
-    woundRerollAllEnabled: Boolean(ruleWoundReroll),
-    woundRerollAllType: ruleWoundReroll || "failed",
+    woundRerollAllEnabled: Boolean(ruleWoundReroll) && ruleWoundReroll !== "none",
+    woundRerollAllType: ruleWoundReroll === "none" ? "ones" : (ruleWoundReroll || "failed"),
     woundRerollAllValues: ruleWoundRerollValues,
     hazardousEnabled: Boolean(coreProfile.isHazardous),
     hazardousDamage: Number(coreProfile.hazardousDamage || 1),
@@ -2781,6 +3052,7 @@ function renderCalculation(result) {
   const engineResult = result.engine || {};
   renderHistogram("damageDistribution", "damageDistributionNote", engineResult.totalDamage, "总伤害 ");
   renderHistogram("killsDistribution", "killsDistributionNote", engineResult.kills, "击杀 ");
+  scheduleBattleSessionSave();
 }
 
 $("#runCalc").addEventListener("click", () => {
@@ -2803,7 +3075,9 @@ $("#runCalc").addEventListener("click", () => {
 function loadSettingsForm() {
   $("#apiMode").value = state.settings.mode;
   $("#apiKey").value = state.settings.key || "";
-  $("#apiEndpoint").value = state.settings.endpoint;
+  $("#apiEndpoint").value = state.settings.mode === "proxy" && state.settings.endpoint === DEFAULT_GLM_ENDPOINT
+    ? ""
+    : state.settings.endpoint;
   $("#apiModel").value = state.settings.model;
   $("#rememberKey").checked = state.settings.rememberKey;
   updateEndpointHint();
@@ -2811,18 +3085,26 @@ function loadSettingsForm() {
 
 function updateEndpointHint() {
   const mode = $("#apiMode").value;
-  $("#apiEndpoint").placeholder = mode === "proxy" ? "https://你的-worker.example.workers.dev/api/chat" : "https://api.deepseek.com/chat/completions";
+  $("#apiEndpoint").placeholder = mode === "proxy" ? "https://你的-worker.example.workers.dev/api/chat" : DEFAULT_GLM_ENDPOINT;
   $("#apiEndpoint").disabled = false;
 }
 
-$("#apiMode").addEventListener("change", updateEndpointHint);
+$("#apiMode").addEventListener("change", () => {
+  const endpoint = $("#apiEndpoint");
+  if ($("#apiMode").value === "proxy") {
+    if (endpoint.value === DEFAULT_GLM_ENDPOINT) endpoint.value = "";
+  } else if (!endpoint.value || /workers\.dev|workers\.com/i.test(endpoint.value)) {
+    endpoint.value = DEFAULT_GLM_ENDPOINT;
+  }
+  updateEndpointHint();
+});
 $("#settingsForm").addEventListener("submit", (event) => {
   event.preventDefault();
   saveSettings({
     mode: $("#apiMode").value,
     key: $("#apiKey").value.trim(),
     endpoint: $("#apiEndpoint").value.trim(),
-    model: $("#apiModel").value.trim() || "deepseek-v4-flash",
+    model: $("#apiModel").value.trim() || DEFAULT_GLM_MODEL,
     rememberKey: $("#rememberKey").checked,
   });
   $("#connectionStatus").textContent = state.settings.mode === "proxy" ? "代理待连接" : state.settings.key ? "AI 已配置" : "本地预览";
@@ -2855,7 +3137,12 @@ function getRelevantKinds(question) {
 function currentBattleState() {
   return ["attacker", "defender"].map((side) => {
     const roster = state.rosters[side];
-    const units = getRosterUnits(roster).length ? getRosterUnits(roster).map((unit) => `${unit.name}（${activeModels(unit).length}/${unit.models.length} 模型存活；装备：${Object.entries(countEquipment(unit)).map(([name, count]) => `${count}x ${name}`).join("、") || "无"}）`).join("；") : "未建立单位";
+    const units = roster.groups.length ? roster.groups.map((group) => {
+      const members = group.units.map((unit) => `${unit.name}（${activeModels(unit).length}/${unit.models.length} 模型存活；装备：${Object.entries(countEquipment(unit)).map(([name, count]) => `${count}x ${name}`).join("、") || "无"}）`).join("；");
+      return group.category === "联合单位" || /^联合单位/.test(group.title || "")
+        ? `【${group.title}，联合单位，成员：${members}】`
+        : members;
+    }).join("；") : "未建立单位";
     return `${sideLabel(side)}：${roster.name}，阵营=${roster.faction}。单位：${units}`;
   }).join("\n");
 }
@@ -2887,7 +3174,7 @@ function localAssistantReply(text) {
   if (!state.rosters.attacker.groups.length || !state.rosters.defender.groups.length) return "请先在“军表”页导入双方的军表。导入后可在单位详情中记录伤口或移除阵亡模型。";
   if (/射击|击杀|概率|伤害|近战|冲锋/.test(text)) return "已识别为需要战斗计算。配置 AI 后，我会结合当前单位、装备与伤口计算，并在信息不足时追问。";
   if (/计谋|战略|分遣队/.test(text)) return "配置 AI 连接后即可查询这次行动可用的规则与限制。";
-  return "这是本地预览模式。请在“设置”页配置 DeepSeek API Key 或 Worker 地址，然后直接描述你要进行的行动。";
+  return "这是本地预览模式。请在“设置”页配置 GLM API Key 或 Worker 地址，然后直接描述你要进行的行动。";
 }
 
 function appendMessage(role, text) {
@@ -2905,6 +3192,23 @@ function assistantUnitNameKey(value) {
     .toLowerCase();
 }
 
+function assistantJoinedUnitSummary(resolved) {
+  const entry = resolved?.entry;
+  const group = entry?.group;
+  const joined = Boolean(entry?.rosterUnit && group && (group.category === "联合单位" || /^联合单位/.test(group.title || "")));
+  if (!joined) return null;
+  return {
+    title: group.title,
+    rosterKey: resolved.candidate?.key || entry.key,
+    members: group.units.filter((unit) => activeModels(unit).length).map((unit) => ({
+      name: unit.name,
+      role: unit.role || "联合成员",
+      livingModels: activeModels(unit).length,
+      totalModels: unit.models.length,
+    })),
+  };
+}
+
 function assistantUnitCandidates(name, side = "") {
   const query = assistantUnitNameKey(name);
   if (!query) return [];
@@ -2913,15 +3217,19 @@ function assistantUnitCandidates(name, side = "") {
   options.forEach((option) => {
     const optionName = assistantUnitNameKey(option.name);
     if (!optionName || !(optionName === query || optionName.includes(query) || query.includes(optionName))) return;
-    const priority = option.key.startsWith(`roster:${side}:`) ? 0 : option.key.startsWith("roster:") ? 1 : 2;
-    const existing = unique.get(`${option.name}:${option.faction || ""}`);
-    if (!existing || priority < existing.priority) unique.set(`${option.name}:${option.faction || ""}`, { ...option, priority });
+    const priority = option.key.startsWith(`roster:${side}:`) ? (option.joined ? 0 : 1) : option.key.startsWith("roster:") ? (option.joined ? 2 : 3) : 4;
+    const identity = option.key.startsWith("roster:") ? option.key : `${option.name}:${option.faction || ""}`;
+    const existing = unique.get(identity);
+    if (!existing || priority < existing.priority) unique.set(identity, { ...option, priority });
   });
   return [...unique.values()].sort((left, right) => left.priority - right.priority || left.name.length - right.name.length);
 }
 
-async function resolveAssistantCalculatorEntry(name, side) {
-  const candidates = assistantUnitCandidates(name, side);
+async function resolveAssistantCalculatorEntry(name, side, rosterKey = "") {
+  const rosterCandidate = String(rosterKey || "").startsWith(`roster:${side}:`)
+    ? calculatorPickerOptions(side).allOptions.find((option) => option.key === rosterKey)
+    : null;
+  const candidates = rosterCandidate ? [rosterCandidate] : assistantUnitCandidates(name, side);
   if (!candidates.length) throw new Error(`未找到“${name}”对应的数据卡或当前军表单位。请使用完整单位名称。`);
   const candidate = candidates[0];
   if (candidate.factionId || candidate.faction) await ensureFactionRuntimeLoaded(candidate.factionId || candidate.faction);
@@ -2932,7 +3240,10 @@ async function resolveAssistantCalculatorEntry(name, side) {
 }
 
 function assistantRuleSuggestions(resolved) {
-  const rules = window.WarhammerRuleResolver?.rulesForUnit(resolved.entry.faction || resolved.candidate.faction, resolved.entry.name) || { faction: [], unit: [] };
+  const faction = resolved.entry.faction || resolved.candidate.faction;
+  const joinedMembers = assistantJoinedUnitSummary(resolved)?.members || [];
+  const unitNames = [resolved.entry.name, ...joinedMembers.map((member) => member.name)];
+  const rules = window.WarhammerRuleResolver?.rulesForUnits(faction, unitNames) || { faction: [], unit: [] };
   const seen = new Set();
   return [...rules.faction, ...rules.unit]
     .filter((rule) => rule?.name && Array.isArray(rule.controls) && rule.controls.length)
@@ -2944,6 +3255,26 @@ function assistantRuleSuggestions(resolved) {
     }));
 }
 
+function assistantCombatOptions(resolved, attackMode, side) {
+  const phase = attackMode === "melee" ? "melee" : "ranged";
+  const faction = resolved.entry.faction || resolved.candidate.faction;
+  const skills = assistantRuleSuggestions(resolved)
+    .filter((rule) => !rule.phases.length || rule.phases.includes(phase))
+    .map((rule) => ({ ...rule, kind: "技能", side }));
+  const roster = resolved.entry.rosterUnit ? state.rosters[resolved.entry.rosterSide] : null;
+  const detachmentRules = roster
+    ? window.WarhammerRuleResolver?.rulesForDetachments(faction, roster.detachmentIds || []).rules || []
+    : [];
+  const phaseTerms = phase === "melee" ? /近战|肉搏|战斗/i : /射击|远程|开火/i;
+  const stratagems = detachmentRules
+    .filter((rule) => rule?.type === "stratagem" && Number.isFinite(Number(rule.cp)))
+    .filter((rule) => phaseTerms.test(`${rule.timing || ""}\n${rule.text || ""}`))
+    .map((rule) => ({
+      kind: "计谋", side, name: rule.name, cp: Number(rule.cp), timing: rule.timing || "", target: rule.target || "", status: rule.status || "需确认目标与触发条件",
+    }));
+  return [...skills, ...stratagems];
+}
+
 function assistantProfileSummary(resolved) {
   const { entry, data, candidate } = resolved;
   return {
@@ -2953,6 +3284,7 @@ function assistantProfileSummary(resolved) {
     unit: data.unit,
     weapons: (data.weapons || []).map(({ name, type, attacks, skill, strength, ap, damage, abilities }) => ({ name, type, attacks, skill, strength, ap, damage, abilities })),
     abilities: data.abilities || [],
+    joinedUnit: assistantJoinedUnitSummary(resolved),
     availableOptions: assistantRuleSuggestions(resolved),
   };
 }
@@ -2964,11 +3296,18 @@ async function executeAssistantToolCall(toolCall) {
   if (name === "find_units") {
     const candidates = assistantUnitCandidates(args.query, args.side).slice(0, 12);
     return candidates.length
-      ? { ok: true, units: candidates.map(({ name: unitName, faction, key }) => ({ name: unitName, faction: faction || "", source: key.startsWith("roster:") ? "当前军表" : "内置数据卡" })) }
+      ? { ok: true, units: candidates.map((candidate) => {
+        const entry = getCalculatorEntry(candidate.side || args.side || "attacker", candidate.key);
+        const joinedUnit = entry ? assistantJoinedUnitSummary({ entry, candidate }) : null;
+        return {
+          name: candidate.name, faction: candidate.faction || "", source: candidate.key.startsWith("roster:") ? "当前军表" : "内置数据卡",
+          rosterKey: candidate.key.startsWith("roster:") ? candidate.key : "", joinedUnit,
+        };
+      }) }
       : { ok: false, error: `没有找到“${args.query || ""}”。` };
   }
   if (name === "get_unit_profile") {
-    try { return { ok: true, profile: assistantProfileSummary(await resolveAssistantCalculatorEntry(args.name, args.side || "attacker")) }; } catch (error) { return { ok: false, error: error.message }; }
+    try { return { ok: true, profile: assistantProfileSummary(await resolveAssistantCalculatorEntry(args.name, args.side || "attacker", args.rosterKey)) }; } catch (error) { return { ok: false, error: error.message }; }
   }
   if (name === "calculate_combat") {
     if (!args.attacker || !args.defender || !["ranged", "melee"].includes(args.attackMode)) return { ok: false, error: "计算需要 attacker、defender 和 ranged 或 melee 攻击类型。" };
@@ -2977,7 +3316,7 @@ async function executeAssistantToolCall(toolCall) {
       drafts: state.calculatorDrafts, context: { ...state.combatContext }, attackMode: state.attackMode,
     };
     try {
-      const [attacker, defender] = await Promise.all([resolveAssistantCalculatorEntry(args.attacker, "attacker"), resolveAssistantCalculatorEntry(args.defender, "defender")]);
+      const [attacker, defender] = await Promise.all([resolveAssistantCalculatorEntry(args.attacker, "attacker", args.attackerRosterKey), resolveAssistantCalculatorEntry(args.defender, "defender", args.defenderRosterKey)]);
       state.calculatorSelection = { attacker: attacker.key, defender: defender.key };
       state.calculatorSelections = { attacker: [attacker.key], defender: [defender.key] };
       state.calculatorDrafts = { attacker: [], defender: [] };
@@ -2988,10 +3327,16 @@ async function executeAssistantToolCall(toolCall) {
       renderCalculatorSelectors();
       $$("[data-calc-context]").forEach((input) => { input.checked = Boolean(state.combatContext[input.dataset.calcContext]); });
       $("#calculatorAttackMode").value = state.attackMode;
+      // AI 计算与手动计算共享同一场景状态：计算成功后场景保持为当前场景并持久化。
+      scheduleBattleSessionSave();
       return {
         ok: true,
         calculator: "本地规则引擎（1,000 次模拟）",
         attacker: assistantProfileSummary(attacker), defender: assistantProfileSummary(defender), attackMode: state.attackMode, context: state.combatContext,
+        combatOptions: {
+          attacker: assistantCombatOptions(attacker, state.attackMode, "attacker"),
+          defender: assistantCombatOptions(defender, state.attackMode, "defender"),
+        },
         averageDamage: Number(result.averageDamage.toFixed(2)), killProbability: Number((result.chance * 100).toFixed(1)), killProbabilityUnit: "%",
       };
     } catch (error) {
@@ -3007,7 +3352,7 @@ async function executeAssistantToolCall(toolCall) {
 }
 
 async function requestAssistantCompletion(settings, messages, tools = []) {
-  const endpoint = settings.endpoint || (settings.mode === "direct" ? "https://api.deepseek.com/chat/completions" : "");
+  const endpoint = settings.endpoint || (settings.mode === "direct" ? DEFAULT_GLM_ENDPOINT : "");
   if (!endpoint) throw new Error("请先在设置页填入 Worker 地址。");
   const headers = { "Content-Type": "application/json" };
   if (settings.mode === "direct") headers.Authorization = `Bearer ${settings.key}`;
@@ -3020,6 +3365,12 @@ async function requestAssistantCompletion(settings, messages, tools = []) {
 }
 
 function formatAssistantToolResult(_route, result) {
+  // 单位查找结果（确定性短名称路由 / 模型调用 find_units）：列候选，不编造。
+  if (Array.isArray(result?.units)) {
+    if (!result.ok || !result.units.length) return result.error || "没有找到匹配单位；请用更完整的名称再试。";
+    const listed = result.units.map((unit) => `${unit.name}（${unit.faction || "未分类"}${unit.source ? " · " + unit.source : ""}）`).join("；");
+    return `找到 ${result.units.length} 个匹配单位：${listed}。请确认要查询或计算的完整单位名称（同名单位用阵营区分）。`;
+  }
   if (_route?.intent === "combat-summary" && Array.isArray(result)) {
     const melee = result.find((item) => item?.attackMode === "melee");
     const ranged = result.find((item) => item?.attackMode === "ranged");
@@ -3065,7 +3416,7 @@ async function callAssistant(text) {
       tools: window.WarhammerTacticalConstitution.toolDefinitions,
       request: (messages, tools) => requestAssistantCompletion(state.settings, messages, tools),
       executeTool: executeAssistantToolCall,
-      routeQuestion: window.WarhammerTacticalCorpus?.route,
+      routeQuestion: (question, memory) => window.WarhammerTacticalCorpus?.route?.(question, memory, (query) => assistantUnitCandidates(query).length) || null,
       formatToolResult: formatAssistantToolResult,
       buildContext: async (question) => {
         const library = await buildLibraryContext(question);
@@ -3076,7 +3427,7 @@ async function callAssistant(text) {
       },
     });
   }
-  const route = window.WarhammerTacticalCorpus?.route?.(text, state.tacticalAgent.getMemory());
+  const route = window.WarhammerTacticalCorpus?.route?.(text, state.tacticalAgent.getMemory(), (query) => assistantUnitCandidates(query).length);
   if (settings.mode === "direct" && !settings.key && !route) return localAssistantReply(text);
   return state.tacticalAgent.answer(text);
 }
@@ -3098,9 +3449,16 @@ $("#chatForm").addEventListener("submit", async (event) => {
     $("#connectionStatus").classList.remove("muted");
   } catch (error) {
     console.error(error);
-    pendingNode.querySelector("p").innerHTML = "调用失败：请检查 API 地址、Key 或浏览器跨域设置。若是 GitHub Pages 直接调用失败，请切换到 Worker 代理模式。";
+    const detail = error?.message ? `\n\n${error.message}` : "";
+    pendingNode.querySelector("p").innerHTML = escapeHtml(`调用失败：${detail || "请检查 API 地址、Key 或浏览器跨域设置。"}\n\n若是 GitHub Pages 直接调用失败，请切换到 Worker 代理模式。`).replace(/\n/g, "<br />");
     showToast("AI 调用失败");
   }
+});
+
+$("#chatInput").addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" || event.shiftKey || event.isComposing) return;
+  event.preventDefault();
+  $("#chatForm").requestSubmit();
 });
 
 $$('.quick-prompts button').forEach((button) => button.addEventListener("click", () => {

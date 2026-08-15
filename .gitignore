@@ -1,8 +1,7 @@
-# Original rulebook and faction PDFs are kept locally for verification only.
-# Searchable Markdown/JSON derivatives remain tracked and are used by deploys.
+# Licensed source PDFs and their verbatim local extracts are evidence, not deploy artifacts.
+/sources/pdfs/
 /docs/data/*.pdf
 /docs/data/**/*.pdf
-/docs/未分类数据卡pdf/*.pdf
 
 # Faction source data is user-provided; generated runtime bundles are tracked.
 /docs/data/*/

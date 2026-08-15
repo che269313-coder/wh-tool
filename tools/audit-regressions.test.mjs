@@ -16,6 +16,30 @@ function loadKeywordDictionary() {
   return context.WarhammerKeywordDictionary;
 }
 
+test("Ork Boyz use the PDF canonical name and model-level wounds", () => {
+  const catalog = JSON.parse(read("docs/catalogs/orks.json"));
+  const card = catalog.cards.find((candidate) => candidate.id === "orks.boyz.01474b35");
+  assert.ok(card, "Ork Boyz catalog card must exist");
+  assert.equal(card.name, "小子");
+  assert.equal(card.unit.name, "小子");
+
+  const trooper = card.modelProfiles.find((profile) => profile.id === "trooper");
+  const champion = card.modelProfiles.find((profile) => profile.id === "champion");
+  assert.equal(trooper.name, "小子");
+  assert.equal(trooper.unit?.woundsPerModel ?? card.unit.woundsPerModel, 1);
+  assert.ok(trooper.matchIncludes?.includes("Boy"));
+  assert.ok(trooper.matchIncludes?.includes("男孩"));
+  assert.equal(champion.name, "老大队长");
+  assert.equal(champion.unit?.woundsPerModel, 2, "PDF specifies that the Boss Nob has one extra wound");
+  assert.ok(champion.matchIncludes?.includes("Boss Nob"));
+
+  const indexContext = {};
+  indexContext.window = indexContext;
+  vm.runInNewContext(read("docs/calculator-catalog.js"), indexContext);
+  const indexed = indexContext.WARHAMMER_CALCULATOR_INDEX.find((candidate) => candidate.id === card.id);
+  assert.equal(indexed?.name, "小子", "轻量搜索索引必须与补丁后的阵营 catalog 同步");
+});
+
 test("owner-scoped weapon attack modifiers are assembled with shared modifiers", () => {
   const app = read("docs/app.js");
   const start = app.indexOf("const scopedAttackModifier");
@@ -88,6 +112,18 @@ test("rapid fire accepts dice expressions", () => {
   assert.equal(dictionary.resolve(["速射 D6+3"], { targetWithinHalfRange: true }).attackExpressionModifier, "D6+3");
 });
 
+test("chat input submits on Enter while preserving Shift+Enter and IME composition", () => {
+  const app = read("docs/app.js");
+  const start = app.indexOf('$("#chatInput").addEventListener("keydown"');
+  const source = app.slice(start, start + 500);
+  assert.ok(start >= 0, "chat input should listen for Enter");
+  assert.match(source, /event\.key\s*!==\s*["']Enter["']/);
+  assert.match(source, /event\.shiftKey/);
+  assert.match(source, /event\.isComposing/);
+  assert.match(source, /event\.preventDefault\(\)/);
+  assert.match(source, /\$\("#chatForm"\)\.requestSubmit\(\)/);
+});
+
 test("traditional-to-simplified conversion preserves non-Chinese Unicode", () => {
   const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "wh-tool-convert-"));
   const input = path.join(temporaryDirectory, "input.txt");
@@ -95,7 +131,7 @@ test("traditional-to-simplified conversion preserves non-Chinese Unicode", () =>
   try {
     fs.writeFileSync(input, "繁體 Brôkhyr Ûthar mega‑blasta Kromlôk’s", "utf8");
     const result = spawnSync("powershell", [
-      "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", new URL("tools/ConvertTo-SimplifiedChinese.ps1", root).pathname.slice(1),
+      "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", new URL("tools/extract/ConvertTo-SimplifiedChinese.ps1", root).pathname.slice(1),
       "-Path", input, "-OutFile", output, "-Overwrite",
     ], { encoding: "utf8" });
     assert.equal(result.status, 0, result.stderr || result.stdout);

@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "order": 7,
+  "definition": {
+    "id": "imperial-knights",
+    "name": "帝国骑士",
+    "englishName": "Imperial Knights",
+    "aliases": [
+      "Imperial Knights"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_imperial_knights",
+    "runtime": {
+      "catalog": "catalogs/imperial-knights.json",
+      "rules": [
+        "rules/factions/imperial-knights.js"
+      ],
+      "detachment": "rules/detachments/imperial-knights.js"
+    },
+    "data": {
+      "catalog": "data/帝国骑士/帝国骑士-结构化数据卡.json",
+      "datasheet": "data/帝国骑士/帝国骑士-数据卡-可检索.md",
+      "detachment": "data/帝国骑士/分遣队规则-可检索.md",
+      "detachmentSource": "data/帝国骑士/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/帝国骑士/帝国骑士-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/帝国骑士/帝国骑士-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/帝国骑士/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/帝国骑士/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/帝国骑士/帝国骑士-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/帝国骑士/帝国骑士-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/帝国骑士/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=imperial-knights",
+      "inputPath": "docs/data/帝国骑士/帝国骑士-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/imperial-knights/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "赫克托爵士": {
+        "canonical": "赫克图爵士",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "远征骑士": {
+        "canonical": "圣战士",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      }
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "碎敌统御者": {
+        "canonical": "碎敌统御者",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "封臣铸造联盟": {
+        "canonical": "封臣铸造联盟",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "忠诚护卫": {
+        "canonical": "忠诚护卫",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "巡游勇士": {
+        "canonical": "巡游勇士",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Questoris Companions": {
+        "canonical": "巡游勇士",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "守门人骑士队": {
+        "canonical": "守门人骑士队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Gate Warden Lance": {
+        "canonical": "守门人骑士队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "英勇突击骑士队": {
+        "canonical": "英勇突击骑士队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Valourstrike Lance": {
+        "canonical": "英勇突击骑士队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "武装矛头": {
+        "canonical": "武装矛头",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Spearhead-at-Arms": {
+        "canonical": "武装矛头",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "自由之刃连队": {
+        "canonical": "自由之刃连队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Freeblade Company": {
+        "canonical": "自由之刃连队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      }
+    },
+    "weapons": {}
+  },
+  "overrides": []
+}

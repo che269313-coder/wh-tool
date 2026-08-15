@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 1,
+  "order": 21,
+  "definition": {
+    "id": "leagues-of-votann",
+    "name": "沃坦联盟",
+    "englishName": "Leagues of Votann",
+    "aliases": [
+      "Leagues of Votann"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_leagues_of_votann",
+    "runtime": {
+      "catalog": "catalogs/leagues-of-votann.json",
+      "rules": [
+        "rules/factions/leagues-of-votann.js"
+      ],
+      "detachment": "rules/detachments/leagues-of-votann.js"
+    },
+    "data": {
+      "catalog": "data/沃坦联盟/沃坦联盟-结构化数据卡.json",
+      "datasheet": "data/沃坦联盟/沃坦联盟-数据卡-可检索.md",
+      "detachment": "data/沃坦联盟/分遣队规则-可检索.md",
+      "detachmentSource": "data/沃坦联盟/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/沃坦联盟/沃坦联盟-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/沃坦联盟/沃坦联盟-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/沃坦联盟/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/沃坦联盟/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/沃坦联盟/沃坦联盟-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/沃坦联盟/沃坦联盟-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/沃坦联盟/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=leagues-of-votann",
+      "inputPath": "docs/data/沃坦联盟/沃坦联盟-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/leagues-of-votann/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "天命者 乌萨尔": {
+        "canonical": "天命者乌萨尔",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "机锻协钢铁之主": {
+        "canonical": "机锻钢铁之主",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "秘械评估师": {
+        "canonical": "链金士评估师",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "忆械战略家": {
+        "canonical": "曼姆尼尔战略师",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "机锻协雷鸣枪手": {
+        "canonical": "机锻匠雷霆炮手",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "钢甲铁裔-射击型": {
+        "canonical": "装备重型爆燃解离枪的\n钢甲铁裔",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "钢甲铁裔-格斗型": {
+        "canonical": "装备近战武器的钢甲铁裔",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "猎裔尖兵": {
+        "canonical": "远行者猎手",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "猎裔先锋": {
+        "canonical": "远行者先锋",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "摩羯座守护者战车": {
+        "canonical": "摩羯座防御者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "摩羯座运载者战车": {
+        "canonical": "摩羯座运兵车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "射手座半人马战车": {
+        "canonical": "人马座战车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      }
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "装甲先驱": {
+        "canonical": "装甲先驱",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "远行探索者": {
+        "canonical": "远行探索者",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "炉卫盟约": {
+        "canonical": "炉卫盟约",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "炉誓": {
+        "canonical": "炉誓",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Hearthband": {
+        "canonical": "炉誓",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "炉心战团": {
+        "canonical": "炉誓",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "炉火武库": {
+        "canonical": "炉火武库",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Hearthfyre Arsenal": {
+        "canonical": "炉火武库",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "炉焰武库": {
+        "canonical": "炉火武库",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "侵害勘探团": {
+        "canonical": "侵害勘探团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Persecution Prospect": {
+        "canonical": "侵害勘探团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "猎剿勘探队": {
+        "canonical": "侵害勘探团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "需求守卫铁誓团": {
+        "canonical": "需求守卫铁誓团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Needgaard Oathband": {
+        "canonical": "需求守卫铁誓团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "陨酬铁誓团": {
+        "canonical": "需求守卫铁誓团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "采掘突击班": {
+        "canonical": "采掘突击班",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Dêlve Assault Shift": {
+        "canonical": "采掘突击班",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "深岩突击队": {
+        "canonical": "采掘突击班",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "佣兵铁誓团": {
+        "canonical": "佣兵铁誓团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Mercenary Oathband": {
+        "canonical": "佣兵铁誓团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "极速烙印铁誓团": {
+        "canonical": "极速烙印铁誓团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Brandfast Oathband": {
+        "canonical": "极速烙印铁誓团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "烙速铁誓团": {
+        "canonical": "极速烙印铁誓团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "弑敌壁垒": {
+        "canonical": "弑敌壁垒",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      }
+    },
+    "weapons": {}
+  },
+  "overrides": [
+    {
+      "path": "cards[id=leagues-of-votann.9dbf85b8-d1e2-4f2f-8e6c-165c91a50c4b].modelProfiles[id=trooper].weaponNames",
+      "value": [
+        "自动模式手枪",
+        "近战武器",
+        "离子射线步枪",
+        "HYLas自动步枪",
+        "HYLas旋转炮",
+        "L7飞弹发射器",
+        "EtaCarn电浆射手",
+        "磁轨步枪",
+        "电浆刀"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    }
+  ]
+}

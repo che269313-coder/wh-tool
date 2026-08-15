@@ -17,7 +17,7 @@ const translatedNames = {
   "严重损伤": "Seriously Damaged",
   "受损": "Seriously Damaged",
   "运输载具": "Transport",
-  "暗影潜行": "Lone Operative",
+  "暗影潜行": "Shadow Skulk",
   "战斗之仪": "Rites of Battle",
   "极限战士荣誉卫队": "Ultramarines Honour Guard",
   "永不屈服": "Never Yield",

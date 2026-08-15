@@ -1,0 +1,476 @@
+{
+  "schemaVersion": 1,
+  "order": 19,
+  "definition": {
+    "id": "tau-empire",
+    "name": "钛帝国",
+    "englishName": "T'au Empire",
+    "aliases": [
+      "T'au Empire"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_tau_empire",
+    "runtime": {
+      "catalog": "catalogs/tau-empire.json",
+      "rules": [
+        "rules/factions/tau-empire.js"
+      ],
+      "detachment": "rules/detachments/tau-empire.js"
+    },
+    "data": {
+      "catalog": "data/钛帝国/钛帝国-结构化数据卡.json",
+      "datasheet": "data/钛帝国/钛帝国-数据卡-可检索.md",
+      "detachment": "data/钛帝国/分遣队规则-可检索.md",
+      "detachmentSource": "data/钛帝国/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/钛帝国/钛帝国-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/钛帝国/钛帝国-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/钛帝国/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/钛帝国/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/钛帝国/钛帝国-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/钛帝国/钛帝国-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/钛帝国/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=tau-empire",
+      "inputPath": "docs/data/钛帝国/钛帝国-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/tau-empire/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "影阳指挥官": {
+        "canonical": "指挥官影阳",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "远见指挥官": {
+        "canonical": "指挥官远见",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(XV85)强执战斗服指挥官": {
+        "canonical": "执法者战斗服指挥官",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(XV86)冷星战斗服指挥官": {
+        "canonical": "冷星战斗服指挥官",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "火刃队长": {
+        "canonical": "火刃首领",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "以太长老": {
+        "canonical": "以太",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "暗行者": {
+        "canonical": "暗行",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "打击小队": {
+        "canonical": "突击小队",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "破袭小队": {
+        "canonical": "攻坚小队",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(XV8)危机日铸战斗服小队": {
+        "canonical": "危机阳铸战斗服",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(XV8)危机火刃战斗服小队": {
+        "canonical": "危机炎刃战斗服",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(XV8)危机星镰战斗服小队": {
+        "canonical": "危机星镰战斗服",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(XV25)潜行战斗服小队": {
+        "canonical": "隐形战斗服",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(XV95)鬼覆战斗服": {
+        "canonical": "鬼船战斗服",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "寻路者小队": {
+        "canonical": "探路者小队",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "神射手小队": {
+        "canonical": "火眼小队",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "胡蜂人尖翼小队": {
+        "canonical": "胡蜂尖翼战士",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "克鲁特寻迹塑形者": {
+        "canonical": "克鲁特踪迹塑形者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "克鲁特食肉者小队": {
+        "canonical": "克鲁特捕食者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "克鲁特猿兽骑兵小队": {
+        "canonical": "克鲁特兽骑兵",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "克鲁特狂兽小队": {
+        "canonical": "狂暴克鲁特兽",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "克鲁特猎犬队": {
+        "canonical": "克鲁特猎犬",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "克鲁特远猎者小队": {
+        "canonical": "克鲁特远猎者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(TX4)水虎鱼": {
+        "canonical": "食人鱼战机",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(XV88)炮击战斗服小队": {
+        "canonical": "舷炮战斗服",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(XV104)激流战斗服": {
+        "canonical": "激流战斗服",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(TX78)天 炮艇": {
+        "canonical": "天鳐炮艇",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(TY7)魔鬼鱼": {
+        "canonical": "魔鬼鱼运输艇",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(AX3)剃刀鲨战斗机": {
+        "canonical": "剃刀鲨歼击机",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(AX39)阳鲨轰炸机": {
+        "canonical": "太阳鲨轰炸机",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(KV128)雷暴": {
+        "canonical": "风暴潮",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "潮汐护盾墙": {
+        "canonical": "潮汐壁垒防线墙",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "潮汐兵蜂平台": {
+        "canonical": "潮汐壁垒无人机港",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "潮汐炮台": {
+        "canonical": "潮汐壁垒炮台",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "虎鲨": {
+        "canonical": "虎鲨战斗轰炸机",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "虎鲨AX-1-0": {
+        "canonical": "AX-1-0 虎鲨攻击机",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(KX139)塔'钨钠至高装甲": {
+        "canonical": "塔’乌纳至高机甲",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "蝠鲼": {
+        "canonical": "蝠鱝登陆舰",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "安’瓦": {
+        "canonical": "欧恩瓦",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "安’史": {
+        "canonical": "欧恩希",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "遥击": {
+        "canonical": "长击手",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "夏司’欧 R’ALAI": {
+        "canonical": "夏斯奥·鲁阿莱",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(XV8)危机战斗服指挥官": {
+        "canonical": "危机战斗服指挥官",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(XV8)危机战斗服小队": {
+        "canonical": "危机战斗服",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "XV9灾害战斗服小队": {
+        "canonical": "XV9 危机战斗服",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(XV107)燃雨战斗服": {
+        "canonical": "尔瓦那战斗服",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(XV109)焰涌战斗服": {
+        "canonical": "伊瓦拉战斗服",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "脂鲤小队": {
+        "canonical": "泰特拉侦察飞艇",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "TX-42水虎鱼": {
+        "canonical": "TX42 比拉鱼",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "卡纳罗克骑兵队": {
+        "canonical": "纳洛克骑兵",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "卡纳罗克巨兽": {
+        "canonical": "大角拉克",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "重型枪蜂小队": {
+        "canonical": "重型炮击无人机",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(DX-6) 鱼隐形兵蜂机队": {
+        "canonical": "雷莫拉隐形无人机",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "(AX-5-2)梭鱼": {
+        "canonical": "梭子鱼战机",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "逆戟鲸运输机": {
+        "canonical": "虎鲸突击艇",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "遥感哨塔": {
+        "canonical": "远程感应塔",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "兵蜂哨戒炮": {
+        "canonical": "无人哨塔炮座",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      }
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "先攻抢占核心队": {
+        "canonical": "先攻抢占核心队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "辅助核心队": {
+        "canonical": "辅助核心队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "辅助猎核": {
+        "canonical": "辅助核心队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "原型系统测试核心队": {
+        "canonical": "原型系统测试核心队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "原型系统\n测试核心队": {
+        "canonical": "原型系统测试核心队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "考雍": {
+        "canonical": "考雍",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Kauyon": {
+        "canonical": "考雍",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "空育": {
+        "canonical": "考雍",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "蒙特卡": {
+        "canonical": "蒙特卡",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Mont’ka": {
+        "canonical": "蒙特卡",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "反击核心队": {
+        "canonical": "反击核心队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Retaliation Cadre": {
+        "canonical": "反击核心队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "克鲁特猎群": {
+        "canonical": "克鲁特猎群",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Kroot Hunting Pack": {
+        "canonical": "克鲁特猎群",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "克鲁特猎群队": {
+        "canonical": "克鲁特猎群",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "疾晓核心队": {
+        "canonical": "疾晓核心队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      }
+    },
+    "weapons": {}
+  },
+  "overrides": []
+}

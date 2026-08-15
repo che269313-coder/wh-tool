@@ -68,8 +68,8 @@
       case "repeat-ranged": if (active) attack.repeatRanged = true; break;
       case "incoming-ap": if (active) defend.incomingApModifier += Number(effect.value || 0); break;
       case "damaged-hit-minus": if (active && Number(context.remainingWounds || 999) <= Number(effect.threshold)) { attack.hitModifier -= 1; contribute(attack, "hitModifier", -1); } break;
-      case "hit-reroll": if (active) attack.hitReroll = effect.mode || "failed"; break;
-      case "wound-reroll": if (active) attack.woundReroll = effect.mode || "failed"; break;
+      case "hit-reroll": if (active) { attack.hitReroll = effect.mode || "failed"; attack.contributions.push({ sourceId, effectType: effect.type, field: "hitReroll", mode: effect.mode || "failed" }); } break;
+      case "wound-reroll": if (active) { attack.woundReroll = effect.mode || "failed"; attack.contributions.push({ sourceId, effectType: effect.type, field: "woundReroll", mode: effect.mode || "failed" }); } break;
       case "hit-modifier": if (active) { attack.hitModifier += Number(effect.value || 0); contribute(attack, "hitModifier", effect.value); } break;
       case "wound-modifier": if (active) { attack.woundModifier += Number(effect.value || 0); contribute(attack, "woundModifier", effect.value); } break;
       case "sustained-hits": if (active) attack.sustainedHits = Math.max(Number(attack.sustainedHits || 0), Number(effect.value || 1)); break;
@@ -89,7 +89,7 @@
       case "ap-vs-infantry": if (active) attack.apModifier = Number(attack.apModifier || 0) + Number(effect.value || 1); break;
       case "damage-modifier": if (active) attack.damageModifier = Number(attack.damageModifier || 0) + Number(effect.value || 0); break;
       case "damage-minus": if (active) attack.damageModifier = Number(attack.damageModifier || 0) - 1; break;
-      case "damage-reroll": if (active) attack.damageReroll = true; break;
+      case "damage-reroll": if (active) { attack.damageReroll = true; attack.damageRerollMode = effect.mode || "ones"; attack.contributions.push({ sourceId, effectType: effect.type, field: "damageReroll", mode: effect.mode || "ones" }); } break;
       case "hit-critical-threshold": {
         if (!active) break;
         const threshold = effect.condition === "targetBelowHalf" && selected(selections, rule, "targetBelowHalf", false)
@@ -117,7 +117,7 @@
       case "incoming-wound-when-strength-gt": if (active) defend.incomingWoundWhenStrengthGreater = Number(effect.value || -1); break;
       case "damage-halving": if (active) defend.damageMultiplier = Math.min(Number(defend.damageMultiplier || 1), 0.5); break;
       case "save-bonus-vs-d1": if (active) defend.saveBonusVsDamage1 = true; break;
-      case "save-reroll": if (active) defend.saveReroll = effect.mode || "ones"; break;
+      case "save-reroll": if (active) { defend.saveReroll = effect.mode || "ones"; defend.contributions.push({ sourceId, effectType: effect.type, field: "saveReroll", mode: effect.mode || "ones" }); } break;
       case "invulnerable-save":
         // Passive (no controls) saves stack by best value. A controllable
         // one-shot/phase override (e.g. 金刚不破's 2+ for the phase) replaces

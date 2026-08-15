@@ -1,0 +1,6440 @@
+{
+  "weapons": {
+    "瘟疫毒刃": {
+      "canonical": "瘟疫短刀",
+      "scope": "global",
+      "source": "黑图书馆军表软件译名"
+    },
+    "凋零榴弹炮": {
+      "canonical": "瘟疫榴弹炮",
+      "scope": "global",
+      "source": "黑图书馆军表软件译名"
+    },
+    "重型瘟疫喷射器": {
+      "canonical": "瘟疫喷射炮",
+      "scope": "global",
+      "source": "黑图书馆军表软件译名"
+    },
+    "瘟疫爆弹枪": {
+      "canonical": "爆弹枪",
+      "scope": "global",
+      "source": "黑图书馆军表软件译名"
+    }
+  },
+  "terms": [
+    {
+      "display": "不知疼痛",
+      "aliases": [
+        "不觉疼痛",
+        "痛苦无感",
+        "不知痛苦",
+        "不知痛楚",
+        "不知疼痛6+/5+（饕餮仪式描述内）",
+        "不止疼痛"
+      ],
+      "source": "跨源审计：PDF(禁军/SM/DG/兽人)=不知疼痛；繁中站=不觉疼痛，混沌SM/混沌恶魔=痛苦无感；按 11ePDF>10ePDF>繁中 显示不知疼痛"
+    },
+    {
+      "display": "致命破灭",
+      "aliases": [
+        "毁灭性决心",
+        "致命毁灭"
+      ],
+      "source": "通用技能清理记录收敛"
+    },
+    {
+      "display": "隐蔽",
+      "aliases": [
+        "潜行",
+        "隐秘",
+        "隐匿"
+      ],
+      "source": "跨源审计：星际战士 11 版 PDF 用「隐蔽」表 Stealth，繁中站用「潜行」；按 11ePDF>10ePDF>繁中 显示隐蔽"
+    },
+    {
+      "display": "WAAAGH!",
+      "aliases": [
+        "Wahh",
+        "瓦戈！",
+        "瓦戈",
+        "咻啊！",
+        "咻啊",
+        "Waaagh!",
+        "Waaagh！",
+        "WAAGH!"
+      ],
+      "source": "vision OCR 兽人 10 版 PDF 原文为 WAAAGH!；繁中站为咻啊/瓦戈；按 PDF 优先显示 WAAAGH!"
+    },
+    {
+      "display": "特殊保护",
+      "aliases": [
+        "无敌豁免",
+        "无敌豁免(属性)"
+      ],
+      "source": "用户裁决：无敌豁免＝特殊保护，显示为特殊保护"
+    },
+    {
+      "display": "八缚屠主",
+      "aliases": [
+        "八缚者之主"
+      ],
+      "source": "10 版 PDF 术语比对（Lord of the Eightbound）"
+    },
+    {
+      "display": "保护协议",
+      "aliases": [
+        "防护协议"
+      ],
+      "source": "10 版 PDF 术语比对（Protection Protocols）"
+    },
+    {
+      "display": "暴匪",
+      "aliases": [
+        "劫掠者"
+      ],
+      "source": "10 版 PDF 术语比对（Brigand）"
+    },
+    {
+      "display": "爆弹风暴",
+      "aliases": [
+        "弹雨风暴"
+      ],
+      "source": "10 版 PDF 术语比对（Storm of Bolts）"
+    },
+    {
+      "display": "不羁恐怖（光环）",
+      "aliases": [
+        "肆意恐怖"
+      ],
+      "source": "10 版 PDF 术语比对（Unrestrained Terror）"
+    },
+    {
+      "display": "残酷监工（光环）",
+      "aliases": [
+        "苦役驱使者"
+      ],
+      "source": "10 版 PDF 术语比对（Taskmaster）"
+    },
+    {
+      "display": "超重型战争引擎",
+      "aliases": [
+        "超重战争引擎"
+      ],
+      "source": "10 版 PDF 术语比对（Super-heavy War Engine）"
+    },
+    {
+      "display": "斥候6",
+      "aliases": [
+        "侦察6\"",
+        "斥候6\""
+      ],
+      "source": "10 版 PDF 术语比对（Scouts 6\"）"
+    },
+    {
+      "display": "斥候8",
+      "aliases": [
+        "侦察8\""
+      ],
+      "source": "10 版 PDF 术语比对（Scouts 8\"）"
+    },
+    {
+      "display": "冲击冲锋",
+      "aliases": [
+        "震击冲锋"
+      ],
+      "source": "10 版 PDF 术语比对（Shock Charge）"
+    },
+    {
+      "display": "处决者",
+      "aliases": [
+        "行刑者",
+        "异端处刑人"
+      ],
+      "source": "10 版 PDF 术语比对（Executioner）"
+    },
+    {
+      "display": "传奇屠夫",
+      "aliases": [
+        "传奇杀手"
+      ],
+      "source": "10 版 PDF 术语比对（Legendary Killer）"
+    },
+    {
+      "display": "传送族徽（装备）",
+      "aliases": [
+        "传送纹章"
+      ],
+      "source": "10 版 PDF 术语比对（Teleport Crest）"
+    },
+    {
+      "display": "次元猎手",
+      "aliases": [
+        "亚空猎手"
+      ],
+      "source": "10 版 PDF 术语比对（Hunters from the Warp）"
+    },
+    {
+      "display": "地脉猎手",
+      "aliases": [
+        "地脉猎人"
+      ],
+      "source": "10 版 PDF 术语比对（Geomantic Hunters）"
+    },
+    {
+      "display": "地下爆破",
+      "aliases": [
+        "地底爆破"
+      ],
+      "source": "10 版 PDF 术语比对（Subterranean Explosives）"
+    },
+    {
+      "display": "独行特工，隐匿",
+      "aliases": [
+        "独行特工，潜行"
+      ],
+      "source": "10 版 PDF 术语比对（Lone Operative / Stealth）"
+    },
+    {
+      "display": "断角楷模",
+      "aliases": [
+        "艾因赫尔典范"
+      ],
+      "source": "10 版 PDF 术语比对（Exemplar of the Einhyr）"
+    },
+    {
+      "display": "断誓毁灭",
+      "aliases": [
+        "决定性毁灭"
+      ],
+      "source": "10 版 PDF 术语比对（Decisive Destruction）"
+    },
+    {
+      "display": "锻匠工会支援",
+      "aliases": [
+        "布罗克希尔行会支援"
+      ],
+      "source": "10 版 PDF 术语比对（Brôkhyr Guild Support）"
+    },
+    {
+      "display": "盾垒族徽（装备）",
+      "aliases": [
+        "壁垒纹章"
+      ],
+      "source": "10 版 PDF 术语比对（Rampart Crest）"
+    },
+    {
+      "display": "多频谱目镜",
+      "aliases": [
+        "多光谱瞄准镜"
+      ],
+      "source": "10 版 PDF 术语比对（Multispectral Visor）"
+    },
+    {
+      "display": "多频谱通讯阵列（装备）",
+      "aliases": [
+        "多波段通讯阵列"
+      ],
+      "source": "10 版 PDF 术语比对（Multiwave Comms Array）"
+    },
+    {
+      "display": "飞骑迂回",
+      "aliases": [
+        "侧翼磁浮骑兵"
+      ],
+      "source": "10 版 PDF 术语比对（Outflanking Mag-Riders）"
+    },
+    {
+      "display": "沸腾仇恨",
+      "aliases": [
+        "沸腾之怨"
+      ],
+      "source": "10 版 PDF 术语比对（Seething Hatred）"
+    },
+    {
+      "display": "腐化要塞",
+      "aliases": [
+        "腐化堡垒"
+      ],
+      "source": "10 版 PDF 术语比对（Bastion of Corruption）"
+    },
+    {
+      "display": "撼山动地",
+      "aliases": [
+        "动荡震波"
+      ],
+      "source": "10 版 PDF 术语比对（Destabilising Quakes）"
+    },
+    {
+      "display": "滑翔掠食者",
+      "aliases": [
+        "俯冲猎食者"
+      ],
+      "source": "10 版 PDF 术语比对（Swooping Predator）"
+    },
+    {
+      "display": "毁灭突袭",
+      "aliases": [
+        "毁灭突击"
+      ],
+      "source": "10 版 PDF 术语比对（Devastating Assault）"
+    },
+    {
+      "display": "混沌乐器",
+      "aliases": [],
+      "source": "10 版 PDF 术语比对（Instrument of Chaos）"
+    },
+    {
+      "display": "火力突破",
+      "aliases": [
+        "突破火力"
+      ],
+      "source": "10 版 PDF 术语比对（Breaching Fire）"
+    },
+    {
+      "display": "饥饿渴望（光环）",
+      "aliases": [
+        "饥渴吞噬"
+      ],
+      "source": "10 版 PDF 术语比对（Consumed with Hunger）"
+    },
+    {
+      "display": "疾速奔袭",
+      "aliases": [
+        "疾行"
+      ],
+      "source": "10 版 PDF 术语比对（Loping Speed）"
+    },
+    {
+      "display": "歼灭炮火",
+      "aliases": [
+        "嗜血歼灭者"
+      ],
+      "source": "10 版 PDF 术语比对（Blood-hungry Annihilator）"
+    },
+    {
+      "display": "近距杀手（光环）",
+      "aliases": [
+        "近距离杀手"
+      ],
+      "source": "10 版 PDF 术语比对（Close-range Killers）"
+    },
+    {
+      "display": "开火口2",
+      "aliases": [
+        "射击甲板2",
+        "火力平台2"
+      ],
+      "source": "10 版 PDF 术语比对（Firing Deck 2）"
+    },
+    {
+      "display": "科技工会支援",
+      "aliases": [
+        "科学公会支援"
+      ],
+      "source": "10 版 PDF 术语比对（Science Guild Support）"
+    },
+    {
+      "display": "空中掠食者",
+      "aliases": [
+        "空中猎手",
+        "空中猎食者"
+      ],
+      "source": "10 版 PDF 术语比对（Airborne Predator）"
+    },
+    {
+      "display": "恐惧领域（光环）",
+      "aliases": [
+        "恐怖统治"
+      ],
+      "source": "10 版 PDF 术语比对（Dread Dominion）"
+    },
+    {
+      "display": "恐惧使者，超重型机甲",
+      "aliases": [
+        "恐惧先驱，超重型步行机甲"
+      ],
+      "source": "10 版 PDF 术语比对（Harbingers of Dread / Super-heavy Walker）"
+    },
+    {
+      "display": "恐惧漩涡（灵能）",
+      "aliases": [
+        "漩涡惊怖"
+      ],
+      "source": "10 版 PDF 术语比对（Vortex Terrors）"
+    },
+    {
+      "display": "恐虐赐福",
+      "aliases": [
+        "血腥谕旨"
+      ],
+      "source": "10 版 PDF 术语比对（Blessings of Khorne）"
+    },
+    {
+      "display": "恐虐大魔",
+      "aliases": [
+        "恐虐的恶魔领主",
+        "恐虐魔王（光环）"
+      ],
+      "source": "10 版 PDF 术语比对（Daemon Lord of Khorne）"
+    },
+    {
+      "display": "恐虐黄铜项圈",
+      "aliases": [
+        "恐虐之颈环",
+        "恐虐项圈"
+      ],
+      "source": "10 版 PDF 术语比对（Collar of Khorne）"
+    },
+    {
+      "display": "恐虐圣印",
+      "aliases": [
+        "恐虐圣像"
+      ],
+      "source": "10 版 PDF 术语比对（Icon of Khorne）"
+    },
+    {
+      "display": "狂暴盛怒",
+      "aliases": [
+        "狂怒",
+        "浴血狂暴"
+      ],
+      "source": "10 版 PDF 术语比对（Berzerker Frenzy）"
+    },
+    {
+      "display": "狂暴肆虐（光环）",
+      "aliases": [
+        "狂乱践踏"
+      ],
+      "source": "10 版 PDF 术语比对（Frenzied Rampage）"
+    },
+    {
+      "display": "狂怒猛攻",
+      "aliases": [
+        "暴怒猛攻"
+      ],
+      "source": "10 版 PDF 术语比对（Furious Onslaught）"
+    },
+    {
+      "display": "冷酷效率",
+      "aliases": [
+        "严谨效率"
+      ],
+      "source": "10 版 PDF 术语比对（Grim Efficiency）"
+    },
+    {
+      "display": "炼狱庇护（光环）",
+      "aliases": [
+        "地狱守护"
+      ],
+      "source": "10 版 PDF 术语比对（Infernal Aegis）"
+    },
+    {
+      "display": "链路扫描",
+      "aliases": [
+        "扫描连结"
+      ],
+      "source": "10 版 PDF 术语比对（Scanner Uplinks）"
+    },
+    {
+      "display": "猎手",
+      "aliases": [
+        "猎人"
+      ],
+      "source": "10 版 PDF 术语比对（Huntsman）"
+    },
+    {
+      "display": "猎手视觉（光环）",
+      "aliases": [
+        "猎物视野"
+      ],
+      "source": "10 版 PDF 术语比对（Preysight）"
+    },
+    {
+      "display": "炉火匠艺",
+      "aliases": [
+        "锻造精通"
+      ],
+      "source": "10 版 PDF 术语比对（Forgewrought Expertise）"
+    },
+    {
+      "display": "路障探照灯（装备）",
+      "aliases": [
+        "防滚架探照灯"
+      ],
+      "source": "10 版 PDF 术语比对（Rollbar Searchlight）"
+    },
+    {
+      "display": "灭绝协议",
+      "aliases": [
+        "巨擘灭绝协议"
+      ],
+      "source": "10 版 PDF 术语比对（Macro-extinction Protocols）"
+    },
+    {
+      "display": "碾尽吾敌",
+      "aliases": [
+        "粉碎所有阻挡者"
+      ],
+      "source": "10 版 PDF 术语比对（Crush All Who Stand Before Us）"
+    },
+    {
+      "display": "怒火道标（光环）",
+      "aliases": [
+        "怒火灯塔"
+      ],
+      "source": "10 版 PDF 术语比对（Beacons of Rage）"
+    },
+    {
+      "display": "怒火化身",
+      "aliases": [
+        "愤怒存在",
+        "盛怒化身"
+      ],
+      "source": "10 版 PDF 术语比对（Wrathful Presence）"
+    },
+    {
+      "display": "懦夫之祸",
+      "aliases": [
+        "懦夫克星",
+        "懦夫梦魇"
+      ],
+      "source": "10 版 PDF 术语比对（Bane of Cowards）"
+    },
+    {
+      "display": "爬行机甲",
+      "aliases": [
+        "疾行者",
+        "多足机甲",
+        "迅捷机械"
+      ],
+      "source": "10 版 PDF 术语比对（Scuttling Walker）"
+    },
+    {
+      "display": "破坏炮火",
+      "aliases": [
+        "惩戒压制"
+      ],
+      "source": "10 版 PDF 术语比对（Punishing Suppression）"
+    },
+    {
+      "display": "匍行骇物",
+      "aliases": [
+        "解渴其怒"
+      ],
+      "source": "10 版 PDF 术语比对（To Slake its Rage）"
+    },
+    {
+      "display": "侵攻行军",
+      "aliases": [
+        "侵略性推进"
+      ],
+      "source": "10 版 PDF 术语比对（Aggressive Advance）"
+    },
+    {
+      "display": "清除！响应",
+      "aliases": [
+        "清剿回应"
+      ],
+      "source": "10 版 PDF 术语比对（Purge Response）"
+    },
+    {
+      "display": "清除！追击",
+      "aliases": [
+        "无情歼灭",
+        "无情根除"
+      ],
+      "source": "10 版 PDF 术语比对（Merciless Eradication）"
+    },
+    {
+      "display": "全波段扫描仪（装备）",
+      "aliases": [
+        "全光谱扫描仪"
+      ],
+      "source": "10 版 PDF 术语比对（Panspectral Scanner）"
+    },
+    {
+      "display": "全光谱扫描",
+      "aliases": [
+        "泛光谱扫描"
+      ],
+      "source": "10 版 PDF 术语比对（Panspectral Scanning）"
+    },
+    {
+      "display": "蹂躏目标点",
+      "aliases": [
+        "蹂躏目标"
+      ],
+      "source": "10 版 PDF 术语比对（Objective Ravaged）"
+    },
+    {
+      "display": "肉食者",
+      "aliases": [
+        "噬肉"
+      ],
+      "source": "10 版 PDF 术语比对（Karnivore）"
+    },
+    {
+      "display": "生化注射剂",
+      "aliases": [
+        "生化兴奋剂"
+      ],
+      "source": "10 版 PDF 术语比对（Cyberstimms）"
+    },
+    {
+      "display": "失心复仇",
+      "aliases": [
+        "不屈复仇"
+      ],
+      "source": "10 版 PDF 术语比对（Unhinged Vengeance）"
+    },
+    {
+      "display": "氏族英豪",
+      "aliases": [
+        "亲族英雄"
+      ],
+      "source": "10 版 PDF 术语比对（Kindred Hero）"
+    },
+    {
+      "display": "嗜杀饥渴",
+      "aliases": [
+        "嗜杀",
+        "杀戮渴望"
+      ],
+      "source": "10 版 PDF 术语比对（Murderlust）"
+    },
+    {
+      "display": "嗜杀魔主",
+      "aliases": [
+        "屠杀之主"
+      ],
+      "source": "10 版 PDF 术语比对（Lord of Murder）"
+    },
+    {
+      "display": "嗜血饕欲",
+      "aliases": [
+        "嗜血气息"
+      ],
+      "source": "10 版 PDF 术语比对（The Scent of Blood）"
+    },
+    {
+      "display": "誓夺先机",
+      "aliases": [
+        "把握良机"
+      ],
+      "source": "10 版 PDF 术语比对（Seized Opportunity）"
+    },
+    {
+      "display": "噬仇不灭",
+      "aliases": [
+        "怨恨坚韧"
+      ],
+      "source": "10 版 PDF 术语比对（Grudge-fuelled Fortitude）"
+    },
+    {
+      "display": "受祝鲜血圣像",
+      "aliases": [
+        "受福之血偶像"
+      ],
+      "source": "10 版 PDF 术语比对（Idol of Blessed Blood）"
+    },
+    {
+      "display": "狩猎大师（光环）",
+      "aliases": [
+        "猎人领主"
+      ],
+      "source": "10 版 PDF 术语比对（Huntmaster）"
+    },
+    {
+      "display": "狩首族徽（装备）",
+      "aliases": [
+        "猎标纹章"
+      ],
+      "source": "10 版 PDF 术语比对（Preymark Crest）"
+    },
+    {
+      "display": "数据主脑",
+      "aliases": [
+        "运算智者"
+      ],
+      "source": "10 版 PDF 术语比对（Computational Mastermind）"
+    },
+    {
+      "display": "撕裂殆尽",
+      "aliases": [
+        "撕裂与狂咬"
+      ],
+      "source": "10 版 PDF 术语比对（Rend and Tear）"
+    },
+    {
+      "display": "踏火骑将",
+      "aliases": [
+        "火焰骑士"
+      ],
+      "source": "10 版 PDF 术语比对（Fire Riders）"
+    },
+    {
+      "display": "铜蹄践踏",
+      "aliases": [
+        "黄铜奔腾",
+        "黄铜践踏"
+      ],
+      "source": "10 版 PDF 术语比对（Brass Stampede）"
+    },
+    {
+      "display": "投机性机动",
+      "aliases": [
+        "机动性调度"
+      ],
+      "source": "10 版 PDF 术语比对（Opportunistic Manoeuvre）"
+    },
+    {
+      "display": "突击跳板",
+      "aliases": [
+        "突击斜板",
+        "突击载具"
+      ],
+      "source": "10 版 PDF 术语比对（Assault Ramp）"
+    },
+    {
+      "display": "脱缰狂怒",
+      "aliases": [
+        "释放怒火"
+      ],
+      "source": "10 版 PDF 术语比对（Unleash Wrath）"
+    },
+    {
+      "display": "为了鲜血，进军！",
+      "aliases": [
+        "向前，为了鲜血！"
+      ],
+      "source": "10 版 PDF 术语比对（Forwards, for Blood!）"
+    },
+    {
+      "display": "无情执着",
+      "aliases": [
+        "执迷无情"
+      ],
+      "source": "10 版 PDF 术语比对（Obsessive Ruthlessness）"
+    },
+    {
+      "display": "务实猎手",
+      "aliases": [
+        "务实猎人"
+      ],
+      "source": "10 版 PDF 术语比对（Pragmatic Hunters）"
+    },
+    {
+      "display": "系统性毁灭",
+      "aliases": [
+        "有条不紊的毁灭"
+      ],
+      "source": "10 版 PDF 术语比对（Methodical Destruction）"
+    },
+    {
+      "display": "先祖强固（灵能）",
+      "aliases": [
+        "防御"
+      ],
+      "source": "10 版 PDF 术语比对（Fortify）"
+    },
+    {
+      "display": "先祖之幸",
+      "aliases": [
+        "先祖眷顾"
+      ],
+      "source": "10 版 PDF 术语比对（Ancestral Fortune）"
+    },
+    {
+      "display": "鲜血契约",
+      "aliases": [
+        "血之契约"
+      ],
+      "source": "10 版 PDF 术语比对（Pact of Blood）"
+    },
+    {
+      "display": "贤者凝视",
+      "aliases": [
+        "格里姆尼尔的眷顾"
+      ],
+      "source": "10 版 PDF 术语比对（Grimnyr's Regard）"
+    },
+    {
+      "display": "献给黑暗诸神（光环）",
+      "aliases": [
+        "黑暗诸神的献祭"
+      ],
+      "source": "10 版 PDF 术语比对（Offerings for the Dark Gods）"
+    },
+    {
+      "display": "效率至上",
+      "aliases": [
+        "优先效率"
+      ],
+      "source": "10 版 PDF 术语比对（Prioritised Efficiency）"
+    },
+    {
+      "display": "邪魔圣印",
+      "aliases": [
+        "恶魔圣像",
+        "恶魔徽记",
+        "装备技能-欲魔圣印",
+        "装备：恶魔徽记",
+        "欲魔圣印"
+      ],
+      "source": "10 版 PDF 术语比对（Daemonic Icon）"
+    },
+    {
+      "display": "幸者得，需者持，劳者享",
+      "aliases": [
+        "运气、需求、辛劳"
+      ],
+      "source": "10 版 PDF 术语比对（Luck Has. Need Keeps. Toil Earns.）"
+    },
+    {
+      "display": "凶狞增幅",
+      "aliases": [
+        "野蛮昇华"
+      ],
+      "source": "10 版 PDF 术语比对（Savage Exaltation）"
+    },
+    {
+      "display": "悬浮",
+      "aliases": [
+        "悬停"
+      ],
+      "source": "10 版 PDF 术语比对（Hover）"
+    },
+    {
+      "display": "血腥狂怒",
+      "aliases": [
+        "嗜血狂暴"
+      ],
+      "source": "10 版 PDF 术语比对（Bloody Fury）"
+    },
+    {
+      "display": "血涌",
+      "aliases": [
+        "鲜血激涌"
+      ],
+      "source": "10 版 PDF 术语比对（Blood Surge）"
+    },
+    {
+      "display": "迅猛推进",
+      "aliases": [
+        "烈焰推进"
+      ],
+      "source": "10 版 PDF 术语比对（Blistering Advance）"
+    },
+    {
+      "display": "引力束缚",
+      "aliases": [
+        "重力钉扎"
+      ],
+      "source": "10 版 PDF 术语比对（Grav-pinned）"
+    },
+    {
+      "display": "迎接挑战",
+      "aliases": [
+        "迎战任何挑战"
+      ],
+      "source": "10 版 PDF 术语比对（Meet Any Challenge）"
+    },
+    {
+      "display": "永燃怒火",
+      "aliases": [
+        "永恒狂怒"
+      ],
+      "source": "10 版 PDF 术语比对（Rage Eternal）"
+    },
+    {
+      "display": "浴血恐怖",
+      "aliases": [
+        "血染恐惧"
+      ],
+      "source": "10 版 PDF 术语比对（Bloodied Terror）"
+    },
+    {
+      "display": "浴血重生",
+      "aliases": [
+        "鲜血重生"
+      ],
+      "source": "10 版 PDF 术语比对（Reborn in Blood）"
+    },
+    {
+      "display": "预测性引导",
+      "aliases": [
+        "预测指引"
+      ],
+      "source": "10 版 PDF 术语比对（Predictive Guidance）"
+    },
+    {
+      "display": "原子嬗变",
+      "aliases": [
+        "资源转化"
+      ],
+      "source": "10 版 PDF 术语比对（Resource Transmutation）"
+    },
+    {
+      "display": "运输工具",
+      "aliases": [
+        "运载",
+        "运输载具",
+        "运输容量（运输工具）",
+        "运输",
+        "运输能力",
+        "运输载具（关键词）",
+        "运输工具（关键词）",
+        "运输工具（关键词）/运载能力行"
+      ],
+      "source": "10 版 PDF 术语比对（Transport）"
+    },
+    {
+      "display": "甄选颅骨",
+      "aliases": [
+        "值得的头颅"
+      ],
+      "source": "10 版 PDF 术语比对（A Worthy Skull）"
+    },
+    {
+      "display": "织能族徽（装备）",
+      "aliases": [
+        "织场纹章"
+      ],
+      "source": "10 版 PDF 术语比对（Weavefield Crest/Weavefield crest）"
+    },
+    {
+      "display": "织能族徽/传送族徽（装备）",
+      "aliases": [
+        "织场纹章/传送纹章"
+      ],
+      "source": "10 版 PDF 术语比对（Weavefield crest / Teleport Crest）"
+    },
+    {
+      "display": "指引屠夫",
+      "aliases": [
+        "指挥屠杀"
+      ],
+      "source": "10 版 PDF 术语比对（Direct the Slaughter）"
+    },
+    {
+      "display": "至高指挥官",
+      "aliases": [
+        "最高统帅",
+        "最高指挥官"
+      ],
+      "source": "10 版 PDF 术语比对（Supreme Commander）"
+    },
+    {
+      "display": "追猎者",
+      "aliases": [
+        "潜行者",
+        "蛇形伏击"
+      ],
+      "source": "10 版 PDF 术语比对（Stalker）"
+    },
+    {
+      "display": "自动修复模式",
+      "aliases": [
+        "自动修复拟机"
+      ],
+      "source": "10 版 PDF 术语比对（Repair Auto-simulacra）"
+    },
+    {
+      "display": "COG靶向瞄准系统",
+      "aliases": [
+        "多重瞄准系统"
+      ],
+      "source": "10 版 PDF 术语比对（MultiCOG Targeting）"
+    },
+    {
+      "display": "恶意电弧",
+      "aliases": [
+        "恶意弧光"
+      ],
+      "source": "10 版 PDF 术语比对（Malevolent Arcing）"
+    },
+    {
+      "display": "哨兵构造体",
+      "aliases": [
+        "哨兵构装"
+      ],
+      "source": "10 版 PDF 术语比对（Sentinel Construct）"
+    },
+    {
+      "display": "纳米圣甲虫重生射线（光环）",
+      "aliases": [
+        "奈米疤痕重建光束"
+      ],
+      "source": "10 版 PDF 术语比对（Nanoscarab Reanimation Beam）"
+    },
+    {
+      "display": "自毁",
+      "aliases": [
+        "自我毁灭"
+      ],
+      "source": "10 版 PDF 术语比对（Self-destruction）"
+    },
+    {
+      "display": "虫群",
+      "aliases": [
+        "叽叽喳喳的虫群"
+      ],
+      "source": "10 版 PDF 术语比对（Chittering Swarm）"
+    },
+    {
+      "display": "冥工虫群",
+      "aliases": [
+        "凯诺提克虫群"
+      ],
+      "source": "10 版 PDF 术语比对（Canoptek Swarm）"
+    },
+    {
+      "display": "制造爪阵列（光环）",
+      "aliases": [
+        "铸造爪阵列（光环）"
+      ],
+      "source": "10 版 PDF 术语比对（Fabricator Claw Array (Aura)）"
+    },
+    {
+      "display": "幽光棱镜（光环）",
+      "aliases": [
+        "阴郁棱镜（光环）"
+      ],
+      "source": "10 版 PDF 术语比对（Gloom Prism (Aura)）"
+    },
+    {
+      "display": "先进量子盾",
+      "aliases": [
+        "进阶量子护盾"
+      ],
+      "source": "10 版 PDF 术语比对（Advanced Quantum Shielding）"
+    },
+    {
+      "display": "时间分裂披风",
+      "aliases": [
+        "时间碎片披风"
+      ],
+      "source": "10 版 PDF 术语比对（Timesplinter Mantle）"
+    },
+    {
+      "display": "精密时计",
+      "aliases": [
+        "时光计"
+      ],
+      "source": "10 版 PDF 术语比对（Chronometron）"
+    },
+    {
+      "display": "远古造物",
+      "aliases": [
+        "远古掩护"
+      ],
+      "source": "10 版 PDF 术语比对（Ancient Cover）"
+    },
+    {
+      "display": "系统性活力",
+      "aliases": [
+        "系统活力"
+      ],
+      "source": "10 版 PDF 术语比对（Systematic Vigour）"
+    },
+    {
+      "display": "技师随从",
+      "aliases": [
+        "死灵祭司随从"
+      ],
+      "source": "10 版 PDF 术语比对（Cryptek Retinue）"
+    },
+    {
+      "display": "渗透者",
+      "aliases": [
+        "渗透"
+      ],
+      "source": "10 版 PDF 术语比对（Infiltrators）"
+    },
+    {
+      "display": "派遣特工",
+      "aliases": [
+        "指派探员"
+      ],
+      "source": "10 版 PDF 术语比对（Assigned Agents）"
+    },
+    {
+      "display": "致命枪手",
+      "aliases": [
+        "精准射手"
+      ],
+      "source": "10 版 PDF 术语比对（Dead-shot）"
+    },
+    {
+      "display": "碎盾者枪弹",
+      "aliases": [
+        "破盾弹"
+      ],
+      "source": "10 版 PDF 术语比对（Shieldbreaker）"
+    },
+    {
+      "display": "可怕憎物",
+      "aliases": [
+        "异端存在"
+      ],
+      "source": "10 版 PDF 术语比对（Abomination）"
+    },
+    {
+      "display": "无魂恐惧（光环）",
+      "aliases": [
+        "灵魂之恐惧"
+      ],
+      "source": "10 版 PDF 术语比对（Soulless Horror）"
+    },
+    {
+      "display": "斥候 9\"",
+      "aliases": [
+        "侦察9\""
+      ],
+      "source": "10 版 PDF 术语比对（Scouts 9\"）"
+    },
+    {
+      "display": "狂暴药剂",
+      "aliases": [
+        "疯狂药剂"
+      ],
+      "source": "10 版 PDF 术语比对（Frenzon）"
+    },
+    {
+      "display": "先攻",
+      "aliases": [
+        "先制攻击"
+      ],
+      "source": "10 版 PDF 术语比对（Fights First）"
+    },
+    {
+      "display": "变形药剂",
+      "aliases": [
+        "杂技逃脱"
+      ],
+      "source": "10 版 PDF 术语比对（Acrobatic Escape）"
+    },
+    {
+      "display": "贸易许可",
+      "aliases": [
+        "贸易许可证"
+      ],
+      "source": "10 版 PDF 术语比对（Warrant of Trade）"
+    },
+    {
+      "display": "治疗药剂",
+      "aliases": [
+        "治疗血清"
+      ],
+      "source": "10 版 PDF 术语比对（Healing serum）"
+    },
+    {
+      "display": "近距离战斗专家",
+      "aliases": [
+        "近距离作战大师"
+      ],
+      "source": "10 版 PDF 术语比对（Masters of Close Confines）"
+    },
+    {
+      "display": "突破小队",
+      "aliases": [
+        "登舰作战"
+      ],
+      "source": "10 版 PDF 术语比对（Breaching Team）"
+    },
+    {
+      "display": "坚忍者盾牌",
+      "aliases": [
+        "坚忍之盾"
+      ],
+      "source": "10 版 PDF 术语比对（Endurant Shield）"
+    },
+    {
+      "display": "天鹰使节（光环）",
+      "aliases": [
+        "信使之鹰"
+      ],
+      "source": "10 版 PDF 术语比对（Nuncio-acquila）"
+    },
+    {
+      "display": "帝国法则",
+      "aliases": [
+        "帝国法令"
+      ],
+      "source": "10 版 PDF 术语比对（Imperial Law）"
+    },
+    {
+      "display": "裁决官医疗包",
+      "aliases": [
+        "仲裁者医疗包"
+      ],
+      "source": "10 版 PDF 术语比对（Arbites Medi-kit）"
+    },
+    {
+      "display": "愧魂扫描仪",
+      "aliases": [
+        "灵罪扫描仪"
+      ],
+      "source": "10 版 PDF 术语比对（Soulguilt Scanner）"
+    },
+    {
+      "display": "审判庭权力",
+      "aliases": [
+        "审判庭之权"
+      ],
+      "source": "10 版 PDF 术语比对（Authority of the Inquisition）"
+    },
+    {
+      "display": "异形猎手",
+      "aliases": [
+        "异种猎人"
+      ],
+      "source": "10 版 PDF 术语比对（Xenos Hunter）"
+    },
+    {
+      "display": "灵能之幕（灵能）",
+      "aliases": [
+        "灵能面纱"
+      ],
+      "source": "10 版 PDF 术语比对（Psychic Veil）"
+    },
+    {
+      "display": "除恶守护（灵能）",
+      "aliases": [
+        "邪恶防卫"
+      ],
+      "source": "10 版 PDF 术语比对（Malefic Wardings）"
+    },
+    {
+      "display": "灵能目镜",
+      "aliases": [
+        "灵能透镜"
+      ],
+      "source": "10 版 PDF 术语比对（Psyoculum）"
+    },
+    {
+      "display": "无处可逃",
+      "aliases": [
+        "绝不留情",
+        "无从逃脱",
+        "无猎物能逃脱",
+        "无可逃避的精准"
+      ],
+      "source": "10 版 PDF 术语比对（No Mercy）"
+    },
+    {
+      "display": "审判徽之力",
+      "aliases": [
+        "玫瑰徽章之力"
+      ],
+      "source": "10 版 PDF 术语比对（Power of the Rosette）"
+    },
+    {
+      "display": "祝福守护",
+      "aliases": [
+        "祝圣守护"
+      ],
+      "source": "10 版 PDF 术语比对（Blessed Wardings）"
+    },
+    {
+      "display": "灵能潜力",
+      "aliases": [
+        "灵能天赋"
+      ],
+      "source": "10 版 PDF 术语比对（Psychic Gifts）"
+    },
+    {
+      "display": "侍仆",
+      "aliases": [
+        "忠诚随从"
+      ],
+      "source": "10 版 PDF 术语比对（Loyal Henchmen）"
+    },
+    {
+      "display": "骇人再生",
+      "aliases": [
+        "恶心再生"
+      ],
+      "source": "10 版 PDF 术语比对（Grotesque Regeneration）"
+    },
+    {
+      "display": "黑暗形态",
+      "aliases": [
+        "暗影形态能力"
+      ],
+      "source": "10 版 PDF 术语比对（Shadow Form Abilities）"
+    },
+    {
+      "display": "幽影护身（光环、灵能）",
+      "aliases": [
+        "暗影缠绕（光环、灵能）"
+      ],
+      "source": "10 版 PDF 术语比对（—（Shadow Form 子选项））"
+    },
+    {
+      "display": "绝望迷雾（光环、灵能）",
+      "aliases": [
+        "绝望阴霾（光环、灵能）"
+      ],
+      "source": "10 版 PDF 术语比对（—（Shadow Form 子选项））"
+    },
+    {
+      "display": "暗影领主（光环、灵能）",
+      "aliases": [
+        "暗影之主（光环、灵能）"
+      ],
+      "source": "10 版 PDF 术语比对（—（Shadow Form 子选项））"
+    },
+    {
+      "display": "鲜血主宰",
+      "aliases": [
+        "血主"
+      ],
+      "source": "10 版 PDF 术语比对（Bloodmaster）"
+    },
+    {
+      "display": "荣耀之路",
+      "aliases": [
+        "血腥之路"
+      ],
+      "source": "10 版 PDF 术语比对（A Gory Path）"
+    },
+    {
+      "display": "不息屠戮",
+      "aliases": [
+        "无情屠戮"
+      ],
+      "source": "10 版 PDF 术语比对（Relentless Carnage）"
+    },
+    {
+      "display": "高阶恐虐恶魔（光环）",
+      "aliases": [
+        "恐虐至高恶魔"
+      ],
+      "source": "10 版 PDF 术语比对（Greater Daemon of Khorne）"
+    },
+    {
+      "display": "胡闹妖灵（光环）",
+      "aliases": [
+        "阴郁恶意"
+      ],
+      "source": "10 版 PDF 术语比对（Sullen Malevolence）"
+    },
+    {
+      "display": "自爆妖灵",
+      "aliases": [
+        "爆裂恐魔"
+      ],
+      "source": "10 版 PDF 术语比对（Exploding Horrors）"
+    },
+    {
+      "display": "魔能烈焰（灵能）",
+      "aliases": [
+        "秘焰"
+      ],
+      "source": "10 版 PDF 术语比对（Eldritch Flames）"
+    },
+    {
+      "display": "变化使",
+      "aliases": [
+        "变革使者"
+      ],
+      "source": "10 版 PDF 术语比对（Changecaster）"
+    },
+    {
+      "display": "变异巫术风暴（灵能）",
+      "aliases": [
+        "变异灵能风暴"
+      ],
+      "source": "10 版 PDF 术语比对（Storm of Mutating Sorcery）"
+    },
+    {
+      "display": "恐怖诱惑（灵能）",
+      "aliases": [
+        "恐怖迷恋"
+      ],
+      "source": "10 版 PDF 术语比对（Horrible Fascination）"
+    },
+    {
+      "display": "为了上上善道",
+      "aliases": [
+        "为了更高的善"
+      ],
+      "source": "10 版 PDF 术语比对（For the Greater Good）"
+    },
+    {
+      "display": "攻坚克难",
+      "aliases": [
+        "破袭扫荡"
+      ],
+      "source": "10 版 PDF 术语比对（Breach and Clear）"
+    },
+    {
+      "display": "DS8战术支援炮塔",
+      "aliases": [
+        "DS8 支援炮塔"
+      ],
+      "source": "10 版 PDF 术语比对（DS8 Support Turret）"
+    },
+    {
+      "display": "标记蜂",
+      "aliases": [
+        "标记无人机"
+      ],
+      "source": "10 版 PDF 术语比对（Marker Drone）"
+    },
+    {
+      "display": "枪蜂",
+      "aliases": [
+        "枪械无人机"
+      ],
+      "source": "10 版 PDF 术语比对（Gun Drone）"
+    },
+    {
+      "display": "盾蜂",
+      "aliases": [
+        "护盾无人机"
+      ],
+      "source": "10 版 PDF 术语比对（Shield Drone）"
+    },
+    {
+      "display": "守护者兵蜂",
+      "aliases": [
+        "守护无人机"
+      ],
+      "source": "10 版 PDF 术语比对（Guardian Drone）"
+    },
+    {
+      "display": "先进装甲",
+      "aliases": [
+        "进阶装甲"
+      ],
+      "source": "10 版 PDF 术语比对（Advanced Armour）"
+    },
+    {
+      "display": "导弹蜂",
+      "aliases": [
+        "飞弹无人机"
+      ],
+      "source": "10 版 PDF 术语比对（Missile Drone）"
+    },
+    {
+      "display": "齐射火力",
+      "aliases": [
+        "齐射"
+      ],
+      "source": "10 版 PDF 术语比对（Volley Fire）"
+    },
+    {
+      "display": "精准射击",
+      "aliases": [
+        "精确射手"
+      ],
+      "source": "10 版 PDF 术语比对（Crack Shot）"
+    },
+    {
+      "display": "泰坦杀手",
+      "aliases": [
+        "泰坦猎手"
+      ],
+      "source": "10 版 PDF 术语比对（Titan Hunter）"
+    },
+    {
+      "display": "独掌大权",
+      "aliases": [
+        "独立势力"
+      ],
+      "source": "10 版 PDF 术语比对（Independent Power）"
+    },
+    {
+      "display": "短剑之路",
+      "aliases": [
+        "短刀之道"
+      ],
+      "source": "10 版 PDF 术语比对（Way of the Short Blade）"
+    },
+    {
+      "display": "清汐教义",
+      "aliases": [
+        "纯潮之教"
+      ],
+      "source": "10 版 PDF 术语比对（Puretide’s Teachings）"
+    },
+    {
+      "display": "护盾发生器",
+      "aliases": [
+        "护盾产生器"
+      ],
+      "source": "10 版 PDF 术语比对（Shield Generator）"
+    },
+    {
+      "display": "战斗服支援系统",
+      "aliases": [
+        "战斗装甲支援系统"
+      ],
+      "source": "10 版 PDF 术语比对（Battlesuit Support System）"
+    },
+    {
+      "display": "灵巧战士",
+      "aliases": [
+        "敏捷战士"
+      ],
+      "source": "10 版 PDF 术语比对（Agile Combatant）"
+    },
+    {
+      "display": "帝国英雄(光环)",
+      "aliases": [
+        "帝国英雄"
+      ],
+      "source": "10 版 PDF 术语比对（Hero of the Empire）"
+    },
+    {
+      "display": "高级护盾兵蜂",
+      "aliases": [
+        "进阶守护无人机"
+      ],
+      "source": "10 版 PDF 术语比对（Advanced Guardian Drone）"
+    },
+    {
+      "display": "指挥兵蜂(光环)",
+      "aliases": [
+        "指挥链接无人机（光环）"
+      ],
+      "source": "10 版 PDF 术语比对（Command-link Drone (Aura)）"
+    },
+    {
+      "display": "嗜欲恶徒",
+      "aliases": [
+        "寻求刺激者"
+      ],
+      "source": "10 版 PDF 术语比对（Thrill Seekers）"
+    },
+    {
+      "display": "不知疼痛5+",
+      "aliases": [
+        "不觉疼痛5+",
+        "不知疼痛5+（永不言败描述内）"
+      ],
+      "source": "10 版 PDF 术语比对（Feel No Pain 5+）"
+    },
+    {
+      "display": "疾行骇物",
+      "aliases": [
+        "疾行恐怖"
+      ],
+      "source": "10 版 PDF 术语比对（Scuttling Horrors）"
+    },
+    {
+      "display": "致命狂迷",
+      "aliases": [
+        "致命执念"
+      ],
+      "source": "10 版 PDF 术语比对（Lethal Obsession）"
+    },
+    {
+      "display": "可怖之美",
+      "aliases": [
+        "骇人之美",
+        "可怖美貌"
+      ],
+      "source": "10 版 PDF 术语比对（Horrifying Beauty）"
+    },
+    {
+      "display": "纵欲领主",
+      "aliases": [
+        "放纵领主"
+      ],
+      "source": "10 版 PDF 术语比对（Lord of Excess）"
+    },
+    {
+      "display": "肆溢活力（光环）",
+      "aliases": [
+        "过度活力"
+      ],
+      "source": "10 版 PDF 术语比对（Excessive Vigour）"
+    },
+    {
+      "display": "毁灭魔能",
+      "aliases": [
+        "恶魔毁灭",
+        "毁天灭地"
+      ],
+      "source": "10 版 PDF 术语比对（Daemonic Destruction）"
+    },
+    {
+      "display": "痛觉刺激",
+      "aliases": [
+        "痛楚激励"
+      ],
+      "source": "10 版 PDF 术语比对（Stimulated by Pain）"
+    },
+    {
+      "display": "催眠香瘴",
+      "aliases": [
+        "麻醉香雾",
+        "安魂香气（光环）"
+      ],
+      "source": "10 版 PDF 术语比对（Soporific Musk）"
+    },
+    {
+      "display": "邪魔恩主",
+      "aliases": [
+        "恶魔庇主"
+      ],
+      "source": "10 版 PDF 术语比对（Daemonic Patrons）"
+    },
+    {
+      "display": "恶魔邪毒",
+      "aliases": [
+        "恶魔毒素"
+      ],
+      "source": "10 版 PDF 术语比对（Daemonic Poisons）"
+    },
+    {
+      "display": "圣锤之手（灵能）",
+      "aliases": [
+        "铁拳"
+      ],
+      "source": "10 版 PDF 术语比对（Hammerhand）"
+    },
+    {
+      "display": "审判之眼（灵能）",
+      "aliases": [
+        "判决之眼"
+      ],
+      "source": "10 版 PDF 术语比对（Eye of Judgement）"
+    },
+    {
+      "display": "迅捷号角（灵能）",
+      "aliases": [
+        "急速号角"
+      ],
+      "source": "10 版 PDF 术语比对（Clarion of Haste）"
+    },
+    {
+      "display": "狂热之道",
+      "aliases": [
+        "狂热之路"
+      ],
+      "source": "10 版 PDF 术语比对（Zealous Path）"
+    },
+    {
+      "display": "圣洁祷文",
+      "aliases": [
+        "圣洁祷词"
+      ],
+      "source": "10 版 PDF 术语比对（Litanies of Sanctity）"
+    },
+    {
+      "display": "圣洁头冠（灵能）",
+      "aliases": [
+        "圣洁护罩"
+      ],
+      "source": "10 版 PDF 术语比对（Sanctic Hood）"
+    },
+    {
+      "display": "魂火光环（灵能）",
+      "aliases": [
+        "灵火光环"
+      ],
+      "source": "10 版 PDF 术语比对（Haloed in Soulfire）"
+    },
+    {
+      "display": "技术军士",
+      "aliases": [
+        "技术陆战队员",
+        "工程师"
+      ],
+      "source": "10 版 PDF 术语比对（Techmarine）"
+    },
+    {
+      "display": "万机神祝福",
+      "aliases": [
+        "万机神之祝福",
+        "机神祝福"
+      ],
+      "source": "10 版 PDF 术语比对（Blessing of the Omnissiah）"
+    },
+    {
+      "display": "机械守护",
+      "aliases": [
+        "机械守护者"
+      ],
+      "source": "10 版 PDF 术语比对（Guardians of the Machine）"
+    },
+    {
+      "display": "灵能刀锋（灵能）",
+      "aliases": [
+        "力量刃锋"
+      ],
+      "source": "10 版 PDF 术语比对（Force Edge）"
+    },
+    {
+      "display": "战团旗帜（装备技能）",
+      "aliases": [
+        "先辈旗帜"
+      ],
+      "source": "10 版 PDF 术语比对（Ancient’s Banner）"
+    },
+    {
+      "display": "医疗装具（装备技能）",
+      "aliases": [
+        "医疗兵医疗器"
+      ],
+      "source": "10 版 PDF 术语比对（Apothecary’s Narthecium）"
+    },
+    {
+      "display": "净化者兄弟会冠军勇士（灵能）",
+      "aliases": [
+        "净化者军团的冠军"
+      ],
+      "source": "10 版 PDF 术语比对（Champion of the Order of Purifiers）"
+    },
+    {
+      "display": "洞察（灵能）",
+      "aliases": [
+        "敌眼"
+      ],
+      "source": "10 版 PDF 术语比对（Foesight）"
+    },
+    {
+      "display": "战争策略家",
+      "aliases": [
+        "战士计谋家"
+      ],
+      "source": "10 版 PDF 术语比对（Warrior Strategist）"
+    },
+    {
+      "display": "泰坦伟力（灵能）",
+      "aliases": [
+        "泰坦之力"
+      ],
+      "source": "10 版 PDF 术语比对（Might of Titan）"
+    },
+    {
+      "display": "怒火奔涌（灵能）",
+      "aliases": [
+        "怒火涌现"
+      ],
+      "source": "10 版 PDF 术语比对（Surge of Wrath）"
+    },
+    {
+      "display": "庇护（灵能）",
+      "aliases": [
+        "圣域"
+      ],
+      "source": "10 版 PDF 术语比对（Sanctuary）"
+    },
+    {
+      "display": "怒焰之锤（灵能）",
+      "aliases": [
+        "炽焰之锤"
+      ],
+      "source": "10 版 PDF 术语比对（Hammer Aflame）"
+    },
+    {
+      "display": "协调猛攻（灵能）",
+      "aliases": [
+        "调和猛攻"
+      ],
+      "source": "10 版 PDF 术语比对（Attuned Onslaught）"
+    },
+    {
+      "display": "正义惩罚（11e 官方；10e 卡面为正义追猎）",
+      "aliases": [
+        "正义迫害"
+      ],
+      "source": "10 版 PDF 术语比对（Righteous Persecution）"
+    },
+    {
+      "display": "神圣使命",
+      "aliases": [
+        "目的之圣性",
+        "神圣任务"
+      ],
+      "source": "10 版 PDF 术语比对（Sanctity of Purpose）"
+    },
+    {
+      "display": "预视破坏者",
+      "aliases": [
+        "未来毁灭者"
+      ],
+      "source": "10 版 PDF 术语比对（Destroyer of Futures）"
+    },
+    {
+      "display": "巫师秘会",
+      "aliases": [
+        "巫师秘社",
+        "巫师秘会（仅野心巫师）",
+        "巫师秘会（仅圣甲虫巫师）"
+      ],
+      "source": "10 版 PDF 术语比对（Cabal of Sorcerers）"
+    },
+    {
+      "display": "奥术护盾（灵能）",
+      "aliases": [
+        "秘法盾"
+      ],
+      "source": "10 版 PDF 术语比对（Arcane Shield）"
+    },
+    {
+      "display": "红字重组（灵能）",
+      "aliases": [
+        "重新系缚红色贤者"
+      ],
+      "source": "10 版 PDF 术语比对（Rebind Rubricae）"
+    },
+    {
+      "display": "奸奇幻像（灵能）",
+      "aliases": [
+        "青恩的幻象"
+      ],
+      "source": "10 版 PDF 术语比对（Illusions of Tzeentch）"
+    },
+    {
+      "display": "驱使触须（灵能）",
+      "aliases": [
+        "綑绑触须"
+      ],
+      "source": "10 版 PDF 术语比对（Binding Tendrils）"
+    },
+    {
+      "display": "腾跃袭击",
+      "aliases": [
+        "跃动腾跳"
+      ],
+      "source": "10 版 PDF 术语比对（Bounding Leaps）"
+    },
+    {
+      "display": "炽热齐射",
+      "aliases": [
+        "炽烈齐射"
+      ],
+      "source": "10 版 PDF 术语比对（Blazing Salvoes）"
+    },
+    {
+      "display": "恐怖突袭",
+      "aliases": [
+        "恐怖突击",
+        "惊惧突袭"
+      ],
+      "source": "10 版 PDF 术语比对（Terrifying Assault）"
+    },
+    {
+      "display": "大幻境",
+      "aliases": [
+        "宏伟幻象"
+      ],
+      "source": "10 版 PDF 术语比对（Grand Illusion）"
+    },
+    {
+      "display": "死灵皮肤",
+      "aliases": [
+        "死灵金属"
+      ],
+      "source": "10 版 PDF 术语比对（Necrodermis）"
+    },
+    {
+      "display": "受缚星神",
+      "aliases": [
+        "受奴役星神"
+      ],
+      "source": "10 版 PDF 术语比对（Enslaved Star God）"
+    },
+    {
+      "display": "生命汲取",
+      "aliases": [
+        "吸取生命"
+      ],
+      "source": "10 版 PDF 术语比对（Drain Life）"
+    },
+    {
+      "display": "原始恐惧",
+      "aliases": [
+        "返祖煽动"
+      ],
+      "source": "10 版 PDF 术语比对（Atavistic Instigation）"
+    },
+    {
+      "display": "压倒性歼灭",
+      "aliases": [
+        "压倒性毁灭"
+      ],
+      "source": "10 版 PDF 术语比对（Overwhelming Obliteration）"
+    },
+    {
+      "display": "血肉猎手",
+      "aliases": [
+        "嗜肉饥渴"
+      ],
+      "source": "10 版 PDF 术语比对（Flesh Hunger）"
+    },
+    {
+      "display": "维修舰",
+      "aliases": [
+        "修复方舟"
+      ],
+      "source": "10 版 PDF 术语比对（Repair Barge）"
+    },
+    {
+      "display": "节点生物",
+      "aliases": [
+        "突触"
+      ],
+      "source": "10 版 PDF 术语比对（Synapse）"
+    },
+    {
+      "display": "干扰轰炸",
+      "aliases": [
+        "扰乱轰击"
+      ],
+      "source": "10 版 PDF 术语比对（Disruption Bombardment）"
+    },
+    {
+      "display": "阴险洞察",
+      "aliases": [
+        "恶毒洞察"
+      ],
+      "source": "10 版 PDF 术语比对（Vicious Insight）"
+    },
+    {
+      "display": "怒火冲击",
+      "aliases": [
+        "烈焰突击"
+      ],
+      "source": "10 版 PDF 术语比对（Blistering Assault）"
+    },
+    {
+      "display": "觅食触须",
+      "aliases": [
+        "贪食触须"
+      ],
+      "source": "10 版 PDF 术语比对（Feeder Tendrils）"
+    },
+    {
+      "display": "未知恐怖【光环】",
+      "aliases": [
+        "对无形之物的恐惧"
+      ],
+      "source": "10 版 PDF 术语比对（Fear of the Unseen）"
+    },
+    {
+      "display": "猎手生物体",
+      "aliases": [
+        "猎杀生物体"
+      ],
+      "source": "10 版 PDF 术语比对（Hunter Organism）"
+    },
+    {
+      "display": "生物体瞄准",
+      "aliases": [
+        "共生标定"
+      ],
+      "source": "10 版 PDF 术语比对（Symbiotic Targeting）"
+    },
+    {
+      "display": "天空虫群",
+      "aliases": [
+        "翼群"
+      ],
+      "source": "10 版 PDF 术语比对（Winged Swarm）"
+    },
+    {
+      "display": "散布孢子雷",
+      "aliases": [
+        "孢子地雷囊"
+      ],
+      "source": "10 版 PDF 术语比对（Spore Mine Cysts）"
+    },
+    {
+      "display": "骇人场景",
+      "aliases": [
+        "恐怖景象"
+      ],
+      "source": "10 版 PDF 术语比对（Grisly Spectacle）"
+    },
+    {
+      "display": "跳跃腾挪",
+      "aliases": [
+        "猎杀冲锋"
+      ],
+      "source": "10 版 PDF 术语比对（Bounding Leap）"
+    },
+    {
+      "display": "骑士守则",
+      "aliases": [
+        "骑士荣典"
+      ],
+      "source": "10 版 PDF 术语比对（Code Chivalric）"
+    },
+    {
+      "display": "天火协议",
+      "aliases": [
+        "压制协议"
+      ],
+      "source": "10 版 PDF 术语比对（Skyfire Protocols / Suppression Protocols）"
+    },
+    {
+      "display": "先锋荣耀",
+      "aliases": [
+        "冲锋突击"
+      ],
+      "source": "10 版 PDF 术语比对（Impetuous Glory）"
+    },
+    {
+      "display": "超重型机甲",
+      "aliases": [
+        "超重型步行机甲"
+      ],
+      "source": "10 版 PDF 术语比对（Super-heavy Walker）"
+    },
+    {
+      "display": "传奇自由之刃",
+      "aliases": [
+        "传奇自由骑士"
+      ],
+      "source": "10 版 PDF 术语比对（Legendary Freeblade）"
+    },
+    {
+      "display": "使用赫克托爵士",
+      "aliases": [
+        "使用赫克图爵士"
+      ],
+      "source": "10 版 PDF 术语比对（Using Sir Hekhtur）"
+    },
+    {
+      "display": "离子庇护（光环）",
+      "aliases": [
+        "离子盾",
+        "离子防御"
+      ],
+      "source": "10 版 PDF 术语比对（Ion Aegis）"
+    },
+    {
+      "display": "远征职责（仆从）",
+      "aliases": [
+        "十字军战士之责"
+      ],
+      "source": "10 版 PDF 术语比对（Crusader’s Duty）"
+    },
+    {
+      "display": "毁灭齐射",
+      "aliases": [
+        "惩罚齐射"
+      ],
+      "source": "10 版 PDF 术语比对（Punishing Salvoes）"
+    },
+    {
+      "display": "游侠职责（仆从）",
+      "aliases": [
+        "侍卫之责"
+      ],
+      "source": "10 版 PDF 术语比对（Errant’s Duty）"
+    },
+    {
+      "display": "侵略突袭",
+      "aliases": [
+        "主动攻击"
+      ],
+      "source": "10 版 PDF 术语比对（Aggressive Assault）"
+    },
+    {
+      "display": "勇武职责（仆从）",
+      "aliases": [
+        "勇士之责"
+      ],
+      "source": "10 版 PDF 术语比对（Gallant’s Duty）"
+    },
+    {
+      "display": "骄傲武技",
+      "aliases": [
+        "武勇之傲"
+      ],
+      "source": "10 版 PDF 术语比对（Martial Pride）"
+    },
+    {
+      "display": "圣堂职责（仆从）",
+      "aliases": [
+        "骑士职责"
+      ],
+      "source": "10 版 PDF 术语比对（Paladin’s Duty）"
+    },
+    {
+      "display": "百战贵族",
+      "aliases": [
+        "老练贵族"
+      ],
+      "source": "10 版 PDF 术语比对（Seasoned Noble）"
+    },
+    {
+      "display": "导师（仆从）",
+      "aliases": [
+        "导师之傲"
+      ],
+      "source": "10 版 PDF 术语比对（Mentor）"
+    },
+    {
+      "display": "守则典范",
+      "aliases": [
+        "准则典范"
+      ],
+      "source": "10 版 PDF 术语比对（Exemplar of the Code）"
+    },
+    {
+      "display": "机动猎手",
+      "aliases": [
+        "移动猎杀者"
+      ],
+      "source": "10 版 PDF 术语比对（Mobile Hunter-killers）"
+    },
+    {
+      "display": "无情炮击",
+      "aliases": [
+        "无情弹幕"
+      ],
+      "source": "10 版 PDF 术语比对（Remorseless Barrage）"
+    },
+    {
+      "display": "人马合一",
+      "aliases": [
+        "马术大师"
+      ],
+      "source": "10 版 PDF 术语比对（Horsemasters）"
+    },
+    {
+      "display": "地震弹",
+      "aliases": [
+        "地震者炮弹"
+      ],
+      "source": "10 版 PDF 术语比对（Earthshaker Rounds）"
+    },
+    {
+      "display": "不知疼痛6+",
+      "aliases": [
+        "不觉疼痛6+"
+      ],
+      "source": "10 版 PDF 术语比对（Feel No Pain 6+）"
+    },
+    {
+      "display": "肉山之墙",
+      "aliases": [
+        "肌肉之墙"
+      ],
+      "source": "10 版 PDF 术语比对（Wall of Muscle）"
+    },
+    {
+      "display": "蛮兽之盾（装备）",
+      "aliases": [
+        "蛮力盾"
+      ],
+      "source": "10 版 PDF 术语比对（Brute Shield）"
+    },
+    {
+      "display": "厚板盾（装备）",
+      "aliases": [
+        "巨板盾",
+        "厚板盾（装备，W=7）"
+      ],
+      "source": "10 版 PDF 术语比对（Slabshield）"
+    },
+    {
+      "display": "指挥之声",
+      "aliases": [
+        "号令"
+      ],
+      "source": "10 版 PDF 术语比对（Voice of Command）"
+    },
+    {
+      "display": "音阵总台（装备）",
+      "aliases": [
+        "主通讯机"
+      ],
+      "source": "10 版 PDF 术语比对（Master Vox）"
+    },
+    {
+      "display": "兵团旗帜（装备）",
+      "aliases": [
+        "军团军旗"
+      ],
+      "source": "10 版 PDF 术语比对（Regimental Standard）"
+    },
+    {
+      "display": "掩护火力",
+      "aliases": [
+        "掩护射击"
+      ],
+      "source": "10 版 PDF 术语比对（Covering Fire）"
+    },
+    {
+      "display": "突击队",
+      "aliases": [
+        "突击部队"
+      ],
+      "source": "10 版 PDF 术语比对（Shock Troops）"
+    },
+    {
+      "display": "混沌战帅",
+      "aliases": [
+        "战帅"
+      ],
+      "source": "10 版 PDF 术语比对（Warmaster）"
+    },
+    {
+      "display": "黑暗命途",
+      "aliases": [
+        "暗黑命运"
+      ],
+      "source": "10 版 PDF 术语比对（Dark Destiny）"
+    },
+    {
+      "display": "嚎叫狂徒",
+      "aliases": [
+        "嚎吼群众"
+      ],
+      "source": "10 版 PDF 术语比对（Howling Horde）"
+    },
+    {
+      "display": "争抢荣誉",
+      "aliases": [
+        "荣耀之机"
+      ],
+      "source": "10 版 PDF 术语比对（Chance for Glory）"
+    },
+    {
+      "display": "可怕坚韧",
+      "aliases": [
+        "坚韧无匹"
+      ],
+      "source": "10 版 PDF 术语比对（Formidably Resilient）"
+    },
+    {
+      "display": "残酷猎手",
+      "aliases": [
+        "残忍猎手"
+      ],
+      "source": "10 版 PDF 术语比对（Cruel Hunter）"
+    },
+    {
+      "display": "破坏者",
+      "aliases": [
+        "毁灭者"
+      ],
+      "source": "10 版 PDF 术语比对（Destructor）"
+    },
+    {
+      "display": "自行修理",
+      "aliases": [
+        "自我修复"
+      ],
+      "source": "10 版 PDF 术语比对（Self Repair）"
+    },
+    {
+      "display": "黑暗劫掠",
+      "aliases": [
+        "掠夺者"
+      ],
+      "source": "10 版 PDF 术语比对（Despoilers）"
+    },
+    {
+      "display": "教团伏兵",
+      "aliases": [
+        "教派伏击"
+      ],
+      "source": "10 版 PDF 术语比对（Cult Ambush）"
+    },
+    {
+      "display": "人山保镖",
+      "aliases": [
+        "巨体护卫"
+      ],
+      "source": "10 版 PDF 术语比对（Hulking Bodyguards）"
+    },
+    {
+      "display": "教团选民",
+      "aliases": [
+        "天选之子"
+      ],
+      "source": "10 版 PDF 术语比对（The Chosen One）"
+    },
+    {
+      "display": "再生性遗传物质",
+      "aliases": [
+        "再生基因组织"
+      ],
+      "source": "10 版 PDF 术语比对（Regenerating Gene-mass）"
+    },
+    {
+      "display": "斥候9",
+      "aliases": [
+        "斥候9\"",
+        "侦察9\"",
+        "斥候9”",
+        "斥候"
+      ],
+      "source": "10 版 PDF 术语比对（Scouts 9\"）"
+    },
+    {
+      "display": "交叉射击",
+      "aliases": [
+        "交叉火网"
+      ],
+      "source": "10 版 PDF 术语比对（Crossfire）"
+    },
+    {
+      "display": "闪光弹发射器",
+      "aliases": [
+        "曳光弹发射器"
+      ],
+      "source": "10 版 PDF 术语比对（Flare launcher）"
+    },
+    {
+      "display": "观察员",
+      "aliases": [
+        "观测员"
+      ],
+      "source": "10 版 PDF 术语比对（Spotter）"
+    },
+    {
+      "display": "侦测预警员",
+      "aliases": [
+        "勘测探测器"
+      ],
+      "source": "10 版 PDF 术语比对（Survey Augur）"
+    },
+    {
+      "display": "归于教团",
+      "aliases": [
+        "为教派宣示"
+      ],
+      "source": "10 版 PDF 术语比对（Claimed for the Cult）"
+    },
+    {
+      "display": "教团标记",
+      "aliases": [
+        "教派圣像"
+      ],
+      "source": "10 版 PDF 术语比对（Cult Icon）"
+    },
+    {
+      "display": "献身骨干",
+      "aliases": [
+        "虔诚之枢"
+      ],
+      "source": "10 版 PDF 术语比对（Nexus of Devotion）"
+    },
+    {
+      "display": "教团召唤",
+      "aliases": [
+        "召唤教派"
+      ],
+      "source": "10 版 PDF 术语比对（Summon the Cult）"
+    },
+    {
+      "display": "飙速帮派",
+      "aliases": [
+        "巡狼帮派"
+      ],
+      "source": "10 版 PDF 术语比对（Outrider Gangs）"
+    },
+    {
+      "display": "爆破突击",
+      "aliases": [
+        "爆破冲锋"
+      ],
+      "source": "10 版 PDF 术语比对（Demolition Run）"
+    },
+    {
+      "display": "生体恐怖干涉【灵能】",
+      "aliases": [
+        "生物恐怖破坏"
+      ],
+      "source": "10 版 PDF 术语比对（Bio-horror Disruption）"
+    },
+    {
+      "display": "灵能护盾【灵能】",
+      "aliases": [
+        "心灵盾障"
+      ],
+      "source": "10 版 PDF 术语比对（Psionic Shield）"
+    },
+    {
+      "display": "领袖",
+      "aliases": [
+        "辅助"
+      ],
+      "source": "10 版 PDF 术语比对（Leader / Support）"
+    },
+    {
+      "display": "扭曲学识",
+      "aliases": [
+        "扭曲科学"
+      ],
+      "source": "10 版 PDF 术语比对（Twisted Science）"
+    },
+    {
+      "display": "生物战",
+      "aliases": [
+        "生化战术"
+      ],
+      "source": "10 版 PDF 术语比对（Biological Warfare）"
+    },
+    {
+      "display": "炼金魔宠",
+      "aliases": [
+        "炼金术魔宠"
+      ],
+      "source": "10 版 PDF 术语比对（Alchemicus Familiar）"
+    },
+    {
+      "display": "新理之声",
+      "aliases": [
+        "新真理之声"
+      ],
+      "source": "10 版 PDF 术语比对（Voice of New Truths）"
+    },
+    {
+      "display": "干扰音阵",
+      "aliases": [
+        "扰频阵列"
+      ],
+      "source": "10 版 PDF 术语比对（Scrambler Array）"
+    },
+    {
+      "display": "信仰之举",
+      "aliases": [
+        "信念之举"
+      ],
+      "source": "10 版 PDF 术语比对（Acts of Faith）"
+    },
+    {
+      "display": "帝皇审判挂画",
+      "aliases": [
+        "帝皇审判之自动挂毯"
+      ],
+      "source": "10 版 PDF 术语比对（Auto-Tapestry of the Emperor’s Judgement）"
+    },
+    {
+      "display": "记述圣徒伟绩",
+      "aliases": [
+        "记述圣者事蹟"
+      ],
+      "source": "10 版 PDF 术语比对（Recount the Deeds of the Saints）"
+    },
+    {
+      "display": "终极律令",
+      "aliases": [
+        "极限触发词"
+      ],
+      "source": "10 版 PDF 术语比对（Extremis Trigger Word）"
+    },
+    {
+      "display": "小天使",
+      "aliases": [
+        "圣童侍从"
+      ],
+      "source": "10 版 PDF 术语比对（Cherub）"
+    },
+    {
+      "display": "帝国圣像",
+      "aliases": [
+        "帝国圣像拟像"
+      ],
+      "source": "10 版 PDF 术语比对（Simulacrum Imperialis）"
+    },
+    {
+      "display": "神圣权柄",
+      "aliases": [
+        "神圣指挥",
+        "神圣谕令"
+      ],
+      "source": "10 版 PDF 术语比对（Sacred Command）"
+    },
+    {
+      "display": "帝皇赐福",
+      "aliases": [
+        "帝皇恩典"
+      ],
+      "source": "10 版 PDF 术语比对（The Emperor’s Grace）"
+    },
+    {
+      "display": "虚无节杖",
+      "aliases": [
+        "虚无权杖"
+      ],
+      "source": "10 版 PDF 术语比对（Null Rod）"
+    },
+    {
+      "display": "指挥节杖",
+      "aliases": [
+        "职权权杖"
+      ],
+      "source": "10 版 PDF 术语比对（Rod of Office）"
+    },
+    {
+      "display": "神圣救赎",
+      "aliases": [
+        "圣洁天诛"
+      ],
+      "source": "10 版 PDF 术语比对（Divine Deliverance）"
+    },
+    {
+      "display": "惩戒之仪",
+      "aliases": [
+        "惩戒仪式"
+      ],
+      "source": "10 版 PDF 术语比对（Rites of Castigation）"
+    },
+    {
+      "display": "誓言守卫者",
+      "aliases": [
+        "誓约守护者"
+      ],
+      "source": "10 版 PDF 术语比对（Sworn Protectors）"
+    },
+    {
+      "display": "神圣裁决",
+      "aliases": [
+        "神圣审判"
+      ],
+      "source": "10 版 PDF 术语比对（Holy Judgement）"
+    },
+    {
+      "display": "神秘救星",
+      "aliases": [
+        "神秘救世主"
+      ],
+      "source": "10 版 PDF 术语比对（Mysterious Saviours）"
+    },
+    {
+      "display": "圣歌播放器",
+      "aliases": [
+        "传道扩音器"
+      ],
+      "source": "10 版 PDF 术语比对（Laud Hailer）"
+    },
+    {
+      "display": "鼓舞演说",
+      "aliases": [
+        "激励辞令"
+      ],
+      "source": "10 版 PDF 术语比对（Stirring Rhetoric）"
+    },
+    {
+      "display": "不移决心",
+      "aliases": [
+        "坚定不移"
+      ],
+      "source": "10 版 PDF 术语比对（Unflinching Determination）"
+    },
+    {
+      "display": "不觉疼痛",
+      "aliases": [
+        "不知疼痛",
+        "痛苦无感",
+        "不知痛苦",
+        "不知痛楚"
+      ],
+      "factions": [
+        "grey-knights"
+      ],
+      "source": "11 版灰骑士官方简中 PDF 用「不觉疼痛」（真银圣铠 4+），与星际战士 11 版「不知疼痛」不同；按阵营覆盖"
+    },
+    {
+      "display": "攻城盾",
+      "aliases": [
+        "攻城护盾"
+      ],
+      "source": "10 版 PDF 术语比对（Siege Shield）"
+    },
+    {
+      "display": "神选战士",
+      "aliases": [
+        "精选掠夺者"
+      ],
+      "source": "10 版 PDF 术语比对（Chosen Marauders）"
+    },
+    {
+      "display": "混沌圣旗",
+      "aliases": [
+        "混沌圣像"
+      ],
+      "source": "10 版 PDF 术语比对（Chaos Icon）"
+    },
+    {
+      "display": "炙热信仰",
+      "aliases": [
+        "狂火信仰"
+      ],
+      "source": "10 版 PDF 术语比对（Fiery Faith）"
+    },
+    {
+      "display": "诅咒火焰",
+      "aliases": [
+        "诅咒之焰"
+      ],
+      "source": "10 版 PDF 术语比对（Cursed Flames）"
+    },
+    {
+      "display": "混乱特使【光环】",
+      "aliases": [
+        "纷乱使者"
+      ],
+      "source": "10 版 PDF 术语比对（Agent of Discord）"
+    },
+    {
+      "display": "枪斗术",
+      "aliases": [
+        "枪林弹雨"
+      ],
+      "source": "10 版 PDF 术语比对（Guns Blazing）"
+    },
+    {
+      "display": "黑暗狂热",
+      "aliases": [
+        "暗黑狂热"
+      ],
+      "source": "10 版 PDF 术语比对（Dark Zealotry）"
+    },
+    {
+      "display": "聒噪鼓动",
+      "aliases": [
+        "煽动者"
+      ],
+      "source": "10 版 PDF 术语比对（Demagogue）"
+    },
+    {
+      "display": "恶毒祭献",
+      "aliases": [
+        "邪恶牺牲"
+      ],
+      "source": "10 版 PDF 术语比对（Malign Sacrifice）"
+    },
+    {
+      "display": "狂热信众",
+      "aliases": [
+        "虔信群羊"
+      ],
+      "source": "10 版 PDF 术语比对（Faithful Flock）"
+    },
+    {
+      "display": "黑暗仪式",
+      "aliases": [
+        "暗黑仪式"
+      ],
+      "source": "10 版 PDF 术语比对（Dark Ritual）"
+    },
+    {
+      "display": "击倒巨物！",
+      "aliases": [
+        "击倒它！"
+      ],
+      "source": "10 版 PDF 术语比对（Bring it Down!）"
+    },
+    {
+      "display": "音阵广播器（装备）",
+      "aliases": [
+        "通讯机",
+        "音阵广播器（装备选项）"
+      ],
+      "source": "10 版 PDF 术语比对（Vox-caster）"
+    },
+    {
+      "display": "战场枪决",
+      "aliases": [
+        "即决处刑"
+      ],
+      "source": "10 版 PDF 术语比对（Summary Execution）"
+    },
+    {
+      "display": "监管领导",
+      "aliases": [
+        "政治监察"
+      ],
+      "source": "10 版 PDF 术语比对（Political Overwatch）"
+    },
+    {
+      "display": "死兵队医疗包（装备选项）",
+      "aliases": [
+        "死亡军团医疗包"
+      ],
+      "source": "10 版 PDF 术语比对（Death Korps Medi-pack）"
+    },
+    {
+      "display": "灵活机动",
+      "aliases": [
+        "掩护防线"
+      ],
+      "source": "10 版 PDF 术语比对（Screening Line）"
+    },
+    {
+      "display": "发射准备（含设定目标/修正目标/等离子弹头/发射规则）",
+      "aliases": [
+        "死亡打击飞弹"
+      ],
+      "source": "10 版 PDF 术语比对（Deathstrike Missile）"
+    },
+    {
+      "display": "毁灭圣歌",
+      "aliases": [
+        "毁灭副歌"
+      ],
+      "source": "10 版 PDF 术语比对（Devastating Refrain）"
+    },
+    {
+      "display": "国教医护",
+      "aliases": [
+        "圣部医务官"
+      ],
+      "source": "10 版 PDF 术语比对（Medicus Ministorum）"
+    },
+    {
+      "display": "神圣疗愈",
+      "aliases": [
+        "神圣医疗"
+      ],
+      "source": "10 版 PDF 术语比对（Sacred Healing）"
+    },
+    {
+      "display": "伟绩颂歌",
+      "aliases": [
+        "英烈铭记"
+      ],
+      "source": "10 版 PDF 术语比对（Litany of Deeds）"
+    },
+    {
+      "display": "圣殉道者的鼓舞",
+      "aliases": [
+        "圣殉标柱"
+      ],
+      "source": "10 版 PDF 术语比对（Stanchion of Holy Martyrs）"
+    },
+    {
+      "display": "神圣净化",
+      "aliases": [
+        "净化与清洗"
+      ],
+      "source": "10 版 PDF 术语比对（Purge and Cleanse）"
+    },
+    {
+      "display": "圣荷莱恩修会圣座",
+      "aliases": [
+        "圣荷琳圣殿讲坛"
+      ],
+      "source": "10 版 PDF 术语比对（The Pulpit of Saint Holline’s Basilica）"
+    },
+    {
+      "display": "虔诚祷告",
+      "aliases": [
+        "热忱信念"
+      ],
+      "source": "10 版 PDF 术语比对（Fiery Conviction）"
+    },
+    {
+      "display": "正义惩击",
+      "aliases": [
+        "正义打击"
+      ],
+      "source": "10 版 PDF 术语比对（Righteous Smiting）"
+    },
+    {
+      "display": "狂信徒",
+      "aliases": [
+        "狂热者"
+      ],
+      "source": "10 版 PDF 术语比对（Zealot）"
+    },
+    {
+      "display": "未及赎罪",
+      "aliases": [
+        "未得救赎者的痛苦"
+      ],
+      "source": "10 版 PDF 术语比对（Anguish of the Unredeemed）"
+    },
+    {
+      "display": "装甲棺椁",
+      "aliases": [
+        "隐修者石棺"
+      ],
+      "source": "10 版 PDF 术语比对（Anchorite Sarcophagus）"
+    },
+    {
+      "display": "痛苦之力",
+      "aliases": [
+        "苦痛之力"
+      ],
+      "source": "10 版 PDF 术语比对（Power from Pain）"
+    },
+    {
+      "display": "狡诈策士",
+      "aliases": [
+        "狡猾策士"
+      ],
+      "source": "10 版 PDF 术语比对（Devious Mastermind）"
+    },
+    {
+      "display": "苦痛寄生（光环）",
+      "aliases": [
+        "痛苦寄生虫"
+      ],
+      "source": "10 版 PDF 术语比对（Pain Parasite）"
+    },
+    {
+      "display": "刀锋大师",
+      "aliases": [
+        "刀剑大师"
+      ],
+      "source": "10 版 PDF 术语比对（Master of Blades）"
+    },
+    {
+      "display": "痛苦大师",
+      "aliases": [
+        "苦痛专家"
+      ],
+      "source": "10 版 PDF 术语比对（Pain Adept）"
+    },
+    {
+      "display": "恐惧化身（光环）",
+      "aliases": [
+        "惧怕之身"
+      ],
+      "source": "10 版 PDF 术语比对（Fear Incarnate）"
+    },
+    {
+      "display": "游击战",
+      "aliases": [
+        "战场屠杀"
+      ],
+      "source": "10 版 PDF 术语比对（Battlefield Butchery）"
+    },
+    {
+      "display": "幻象榴弹发射器",
+      "aliases": [
+        "幻影榴弹发射器",
+        "幻象榴弹发射器（装备）"
+      ],
+      "source": "10 版 PDF 术语比对（Phantasm Grenade Launcher）"
+    },
+    {
+      "display": "残暴掠夺者",
+      "aliases": [
+        "虐待狂袭击者",
+        "残虐掠夺者"
+      ],
+      "source": "10 版 PDF 术语比对（Sadistic Raiders）"
+    },
+    {
+      "display": "死神新娘",
+      "aliases": [
+        "死亡新娘"
+      ],
+      "source": "10 版 PDF 术语比对（Brides of Death）"
+    },
+    {
+      "display": "惊栗演出",
+      "aliases": [
+        "惊艳奇观"
+      ],
+      "source": "10 版 PDF 术语比对（Thrilling Spectacle）"
+    },
+    {
+      "display": "消逝",
+      "aliases": [
+        "渐隐消散"
+      ],
+      "source": "10 版 PDF 术语比对（Fade Away）"
+    },
+    {
+      "display": "火力平台 11",
+      "aliases": [
+        "射击甲板11",
+        "火力平台11",
+        "开火口11"
+      ],
+      "source": "10 版 PDF 术语比对（Firing Deck 11）"
+    },
+    {
+      "display": "开火口6",
+      "aliases": [
+        "射击甲板6",
+        "火力平台 6",
+        "火力平台6"
+      ],
+      "source": "10 版 PDF 术语比对（Firing Deck 6）"
+    },
+    {
+      "display": "战线粉碎者",
+      "aliases": [
+        "辗压突破"
+      ],
+      "source": "10 版 PDF 术语比对（Grinding Line-breaker）"
+    },
+    {
+      "display": "巢群涌动",
+      "aliases": [
+        "虫群涌动"
+      ],
+      "source": "10 版 PDF 术语比对（Brood Surge）"
+    },
+    {
+      "display": "首要目标",
+      "aliases": [
+        "优先目标"
+      ],
+      "source": "10 版 PDF 术语比对（Priority Target）"
+    },
+    {
+      "display": "大师级飙客",
+      "aliases": [
+        "先锋领袖"
+      ],
+      "source": "10 版 PDF 术语比对（Master Outrider）"
+    },
+    {
+      "display": "英勇齐射",
+      "aliases": [
+        "英雄连射"
+      ],
+      "source": "10 版 PDF 术语比对（Heroic Fusillade）"
+    },
+    {
+      "display": "突然袭击",
+      "aliases": [
+        "迅捷突袭"
+      ],
+      "source": "10 版 PDF 术语比对（Sudden Assault）"
+    },
+    {
+      "display": "贴身护卫",
+      "aliases": [
+        "护卫"
+      ],
+      "source": "10 版 PDF 术语比对（Bodyguard）"
+    },
+    {
+      "display": "精神控制【灵能】",
+      "aliases": [
+        "心灵控制"
+      ],
+      "source": "10 版 PDF 术语比对（Mind Control）"
+    },
+    {
+      "display": "灵能魔宠",
+      "aliases": [
+        "灵能寄生"
+      ],
+      "source": "10 版 PDF 术语比对（Psychic Familiar）"
+    },
+    {
+      "display": "酝酿计划",
+      "aliases": [
+        "数代预谋"
+      ],
+      "source": "10 版 PDF 术语比对（A Plan Generations in the Making）"
+    },
+    {
+      "display": "纵欲突击",
+      "aliases": [
+        "过度突击"
+      ],
+      "source": "10 版 PDF 术语比对（Excessive Assault）"
+    },
+    {
+      "display": "装备技能-纵欲圣印",
+      "aliases": [
+        "纵欲圣像"
+      ],
+      "source": "10 版 PDF 术语比对（Icon of Excess）"
+    },
+    {
+      "display": "色孽大魔(光环)",
+      "aliases": [
+        "丝兰妮什恶魔领主",
+        "色孽魔王（光环）"
+      ],
+      "source": "10 版 PDF 术语比对（Daemon Lord of Slaanesh）"
+    },
+    {
+      "display": "迷人体态",
+      "aliases": [
+        "迷惑之姿",
+        "曼妙身形"
+      ],
+      "source": "10 版 PDF 术语比对（Mesmerising Form）"
+    },
+    {
+      "display": "装备技能-闪耀圣盾",
+      "aliases": [
+        "闪耀神盾"
+      ],
+      "source": "10 版 PDF 术语比对（Shining Aegis）"
+    },
+    {
+      "display": "狂笑突袭",
+      "aliases": [
+        "狂喜打击",
+        "狂热打击"
+      ],
+      "source": "10 版 PDF 术语比对（Euphoric Strikes）"
+    },
+    {
+      "display": "战帮之主",
+      "aliases": [
+        "魔群之主"
+      ],
+      "source": "10 版 PDF 术语比对（Lord of the Host）"
+    },
+    {
+      "display": "强令宣告",
+      "aliases": [
+        "执念宣告"
+      ],
+      "source": "10 版 PDF 术语比对（Obsessive Annunciation）"
+    },
+    {
+      "display": "毁灭汽笛",
+      "aliases": [
+        "末日尖啸"
+      ],
+      "source": "10 版 PDF 术语比对（Doom Siren）"
+    },
+    {
+      "display": "堪试牛刀",
+      "aliases": [
+        "值得技艺的挑战"
+      ],
+      "source": "10 版 PDF 术语比对（A Challenge Worthy of Skill）"
+    },
+    {
+      "display": "决斗者之傲",
+      "aliases": [
+        "决斗者的傲慢"
+      ],
+      "source": "10 版 PDF 术语比对（Duellist’s Hubris）"
+    },
+    {
+      "display": "降罚饕欲",
+      "aliases": [
+        "嗜罚者"
+      ],
+      "source": "10 版 PDF 术语比对（Glutton for Punishment）"
+    },
+    {
+      "display": "悚惧强音",
+      "aliases": [
+        "骇人高潮"
+      ],
+      "source": "10 版 PDF 术语比对（Terrifying Crescendo）"
+    },
+    {
+      "display": "难逃一死",
+      "aliases": [
+        "无可逃脱之死"
+      ],
+      "source": "10 版 PDF 术语比对（Inescapable Death）"
+    },
+    {
+      "display": "机械增强（光环）",
+      "aliases": [
+        "机械强化"
+      ],
+      "source": "10 版 PDF 术语比对（Mechanical Augmentation）"
+    },
+    {
+      "display": "原子能量增幅器",
+      "aliases": [
+        "原子能量操控"
+      ],
+      "source": "10 版 PDF 术语比对（Atomic Energy Manipulator）"
+    },
+    {
+      "display": "伟大战略家",
+      "aliases": [
+        "大战略家"
+      ],
+      "source": "10 版 PDF 术语比对（Grand Strategist）"
+    },
+    {
+      "display": "风暴之王",
+      "aliases": [
+        "风暴领主"
+      ],
+      "source": "10 版 PDF 术语比对（Lord of the Storm）"
+    },
+    {
+      "display": "毁灭设定",
+      "aliases": [
+        "毁灭本能"
+      ],
+      "source": "10 版 PDF 术语比对（Hard-wired for Destruction）"
+    },
+    {
+      "display": "屠杀优化",
+      "aliases": [
+        "最适屠杀"
+      ],
+      "source": "10 版 PDF 术语比对（Optimised for Slaughter）"
+    },
+    {
+      "display": "驱逐者教派",
+      "aliases": [
+        "毁灭者教派"
+      ],
+      "source": "10 版 PDF 术语比对（Destroyer Cult）"
+    },
+    {
+      "display": "恨意驱使",
+      "aliases": [
+        "仇恨驱使"
+      ],
+      "source": "10 版 PDF 术语比对（Driven by Hatred）"
+    },
+    {
+      "display": "守护协议",
+      "aliases": [
+        "守护者协议"
+      ],
+      "source": "10 版 PDF 术语比对（Guardian Protocols）"
+    },
+    {
+      "display": "折射盾",
+      "aliases": [
+        "散逸盾"
+      ],
+      "source": "10 版 PDF 术语比对（Dispersion Shield）"
+    },
+    {
+      "display": "他们的数量无穷无尽",
+      "aliases": [
+        "其命维新"
+      ],
+      "source": "10 版 PDF 术语比对（Their Number is Legion）"
+    },
+    {
+      "display": "日铸",
+      "aliases": [
+        "日锻"
+      ],
+      "source": "10 版 PDF 术语比对（Sunforge）"
+    },
+    {
+      "display": "斥候7”",
+      "aliases": [
+        "斥候7\"",
+        "斥候",
+        "斥候7"
+      ],
+      "source": "10 版 PDF 术语比对（Scouts 7\"）"
+    },
+    {
+      "display": "结构分析器",
+      "aliases": [
+        "结构弱点分析"
+      ],
+      "source": "10 版 PDF 术语比对（Structural Analyser）"
+    },
+    {
+      "display": "永不言败",
+      "aliases": [
+        "失败不是选项"
+      ],
+      "source": "10 版 PDF 术语比对（Failure Is Not an Option）"
+    },
+    {
+      "display": "联合指挥",
+      "aliases": [
+        "协调领导"
+      ],
+      "source": "10 版 PDF 术语比对（Coordinated Leadership）"
+    },
+    {
+      "display": "悬浮兵蜂",
+      "aliases": [
+        "悬浮无人机"
+      ],
+      "source": "10 版 PDF 术语比对（Hover Drone）"
+    },
+    {
+      "display": "精准引导",
+      "aliases": [
+        "精准瞄准"
+      ],
+      "source": "10 版 PDF 术语比对（Precise Targeting）"
+    },
+    {
+      "display": "潜行兵蜂",
+      "aliases": [
+        "隐形无人机"
+      ],
+      "source": "10 版 PDF 术语比对（Stealth Drones）"
+    },
+    {
+      "display": "锁定阵列",
+      "aliases": [
+        "瞄准阵列",
+        "火力协调"
+      ],
+      "source": "10 版 PDF 术语比对（Targeting Array）"
+    },
+    {
+      "display": "战地技巧",
+      "aliases": [
+        "战场机动"
+      ],
+      "source": "10 版 PDF 术语比对（Fieldcraft）"
+    },
+    {
+      "display": "灵能蔓延【光环，灵能】",
+      "aliases": [
+        "脑髓扩散"
+      ],
+      "source": "10 版 PDF 术语比对（Encephalic Diffusion）"
+    },
+    {
+      "display": "深渊恐怖",
+      "aliases": [
+        "深渊恐惧"
+      ],
+      "source": "10 版 PDF 术语比对（Terror From The Deep）"
+    },
+    {
+      "display": "精神扰乱",
+      "aliases": [
+        "神经干扰"
+      ],
+      "source": "10 版 PDF 术语比对（Neural Disruption）"
+    },
+    {
+      "display": "心灵破坏者【光环】",
+      "aliases": [
+        "心理破坏者"
+      ],
+      "source": "10 版 PDF 术语比对（Psychological Saboteur）"
+    },
+    {
+      "display": "节点冲击【灵能】",
+      "aliases": [
+        "节点鞭"
+      ],
+      "source": "10 版 PDF 术语比对（Node Lash）"
+    },
+    {
+      "display": "节点中续",
+      "aliases": [
+        "神经卵"
+      ],
+      "source": "10 版 PDF 术语比对（Neuroloids）"
+    },
+    {
+      "display": "虫群使命",
+      "aliases": [
+        "单一目的"
+      ],
+      "source": "10 版 PDF 术语比对（Singular Purpose）"
+    },
+    {
+      "display": "毒刺倒钩",
+      "aliases": [
+        "鱼叉倒钩"
+      ],
+      "source": "10 版 PDF 术语比对（Harpoon Barbs）"
+    },
+    {
+      "display": "超能韧性",
+      "aliases": [
+        "超然韧性"
+      ],
+      "source": "10 版 PDF 术语比对（Unnatural Resilience）"
+    },
+    {
+      "display": "头领生物",
+      "aliases": [
+        "兽群之王"
+      ],
+      "source": "10 版 PDF 术语比对（Alpha Leader）"
+    },
+    {
+      "display": "无阻巨兽",
+      "aliases": [
+        "不死传说"
+      ],
+      "source": "10 版 PDF 术语比对（Unstoppable Monster）"
+    },
+    {
+      "display": "生体催化【光环】",
+      "aliases": [
+        "生物刺激"
+      ],
+      "source": "10 版 PDF 术语比对（Bio-stimulus）"
+    },
+    {
+      "display": "狂热进食",
+      "aliases": [
+        "喂食狂潮"
+      ],
+      "source": "10 版 PDF 术语比对（Feeding Frenzy）"
+    },
+    {
+      "display": "一头洞察未来",
+      "aliases": [
+        "一头向前看",
+        "一头洞察未来（光环）"
+      ],
+      "source": "10 版 PDF 术语比对（One Head Looks Forward）"
+    },
+    {
+      "display": "一头知晓过去（光环）",
+      "aliases": [
+        "一头眼向后看"
+      ],
+      "source": "10 版 PDF 术语比对（One Head Looks Back）"
+    },
+    {
+      "display": "奸奇恶魔领主（光环）",
+      "aliases": [
+        "齐奥奇之恶魔领主",
+        "奸奇魔王（光环）"
+      ],
+      "source": "10 版 PDF 术语比对（Daemon Lord of Tzeentch）"
+    },
+    {
+      "display": "魔法之主（灵能）",
+      "aliases": [
+        "魔法大师",
+        "魔法之主"
+      ],
+      "source": "10 版 PDF 术语比对（Master of Magicks）"
+    },
+    {
+      "display": "巫师星之主",
+      "aliases": [
+        "魔法星球之主"
+      ],
+      "source": "10 版 PDF 术语比对（Lord of the Planet of the Sorcerers）"
+    },
+    {
+      "display": "超自然力量",
+      "aliases": [
+        "超凡之力"
+      ],
+      "source": "10 版 PDF 术语比对（Unearthly Power）"
+    },
+    {
+      "display": "咆哮守护者",
+      "aliases": [
+        "愤怒守护者"
+      ],
+      "source": "10 版 PDF 术语比对（Snarling Protector）"
+    },
+    {
+      "display": "异变漩涡（光环）",
+      "aliases": [
+        "变异漩涡"
+      ],
+      "source": "10 版 PDF 术语比对（Mutating Vortex）"
+    },
+    {
+      "display": "非物质烈焰（光环）",
+      "aliases": [
+        "非物质闪光"
+      ],
+      "source": "10 版 PDF 术语比对（Immaterial Flare）"
+    },
+    {
+      "display": "惧妖是粉。惧妖是蓝。原本唯一，如今成双",
+      "aliases": [
+        "惧妖有粉有蓝,一化为二"
+      ],
+      "source": "10 版 PDF 术语比对（HORRORS ARE PINK. HORRORS ARE BLUE. WHERE ONCE THERE WAS ONE, NOW THERE ARE TWO.）"
+    },
+    {
+      "display": "万变使者",
+      "aliases": [
+        "变化使者"
+      ],
+      "source": "10 版 PDF 术语比对（Bringers of Change）"
+    },
+    {
+      "display": "装备：炽焰印记",
+      "aliases": [
+        "烈焰圣像"
+      ],
+      "source": "10 版 PDF 术语比对（Icon of Flame）"
+    },
+    {
+      "display": "聚合仪式",
+      "aliases": [
+        "合一仪式"
+      ],
+      "source": "10 版 PDF 术语比对（Rites of Coalescence）"
+    },
+    {
+      "display": "割裂俯冲",
+      "aliases": [
+        "破空俯冲"
+      ],
+      "source": "10 版 PDF 术语比对（Slashing Dive）"
+    },
+    {
+      "display": "先知哨兵",
+      "aliases": [
+        "预言哨兵"
+      ],
+      "source": "10 版 PDF 术语比对（Prophetic Sentinels）"
+    },
+    {
+      "display": "黑暗亲王（光环）",
+      "aliases": [
+        "黑暗王子"
+      ],
+      "source": "10 版 PDF 术语比对（Prince of Darkness）"
+    },
+    {
+      "display": "不洁体魄",
+      "aliases": [
+        "邪能勃发"
+      ],
+      "source": "10 版 PDF 术语比对（Unholy Vigour）"
+    },
+    {
+      "display": "忠于混沌",
+      "aliases": [
+        "恶魔效忠",
+        "恶魔契约"
+      ],
+      "source": "10 版 PDF 术语比对（Daemonic Allegiance）"
+    },
+    {
+      "display": "大肆破坏",
+      "aliases": [
+        "恶毒毁灭"
+      ],
+      "source": "10 版 PDF 术语比对（Malefic Destruction）"
+    },
+    {
+      "display": "死亡使者",
+      "aliases": [
+        "死亡先驱"
+      ],
+      "source": "10 版 PDF 术语比对（Harbinger of Death）"
+    },
+    {
+      "display": "瘟疫之神的祝福",
+      "aliases": [
+        "瘟疫之神祝福"
+      ],
+      "source": "10 版 PDF 术语比对（Blessed by the Plague God）"
+    },
+    {
+      "display": "疫病账册",
+      "aliases": [
+        "瘟疫计数"
+      ],
+      "source": "10 版 PDF 术语比对（Tally of Pestilence）"
+    },
+    {
+      "display": "耀眼妖火（灵能）",
+      "aliases": [
+        "炽烈蛇火"
+      ],
+      "source": "10 版 PDF 术语比对（Blazing Warpfire）"
+    },
+    {
+      "display": "诡变之火（灵能）",
+      "aliases": [
+        "变化之焰"
+      ],
+      "source": "10 版 PDF 术语比对（Flames of Change）"
+    },
+    {
+      "display": "窥命者",
+      "aliases": [
+        "命运飞翔者"
+      ],
+      "source": "10 版 PDF 术语比对（Fateskimmer）"
+    },
+    {
+      "display": "驾驭亚空间之风",
+      "aliases": [
+        "非物质风之御者"
+      ],
+      "source": "10 版 PDF 术语比对（Rider of the Immaterial Winds）"
+    },
+    {
+      "display": "蝇群笼罩（光环）",
+      "aliases": [
+        "苍蝇之幕"
+      ],
+      "source": "10 版 PDF 术语比对（Shroud of Flies）"
+    },
+    {
+      "display": "瘟疫掩体",
+      "aliases": [
+        "疫病掩护"
+      ],
+      "source": "10 版 PDF 术语比对（Diseased Cover）"
+    },
+    {
+      "display": "真银庇护（光环）",
+      "aliases": [
+        "真银防线"
+      ],
+      "source": "10 版 PDF 术语比对（Truesilver Aegis）"
+    },
+    {
+      "display": "截击机",
+      "aliases": [
+        "拦截者"
+      ],
+      "source": "10 版 PDF 术语比对（Interceptor）"
+    },
+    {
+      "display": "装甲强固",
+      "aliases": [
+        "装甲韧性"
+      ],
+      "source": "10 版 PDF 术语比对（Armoured Resilience）"
+    },
+    {
+      "display": "对地扫射",
+      "aliases": [
+        "低空扫射",
+        "空中扫射"
+      ],
+      "source": "10 版 PDF 术语比对（Strafing Run）"
+    },
+    {
+      "display": "先贤指引（灵能）",
+      "aliases": [
+        "古老者的指引"
+      ],
+      "source": "10 版 PDF 术语比对（Guidance of the Ancients）"
+    },
+    {
+      "display": "正义楷模",
+      "aliases": [
+        "正义帕拉吉翁"
+      ],
+      "source": "10 版 PDF 术语比对（Righteous Paragons）"
+    },
+    {
+      "display": "无尽折磨",
+      "aliases": [
+        "无尽痛苦"
+      ],
+      "source": "10 版 PDF 术语比对（Endless Suffering）"
+    },
+    {
+      "display": "监管赎罪",
+      "aliases": [
+        "救赎监督者"
+      ],
+      "source": "10 版 PDF 术语比对（Overseer of Redemption）"
+    },
+    {
+      "display": "治愈之泪",
+      "aliases": [
+        "生命之泪"
+      ],
+      "source": "10 版 PDF 术语比对（Healing Tears）"
+    },
+    {
+      "display": "舍生取义",
+      "aliases": [
+        "生命护卫"
+      ],
+      "source": "10 版 PDF 术语比对（Lifewards）"
+    },
+    {
+      "display": "奇迹降临",
+      "aliases": [
+        "神蹟干预"
+      ],
+      "source": "10 版 PDF 术语比对（Miraculous Intervention）"
+    },
+    {
+      "display": "天使升腾",
+      "aliases": [
+        "天使飞昇"
+      ],
+      "source": "10 版 PDF 术语比对（Angelic Ascent）"
+    },
+    {
+      "display": "尽忠热诚",
+      "aliases": [
+        "莽撞狂热"
+      ],
+      "source": "10 版 PDF 术语比对（Impetuous Fervour）"
+    },
+    {
+      "display": "修会长圣遗物",
+      "aliases": [
+        "圣母遗物"
+      ],
+      "source": "10 版 PDF 术语比对（Relics of the Matriarchs）"
+    },
+    {
+      "display": "庄严巡礼",
+      "aliases": [
+        "庄严行列"
+      ],
+      "source": "10 版 PDF 术语比对（Solemn Procession）"
+    },
+    {
+      "display": "燃烧喷溅",
+      "aliases": [
+        "灼焰喷射"
+      ],
+      "source": "10 版 PDF 术语比对（Burning Spray）"
+    },
+    {
+      "display": "地下死神",
+      "aliases": [
+        "自下方奇袭"
+      ],
+      "source": "10 版 PDF 术语比对（Death From Below）"
+    },
+    {
+      "display": "死亡尖啸",
+      "aliases": [
+        "音波啸叫"
+      ],
+      "source": "10 版 PDF 术语比对（Death Scream）"
+    },
+    {
+      "display": "生物地雷",
+      "aliases": [
+        "生物雷场"
+      ],
+      "source": "10 版 PDF 术语比对（Bio-minefield）"
+    },
+    {
+      "display": "漂浮死神",
+      "aliases": [
+        "漂浮之死"
+      ],
+      "source": "10 版 PDF 术语比对（Floating Death）"
+    },
+    {
+      "display": "发射孢子雷",
+      "aliases": [
+        "播种黏液孢子"
+      ],
+      "source": "10 版 PDF 术语比对（Seed Mucolids）"
+    },
+    {
+      "display": "鬼祟恐怖",
+      "aliases": [
+        "潜伏恐惧"
+      ],
+      "source": "10 版 PDF 术语比对（Skulking Horrors）"
+    },
+    {
+      "display": "空投降落",
+      "aliases": [
+        "空降播种"
+      ],
+      "source": "10 版 PDF 术语比对（Aerial Seeding）"
+    },
+    {
+      "display": "卫士生物体",
+      "aliases": [
+        "守护生物"
+      ],
+      "source": "10 版 PDF 术语比对（Guardian Organism）"
+    },
+    {
+      "display": "扭曲巫术（灵能）",
+      "aliases": [
+        "扭曲的邪术"
+      ],
+      "source": "10 版 PDF 术语比对（Twisted Sorceries）"
+    },
+    {
+      "display": "命运印记（灵能）",
+      "aliases": [
+        "命运之印"
+      ],
+      "source": "10 版 PDF 术语比对（Marked by Fate）"
+    },
+    {
+      "display": "伏击猎手",
+      "aliases": [
+        "埋伏猎手"
+      ],
+      "source": "10 版 PDF 术语比对（Ambushing Hunters）"
+    },
+    {
+      "display": "装备：嘶鸣号角",
+      "aliases": [
+        "嘶吼号角"
+      ],
+      "source": "10 版 PDF 术语比对（Brayhorn）"
+    },
+    {
+      "display": "牧群先知",
+      "aliases": [
+        "兽性先知"
+      ],
+      "source": "10 版 PDF 术语比对（Bestial Prophet）"
+    },
+    {
+      "display": "厄运预言",
+      "aliases": [
+        "预言之厄"
+      ],
+      "source": "10 版 PDF 术语比对（Prophesied Doom）"
+    },
+    {
+      "display": "幻变之主",
+      "aliases": [
+        "流变使者"
+      ],
+      "source": "10 版 PDF 术语比对（Fluxmaster）"
+    },
+    {
+      "display": "扭曲现实（灵能）",
+      "aliases": [
+        "改变现实"
+      ],
+      "source": "10 版 PDF 术语比对（Altered Reality）"
+    },
+    {
+      "display": "纳垢恶魔领主（光环）",
+      "aliases": [
+        "纳垢之恶魔领主"
+      ],
+      "source": "10 版 PDF 术语比对（Daemon Lord of Nurgle）"
+    },
+    {
+      "display": "纳垢腐疫（灵能）",
+      "aliases": [
+        "纳垢之腐"
+      ],
+      "source": "10 版 PDF 术语比对（Nurgle’s Rot）"
+    },
+    {
+      "display": "高阶纳垢恶魔（光环）",
+      "aliases": [
+        "纳垢伟大恶魔"
+      ],
+      "source": "10 版 PDF 术语比对（Greater Daemon of Nurgle）"
+    },
+    {
+      "display": "驭兽者",
+      "aliases": [
+        "兽群管理者"
+      ],
+      "source": "10 版 PDF 术语比对（Beast Handler）"
+    },
+    {
+      "display": "和音汇集",
+      "aliases": [
+        "和谐对准"
+      ],
+      "source": "10 版 PDF 术语比对（Harmonic Alignment）"
+    },
+    {
+      "display": "魔音入脑（光环）",
+      "aliases": [
+        "不和谐扰乱"
+      ],
+      "source": "10 版 PDF 术语比对（Discordant Disruption）"
+    },
+    {
+      "display": "一头看向过往",
+      "aliases": [
+        "一人向后凝视"
+      ],
+      "source": "10 版 PDF 术语比对（One Head Looks Back）"
+    },
+    {
+      "display": "高阶奸奇恶魔（光环）",
+      "aliases": [
+        "更高级的特兹恩恶魔"
+      ],
+      "source": "10 版 PDF 术语比对（Greater Daemon of Tzeentch）"
+    },
+    {
+      "display": "高阶色孽恶魔（光环）",
+      "aliases": [
+        "莎兰妮丝大恶魔"
+      ],
+      "source": "10 版 PDF 术语比对（Greater Daemon of Slaanesh）"
+    },
+    {
+      "display": "生性淘气",
+      "aliases": [
+        "淘气鬼"
+      ],
+      "source": "10 版 PDF 术语比对（Mischief Makers）"
+    },
+    {
+      "display": "邪秽迅捷",
+      "aliases": [
+        "毒光走位"
+      ],
+      "source": "10 版 PDF 术语比对（Unholy Speed）"
+    },
+    {
+      "display": "无路可逃",
+      "aliases": [
+        "无猎物能逃脱"
+      ],
+      "source": "10 版 PDF 术语比对（No Prey Can Evade）"
+    },
+    {
+      "display": "狩猎魔君",
+      "aliases": [
+        "狩猎君王",
+        "狩猎之王"
+      ],
+      "source": "10 版 PDF 术语比对（Monarch of the Hunt）"
+    },
+    {
+      "display": "邪能干涉（灵能）",
+      "aliases": [
+        "扭曲干扰"
+      ],
+      "source": "10 版 PDF 术语比对（Warped Interference）"
+    },
+    {
+      "display": "钻心痛楚（灵能）",
+      "aliases": [
+        "折磨苦痛"
+      ],
+      "source": "10 版 PDF 术语比对（Wracking Agonies）"
+    },
+    {
+      "display": "亵渎目标",
+      "aliases": [
+        "目标亵渎"
+      ],
+      "source": "10 版 PDF 术语比对（Objective Defiled）"
+    },
+    {
+      "display": "佩切拉鸟",
+      "aliases": [
+        "佩克拉"
+      ],
+      "source": "10 版 PDF 术语比对（Pech'ra）"
+    },
+    {
+      "display": "屠宰仪式",
+      "aliases": [
+        "血肉仪式"
+      ],
+      "source": "10 版 PDF 术语比对（Ritual Butchery）"
+    },
+    {
+      "display": "饕餮仪式",
+      "aliases": [
+        "献祭飨宴"
+      ],
+      "source": "10 版 PDF 术语比对（Rites of Feasting）"
+    },
+    {
+      "display": "劲步突袭",
+      "aliases": [
+        "疾跃突袭"
+      ],
+      "source": "10 版 PDF 术语比对（Loping Pounce）"
+    },
+    {
+      "display": "狩猎猎犬",
+      "aliases": [
+        "猎犬本能"
+      ],
+      "source": "10 版 PDF 术语比对（Hunting Hounds）"
+    },
+    {
+      "display": "高级侦查",
+      "aliases": [
+        "先进侦察"
+      ],
+      "source": "10 版 PDF 术语比对（Advanced Scouting）"
+    },
+    {
+      "display": "冷枪",
+      "aliases": [
+        "射击后隐匿"
+      ],
+      "source": "10 版 PDF 术语比对（Fire and Fade）"
+    },
+    {
+      "display": "克鲁特突破者",
+      "aliases": [
+        "克鲁特冲线者"
+      ],
+      "source": "10 版 PDF 术语比对（Kroot Linebreakers）"
+    },
+    {
+      "display": "猎群队友",
+      "aliases": [
+        "克鲁特同伴"
+      ],
+      "source": "10 版 PDF 术语比对（Kroot Packmates）"
+    },
+    {
+      "display": "追踪寻迹",
+      "aliases": [
+        "追踪向导"
+      ],
+      "source": "10 版 PDF 术语比对（Trail Finding）"
+    },
+    {
+      "display": "荣耀之源",
+      "aliases": [
+        "荣耀之根"
+      ],
+      "source": "10 版 PDF 术语比对（Root of Honour）"
+    },
+    {
+      "display": "火线投送",
+      "aliases": [
+        "侵略部署"
+      ],
+      "source": "10 版 PDF 术语比对（Aggressive Deployment）"
+    },
+    {
+      "display": "气氏巨构",
+      "aliases": [
+        "空族巨像"
+      ],
+      "source": "10 版 PDF 术语比对（Air Caste Colossus）"
+    },
+    {
+      "display": "反重力兵蜂",
+      "aliases": [
+        "重力抑制无人机"
+      ],
+      "source": "10 版 PDF 术语比对（Grav-inhibitor Drone）"
+    },
+    {
+      "display": "脉冲加速兵蜂",
+      "aliases": [
+        "脉冲加速无人机"
+      ],
+      "source": "10 版 PDF 术语比对（Pulse Accelerator Drone）"
+    },
+    {
+      "display": "侦查兵蜂",
+      "aliases": [
+        "侦察无人机"
+      ],
+      "source": "10 版 PDF 术语比对（Recon Drone）"
+    },
+    {
+      "display": "消灭敌人",
+      "aliases": [
+        "歼灭敌人"
+      ],
+      "source": "10 版 PDF 术语比对（Eradicate the Foe）"
+    },
+    {
+      "display": "空对地战机",
+      "aliases": [
+        "对地攻击机",
+        "对地打击机"
+      ],
+      "source": "10 版 PDF 术语比对（Ground-attack Craft）"
+    },
+    {
+      "display": "破腹飞行",
+      "aliases": [
+        "剖膛掠击"
+      ],
+      "source": "10 版 PDF 术语比对（Eviscerating Fly-by）"
+    },
+    {
+      "display": "铁蒺藜簇",
+      "aliases": [
+        "集束尖刺",
+        "铁蒺藜簇（装备）"
+      ],
+      "source": "10 版 PDF 术语比对（Cluster caltrops）"
+    },
+    {
+      "display": "重力爪",
+      "aliases": [
+        "重力利爪"
+      ],
+      "source": "10 版 PDF 术语比对（Grav-talon）"
+    },
+    {
+      "display": "飞翼打击",
+      "aliases": [
+        "俯冲下降"
+      ],
+      "source": "10 版 PDF 术语比对（Swooping Descent）"
+    },
+    {
+      "display": "剑刃风暴",
+      "aliases": [
+        "刀刃风暴"
+      ],
+      "source": "10 版 PDF 术语比对（Storm of Blades）"
+    },
+    {
+      "display": "痛苦机械",
+      "aliases": [
+        "无思杀戮机器"
+      ],
+      "source": "10 版 PDF 术语比对（Mindless Killing Machines）"
+    },
+    {
+      "display": "空中飞人",
+      "aliases": [
+        "空中特技师",
+        "轻巧登舰"
+      ],
+      "source": "10 版 PDF 术语比对（Aerialists）"
+    },
+    {
+      "display": "虚空雷",
+      "aliases": [
+        "虚空炸弹"
+      ],
+      "source": "10 版 PDF 术语比对（Void Mine）"
+    },
+    {
+      "display": "恶毒孢子【光环】",
+      "aliases": [
+        "恶臭孢子"
+      ],
+      "source": "10 版 PDF 术语比对（Foul Spores）"
+    },
+    {
+      "display": "首领武士",
+      "aliases": [
+        "首领战士"
+      ],
+      "source": "10 版 PDF 术语比对（Alpha Warrior）"
+    },
+    {
+      "display": "垂死挣扎",
+      "aliases": [
+        "致命一击",
+        "XV02驾驶员战斗服"
+      ],
+      "source": "10 版 PDF 术语比对（Death Blow）"
+    },
+    {
+      "display": "吸魂凝视【光环，灵能】",
+      "aliases": [
+        "灵能吸取"
+      ],
+      "source": "10 版 PDF 术语比对（Spirit Leech）"
+    },
+    {
+      "display": "亚空间护盾【光环，灵能】",
+      "aliases": [
+        "亚空间力场"
+      ],
+      "source": "10 版 PDF 术语比对（Warp Field）"
+    },
+    {
+      "display": "践行预言",
+      "aliases": [
+        "预言化身"
+      ],
+      "source": "10 版 PDF 术语比对（Embodied Prophecy）"
+    },
+    {
+      "display": "教团渗透",
+      "aliases": [
+        "教派潜伏"
+      ],
+      "source": "10 版 PDF 术语比对（Cult Infiltration）"
+    },
+    {
+      "display": "彼端强令",
+      "aliases": [
+        "彼界之力"
+      ],
+      "source": "10 版 PDF 术语比对（Might From Beyond）"
+    },
+    {
+      "display": "天外恐怖【灵能】",
+      "aliases": [
+        "宇宙恐怖"
+      ],
+      "source": "10 版 PDF 术语比对（Cosmic Horror）"
+    },
+    {
+      "display": "教团喉舌",
+      "aliases": [
+        "教派煽动者"
+      ],
+      "source": "10 版 PDF 术语比对（Cult Demagogue）"
+    },
+    {
+      "display": "诱敌误导",
+      "aliases": [
+        "伪装诱饵与误导"
+      ],
+      "source": "10 版 PDF 术语比对（Decoys and Misdirection）"
+    },
+    {
+      "display": "致命迅捷",
+      "aliases": [
+        "迅猛致命"
+      ],
+      "source": "10 版 PDF 术语比对（Swift and Deadly）"
+    },
+    {
+      "display": "引爆就绪",
+      "aliases": [
+        "就绪待发"
+      ],
+      "source": "10 版 PDF 术语比对（Primed and Ready）"
+    },
+    {
+      "display": "放置炸药",
+      "aliases": [
+        "埋设炸弹"
+      ],
+      "source": "10 版 PDF 术语比对（Planted Explosives）"
+    },
+    {
+      "display": "匍行暗影",
+      "aliases": [
+        "悄行阴影"
+      ],
+      "source": "10 版 PDF 术语比对（Creeping Shadow）"
+    },
+    {
+      "display": "灵能觅踪",
+      "aliases": [
+        "灵能追踪"
+      ],
+      "source": "10 版 PDF 术语比对（Psychic Spoor）"
+    },
+    {
+      "display": "装填开火",
+      "aliases": [
+        "重整、装填、射击"
+      ],
+      "source": "10 版 PDF 术语比对（Rearm, Reload, Fire）"
+    },
+    {
+      "display": "塔尼斯伪装披风",
+      "aliases": [
+        "坦尼斯迷彩斗篷"
+      ],
+      "source": "10 版 PDF 术语比对（Tanith Camo-cloaks）"
+    },
+    {
+      "display": "潜伏小组",
+      "aliases": [
+        "隐蔽突击小队"
+      ],
+      "source": "10 版 PDF 术语比对（Covert Stealth Team）"
+    },
+    {
+      "display": "无处藏身",
+      "aliases": [
+        "驱逐歼灭"
+      ],
+      "source": "10 版 PDF 术语比对（Flush Them Out）"
+    },
+    {
+      "display": "高射炮",
+      "aliases": [
+        "防空炮台"
+      ],
+      "source": "10 版 PDF 术语比对（Flak Battery）"
+    },
+    {
+      "display": "热熔炸弹（装备选项）",
+      "aliases": [
+        "热熔地雷"
+      ],
+      "source": "10 版 PDF 术语比对（Melta Mine）"
+    },
+    {
+      "display": "炼金药剂（装备）",
+      "aliases": [
+        "炼金术反制剂"
+      ],
+      "source": "10 版 PDF 术语比对（Alchemyk Counteragents）"
+    },
+    {
+      "display": "伺服颅骨（装备）",
+      "aliases": [
+        "伺服誊写器"
+      ],
+      "source": "10 版 PDF 术语比对（Servo-scribes）"
+    },
+    {
+      "display": "最终使命",
+      "aliases": [
+        "最后职责"
+      ],
+      "source": "10 版 PDF 术语比对（Final Duty）"
+    },
+    {
+      "display": "手术侍僧",
+      "aliases": [
+        "外科助手"
+      ],
+      "source": "10 版 PDF 术语比对（Surgeon Acolyte）"
+    },
+    {
+      "display": "手术机械臂",
+      "aliases": [
+        "外科医师"
+      ],
+      "source": "10 版 PDF 术语比对（Chirurgeon）"
+    },
+    {
+      "display": "兽化劫掠者",
+      "aliases": [
+        "兽性袭击者"
+      ],
+      "source": "10 版 PDF 术语比对（Bestial Raiders）"
+    },
+    {
+      "display": "魔化重炮",
+      "aliases": [
+        "恶魔炮击"
+      ],
+      "source": "10 版 PDF 术语比对（Daemonic Ordnance）"
+    },
+    {
+      "display": "夺颅冲锋",
+      "aliases": [
+        "猎头者"
+      ],
+      "source": "10 版 PDF 术语比对（Head Taker）"
+    },
+    {
+      "display": "毁灭先锋【光环】",
+      "aliases": [
+        "启示录先锋"
+      ],
+      "source": "10 版 PDF 术语比对（Herald of the Apocalypse）"
+    },
+    {
+      "display": "暗黑晋升【光环】",
+      "aliases": [
+        "黑暗昇华"
+      ],
+      "source": "10 版 PDF 术语比对（Dark Ascension）"
+    },
+    {
+      "display": "沉迷毁灭",
+      "aliases": [
+        "献身毁灭"
+      ],
+      "source": "10 版 PDF 术语比对（Devoted to Destruction）"
+    },
+    {
+      "display": "升魔冠军",
+      "aliases": [
+        "昇华恶魔"
+      ],
+      "source": "10 版 PDF 术语比对（Ascended Daemon）"
+    },
+    {
+      "display": "天降恐怖",
+      "aliases": [
+        "飞行恐惧"
+      ],
+      "source": "10 版 PDF 术语比对（Flying Horror）"
+    },
+    {
+      "display": "巴达布暴君",
+      "aliases": [
+        "巴达布领主"
+      ],
+      "source": "10 版 PDF 术语比对（Lord of Badab）"
+    },
+    {
+      "display": "使魔之力【灵能】",
+      "aliases": [
+        "哈玛德雷之知"
+      ],
+      "source": "10 版 PDF 术语比对（Hamadrya's Knowledge）"
+    },
+    {
+      "display": "烈焰风暴",
+      "aliases": [
+        "雷霆震击"
+      ],
+      "source": "10 版 PDF 术语比对（Thundershock）"
+    },
+    {
+      "display": "守望职责（仆从）",
+      "aliases": [
+        "守卫职责"
+      ],
+      "source": "10 版 PDF 术语比对（Warden’s Duty）"
+    },
+    {
+      "display": "击破阵线",
+      "aliases": [
+        "稀释队列"
+      ],
+      "source": "10 版 PDF 术语比对（Thin Their Ranks）"
+    },
+    {
+      "display": "兵蜂袭扰战术",
+      "aliases": [
+        "无人机骚扰战术"
+      ],
+      "source": "10 版 PDF 术语比对（Drone Harassment Tactics）"
+    },
+    {
+      "display": "防空扫描器",
+      "aliases": [
+        "速度追踪器"
+      ],
+      "source": "10 版 PDF 术语比对（Velocity Tracker）"
+    },
+    {
+      "display": "抵近侦查",
+      "aliases": [
+        "前线侦察"
+      ],
+      "source": "10 版 PDF 术语比对（Forward Observers）"
+    },
+    {
+      "display": "引导信标",
+      "aliases": [
+        "归航信标"
+      ],
+      "source": "10 版 PDF 术语比对（Homing Beacon）"
+    },
+    {
+      "display": "重型机甲",
+      "aliases": [
+        "重型步行者",
+        "超重型步行机甲"
+      ],
+      "source": "10 版 PDF 术语比对（Heavy Walker）"
+    },
+    {
+      "display": "火力压制",
+      "aliases": [
+        "压制齐射"
+      ],
+      "source": "10 版 PDF 术语比对（Suppression Volley）"
+    },
+    {
+      "display": "碾过敌群",
+      "aliases": [
+        "犁穿敌阵"
+      ],
+      "source": "10 版 PDF 术语比对（Plough Through the Enemy）"
+    },
+    {
+      "display": "腐化机魂",
+      "aliases": [
+        "腐蚀机魂"
+      ],
+      "source": "10 版 PDF 术语比对（Corrupt Machine Spirits）"
+    },
+    {
+      "display": "机魂大盗",
+      "aliases": [
+        "灵魂窃取者"
+      ],
+      "source": "10 版 PDF 术语比对（Spirit Thief）"
+    },
+    {
+      "display": "灵视屠夫",
+      "aliases": [
+        "亚空间感知屠夫"
+      ],
+      "source": "10 版 PDF 术语比对（Warp-sighted Butcher）"
+    },
+    {
+      "display": "斩首战功",
+      "aliases": [
+        "战利品收集者"
+      ],
+      "source": "10 版 PDF 术语比对（Trophy Taker）"
+    },
+    {
+      "display": "魔裔【灵能】",
+      "aliases": [
+        "恶魔血裔"
+      ],
+      "source": "10 版 PDF 术语比对（Daemonkin）"
+    },
+    {
+      "display": "祭献匕首",
+      "aliases": [
+        "牺牲匕首"
+      ],
+      "source": "10 版 PDF 术语比对（Sacrificial Dagger）"
+    },
+    {
+      "display": "攻城机械",
+      "aliases": [
+        "围城爬行者"
+      ],
+      "source": "10 版 PDF 术语比对（Siege Crawler）"
+    },
+    {
+      "display": "苦难预兆【灵能】",
+      "aliases": [
+        "苦难幻象"
+      ],
+      "source": "10 版 PDF 术语比对（Visions of Suffering）"
+    },
+    {
+      "display": "噬声器",
+      "aliases": [
+        "噬声者"
+      ],
+      "source": "10 版 PDF 术语比对（Voice Eater）"
+    },
+    {
+      "display": "裂空火力",
+      "aliases": [
+        "亚空间裂隙火力"
+      ],
+      "source": "10 版 PDF 术语比对（Warp Rift Firepower）"
+    },
+    {
+      "display": "难死之身",
+      "aliases": [
+        "难缠顽敌"
+      ],
+      "source": "10 版 PDF 术语比对（Tough To Kill）"
+    },
+    {
+      "display": "带队冲锋",
+      "aliases": [
+        "领导冲锋"
+      ],
+      "source": "10 版 PDF 术语比对（Leading The Charge）"
+    },
+    {
+      "display": "太阳领主",
+      "aliases": [
+        "日光领主"
+      ],
+      "source": "10 版 PDF 术语比对（The Lord Solar）"
+    },
+    {
+      "display": "灵能预言参谋团",
+      "aliases": [
+        "星图议会"
+      ],
+      "source": "10 版 PDF 术语比对（The Collegiate Astrolex）"
+    },
+    {
+      "display": "怒火轰炸",
+      "aliases": [
+        "猛烈轰击"
+      ],
+      "source": "10 版 PDF 术语比对（Furious Barrage）"
+    },
+    {
+      "display": "指挥节杖（装备）",
+      "aliases": [
+        "指挥权杖"
+      ],
+      "source": "10 版 PDF 术语比对（Command Rod）"
+    },
+    {
+      "display": "战争圣歌",
+      "aliases": [
+        "战争赞歌"
+      ],
+      "source": "10 版 PDF 术语比对（War Hymns）"
+    },
+    {
+      "display": "圣洁信仰",
+      "aliases": [
+        "圣洁虔诚"
+      ],
+      "source": "10 版 PDF 术语比对（Holy Piety）"
+    },
+    {
+      "display": "欧格林保镖",
+      "aliases": [
+        "食人魔保镖",
+        "欧格林保镖（技能）"
+      ],
+      "source": "10 版 PDF 术语比对（Ogryn Bodyguard）"
+    },
+    {
+      "display": "雷霆头槌",
+      "aliases": [
+        "雷霆头锤"
+      ],
+      "source": "10 版 PDF 术语比对（Thunderous Head-butt）"
+    },
+    {
+      "display": "忠心保镖（卡段）",
+      "aliases": [
+        "忠诚护卫"
+      ],
+      "source": "10 版 PDF 术语比对（Loyal Protector）"
+    },
+    {
+      "display": "狂轰乱炸",
+      "aliases": [
+        "近距齐射"
+      ],
+      "source": "10 版 PDF 术语比对（Point-blank Barrage）"
+    },
+    {
+      "display": "行刑者之艺",
+      "aliases": [
+        "折磨者技艺"
+      ],
+      "source": "10 版 PDF 术语比对（Torturer's Craft）"
+    },
+    {
+      "display": "血肉技艺",
+      "aliases": [
+        "折磨雕塑师（痛苦）"
+      ],
+      "source": "10 版 PDF 术语比对（Sculptor of Torments (Pain)）"
+    },
+    {
+      "display": "可怕再生",
+      "aliases": [
+        "恐怖再生"
+      ],
+      "source": "10 版 PDF 术语比对（Horrific Regeneration）"
+    },
+    {
+      "display": "兽王",
+      "aliases": [
+        "驯兽师"
+      ],
+      "source": "10 版 PDF 术语比对（Beastmaster）"
+    },
+    {
+      "display": "不洁血脉",
+      "aliases": [
+        "邪恶屠杀"
+      ],
+      "source": "10 版 PDF 术语比对（Unholy Bloodshed）"
+    },
+    {
+      "display": "恐怖【光环】",
+      "aliases": [
+        "可怖"
+      ],
+      "source": "10 版 PDF 术语比对（Fearsome）"
+    },
+    {
+      "display": "预知危险【灵能】",
+      "aliases": [
+        "预视"
+      ],
+      "source": "10 版 PDF 术语比对（Prescience）"
+    },
+    {
+      "display": "混沌赠礼【灵能】",
+      "aliases": [
+        "混沌馈赠"
+      ],
+      "source": "10 版 PDF 术语比对（Gift of Chaos）"
+    },
+    {
+      "display": "灵能使魔",
+      "aliases": [
+        "混沌魔宠"
+      ],
+      "source": "10 版 PDF 术语比对（Chaos Familiar）"
+    },
+    {
+      "display": "野蛮榜样",
+      "aliases": [
+        "残酷示范"
+      ],
+      "source": "10 版 PDF 术语比对（Brutal Example）"
+    },
+    {
+      "display": "变异护卫",
+      "aliases": [
+        "突变护卫"
+      ],
+      "source": "10 版 PDF 术语比对（Mutated Bodyguard）"
+    },
+    {
+      "display": "叛变卫军",
+      "aliases": [
+        "扭曲防御力场"
+      ],
+      "source": "10 版 PDF 术语比对（Twisted Defence Force）"
+    },
+    {
+      "display": "不洁机魂【光环】",
+      "aliases": [
+        "邪圣机制"
+      ],
+      "source": "10 版 PDF 术语比对（Unholy Mechanisms）"
+    },
+    {
+      "display": "重组现实",
+      "aliases": [
+        "重写现实"
+      ],
+      "source": "10 版 PDF 术语比对（Reorder Reality）"
+    },
+    {
+      "display": "灵魂吞噬",
+      "aliases": [
+        "灵魂吞噬者"
+      ],
+      "source": "10 版 PDF 术语比对（Soul Eater）"
+    },
+    {
+      "display": "次元铁匠",
+      "aliases": [
+        "亚空间锻匠"
+      ],
+      "source": "10 版 PDF 术语比对（Warpsmith）"
+    },
+    {
+      "display": "机械主宰",
+      "aliases": [
+        "机制之主"
+      ],
+      "source": "10 版 PDF 术语比对（Master of Mechanisms）"
+    },
+    {
+      "display": "机魂暴走",
+      "aliases": [
+        "激怒机魂"
+      ],
+      "source": "10 版 PDF 术语比对（Enrage Machine Spirits）"
+    },
+    {
+      "display": "次元突袭",
+      "aliases": [
+        "亚空间打击"
+      ],
+      "source": "10 版 PDF 术语比对（Warp Strike）"
+    },
+    {
+      "display": "巫术防御【灵能】",
+      "aliases": [
+        "恶毒守卫"
+      ],
+      "source": "10 版 PDF 术语比对（Malign Wardings）"
+    },
+    {
+      "display": "灵能壁障【灵能】",
+      "aliases": [
+        "灵能屏障"
+      ],
+      "source": "10 版 PDF 术语比对（Psychic Barrier）"
+    },
+    {
+      "display": "打了就跑",
+      "aliases": [
+        "精准射击后撤离"
+      ],
+      "source": "10 版 PDF 术语比对（Shoot Sharp and Scarper）"
+    },
+    {
+      "display": "莱特林警戒犬",
+      "aliases": [
+        "拉特林战犬"
+      ],
+      "source": "10 版 PDF 术语比对（Ratling Battlemutt）"
+    },
+    {
+      "display": "爆破设备",
+      "aliases": [
+        "爆破装备"
+      ],
+      "source": "10 版 PDF 术语比对（Demolition Gear）"
+    },
+    {
+      "display": "反应装甲",
+      "aliases": [
+        "消融装甲"
+      ],
+      "source": "10 版 PDF 术语比对（Ablative Plating）"
+    },
+    {
+      "display": "前锋侦查",
+      "aliases": [
+        "大胆侦察"
+      ],
+      "source": "10 版 PDF 术语比对（Daring Recon）"
+    },
+    {
+      "display": "难觅踪影",
+      "aliases": [
+        "如同与影子战斗"
+      ],
+      "source": "10 版 PDF 术语比对（Like Fighting a Shadow）"
+    },
+    {
+      "display": "火力支援",
+      "aliases": [
+        "运输支援"
+      ],
+      "source": "10 版 PDF 术语比对（Transport Support）"
+    },
+    {
+      "display": "机神复仇",
+      "aliases": [
+        "为万机神复仇"
+      ],
+      "source": "10 版 PDF 术语比对（Vengeance for the Omnissiah）"
+    },
+    {
+      "display": "掩体",
+      "aliases": [
+        "掩护"
+      ],
+      "source": "10 版 PDF 术语比对（Cover）"
+    },
+    {
+      "display": "亡者的颅骨",
+      "aliases": [
+        "亡者之颅"
+      ],
+      "source": "10 版 PDF 术语比对（Skulls of the Fallen）"
+    },
+    {
+      "display": "主宰之怒",
+      "aliases": [
+        "骷髅主宰之怒"
+      ],
+      "source": "10 版 PDF 术语比对（Skullmaster’s Fury）"
+    },
+    {
+      "display": "枭首统领",
+      "aliases": [
+        "斩首之主"
+      ],
+      "source": "10 版 PDF 术语比对（Lord of Decapitations）"
+    },
+    {
+      "display": "颅归恐虐",
+      "aliases": [
+        "献颅于恐虐"
+      ],
+      "source": "10 版 PDF 术语比对（Skulls for Khorne）"
+    },
+    {
+      "display": "欢快笛声",
+      "aliases": [
+        "欢乐瘟笛"
+      ],
+      "source": "10 版 PDF 术语比对（Jolly Gutpipes）"
+    },
+    {
+      "display": "狂笑臆症（光环）",
+      "aliases": [
+        "欢笑之疾"
+      ],
+      "source": "10 版 PDF 术语比对（Disease of Mirth）"
+    },
+    {
+      "display": "接着数!",
+      "aliases": [
+        "继续计数！"
+      ],
+      "source": "10 版 PDF 术语比对（Keep Counting!）"
+    },
+    {
+      "display": "完成定额!",
+      "aliases": [
+        "达到配额！"
+      ],
+      "source": "10 版 PDF 术语比对（Meet Your Quota!）"
+    },
+    {
+      "display": "色孽亲王",
+      "aliases": [
+        "色孽之子"
+      ],
+      "source": "10 版 PDF 术语比对（Prince of Slaanesh）"
+    },
+    {
+      "display": "宜人痛苦",
+      "aliases": [
+        "欢愉折磨"
+      ],
+      "source": "10 版 PDF 术语比对（Delightful Agonies）"
+    },
+    {
+      "display": "卡迪安堡主",
+      "aliases": [
+        "领主城主"
+      ],
+      "source": "10 版 PDF 术语比对（Lord Castellan）"
+    },
+    {
+      "display": "伞降部署",
+      "aliases": [
+        "空降投入"
+      ],
+      "source": "10 版 PDF 术语比对（Airborne Insertion）"
+    },
+    {
+      "display": "压制轰炸",
+      "aliases": [
+        "压制炮击"
+      ],
+      "source": "10 版 PDF 术语比对（Suppression Bombardment）"
+    },
+    {
+      "display": "兵蜂平台",
+      "aliases": [
+        "无人机港"
+      ],
+      "source": "10 版 PDF 术语比对（Droneport）"
+    },
+    {
+      "display": "工事",
+      "aliases": [
+        "防御工事"
+      ],
+      "source": "10 版 PDF 术语比对（Fortification）"
+    },
+    {
+      "display": "潮汐掩护",
+      "aliases": [
+        "潮汐墙掩护"
+      ],
+      "source": "10 版 PDF 术语比对（Tidewall Cover）"
+    },
+    {
+      "display": "火力平台20",
+      "aliases": [
+        "射击甲板20"
+      ],
+      "source": "10 版 PDF 术语比对（Firing Deck 20）"
+    },
+    {
+      "display": "潮汐防御平台",
+      "aliases": [
+        "潮汐墙防御平台"
+      ],
+      "source": "10 版 PDF 术语比对（Tidewall Defence Platform）"
+    },
+    {
+      "display": "灵活飞行",
+      "aliases": [
+        "空中敏捷",
+        "迅敏歼击机"
+      ],
+      "source": "10 版 PDF 术语比对（Airborne Agility）"
+    },
+    {
+      "display": "监察兵蜂",
+      "aliases": [
+        "监察无人机"
+      ],
+      "source": "10 版 PDF 术语比对（Oversight Drone）"
+    },
+    {
+      "display": "运输仓",
+      "aliases": [
+        "运输舱"
+      ],
+      "source": "10 版 PDF 术语比对（Transport Bay）"
+    },
+    {
+      "display": "反向护盾",
+      "aliases": [
+        "圣父护卫"
+      ],
+      "source": "10 版 PDF 术语比对（Shield of the Ethereals）"
+    },
+    {
+      "display": "忠心无限(光环)",
+      "aliases": [
+        "星灵感召"
+      ],
+      "source": "10 版 PDF 术语比对（Grand Invocation）"
+    },
+    {
+      "display": "普特拉西的巫术虹吸（光环）",
+      "aliases": [
+        "P'tarix 的诡秘虹吸"
+      ],
+      "source": "10 版 PDF 术语比对（P’tarix’s Sorcerous Syphon）"
+    },
+    {
+      "display": "西拉特普的法术弹幕（灵能）",
+      "aliases": [
+        "西拉特普的黑魔炮火"
+      ],
+      "source": "10 版 PDF 术语比对（Xirat’p’s Sorcerous Barrages）"
+    },
+    {
+      "display": "无形妖物",
+      "aliases": [
+        "千变万化"
+      ],
+      "source": "10 版 PDF 术语比对（Formless Horror）"
+    },
+    {
+      "display": "诡计与蛊惑",
+      "aliases": [
+        "恶作剧与混乱"
+      ],
+      "source": "10 版 PDF 术语比对（Mischief and Confusion）"
+    },
+    {
+      "display": "无尽舞蹈",
+      "aliases": [
+        "永恒之舞"
+      ],
+      "source": "10 版 PDF 术语比对（The Eternal Dance）"
+    },
+    {
+      "display": "炫目腾跃",
+      "aliases": [
+        "炫目特技"
+      ],
+      "source": "10 版 PDF 术语比对（Dazzling Acrobatics）"
+    },
+    {
+      "display": "织幻者",
+      "aliases": [
+        "迷幻织者"
+      ],
+      "source": "10 版 PDF 术语比对（Tranceweaver）"
+    },
+    {
+      "display": "痛苦交响（灵能）",
+      "aliases": [
+        "痛楚交响曲"
+      ],
+      "source": "10 版 PDF 术语比对（Symphony of Pain）"
+    },
+    {
+      "display": "适应性策略",
+      "aliases": [
+        "适应性战略"
+      ],
+      "source": "10 版 PDF 术语比对（Adaptive Strategy）"
+    },
+    {
+      "display": "编程逻辑",
+      "aliases": [
+        "程式逻辑"
+      ],
+      "source": "10 版 PDF 术语比对（Engrammatic Logic）"
+    },
+    {
+      "display": "屠杀旋风",
+      "aliases": [
+        "旋风突袭"
+      ],
+      "source": "10 版 PDF 术语比对（Whirling Onslaught）"
+    },
+    {
+      "display": "等离子虫",
+      "aliases": [
+        "原浆虫"
+      ],
+      "source": "10 版 PDF 术语比对（Plasmacyte）"
+    },
+    {
+      "display": "毁灭联结",
+      "aliases": [
+        "毁灭联合"
+      ],
+      "source": "10 版 PDF 术语比对（United In Destruction）"
+    },
+    {
+      "display": "恐怖巨兽",
+      "aliases": [
+        "恐怖巨物"
+      ],
+      "source": "10 版 PDF 术语比对（Terrifying Monstrosity）"
+    },
+    {
+      "display": "巨型机甲",
+      "aliases": [
+        "泰坦步行者"
+      ],
+      "source": "10 版 PDF 术语比对（Titanic Walker）"
+    },
+    {
+      "display": "重生仪式",
+      "aliases": [
+        "复活仪式"
+      ],
+      "source": "10 版 PDF 术语比对（Rites of Reanimation）"
+    },
+    {
+      "display": "科技技师",
+      "aliases": [
+        "工艺术士"
+      ],
+      "source": "10 版 PDF 术语比对（Technomancer）"
+    },
+    {
+      "display": "星神之力",
+      "aliases": [
+        "克坦之力"
+      ],
+      "source": "10 版 PDF 术语比对（Powers of the C’tan）"
+    },
+    {
+      "display": "三圣之声",
+      "aliases": [
+        "三王座能力"
+      ],
+      "source": "10 版 PDF 术语比对（Triarch Abilities）"
+    },
+    {
+      "display": "寂静之王",
+      "aliases": [
+        "沉默之王"
+      ],
+      "source": "10 版 PDF 术语比对（The Silent King）"
+    },
+    {
+      "display": "三圣石碑",
+      "aliases": [
+        "三主石柱"
+      ],
+      "source": "10 版 PDF 术语比对（Triarchal Menhirs）"
+    },
+    {
+      "display": "躲闪印记",
+      "aliases": [
+        "闪避程式"
+      ],
+      "source": "10 版 PDF 术语比对（Evasion Engrams）"
+    },
+    {
+      "display": "星云视镜",
+      "aliases": [
+        "星云观测镜"
+      ],
+      "source": "10 版 PDF 术语比对（Nebuloscope）"
+    },
+    {
+      "display": "阴影遮罩",
+      "aliases": [
+        "暗影织具"
+      ],
+      "source": "10 版 PDF 术语比对（Shadowloom）"
+    },
+    {
+      "display": "盾护刃片",
+      "aliases": [
+        "盾翼"
+      ],
+      "source": "10 版 PDF 术语比对（Shieldvanes）"
+    },
+    {
+      "display": "跨纬度位移",
+      "aliases": [
+        "跨维度位移"
+      ],
+      "source": "10 版 PDF 术语比对（Transdimensional Displacement）"
+    },
+    {
+      "display": "远古收集者",
+      "aliases": [
+        "古物收藏家"
+      ],
+      "source": "10 版 PDF 术语比对（Ancient Collector）"
+    },
+    {
+      "display": "替身宿主",
+      "aliases": [
+        "代理宿主"
+      ],
+      "source": "10 版 PDF 术语比对（Surrogate Hosts）"
+    },
+    {
+      "display": "传送光束",
+      "aliases": [
+        "侵入光束"
+      ],
+      "source": "10 版 PDF 术语比对（Invasion Beams）"
+    },
+    {
+      "display": "量子入侵",
+      "aliases": [
+        "量子入侵者"
+      ],
+      "source": "10 版 PDF 术语比对（Quantum Invader）"
+    },
+    {
+      "display": "引力脉冲",
+      "aliases": [
+        "重力脉冲"
+      ],
+      "source": "10 版 PDF 术语比对（Gravitic Pulse）"
+    },
+    {
+      "display": "传导恐惧",
+      "aliases": [
+        "隧道恐惧"
+      ],
+      "source": "10 版 PDF 术语比对（Tunnelling Horrors）"
+    },
+    {
+      "display": "时间技师宗主",
+      "aliases": [
+        "时间之主"
+      ],
+      "source": "10 版 PDF 术语比对（Master Chronomancer）"
+    },
+    {
+      "display": "群星指引",
+      "aliases": [
+        "时序之星"
+      ],
+      "source": "10 版 PDF 术语比对（The Stars Are Right）"
+    },
+    {
+      "display": "吾愿必达",
+      "aliases": [
+        "我的意志即为命令"
+      ],
+      "source": "10 版 PDF 术语比对（My Will Be Done）"
+    },
+    {
+      "display": "不屈意志",
+      "aliases": [
+        "不屈坚韧"
+      ],
+      "source": "10 版 PDF 术语比对（Implacable Resilience）"
+    },
+    {
+      "display": "传送斗篷",
+      "aliases": [
+        "传送覆幕"
+      ],
+      "source": "10 版 PDF 术语比对（Translocation Shroud）"
+    },
+    {
+      "display": "毁灭先驱",
+      "aliases": [
+        "毁灭使者"
+      ],
+      "source": "10 版 PDF 术语比对（Harbinger of Destruction）"
+    },
+    {
+      "display": "活体闪电",
+      "aliases": [
+        "活化闪电"
+      ],
+      "source": "10 版 PDF 术语比对（Living Lightning）"
+    },
+    {
+      "display": "梦魇笼罩（光环）",
+      "aliases": [
+        "噩梦之幕"
+      ],
+      "source": "10 版 PDF 术语比对（Nightmare Shroud）"
+    },
+    {
+      "display": "绝望先驱",
+      "aliases": [
+        "绝望使者"
+      ],
+      "source": "10 版 PDF 术语比对（Harbinger of Despair）"
+    },
+    {
+      "display": "无情战士",
+      "aliases": [
+        "无情斗士"
+      ],
+      "source": "10 版 PDF 术语比对（Relentless Combatants）"
+    },
+    {
+      "display": "目标定位",
+      "aliases": [
+        "目标接力",
+        "目标锁定"
+      ],
+      "source": "10 版 PDF 术语比对（Targeting Relay）"
+    },
+    {
+      "display": "禁卫职责",
+      "aliases": [
+        "守护宿敌"
+      ],
+      "source": "10 版 PDF 术语比对（Sworn Protector）"
+    },
+    {
+      "display": "破甲创伤",
+      "aliases": [
+        "重力推进"
+      ],
+      "source": "10 版 PDF 术语比对（Gravitic Propulsion）"
+    },
+    {
+      "display": "瞬变疯狂",
+      "aliases": [
+        "幻觉指挥"
+      ],
+      "source": "10 版 PDF 术语比对（Phantasmal Generalissimo）"
+    },
+    {
+      "display": "欺诈之主（光环）",
+      "aliases": [
+        "永恒战术家"
+      ],
+      "source": "10 版 PDF 术语比对（Eternal Strategist）"
+    },
+    {
+      "display": "能量稳定场",
+      "aliases": [
+        "量子护盾"
+      ],
+      "source": "10 版 PDF 术语比对（Quantum Shielding）"
+    },
+    {
+      "display": "焰夜军团之主",
+      "aliases": [
+        "彼里安永恒者之主"
+      ],
+      "source": "10 版 PDF 术语比对（Lord of the Pyrrhian Eternals）"
+    },
+    {
+      "display": "机械之心",
+      "aliases": [
+        "精神控制"
+      ],
+      "source": "10 版 PDF 术语比对（Mind in the Machine）"
+    },
+    {
+      "display": "无情进军",
+      "aliases": [
+        "不懈进军"
+      ],
+      "source": "10 版 PDF 术语比对（Relentless March）"
+    },
+    {
+      "display": "领主意志",
+      "aliases": [
+        "主宰之意"
+      ],
+      "source": "10 版 PDF 术语比对（The Lord's Will）"
+    },
+    {
+      "display": "死亡之球",
+      "aliases": [
+        "黑暗投影"
+      ],
+      "source": "10 版 PDF 术语比对（Shroud of Night）"
+    },
+    {
+      "display": "放逐大炮",
+      "aliases": [
+        "传导吞噬炮"
+      ],
+      "source": "10 版 PDF 术语比对（Exile Cannon）"
+    },
+    {
+      "display": "大步流星",
+      "aliases": [
+        "狂怒践踏"
+      ],
+      "source": "10 版 PDF 术语比对（Rampage）"
+    },
+    {
+      "display": "奋起反击",
+      "aliases": [
+        "至高善感召"
+      ],
+      "source": "10 版 PDF 术语比对（Invocation of the Ethereal）"
+    },
+    {
+      "display": "武学宗师",
+      "aliases": [
+        "信仰之盾"
+      ],
+      "source": "10 版 PDF 术语比对（Shield of Faith）"
+    },
+    {
+      "display": "装甲猎手",
+      "aliases": [
+        "坦克杀手"
+      ],
+      "source": "10 版 PDF 术语比对（Tank Killer）"
+    },
+    {
+      "display": "光学折射",
+      "aliases": [
+        "原型武器"
+      ],
+      "source": "10 版 PDF 术语比对（Prototype Weaponry）"
+    },
+    {
+      "display": "新星喷射",
+      "aliases": [
+        "离子加速反应炉"
+      ],
+      "source": "10 版 PDF 术语比对（Ion Accelerator Reactor）"
+    },
+    {
+      "display": "战术智慧",
+      "aliases": [
+        "战术敏锐"
+      ],
+      "source": "10 版 PDF 术语比对（Tactical Acumen）"
+    },
+    {
+      "display": "阿苏焉之手",
+      "aliases": [
+        "阿苏扬之手"
+      ],
+      "source": "10 版 PDF 术语比对（Hand of Asuryan）"
+    },
+    {
+      "display": "战略大师",
+      "aliases": [
+        "卓越战略家"
+      ],
+      "source": "10 版 PDF 术语比对（Superlative Strategist）"
+    },
+    {
+      "display": "熔岩身躯",
+      "aliases": [
+        "熔毁之身"
+      ],
+      "source": "10 版 PDF 术语比对（Molten Form）"
+    },
+    {
+      "display": "血手之神（光环）",
+      "aliases": [
+        "血手执行者"
+      ],
+      "source": "10 版 PDF 术语比对（The Bloody-Handed）"
+    },
+    {
+      "display": "踏云者",
+      "aliases": [
+        "云行者"
+      ],
+      "source": "10 版 PDF 术语比对（Cloudstrider）"
+    },
+    {
+      "display": "暴风之嚎",
+      "aliases": [
+        "风之啸"
+      ],
+      "source": "10 版 PDF 术语比对（Cry of the Wind）"
+    },
+    {
+      "display": "虚空掠夺者",
+      "aliases": [
+        "虚空劫掠者"
+      ],
+      "source": "10 版 PDF 术语比对（Reavers of the Void）"
+    },
+    {
+      "display": "迷雾护盾（装备）",
+      "aliases": [
+        "迷雾盾"
+      ],
+      "source": "10 版 PDF 术语比对（Mistshield）"
+    },
+    {
+      "display": "劫掠海盗",
+      "aliases": [
+        "海盗袭击者"
+      ],
+      "source": "10 版 PDF 术语比对（Piratical Raiders）"
+    },
+    {
+      "display": "引路石（装备）",
+      "aliases": [
+        "引导者之石"
+      ],
+      "source": "10 版 PDF 术语比对（Channeller Stones）"
+    },
+    {
+      "display": "弗奥楚（装备）",
+      "aliases": [
+        "法奥赫"
+      ],
+      "source": "10 版 PDF 术语比对（Faolchú）"
+    },
+    {
+      "display": "苍穹猎手",
+      "aliases": [
+        "天空猎手"
+      ],
+      "source": "10 版 PDF 术语比对（Skyhunter）"
+    },
+    {
+      "display": "结构崩毁",
+      "aliases": [
+        "结构崩塌"
+      ],
+      "source": "10 版 PDF 术语比对（Structural Collapse）"
+    },
+    {
+      "display": "炮火支援（军表构成）",
+      "aliases": [
+        "支援火炮"
+      ],
+      "source": "10 版 PDF 术语比对（Support Artillery）"
+    },
+    {
+      "display": "迅雷猛袭",
+      "aliases": [
+        "大步前行"
+      ],
+      "source": "10 版 PDF 术语比对（Loping Stride）"
+    },
+    {
+      "display": "哨戒协议",
+      "aliases": [
+        "哨塔"
+      ],
+      "source": "10 版 PDF 术语比对（Sentry Turret）"
+    },
+    {
+      "display": "集束标记光",
+      "aliases": [
+        "高级标记光阵列"
+      ],
+      "source": "10 版 PDF 术语比对（Advanced Markerlight Array）"
+    },
+    {
+      "display": "黯蚀立场发生器",
+      "aliases": [
+        "原型武器设计师"
+      ],
+      "source": "10 版 PDF 术语比对（Prototype Weapon Designer）"
+    },
+    {
+      "display": "战斗专注，殊途同归",
+      "aliases": [
+        "战斗专注，歧异之路",
+        "战斗专注"
+      ],
+      "source": "10 版 PDF 术语比对（Battle Focus / Disparate Paths）"
+    },
+    {
+      "display": "“死”犹未尽",
+      "aliases": [
+        "死亡不足以偿"
+      ],
+      "source": "10 版 PDF 术语比对（Death is Not Enough）"
+    },
+    {
+      "display": "残忍笑料",
+      "aliases": [
+        "残酷娱乐"
+      ],
+      "source": "10 版 PDF 术语比对（Cruel Amusement）"
+    },
+    {
+      "display": "空舞腰带（装备）",
+      "aliases": [
+        "翻跃腰带"
+      ],
+      "source": "10 版 PDF 术语比对（Flip Belt）"
+    },
+    {
+      "display": "旅行剧团（军表构成注释）",
+      "aliases": [
+        "巡演伶人"
+      ],
+      "source": "10 版 PDF 术语比对（Travelling Players）"
+    },
+    {
+      "display": "微光护盾（装备）",
+      "aliases": [
+        "微光盾"
+      ],
+      "source": "10 版 PDF 术语比对（Shimmershield）"
+    },
+    {
+      "display": "支派神龛指示物（装备）",
+      "aliases": [
+        "支派圣殿标记"
+      ],
+      "source": "10 版 PDF 术语比对（Aspect Shrine Token）"
+    },
+    {
+      "display": "预见未来",
+      "aliases": [
+        "未来预言者"
+      ],
+      "source": "10 版 PDF 术语比对（Diviner of Futures）"
+    },
+    {
+      "display": "末日（灵能）",
+      "aliases": [
+        "末日诅咒"
+      ],
+      "source": "10 版 PDF 术语比对（Doom）"
+    },
+    {
+      "display": "分歧命运（灵能）",
+      "aliases": [
+        "分支命运"
+      ],
+      "source": "10 版 PDF 术语比对（Branching Fates）"
+    },
+    {
+      "display": "指引（灵能）",
+      "aliases": [
+        "导引"
+      ],
+      "source": "10 版 PDF 术语比对（Guide）"
+    },
+    {
+      "display": "灰飞烟灭",
+      "aliases": [
+        "确保毁灭"
+      ],
+      "source": "10 版 PDF 术语比对（Assured Destruction）"
+    },
+    {
+      "display": "炎晶阵列",
+      "aliases": [
+        "水晶矩阵"
+      ],
+      "source": "10 版 PDF 术语比对（Crystal Matrix）"
+    },
+    {
+      "display": "战意难遏",
+      "aliases": [
+        "不灭决心"
+      ],
+      "source": "10 版 PDF 术语比对（Unquenchable Resolve）"
+    },
+    {
+      "display": "轻捷步伐",
+      "aliases": [
+        "健步如飞"
+      ],
+      "source": "10 版 PDF 术语比对（Fleet of Foot）"
+    },
+    {
+      "display": "人控平台",
+      "aliases": [
+        "编制平台"
+      ],
+      "source": "10 版 PDF 术语比对（Crewed Platform）"
+    },
+    {
+      "display": "精神冲击吊舱（光环，灵能）",
+      "aliases": [
+        "心灵震慑荚"
+      ],
+      "source": "10 版 PDF 术语比对（Mindshock Pod）"
+    },
+    {
+      "display": "身手矫健",
+      "aliases": [
+        "杂技"
+      ],
+      "source": "10 版 PDF 术语比对（Acrobatic）"
+    },
+    {
+      "display": "死亡旋舞",
+      "aliases": [
+        "旋风之死"
+      ],
+      "source": "10 版 PDF 术语比对（Whirling Death）"
+    },
+    {
+      "display": "寂静风暴",
+      "aliases": [
+        "沉默风暴"
+      ],
+      "source": "10 版 PDF 术语比对（Storm of Silence）"
+    },
+    {
+      "display": "以太伏击",
+      "aliases": [
+        "灵界伏击"
+      ],
+      "source": "10 版 PDF 术语比对（Empyric Ambush）"
+    },
+    {
+      "display": "耳语之网",
+      "aliases": [
+        "低语之网"
+      ],
+      "source": "10 版 PDF 术语比对（Whispering Web）"
+    },
+    {
+      "display": "灵魂收割者",
+      "aliases": [
+        "灵魂收割手"
+      ],
+      "source": "10 版 PDF 术语比对（Harvester of Souls）"
+    },
+    {
+      "display": "死神面容",
+      "aliases": [
+        "死亡面孔"
+      ],
+      "source": "10 版 PDF 术语比对（Face of Death）"
+    },
+    {
+      "display": "单丝捕网",
+      "aliases": [
+        "单丝网"
+      ],
+      "source": "10 版 PDF 术语比对（Monofilament Web）"
+    },
+    {
+      "display": "伊扬登英杰",
+      "aliases": [
+        "海盗英雄"
+      ],
+      "source": "10 版 PDF 术语比对（Piratical Hero）"
+    },
+    {
+      "display": "流放者之道",
+      "aliases": [
+        "流浪者之路"
+      ],
+      "source": "10 版 PDF 术语比对（Path of the Outcast）"
+    },
+    {
+      "display": "绞杀陷阱",
+      "aliases": [
+        "单丝陷阱"
+      ],
+      "source": "10 版 PDF 术语比对（Monofilament Snare）"
+    },
+    {
+      "display": "梦境迷雾（灵能）",
+      "aliases": [
+        "梦境之雾"
+      ],
+      "source": "10 版 PDF 术语比对（Fog of Dreams）"
+    },
+    {
+      "display": "危险错觉（灵能）",
+      "aliases": [
+        "欺诈幻象"
+      ],
+      "source": "10 版 PDF 术语比对（Treacherous Illusion）"
+    },
+    {
+      "display": "泰坦进击",
+      "aliases": [
+        "泰坦级推进"
+      ],
+      "source": "10 版 PDF 术语比对（Titanic Advance）"
+    },
+    {
+      "display": "高耸幽冥构造体",
+      "aliases": [
+        "高耸幽灵构造体"
+      ],
+      "source": "10 版 PDF 术语比对（Towering Wraith Construct）"
+    },
+    {
+      "display": "完美平衡",
+      "aliases": [
+        "无瑕身姿"
+      ],
+      "source": "10 版 PDF 术语比对（Flawless Poise）"
+    },
+    {
+      "display": "极限机动",
+      "aliases": [
+        "极致机动"
+      ],
+      "source": "10 版 PDF 术语比对（Extreme Mobility）"
+    },
+    {
+      "display": "灵巧身法",
+      "aliases": [
+        "杂技优雅"
+      ],
+      "source": "10 版 PDF 术语比对（Acrobatic Grace）"
+    },
+    {
+      "display": "移行虚影",
+      "aliases": [
+        "动作残影"
+      ],
+      "source": "10 版 PDF 术语比对（Blur of Movement）"
+    },
+    {
+      "display": "诅咒之道／本模型无法成为主将",
+      "aliases": [
+        "堕罚之路"
+      ],
+      "source": "10 版 PDF 术语比对（Path of Damnation）"
+    },
+    {
+      "display": "幽魂泰坦跳跃背包",
+      "aliases": [
+        "亡灵喷射背包"
+      ],
+      "source": "10 版 PDF 术语比对（Revenant Jet Pack）"
+    },
+    {
+      "display": "灵魂先知",
+      "aliases": [
+        "灵视者"
+      ],
+      "source": "10 版 PDF 术语比对（Spiritseer）"
+    },
+    {
+      "display": "灵魂印记",
+      "aliases": [
+        "灵魂标记"
+      ],
+      "source": "10 版 PDF 术语比对（Spirit Mark）"
+    },
+    {
+      "display": "快速上车",
+      "aliases": [
+        "快速登舰"
+      ],
+      "source": "10 版 PDF 术语比对（Rapid Embarkation）"
+    },
+    {
+      "display": "风暴剑阵",
+      "aliases": [
+        "风暴之刃"
+      ],
+      "source": "10 版 PDF 术语比对（Stormblades）"
+    },
+    {
+      "display": "蛇鳞护盾（装备）",
+      "aliases": [
+        "巨蛇盾"
+      ],
+      "source": "10 版 PDF 术语比对（Serpent Shield）"
+    },
+    {
+      "display": "战蝎激光",
+      "aliases": [
+        "曼蠍飞刃"
+      ],
+      "source": "10 版 PDF 术语比对（Mandiblasters）"
+    },
+    {
+      "display": "低空手雷包",
+      "aliases": [
+        "榴弹包飞越"
+      ],
+      "source": "10 版 PDF 术语比对（Grenade Pack Flyover）"
+    },
+    {
+      "display": "利刃之道",
+      "aliases": [
+        "刀刃之道"
+      ],
+      "source": "10 版 PDF 术语比对（Way of the Blade）"
+    },
+    {
+      "display": "伊芙蕾尼的冠军勇士",
+      "aliases": [
+        "依芙瑞恩的勇士"
+      ],
+      "source": "10 版 PDF 术语比对（Yvraine's Champion）"
+    },
+    {
+      "display": "死无可避",
+      "aliases": [
+        "必然之死"
+      ],
+      "source": "10 版 PDF 术语比对（Inevitable Death）"
+    },
+    {
+      "display": "死亡化形",
+      "aliases": [
+        "虚灵形态"
+      ],
+      "source": "10 版 PDF 术语比对（Ethereal Form）"
+    },
+    {
+      "display": "子选项：英雄之勇武／恶者之灾劫／诡术师之优雅",
+      "aliases": [
+        "英雄韵武／恶棍末日／诡诈优雅"
+      ],
+      "source": "10 版 PDF 术语比对（）"
+    },
+    {
+      "display": "战争编舞",
+      "aliases": [
+        "战争编舞者"
+      ],
+      "source": "10 版 PDF 术语比对（Choreographer of War）"
+    },
+    {
+      "display": "笑神恩惠",
+      "aliases": [
+        "西哥拉克之眷顾"
+      ],
+      "source": "10 版 PDF 术语比对（Cegorach's Favour）"
+    },
+    {
+      "display": "声波毁灭",
+      "aliases": [
+        "音波毁灭"
+      ],
+      "source": "10 版 PDF 术语比对（Sonic Destruction）"
+    },
+    {
+      "display": "幻彩匿踪",
+      "aliases": [
+        "多彩伪装"
+      ],
+      "source": "10 版 PDF 术语比对（Polychromatic Camouflage）"
+    },
+    {
+      "display": "袭扰火力",
+      "aliases": [
+        "骚扰射击"
+      ],
+      "source": "10 版 PDF 术语比对（Harassment Fire）"
+    },
+    {
+      "display": "晶化锁定",
+      "aliases": [
+        "水晶瞄准"
+      ],
+      "source": "10 版 PDF 术语比对（Crystalline Targeting）"
+    },
+    {
+      "display": "幸运符文（灵能）",
+      "aliases": [
+        "命运之符文"
+      ],
+      "source": "10 版 PDF 术语比对（Runes of Fortune）"
+    },
+    {
+      "display": "闪跃",
+      "aliases": [
+        "闪烁跳跃"
+      ],
+      "source": "10 版 PDF 术语比对（Flickerjump）"
+    },
+    {
+      "display": "破灭疾风",
+      "aliases": [
+        "迅杀"
+      ],
+      "source": "10 版 PDF 术语比对（Swift Demise）"
+    },
+    {
+      "display": "恶怨亡魂",
+      "aliases": [
+        "恶毒灵魂"
+      ],
+      "source": "10 版 PDF 术语比对（Malevolent Souls）"
+    },
+    {
+      "display": "力场护盾（装备）",
+      "aliases": [
+        "力场盾"
+      ],
+      "source": "10 版 PDF 术语比对（Forceshield）"
+    },
+    {
+      "display": "战争构造体",
+      "aliases": [
+        "战争构装"
+      ],
+      "source": "10 版 PDF 术语比对（War Construct）"
+    },
+    {
+      "display": "阔步巨兽",
+      "aliases": [
+        "泰坦步伐"
+      ],
+      "source": "10 版 PDF 术语比对（Titanic Strides）"
+    },
+    {
+      "display": "抵近抹杀",
+      "aliases": [
+        "近距毁灭"
+      ],
+      "source": "10 版 PDF 术语比对（Point-blank Devastation）"
+    },
+    {
+      "display": "散射护盾（装备）",
+      "aliases": [
+        "散射盾"
+      ],
+      "source": "10 版 PDF 术语比对（Scattershield）"
+    },
+    {
+      "display": "行动敏捷",
+      "aliases": [
+        "泰坦级敏捷"
+      ],
+      "source": "10 版 PDF 术语比对（Titanic Agility）"
+    },
+    {
+      "display": "复生阴谋家",
+      "aliases": [
+        "重生谋略家"
+      ],
+      "source": "10 版 PDF 术语比对（Reborn Mastermind）"
+    },
+    {
+      "display": "笞魔",
+      "aliases": [
+        "折磨者"
+      ],
+      "source": "10 版 PDF 术语比对（Tormentors）"
+    },
+    {
+      "display": "以太航帆",
+      "aliases": [
+        "以太风帆"
+      ],
+      "source": "10 版 PDF 术语比对（Aethersails）"
+    },
+    {
+      "display": "死亡授权",
+      "aliases": [
+        "受死亡赋能"
+      ],
+      "source": "10 版 PDF 术语比对（Empowered by Death）"
+    },
+    {
+      "display": "伊纳德先锋",
+      "aliases": [
+        "伊恩尼德先驱"
+      ],
+      "source": "10 版 PDF 术语比对（Herald of Ynnead）"
+    },
+    {
+      "display": "凤凰真言（灵能）",
+      "aliases": [
+        "凤凰之言"
+      ],
+      "source": "10 版 PDF 术语比对（Word of the Phoenix）"
+    },
+    {
+      "display": "致命破灭D6",
+      "aliases": [
+        "致命破灭 D6"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Deadly Demise D6）"
+    },
+    {
+      "display": "七拼八凑但耐操",
+      "aliases": [
+        "摇摇欲坠但结实"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Ramshackle but Rugged）"
+    },
+    {
+      "display": "兽霸头目",
+      "aliases": [
+        "猛兽老大"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Beastboss）"
+    },
+    {
+      "display": "野蛮狂暴",
+      "aliases": [
+        "蛮兽之怒"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Ferocious Rage）"
+    },
+    {
+      "display": "雷霆践踏",
+      "aliases": [
+        "雷霆踩踏"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Thundering Stampede）"
+    },
+    {
+      "display": "一根筋战狂",
+      "aliases": [
+        "专注猎手"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Single-minded Predator）"
+    },
+    {
+      "display": "怪物猎手",
+      "aliases": [
+        "猎兽者"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Monster Hunters）"
+    },
+    {
+      "display": "致命破灭D3",
+      "aliases": [
+        "致命破灭 D3"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Deadly Demise D3）"
+    },
+    {
+      "display": "大吼杆【光环】",
+      "aliases": [
+        "呐喊杆"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Shoutin’ Pole）"
+    },
+    {
+      "display": "废墟遮蔽",
+      "aliases": [
+        "破烂掩护"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Ramshackle Cover）"
+    },
+    {
+      "display": "更多达卡",
+      "aliases": [
+        "更多火力"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（More Dakka）"
+    },
+    {
+      "display": "闪电加速",
+      "aliases": [
+        "震荡推进器"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Shokk-boosta）"
+    },
+    {
+      "display": "马上修好",
+      "aliases": [
+        "修好那个盔甲"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Fix Dat Armour Up）"
+    },
+    {
+      "display": "魔改力场盾",
+      "aliases": [
+        "客制力场"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Kustom Force Field）"
+    },
+    {
+      "display": "修理屁精",
+      "aliases": [
+        "葛切钦注油工"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Grot Oiler）"
+    },
+    {
+      "display": "震撼惊喜",
+      "aliases": [
+        "疯狂小鬼突击"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Deranged Snotling Assault）"
+    },
+    {
+      "display": "屁精助手",
+      "aliases": [
+        "葛切钦助手",
+        "弹药格雷特",
+        "葛切钦勤务员"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Grot Assistant / Grot Orderly / Ammo Runt）"
+    },
+    {
+      "display": "轰轰炸弹",
+      "aliases": [
+        "闪击轰炸"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Boom Bomb）"
+    },
+    {
+      "display": "致命破灭1",
+      "aliases": [
+        "致命破灭 1"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Deadly Demise 1）"
+    },
+    {
+      "display": "烟尘滚滚【光环】",
+      "aliases": [
+        "滚滚浓烟"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Billowing Fumes）"
+    },
+    {
+      "display": "红骷髅特战队",
+      "aliases": [
+        "红骷髅突击队"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Red Skull Kommandos）"
+    },
+    {
+      "display": "狡诈潜伏",
+      "aliases": [
+        "狡猾潜行者"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Kunnin’ Infiltrator）"
+    },
+    {
+      "display": "抢好东西去",
+      "aliases": [
+        "抢好东西"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Get Da Good Bitz）"
+    },
+    {
+      "display": "争先恐后",
+      "aliases": [
+        "猎首者"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Trophy Hunters）"
+    },
+    {
+      "display": "炸弹跳跳",
+      "aliases": [
+        "炸弹虫",
+        "炸弹史奎格"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Bomb Squigs）"
+    },
+    {
+      "display": "燃烧炸弹",
+      "aliases": [
+        "烧烧轰炸"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Burna Bomb）"
+    },
+    {
+      "display": "纵火狂",
+      "aliases": [
+        "烧光一切"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Pyromaniaks）"
+    },
+    {
+      "display": "子弹风暴",
+      "aliases": [
+        "达卡风暴"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Dakkastorm）"
+    },
+    {
+      "display": "野蛮机械",
+      "aliases": [
+        "活塞驱动蛮力"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Piston-driven Brutality）"
+    },
+    {
+      "display": "飚速头目",
+      "aliases": [
+        "飙车老大"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Speedboss）"
+    },
+    {
+      "display": "燃油屁精",
+      "aliases": [
+        "加油小鬼"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Fuel-mixa Grot）"
+    },
+    {
+      "display": "死从天降",
+      "aliases": [
+        "来自天空的死亡"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Deff from Above）"
+    },
+    {
+      "display": "枪狂炫技",
+      "aliases": [
+        "爱炫耀的枪手"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Gun-crazy Show-offs）"
+    },
+    {
+      "display": "伟大之WAAAGH!的传道者",
+      "aliases": [
+        "大瓦戈！先知"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Prophet of Da Great Waaagh!）"
+    },
+    {
+      "display": "碎骨者的WAAAGH!旗帜【光环】",
+      "aliases": [
+        "葛兹古尔的瓦戈！旗帜"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Ghazghkull’s Waaagh! Banner）"
+    },
+    {
+      "display": "势不可挡",
+      "aliases": [
+        "轰隆前进",
+        "踏步前进"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Clankin’ Forward / Stompin’ Forward）"
+    },
+    {
+      "display": "大脚践踏",
+      "aliases": [
+        "大而猛"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Big an’ Stompy）"
+    },
+    {
+      "display": "鬼祟拾荒者",
+      "aliases": [
+        "偷窃搜刮"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Thievin’ Scavengers）"
+    },
+    {
+      "display": "上车狩猎",
+      "aliases": [
+        "狩猎进行中"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（On Da Hunt）"
+    },
+    {
+      "display": "短暂风光",
+      "aliases": [
+        "狂射能量"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Shooty Power Trip）"
+    },
+    {
+      "display": "搞哥精神【灵能】",
+      "aliases": [
+        "戈尔克之灵"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Spirit of Gork）"
+    },
+    {
+      "display": "无限惊喜",
+      "aliases": [
+        "狡猾的家伙们"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Sneaky Gitz）"
+    },
+    {
+      "display": "特战屁精",
+      "aliases": [
+        "诱饵葛切钦"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Distraction Grot）"
+    },
+    {
+      "display": "铆钉弹幕",
+      "aliases": [
+        "铆钉哒哒"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Rivetin’ Dakka）"
+    },
+    {
+      "display": "那是俺们的！",
+      "aliases": [
+        "那是我们的！"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Dat’s Our Loot!）"
+    },
+    {
+      "display": "表演时间",
+      "aliases": [
+        "痛扁时刻",
+        "头目的小子们"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Krumpin’ Time / Da Boss’ Ladz）"
+    },
+    {
+      "display": "钻破天际",
+      "aliases": [
+        "穿刺冲撞"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Drill Through）"
+    },
+    {
+      "display": "给他一炮",
+      "aliases": [
+        "啪！"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Splat!）"
+    },
+    {
+      "display": "大炮轰炸",
+      "aliases": [
+        "大而善射"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Big an’ Shooty）"
+    },
+    {
+      "display": "再来一刀",
+      "aliases": [
+        "最后一杀"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（One Last Kill）"
+    },
+    {
+      "display": "越大越好",
+      "aliases": [
+        "越大越痛"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Da Bigger Dey Iz…）"
+    },
+    {
+      "display": "严重损坏",
+      "aliases": [
+        "受损"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Damaged）"
+    },
+    {
+      "display": "疯医工具",
+      "aliases": [
+        "兽人医术"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Dok’s Toolz）"
+    },
+    {
+      "display": "现场手术",
+      "aliases": [
+        "锯骨术"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Sawbonez）"
+    },
+    {
+      "display": "别动不疼",
+      "aliases": [
+        "站好别动，哀号一声"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Hold Still and Say ‘Aargh!’）"
+    },
+    {
+      "display": "跳跳围攻",
+      "aliases": [
+        "嗡嗡小虫"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Buzzer Squigs）"
+    },
+    {
+      "display": "跳跳雷",
+      "aliases": [
+        "虫虫地雷"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Squig Mine）"
+    },
+    {
+      "display": "闪电折跃",
+      "aliases": [
+        "震跳隧道"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Shokk Tunnel）"
+    },
+    {
+      "display": "狂野骑手",
+      "aliases": [
+        "疯狂奔驰"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Wild Ride）"
+    },
+    {
+      "display": "伟力象征",
+      "aliases": [
+        "咻啊！雕像"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Waaagh! Effigy）"
+    },
+    {
+      "display": "开火口12",
+      "aliases": [
+        "射击甲板12"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Firing Deck 12）"
+    },
+    {
+      "display": "屁精修理工",
+      "aliases": [
+        "葛切钦修理工"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Grot Riggers）"
+    },
+    {
+      "display": "狂飙激射",
+      "aliases": [
+        "射击飞掠"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Drive-by Dakka）"
+    },
+    {
+      "display": "拳头就是道理",
+      "aliases": [
+        "最大最坏"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Might is Right）"
+    },
+    {
+      "display": "最大最强",
+      "aliases": [
+        "最大也最猛"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Da Biggest and da Best）"
+    },
+    {
+      "display": "恐怖蛮力",
+      "aliases": [
+        "极度残暴"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Dead Brutal）"
+    },
+    {
+      "display": "对地炮击",
+      "aliases": [
+        "爆射机攻击"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Blastajet Attack Run）"
+    },
+    {
+      "display": "力场护盾",
+      "aliases": [
+        "爆破机力场"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Blastajet Force Field）"
+    },
+    {
+      "display": "哇气弹",
+      "aliases": [
+        "瓦戈！能量"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Waaagh! Energy）"
+    },
+    {
+      "display": "跟我跳",
+      "aliases": [
+        "跳跃"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Da Jump）"
+    },
+    {
+      "display": "不稳定先知",
+      "aliases": [
+        "不稳定预言者"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Unstable Oracle）"
+    },
+    {
+      "display": "毛哥之吼",
+      "aliases": [
+        "莫克的怒吼"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Roar of Mork）"
+    },
+    {
+      "display": "屁精牧首",
+      "aliases": [
+        "超级小鬼训练"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Super Runts）"
+    },
+    {
+      "display": "特殊药剂",
+      "aliases": [
+        "特殊剂量"
+      ],
+      "source": "兽人 10 版 PDF 术语比对（Special Dose）"
+    }
+  ]
+}

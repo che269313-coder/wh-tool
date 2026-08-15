@@ -9,11 +9,13 @@ context.globalThis = context;
 for (const file of [
   "rules/identity.js",
   "rules/faction-registry.js",
+  "rules/factions.js",
+  "rules/alias-registry.js",
+  "aliases/index.js",
   "rules/effect-schema.js",
   "rules/payload-schema.js",
   "rules/keyword-dictionary.js",
   "rules/combat-state.js",
-  "rules/factions.js",
 ]) {
   const filename = path.join(root, "docs", file);
   vm.runInContext(fs.readFileSync(filename, "utf8"), context, { filename });
@@ -54,6 +56,13 @@ const translated = context.WarhammerRuleIdentity.create({
 assert(translated.id === "adeptus-custodes.example-unit.unyielding-sentinel", "暂译英文名也必须生成可用的稳定 ID");
 assert(context.WarhammerRuleIdentity.audit([official, translated]).length === 1, "暂译 ID 必须进入待复核清单");
 
+// 暗影潜行是连长的独有位移能力，不得再映射为 Lone Operative（独行特工）。
+vm.runInContext(fs.readFileSync(path.join(root, "docs", "rules/space-marines-identities.js"), "utf8"), context, { filename: "rules/space-marines-identities.js" });
+vm.runInContext(fs.readFileSync(path.join(root, "docs", "rules/space-marines.js"), "utf8"), context, { filename: "rules/space-marines.js" });
+const shadowSkulk = Object.values(context.WarhammerSpaceMarineRules?.unitRules || {}).flat().find((rule) => rule.name === "暗影潜行");
+assert(shadowSkulk?.identity?.englishName === "Shadow Skulk", "暗影潜行的英文锚点必须为 Shadow Skulk 而非 Lone Operative");
+assert(shadowSkulk?.legacyIds?.includes("space-marines-p73-3"), "改名后必须保留来源旧 ID");
+
 const registry = context.WarhammerFactionRegistry;
 assert(registry.list().length === 23, "阵营注册表必须声明网站 23 个阵营包");
 assert(registry.resolve("禁军")?.id === "adeptus-custodes", "阵营别名必须解析到稳定阵营 ID");
@@ -70,8 +79,8 @@ registry.register({
   aliases: ["Test Faction"],
   rulesGlobal: "WarhammerTestFactionRules",
   data: { catalog: "data/test/datasheets.json" },
-  unitAliases: { "测试单位别名": "测试单位" },
 });
+context.WarhammerAliasRegistry.register({ factionId: "test-faction", units: { "测试单位别名": { canonical: "测试单位", source: "test" } } });
 const packageCountBeforeCollision = registry.list().length;
 let aliasCollisionRejected = false;
 try {
@@ -110,6 +119,8 @@ assert(/WarhammerKeywordDictionary\.resolve/.test(appSource), "app.js 必须通�
 for (const field of ["targetWithinHalfRange", "attackerAdvanced", "attackerEngaged", "attackerCharged", "targetHasCover", "usingIndirectFire"]) {
   assert(appSource.includes(field), `计算器必须向核心武器能力提供 ${field} 战斗状态`);
 }
+assert(/function weaponNameMatchesProfile/.test(appSource), "weaponNames 过滤必须使用精确匹配辅助函数");
+assert(!/weaponNames\.some\(\(name\) => weaponMatchesEquipmentText/.test(appSource), "weaponNames 过滤不得使用子串匹配（否则队长的大砍刀会把砍刀一并带入）");
 assert(/WarhammerCombatState\.validateRangedWeaponAllocation/.test(appSource), "常规射击必须按模型数量校验近距离/手枪与其他远程武器二选一");
 assert(/WarhammerCombatState\.validateMeleeWeaponAllocation/.test(appSource), "近战必须按模型数量校验所有额外攻击武器加至多一件其他近战武器");
 assert(/WarhammerCombatState\.applyLeaderGrantedDefenses/.test(appSource), "护卫授予领导角色的防御效果必须通过公共分组契约装配");
@@ -123,7 +134,7 @@ assert(["usingIndirectFire", "attackerRemainedStationary", "targetVisibleToFrien
 assert(/oneShotUsed/.test(appSource), "[单发]必须拥有武器级已使用状态并阻止再次攻击");
 assert(/precisionTargetsCharacter/.test(appSource) && /isCharacter/.test(appSource), "[精准]必须将武器级角色选择连接到防守分配群组");
 assert(/lethalAutoWound/.test(appSource) && !/data-calc-weapon-lethal-auto-wound/.test(appSource), "[致命一击]默认启用且不再提供按武器开关");
-assert(/core-wound/.test(appSource), "[双联]必须允许玩家按骰面选择致伤重投，而不是强制只重投失败骰");
+assert(/kind: "twin", dice: "wound", mode: "failed"/.test(appSource) && /双联 · 造伤重投/.test(appSource), "[双联]必须进入重投计划并允许玩家按骰面选择致伤重投，而不是强制只重投失败骰");
 assert(/hazardousSelfDamage/.test(appSource), "[危险]造成的进攻方反噬必须显示在计算结果中");
 assert((appSource.match(/WarhammerCombatState\.resolveHit/g) || []).length >= 2, "命中 UI 与 payload 必须共同消费归约状态");
 assert(/WarhammerCombatState\.composeWoundModifier/.test(appSource), "app.js 必须通过单一归约入口组合造伤修正，避免成员修正重复计入");

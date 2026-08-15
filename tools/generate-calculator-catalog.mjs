@@ -4,6 +4,12 @@ import vm from "node:vm";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const packageRoot = path.join(root, "data", "factions");
+const sourcePackages = new Map(fs.readdirSync(packageRoot)
+  .map((factionId) => path.join(packageRoot, factionId, "package.json"))
+  .filter((file) => fs.existsSync(file))
+  .map((file) => JSON.parse(fs.readFileSync(file, "utf8")))
+  .map((payload) => [payload.definition.id, payload]));
 const manifestContext = vm.createContext({ console });
 manifestContext.globalThis = manifestContext;
 for (const relativePath of ["docs/rules/faction-registry.js", "docs/rules/factions.js"]) {
@@ -49,25 +55,46 @@ const cleanAbilityText = (value) => String(value ?? "")
   .replace(/\s+/g, " ")
   .trim();
 
-const sourceMarkdown = new Map([
-  ["帝皇禁军", "docs/data/帝皇禁军/数据卡-OCR-可检索.md"],
-  ["星际战士", "docs/data/星际战士/数据卡-可检索.md"],
-  ["死亡守卫", "docs/data/死亡守卫/死亡守卫-数据卡-可检索.md"],
-  ["欧克兽人", "docs/data/欧克兽人/数据卡-可检索.md"],
-]);
+function profilesWithStableKeys(profiles = [], weapons = []) {
+  const occurrences = new Map();
+  return profiles.map((profile) => {
+    const base = String(profile.id || profile.englishName || profile.name || "record").trim();
+    const occurrence = (occurrences.get(base) || 0) + 1;
+    occurrences.set(base, occurrence);
+    return {
+      ...profile,
+      profileKey: `${base}#${occurrence}`,
+      defaultEquipment: cleanEquipmentText(profile.defaultEquipment, weapons),
+    };
+  });
+}
+
 const catalogs = inputs.map(({ definition, file }) => {
   const data = JSON.parse(fs.readFileSync(path.join(root, "docs", file), "utf8"));
   const faction = data.faction || definition.name;
-  const markdownPath = sourceMarkdown.get(faction);
-  const markdown = markdownPath ? fs.readFileSync(path.join(root, markdownPath), "utf8") : "";
-  const catalog = { ...data, faction, cards: (data.cards || []).map((card) => {
+  const markdownPath = definition.data?.datasheet ? path.join(root, "docs", definition.data.datasheet) : "";
+  const markdown = markdownPath && fs.existsSync(markdownPath) ? fs.readFileSync(markdownPath, "utf8") : "";
+  const sourcePackage = sourcePackages.get(definition.id);
+  const primarySource = sourcePackage?.sources?.find((source) => source.role === "values-and-text") || sourcePackage?.sources?.[0];
+  const meta = sourcePackage ? {
+    factionId: definition.id,
+    name: definition.name,
+    source: primarySource?.id || "",
+    sourceVersion: primarySource?.version || "",
+    fetchedAt: primarySource?.fetchedAt || "",
+    edition: primarySource?.edition || "",
+    extractorVersion: `data-package-v${sourcePackage.schemaVersion}`,
+    sourcePolicy: sourcePackage.sourcePolicy,
+    sources: sourcePackage.sources,
+  } : null;
+  const catalog = { ...data, ...(meta ? { _meta: meta } : {}), faction, cards: (data.cards || []).map((card) => {
     const extracted = keywordRows(markdown, card.page);
     const extractedFactionKeywords = cleanKeywordList(extracted.factionKeywords);
     const extractedKeywords = cleanKeywordList(extracted.keywords);
     return {
       ...card,
       unit: card.unit ? { ...card.unit, abilities: cleanAbilityText(card.unit.abilities), defaultEquipment: cleanEquipmentText(card.unit.defaultEquipment, card.weapons) } : card.unit,
-      modelProfiles: (card.modelProfiles || []).map((profile) => ({ ...profile, defaultEquipment: cleanEquipmentText(profile.defaultEquipment, card.weapons) })),
+      modelProfiles: profilesWithStableKeys(card.modelProfiles, card.weapons),
       factionKeywords: cleanKeywordList(card.factionKeywords).length ? cleanKeywordList(card.factionKeywords) : (extractedFactionKeywords.length ? extractedFactionKeywords : [faction]),
       keywords: cleanKeywordList(card.keywords).length ? cleanKeywordList(card.keywords) : extractedKeywords,
     };
@@ -78,6 +105,7 @@ const catalogs = inputs.map(({ definition, file }) => {
 const index = catalogs.flatMap(({ definition, catalog }) => (catalog.cards || [])
   .filter((card) => card.name)
   .map((card) => ({
+    id: card.id || "",
     factionId: definition.id,
     faction: catalog.faction || definition.name,
     name: card.name,
@@ -94,15 +122,21 @@ fs.writeFileSync(path.join(root, "docs/calculator-catalog.js"), indexOutput, "ut
 const catalogDirectory = path.join(root, "docs/catalogs");
 fs.mkdirSync(catalogDirectory, { recursive: true });
 for (const { definition, catalog } of catalogs) {
-  const output = [
-    `/* Generated independent datasheet package for ${definition.id}. */`,
-    "(function (root) {",
-    "  const registry = root.WarhammerCalculatorCatalogRegistry;",
-    "  if (!registry) throw new Error('catalog-registry.js must load before faction catalogs');",
-    `  registry.register(${JSON.stringify(definition.id)}, ${JSON.stringify(catalog)});`,
-    "})(typeof globalThis === 'undefined' ? this : globalThis);",
-    "",
-  ].join("\n");
-  fs.writeFileSync(path.join(root, "docs", definition.runtime.catalog), output, "utf8");
+  const jsonPath = definition.runtime.catalog;
+  const jsPath = String(jsonPath || "").replace(/\.json$/, ".js");
+  const jsonOutput = `${JSON.stringify(catalog, null, 2)}\n`;
+  fs.writeFileSync(path.join(root, "docs", jsonPath), jsonOutput, "utf8");
+  if (jsPath !== jsonPath) {
+    const output = [
+      `/* Generated independent datasheet package for ${definition.id}. */`,
+      "(function (root) {",
+      "  const registry = root.WarhammerCalculatorCatalogRegistry;",
+      "  if (!registry) throw new Error('catalog-registry.js must load before faction catalogs');",
+      `  registry.register(${JSON.stringify(definition.id)}, ${JSON.stringify(catalog)});`,
+      "})(typeof globalThis === 'undefined' ? this : globalThis);",
+      "",
+    ].join("\n");
+    fs.writeFileSync(path.join(root, "docs", jsPath), output, "utf8");
+  }
 }
-console.log(`Generated ${index.length} search entries and ${catalogs.length} independent faction catalogs.`);
+console.log(`Generated ${index.length} search entries and ${catalogs.length} independent faction catalogs (JSON + script fallback).`);

@@ -63,24 +63,31 @@
       persist();
     }
 
-    async function answer(question) {
-      if (typeof request !== "function" || typeof executeTool !== "function") throw new Error("战术 Agent 尚未连接模型请求或工具执行器。");
+    async function runDeterministicFallback(question) {
       const routedTool = typeof routeQuestion === "function" ? routeQuestion(question, getMemory()) : null;
       const routedCalls = routedTool?.toolCalls || (routedTool?.name && routedTool.arguments ? [routedTool] : []);
-      if (routedCalls.length && typeof formatToolResult === "function") {
-        const results = [];
-        for (const call of routedCalls) {
-          const result = await executeTool({
-            id: `routed-${Date.now()}-${results.length}`,
-            function: { name: call.name, arguments: JSON.stringify(call.arguments) },
-          });
-          rememberScenario(call.name, result);
-          results.push(result);
-        }
-        const reply = formatToolResult(routedTool, routedTool.toolCalls ? results : results[0]);
-        remember("user", question);
-        remember("assistant", reply);
-        return reply;
+      if (!routedCalls.length || typeof formatToolResult !== "function") return null;
+      const results = [];
+      for (const call of routedCalls) {
+        const result = await executeTool({
+          id: `fallback-${Date.now()}-${results.length}`,
+          function: { name: call.name, arguments: JSON.stringify(call.arguments) },
+        });
+        rememberScenario(call.name, result);
+        results.push(result);
+      }
+      const reply = formatToolResult(routedTool, routedTool.toolCalls ? results : results[0]);
+      remember("user", question);
+      remember("assistant", reply);
+      return reply;
+    }
+
+    async function answer(question) {
+      if (typeof executeTool !== "function") throw new Error("战术 Agent 尚未连接工具执行器。");
+      if (typeof request !== "function") {
+        const fallback = await runDeterministicFallback(question);
+        if (fallback) return fallback;
+        throw new Error("战术 Agent 尚未连接模型请求。");
       }
       const context = await buildContext(question, getMemory());
       const rememberedScenario = memory.lastScenario
@@ -92,8 +99,19 @@
         { role: "user", content: `${question}\n\n当前双方军表与伤口：\n${context.battle || "未建立军表"}\n\n本次选中的资料：${context.library || "暂无资料摘录"}${rememberedScenario}` },
       ];
       for (let step = 0; step < 4; step += 1) {
-        const message = await request(messages, tools);
-        if (!message) throw new Error("接口没有返回可显示的回答。");
+        let message;
+        try {
+          message = await request(messages, tools);
+        } catch (error) {
+          const fallback = await runDeterministicFallback(question);
+          if (fallback) return fallback;
+          throw error;
+        }
+        if (!message) {
+          const fallback = await runDeterministicFallback(question);
+          if (fallback) return fallback;
+          throw new Error("接口没有返回可显示的回答。");
+        }
         const toolCalls = Array.isArray(message.tool_calls) ? message.tool_calls : [];
         if (!toolCalls.length) {
           const reply = message.content || "模型没有给出可显示的回答。";

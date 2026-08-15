@@ -19,7 +19,7 @@ test("every faction declares independent runtime resources", () => {
   const definitions = factionDefinitions();
   assert.ok(definitions.length > 3);
   definitions.forEach((definition) => {
-    assert.match(definition.runtime?.catalog || "", new RegExp(`catalogs/${definition.id}\\.js$`));
+    assert.match(definition.runtime?.catalog || "", new RegExp(`catalogs/${definition.id}\\.json$`));
     assert.ok(Array.isArray(definition.runtime?.rules), `${definition.id} should declare rule scripts`);
     assert.match(definition.runtime?.detachment || "", new RegExp(`rules/detachments/${definition.id}\\.js$`));
   });
@@ -44,19 +44,38 @@ test("calculator-catalog.js is a lightweight search index", () => {
   assert.ok(fs.statSync(filename).size < 512 * 1024, "search index should stay below 512 KiB");
 });
 
-test("each faction catalog can register without loading another faction", () => {
+test("each faction catalog registers one faction at a time (JSON + script fallback)", () => {
   const definitions = factionDefinitions();
   const registryPath = path.join(root, "docs/rules/catalog-registry.js");
   assert.ok(fs.existsSync(registryPath), "catalog registry should exist");
   definitions.forEach((definition) => {
-    assert.ok(fs.existsSync(path.join(root, "docs", definition.runtime.catalog)), `${definition.id} catalog package should exist`);
+    assert.ok(fs.existsSync(path.join(root, "docs", definition.runtime.catalog)), `${definition.id} catalog JSON should exist`);
+    const fallbackPath = String(definition.runtime.catalog).replace(/\.json$/, ".js");
+    assert.ok(fs.existsSync(path.join(root, "docs", fallbackPath)), `${definition.id} catalog script fallback should exist`);
   });
   const context = vm.createContext({ console });
   context.globalThis = context;
   vm.runInContext(fs.readFileSync(registryPath, "utf8"), context);
   const first = definitions[0];
-  vm.runInContext(read(`docs/${first.runtime.catalog}`), context);
+  const parsed = JSON.parse(read(`docs/${first.runtime.catalog}`));
+  context.WarhammerCalculatorCatalogRegistry.register(first.id, parsed);
   assert.deepEqual(Object.keys(context.WarhammerCalculatorCatalogRegistry.list()), [first.id]);
+  assert.throws(() => context.WarhammerCalculatorCatalogRegistry.register(first.id, parsed), /重复数据卡包/);
+});
+
+test("JSON catalog deep-equals its script fallback", () => {
+  const definitions = factionDefinitions();
+  for (const definition of definitions) {
+    const jsonPath = path.join(root, "docs", definition.runtime.catalog);
+    const jsPath = String(definition.runtime.catalog).replace(/\.json$/, ".js");
+    const parsed = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
+    const context = vm.createContext({ console });
+    context.globalThis = context;
+    vm.runInContext(read("docs/rules/catalog-registry.js"), context);
+    vm.runInContext(fs.readFileSync(path.join(root, "docs", jsPath), "utf8"), context, { filename: jsPath });
+    const registered = JSON.parse(JSON.stringify(context.WarhammerCalculatorCatalogRegistry.get(definition.id)));
+    assert.deepEqual(parsed, registered, `${definition.id} JSON 与脚本包必须内容一致`);
+  }
 });
 
 test("website rule and detachment packages register one faction at a time", () => {
@@ -109,6 +128,64 @@ test("runtime loader requests only the selected faction and caches it", async ()
     "rules/detachments/grey-knights.js",
     "catalogs/grey-knights.js",
   ]);
+});
+
+test("every catalog carries provenance meta from its authored data package", () => {
+  const definitions = factionDefinitions();
+  for (const definition of definitions) {
+    const jsonPath = path.join(root, "docs", definition.runtime.catalog);
+    const parsed = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
+    assert.ok(parsed._meta, `${definition.id} catalog 必须携带 _meta 溯源`);
+    assert.equal(parsed._meta.factionId, definition.id);
+    assert.ok(parsed._meta.edition, `${definition.id} _meta 必须声明 edition`);
+    assert.ok(parsed._meta.source, `${definition.id} _meta 必须声明 source`);
+    const packagePath = path.join(root, "data", "factions", definition.id, "package.json");
+    assert.ok(fs.existsSync(packagePath), `${definition.id} package.json should exist`);
+    const payload = JSON.parse(fs.readFileSync(packagePath, "utf8"));
+    assert.deepEqual(parsed._meta.sourcePolicy, payload.sourcePolicy);
+  }
+});
+
+test("runtime loader prefers fetch+JSON for catalogs", async () => {
+  const context = vm.createContext({
+    console,
+    document: {
+      createElement: () => ({ dataset: {} }),
+      head: { appendChild(script) { queueMicrotask(() => script.onload()); } },
+    },
+    queueMicrotask,
+    fetch: async (url) => ({ ok: true, json: async () => ({ faction: url }) }),
+  });
+  context.globalThis = context;
+  vm.runInContext(read("docs/rules/faction-registry.js"), context);
+  vm.runInContext(read("docs/rules/factions.js"), context);
+  vm.runInContext(read("docs/rules/catalog-registry.js"), context);
+  vm.runInContext(fs.readFileSync(path.join(root, "docs/rules/faction-runtime-loader.js"), "utf8"), context);
+
+  await context.WarhammerFactionRuntimeLoader.load("灰骑士");
+  assert.equal(context.WarhammerCalculatorCatalogRegistry.get("grey-knights").faction, "catalogs/grey-knights.json");
+});
+
+test("runtime loader falls back to script catalog when fetch fails", async () => {
+  const requested = [];
+  const context = vm.createContext({
+    console,
+    document: {
+      createElement: () => ({ dataset: {} }),
+      head: { appendChild(script) { requested.push(script.src); queueMicrotask(() => script.onload()); } },
+    },
+    queueMicrotask,
+    fetch: async () => { throw new Error("file:// fetch blocked"); },
+  });
+  context.globalThis = context;
+  vm.runInContext(read("docs/rules/faction-registry.js"), context);
+  vm.runInContext(read("docs/rules/factions.js"), context);
+  vm.runInContext(read("docs/rules/catalog-registry.js"), context);
+  vm.runInContext(fs.readFileSync(path.join(root, "docs/rules/faction-runtime-loader.js"), "utf8"), context);
+
+  await context.WarhammerFactionRuntimeLoader.load("灰骑士");
+  assert.ok(requested.includes("catalogs/grey-knights.js"), "fetch 失败必须回退脚本包");
+  assert.ok(!requested.some((source) => source.endsWith(".json")), "脚本注入不应请求 JSON 路径");
 });
 
 test("application hydrates catalogs through the faction runtime loader", () => {

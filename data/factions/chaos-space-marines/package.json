@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 1,
+  "order": 10,
+  "definition": {
+    "id": "chaos-space-marines",
+    "name": "混沌星际战士",
+    "englishName": "Chaos Space Marines",
+    "aliases": [
+      "Chaos Space Marines"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_chaos_space_marines",
+    "runtime": {
+      "catalog": "catalogs/chaos-space-marines.json",
+      "rules": [
+        "rules/factions/chaos-space-marines.js"
+      ],
+      "detachment": "rules/detachments/chaos-space-marines.js"
+    },
+    "data": {
+      "catalog": "data/混沌星际战士/混沌星际战士-结构化数据卡.json",
+      "datasheet": "data/混沌星际战士/混沌星际战士-数据卡-可检索.md",
+      "detachment": "data/混沌星际战士/分遣队规则-可检索.md",
+      "detachmentSource": "data/混沌星际战士/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/混沌星际战士/混沌星际战士-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/混沌星际战士/混沌星际战士-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/混沌星际战士/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/混沌星际战士/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/混沌星际战士/混沌星际战士-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/混沌星际战士/混沌星际战士-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/混沌星际战士/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=chaos-space-marines",
+      "inputPath": "docs/data/混沌星际战士/混沌星际战士-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/chaos-space-marines/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "大掠夺者阿巴顿": "掠夺者阿巴顿",
+      "瓦什托尔": "造物者瓦什托尔",
+      "法比乌斯拜尔": "法比乌斯·拜尔",
+      "黑心休伦": "休伦·黑心",
+      "赛佛": "塞弗",
+      "终结者领主": "终结者护甲混沌领主",
+      "终结者巫师": "终结者护甲巫师",
+      "魔机统领": "骑地狱追猎者的不谐领主",
+      "附魔大师": "唤魔大师",
+      "枭首魔将": "斩首大师",
+      "阿斯塔特叛军带翼恶魔亲王": "有翼阿斯塔特叛军恶魔亲王",
+      "混沌终结者": "混沌终结者小队",
+      "神选战士": "神选者",
+      "被诅咒者": "黑暗传教团",
+      "叛军执法官": "叛变监军",
+      "邪教徒纵火者": "教派纵焰者",
+      "邪教徒": "混沌教众",
+      "诅咒教徒": "受诅教徒",
+      "叛变卫队": "叛变卫军小队",
+      "地狱飞龙": "地狱魔龙",
+      "重锤魔": "重拳恶魔",
+      "铸造魔": "铸造恶魔",
+      "混沌兰德掠袭者": "混沌兰德掠袭者战车",
+      "歼灭者型猎食者坦克": "混沌歼灭者型掠食者战车",
+      "破坏者型猎食者坦克": "混沌破坏者型掠食者战车",
+      "混沌维护者突击炮": "混沌维护者战车",
+      "犀牛装用车": "混沌犀牛战车"
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "混沌巫会": "混沌巫会",
+      "毁灭崇拜者": "毁灭崇拜者",
+      "杀戮利爪掠夺队": "杀戮利爪掠夺队",
+      "拜尔造物": "拜尔造物",
+      "Creations of Bile": "拜尔造物",
+      "变节者匪帮": "变节者匪帮",
+      "Renegade Raiders": "变节者匪帮",
+      "魔契狂信徒": "魔契狂信徒",
+      "Pactbound Zealots": "魔契狂信徒",
+      "万古长战老兵": "万古长战老兵",
+      "Veterans of the Long War": "万古长战老兵",
+      "变节者战队": "变节者战队",
+      "Renegade Warband": "变节者战队",
+      "魂铸战群": "魂铸战群",
+      "Soulforged Warpack": "魂铸战群",
+      "休伦的劫掠者": "休伦的劫掠者",
+      "Huron’s Marauders": "休伦的劫掠者",
+      "堕落之锤攻坚军": "堕落之锤攻坚军",
+      "Fellhammer Siege-host": "堕落之锤攻坚军",
+      "恐怖利爪": "恐怖利爪",
+      "Dread Talons": "恐怖利爪",
+      "混沌教派": "混沌教派",
+      "Chaos Cult": "混沌教派",
+      "诡道之徒": "诡道之徒",
+      "Deceptors": "诡道之徒",
+      "噩梦猎手": "噩梦猎手",
+      "Nightmare Hunt": "噩梦猎手",
+      "次元突袭勇士": "次元突袭勇士",
+      "Warpstrike Champions": "次元突袭勇士",
+      "造物者教派": "造物者教派",
+      "Cult of the Arkifane": "造物者教派",
+      "扎坎魔裔": "扎坎魔裔"
+    },
+    "weapons": {}
+  },
+  "overrides": [
+    {
+      "path": "cards[id=chaos-space-marines.0536bb6c-1638-41bb-a99c-9ec05c4135e8].modelProfiles[id=trooper].weaponNames",
+      "value": [
+        "爆弹枪",
+        "爆弹手枪",
+        "重型近战武器",
+        "阿斯塔特链剑",
+        "邪火经书",
+        "电浆手枪",
+        "火焰喷射器",
+        "浩劫自动加农炮",
+        "重型爆弹枪",
+        "雷射加农炮",
+        "热熔枪",
+        "飞弹发射器",
+        "电浆枪",
+        "收割者链炮"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=chaos-space-marines.0536bb6c-1638-41bb-a99c-9ec05c4135e8].modelProfiles[id=champion].weaponNames",
+      "value": [
+        "爆弹手枪",
+        "爆弹枪",
+        "重型近战武器",
+        "电浆手枪",
+        "诅咒武器",
+        "阿斯塔特链剑"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=chaos-space-marines.ca3d74c6-7a82-4dbd-a49b-4821a57e0092].modelProfiles[id=trooper].weaponNames",
+      "value": [
+        "伦达西致残者",
+        "生化铁手套",
+        "缩减阵列",
+        "赦罪爆弹手枪",
+        "心灵扭绞",
+        "灵能法杖",
+        "雷射手枪",
+        "能量马刀",
+        "终结之斧"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=chaos-space-marines.ca3d74c6-7a82-4dbd-a49b-4821a57e0092].modelProfiles[id=model-garreon-the-corpsemaster].weaponNames",
+      "value": [
+        "伦达西致残者",
+        "生化铁手套",
+        "缩减阵列",
+        "赦罪爆弹手枪",
+        "心灵扭绞",
+        "灵能法杖",
+        "雷射手枪",
+        "能量马刀",
+        "终结之斧"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=chaos-space-marines.ca3d74c6-7a82-4dbd-a49b-4821a57e0092].modelProfiles[id=model-katar-garrix].weaponNames",
+      "value": [
+        "伦达西致残者",
+        "生化铁手套",
+        "缩减阵列",
+        "赦罪爆弹手枪",
+        "心灵扭绞",
+        "灵能法杖",
+        "雷射手枪",
+        "能量马刀",
+        "终结之斧"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=chaos-space-marines.ca3d74c6-7a82-4dbd-a49b-4821a57e0092].modelProfiles[id=model-the-enforcer].weaponNames",
+      "value": [
+        "伦达西致残者",
+        "生化铁手套",
+        "缩减阵列",
+        "赦罪爆弹手枪",
+        "心灵扭绞",
+        "灵能法杖",
+        "雷射手枪",
+        "能量马刀",
+        "终结之斧"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=chaos-space-marines.ca3d74c6-7a82-4dbd-a49b-4821a57e0092].modelProfiles[id=model-captain-sargotta].weaponNames",
+      "value": [
+        "伦达西致残者",
+        "生化铁手套",
+        "缩减阵列",
+        "赦罪爆弹手枪",
+        "心灵扭绞",
+        "灵能法杖",
+        "雷射手枪",
+        "能量马刀",
+        "终结之斧"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    }
+  ]
+}

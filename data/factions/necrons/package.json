@@ -1,0 +1,451 @@
+{
+  "schemaVersion": 1,
+  "order": 18,
+  "definition": {
+    "id": "necrons",
+    "name": "太空死灵",
+    "englishName": "Necrons",
+    "aliases": [
+      "Necrons"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_necrons",
+    "runtime": {
+      "catalog": "catalogs/necrons.json",
+      "rules": [
+        "rules/factions/necrons.js"
+      ],
+      "detachment": "rules/detachments/necrons.js"
+    },
+    "data": {
+      "catalog": "data/太空死灵/太空死灵-结构化数据卡.json",
+      "datasheet": "data/太空死灵/太空死灵-数据卡-可检索.md",
+      "detachment": "data/太空死灵/分遣队规则-可检索.md",
+      "detachmentSource": "data/太空死灵/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/太空死灵/太空死灵-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/太空死灵/太空死灵-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/太空死灵/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/太空死灵/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/太空死灵/太空死灵-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/太空死灵/太空死灵-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/太空死灵/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=necrons",
+      "inputPath": "docs/data/太空死灵/太空死灵-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/necrons/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "斯扎拉克，寂静之王": {
+        "canonical": "寂静王",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "风暴之王伊莫泰克": {
+        "canonical": "风暴王伊摩特克",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "旅行者安拉凯尔": {
+        "canonical": "旅者 安拉基尔",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "禁卫奥比隆": {
+        "canonical": "瓦尔加德·奥拜伦",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "戴冠将军赞德瑞克": {
+        "canonical": "尼莫索·赞德雷克",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "皇家督军": {
+        "canonical": "皇家监军",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "古墓指挥艇": {
+        "canonical": "墓穴指挥舰",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "至尊星神": {
+        "canonical": "超群星神",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "传送霸主": {
+        "canonical": "装备传送斗篷的霸主",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "启明者萨拉斯": {
+        "canonical": "光耀者泽拉斯",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "预言者欧瑞坎": {
+        "canonical": "占卜者欧瑞肯",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "科技技师": {
+        "canonical": "机械技师",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "恐惧技师": {
+        "canonical": "精神技师",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "离子技师": {
+        "canonical": "等离子技师",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "荒蝎领主": {
+        "canonical": "荒蠍领主",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "六印驱逐者": {
+        "canonical": "巫印毁灭者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "荒蝎驱逐者 3 模型": {
+        "canonical": "荒蠍毁灭者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "幽蛇驱逐者 3 模型": {
+        "canonical": "潜蛇毁灭者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "灾蝗驱逐者 1 模型": {
+        "canonical": "灾蝗毁灭者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "重装灾蝗驱逐者 1 模型": {
+        "canonical": "灾蝗重装毁灭者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "剥皮者 5 模型": {
+        "canonical": "剥皮者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "三圣禁卫 5 模型": {
+        "canonical": "三圣禁卫",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "冥工赋生者": {
+        "canonical": "冥工复生械",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "冥工蜘蛛 1 模型": {
+        "canonical": "冥工蜘蛛",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "冥工圣甲虫群 3 模型": {
+        "canonical": "冥工圣甲虫群",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "冥工幽魂 3 模型": {
+        "canonical": "冥工幽魂",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "冥工末日行者": {
+        "canonical": "冥工末日追猎者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "冥工追猎蜈蚣": {
+        "canonical": "冥工墓穴潜行者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "冥工哨戒蜈蚣": {
+        "canonical": "冥工墓穴哨兵",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "冥工针尾幽魂 3 模型": {
+        "canonical": "冥工棘刺者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "太空死灵武士 10 模型": {
+        "canonical": "太空死灵武士",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "不朽者 5 模型": {
+        "canonical": "不朽者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "巫妖卫士 5 模型": {
+        "canonical": "巫妖卫士",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "死亡之印 5 模型": {
+        "canonical": "死印战士",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "古墓机奴": {
+        "canonical": "墓穴奴仆",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "末日灾镰": {
+        "canonical": "毁灭之镰",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "古墓飞刃 3 模型": {
+        "canonical": "墓穴之刃",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "超维方舟": {
+        "canonical": "立方体方舟",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "午夜寿衣": {
+        "canonical": "夜幕轰炸机",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "古墓方尖碑": {
+        "canonical": "巨石堡垒",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "黑石浮塔": {
+        "canonical": "方尖碑",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "超维魔方牢笼": {
+        "canonical": "超立方迷宫",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "炽天使重型构造体": {
+        "canonical": "炎工重型构造体",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "高斯巨石碑": {
+        "canonical": "高斯塔柱",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "主宰圣碑 1 模型": {
+        "canonical": "统御碑阵",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "哨戒石碑塔": {
+        "canonical": "哨兵塔柱",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      }
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "王朝之手": {
+        "canonical": "王朝之手",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "遮天先锋": {
+        "canonical": "遮天先锋",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "法皇的军备": {
+        "canonical": "法皇的军备",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "碎星宝库": {
+        "canonical": "碎星宝库",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Starshatter Arsenal": {
+        "canonical": "碎星宝库",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "墓穴技师密会": {
+        "canonical": "墓穴技师密会",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Cryptek Conclave": {
+        "canonical": "墓穴技师密会",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "诅咒军团": {
+        "canonical": "诅咒军团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Cursed Legion": {
+        "canonical": "诅咒军团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "觉醒王朝": {
+        "canonical": "觉醒王朝",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Awakened Dynasty": {
+        "canonical": "觉醒王朝",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "超维度军团": {
+        "canonical": "超维度军团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Hypercrypt Legion": {
+        "canonical": "超维度军团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "湮灭军团": {
+        "canonical": "湮灭军团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Annihilation Legion": {
+        "canonical": "湮灭军团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "冥工王庭": {
+        "canonical": "冥工王庭",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Canoptek Court": {
+        "canonical": "冥工王庭",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "仪仗方阵": {
+        "canonical": "仪仗方阵",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Obeisance Phalanx": {
+        "canonical": "仪仗方阵",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "哀伤众神殿": {
+        "canonical": "哀伤众神殿",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Pantheon of Woe": {
+        "canonical": "哀伤众神殿",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "阿蒙霍泰克的卫队": {
+        "canonical": "阿蒙霍泰克的卫队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      }
+    },
+    "weapons": {}
+  },
+  "overrides": []
+}

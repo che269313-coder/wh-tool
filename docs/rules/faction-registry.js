@@ -11,7 +11,6 @@
     const frozen = Object.freeze({
       ...definition,
       aliases: Object.freeze([...(definition.aliases || [])]),
-      unitAliases: Object.freeze({ ...(definition.unitAliases || {}) }),
       data: Object.freeze({ ...(definition.data || {}) }),
       runtime: Object.freeze({
         ...(definition.runtime || {}),
@@ -20,7 +19,6 @@
       mechanics: Object.freeze({ ...(definition.mechanics || {}) }),
       unitTags: Object.freeze(Object.fromEntries(Object.entries(definition.unitTags || {}).map(([tag, value]) => [tag, Object.freeze({ ...value, includeUnits: Object.freeze([...(value.includeUnits || [])]), excludeUnits: Object.freeze([...(value.excludeUnits || [])]) })]))),
       library: Object.freeze((definition.library || []).map((entry) => Object.freeze({ ...entry }))),
-      digitalUnitAliases: Object.freeze({ ...(definition.digitalUnitAliases || {}) }),
     });
     const declaredAliases = [frozen.id, frozen.name, ...frozen.aliases];
     declaredAliases.forEach((alias) => {
@@ -46,9 +44,11 @@
     const source = String(unitName || "").trim();
     if (!definition) return source;
     const withoutPrefix = source.startsWith(definition.name) ? source.slice(definition.name.length).trim() : source;
-    return definition.unitAliases[source]
-      || definition.unitAliases[withoutPrefix]
-      || source.replace(/[（(][^）)]*[）)]/g, "").trim();
+    const cleaned = withoutPrefix.replace(/[（(][^）)]*[）)]/g, "").trim();
+    return root.WarhammerAliasRegistry?.lookupUnit?.(definition.id, source)
+      || root.WarhammerAliasRegistry?.lookupUnit?.(definition.id, withoutPrefix)
+      || root.WarhammerAliasRegistry?.lookupUnit?.(definition.id, cleaned)
+      || cleaned;
   }
 
   function unitHasTag(faction, unitName, tag) {

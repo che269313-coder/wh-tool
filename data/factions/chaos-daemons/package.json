@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "order": 13,
+  "definition": {
+    "id": "chaos-daemons",
+    "name": "混沌恶魔",
+    "englishName": "Chaos Daemons",
+    "aliases": [
+      "Chaos Daemons"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_chaos_daemons",
+    "runtime": {
+      "catalog": "catalogs/chaos-daemons.json",
+      "rules": [
+        "rules/factions/chaos-daemons.js"
+      ],
+      "detachment": "rules/detachments/chaos-daemons.js"
+    },
+    "data": {
+      "catalog": "data/混沌恶魔/混沌恶魔-结构化数据卡.json",
+      "datasheet": "data/混沌恶魔/混沌恶魔-数据卡-可检索.md",
+      "detachment": "data/混沌恶魔/分遣队规则-可检索.md",
+      "detachmentSource": "data/混沌恶魔/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/混沌恶魔/混沌恶魔-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/混沌恶魔/混沌恶魔-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/混沌恶魔/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/混沌恶魔/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/混沌恶魔/混沌恶魔-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/混沌恶魔/混沌恶魔-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/混沌恶魔/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=chaos-daemons",
+      "inputPath": "docs/data/混沌恶魔/混沌恶魔-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/chaos-daemons/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "鲜血之主": "鲜血主宰",
+      "颅骨之主": "颅骨主宰",
+      "乘鲜血王座的裂肉主宰": "乘鲜血宝座的裂肉主宰",
+      "放血鬼": "放血者",
+      "碾血者": "碾血骑兵",
+      "血猎犬": "血肉猎犬",
+      "颅骨炮": "颅骨大炮",
+      "凯洛斯织命者": "凯洛斯·织命者",
+      "变化魔君": "诡变领主",
+      "变化灵": "诡变灵",
+      "幻变之主": "瞬变之主",
+      "蓝书吏": "蓝书记",
+      "神尊火妖": "至尊火妖",
+      "蓝惧妖": "蓝色惧妖",
+      "粉惧妖": "粉色惧妖",
+      "尖啸飞鲨": "尖啸魔",
+      "燃烧战车": "烈焰战车",
+      "携疱者": "疱疹使者",
+      "坏疹记账官": "坏疹书记员",
+      "计患官艾皮德缪斯": "传疫魔",
+      "烂芋笛手": "雀跃乐手",
+      "携疫者": "瘟疫使",
+      "纳垢兽": "纳垢野兽",
+      "瘟疫先蜂": "瘟疫蜂兵",
+      "夏拉希魔灾": "夏拉希·魔灾",
+      "色孽假面": "假面舞者",
+      "扭曲魔镜": "曲相魔镜",
+      "比拉克": "比拉克尔",
+      "混沌恶魔王子": "混沌恶魔亲王",
+      "有翼混沌恶魔王子": "有翼混沌恶魔亲王"
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "恶魔入侵": "恶魔入侵",
+      "Daemonic Incursion": "恶魔入侵",
+      "混沌骑兵队": "混沌骑兵队",
+      "亚空间领主": "亚空间领主",
+      "次元魔潮": "次元魔潮",
+      "鲜血军团": "鲜血军团",
+      "Blood Legion": "鲜血军团",
+      "瘟疫军团": "瘟疫军团",
+      "Plague Legion": "瘟疫军团",
+      "暗影军团": "暗影军团",
+      "Shadow Legion": "暗影军团",
+      "闪耀军团": "闪耀军团",
+      "Scintillating Legion": "闪耀军团",
+      "灵光军团": "闪耀军团",
+      "恣肆军团": "恣肆军团",
+      "Legion of Excess": "恣肆军团"
+    },
+    "weapons": {}
+  },
+  "overrides": []
+}

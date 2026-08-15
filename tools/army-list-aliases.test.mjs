@@ -15,6 +15,8 @@ for (const file of [
   "docs/rules/catalog-registry.js",
   "docs/rules/detachment-registry.js",
   "docs/rules/factions.js",
+  "docs/rules/alias-registry.js",
+  "docs/aliases/index.js",
   "docs/rules/keyword-dictionary.js",
   "docs/rules/combat-state.js",
   "docs/rules/effects.js",
@@ -22,7 +24,7 @@ for (const file of [
 ]) load(file);
 
 for (const pkg of context.WarhammerFactionRegistry.list()) {
-  for (const src of [...(pkg.runtime?.rules || []), pkg.runtime?.detachment, pkg.runtime?.catalog].filter(Boolean)) {
+  for (const src of [...(pkg.runtime?.rules || []), pkg.runtime?.detachment, String(pkg.runtime?.catalog || "").replace(/\.json$/, ".js")].filter(Boolean)) {
     const path = `docs/${src}`;
     if (!fs.existsSync(new URL(`../${path}`, import.meta.url))) continue;
     load(path);
@@ -44,12 +46,7 @@ const normalize = (value) => String(value || "")
 function findCard(faction, name) {
   const source = String(name || "");
   const stripped = source.replace(/[（(][^）)]*[）)]/g, "").trim();
-  const aliases = [];
-  for (const pkg of context.WarhammerFactionRegistry.list()) {
-    for (const [alias, canonical] of Object.entries(pkg.unitAliases || {})) {
-      if (alias === source || alias === stripped) aliases.push(canonical);
-    }
-  }
+  const aliases = [source, stripped].map((candidate) => context.WarhammerAliasRegistry.resolveUnit(faction, candidate));
   const candidates = new Set([source, stripped, ...aliases].map(normalize));
   return cards.find((card) => card.factionId === faction && [card.name, card.data.unit.name, card.englishName]
     .some((candidate) => candidates.has(normalize(candidate))));
@@ -124,17 +121,10 @@ test("示例中文军表的分遣队全部能匹配到分遣队包", () => {
 });
 
 test("别名必须同时用于搜索候选（泰丰斯→泰弗斯）", () => {
-  const aliases = new Map();
-  for (const pkg of context.WarhammerFactionRegistry.list()) {
-    for (const [alias, canonical] of Object.entries(pkg.unitAliases || {})) {
-      const list = aliases.get(canonical) || [];
-      list.push(alias);
-      aliases.set(canonical, list);
-    }
-  }
-  assert.ok(aliases.get("泰弗斯").includes("泰丰斯"), "泰丰斯必须作为泰弗斯的搜索别名");
-  assert.ok(aliases.get("野兽头目").includes("兽霸头目"), "兽霸头目必须作为野兽头目的搜索别名");
-  assert.ok(aliases.get("灭魔教团百骑长").includes("百骑长"), "百骑长必须作为灭魔教团百骑长的搜索别名");
+  const aliasesFor = (canonical) => context.WarhammerAliasRegistry.aliasesForCanonical("units", canonical);
+  assert.ok(aliasesFor("泰弗斯").includes("泰丰斯"), "泰丰斯必须作为泰弗斯的搜索别名");
+  assert.ok(aliasesFor("野兽头目").includes("兽霸头目"), "兽霸头目必须作为野兽头目的搜索别名");
+  assert.ok(aliasesFor("灭魔教团百骑长").includes("百骑长"), "百骑长必须作为灭魔教团百骑长的搜索别名");
 });
 
 test("污染者(Defiler)携带的互斥武器档案默认选中一项", () => {

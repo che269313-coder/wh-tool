@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 1,
+  "order": 17,
+  "definition": {
+    "id": "tyranids",
+    "name": "泰伦虫族",
+    "englishName": "Tyranids",
+    "aliases": [
+      "Tyranids"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_tyranids",
+    "runtime": {
+      "catalog": "catalogs/tyranids.json",
+      "rules": [
+        "rules/factions/tyranids.js"
+      ],
+      "detachment": "rules/detachments/tyranids.js"
+    },
+    "data": {
+      "catalog": "data/泰伦虫族/泰伦虫族-结构化数据卡.json",
+      "datasheet": "data/泰伦虫族/泰伦虫族-数据卡-可检索.md",
+      "detachment": "data/泰伦虫族/分遣队规则-可检索.md",
+      "detachmentSource": "data/泰伦虫族/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/泰伦虫族/泰伦虫族-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/泰伦虫族/泰伦虫族-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/泰伦虫族/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/泰伦虫族/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/泰伦虫族/泰伦虫族-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/泰伦虫族/泰伦虫族-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/泰伦虫族/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=tyranids",
+      "inputPath": "docs/data/泰伦虫族/泰伦虫族-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/tyranids/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "生化喷吐泰伦武士": {
+        "canonical": "装备远程活体武器的泰伦武士",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "有翼泰伦壬虫": {
+        "canonical": "有翼泰伦王虫",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "死亡跳跃者": {
+        "canonical": "死亡跃袭者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "神经利卡兽": {
+        "canonical": "神经刀斧虫",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "天巫": {
+        "canonical": "虫巢天妪",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "孢子空投舱": {
+        "canonical": "孢子舱",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      }
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "伏击捕食者": {
+        "canonical": "伏击捕食者",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "诺恩女王之爪": {
+        "canonical": "诺恩女王之爪",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "战斗生物总攻": {
+        "canonical": "战斗生物总攻",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "地底突袭": {
+        "canonical": "地底突袭",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Subterranean Assault": {
+        "canonical": "地底突袭",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "入侵舰队": {
+        "canonical": "入侵舰队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Invasion Fleet": {
+        "canonical": "入侵舰队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "突触节点": {
+        "canonical": "突触节点",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Synaptic Nexus": {
+        "canonical": "突触节点",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "粉碎践踏者": {
+        "canonical": "粉碎践踏者",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Crusher Stampede": {
+        "canonical": "粉碎践踏者",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "无尽虫群": {
+        "canonical": "无尽虫群",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Unending Swarm": {
+        "canonical": "无尽虫群",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "猛攻先锋": {
+        "canonical": "猛攻先锋",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Vanguard Onslaught": {
+        "canonical": "猛攻先锋",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "同化虫群": {
+        "canonical": "同化虫群",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Assimilation Swarm": {
+        "canonical": "同化虫群",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "瓦尔登加斯特的虫群": {
+        "canonical": "瓦尔登加斯特的虫群",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      }
+    },
+    "weapons": {}
+  },
+  "overrides": []
+}

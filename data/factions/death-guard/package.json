@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 1,
+  "order": 2,
+  "definition": {
+    "id": "death-guard",
+    "name": "死亡守卫",
+    "englishName": "Death Guard",
+    "aliases": [
+      "Death Guard",
+      "瘟疫军团"
+    ],
+    "rulesGlobal": "WarhammerDeathGuardRules",
+    "runtime": {
+      "catalog": "catalogs/death-guard.json",
+      "rules": [
+        "rules/death-guard-identities.js",
+        "rules/death-guard.js"
+      ],
+      "detachment": "rules/detachments/death-guard.js"
+    },
+    "data": {
+      "catalog": "data/死亡守卫/死亡守卫-全部数据卡.json",
+      "datasheet": "data/死亡守卫/死亡守卫-数据卡-可检索.md",
+      "detachment": "data/死亡守卫/死亡守卫-分遣队规则-可检索.md",
+      "supplement": "data/死亡守卫/死亡守卫-分数表-可检索.md",
+      "detachmentSource": "data/死亡守卫/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/死亡守卫/死亡守卫-分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/死亡守卫/死亡守卫-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/死亡守卫/死亡守卫-分数表-可检索.md",
+        "kind": "supplement"
+      },
+      {
+        "path": "data/死亡守卫/死亡守卫-全部数据卡.json",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-derived",
+      "edition": "10e",
+      "version": "咸鱼罐头版v1.0.7.1",
+      "fetchedAt": "",
+      "url": "",
+      "inputPath": "docs/data/死亡守卫/死亡守卫-全部数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "带翼恶魔亲王": {
+        "canonical": "有翼纳垢恶魔亲王",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "死亡守卫带翼恶魔亲王": {
+        "canonical": "有翼纳垢恶魔亲王",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "恶疾使者": {
+        "canonical": "恶瘟投放者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "凋败记账官": {
+        "canonical": "书记官",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "病毒精练者": {
+        "canonical": "生物腐化者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "死亡守卫旗手": {
+        "canonical": "死亡守卫持像者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "死亡守卫恶魔亲王": {
+        "canonical": "纳垢恶魔亲王",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "瘟疫散播者": {
+        "canonical": "恶臭病原体",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "烈毒领主": {
+        "canonical": "病毒领主",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "丧钟使者": {
+        "canonical": "剧毒疫病使者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "泰丰斯": {
+        "canonical": "泰弗斯",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "死亡守卫犀牛装甲车": {
+        "canonical": "混沌犀牛战车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "凋零引擎": {
+        "canonical": "恶臭疫病引擎",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "瘟疫行尸": {
+        "canonical": "瘟疫行者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "凋零霸主终结者": {
+        "canonical": "腐毒领主终结者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "死亡守卫混沌卵": {
+        "canonical": "纳垢混沌魔物",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "死亡守卫地狱兽": {
+        "canonical": "地狱兽",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "死亡守卫兰德掠袭者": {
+        "canonical": "混沌兰德掠袭者战车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "死亡守卫歼灭者型猎食者坦克": {
+        "canonical": "混沌歼灭者型掠食者战车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "死亡守卫破坏者型猎食者坦克": {
+        "canonical": "混沌破坏者型掠食者战车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "瘟疫机蜂": {
+        "canonical": "恶臭肿胀机兵",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "装备重型瘟疫榴弹炮的瘟疫机蜂": {
+        "canonical": "装备重型凋零榴弹炮的恶臭肿胀机兵",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "剧毒坩埚": {
+        "canonical": "瘴毒机",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      }
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "传瘟机械": {
+        "canonical": "传瘟机械",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Plague Machines": {
+        "canonical": "传瘟机械",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "吹蝇军": {
+        "canonical": "吹蝇军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Blowfly Host": {
+        "canonical": "吹蝇军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "腐坏楷模": {
+        "canonical": "腐坏楷模",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Paragons of Decay": {
+        "canonical": "腐坏楷模",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "病毒疫军": {
+        "canonical": "病毒疫军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Virulent Vectorium": {
+        "canonical": "病毒疫军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "剧毒特勤": {
+        "canonical": "病毒疫军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "传疫冠军": {
+        "canonical": "传疫冠军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Champions of Contagion": {
+        "canonical": "传疫冠军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "莫塔里安之锤": {
+        "canonical": "莫塔里安之锤",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Mortarion’s Hammer": {
+        "canonical": "莫塔里安之锤",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "记账队召唤师": {
+        "canonical": "记账队召唤师",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Tallyband Summoners": {
+        "canonical": "记账队召唤师",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "腐音召唤者": {
+        "canonical": "记账队召唤师",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "蹒跚腐病疫军": {
+        "canonical": "蹒跚腐病疫军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Shamblerot Vectorium": {
+        "canonical": "蹒跚腐病疫军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "蹒跚腐化": {
+        "canonical": "蹒跚腐病疫军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "死亡领主亲信": {
+        "canonical": "死亡领主亲信",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Death Lord’s Chosen": {
+        "canonical": "死亡领主亲信",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "死亡之主亲选": {
+        "canonical": "死亡领主亲信",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "蛆虫领主": {
+        "canonical": "蛆虫领主",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Lords of Maggots": {
+        "canonical": "蛆虫领主",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      }
+    },
+    "weapons": {}
+  },
+  "overrides": []
+}

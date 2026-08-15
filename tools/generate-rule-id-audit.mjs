@@ -35,7 +35,7 @@ const lines = [
   "",
   "## Evidence caches",
   "",
-  ...factions.map(([name, factionId]) => `- ${name}: \`docs/audit/official-identities-${factionId}.json\``),
+  ...factions.map(([name, factionId]) => `- ${name}: \`data/identities/official-identities-${factionId}.json\``),
   "",
   "## Pending review",
   "",

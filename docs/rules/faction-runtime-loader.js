@@ -23,6 +23,25 @@
     return pending;
   }
 
+  function loadCatalog(definition) {
+    const catalogPath = definition.runtime?.catalog;
+    if (!catalogPath) return Promise.resolve();
+    const fallbackPath = String(catalogPath).replace(/\.json$/, ".js");
+    // HTTP(S) 下优先 fetch + JSON.parse：解析开销远小于等价脚本执行，且不占用
+    // 主线程脚本编译；file:// 本地预览或 fetch 失败时回退到 .js 脚本包。
+    if (typeof root.fetch !== "function") return loadScript(fallbackPath);
+    return root.fetch(catalogPath, { cache: "force-cache" })
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then((catalog) => {
+        if (!catalog || typeof catalog !== "object") throw new Error("数据卡包 JSON 无效");
+        root.WarhammerCalculatorCatalogRegistry?.register(definition.id, catalog);
+      })
+      .catch(() => loadScript(fallbackPath));
+  }
+
   function load(faction) {
     const definition = root.WarhammerFactionRegistry?.resolve(faction);
     if (!definition) return Promise.reject(new Error(`未注册阵营：${faction}`));
@@ -30,9 +49,9 @@
     const scripts = [
       ...(definition.runtime?.rules || []),
       definition.runtime?.detachment,
-      definition.runtime?.catalog,
     ].filter(Boolean);
     const pending = scripts.reduce((chain, source) => chain.then(() => loadScript(source)), Promise.resolve())
+      .then(() => loadCatalog(definition))
       .then(() => definition)
       .catch((error) => {
         factionLoads.delete(definition.id);

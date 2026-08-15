@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 1,
+  "order": 22,
+  "definition": {
+    "id": "emperors-children",
+    "name": "帝皇之子",
+    "englishName": "Emperor's Children",
+    "aliases": [
+      "Emperor's Children"
+    ],
+    "rulesGlobal": "WarhammerWebsiteRules_emperors_children",
+    "runtime": {
+      "catalog": "catalogs/emperors-children.json",
+      "rules": [
+        "rules/factions/emperors-children.js"
+      ],
+      "detachment": "rules/detachments/emperors-children.js"
+    },
+    "data": {
+      "catalog": "data/帝皇之子/帝皇之子-结构化数据卡.json",
+      "datasheet": "data/帝皇之子/帝皇之子-数据卡-可检索.md",
+      "detachment": "data/帝皇之子/分遣队规则-可检索.md",
+      "detachmentSource": "data/帝皇之子/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/帝皇之子/帝皇之子-数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/帝皇之子/帝皇之子-结构化数据卡.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/帝皇之子/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/帝皇之子/分遣队规则-11版原始文本.txt",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/帝皇之子/帝皇之子-网站原始数据.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/帝皇之子/帝皇之子-网站原始数据-简体.json",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/帝皇之子/来源说明.md",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "40k11e-backend-zh-hant",
+      "kind": "api",
+      "edition": "11e",
+      "version": "",
+      "fetchedAt": "2026-08-10",
+      "url": "https://40k11e-backend.aiinpocket.com/api/faction-full?slug=emperors-children",
+      "inputPath": "docs/data/帝皇之子/帝皇之子-结构化数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "pdf-10e-zh",
+      "kind": "pdf-extract",
+      "edition": "10e",
+      "evidencePath": "sources/pdfs/emperors-children/原文",
+      "role": "display-name-and-adjudication-evidence"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "永恒者卢修斯": {
+        "canonical": "不灭者卢修斯",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "爆音领主": {
+        "canonical": "噪音领主",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "混沌巫师": {
+        "canonical": "巫师",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "无瑕剑魔": {
+        "canonical": "无暇剑魔",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "混沌卵": {
+        "canonical": "混沌魔物",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "犀牛运兵车": {
+        "canonical": "混沌犀牛战车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "重锤魔": {
+        "canonical": "重拳恶魔",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "地狱飞龙": {
+        "canonical": "地狱魔龙",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "混沌兰德掠袭者": {
+        "canonical": "混沌兰德掠袭者战车",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "色孽魅魔": {
+        "canonical": "魅魔",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "色孽狂兽": {
+        "canonical": "欢愉魔",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      },
+      "色孽寻觅者": {
+        "canonical": "寻觅者",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      }
+    },
+    "digitalUnits": {},
+    "detachments": {
+      "优雅暴徒": {
+        "canonical": "优雅暴徒",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "癫狂之军": {
+        "canonical": "癫狂之军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "杀戮盛景": {
+        "canonical": "杀戮盛景",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "豪恣狂欢队": {
+        "canonical": "豪恣狂欢队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Carnival of Excess": {
+        "canonical": "豪恣狂欢队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "无上剑士": {
+        "canonical": "无上剑士",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Peerless Bladesmen": {
+        "canonical": "无上剑士",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "水银军团": {
+        "canonical": "水银军团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Mercurial Host": {
+        "canonical": "水银军团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "色孽神选": {
+        "canonical": "色孽神选",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Slaanesh’s Chosen": {
+        "canonical": "色孽神选",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "极速开膛军": {
+        "canonical": "极速开膛军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Rapid Evisceration": {
+        "canonical": "极速开膛军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "凤凰王庭": {
+        "canonical": "凤凰王庭",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Court of the Phoenician": {
+        "canonical": "凤凰王庭",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "傲慢者集团": {
+        "canonical": "傲慢者集团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Coterie of the Conceited": {
+        "canonical": "傲慢者集团",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "冷酷利刃": {
+        "canonical": "冷酷利刃",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      }
+    },
+    "weapons": {}
+  },
+  "overrides": [
+    {
+      "path": "cards[id=emperors-children.0cffa359-e5a4-43cd-a1a0-f7b26065d1f7].modelProfiles[id=trooper].weaponNames",
+      "value": [
+        "成对诅咒武器",
+        "组合武器",
+        "动力拳套",
+        "链锯拳套",
+        "重型火焰喷射器",
+        "收割者自动炮"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[id=emperors-children.0cffa359-e5a4-43cd-a1a0-f7b26065d1f7].modelProfiles[id=champion].weaponNames",
+      "value": [
+        "成对诅咒武器",
+        "组合爆弹枪"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    }
+  ]
+}

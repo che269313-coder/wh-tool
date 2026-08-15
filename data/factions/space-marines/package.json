@@ -1,0 +1,372 @@
+{
+  "schemaVersion": 1,
+  "order": 1,
+  "definition": {
+    "id": "space-marines",
+    "name": "星际战士",
+    "englishName": "Space Marines",
+    "aliases": [
+      "阿斯塔特修会",
+      "白色疤痕",
+      "Space Marines",
+      "Adeptus Astartes"
+    ],
+    "rulesGlobal": "WarhammerSpaceMarineRules",
+    "runtime": {
+      "catalog": "catalogs/space-marines.json",
+      "rules": [
+        "rules/space-marines-identities.js",
+        "rules/space-marines.js"
+      ],
+      "detachment": "rules/detachments/space-marines.js"
+    },
+    "data": {
+      "catalog": "data/星际战士/星际战士-全部数据卡.json",
+      "datasheet": "data/星际战士/数据卡-可检索.md",
+      "detachment": "data/星际战士/分遣队规则-可检索.md",
+      "detachmentSource": "data/星际战士/分遣队规则-11版原始文本.txt"
+    },
+    "library": [
+      {
+        "path": "data/星际战士/分遣队规则-可检索.md",
+        "kind": "detachment"
+      },
+      {
+        "path": "data/星际战士/数据卡-可检索.md",
+        "kind": "datasheet"
+      },
+      {
+        "path": "data/星际战士/星际战士-全部数据卡.json",
+        "kind": "datasheet"
+      }
+    ],
+    "mechanics": {},
+    "unitTags": {}
+  },
+  "sourcePolicy": {
+    "identity": "official-english-id-only",
+    "displayName": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "rules": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ],
+    "legacyNames": "preserve-as-alias",
+    "unresolvedConflict": "fail-build",
+    "profiles": [
+      "pdf-11e-zh",
+      "pdf-10e-zh",
+      "40k11e-backend-zh-hant"
+    ]
+  },
+  "sources": [
+    {
+      "id": "pdf-11e-zh",
+      "kind": "pdf-derived",
+      "edition": "11e",
+      "version": "11版中文1.0",
+      "fetchedAt": "",
+      "url": "",
+      "inputPath": "docs/data/星际战士/星际战士-全部数据卡.json",
+      "role": "values-and-text"
+    },
+    {
+      "id": "official-english-id",
+      "kind": "identity",
+      "role": "identity-only"
+    }
+  ],
+  "aliases": {
+    "units": {
+      "苏博登可汗(主将)": {
+        "canonical": "速不台可汗",
+        "source": "factions.js:unitAliases",
+        "scope": "faction"
+      }
+    },
+    "digitalUnits": {
+      "65": [
+        "连长"
+      ],
+      "119": [
+        "先遣者摩托小队"
+      ]
+    },
+    "detachments": {
+      "装甲矛尖": {
+        "canonical": "装甲矛尖",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Armoured Speartip": {
+        "canonical": "装甲矛尖",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "猎头特遣队": {
+        "canonical": "猎头特遣队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Headhunter Task Force": {
+        "canonical": "猎头特遣队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "陶钢哨卫": {
+        "canonical": "陶钢哨卫",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Ceramite Sentinels": {
+        "canonical": "陶钢哨卫",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "奥特拉玛之刃": {
+        "canonical": "奥特拉玛之刃",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Blade of Ultramar": {
+        "canonical": "奥特拉玛之刃",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "艾沃尼之锤": {
+        "canonical": "艾沃尼之锤",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Hammer of Avernii": {
+        "canonical": "艾沃尼之锤",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "矛尖特遣队": {
+        "canonical": "矛尖特遣队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Spearpoint Task Force": {
+        "canonical": "矛尖特遣队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "铸造之父的探寻者": {
+        "canonical": "铸造之父的探寻者",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Forgefather’s Seekers": {
+        "canonical": "铸造之父的探寻者",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "帝皇之盾": {
+        "canonical": "帝皇之盾",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Emperor’s Shield": {
+        "canonical": "帝皇之盾",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "影标之爪": {
+        "canonical": "影标之爪",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Shadowmark Talon": {
+        "canonical": "影标之爪",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "堡垒特遣队": {
+        "canonical": "堡垒特遣队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Bastion Task Force": {
+        "canonical": "堡垒特遣队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "轨道突袭部队": {
+        "canonical": "轨道突袭部队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Orbital Assault Force": {
+        "canonical": "轨道突袭部队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "光复派遣军": {
+        "canonical": "光复派遣军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Reclamation Force": {
+        "canonical": "光复派遣军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "短剑特遣队": {
+        "canonical": "短剑特遣队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Gladius Task Force": {
+        "canonical": "短剑特遣队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "铁砧攻坚分队": {
+        "canonical": "铁砧攻坚分队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Anvil Siege Force": {
+        "canonical": "铁砧攻坚分队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "钢铁风暴矛头": {
+        "canonical": "钢铁风暴矛头",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Ironstorm Spearhead": {
+        "canonical": "钢铁风暴矛头",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "一连特遣队": {
+        "canonical": "一连特遣队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "1st Company Task Force": {
+        "canonical": "一连特遣队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "风暴骑枪特遣队": {
+        "canonical": "风暴骑枪特遣队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Stormlance Task Force": {
+        "canonical": "风暴骑枪特遣队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "先锋军矛头分队": {
+        "canonical": "先锋军矛头分队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Vanguard Spearhead": {
+        "canonical": "先锋军矛头分队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "烈火风暴突击分队": {
+        "canonical": "烈火风暴突击分队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Firestorm Assault Force": {
+        "canonical": "烈火风暴突击分队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "智库密会": {
+        "canonical": "智库密会",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Librarius Conclave": {
+        "canonical": "智库密会",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "行动资源": {
+        "canonical": "行动资源",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Operational Assets": {
+        "canonical": "行动资源",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "迅电特遣队": {
+        "canonical": "迅电特遣队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Fulguris Task Force": {
+        "canonical": "迅电特遣队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "复仇大军": {
+        "canonical": "复仇大军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Vengeance Host": {
+        "canonical": "复仇大军",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "突击分队": {
+        "canonical": "突击分队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      },
+      "Strike Force": {
+        "canonical": "突击分队",
+        "source": "detachment-package:aliases",
+        "scope": "faction"
+      }
+    },
+    "weapons": {}
+  },
+  "overrides": [
+    {
+      "path": "cards[name=连队英雄].modelProfiles[id=veteran-b].weaponNames",
+      "value": [
+        "爆弹手枪",
+        "爆弹步枪",
+        "格斗武器"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    },
+    {
+      "path": "cards[name=奥特拉马守护者].modelProfiles[id=veteran-sergeant-metallus].weaponNames",
+      "value": [
+        "重型爆弹手枪",
+        "动力武器"
+      ],
+      "source": "committed-manual-fix-2026-08",
+      "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
+      "adjudicatedBy": "user",
+      "date": "2026-08-14",
+      "op": "add",
+      "target": "catalog"
+    }
+  ]
+}
