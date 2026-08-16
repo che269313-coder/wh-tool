@@ -22,6 +22,22 @@ test("Ork Boyz use the PDF canonical name and model-level wounds", () => {
   assert.ok(card, "Ork Boyz catalog card must exist");
   assert.equal(card.name, "小子");
   assert.equal(card.unit.name, "小子");
+  assert.match(card.unit.abilities, /WAAAGH!/);
+  assert.match(card.unit.abilities, /军队阵营是兽人/);
+  assert.match(card.unit.abilities, /5\+ 特殊保护/);
+  assert.doesNotMatch(card.unit.abilities, /瓦戈|咻啊/, "计算页单位技能摘要不得绕过 PDF 术语裁决");
+
+  const structuredAbilities = catalog.cards.flatMap((candidate) => candidate.abilities || []);
+  const legacyStructured = structuredAbilities.filter((ability) => (
+    /瓦戈|咻啊/.test(ability.text || "")
+    || /^(?:瓦戈|咻啊)[！!]?$/u.test(ability.name || "")
+  ));
+  assert.deepEqual(legacyStructured, [], "结构化能力及 AI 工具数据源不得残留后端音译");
+  const waaagh = card.abilities.find((ability) => ability.name === "WAAAGH!");
+  assert.ok(waaagh, "小子的结构化能力必须使用 PDF 标题");
+  assert.match(waaagh.text, /军队阵营是兽人/);
+  assert.match(waaagh.text, /5\+ 特殊保护/);
+  assert.doesNotMatch(JSON.stringify(catalog.cards.map((candidate) => candidate.leader?.text || "")), /瓦戈|咻啊/);
 
   const trooper = card.modelProfiles.find((profile) => profile.id === "trooper");
   const champion = card.modelProfiles.find((profile) => profile.id === "champion");

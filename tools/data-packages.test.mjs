@@ -30,7 +30,7 @@ test("every runtime faction is authored by one versioned data package", () => {
     for (const override of payload.overrides) {
       assert.match(override.path, /\[[A-Za-z_$][\w$]*=/, `${factionId}: override paths must select stable records`);
       assert.doesNotMatch(override.path, /(?:^|\.|\[)\d+(?:\]|\.|$)/, `${factionId}: numeric array positions are forbidden`);
-      assert.ok(["catalog", "datasheet"].includes(override.target), factionId);
+      assert.ok(["catalog", "datasheet", "rules"].includes(override.target), factionId);
       assert.ok(override.source && override.rationale, factionId);
     }
   }

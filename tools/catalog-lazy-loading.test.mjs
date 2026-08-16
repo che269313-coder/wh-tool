@@ -124,9 +124,9 @@ test("runtime loader requests only the selected faction and caches it", async ()
   await context.WarhammerFactionRuntimeLoader.load("grey-knights");
 
   assert.deepEqual([...requested], [
-    "rules/factions/grey-knights.js",
-    "rules/detachments/grey-knights.js",
-    "catalogs/grey-knights.js",
+    "rules/factions/grey-knights.js?v=multisource-20260816",
+    "rules/detachments/grey-knights.js?v=multisource-20260816",
+    "catalogs/grey-knights.js?v=multisource-20260816",
   ]);
 });
 
@@ -147,6 +147,7 @@ test("every catalog carries provenance meta from its authored data package", () 
 });
 
 test("runtime loader prefers fetch+JSON for catalogs", async () => {
+  const fetches = [];
   const context = vm.createContext({
     console,
     document: {
@@ -154,7 +155,10 @@ test("runtime loader prefers fetch+JSON for catalogs", async () => {
       head: { appendChild(script) { queueMicrotask(() => script.onload()); } },
     },
     queueMicrotask,
-    fetch: async (url) => ({ ok: true, json: async () => ({ faction: url }) }),
+    fetch: async (url, options) => {
+      fetches.push({ url, options });
+      return { ok: true, json: async () => ({ faction: url }) };
+    },
   });
   context.globalThis = context;
   vm.runInContext(read("docs/rules/faction-registry.js"), context);
@@ -164,6 +168,7 @@ test("runtime loader prefers fetch+JSON for catalogs", async () => {
 
   await context.WarhammerFactionRuntimeLoader.load("灰骑士");
   assert.equal(context.WarhammerCalculatorCatalogRegistry.get("grey-knights").faction, "catalogs/grey-knights.json");
+  assert.equal(fetches[0].options.cache, "no-cache", "部署后必须重新验证 catalog，不能继续复用旧多源裁决结果");
 });
 
 test("runtime loader falls back to script catalog when fetch fails", async () => {
@@ -184,7 +189,7 @@ test("runtime loader falls back to script catalog when fetch fails", async () =>
   vm.runInContext(fs.readFileSync(path.join(root, "docs/rules/faction-runtime-loader.js"), "utf8"), context);
 
   await context.WarhammerFactionRuntimeLoader.load("灰骑士");
-  assert.ok(requested.includes("catalogs/grey-knights.js"), "fetch 失败必须回退脚本包");
+  assert.ok(requested.includes("catalogs/grey-knights.js?v=multisource-20260816"), "fetch 失败必须回退到同版本脚本包");
   assert.ok(!requested.some((source) => source.endsWith(".json")), "脚本注入不应请求 JSON 路径");
 });
 

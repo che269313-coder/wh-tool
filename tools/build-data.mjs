@@ -11,6 +11,7 @@ const stages = [
   ["generate browser alias index", "tools/generate-alias-index.mjs"],
   ["generate normalized calculator catalogs", "tools/generate-calculator-catalog.mjs"],
   ["derive model-profile weapon sets", "tools/apply-weaponnames.mjs"],
+  ["regenerate Orks rules", "tools/generate-orks-rules.mjs"],
   ["apply adjudicated source overrides", "tools/apply-patches.mjs"],
 ];
 if (process.argv.includes("--check")) {

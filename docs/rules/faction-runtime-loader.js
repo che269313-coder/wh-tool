@@ -1,10 +1,17 @@
 /* Loads one faction's rule, detachment and datasheet scripts on demand. */
 (function (root) {
+  const BUILD_VERSION = "multisource-20260816";
   const scriptLoads = new Map();
   const factionLoads = new Map();
 
-  function loadScript(source) {
+  function versionedPath(source) {
     const path = String(source || "").trim();
+    if (!path) return "";
+    return `${path}${path.includes("?") ? "&" : "?"}v=${encodeURIComponent(BUILD_VERSION)}`;
+  }
+
+  function loadScript(source) {
+    const path = versionedPath(source);
     if (!path) return Promise.resolve();
     if (scriptLoads.has(path)) return scriptLoads.get(path);
     const pending = new Promise((resolve, reject) => {
@@ -30,7 +37,7 @@
     // HTTP(S) 下优先 fetch + JSON.parse：解析开销远小于等价脚本执行，且不占用
     // 主线程脚本编译；file:// 本地预览或 fetch 失败时回退到 .js 脚本包。
     if (typeof root.fetch !== "function") return loadScript(fallbackPath);
-    return root.fetch(catalogPath, { cache: "force-cache" })
+    return root.fetch(catalogPath, { cache: "no-cache" })
       .then((response) => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return response.json();

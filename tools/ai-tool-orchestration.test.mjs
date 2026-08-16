@@ -25,6 +25,15 @@ test("chat can resolve a named unit to existing roster or catalog data before ca
   assert.match(app, /calculatorRosterOptions/);
 });
 
+test("get_unit_profile receives PDF-adjudicated Ork structured abilities", () => {
+  const catalog = JSON.parse(fs.readFileSync(new URL("../docs/catalogs/orks.json", import.meta.url), "utf8"));
+  const boyz = catalog.cards.find((card) => card.id === "orks.boyz.01474b35");
+  assert.ok(boyz);
+  assert.doesNotMatch(JSON.stringify(boyz.abilities), /瓦戈|咻啊/);
+  assert.match(JSON.stringify(boyz.abilities), /WAAAGH!/);
+  assert.match(app, /abilities:\s*data\.abilities\s*\|\|\s*\[\]/);
+});
+
 test("AI preserves roster joined-unit instances and returns only combat-relevant follow-ups", () => {
   assert.match(app, /function assistantJoinedUnitSummary/);
   assert.match(app, /joinedUnit:\s*assistantJoinedUnitSummary/);

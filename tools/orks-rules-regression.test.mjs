@@ -90,3 +90,17 @@ test("瓦戈！开启后阵营规则必须同时提供近战加值与 5+ 无敌�
   const ranged = context.WarhammerRuleResolver.resolveFaction("欧克兽人", selections, { phase: "ranged" });
   assert.equal(ranged.attack.attackModifier, 0, "瓦戈！的近战加值不得影响远程攻击");
 });
+
+test("WAAAGH rule text and controls use the PDF terminology end to end", () => {
+  const catalog = context.WarhammerOrksRules;
+  const waagh = catalog.factionRules.find((rule) => rule.id === "orks.army.waagh");
+  assert.equal(waagh.name, "WAAAGH!");
+  assert.match(waagh.text, /军队阵营是兽人/);
+  assert.match(waagh.text, /发动 WAAAGH!/);
+  assert.equal(waagh.controls.find((control) => control.id === "enabled")?.label, "本次战斗已发动 WAAAGH!");
+  const visibleStrings = [
+    ...catalog.factionRules,
+    ...Object.values(catalog.unitRules).flat(),
+  ].flatMap((rule) => [rule.text, rule.status, ...(rule.controls || []).flatMap((control) => [control.label])]).filter(Boolean);
+  assert.equal(visibleStrings.some((value) => /瓦戈|咻啊/.test(value)), false, "规则正文、状态和控件不得继续显示繁中旧名");
+});

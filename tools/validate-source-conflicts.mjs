@@ -11,6 +11,7 @@ export function validatePackageConflicts(payload) {
   const conflicts = Array.isArray(payload.conflicts) ? payload.conflicts : [];
   const conflictIds = new Set();
   const resolvedOverridePaths = new Set();
+  const resolvedTransformIds = new Set();
   const sourceIds = new Set((payload.sources || []).map((source) => source.id));
 
   for (const conflict of conflicts) {
@@ -44,11 +45,21 @@ export function validatePackageConflicts(payload) {
     }
 
     const overridePaths = Array.isArray(resolution.overridePaths) ? resolution.overridePaths : [];
-    if (!overridePaths.length) errors.push(`${label}: resolution needs override paths`);
+    const transformIds = Array.isArray(resolution.transformIds) ? resolution.transformIds : [];
+    if (!overridePaths.length && !transformIds.length) errors.push(`${label}: resolution needs override paths or transform ids`);
     overridePaths.forEach((overridePath) => {
       const override = (payload.overrides || []).find((entry) => entry.path === overridePath && sameValue(entry.value, resolution.value));
       if (!override) errors.push(`${label}: missing matching override ${overridePath}`);
       resolvedOverridePaths.add(overridePath);
+    });
+    transformIds.forEach((transformId) => {
+      const transform = (payload.transforms || []).find((entry) => entry.id === transformId);
+      if (!transform
+        || transform.source !== resolution.source
+        || !sameValue(transform.value, resolution.value)) {
+        errors.push(`${label}: missing matching transform ${transformId}`);
+      }
+      resolvedTransformIds.add(transformId);
     });
     (resolution.preserveAliases || []).forEach((alias) => {
       const canonical = aliasCanonical(payload.aliases?.units?.[alias]);
@@ -59,6 +70,11 @@ export function validatePackageConflicts(payload) {
   (payload.overrides || []).forEach((override) => {
     if (/pdf/i.test(String(override.source || "")) && !resolvedOverridePaths.has(override.path)) {
       errors.push(`${factionId}: PDF override is missing from the conflict ledger: ${override.path}`);
+    }
+  });
+  (payload.transforms || []).forEach((transform) => {
+    if (/pdf/i.test(String(transform.source || "")) && !resolvedTransformIds.has(transform.id)) {
+      errors.push(`${factionId}: PDF transform is missing from the conflict ledger: ${transform.id}`);
     }
   });
   return errors;

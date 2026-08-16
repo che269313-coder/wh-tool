@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { validatePackageConflicts } from "./validate-source-conflicts.mjs";
@@ -44,6 +45,46 @@ test("conflict resolution must follow source priority and match an override", ()
   const missingOverride = structuredClone(resolvedPackage);
   missingOverride.conflicts[0].resolution.overridePaths = ["cards[id=boyz].unit.name"];
   assert.ok(validatePackageConflicts(missingOverride).some((message) => message.includes("override")));
+});
+
+test("rules terminology conflicts must resolve through an executable transform", () => {
+  const payload = {
+    definition: { id: "orks" },
+    sourcePolicy: { rules: ["pdf-10e-zh", "40k11e-backend-zh-hant"], unresolvedConflict: "fail-build" },
+    sources: [{ id: "pdf-10e-zh" }, { id: "40k11e-backend-zh-hant" }],
+    overrides: [],
+    aliases: { units: {} },
+    transforms: [{
+      id: "orks-rules-waaagh-term",
+      target: "rules",
+      kind: "canonical-term",
+      fields: ["text", "label"],
+      aliases: ["瓦戈！", "咻啊！"],
+      value: "WAAAGH!",
+      source: "pdf-10e-zh",
+      rationale: "PDF terminology wins",
+    }],
+    conflicts: [{
+      id: "waaagh-terminology",
+      policy: "rules",
+      candidates: [
+        { source: "pdf-10e-zh", value: "WAAAGH!" },
+        { source: "40k11e-backend-zh-hant", value: "瓦戈！/咻啊！" },
+      ],
+      resolution: { source: "pdf-10e-zh", value: "WAAAGH!", transformIds: ["orks-rules-waaagh-term"] },
+    }],
+  };
+  assert.deepEqual(validatePackageConflicts(payload), []);
+  payload.transforms = [];
+  assert.ok(validatePackageConflicts(payload).some((message) => message.includes("transform")));
+});
+
+test("the supported build regenerates Orks rules before applying adjudication", () => {
+  const source = fs.readFileSync(path.join(path.resolve(import.meta.dirname, ".."), "tools", "build-data.mjs"), "utf8");
+  const generator = source.indexOf("tools/generate-orks-rules.mjs");
+  const patches = source.indexOf("tools/apply-patches.mjs");
+  assert.ok(generator >= 0, "build-data must regenerate the Orks rules artifact");
+  assert.ok(generator < patches, "raw rules must be generated before PDF adjudication is applied");
 });
 
 test("source preflight reports missing ignored inputs with faction ownership", () => {

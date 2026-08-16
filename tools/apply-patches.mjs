@@ -132,6 +132,66 @@ export function syncCalculatorIndex(rootDir, factionId, data) {
   return true;
 }
 
+function loadRulesTarget(rootDir, definition) {
+  const context = vm.createContext({ console });
+  context.globalThis = context;
+  context.WarhammerRuleIdentity = { applyCatalog: (catalog) => catalog };
+  let targetPath = "";
+  for (const relativePath of definition.runtime?.rules || []) {
+    const scriptPath = path.join(rootDir, "docs", relativePath);
+    if (!fs.existsSync(scriptPath)) continue;
+    vm.runInContext(fs.readFileSync(scriptPath, "utf8"), context, { filename: scriptPath });
+    if (context[definition.rulesGlobal]) targetPath = scriptPath;
+  }
+  return { target: context[definition.rulesGlobal], targetPath };
+}
+
+function syncRulesScript(targetPath, definition, data) {
+  const identitiesGlobal = String(definition.rulesGlobal || "").replace(/Rules$/, "RuleIdentities");
+  const output = [
+    "/* Generated rule catalog with adjudicated multi-source overrides. Do not edit by hand. */",
+    "(function (root) {",
+    `  const catalog = ${JSON.stringify(data, null, 2)};`,
+    `  const identities = root[${JSON.stringify(identitiesGlobal)}];`,
+    `  root[${JSON.stringify(definition.rulesGlobal)}] = identities?.apply(catalog) || catalog;`,
+    "})(typeof globalThis === \"undefined\" ? this : globalThis);",
+    "",
+  ].join("\n");
+  fs.writeFileSync(targetPath, output, "utf8");
+}
+
+function replaceCanonicalTerm(target, transform) {
+  const aliases = [...new Set(transform.aliases || [])]
+    .filter(Boolean)
+    .sort((left, right) => right.length - left.length);
+  if (!aliases.length || !transform.value) return { replacements: 0, canonicalMatches: 0 };
+  const fields = new Set(transform.fields || []);
+  const scopeKeys = new Set(transform.scopeKeys || []);
+  const escaped = aliases.map((value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const pattern = new RegExp(escaped.join("|"), "giu");
+  let replacements = 0;
+  let canonicalMatches = 0;
+  const visit = (value, inScope = scopeKeys.size === 0) => {
+    if (!value || typeof value !== "object") return;
+    for (const [key, item] of Object.entries(value)) {
+      const childInScope = inScope || scopeKeys.has(key);
+      if (typeof item === "string" && childInScope && fields.has(key)) {
+        if (item.includes(transform.value)) canonicalMatches += 1;
+        if (transform.matchMode === "exact") {
+          if (aliases.some((alias) => alias.localeCompare(item, undefined, { sensitivity: "accent" }) === 0)) {
+            value[key] = transform.value;
+            replacements += 1;
+          }
+        } else {
+          value[key] = item.replace(pattern, () => { replacements += 1; return transform.value; });
+        }
+      } else if (item && typeof item === "object") visit(item, childInScope);
+    }
+  };
+  visit(target);
+  return { replacements, canonicalMatches };
+}
+
 export function applyPatches({ rootDir = root, factions = loadDefinitions(), dryRun = false, onlyFaction = "" } = {}) {
   const report = { applied: [], missed: [] };
   const packageDir = path.join(rootDir, "data", "factions");
@@ -150,13 +210,27 @@ export function applyPatches({ rootDir = root, factions = loadDefinitions(), dry
       entries.push(patch);
       byTarget.set(patch.target, entries);
     }
+    for (const transform of payload.transforms || []) {
+      if (!byTarget.has(transform.target)) byTarget.set(transform.target, []);
+    }
     for (const [targetName, patches] of byTarget) {
       let targetPath = "";
+      let target;
       if (targetName === "catalog") targetPath = path.join(rootDir, "docs", "catalogs", factionId + ".json");
       else if (targetName === "datasheet") targetPath = path.join(rootDir, "docs", definition.data?.catalog || "");
+      else if (targetName === "rules") ({ target, targetPath } = loadRulesTarget(rootDir, definition));
       else { report.missed.push({ factionId, path: "*", reason: "未知 target：" + targetName }); continue; }
       if (!targetPath || !fs.existsSync(targetPath)) { report.missed.push({ factionId, path: "*", reason: "目标文件不存在" }); continue; }
-      const target = JSON.parse(fs.readFileSync(targetPath, "utf8"));
+      if (!target) target = JSON.parse(fs.readFileSync(targetPath, "utf8"));
+      for (const transform of (payload.transforms || []).filter((entry) => entry.target === targetName)) {
+        if (transform.kind !== "canonical-term") {
+          report.missed.push({ factionId, path: transform.id || "*", reason: "unsupported transform kind" });
+          continue;
+        }
+        const { replacements, canonicalMatches } = replaceCanonicalTerm(target, transform);
+        if (!replacements && !canonicalMatches) report.missed.push({ factionId, path: transform.id || "*", reason: "transform matched no fields" });
+        else report.applied.push({ factionId, target: targetName, path: `transform:${transform.id}` });
+      }
       for (const patch of patches) {
         const found = getByPath(target, patch.path);
         if (found === undefined && patch.op !== "add") { report.missed.push({ factionId, path: patch.path, reason: "路径不存在" }); continue; }
@@ -172,7 +246,7 @@ export function applyPatches({ rootDir = root, factions = loadDefinitions(), dry
         if (targetName === "catalog") {
           syncCatalogScript(rootDir, factionId, target);
           syncCalculatorIndex(rootDir, factionId, target);
-        }
+        } else if (targetName === "rules") syncRulesScript(targetPath, definition, target);
       }
     }
   }

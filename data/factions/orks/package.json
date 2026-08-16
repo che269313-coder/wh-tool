@@ -187,6 +187,84 @@
           "cards[id=orks.boyz.01474b35].modelProfiles[id=champion].unit"
         ]
       }
+    },
+    {
+      "id": "waaagh-rule-name",
+      "policy": "rules",
+      "candidates": [
+        { "source": "pdf-10e-zh", "value": "WAAAGH!" },
+        { "source": "40k11e-backend-zh-hant", "value": "瓦戈！" }
+      ],
+      "resolution": {
+        "source": "pdf-10e-zh",
+        "value": "WAAAGH!",
+        "overridePaths": ["factionRules[id=orks.army.waagh].name"]
+      }
+    },
+    {
+      "id": "waaagh-rule-text",
+      "policy": "rules",
+      "candidates": [
+        { "source": "pdf-10e-zh", "value": "如果你的军队阵营是兽人，则你拥有全场一次性能力：在你的指挥阶段开始时，你可以发动 WAAAGH!。直到你的下一个指挥阶段开始时，以下效果对你的军队生效：你军队中拥有此能力的单位可以在进行过加速的同一回合发动冲锋；你军队中拥有此能力的模型所装备的近战武器 S 和 A 均 +1；你军队中拥有此能力的模型获得 5+ 特殊保护。" },
+        { "source": "40k11e-backend-zh-hant", "value": "如果你的军队阵营是欧克兽人，每场战斗一次，在己方指挥阶段开始时可以发起瓦戈！。直到你的下一个指挥阶段开始前，具有此能力的单位即使本回合前进也可宣告冲锋；具有此能力的模型所装备的近战武器力量与攻击特性各 +1；具有此能力的模型获得 5+ 无敌豁免。" }
+      ],
+      "resolution": {
+        "source": "pdf-10e-zh",
+        "value": "如果你的军队阵营是兽人，则你拥有全场一次性能力：在你的指挥阶段开始时，你可以发动 WAAAGH!。直到你的下一个指挥阶段开始时，以下效果对你的军队生效：你军队中拥有此能力的单位可以在进行过加速的同一回合发动冲锋；你军队中拥有此能力的模型所装备的近战武器 S 和 A 均 +1；你军队中拥有此能力的模型获得 5+ 特殊保护。",
+        "overridePaths": ["factionRules[id=orks.army.waagh].text"]
+      }
+    },
+    {
+      "id": "waaagh-control-label",
+      "policy": "rules",
+      "candidates": [
+        { "source": "pdf-10e-zh", "value": "本次战斗已发动 WAAAGH!" },
+        { "source": "40k11e-backend-zh-hant", "value": "本次战斗已发起瓦戈！" }
+      ],
+      "resolution": {
+        "source": "pdf-10e-zh",
+        "value": "本次战斗已发动 WAAAGH!",
+        "overridePaths": ["factionRules[id=orks.army.waagh].controls[id=enabled].label"]
+      }
+    },
+    {
+      "id": "waaagh-rule-terminology",
+      "policy": "rules",
+      "candidates": [
+        { "source": "pdf-10e-zh", "value": "WAAAGH!" },
+        { "source": "40k11e-backend-zh-hant", "value": "瓦戈！/咻啊！" }
+      ],
+      "resolution": {
+        "source": "pdf-10e-zh",
+        "value": "WAAAGH!",
+        "transformIds": ["orks-rules-waaagh-term", "orks-rules-exact-waaagh-name", "orks-catalog-waaagh-term", "orks-catalog-ability-record-waaagh-term", "orks-catalog-text-waaagh-term"]
+      }
+    },
+    {
+      "id": "waaagh-catalog-passage",
+      "policy": "rules",
+      "candidates": [
+        { "source": "pdf-10e-zh", "value": "WAAAGH!：如果你的军队阵营是兽人，则你拥有全场一次性能力：在你的指挥阶段开始时，你可以发动 WAAAGH!。直到你的下一个指挥阶段开始时，以下效果对你的军队生效：你军队中拥有此能力的单位可以在进行过加速的同一回合发动冲锋；你军队中拥有此能力的模型所装备的近战武器 S 和 A 均 +1；你军队中拥有此能力的模型获得 5+ 特殊保护。" },
+        { "source": "40k11e-backend-zh-hant", "value": "咻啊！：若你的军队阵营为 **欧克蛮人(Orks)**，一场战役一次，在你的指挥阶段开始时，你可以发起 瓦戈！如果你这样做，则直到你的下一个指挥阶段开始为止，瓦戈！ 对你的军队保持启动状态，且： ■ 来自你的军队且具有此能力的单位可在其前进的回合中宣告冲锋。 ■ 将来自你的军队且具有此能力的模型所装备的近战武器的力量和攻击特性各加 1。 ■ 来自你的军队且具有此能力的模型拥有 5+ 无敌豁免。" }
+      ],
+      "resolution": {
+        "source": "pdf-10e-zh",
+        "value": "WAAAGH!：如果你的军队阵营是兽人，则你拥有全场一次性能力：在你的指挥阶段开始时，你可以发动 WAAAGH!。直到你的下一个指挥阶段开始时，以下效果对你的军队生效：你军队中拥有此能力的单位可以在进行过加速的同一回合发动冲锋；你军队中拥有此能力的模型所装备的近战武器 S 和 A 均 +1；你军队中拥有此能力的模型获得 5+ 特殊保护。",
+        "transformIds": ["orks-catalog-waaagh-passage"]
+      }
+    },
+    {
+      "id": "waaagh-structured-ability-passage",
+      "policy": "rules",
+      "candidates": [
+        { "source": "pdf-10e-zh", "value": "如果你的军队阵营是兽人，则你拥有全场一次性能力：在你的指挥阶段开始时，你可以发动 WAAAGH!。直到你的下一个指挥阶段开始时，以下效果对你的军队生效：你军队中拥有此能力的单位可以在进行过加速的同一回合发动冲锋；你军队中拥有此能力的模型所装备的近战武器 S 和 A 均 +1；你军队中拥有此能力的模型获得 5+ 特殊保护。" },
+        { "source": "40k11e-backend-zh-hant", "value": "若你的军队阵营为 **欧克蛮人(Orks)**，一场战役一次，在你的指挥阶段开始时，你可以发起 瓦戈！如果你这样做，则直到你的下一个指挥阶段开始为止，瓦戈！ 对你的军队保持启动状态，且： ■ 来自你的军队且具有此能力的单位可在其前进的回合中宣告冲锋。 ■ 将来自你的军队且具有此能力的模型所装备的近战武器的力量和攻击特性各加 1。 ■ 来自你的军队且具有此能力的模型拥有 5+ 无敌豁免。" }
+      ],
+      "resolution": {
+        "source": "pdf-10e-zh",
+        "value": "如果你的军队阵营是兽人，则你拥有全场一次性能力：在你的指挥阶段开始时，你可以发动 WAAAGH!。直到你的下一个指挥阶段开始时，以下效果对你的军队生效：你军队中拥有此能力的单位可以在进行过加速的同一回合发动冲锋；你军队中拥有此能力的模型所装备的近战武器 S 和 A 均 +1；你军队中拥有此能力的模型获得 5+ 特殊保护。",
+        "transformIds": ["orks-catalog-ability-record-waaagh-passage"]
+      }
     }
   ],
   "aliases": {
@@ -572,7 +650,131 @@
     },
     "weapons": {}
   },
+  "transforms": [
+    {
+      "id": "orks-rules-waaagh-term",
+      "target": "rules",
+      "kind": "canonical-term",
+      "fields": ["text", "label"],
+      "aliases": ["瓦戈！", "瓦戈!", "瓦戈", "咻啊！", "咻啊!", "咻啊", "Waaagh！", "Waaagh!", "WAAGH!"],
+      "value": "WAAAGH!",
+      "source": "pdf-10e-zh",
+      "rationale": "PDF 的阵营技能及数据卡能力统一使用 WAAAGH!；正文和控件不得残留后端音译。",
+      "adjudicatedBy": "user",
+      "date": "2026-08-16"
+    },
+    {
+      "id": "orks-rules-exact-waaagh-name",
+      "target": "rules",
+      "kind": "canonical-term",
+      "matchMode": "exact",
+      "fields": ["name"],
+      "aliases": ["瓦戈！", "瓦戈!", "瓦戈", "咻啊！", "咻啊!", "咻啊", "Waaagh！", "Waaagh!", "WAAGH!"],
+      "value": "WAAAGH!",
+      "source": "pdf-10e-zh",
+      "rationale": "只裁决完整等于阵营技能名的字段，保留大瓦戈先知等独立专名。",
+      "adjudicatedBy": "user",
+      "date": "2026-08-16"
+    },
+    {
+      "id": "orks-catalog-waaagh-passage",
+      "target": "catalog",
+      "kind": "canonical-term",
+      "fields": ["abilities"],
+      "aliases": [
+        "咻啊！：若你的军队阵营为 **欧克蛮人(Orks)**，一场战役一次，在你的指挥阶段开始时，你可以发起 瓦戈！如果你这样做，则直到你的下一个指挥阶段开始为止，瓦戈！ 对你的军队保持启动状态，且： ■ 来自你的军队且具有此能力的单位可在其前进的回合中宣告冲锋。 ■ 将来自你的军队且具有此能力的模型所装备的近战武器的力量和攻击特性各加 1。 ■ 来自你的军队且具有此能力的模型拥有 5+ 无敌豁免。"
+      ],
+      "value": "WAAAGH!：如果你的军队阵营是兽人，则你拥有全场一次性能力：在你的指挥阶段开始时，你可以发动 WAAAGH!。直到你的下一个指挥阶段开始时，以下效果对你的军队生效：你军队中拥有此能力的单位可以在进行过加速的同一回合发动冲锋；你军队中拥有此能力的模型所装备的近战武器 S 和 A 均 +1；你军队中拥有此能力的模型获得 5+ 特殊保护。",
+      "source": "pdf-10e-zh",
+      "rationale": "计算页会直接展示 catalog 的单位技能摘要；重复嵌入的数据源阵营段落必须整体采用 PDF 原文。",
+      "adjudicatedBy": "user",
+      "date": "2026-08-16"
+    },
+    {
+      "id": "orks-catalog-waaagh-term",
+      "target": "catalog",
+      "kind": "canonical-term",
+      "fields": ["abilities", "rawText"],
+      "aliases": ["瓦戈！", "瓦戈!", "瓦戈", "咻啊！", "咻啊!", "咻啊", "Waaagh！", "Waaagh!", "WAAGH!"],
+      "value": "WAAAGH!",
+      "source": "pdf-10e-zh",
+      "rationale": "计算页的单位技能摘要来自 catalog，必须与 PDF 的 WAAAGH! 术语保持一致。",
+      "adjudicatedBy": "user",
+      "date": "2026-08-16"
+    },
+    {
+      "id": "orks-catalog-ability-record-waaagh-passage",
+      "target": "catalog",
+      "kind": "canonical-term",
+      "scopeKeys": ["abilities"],
+      "fields": ["text"],
+      "aliases": [
+        "若你的军队阵营为 **欧克蛮人(Orks)**，一场战役一次，在你的指挥阶段开始时，你可以发起 瓦戈！如果你这样做，则直到你的下一个指挥阶段开始为止，瓦戈！ 对你的军队保持启动状态，且：\n\n■ 来自你的军队且具有此能力的单位可在其前进的回合中宣告冲锋。\n■ 将来自你的军队且具有此能力的模型所装备的近战武器的力量和攻击特性各加 1。\n■ 来自你的军队且具有此能力的模型拥有 5+ 无敌豁免。"
+      ],
+      "value": "如果你的军队阵营是兽人，则你拥有全场一次性能力：在你的指挥阶段开始时，你可以发动 WAAAGH!。直到你的下一个指挥阶段开始时，以下效果对你的军队生效：你军队中拥有此能力的单位可以在进行过加速的同一回合发动冲锋；你军队中拥有此能力的模型所装备的近战武器 S 和 A 均 +1；你军队中拥有此能力的模型获得 5+ 特殊保护。",
+      "source": "pdf-10e-zh",
+      "rationale": "结构化能力会直接提供给 UI 与 AI 工具，必须整体采用 PDF 正文。",
+      "adjudicatedBy": "user",
+      "date": "2026-08-16"
+    },
+    {
+      "id": "orks-catalog-ability-record-waaagh-term",
+      "target": "catalog",
+      "kind": "canonical-term",
+      "matchMode": "exact",
+      "scopeKeys": ["abilities"],
+      "fields": ["name"],
+      "aliases": ["瓦戈！", "瓦戈!", "瓦戈", "咻啊！", "咻啊!", "咻啊", "Waaagh！", "Waaagh!", "WAAGH!"],
+      "value": "WAAAGH!",
+      "source": "pdf-10e-zh",
+      "rationale": "仅在结构化 abilities 子树内统一阵营规则术语，避免误改其他完整技能名称。",
+      "adjudicatedBy": "user",
+      "date": "2026-08-16"
+    },
+    {
+      "id": "orks-catalog-text-waaagh-term",
+      "target": "catalog",
+      "kind": "canonical-term",
+      "fields": ["text"],
+      "aliases": ["瓦戈！", "瓦戈!", "瓦戈", "咻啊！", "咻啊!", "咻啊", "Waaagh！", "Waaagh!", "WAAGH!"],
+      "value": "WAAAGH!",
+      "source": "pdf-10e-zh",
+      "rationale": "所有结构化正文消费者统一使用 PDF 术语；名称字段由精确匹配变换单独裁决。",
+      "adjudicatedBy": "user",
+      "date": "2026-08-16"
+    }
+  ],
   "overrides": [
+    {
+      "op": "add",
+      "target": "rules",
+      "path": "factionRules[id=orks.army.waagh].name",
+      "value": "WAAAGH!",
+      "source": "sources/pdfs/_originals/兽人10版中文老湿腐版1.09.pdf#page=1",
+      "rationale": "PDF 阵营技能标题使用 WAAAGH!。",
+      "adjudicatedBy": "user",
+      "date": "2026-08-16"
+    },
+    {
+      "op": "add",
+      "target": "rules",
+      "path": "factionRules[id=orks.army.waagh].text",
+      "value": "如果你的军队阵营是兽人，则你拥有全场一次性能力：在你的指挥阶段开始时，你可以发动 WAAAGH!。直到你的下一个指挥阶段开始时，以下效果对你的军队生效：你军队中拥有此能力的单位可以在进行过加速的同一回合发动冲锋；你军队中拥有此能力的模型所装备的近战武器 S 和 A 均 +1；你军队中拥有此能力的模型获得 5+ 特殊保护。",
+      "source": "sources/pdfs/_originals/兽人10版中文老湿腐版1.09.pdf#page=1",
+      "rationale": "用 PDF 原文恢复阵营规则正文，并保留结构化计算效果。",
+      "adjudicatedBy": "user",
+      "date": "2026-08-16"
+    },
+    {
+      "op": "add",
+      "target": "rules",
+      "path": "factionRules[id=orks.army.waagh].controls[id=enabled].label",
+      "value": "本次战斗已发动 WAAAGH!",
+      "source": "sources/pdfs/_originals/兽人10版中文老湿腐版1.09.pdf#page=1",
+      "rationale": "控件文案必须跟随 PDF 规范术语，不能显示后端音译。",
+      "adjudicatedBy": "user",
+      "date": "2026-08-16"
+    },
     {
       "path": "cards[id=orks.boyz.01474b35].modelProfiles[id=trooper].weaponNames",
       "value": [
