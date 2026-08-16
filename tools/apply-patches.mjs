@@ -11,6 +11,7 @@ import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
 import { pathToFileURL } from "node:url";
+import { writeFileSyncWithRetry } from "./fs-write.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 
@@ -98,7 +99,7 @@ export function syncCatalogScript(rootDir, factionId, data) {
     else if (source[i] === "}") { depth -= 1; if (depth === 0) { close = i; break; } }
   }
   if (close < 0) throw new Error(factionId + " catalog 脚本无法定位数据对象");
-  fs.writeFileSync(jsPath, source.slice(0, openBrace) + JSON.stringify(data) + source.slice(close + 1), "utf8");
+  writeFileSyncWithRetry(jsPath, source.slice(0, openBrace) + JSON.stringify(data) + source.slice(close + 1));
   return true;
 }
 
@@ -128,7 +129,7 @@ export function syncCalculatorIndex(rootDir, factionId, data) {
     `window.WARHAMMER_CALCULATOR_INDEX = ${JSON.stringify(kept)};`,
     "",
   ].join("\n");
-  fs.writeFileSync(indexPath, output, "utf8");
+  writeFileSyncWithRetry(indexPath, output);
   return true;
 }
 
@@ -157,7 +158,7 @@ function syncRulesScript(targetPath, definition, data) {
     "})(typeof globalThis === \"undefined\" ? this : globalThis);",
     "",
   ].join("\n");
-  fs.writeFileSync(targetPath, output, "utf8");
+  writeFileSyncWithRetry(targetPath, output);
 }
 
 function replaceCanonicalTerm(target, transform) {
@@ -242,7 +243,7 @@ export function applyPatches({ rootDir = root, factions = loadDefinitions(), dry
         }
       }
       if (!dryRun) {
-        fs.writeFileSync(targetPath, JSON.stringify(target, null, 2) + "\n", "utf8");
+        writeFileSyncWithRetry(targetPath, JSON.stringify(target, null, 2) + "\n");
         if (targetName === "catalog") {
           syncCatalogScript(rootDir, factionId, target);
           syncCalculatorIndex(rootDir, factionId, target);

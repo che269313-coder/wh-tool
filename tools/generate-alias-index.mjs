@@ -1,6 +1,7 @@
 /* Generate the browser alias bundle from authored faction packages. */
 import fs from "node:fs";
 import path from "node:path";
+import { aliasesWithPdfCanonicalNames, loadPdfDisplayLedger } from "./source-adjudication.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const packagesDir = path.join(root, "data", "factions");
@@ -9,6 +10,7 @@ const factionPackages = fs.readdirSync(packagesDir)
   .filter((file) => fs.existsSync(file))
   .map((file) => JSON.parse(fs.readFileSync(file, "utf8")))
   .sort((a, b) => a.order - b.order);
+const pdfDisplayLedger = loadPdfDisplayLedger(root);
 
 const lines = [
   "/* Generated from data/factions/<id>/package.json and data/global/aliases.json. */",
@@ -17,7 +19,8 @@ const lines = [
   '  if (!registry) throw new Error("alias-registry.js must load before aliases/index.js");',
 ];
 for (const payload of factionPackages) {
-  lines.push(`  registry.register(${JSON.stringify({ ...payload.aliases, factionId: payload.definition.id })});`);
+  const aliases = aliasesWithPdfCanonicalNames(payload, pdfDisplayLedger);
+  lines.push(`  registry.register(${JSON.stringify({ ...aliases, factionId: payload.definition.id })});`);
 }
 const globalPayload = JSON.parse(fs.readFileSync(path.join(root, "data", "global", "aliases.json"), "utf8"));
 lines.push(`  registry.register(${JSON.stringify({ factionId: "global", ...globalPayload })});`);

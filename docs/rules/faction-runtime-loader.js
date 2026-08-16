@@ -1,6 +1,6 @@
 /* Loads one faction's rule, detachment and datasheet scripts on demand. */
 (function (root) {
-  const BUILD_VERSION = "multisource-20260816";
+  const BUILD_VERSION = "data-b142e3f9722e";
   const scriptLoads = new Map();
   const factionLoads = new Map();
 

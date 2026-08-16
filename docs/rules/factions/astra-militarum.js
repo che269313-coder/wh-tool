@@ -4,7 +4,8 @@
   "factionRules": [
     {
       "id": "astra-militarum.army-rule",
-      "name": "号令之声",
+      "name": "指挥之声",
+      "englishName": "Voice of Command",
       "text": "你军队中具有此能力的军官可下达命令。军官的资料卡会载明每回合可下达几道命令、哪些单位有资格接收。每次下达时，从下方挑一道命令，并指定该军官 6\" 内一个有资格的友军单位接收。\n\n军官可在你的指挥阶段、或在他们下载具／部署的阶段结束时下达命令。\n\n被指定的单位在下个指挥阶段前受该命令影响。除非另有说明，一个单位同时只能受一道命令影响（后下达者取代前者）。战斗震慑单位无法接收命令；受命令影响的单位若进入战斗震慑，该命令立即失效。\n\n只有帝国卫队模型能享有命令效益。\n\n前进！前进！前进！\n\n移动 +3\"。\n\n装上刺刀！\n\n近战武器武技 +1。\n\n瞄准！\n\n远程武器准确度 +1。\n\n前排，开火！后排，开火！\n\n快速射击武器攻击次数 +1。\n\n寻求掩护！\n\n豁免 +1（不可优于 3+）。\n\n责任与荣誉！\n\n领导力与目标控制各 +1。",
       "category": "faction",
       "status": "计算支持（满足原文条件时勾选）",
@@ -61,24 +62,36 @@
             "equals": "frontRankFire"
           }
         }
-      ]
+      ],
+      "source": {
+        "englishName": "Voice of Command",
+        "kind": "faction"
+      }
     }
   ],
   "unitRules": {
-    "神盾防线墙": [
+    "神盾防御墙": [
       {
         "id": "unique-emplacement-platform",
         "name": "驻紮平台",
         "text": "友军 **星界军(Astra Militarum)步兵(Infantry)** 模型可以在此 **防御工事(Fortification)** 的平台部分上设置或结束任何类型的移动。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Emplacement Platform",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-reinforced-cover",
         "name": "加固掩护",
         "text": "每当一次远程攻击被分配给一个模型时，若该模型因此 **防御工事(Fortification)** 对发动攻击的单位内的每个模型都不完全可见，则该模型对该攻击获得掩护优势。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Reinforced Cover",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-defence-line",
@@ -97,34 +110,50 @@
             "type": "invulnerable-save",
             "value": 4
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Defence Line",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-fortification",
         "name": "防御工事",
         "text": "当敌方单位仅在你的军队中一个或多个 **防御工事(Fortification)** 的交战范围内时：\n\n■ 该单位仍可被选为远程攻击的目标，但每次进行此类攻击时，除非该攻击是用手枪进行，否则从命中掷骰减 1。\n■ 该单位中的模型在战斗震撼时后撤时无需进行绝望逃脱测试，除非它们在此过程中会越过敌方模型。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Fortification",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-deployment",
         "name": "部署",
         "text": "此模型部署时,由 1 个平台段、至多 5 个护盾段、至多 2 个破损护盾段与至多 2 个末端段构成。所有段落必须彼此相连以形成连续的防线;2 个破损护盾段可置于防线末端,或置于防线中段使两者彼此相距 ½\" 内(此时此 2 段视为彼此相连)。所有已部署的段落就所有规则目的而言视为单一模型。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deployment",
+          "kind": "unique"
+        }
       }
     ],
     "装甲哨兵": [
       {
         "id": "core-deadly-demise-1",
-        "name": "致命破灭",
-        "text": "致命破灭1",
+        "name": "致命破灭1",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise 1",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-mobile-hunter-killers",
-        "name": "移动猎杀者",
+        "name": "机动猎手",
         "text": "此单位中的模型每次对 **凶兽(Monster)** 或 **载具(Vehicle)** 单位发动攻击时，你可重掷致伤掷骰。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -139,144 +168,212 @@
             "type": "wound-reroll",
             "mode": "failed"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Mobile Hunter-killers",
+          "kind": "unique"
+        }
       }
     ],
-    "炮兵小组": [
+    "重炮小组": [
       {
         "id": "unique-remorseless-barrage",
-        "name": "无情弹幕",
+        "name": "无情炮击",
         "text": "在你的射击阶段，此模型射击后，若其用曲射武器进行的一次或更多攻击对敌方单位造成命中，该单位必须进行战斗震撼检测（若 **步兵(Infantry)** 单位被多管火箭发射器进行的一次或更多攻击命中，进行检测时战斗震撼检测减 1）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Remorseless Barrage",
+          "kind": "unique"
+        }
       }
     ],
     "复仇者攻击机": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-fiery-vengeance",
         "name": "炽烈复仇",
         "text": "每个回合一次，在你对手的射击阶段中，当距离此模型 6\" 内的另一个友方 **帝国卫队** 单位因能 **飞行(Fly)** 的单位进行的攻击而被摧毁时，你军队中有此能力的一个模型可以使用它。若其如此做，在进攻单位完成其攻击后，该模型可以射击，就如同处于你的射击阶段一般，但在解决这些攻击时只能以该敌方单位为目标（且只有当它是合法目标时才能选择）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Fiery Vengeance",
+          "kind": "unique"
+        }
       }
     ],
     "阿提拉蛮骑兵": [
       {
         "id": "unique-horsemasters",
-        "name": "马术大师",
+        "name": "人马合一",
         "text": "此单位在进行后撤的回合中可以进行射击并宣告冲锋。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Horsemasters",
+          "kind": "unique"
+        }
       }
     ],
-    "毒刃": [
+    "毒刃系列超重型坦克": [
       {
         "id": "core-deadly-demise-d6-2",
         "name": "致命破灭",
-        "text": "致命破灭D6+2",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6+2",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-rolling-fortress",
         "name": "滚动堡垒",
         "text": "每当一次远程攻击分配给你军队中的一个 **星界军(Astra Militarum)** 模型，如果该模型因此 **毁灭之刃超重坦克** 模型而不被攻击单位中的每个模型完全看到，该模型对该攻击具有掩体优势。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Rolling Fortress",
+          "kind": "unique"
+        }
       }
     ],
     "毁灭之剑": [
       {
         "id": "core-deadly-demise-d6-2",
         "name": "致命破灭",
-        "text": "致命破灭D6+2",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6+2",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-armour-obliteration",
         "name": "装甲粉碎",
         "text": "每当以此模型的震地炮发动的攻击摧毁具有致命破灭的敌方模型时，该模型的致命破灭在 D6 掷骰为 3+ 时而非 6 时造成致命伤。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Armour Obliteration",
+          "kind": "unique"
+        }
       }
     ],
     "毁灭之锤": [
       {
         "id": "core-deadly-demise-d6-2",
         "name": "致命破灭",
-        "text": "致命破灭D6+2",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6+2",
+          "kind": "core"
+        }
       },
       {
         "id": "core-firing-deck-6",
         "name": "射击甲板6",
         "text": "某些 **运输工具(Transport)** 模型在其能力中列有「射击甲板 x」。每次在射击阶段选择此类模型射击时，你可选择最多「x」个搭乘其中且其单位本阶段尚未射击的搭乘模型。然后，对于每个选中的搭乘模型，你可选择该搭乘模型配备的一个远程武器（不包括具有 **[ONE SHOT]** 能力的武器）。在该 **运输工具(Transport)** 模型解决其所有攻击前，它在计算时被视为额外配备你选择的所有武器。至本阶段结束，这些选中模型的单位没有资格射击。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Firing Deck 6",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-tremor-quake",
         "name": "地震颤动",
         "text": "在你的射击阶段，刚选择此模型震荡炮的目标后，该目标单位和所有在该单位3\"内的其他敌方 **步兵(Infantry)** 单位必须进行战斗震撼测试。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Tremor Quake",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-transport",
         "name": "运载",
         "text": "该模型能够搭载 26 个星界军步兵模型。每个 OGRYN 模型占用 3 个模型的空间。该模型不能运输 ARTILLERY 模型。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Transport",
+          "kind": "unique"
+        }
       }
     ],
     "石化蜥蜴自行火炮": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-earthshaker-rounds",
-        "name": "地震者炮弹",
+        "name": "地震弹",
         "text": "在你的射击阶段，此模型射击后，如果其地震炮发动的一次或多次攻击对敌方步兵单位命中，直到你的下一个射击阶段开始，该单位被震撼。单位被震撼时，从其移动特性中扣除 2\"，且其冲锋掷骰扣除 2。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Earthshaker Rounds",
+          "kind": "unique"
+        }
       }
     ],
     "牛格林小队": [
       {
         "id": "core-feel-no-pain-6",
-        "name": "不觉疼痛6+",
-        "text": "不觉疼痛6+",
+        "name": "不知疼痛6+",
+        "text": "此能力一律以「不觉疼痛 X+」的形式呈现。每当具有此能力的模型将要失去一个伤值时，掷一次 D6：掷出 X+ 时，该伤值不会失去。",
         "status": "计算支持（被动效果自动计入）",
         "effects": [
           {
             "type": "fnp",
             "threshold": 6
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Feel No Pain 6+",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-wall-of-muscle",
-        "name": "肌肉之墙",
+        "name": "肉山之墙",
         "text": "此单位每次被分配伤害时，将该攻击的伤害特性减少1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Wall of Muscle",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-brute-shield",
-        "name": "蛮力盾",
+        "name": "蛮兽之盾",
         "text": "持有者拥有 4+ 无敌豁免(InSv)。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -291,118 +388,178 @@
             "type": "invulnerable-save",
             "value": 4
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Brute Shield",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-slabshield",
-        "name": "巨板盾",
+        "name": "厚板盾",
         "text": "持有者的伤口(W)特性为 4。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Slabshield",
+          "kind": "unique"
+        }
       }
     ],
-    "卡迪亚堡主": [
+    "卡迪安堡主": [
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "战斗开始前，在**集结军队(Muster Armies)**步骤中，对于你军队中的每个**领袖(leader)**单位与**辅助(support)**单位，你可以选择一个该单位能率领的友方**护卫单位(bodyguard)**。该单位接着会在这场战斗中率领该护卫单位，并与其组成一个**联合(attached)单位**。\n\n除非另有说明，每个护卫单位只能附着一个领袖单位与一个辅助单位。\n\n详见「联合单位」（Attached Units, 19）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-senior-officer",
         "name": "资深军官",
         "text": "当此模型率领一个单位时，该单位中模型装备的远程武器具有 **[SUSTAINED HITS 1]** 能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Senior Officer",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-get-back-in-the-fight",
         "name": "重返战斗",
         "text": "当此模型领导一个单位时，该单位在于该回合后撤时仍可射击。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Get Back in the Fight",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-orders",
         "name": "命令",
         "text": "此军官每回合最多可下达 2 道命令给 REGIMENT 单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Orders",
+          "kind": "unique"
+        }
       }
     ],
-    "卡迪亚指挥组": [
+    "卡迪安指挥组": [
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "战斗开始前，在**集结军队(Muster Armies)**步骤中，对于你军队中的每个**领袖(leader)**单位与**辅助(support)**单位，你可以选择一个该单位能率领的友方**护卫单位(bodyguard)**。该单位接着会在这场战斗中率领该护卫单位，并与其组成一个**联合(attached)单位**。\n\n除非另有说明，每个护卫单位只能附着一个领袖单位与一个辅助单位。\n\n详见「联合单位」（Attached Units, 19）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-cadia-stands",
         "name": "卡迪亚屹立！",
         "text": "当此单位包含一个**军官(Officer)**模型，且此单位在一个**目标标记**的范围内时，此单位可重掷**战斗震慑掷骰(battle-shock rolls)**。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Cadia Stands!",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-orders",
         "name": "命令",
         "text": "此单位的军官每回合可下达 1 道命令给一个 REGIMENT 单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Orders",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-master-vox",
-        "name": "主通讯机",
+        "name": "音阵总台",
         "text": "持有者所在的单位中的 **军官(Officer)** 每次下达命令时，可以对至多 24\" 外的合格单位下达命令。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Master Vox",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-medi-pack",
         "name": "医疗包",
         "text": "在你的指挥阶段开始时，若持有者所在的单位低于其起始兵力，你可以将至多 D3 个被消灭的 **PLATOON** 模型（不含 **角色(Character)**）放回此单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Medi-pack",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-regimental-standard",
-        "name": "军团军旗",
+        "name": "兵团旗帜",
         "text": "持有者所在的单位中的模型其目标控制(OC)特性 +1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Regimental Standard",
+          "kind": "unique"
+        }
       }
     ],
-    "卡迪亚重型武器小队": [
+    "卡迪安重武器班": [
       {
         "id": "unique-covering-fire",
-        "name": "掩护射击",
+        "name": "掩护火力",
         "text": "每次使用火力监视策略对此单位进行目标标定时，解决该策略期间，命中在未修正命中掷骰 5+ 时成功，或在此单位位于一个或多个友军 **排** 单位 6\" 范围内时，改为未修正命中掷骰 4+ 时成功。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Covering Fire",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-embarking",
         "name": "搭乘",
         "text": "搭乘于运输工具(Transport)内时,每个模型占用 2 个模型的空间;就射击甲板(Firing Deck)能力而言,这些模型所配备的每件武器均视为 2 个模型的武器。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Embarking",
+          "kind": "unique"
+        }
       }
     ],
     "卡迪亚侦查小队": [
       {
         "id": "core-infiltrators",
         "name": "渗透",
-        "text": "渗透",
+        "text": "在部署期间，若一个单位中的每个模型都具有此能力，则可将其设置在战场上任何距离你对手的部署区与所有敌方单位水平超过 8\" 的位置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Infiltrators",
+          "kind": "core"
+        }
       },
       {
         "id": "core-stealth",
-        "name": "潜行",
-        "text": "潜行",
+        "name": "隐蔽",
+        "text": "若一个单位中的每个模型都具有此能力，则每当有远程攻击以该单位为目标时，该单位在该攻击中具有**掩体增益**（13.08）。",
         "status": "计算支持（被动效果自动计入）",
         "effects": [
           {
@@ -410,108 +567,164 @@
             "value": 1,
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Stealth",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-independent-operatives",
         "name": "独立行动",
         "text": "每次对此单位下达命令（Order）时，该命令会持续影响此单位，直到对此单位下达新命令、或此单位陷入战斗震撼、或战斗结束为止（以先发生者为准）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Independent Operatives",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-vox-caster",
-        "name": "通讯机",
+        "name": "音阵广播器",
         "text": "你每次以计谋指定持有者所在的单位为目标时，掷一颗 D6，若 6\" 内有一个或多个友军 **OFFICER** 模型则结果 +1：若为 5+，你获得 1CP。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Vox-caster",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-vox-relay-beacon",
         "name": "通讯中继信标",
         "text": "在战斗开始时，你可以为此单位在战场上任何不属于对手部署区的位置设置一个 Vox-relay Beacon 标记。当友军 **ASTRA MILITARUM REGIMENT** 单位在该标记 6\" 内时，你军队中的 **OFFICER** 单位可对该 **REGIMENT** 单位发布命令，如同该 **OFFICER** 单位在其 6\" 内一般。在每个阶段结束时，若有敌方单位在你设置的 Vox-relay Beacon 标记 1\" 内，则该标记从战场上移除。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Vox‑relay Beacon",
+          "kind": "unique"
+        }
       }
     ],
-    "卡迪亚突击军": [
+    "卡迪安突击队": [
       {
         "id": "unique-shock-troops",
-        "name": "突击部队",
+        "name": "突击队",
         "text": "在你的指挥阶段结束时，若此单位在你控制的一个目标标记的范围内，该目标标记在你对手在一个阶段结束时对该目标标记的控制等级大于你的控制等级之前，保持在你的控制下。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Shock Troops",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-vox-caster",
-        "name": "通讯机",
+        "name": "音阵广播器",
         "text": "你每次以计谋指定持有者所在的单位为目标时，掷一颗 D6，若 6\" 内有一个或多个友军 **OFFICER** 模型则结果 +1：若为 5+，你获得 1CP。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Vox-caster",
+          "kind": "unique"
+        }
       }
     ],
     "卡塔昌指挥组": [
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "战斗开始前，在**集结军队(Muster Armies)**步骤中，对于你军队中的每个**领袖(leader)**单位与**辅助(support)**单位，你可以选择一个该单位能率领的友方**护卫单位(bodyguard)**。该单位接着会在这场战斗中率领该护卫单位，并与其组成一个**联合(attached)单位**。\n\n除非另有说明，每个护卫单位只能附着一个领袖单位与一个辅助单位。\n\n详见「联合单位」（Attached Units, 19）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "core-scouts-6",
-        "name": "侦察6\"",
+        "name": "斥候6",
         "text": "此能力一律以「斥候 X\"」的形式呈现。在结算战前能力步骤中，若一个单位中的每个模型都具有此能力，你可以执行下列其中**一**项：\n• 若该单位位于**战略预备队(strategic reserves)**中，你可以将该单位设置于完全位于你部署区内的任意位置。\n• 若该单位完全位于你的部署区内，它可以进行一次**斥候移动(scout move)**（24.32）。\n• 若该单位搭载于一个完全位于你部署区内的**专用运输工具(Dedicated Transport)**内，且搭载于该专用运输工具内的每个模型都具有斥候能力，则该专用运输工具可以进行一次斥候移动。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Scouts 6\"",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-gung-ho-command",
         "name": "勇气指令",
         "text": "当此单位含有 **军官(Officer)** 时，此单位中模型装备的远程武器具有 **[突击]** 能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Gung-ho Command",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-orders",
         "name": "命令",
         "text": "此单位的军官每回合可下达 1 道命令给一个 REGIMENT 单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Orders",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-master-vox",
-        "name": "主通讯机",
+        "name": "音阵总台",
         "text": "持有者所在的单位中的 **军官(Officer)** 每次下达命令时，可以对至多 24\" 外的合格单位下达命令。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Master Vox",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-medi-pack",
         "name": "医疗包",
         "text": "在你的指挥阶段开始时，若持有者所在的单位低于其起始兵力，你可以将至多 D3 个被消灭的 **PLATOON** 模型（不含 **角色(Character)**）放回此单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Medi-pack",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-regimental-standard",
-        "name": "军团军旗",
+        "name": "兵团旗帜",
         "text": "持有者所在的单位中的模型其目标控制(OC)特性 +1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Regimental Standard",
+          "kind": "unique"
+        }
       }
     ],
-    "卡塔昌重型武器小队": [
+    "卡塔昌重武器班": [
       {
         "id": "core-scouts-6",
-        "name": "侦察6\"",
+        "name": "斥候6",
         "text": "此能力一律以「斥候 X\"」的形式呈现。在结算战前能力步骤中，若一个单位中的每个模型都具有此能力，你可以执行下列其中**一**项：\n• 若该单位位于**战略预备队(strategic reserves)**中，你可以将该单位设置于完全位于你部署区内的任意位置。\n• 若该单位完全位于你的部署区内，它可以进行一次**斥候移动(scout move)**（24.32）。\n• 若该单位搭载于一个完全位于你部署区内的**专用运输工具(Dedicated Transport)**内，且搭载于该专用运输工具内的每个模型都具有斥候能力，则该专用运输工具可以进行一次斥候移动。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Scouts 6\"",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-bring-it-down",
-        "name": "击倒它！",
+        "name": "击倒巨物！",
         "text": "此单位中的模型每次以远程攻击对 **凶兽(Monster)** 或 **载具(Vehicle)** 单位发动攻击时，重掷命中掷骰为 1，并重掷致伤掷骰为 1。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -532,23 +745,35 @@
             "mode": "ones",
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Bring it Down!",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-embarking",
         "name": "搭乘",
         "text": "搭乘于运输工具(Transport)内时,每个模型占用 2 个模型的空间;就射击甲板(Firing Deck)能力而言,这些模型所配备的每件武器均视为 2 个模型的武器。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Embarking",
+          "kind": "unique"
+        }
       }
     ],
-    "卡塔昌丛林斗士": [
+    "卡塔昌丛林战士": [
       {
         "id": "core-scouts-6",
-        "name": "侦察6\"",
+        "name": "斥候6",
         "text": "此能力一律以「斥候 X\"」的形式呈现。在结算战前能力步骤中，若一个单位中的每个模型都具有此能力，你可以执行下列其中**一**项：\n• 若该单位位于**战略预备队(strategic reserves)**中，你可以将该单位设置于完全位于你部署区内的任意位置。\n• 若该单位完全位于你的部署区内，它可以进行一次**斥候移动(scout move)**（24.32）。\n• 若该单位搭载于一个完全位于你部署区内的**专用运输工具(Dedicated Transport)**内，且搭载于该专用运输工具内的每个模型都具有斥候能力，则该专用运输工具可以进行一次斥候移动。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Scouts 6\"",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-jungle-fighters",
@@ -568,241 +793,369 @@
             "value": 1,
             "phase": "melee"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Jungle Fighters",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-vox-caster",
-        "name": "通讯机",
+        "name": "音阵广播器",
         "text": "你每次以计谋指定持有者所在的单位为目标时，掷一颗 D6，若 6\" 内有一个或多个友军 **OFFICER** 模型则结果 +1：若为 5+，你获得 1CP。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Vox-caster",
+          "kind": "unique"
+        }
       }
     ],
     "半人马快速突击战车": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "core-firing-deck-12",
         "name": "射击甲板12",
         "text": "某些**运输工具(Transport)**模型在其能力中列有「射击甲板 x」。每次该模型在射击阶段被选中进行射击时，你可以选择最多 x 个其单位本阶段尚未射击的已登载模型。然后，对每个已选中的登载模型，你可以选择该登载模型配备的一件远程武器（不包括具有**[单发]**能力的武器）。在该**运输工具(Transport)**模型解决所有攻击前，除其他武器外，它还计为配备所有你选中的武器。直到本阶段结束，该些已选中模型的单位不符合射击资格。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Firing Deck 12",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-rapid-strike-vehicle",
         "name": "快速打击载具",
         "text": "当有一个或多个单位搭载于此模型内时，除非此模型处于战斗震撼状态，否则此模型的「目标控制」特征值每每搭载其中的 3 个模型（向下取整）就加 1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Rapid Strike Vehicle",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-transport",
         "name": "运载",
         "text": "该模型能够搭载 12 个星界军步兵模型。每个 OGRYN 模型占用 3 个模型的空间。该模型不能运输 ARTILLERY 模型。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Transport",
+          "kind": "unique"
+        }
       }
     ],
     "奇美拉装甲车": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "core-firing-deck-2",
-        "name": "射击甲板2",
+        "name": "开火口2",
         "text": "某些 **运输工具(Transport)** 模型的能力中列有「射击甲板 x」。每当这类模型在射击阶段被选中射击时，你可以选择最多 x 个搭乘其内的模型，其所属的单位本阶段尚未射击。然后，对于这些搭乘模型中的每一个，你可以选择该搭乘模型配备的一件远程武器（不包括具有 **[单发]** 能力的武器）。在那个 **运输工具(Transport)** 模型完成其所有攻击之前，它视为配备有所有你以此方式选择的武器，除其他武器外。直到阶段末，那些被选中的模型所属的单位不适格射击。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Firing Deck 2",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-mobile-command-vehicle",
         "name": "机动指挥车",
         "text": "在你的指挥阶段，搭乘于此 **运输工具(Transport)** 内的一个 **军官(Officer)** 模型可以下达命令，尽管它不在战场上。进行此操作时，测量距离到此 **运输工具(Transport)** 以及从此 **运输工具(Transport)** 的距离。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Mobile Command Vehicle",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-transport",
         "name": "运载",
         "text": "该模型能够搭载 12 个星界军步兵模型。每个 OGRYN 模型占用 3 个模型的空间。该模型不能运输 ARTILLERY 模型。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Transport",
+          "kind": "unique"
+        }
       }
     ],
     "政委": [
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "战斗开始前，在**集结军队(Muster Armies)**步骤中，对于你军队中的每个**领袖(leader)**单位与**辅助(support)**单位，你可以选择一个该单位能率领的友方**护卫单位(bodyguard)**。该单位接着会在这场战斗中率领该护卫单位，并与其组成一个**联合(attached)单位**。\n\n除非另有说明，每个护卫单位只能附着一个领袖单位与一个辅助单位。\n\n详见「联合单位」（Attached Units, 19）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-summary-execution",
-        "name": "即决处刑",
+        "name": "战场枪决",
         "text": "每战斗回合一次，在任何阶段开始时，你可选择一个友方 **星界军(Astra Militarum)步兵(Infantry)** 单位，其已遭战斗震撼且在此模型 12\" 内。若你如此做，该单位中的一个模型被摧毁，该单位之后不再遭战斗震撼。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Summary Execution",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-political-overwatch",
-        "name": "政治监察",
+        "name": "监管领导",
         "text": "另一个 **军官(Officer)** 模型与此模型在同一单位中时，可重掷该单位的「战斗震撼」测试。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Political Overwatch",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-orders",
         "name": "命令",
         "text": "此军官每回合可下达 1 道命令给一个 REGIMENT 单位。此军官只能下达「责任与荣誉！」和「装上刺刀！」命令。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Orders",
+          "kind": "unique"
+        }
       }
     ],
     "独眼巨人爆破车": [
       {
         "id": "core-deadly-demise-1",
-        "name": "致命破灭",
-        "text": "致命破灭1",
+        "name": "致命破灭1",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise 1",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-demolition-charges",
         "name": "爆破炸药",
         "text": "每当此模型或一个敌方单位完成移动时，若此模型在一个或多个敌方单位的 3\" 范围内，选择其中一个敌方单位。此模型被摧毁，但不为其致命破灭能力掷骰，改为掷一次 D6：掷出 2-5 时，该敌方单位承受 D3 点致命伤；掷出 6 时，该敌方单位承受 D6 点致命伤。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Demolition Charges",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-unstable-payload",
         "name": "不稳定弹药",
         "text": "为此模型的致命破灭能力掷骰时，6\" 内的单位在 4+ 时受到致命伤，而非 6。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Unstable Payload",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-compact",
         "name": "小巧",
         "text": "此模型可如同步兵(Infantry)模型一般搭乘于 ASTRA MILITARUM TRANSPORT 模型内。若如此,它占用 7 个模型的空间。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Compact",
+          "kind": "unique"
+        }
       }
     ],
     "格雷夫斯政委": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-mechanised-spearhead",
         "name": "机械化先锋",
         "text": "在你的移动阶段，每次友方 **帝国国防军 阵营** 单位从距离此模型6\"内的 **运输工具(Transport)** 上下船时，在该单位部署后，此模型可向该 **阵营** 单位下达1道命令，不受此模型本轮已下达多少命令的限制。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Mechanised Spearhead",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-brutal-disciplinarian",
         "name": "残酷纠察官",
         "text": "每回合一次，在任何阶段开始时，你可以选择一个友军 **星界军(Astra Militarum)步兵(Infantry)** 单位（仅包含一个模型的单位除外），该单位被战斗震撼且在此模型 24\" 内且可见。若你这样做，该单位中的一个模型被摧毁，且该单位不再受战斗震撼。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Brutal Disciplinarian",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-aquiline-prow",
         "name": "鹰喙舰首",
         "text": "此单位每次结束一次冲锋移动时，你可以选择一个位于其接战范围内的敌方单位，然后掷一个 D6：结果为 2-3 时，该敌方单位受到 D3 点致命伤；结果为 4-5 时，该敌方单位受到 3 点致命伤；结果为 6 时，该敌方单位受到 D3+3 点致命伤。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Aquiline Prow",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-orders",
         "name": "命令",
         "text": "此军官每回合可下达 1 道命令给 REGIMENT 或 SQUADRON 单位。此军官只能下达「前进！前进！前进！」、「责任与荣誉！」和「装上刺刀！」命令。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Orders",
+          "kind": "unique"
+        }
       }
     ],
     "步行的格雷夫斯政委": [
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "战斗开始前，在**集结军队(Muster Armies)**步骤中，对于你军队中的每个**领袖(leader)**单位与**辅助(support)**单位，你可以选择一个该单位能率领的友方**护卫单位(bodyguard)**。该单位接着会在这场战斗中率领该护卫单位，并与其组成一个**联合(attached)单位**。\n\n除非另有说明，每个护卫单位只能附着一个领袖单位与一个辅助单位。\n\n详见「联合单位」（Attached Units, 19）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-icon-of-discipline",
         "name": "纪律之印",
         "text": "此模型的单位有资格在后撤的同一战斗回合进行射击和宣告冲锋。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Icon of Discipline",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-brutal-disciplinarian",
         "name": "残酷纠察官",
         "text": "每回合一次，在任何阶段开始时，你可选择一个友方 **星界军(Astra Militarum)步兵(Infantry)**（不包含只含有一个模型的单位）单位，其处于战斗震撼状态且在此模型 12\"内。若你如此做，摧毁该单位中的一个模型，且该单位不再处于战斗震撼状态。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Brutal Disciplinarian",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-orders",
         "name": "命令",
         "text": "此军官每回合可下达 1 道命令给 REGIMENT 单位。此军官只能下达「前进！前进！前进！」、「责任与荣誉！」和「装上刺刀！」命令。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Orders",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-using-commissar-graves",
         "name": "使用政委格雷夫斯",
         "text": "你的军队只能包含一个 COMMISSAR GRAVES 或 COMMISSAR GRAVES ON FOOT 单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Using Commissar Graves",
+          "kind": "unique"
+        }
       }
     ],
     "雅瑞克政委": [
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "战斗开始前，在**集结军队(Muster Armies)**步骤中，对于你军队中的每个**领袖(leader)**单位与**辅助(support)**单位，你可以选择一个该单位能率领的友方**护卫单位(bodyguard)**。该单位接着会在这场战斗中率领该护卫单位，并与其组成一个**联合(attached)单位**。\n\n除非另有说明，每个护卫单位只能附着一个领袖单位与一个辅助单位。\n\n详见「联合单位」（Attached Units, 19）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-will-of-iron",
         "name": "钢铁意志",
         "text": "此模型首次被消灭时，将其移出场外，然后在该阶段结束时，掷一次D6：掷出2+时，于其被消灭的位置尽可能靠近的地方将此模型重新放回战场，不得位于一个或多个敌方单位的交战范围内，且剩余3点伤害。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Will of Iron",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-hero-of-hades-hive",
         "name": "哈德斯蜂巢英雄",
         "text": "在你的指挥阶段，可选择「哈迪斯巢城英雄」章节中的一个能力。直到你的下一个指挥阶段开始前，此模型具有该能力。\n\n**反制战略家：** 在你对手移动阶段结束时，你可以选择一个于此模型 9\" 内被设置或结束移动的敌方单位，以及一个于此模型 6\" 内且为此模型可见、本阶段尚未进行正常移动或被「火力警戒(Fire Overwatch)」策略指定的友方 **军团(Regiment)** 单位。该 **军团(Regiment)** 单位接着可以选择：\n■ 进行一次最多 D6\" 的正常移动。\n■ 对该敌方单位射击，但仅限其为合法目标时。直到此阶段结束，该单位中每当一个模型进行一次远程攻击时，不论攻击武器的弹道技巧或任何修正值，皆须掷出未修正的 6 才能命中。\n■ 进行一次突进移动(Surge move)。为此掷一颗 D6：该单位中的模型移动至多等于掷骰结果的英寸数，但该单位必须以尽可能接近最近敌方单位（**飞行器(Aircraft)** 除外）的方式结束该移动。如此移动时，那些模型可以移入该敌方单位的交战范围。当该单位处于战斗震撼状态或位于一个或多个敌方单位的交战范围内时，不能进行突进移动，且每阶段仅能进行一次突进移动。\n\n**决断指挥：** 此模型发布的下一道命令可发布给此模型 12\" 内一个合法的友方单位；若这是你军队本指挥阶段中由单位发布的第一道命令，该命令不仅影响该合法单位，亦影响该合法单位 6\" 内每个其他合法的友方单位。\n\n**鼓舞英雄（光环）：** 当一个友方 **星界军(Astra Militarum)** 单位在此模型 6\" 内时，你可以为该单位重掷战斗震撼测试与领导力测试。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Hero of Hades Hive",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-orders",
         "name": "命令",
         "text": "此军官每回合最多可下达 2 道命令给 REGIMENT、SQUADRON 或泰坦单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Orders",
+          "kind": "unique"
+        }
       }
     ],
-    "克里格死亡军团": [
+    "克里格死兵队": [
       {
         "id": "unique-grim-demeanour",
         "name": "冷酷态度",
@@ -824,82 +1177,122 @@
             "type": "wound-modifier",
             "value": 1
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Grim Demeanour",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-vox-caster",
-        "name": "通讯机",
+        "name": "音阵广播器",
         "text": "你每次以计谋指定持有者所在的单位为目标时，掷一颗 D6，若 6\" 内有一个或多个友军 **OFFICER** 模型则结果 +1：若为 5+，你获得 1CP。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Vox-caster",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-death-korps-medi-pack",
-        "name": "死亡军团医疗包",
+        "name": "死兵队医疗包",
         "text": "在你的指挥阶段开始时，若持有者所在的单位低于其起始兵力，你可以将至多 D3 个被消灭的死亡军团兵(Death Korps Troopers)返回到此单位（若此单位包含两个装备死亡军团医疗包(Death Korps medi-pack)的模型，则改为将至多 D3+1 个被消灭的死亡军团兵返回到此单位）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Death Korps Medi-pack",
+          "kind": "unique"
+        }
       }
     ],
-    "死亡骑兵": [
+    "克里格死亡骑兵": [
       {
         "id": "unique-screening-line",
-        "name": "掩护防线",
+        "name": "灵活机动",
         "text": "在你对手的移动阶段，若有敌方单位在此单位 8\" 内结束一次移动，且此单位不在一个或多个敌方单位的交战范围内，则此单位可进行一次距离最多 6\" 的正常移动。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Screening Line",
+          "kind": "unique"
+        }
       }
     ],
-    "死亡直击导弹车": [
+    "死亡直击导弹": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-deathstrike-missile",
-        "name": "死亡打击飞弹",
+        "name": "发射准备",
         "text": "在你的射击阶段中，每当此模型被选中进行射击时，若此模型在本场战斗中尚未使用过其死亡打击飞弹车，你可以在结算此模型的远程攻击之外，执行下列其中之一：\n\n■ **指定目标：** 若此模型的战场上没有死亡击目标标记，在战场上任何地点放置一个此模型独特的死亡击目标标记。\n\n■ **调整目标：** 若此模型的战场上已有死亡击目标标记，将该标记移动到战场上其他任何地点。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deathstrike Missile",
+          "kind": "unique"
+        }
       }
     ],
     "末日之锤": [
       {
         "id": "core-deadly-demise-d6-2",
         "name": "致命破灭",
-        "text": "致命破灭D6+2",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6+2",
+          "kind": "core"
+        }
       },
       {
         "id": "core-firing-deck-12",
         "name": "射击甲板12",
         "text": "某些**运输工具(Transport)**模型在其能力中列有「射击甲板 x」。每次该模型在射击阶段被选中进行射击时，你可以选择最多 x 个其单位本阶段尚未射击的已登载模型。然后，对每个已选中的登载模型，你可以选择该登载模型配备的一件远程武器（不包括具有**[单发]**能力的武器）。在该**运输工具(Transport)**模型解决所有攻击前，除其他武器外，它还计为配备所有你选中的武器。直到本阶段结束，该些已选中模型的单位不符合射击资格。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Firing Deck 12",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-close-range-titan-killer",
         "name": "近距离泰坦杀手",
         "text": "每当此模型的岩浆炮以敌方 **凶兽(Monster)** 或 **载具(Vehicle)** 单位为目标时，该目标始终视为在该武器的半射程范围内。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Close-range Titan Killer",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-transport",
         "name": "运载",
         "text": "该模型能够搭载 26 个星界军步兵模型。每个 OGRYN 模型占用 3 个模型的空间。该模型不能运输 ARTILLERY 模型。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Transport",
+          "kind": "unique"
+        }
       }
     ],
-    "野战炮羣": [
+    "野战炮兵": [
       {
         "id": "unique-rearm-reload-fire",
-        "name": "重整、装填、射击",
+        "name": "装填开火",
         "text": "当此单位受命令影响时，若它本回合维持不动，此单位中的模型所配备的所有重型武器具有 **[连击 1]** 能力。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -914,35 +1307,51 @@
             "type": "sustained-hits",
             "value": 1
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Rearm, Reload, Fire",
+          "kind": "unique"
+        }
       }
     ],
-    "冈特的幽灵": [
+    "刚特幽灵": [
       {
         "id": "core-fights-first",
-        "name": "先制攻击",
+        "name": "先攻",
         "text": "拥有此能力的单位，若有资格战斗，且该单位中的所有模型都拥有此能力，则在先制攻击步骤中进行战斗。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Fights First",
+          "kind": "core"
+        }
       },
       {
         "id": "core-infiltrators",
         "name": "渗透",
-        "text": "渗透",
+        "text": "在部署期间，若一个单位中的每个模型都具有此能力，则可将其设置在战场上任何距离你对手的部署区与所有敌方单位水平超过 8\" 的位置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Infiltrators",
+          "kind": "core"
+        }
       },
       {
         "id": "core-lone-operative",
         "name": "独行特工",
-        "text": "独行特工",
+        "text": "除非作为一个**联合(attached)单位**的一部分，否则此单位对 12\" 以外的敌方模型**不可见**；且除非攻击模型位于此单位 12\" 内，否则不能被**[间接射击]**武器以其为目标。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Lone Operative",
+          "kind": "core"
+        }
       },
       {
         "id": "core-stealth",
-        "name": "潜行",
-        "text": "潜行",
+        "name": "隐蔽",
+        "text": "若一个单位中的每个模型都具有此能力，则每当有远程攻击以该单位为目标时，该单位在该攻击中具有**掩体增益**（13.08）。",
         "status": "计算支持（被动效果自动计入）",
         "effects": [
           {
@@ -950,89 +1359,133 @@
             "value": 1,
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Stealth",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-tanith-camo-cloaks",
-        "name": "坦尼斯迷彩斗篷",
+        "name": "塔尼斯伪装披风",
         "text": "此单位中的模型获得掩护利益。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Tanith Camo-cloaks",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-covert-stealth-team",
-        "name": "隐蔽突击小队",
+        "name": "潜伏小组",
         "text": "在你对手的回合结束时，若此单位不在一个或多个敌方单位的交战范围内，可将此单位从战场上移除。在你下一个移动阶段的增援步骤中，将它设置在战场上任何地点，该地点距离所有敌方模型的水平距离超过 8\"。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Covert Stealth Team",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-orders",
         "name": "命令",
         "text": "此单位的军官每回合最多可下达 2 道命令给 REGIMENT 或冈特的幽灵单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Orders",
+          "kind": "unique"
+        }
       }
     ],
     "地狱之锤": [
       {
         "id": "core-deadly-demise-d6-2",
         "name": "致命破灭",
-        "text": "致命破灭D6+2",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6+2",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-close-quarters-warfare",
         "name": "近距离战斗",
         "text": "此模型在敌方单位处于交战距离内时不受远程攻击命中掷骰的惩罚。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Close-quarters Warfare",
+          "kind": "unique"
+        }
       }
     ],
-    "地狱犬战车": [
+    "地狱犬喷射车": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-flush-them-out",
-        "name": "驱逐歼灭",
+        "name": "无处藏身",
         "text": "在你的射击阶段中，此模型射击后，选择一个被上述攻击至少命中一次的敌方单位。直到你下一个射击阶段开始，该单位处于散乱状态。单位处于散乱状态时，不能获得掩护的好处。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Flush Them Out",
+          "kind": "unique"
+        }
       }
     ],
     "鹫马装甲战车": [
       {
         "id": "core-deadly-demise-1",
-        "name": "致命破灭",
-        "text": "致命破灭1",
+        "name": "致命破灭1",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise 1",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-convoy-escort-vehicle",
         "name": "车队护卫载具",
         "text": "在你的射击阶段中，此单位进行射击后，可进行正常移动，移动距离最多为 D6\"。若进行此移动，直到回合结束，此单位无资格宣告冲锋。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Convoy Escort Vehicle",
+          "kind": "unique"
+        }
       }
     ],
-    "九头蛇自行防空炮": [
+    "九头蛇高射炮": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-flak-battery",
-        "name": "防空炮台",
+        "name": "高射炮",
         "text": "每次此模型对可 **飞行(Fly)** 的单位发动攻击时，可重掷命中掷骰。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1047,101 +1500,153 @@
             "type": "hit-reroll",
             "mode": "failed"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Flak Battery",
+          "kind": "unique"
+        }
       }
     ],
-    "卡舍津": [
+    "卡舍津突击队": [
       {
         "id": "core-scouts-6",
-        "name": "侦察6\"",
+        "name": "斥候6",
         "text": "此能力一律以「斥候 X\"」的形式呈现。在结算战前能力步骤中，若一个单位中的每个模型都具有此能力，你可以执行下列其中**一**项：\n• 若该单位位于**战略预备队(strategic reserves)**中，你可以将该单位设置于完全位于你部署区内的任意位置。\n• 若该单位完全位于你的部署区内，它可以进行一次**斥候移动(scout move)**（24.32）。\n• 若该单位搭载于一个完全位于你部署区内的**专用运输工具(Dedicated Transport)**内，且搭载于该专用运输工具内的每个模型都具有斥候能力，则该专用运输工具可以进行一次斥候移动。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Scouts 6\"",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-warrior-elite",
         "name": "精锐战士",
         "text": "每战斗回合限定一次，在任何阶段开始时，你可以选择一个命令影响此单位直到你下一个指挥阶段开始，除本战斗回合**军官(Officer)**模型发布的任何其他命令外。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Warrior Elite",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-melta-mine",
-        "name": "热熔地雷",
+        "name": "热熔炸弹",
         "text": "每场战斗可进行一次，在任意阶段开始时，你可选择持有者 3\" 内的一个敌方单位并掷一颗 D6：掷出 2+ 时，该敌方单位受到 D3 致命伤，若其为 **载具(Vehicle)** 单位则改为受到 2D3 致命伤。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Melta Mine",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-vox-caster",
-        "name": "通讯机",
+        "name": "音阵广播器",
         "text": "你每次以计谋指定持有者所在的单位为目标时，掷一颗 D6，若 6\" 内有一个或多个友军 **OFFICER** 模型则结果 +1：若为 5+，你获得 1CP。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Vox-caster",
+          "kind": "unique"
+        }
       }
     ],
     "克里格战斗工兵": [
       {
         "id": "core-scouts-6",
-        "name": "侦察6\"",
+        "name": "斥候6",
         "text": "此能力一律以「斥候 X\"」的形式呈现。在结算战前能力步骤中，若一个单位中的每个模型都具有此能力，你可以执行下列其中**一**项：\n• 若该单位位于**战略预备队(strategic reserves)**中，你可以将该单位设置于完全位于你部署区内的任意位置。\n• 若该单位完全位于你的部署区内，它可以进行一次**斥候移动(scout move)**（24.32）。\n• 若该单位搭载于一个完全位于你部署区内的**专用运输工具(Dedicated Transport)**内，且搭载于该专用运输工具内的每个模型都具有斥候能力，则该专用运输工具可以进行一次斥候移动。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Scouts 6\"",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-grenadiers",
         "name": "掷弹兵",
         "text": "每战斗回合一次，你可以花费 0CP 以「榴弹」策略以此单位为目标。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Grenadiers",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-remote-mine",
         "name": "遥控地雷",
         "text": "每场战斗可进行一次，在你的射击阶段开始时，你可选择持有者 9\" 内且其可见的一个敌方单位并掷一颗 D6：掷出 3+ 时，该敌方单位受到 D3 致命伤，若其为 **载具(Vehicle)** 或 **防御工事(Fortifications)** 单位则改为受到 2D3 致命伤。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Remote Mine",
+          "kind": "unique"
+        }
       }
     ],
     "克里格指挥组": [
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "战斗开始前，在**集结军队(Muster Armies)**步骤中，对于你军队中的每个**领袖(leader)**单位与**辅助(support)**单位，你可以选择一个该单位能率领的友方**护卫单位(bodyguard)**。该单位接着会在这场战斗中率领该护卫单位，并与其组成一个**联合(attached)单位**。\n\n除非另有说明，每个护卫单位只能附着一个领袖单位与一个辅助单位。\n\n详见「联合单位」（Attached Units, 19）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-grim-determination",
         "name": "冷酷决心",
         "text": "当此单位含有 **官员** 时，即使此单位处于战斗震撼状态，仍可用策略目标此单位，且向此单位下达的命令若因此单位陷入战斗震撼而中止，不会再次中止。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Grim Determination",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-orders",
         "name": "命令",
         "text": "此单位的军官每回合可下达 1 道命令给一个 REGIMENT 单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Orders",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-master-vox",
-        "name": "主通讯机",
+        "name": "音阵总台",
         "text": "持有者所在的单位中的 **军官(Officer)** 每次下达命令时，可以对至多 24\" 外的合格单位下达命令。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Master Vox",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-regimental-standard",
-        "name": "军团军旗",
+        "name": "兵团旗帜",
         "text": "持有者所在的单位中的模型其目标控制(OC)特性 +1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Regimental Standard",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-alchemyk-counteragents",
-        "name": "炼金术反制剂",
+        "name": "炼金药剂",
         "text": "持有者所在的单位对致命伤拥有不觉疼痛 6+ 能力。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1156,39 +1661,59 @@
             "type": "fnp",
             "threshold": 6
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Alchemyk Counteragents",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-servo-scribes",
-        "name": "伺服誊写器",
+        "name": "伺服颅骨",
         "text": "每场战斗一次，发布命令时，Lord Commissar 可额外发布一个命令。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Servo-scribes",
+          "kind": "unique"
+        }
       }
     ],
-    "克里格重型武器小队": [
+    "克里格重武器班": [
       {
         "id": "unique-final-duty",
-        "name": "最后职责",
+        "name": "最终使命",
         "text": "火力协调官模型在战场上时，每当一个重型武器枪手模型被摧毁，掷一次D6：结果为3+时，不将其移出游戏。该被摧毁的模型可在攻击方单位完成其攻击后射击，然后移出游戏。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Final Duty",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-embarking",
         "name": "搭乘",
         "text": "搭乘于运输工具(Transport)内时,每个重武器射手(Heavy Weapons Gunner)模型占用 2 个模型的空间;就射击甲板(Firing Deck)能力而言,这些模型所配备的每件武器均视为 2 个模型的武器。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Embarking",
+          "kind": "unique"
+        }
       }
     ],
-    "黎曼鲁斯战斗坦克": [
+    "黎曼鲁斯坦克": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-armoured-spearhead",
@@ -1207,62 +1732,94 @@
             "type": "hit-reroll",
             "mode": "ones"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Armoured Spearhead",
+          "kind": "unique"
+        }
       }
     ],
-    "黎曼鲁斯指挥官": [
+    "黎曼鲁斯坦克指挥官": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-vox-net",
         "name": "通讯网",
         "text": "每次此模型下达指令时，该指令可以发给距离最多 12\" 的合适单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Vox-net",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-death-befitting-an-officer",
         "name": "军官之死",
         "text": "当此模型被摧毁时，掷一次D6：结果为2+时，不从游戏中移除此模型──在攻击方模型的单位完成其攻击后，此模型可如同处于你的射击阶段且具有满伤害值一样进行射击。然后此模型从游戏中移除。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Death Befitting An Officer",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-orders",
         "name": "命令",
         "text": "此军官每回合最多可下达 2 道命令给 SQUADRON 单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Orders",
+          "kind": "unique"
+        }
       }
     ],
     "黎曼鲁斯破坏者": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-line-breaker",
         "name": "破坏者",
         "text": "使用其摧毁者战斗炮进行远程攻击时，此模型可以攻击在其交战范围内的敌方单位（假设没有其他友方单位也在该敌方单位的交战范围内）。此外，进行远程攻击时，此模型不会因在一个或多个敌方单位的交战范围内而受到命中掷骰的惩罚。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Line-breaker",
+          "kind": "unique"
+        }
       }
     ],
     "黎曼鲁斯根除者": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-urban-warfare",
@@ -1281,16 +1838,24 @@
             "type": "incoming-damage-modifier",
             "value": -1
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Urban Warfare",
+          "kind": "unique"
+        }
       }
     ],
     "黎曼鲁斯处决者": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-gung-ho-executioners",
@@ -1309,16 +1874,24 @@
             "type": "hit-modifier",
             "value": 1
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Gung-ho Executioners",
+          "kind": "unique"
+        }
       }
     ],
     "黎曼鲁斯灭绝者": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-withering-hail",
@@ -1338,32 +1911,48 @@
             "value": 1,
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Withering Hail",
+          "kind": "unique"
+        }
       }
     ],
     "黎曼鲁斯惩罚者": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-mow-down-the-enemy",
         "name": "踏平敌军",
         "text": "每次此模型用其惩罚者格林机炮进行攻击，目标为敌方单位（不包括 **凶兽(Monster)** 和 **载具(Vehicle)**）时，该攻击具有 **[毁灭性创伤]** 能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Mow Down the Enemy",
+          "kind": "unique"
+        }
       }
     ],
     "黎曼鲁斯胜利者": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-tank-killer",
@@ -1383,118 +1972,178 @@
             "mode": "failed",
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Tank-killer",
+          "kind": "unique"
+        }
       }
     ],
-    "大元帅德雷尔": [
+    "领主元帅德雷尔": [
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "战斗开始前，在**集结军队(Muster Armies)**步骤中，对于你军队中的每个**领袖(leader)**单位与**辅助(support)**单位，你可以选择一个该单位能率领的友方**护卫单位(bodyguard)**。该单位接着会在这场战斗中率领该护卫单位，并与其组成一个**联合(attached)单位**。\n\n除非另有说明，每个护卫单位只能附着一个领袖单位与一个辅助单位。\n\n详见「联合单位」（Attached Units, 19）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "core-feel-no-pain-6",
-        "name": "不觉疼痛6+",
-        "text": "不觉疼痛6+",
+        "name": "不知疼痛6+",
+        "text": "此能力一律以「不觉疼痛 X+」的形式呈现。每当具有此能力的模型将要失去一个伤值时，掷一次 D6：掷出 X+ 时，该伤值不会失去。",
         "status": "计算支持（被动效果自动计入）",
         "effects": [
           {
             "type": "fnp",
             "threshold": 6
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Feel No Pain 6+",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-tough-to-kill",
-        "name": "难缠顽敌",
+        "name": "难死之身",
         "text": "此模型首次被摧毁时，在该阶段结束时掷 1D6。结果为 2+，将此模型重新放置在战场上，位置尽可能靠近其被摧毁的位置，且不位于任何敌方单位的交战范围内，剩余伤害为 D3。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Tough To Kill",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-leading-the-charge",
-        "name": "领导冲锋",
+        "name": "带队冲锋",
         "text": "此单位每次进行冲锋移动时，直到本回合结束，该单位内的模型装备的近战武器具有 **[毁灭性创伤]** 能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leading The Charge",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-orders",
         "name": "命令",
         "text": "此军官每回合最多可下达 3 道命令给 REGIMENT 单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Orders",
+          "kind": "unique"
+        }
       }
     ],
-    "太阳领主雷昂图斯": [
+    "太阳领主里昂图斯": [
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "战斗开始前，在**集结军队(Muster Armies)**步骤中，对于你军队中的每个**领袖(leader)**单位与**辅助(support)**单位，你可以选择一个该单位能率领的友方**护卫单位(bodyguard)**。该单位接着会在这场战斗中率领该护卫单位，并与其组成一个**联合(attached)单位**。\n\n除非另有说明，每个护卫单位只能附着一个领袖单位与一个辅助单位。\n\n详见「联合单位」（Attached Units, 19）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-the-lord-solar",
-        "name": "日光领主",
+        "name": "太阳领主",
         "text": "在你的指挥阶段开始时，若此模型在战场上，你获得 1CP。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "The Lord Solar",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-the-collegiate-astrolex",
-        "name": "星图议会",
+        "name": "灵能预言参谋团",
         "text": "两名玩家都部署完军队后，从你的军队中选择最多三个 **星界军(Astra Militarum)** 单位并重新部署它们。执行时，你可将那些单位部署于战略预备队中，无论已有多少单位在战略预备队里。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "The Collegiate Astrolex",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-orders",
         "name": "命令",
         "text": "此军官每回合最多可下达 3 道命令给:■ REGIMENT 单位\n■ SQUADRON 单位\n■ 泰坦单位",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Orders",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-supreme-commander",
-        "name": "最高统帅",
+        "name": "至高指挥官",
         "text": "若此模型在你的军队中,则它必须是你的统帅(Warlord)。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Supreme Commander",
+          "kind": "unique"
+        }
       }
     ],
-    "蠍尾狮导弹车": [
+    "蝎尾狮火箭炮": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-furious-barrage",
-        "name": "猛烈轰击",
+        "name": "怒火轰炸",
         "text": "在你的射击阶段，此模型开火后，选择一个（排除 **凶兽(Monster)** 和 **载具(Vehicle)**）被此模型的风暴鹰火箭攻击命中的敌方单位。直到你的下一个射击阶段开始，该敌方单位受到迷蒙状态。当一个单位受迷蒙状态时，该单位中的模型的目标控制特性减少 1（最低为 1）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Furious Barrage",
+          "kind": "unique"
+        }
       }
     ],
-    "风暴军指挥组": [
+    "暴风兵指挥组": [
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "战斗开始前，在**集结军队(Muster Armies)**步骤中，对于你军队中的每个**领袖(leader)**单位与**辅助(support)**单位，你可以选择一个该单位能率领的友方**护卫单位(bodyguard)**。该单位接着会在这场战斗中率领该护卫单位，并与其组成一个**联合(attached)单位**。\n\n除非另有说明，每个护卫单位只能附着一个领袖单位与一个辅助单位。\n\n详见「联合单位」（Attached Units, 19）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "每当此单位进行一次**进场移动(ingress move)**（20.04）时，若此单位中的每个模型都具有此能力，则可将其设置在战场上任何距离所有敌方单位水平超过 8\" 的位置，即使该位置位于你对手的部署区内。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-tempestor-prime",
@@ -1514,55 +2163,83 @@
             "value": 1,
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Tempestor Prime",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-orders",
         "name": "命令",
         "text": "此单位的军官每回合可下达 1 道命令给一个 REGIMENT 单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Orders",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-master-vox",
-        "name": "主通讯机",
+        "name": "音阵总台",
         "text": "持有者所在的单位中的 **军官(Officer)** 每次下达命令时，可以对至多 24\" 外的合格单位下达命令。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Master Vox",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-regimental-standard",
-        "name": "军团军旗",
+        "name": "兵团旗帜",
         "text": "持有者所在的单位中的模型其目标控制(OC)特性 +1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Regimental Standard",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-medi-pack",
         "name": "医疗包",
         "text": "在你的指挥阶段开始时，若持有者所在的单位低于其起始兵力，你可将至多 D3 个被摧毁的天谴禁军模型归还至此单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Medi-pack",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-command-rod",
-        "name": "指挥权杖",
+        "name": "指挥节杖",
         "text": "当持有者正在领导一个单位时，该单位可同时受到至多两个不同的命令影响。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Command Rod",
+          "kind": "unique"
+        }
       }
     ],
     "国教牧师": [
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "战斗开始前，在**集结军队(Muster Armies)**步骤中，对于你军队中的每个**领袖(leader)**单位与**辅助(support)**单位，你可以选择一个该单位能率领的友方**护卫单位(bodyguard)**。该单位接着会在这场战斗中率领该护卫单位，并与其组成一个**联合(attached)单位**。\n\n除非另有说明，每个护卫单位只能附着一个领袖单位与一个辅助单位。\n\n详见「联合单位」（Attached Units, 19）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-war-hymns",
-        "name": "战争赞歌",
+        "name": "战争圣歌",
         "text": "当此模型领导一个单位时，该单位中模型配备的近战武器具有 **[连击 1]** 能力。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1585,11 +2262,15 @@
             "requiresJoined": true,
             "effectScope": "unit"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "War Hymns",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-holy-piety",
-        "name": "圣洁虔诚",
+        "name": "圣洁信仰",
         "text": "此模型每次发动近战攻击时，除非此模型的单位受到战斗震撼，否则你可以重掷命中掷骰。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1605,74 +2286,106 @@
             "mode": "failed",
             "phase": "melee"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Holy Piety",
+          "kind": "unique"
+        }
       }
     ],
     "保镖诺克": [
       {
         "id": "core-feel-no-pain-5",
-        "name": "不觉疼痛5+",
-        "text": "不觉疼痛5+",
+        "name": "不知疼痛5+",
+        "text": "此能力一律以「不觉疼痛 X+」的形式呈现。每当具有此能力的模型将要失去一个伤值时，掷一次 D6：掷出 X+ 时，该伤值不会失去。",
         "status": "计算支持（被动效果自动计入）",
         "effects": [
           {
             "type": "fnp",
             "threshold": 5
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Feel No Pain 5+",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-ogryn-bodyguard",
-        "name": "食人魔保镖",
+        "name": "欧格林保镖",
         "text": "当一个或多个 **军官(Officer)** 模型与此模型在同一单位时，这些 **军官(Officer)** 模型具有 4+ 不觉疼痛能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Ogryn Bodyguard",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-thunderous-head-butt",
-        "name": "雷霆头锤",
+        "name": "雷霆头槌",
         "text": "每当此模型的单位被选中进行战斗时，你可以选择一个在此模型交战范围内的敌方单位并掷一次 D6：掷出 2-5 时，该敌方单位承受 D3 点致命伤；掷出 6 时，该敌方单位承受 D3+3 点致命伤。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Thunderous Head-butt",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-loyal-protector",
         "name": "忠诚护卫",
         "text": "在宣告战斗编成步骤开始时,此模型必须加入你军队中一个 COMMAND SQUAD 单位(每个 COMMAND SQUAD 至多加入一个 LOYAL PROTECTOR 模型)。此后至战斗结束,此模型视为该 COMMAND SQUAD 的一部分,且其起始兵力(Starting Strength)随之增加。若无法将此模型加入 COMMAND SQUAD,则它不参与战斗,并视为已被摧毁。当此模型加入某单位时,它可搭乘于该单位所能搭乘的任何运输工具(Transport)内,并占用 3 个模型的空间。此模型不能被选为你的统帅(Warlord)。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Loyal Protector",
+          "kind": "unique"
+        }
       }
     ],
     "欧格林保镖": [
       {
         "id": "core-feel-no-pain-6",
-        "name": "不觉疼痛6+",
-        "text": "不觉疼痛6+",
+        "name": "不知疼痛6+",
+        "text": "此能力一律以「不觉疼痛 X+」的形式呈现。每当具有此能力的模型将要失去一个伤值时，掷一次 D6：掷出 X+ 时，该伤值不会失去。",
         "status": "计算支持（被动效果自动计入）",
         "effects": [
           {
             "type": "fnp",
             "threshold": 6
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Feel No Pain 6+",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-ogryn-bodyguard",
-        "name": "食人魔保镖",
+        "name": "欧格林保镖",
         "text": "当一个或多个 **军官(Officer)** 模型与此模型在同一单位时，这些 **军官(Officer)** 模型具有 4+ 不觉疼痛能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Ogryn Bodyguard",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-loyal-protector",
         "name": "忠诚护卫",
         "text": "在宣告战斗编成步骤开始时,此模型必须加入你军队中一个 COMMAND SQUAD 单位(每个 COMMAND SQUAD 至多加入一个 LOYAL PROTECTOR 模型)。此后至战斗结束,此模型视为该 COMMAND SQUAD 的一部分,且其起始兵力(Starting Strength)随之增加。若无法将此模型加入 COMMAND SQUAD,则它不参与战斗,并视为已被摧毁。当此模型加入某单位时,它可搭乘于该单位所能搭乘的任何运输工具(Transport)内,并占用 3 个模型的空间。此模型不能被选为你的统帅(Warlord),也不能被赋予强化(Enhancement)。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Loyal Protector",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-brute-shield",
-        "name": "蛮力盾",
+        "name": "蛮兽之盾",
         "text": "持有者拥有 4+ 无敌豁免(InSv)。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1687,48 +2400,68 @@
             "type": "invulnerable-save",
             "value": 4
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Brute Shield",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-slabshield",
-        "name": "巨板盾",
+        "name": "厚板盾",
         "text": "持有者的伤口(W)特性为 7。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Slabshield",
+          "kind": "unique"
+        }
       }
     ],
     "欧格林小队": [
       {
         "id": "core-feel-no-pain-6",
-        "name": "不觉疼痛6+",
-        "text": "不觉疼痛6+",
+        "name": "不知疼痛6+",
+        "text": "此能力一律以「不觉疼痛 X+」的形式呈现。每当具有此能力的模型将要失去一个伤值时，掷一次 D6：掷出 X+ 时，该伤值不会失去。",
         "status": "计算支持（被动效果自动计入）",
         "effects": [
           {
             "type": "fnp",
             "threshold": 6
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Feel No Pain 6+",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-point-blank-barrage",
-        "name": "近距齐射",
+        "name": "狂轰乱炸",
         "text": "每次此单位中的模型进行以最接近符合条件目标为目标的远程攻击时，改善该攻击的护甲穿透特性1点。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Point-blank Barrage",
+          "kind": "unique"
+        }
       }
     ],
     "灵能导师": [
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "战斗开始前，在**集结军队(Muster Armies)**步骤中，对于你军队中的每个**领袖(leader)**单位与**辅助(support)**单位，你可以选择一个该单位能率领的友方**护卫单位(bodyguard)**。该单位接着会在这场战斗中率领该护卫单位，并与其组成一个**联合(attached)单位**。\n\n除非另有说明，每个护卫单位只能附着一个领袖单位与一个辅助单位。\n\n详见「联合单位」（Attached Units, 19）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-malign-wardings",
-        "name": "恶毒守卫",
+        "name": "巫术防御【灵能】",
         "text": "当此模型率领一个单位时，该单位中的模型对灵能攻击具有不觉疼痛4+ 能力。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1750,11 +2483,15 @@
             "requiresJoined": true,
             "effectScope": "unit"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Malign Wardings",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-psychic-barrier",
-        "name": "灵能屏障",
+        "name": "灵能壁障【灵能】",
         "text": "在你对手的射击阶段开始时，可掷一次D6：掷出1时，此 **灵能者(Psyker)** 的单位受到D3点致命伤；掷出2+时，至该阶段结束止，此 **灵能者(Psyker)** 单位中的模型具有4+ 无敌豁免。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1769,21 +2506,29 @@
             "type": "invulnerable-save",
             "value": 4
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Psychic Barrier",
+          "kind": "unique"
+        }
       }
     ],
-    "莱特林": [
+    "莱特林小队": [
       {
         "id": "core-infiltrators",
         "name": "渗透",
-        "text": "渗透",
+        "text": "在部署期间，若一个单位中的每个模型都具有此能力，则可将其设置在战场上任何距离你对手的部署区与所有敌方单位水平超过 8\" 的位置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Infiltrators",
+          "kind": "core"
+        }
       },
       {
         "id": "core-stealth",
-        "name": "潜行",
-        "text": "潜行",
+        "name": "隐蔽",
+        "text": "若一个单位中的每个模型都具有此能力，则每当有远程攻击以该单位为目标时，该单位在该攻击中具有**掩体增益**（13.08）。",
         "status": "计算支持（被动效果自动计入）",
         "effects": [
           {
@@ -1791,18 +2536,26 @@
             "value": 1,
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Stealth",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-shoot-sharp-and-scarper",
-        "name": "精准射击后撤离",
+        "name": "打了就跑",
         "text": "在你的射击阶段中，此单位射击后，若其不在任何敌方单位的交战范围内，则可进行一次常规移动，如同在你的移动阶段。若进行此操作，直到回合结束，此单位不符合宣告冲锋的资格。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Shoot Sharp and Scarper",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-ratling-battlemutt",
-        "name": "拉特林战犬",
+        "name": "莱特林警戒犬",
         "text": "每场战斗可进行一次，当此单位被选择射击时，其可使用此能力。若如此做，直到该阶段结束，此单位中模型所装备的远程武器拥有 **[致命一击]** 能力。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1817,80 +2570,120 @@
             "type": "lethal-hits",
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Ratling Battlemutt",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-demolition-gear",
-        "name": "爆破装备",
+        "name": "爆破设备",
         "text": "持有者所在的单位拥有 **手榴弹(Grenades)** 关键字。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Demolition Gear",
+          "kind": "unique"
+        }
       }
     ],
-    "罗格多恩战斗坦克": [
+    "罗格多恩坦克": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-ablative-plating",
-        "name": "消融装甲",
+        "name": "反应装甲",
         "text": "每场战斗一次，当攻击配置给此模型时，你可将该攻击的伤害特性改为 0。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Ablative Plating",
+          "kind": "unique"
+        }
       }
     ],
-    "罗格多恩指挥官": [
+    "罗格多恩坦克指挥官": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-vox-net",
         "name": "通讯网",
         "text": "此模型每次下达一条命令时，可将其下达给距离 12\" 内的符合条件的单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Vox-net",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-called-shots",
         "name": "指定射击",
         "text": "每次此模型被选定射击时，在解决其攻击时，你可以重掷一次命中掷骰，可重掷一次致伤掷骰，且可重掷一次伤害掷骰。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Called Shots",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-orders",
         "name": "命令",
         "text": "此军官每回合最多可下达 2 道命令给 SQUADRON 单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Orders",
+          "kind": "unique"
+        }
       }
     ],
-    "侦察哨兵": [
+    "侦查哨兵": [
       {
         "id": "core-deadly-demise-1",
-        "name": "致命破灭",
-        "text": "致命破灭1",
+        "name": "致命破灭1",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise 1",
+          "kind": "core"
+        }
       },
       {
         "id": "core-scouts-9",
-        "name": "侦察9\"",
+        "name": "斥候9",
         "text": "此能力一律以「斥候 X\"」的形式呈现。在结算战前能力步骤中，若一个单位中的每个模型都具有此能力，你可以执行下列其中**一**项：\n• 若该单位位于**战略预备队(strategic reserves)**中，你可以将该单位设置于完全位于你部署区内的任意位置。\n• 若该单位完全位于你的部署区内，它可以进行一次**斥候移动(scout move)**（24.32）。\n• 若该单位搭载于一个完全位于你部署区内的**专用运输工具(Dedicated Transport)**内，且搭载于该专用运输工具内的每个模型都具有斥候能力，则该专用运输工具可以进行一次斥候移动。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Scouts 9\"",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-daring-recon",
-        "name": "大胆侦察",
+        "name": "前锋侦查",
         "text": "在你的射击阶段开始时，选择一个在此单位18\"范围内且对此单位可见的敌方单位。直到该阶段结束，每当友方 **星界军(Astra Militarum)** 模型发动针对该单位的攻击时，重掷命中掷骰为1。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1906,44 +2699,64 @@
             "mode": "ones",
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Daring Recon",
+          "kind": "unique"
+        }
       }
     ],
     "影剑": [
       {
         "id": "core-deadly-demise-d6-2",
         "name": "致命破灭",
-        "text": "致命破灭D6+2",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6+2",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-titan-killer",
         "name": "泰坦杀手",
         "text": "此模型每次使用其火山大炮进行远距攻击并指向 **凶兽(Monster)** 或 **载具(Vehicle)** 单位时，该攻击具有 **[毁灭性创伤]** 能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Titan-killer",
+          "kind": "unique"
+        }
       }
     ],
-    "斯莱·马博": [
+    "孤胆英雄马博": [
       {
         "id": "core-infiltrators",
         "name": "渗透",
-        "text": "渗透",
+        "text": "在部署期间，若一个单位中的每个模型都具有此能力，则可将其设置在战场上任何距离你对手的部署区与所有敌方单位水平超过 8\" 的位置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Infiltrators",
+          "kind": "core"
+        }
       },
       {
         "id": "core-lone-operative",
         "name": "独行特工",
-        "text": "独行特工",
+        "text": "除非作为一个**联合(attached)单位**的一部分，否则此单位对 12\" 以外的敌方模型**不可见**；且除非攻击模型位于此单位 12\" 内，否则不能被**[间接射击]**武器以其为目标。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Lone Operative",
+          "kind": "core"
+        }
       },
       {
         "id": "core-stealth",
-        "name": "潜行",
-        "text": "潜行",
+        "name": "隐蔽",
+        "text": "若一个单位中的每个模型都具有此能力，则每当有远程攻击以该单位为目标时，该单位在该攻击中具有**掩体增益**（13.08）。",
         "status": "计算支持（被动效果自动计入）",
         "effects": [
           {
@@ -1951,110 +2764,166 @@
             "value": 1,
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Stealth",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-one-man-army",
         "name": "一人军队",
         "text": "每个回合最多一次，在对手的射击阶段中，当敌方单位对此模型3\"内的友军**军团**单位发动远程攻击时，在该敌方单位开火后，此模型可如同在你的射击阶段中射击，但它只能对该敌方单位目标发动攻击，且只有在该敌方单位是符合条件目标时才能执行。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "One-man Army",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-like-fighting-a-shadow",
-        "name": "如同与影子战斗",
+        "name": "难觅踪影",
         "text": "在你的射击阶段中，此模型射击后，若其不在任何敌方单位的交战范围内，可进行一次普通移动。若如此，直到本回合结束，此模型不符合宣告冲锋的资格。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Like Fighting a Shadow",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-loner",
         "name": "独来独往",
         "text": "此模型不能被选为你的统帅(Warlord)。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Loner",
+          "kind": "unique"
+        }
       }
     ],
     "风暴领主": [
       {
         "id": "core-deadly-demise-d6-2",
         "name": "致命破灭",
-        "text": "致命破灭D6+2",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6+2",
+          "kind": "core"
+        }
       },
       {
         "id": "core-firing-deck-12",
         "name": "射击甲板12",
         "text": "某些**运输工具(Transport)**模型在其能力中列有「射击甲板 x」。每次该模型在射击阶段被选中进行射击时，你可以选择最多 x 个其单位本阶段尚未射击的已登载模型。然后，对每个已选中的登载模型，你可以选择该登载模型配备的一件远程武器（不包括具有**[单发]**能力的武器）。在该**运输工具(Transport)**模型解决所有攻击前，除其他武器外，它还计为配备所有你选中的武器。直到本阶段结束，该些已选中模型的单位不符合射击资格。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Firing Deck 12",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-mount-up",
         "name": "登车！",
         "text": "在对手的移动阶段结束时，若此 **运输工具(Transport)** 内当前无模型登船，你可选择一个友方 **星界军(Astra Militarum)步兵(Infantry)** 单位（不包括 **火炮** 单位），该单位须完全位于此 **运输工具(Transport)** 6\"内。除非该单位在一个或多个敌方单位的交战范围内，否则其可登船至此 **运输工具(Transport)**。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Mount Up!",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-transport",
         "name": "运载",
         "text": "该模型能够搭载 40 个星界军步兵模型。每个 OGRYN 模型占用 3 个模型的空间。该模型不能运输 ARTILLERY 模型。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Transport",
+          "kind": "unique"
+        }
       }
     ],
     "风暴之剑": [
       {
         "id": "core-deadly-demise-d6-2",
         "name": "致命破灭",
-        "text": "致命破灭D6+2",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6+2",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-concussive-wave",
         "name": "震波",
         "text": "在你的射击阶段，在为此模型的风暴之剑攻城加农炮选择目标后，为该目标单位以及该单位 3\" 内的其他每个单位各掷一次 D6：掷出 5+ 时，被掷骰的单位被一道冲击波袭击。在此模型于本阶段完成对该目标单位的攻击后，每个被冲击波袭击的单位承受 D3 点致命伤。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Concussive Wave",
+          "kind": "unique"
+        }
       }
     ],
     "野牛装甲车": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-rapid-deployment",
         "name": "快速部署",
         "text": "单位可在此 **运输工具(Transport)** 前进后从中下车。如此下车的单位视为于该阶段进行了正常移动，且在同一回合不能宣告冲锋，但可在其他方面正常行动。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Rapid Deployment",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-transport",
         "name": "运载",
         "text": "该模型能够搭载 12 个星界军步兵模型。每个 OGRYN 模型占用 3 个模型的空间。该模型不能运输 ARTILLERY 模型。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Transport",
+          "kind": "unique"
+        }
       }
     ],
     "金牛装甲车": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-transport-support",
-        "name": "运输支援",
+        "name": "火力支援",
         "text": "在你的射击阶段，此模型射击后，选择一个被该次攻击中一次或多次命中的敌军单位。直到该阶段结束，该回合从此 **运输工具(Transport)** 登陆的每个模型对该敌军单位发动的攻击都可以重掷命中掷骰。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -2070,34 +2939,50 @@
             "mode": "failed",
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Transport Support",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-transport",
         "name": "运载",
         "text": "该模型能够搭载 12 个 MILITARUM TEMPESTUS INFANTRY 或 ASTRA MILITARUM INFANTRY CHARACTER 模型。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Transport",
+          "kind": "unique"
+        }
       }
     ],
-    "技术祭司机械教士": [
+    "技术牧师工造士": [
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "战斗开始前，在**集结军队(Muster Armies)**步骤中，对于你军队中的每个**领袖(leader)**单位与**辅助(support)**单位，你可以选择一个该单位能率领的友方**护卫单位(bodyguard)**。该单位接着会在这场战斗中率领该护卫单位，并与其组成一个**联合(attached)单位**。\n\n除非另有说明，每个护卫单位只能附着一个领袖单位与一个辅助单位。\n\n详见「联合单位」（Attached Units, 19）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-enginseer",
-        "name": "工程师",
+        "name": "技术军士",
         "text": "此模型在距1个或多个友方 **星界军(Astra Militarum)载具(Vehicle)** 单位3\"内时，此模型获得独行特工能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Enginseer",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-omnissiah-s-blessing",
-        "name": "万机神祝福",
+        "name": "机神祝福",
         "text": "在你的指挥阶段，选择一个友军 **星界军(Astra Militarum) 载具(Vehicle)** 模型，其位于此模型 3\" 内。该 **载具(Vehicle)** 模型恢复最多 D3 点失去的伤，且直到你下一个指挥阶段开始前，该 **载具(Vehicle)** 模型具有 4+ 无敌豁免。每个模型每回合只能被选择用此能力一次。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -2112,46 +2997,70 @@
             "type": "invulnerable-save",
             "value": 4
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Omnissiah’s Blessing",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-vengeance-for-the-omnissiah",
-        "name": "为万机神复仇",
+        "name": "机神复仇",
         "text": "若友方 **星界军(Astra Militarum) 载具(Vehicle)** 模型在此模型 12\" 内被摧毁，直到战斗结束，此模型的恩基尼尔斧头的攻击次数特性为 6。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Vengeance for the Omnissiah",
+          "kind": "unique"
+        }
       }
     ],
-    "风暴天鹰": [
+    "暴风兵飞鹰小队": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "每当此单位进行一次**进场移动(ingress move)**（20.04）时，若此单位中的每个模型都具有此能力，则可将其设置在战场上任何距离所有敌方单位水平超过 8\" 的位置，即使该位置位于你对手的部署区内。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-precision-drop",
         "name": "精准降落",
         "text": "在你的移动阶段中，当此单位以深入打击能力被配置到战场上时，可进行精准投放。若如此，此单位可被配置到战场上任何位置，该位置必须距离所有敌方单位超过 6\" 的水平距离，但直到本回合结束，它不符合宣告冲锋的资格。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Precision Drop",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-servo-sentry",
         "name": "伺服哨卫",
         "text": "当此单位使用「深入打击」能力在战场上部署时，天鹰守卫官可用其哨兵武器（其哨兵火焰枪、哨兵榴弹发射器或哨兵高温齐射枪）进行射击。\n\n**设计师的备注：** *在此单位旁放置一个伺服机器哨兵标记以提醒你。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Servo-sentry",
+          "kind": "unique"
+        }
       }
     ],
-    "风暴忠嗣军": [
+    "暴风兵小队": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "每当此单位进行一次**进场移动(ingress move)**（20.04）时，若此单位中的每个模型都具有此能力，则可将其设置在战场上任何距离所有敌方单位水平超过 8\" 的位置，即使该位置位于你对手的部署区内。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-storm-troopers",
@@ -2170,90 +3079,138 @@
             "type": "wound-reroll",
             "mode": "ones"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Storm Troopers",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-vox-caster",
-        "name": "通讯机",
+        "name": "音阵广播器",
         "text": "你每次以计谋指定持有者所在的单位为目标时，掷一颗 D6，若 6\" 内有一个或多个友军 **OFFICER** 模型则结果 +1：若为 5+，你获得 1CP。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Vox-caster",
+          "kind": "unique"
+        }
       }
     ],
-    "厄苏拉·克里德": [
+    "克里德堡主": [
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "战斗开始前，在**集结军队(Muster Armies)**步骤中，对于你军队中的每个**领袖(leader)**单位与**辅助(support)**单位，你可以选择一个该单位能率领的友方**护卫单位(bodyguard)**。该单位接着会在这场战斗中率领该护卫单位，并与其组成一个**联合(attached)单位**。\n\n除非另有说明，每个护卫单位只能附着一个领袖单位与一个辅助单位。\n\n详见「联合单位」（Attached Units, 19）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-lord-castellan",
-        "name": "领主城主",
+        "name": "卡迪安堡主",
         "text": "当此模型领导一个单位时，该单位最多可以受到两个不同命令的影响。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Lord Castellan",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-tactical-genius",
         "name": "战术天才",
         "text": "每战斗回合一次，你的军队中具有此能力的1个单位在友军**军团**单位12\"内时可使用此能力，该单位被该策略选中时。若执行，减少该策略使用成本的CP花费1CP。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Tactical Genius",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-orders",
         "name": "命令",
         "text": "此军官每回合最多可下达 3 道命令给 REGIMENT 单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Orders",
+          "kind": "unique"
+        }
       }
     ],
     "女武神炮艇": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "core-hover",
-        "name": "悬停",
+        "name": "悬浮",
         "text": "每当此单位**凌空而起(takes to the skies)**（21.03）时，不需从其**最大距离**中减去 2\"。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Hover",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-airborne-insertion",
-        "name": "空降投入",
+        "name": "伞降部署",
         "text": "在你对手移动阶段结束时，搭乘在此 **运输工具(Transport)** 中的一个或多个单位可从其中下车。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Airborne Insertion",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-transport",
         "name": "运载",
         "text": "该模型能够搭载 12 个星界军步兵模型。每个 OGRYN 模型占用 3 个模型的空间。该模型不能运输 ARTILLERY 模型。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Transport",
+          "kind": "unique"
+        }
       }
     ],
-    "双足飞龙自行迫击炮": [
+    "飞龙自行火炮": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "此能力一律以「致命破灭 X」的形式呈现。每当此单位中的一个模型被**摧毁**时，在搭载于其中的单位（若有）完成其**紧急脱离移动(emergency disembark move)**之后，掷 1 颗 D6。掷出 6 时，该模型发生一次**致命破灭**：该模型 6\" 范围内的每个单位各承受「X」所表示数量的**致命伤**（若此为随机数值，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-suppression-bombardment",
-        "name": "压制炮击",
+        "name": "压制轰炸",
         "text": "在你的射击阶段，此模型进行射击后，选择一个敌方单位（**凶兽(Monster)** 和 **载具(Vehicle)** 除外），该单位被此模型的怀佛恩四连风暴碎片迫击炮至少一次的攻击命中。直到你的下一个射击阶段开始，该敌方单位被压制。当一个单位被压制时，该单位中的模型每次进行攻击时，命中掷骰减 1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Suppression Bombardment",
+          "kind": "unique"
+        }
       }
     ],
     "德雷登的骑兵队阿提拉蛮骑兵": [
@@ -2262,7 +3219,11 @@
         "name": "骑术大师",
         "text": "当该单位进行一次**后撤移动**时，那次移动不会阻止该单位**进行射击／宣布冲锋**。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "骑术大师",
+          "kind": "unique"
+        }
       }
     ],
     "德雷登的骑兵队指挥组": [
@@ -2283,35 +3244,55 @@
             "type": "fnp",
             "threshold": 6
           }
-        ]
+        ],
+        "source": {
+          "englishName": "医疗包",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-命令",
         "name": "命令",
         "text": "该单位中的**军官**可以对**德雷登的骑兵队**单位发布最多 2 条命令。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "命令",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-在那呢",
         "name": "在那呢",
         "text": "在己方射击阶段开始时，您可以选择一个位于该单位 24\" 内的敌方单位。那个敌方单位的**侦测范围** +3\"。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "在那呢",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-兵团旗帜",
         "name": "兵团旗帜",
         "text": "该单位拥有 +1 **OC**。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "兵团旗帜",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-大功率通讯器",
         "name": "大功率通讯器",
         "text": "在该单位的**军官** 模型发布命令时，它可以选择位于其 24\" 内的任何有效单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "大功率通讯器",
+          "kind": "unique"
+        }
       }
     ],
     "德雷登的骑兵队卡舍津": [
@@ -2320,21 +3301,33 @@
         "name": "精英战士（每个单位，每个战斗轮次限一次）",
         "text": "在任意阶段开始时，您可以使用本技能。若使用，选择一个命令。直到下一个己方指挥阶段开始前，除了该单位收到的任何其他命令以外，被选择的命令对该单位生效。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "精英战士（每个单位，每个战斗轮次限一次）",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-热熔地雷-每个单位-每场战斗限一次",
         "name": "热熔地雷（每个单位，每场战斗限一次）",
         "text": "在任意阶段开始时，您可以使用本技能。若使用，选择一个位于该模型 3\" 内的敌方单位并掷一枚 D6：\n■ 若结果为 2+：\n■ 那个敌方单位受到 D3 处**致命伤**。\n■ 或者：如果那个敌方单位拥有**载具**关键词，则受到 2D3 处**致命伤**。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "热熔地雷（每个单位，每场战斗限一次）",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-通讯器",
         "name": "通讯器",
         "text": "在您对该单位使用一个**计谋**时，掷一枚 D6，如果一个己方**军官**模型位于该单位的 6\" 内，那麽掷骰结果 +1：\n■ 若结果为 5+，您获得 1CP。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "通讯器",
+          "kind": "unique"
+        }
       }
     ],
     "德雷登的骑兵队阿提拉蛮骑兵（德雷登的骑兵队阿提拉蛮骑兵）": [
@@ -2343,7 +3336,11 @@
         "name": "骑术大师",
         "text": "当该单位进行一次**后撤移动**时，那次移动不会阻止该单位**进行射击／宣布冲锋**。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "骑术大师",
+          "kind": "unique"
+        }
       }
     ]
   }

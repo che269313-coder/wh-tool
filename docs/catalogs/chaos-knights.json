@@ -179,7 +179,7 @@
         },
         {
           "id": "unique-vortex-terrors",
-          "name": "漩涡惊怖",
+          "name": "恐惧漩涡（灵能）",
           "englishName": "Vortex Terrors",
           "category": "unique",
           "text": "在你的射击阶段开始时，选择一个位于此模型24\"内且此模型可见的敌方单位。该敌方单位必须进行一次战斗震撼测试。",
@@ -187,7 +187,7 @@
         },
         {
           "id": "unique-warp-storms",
-          "name": "亚空间风暴",
+          "name": "亚空间风暴（灵能）",
           "englishName": "Warp Storms",
           "category": "unique",
           "text": "在你的移动阶段结束时，为持有此能力的模型距 9\" 内的每一个敌方单位掷一次 D6：掷出 3+ 时，该敌方单位遭受 D3 点致命伤。",
@@ -219,7 +219,7 @@
     },
     {
       "id": "chaos-knights.da584963-b320-47ba-9210-49cadb18c227",
-      "name": "混沌牛头怪型阿卡斯托斯骑士",
+      "name": "牛头怪骑士",
       "englishName": "Chaos Acastus Knight Asterius",
       "page": null,
       "source": {
@@ -228,7 +228,7 @@
         "extraction": "faction-full API; raw fields preserved"
       },
       "unit": {
-        "name": "混沌牛头怪型阿卡斯托斯骑士",
+        "name": "牛头怪骑士",
         "movement": 8,
         "toughness": 13,
         "save": 2,
@@ -638,7 +638,7 @@
         },
         {
           "id": "unique-obsessive-ruthlessness",
-          "name": "执迷无情",
+          "name": "无情执着",
           "englishName": "Obsessive Ruthlessness",
           "category": "unique",
           "text": "每当此模型进行以 **凶兽(Monster)** 或 **载具(Vehicle)** 单位为目标的远程攻击时，该攻击具有 **[毁灭性创伤]** 能力。",
@@ -646,7 +646,7 @@
         },
         {
           "id": "unique-taskmaster",
-          "name": "苦役驱使者",
+          "name": "残酷监工（光环）",
           "englishName": "Taskmaster",
           "category": "unique",
           "text": "友方 **战争猎犬** 模型在此模型 9\" 范围内时，该 **战争猎犬** 模型每次进行远程攻击时，可重掷命中掷骰 1。",
@@ -677,7 +677,7 @@
     },
     {
       "id": "chaos-knights.37b676c9-24aa-465c-97fe-6f1ebdd907e2",
-      "name": "混沌巨人王型阿卡斯托斯骑士",
+      "name": "巨人王骑士",
       "englishName": "Chaos Acastus Knight Porphyrion",
       "page": null,
       "source": {
@@ -686,7 +686,7 @@
         "extraction": "faction-full API; raw fields preserved"
       },
       "unit": {
-        "name": "混沌巨人王型阿卡斯托斯骑士",
+        "name": "巨人王骑士",
         "movement": 8,
         "toughness": 13,
         "save": 2,
@@ -998,7 +998,7 @@
     },
     {
       "id": "chaos-knights.c8f37cef-bd7b-4423-83d3-b155f23240e5",
-      "name": "混沌黄泉型角蝰骑士",
+      "name": "黄泉骑士",
       "englishName": "Chaos Cerastus Knight Acheron",
       "page": null,
       "source": {
@@ -1007,7 +1007,7 @@
         "extraction": "faction-full API; raw fields preserved"
       },
       "unit": {
-        "name": "混沌黄泉型角蝰骑士",
+        "name": "黄泉骑士",
         "movement": 12,
         "toughness": 11,
         "save": 3,
@@ -1164,7 +1164,7 @@
         },
         {
           "id": "unique-unrestrained-terror",
-          "name": "肆意恐怖",
+          "name": "不羁恐怖（光环）",
           "englishName": "Unrestrained Terror",
           "category": "unique",
           "text": "友方 **战犬(War Dog)** 模型在距离此模型 6\" 内时，受此能力影响。在战斗阶段开始时，每个处于接触距离内的敌方单位（若在一个或多个受此能力影响的 **战犬(War Dog)** 单位接触距离内）必须进行战斗震撼检定。",
@@ -1806,7 +1806,7 @@
         },
         {
           "id": "unique-dread-dominion",
-          "name": "恐怖统治",
+          "name": "恐惧领域（光环）",
           "englishName": "Dread Dominion",
           "category": "unique",
           "text": "友军 **战犬(War Dog)** 模型位于此模型 9\" 范围内时，该 **战犬(War Dog)** 模型的领导力与目标控制特征提升 1。",
@@ -1814,7 +1814,7 @@
         },
         {
           "id": "unique-seething-hatred",
-          "name": "沸腾之怨",
+          "name": "沸腾仇恨",
           "englishName": "Seething Hatred",
           "category": "unique",
           "text": "每次此单位被选择进行射击或战斗时，你可重掷一个命中掷骰，或在解决这些攻击时可重掷一个致伤掷骰。",
@@ -2033,7 +2033,7 @@
         },
         {
           "id": "unique-frenzied-rampage",
-          "name": "狂乱践踏",
+          "name": "狂暴肆虐（光环）",
           "englishName": "Frenzied Rampage",
           "category": "unique",
           "text": "当友方 **战争猎犬** 模型在此模型9\"内时，该 **战争猎犬** 模型每次进行近战攻击时，重掷命中掷骰的1。",
@@ -2064,7 +2064,7 @@
     },
     {
       "id": "chaos-knights.5d31cefd-4c39-4f3f-85d3-08a6a9b4e1a4",
-      "name": "混沌命运女神型角蝰骑士",
+      "name": "命运女神骑士",
       "englishName": "Chaos Cerastus Knight Atrapos",
       "page": null,
       "source": {
@@ -2073,7 +2073,7 @@
         "extraction": "faction-full API; raw fields preserved"
       },
       "unit": {
-        "name": "混沌命运女神型角蝰骑士",
+        "name": "命运女神骑士",
         "movement": 12,
         "toughness": 11,
         "save": 3,
@@ -2264,7 +2264,7 @@
         },
         {
           "id": "unique-macro-extinction-protocols",
-          "name": "巨擘灭绝协议",
+          "name": "灭绝协议",
           "englishName": "Macro-extinction Protocols",
           "category": "unique",
           "text": "此模型每次对 **凶兽(Monster)** 或 **载具(Vehicle)** 单位发动攻击时，命中掷骰 +1。若该目标为 **巨型** 或 **高耸**，致伤掷骰亦 +1。",
@@ -2272,7 +2272,7 @@
         },
         {
           "id": "unique-consumed-with-hunger",
-          "name": "饥渴吞噬",
+          "name": "饥饿渴望（光环）",
           "englishName": "Consumed with Hunger",
           "category": "unique",
           "text": "当友军 **战犬(War Dog)** 模型位于此模型6\"内时，每次该 **战犬(War Dog)** 模型对 **巨型(Titanic)** 或 **高耸** 单位发动攻击时，你可以重掷命中掷骰。",
@@ -2465,7 +2465,7 @@
         },
         {
           "id": "unique-methodical-destruction",
-          "name": "有条不紊的毁灭",
+          "name": "系统性毁灭",
           "englishName": "Methodical Destruction",
           "category": "unique",
           "text": "在第一个战斗回合开始时，从你的对手的军队中选择一个单位为此模型的受害者。此模型每次对其受害者发动攻击时，可重掷致伤掷骰。每次此模型的受害者被摧毁时，选择一个新的敌方单位为此模型的受害者。",
@@ -2473,7 +2473,7 @@
         },
         {
           "id": "unique-close-range-killers",
-          "name": "近距离杀手",
+          "name": "近距杀手（光环）",
           "englishName": "Close-range Killers",
           "category": "unique",
           "text": "友军**战犬(War Dog)**模型在此模型9\"内时，该**战犬(War Dog)**模型每次对最近的符合条件目标发动攻击时，将该攻击的装甲穿透特征值+1。",
@@ -2504,7 +2504,7 @@
     },
     {
       "id": "chaos-knights.75295c7f-777d-4090-8d0b-8aba724ec3ad",
-      "name": "混沌惩戒者型角蝰骑士",
+      "name": "惩戒者骑士",
       "englishName": "Chaos Cerastus Knight Castigator",
       "page": null,
       "source": {
@@ -2513,7 +2513,7 @@
         "extraction": "faction-full API; raw fields preserved"
       },
       "unit": {
-        "name": "混沌惩戒者型角蝰骑士",
+        "name": "惩戒者骑士",
         "movement": 12,
         "toughness": 11,
         "save": 3,
@@ -2632,7 +2632,7 @@
         },
         {
           "id": "unique-storm-of-bolts",
-          "name": "弹雨风暴",
+          "name": "爆弹风暴",
           "englishName": "Storm of Bolts",
           "category": "unique",
           "text": "在你的射击阶段，此模型射击后，选择一个单位（不包括 **凶兽(Monster)** 和 **载具(Vehicle)**）被这些攻击中的一次或多次命中。直到你的下一回合开始，此模型仍在战场上时，该敌方单位被压制。当一支单位被压制时，该单位中的每次攻击，命中掷骰减 1。",
@@ -2640,7 +2640,7 @@
         },
         {
           "id": "unique-offerings-for-the-dark-gods",
-          "name": "黑暗诸神的献祭",
+          "name": "献给黑暗诸神（光环）",
           "englishName": "Offerings for the Dark Gods",
           "category": "unique",
           "text": "当一个友方 **猎犬骑士** 模型在此模型6\"内时，该 **猎犬骑士** 模型装备的远距武器具有 **[连击 1]** 能力。",
@@ -3048,7 +3048,7 @@
         },
         {
           "id": "unique-infernal-aegis",
-          "name": "地狱守护",
+          "name": "炼狱庇护（光环）",
           "englishName": "Infernal Aegis",
           "category": "unique",
           "text": "当一个友方 **战犬(War Dog)** 单位在此模型6\"范围内时，每次攻击该 **战犬(War Dog)** 单位时，其中的模型在该攻击中获得掩护优势。",
@@ -3056,7 +3056,7 @@
         },
         {
           "id": "unique-bastion-of-corruption",
-          "name": "腐化堡垒",
+          "name": "腐化要塞",
           "englishName": "Bastion of Corruption",
           "category": "unique",
           "text": "以援军身份在战场上部署的敌方单位无法在此模型12\"内部署。",
@@ -3086,7 +3086,7 @@
     },
     {
       "id": "chaos-knights.c97c64dd-5123-4d76-badb-33b051f9908f",
-      "name": "混沌枪骑兵型角蝰骑士",
+      "name": "枪骑兵骑士",
       "englishName": "Chaos Cerastus Knight Lancer",
       "page": null,
       "source": {
@@ -3095,7 +3095,7 @@
         "extraction": "faction-full API; raw fields preserved"
       },
       "unit": {
-        "name": "混沌枪骑兵型角蝰骑士",
+        "name": "枪骑兵骑士",
         "movement": 14,
         "toughness": 11,
         "save": 3,
@@ -3214,7 +3214,7 @@
         },
         {
           "id": "unique-shock-charge",
-          "name": "震击冲锋",
+          "name": "冲击冲锋",
           "englishName": "Shock Charge",
           "category": "unique",
           "text": "你可用0CP指令点使用「坦克冲撞」策略以此模型为目标，且即使你已在此阶段用该策略以不同单位为目标，你也可以这样做。",
@@ -3222,7 +3222,7 @@
         },
         {
           "id": "unique-dark-fervour",
-          "name": "黑暗狂热",
+          "name": "黑暗狂热（光环）",
           "englishName": "Dark Fervour",
           "category": "unique",
           "text": "当友军 **战犬(War Dog)** 模型在此模型 6\" 内时，该 **战犬(War Dog)** 模型配备的远程武器具有 **[突击]** 能力。",
@@ -3253,7 +3253,7 @@
     },
     {
       "id": "chaos-knights.502dc906-160d-49e3-8d18-490a75087c6a",
-      "name": "混沌复仇女神型巡游骑士",
+      "name": "复仇女神骑士",
       "englishName": "Chaos Questoris Knight Magaera",
       "page": null,
       "source": {
@@ -3262,7 +3262,7 @@
         "extraction": "faction-full API; raw fields preserved"
       },
       "unit": {
-        "name": "混沌复仇女神型巡游骑士",
+        "name": "复仇女神骑士",
         "movement": 10,
         "toughness": 11,
         "save": 3,
@@ -3507,7 +3507,7 @@
         },
         {
           "id": "unique-huntmaster",
-          "name": "猎人领主",
+          "name": "狩猎大师（光环）",
           "englishName": "Huntmaster",
           "category": "unique",
           "text": "当友军 **战犬(War Dog)** 模型在此模型 6\" 内时，该 **战犬(War Dog)** 模型配备的远程武器具有 **[ASSAULT]** 能力。",
@@ -3515,7 +3515,7 @@
         },
         {
           "id": "unique-repair-auto-simulacra",
-          "name": "自动修复拟机",
+          "name": "自动修复模式",
           "englishName": "Repair Auto-simulacra",
           "category": "unique",
           "text": "在你的指挥阶段结束时，此模型恢复最多D3点已损失的伤。",
@@ -3755,7 +3755,7 @@
         },
         {
           "id": "unique-brigand",
-          "name": "劫掠者",
+          "name": "暴匪",
           "englishName": "Brigand",
           "category": "unique",
           "text": "此模型每次对距离一个或多个目标标记范围内的单位发动远距攻击时，该攻击具有 **[无视掩体]** 能力。",
@@ -3783,7 +3783,7 @@
     },
     {
       "id": "chaos-knights.4dff8985-c3d3-448e-9a12-97e148674953",
-      "name": "混沌冥河型巡游骑士",
+      "name": "冥河骑士",
       "englishName": "Chaos Questoris Knight Styrix",
       "page": null,
       "source": {
@@ -3792,7 +3792,7 @@
         "extraction": "faction-full API; raw fields preserved"
       },
       "unit": {
-        "name": "混沌冥河型巡游骑士",
+        "name": "冥河骑士",
         "movement": 10,
         "toughness": 11,
         "save": 3,
@@ -4039,7 +4039,7 @@
         },
         {
           "id": "unique-preysight",
-          "name": "猎物视野",
+          "name": "猎手视觉（光环）",
           "englishName": "Preysight",
           "category": "unique",
           "text": "当友军 **战犬(War Dog)** 模型在此模型 6\" 内时，该 **战犬(War Dog)** 模型配备的远程武器具有 **[无视掩体]** 能力。",
@@ -4047,7 +4047,7 @@
         },
         {
           "id": "unique-grav-pinned",
-          "name": "重力钉扎",
+          "name": "引力束缚",
           "englishName": "Grav-pinned",
           "category": "unique",
           "text": "在你的射击阶段中，此模型射击后，如果敌军 **步兵(Infantry)** 单位被一次或多次用重力粉碎炮进行的攻击命中，直到你的对手下一个回合结束为止，该敌军单位处于重力钉扎状态。当单位处于重力钉扎状态时，减少该单位的移动特性 2，并减少该单位所进行的冲锋掷骰 2。",
@@ -4259,7 +4259,7 @@
         },
         {
           "id": "unique-executioner",
-          "name": "行刑者",
+          "name": "处决者",
           "englishName": "Executioner",
           "category": "unique",
           "text": "此模型每次对低于半数的单位发动攻击时，在命中掷骰上 +1。每次敌方单位因此模型的攻击而被摧毁时，在将该单位的最后一个模型移出战场之前，你对手军队中在其 3\" 内的其他每个单位必须进行战斗震撼测试。",
@@ -4487,7 +4487,7 @@
         },
         {
           "id": "unique-huntsman",
-          "name": "猎人",
+          "name": "猎手",
           "englishName": "Huntsman",
           "category": "unique",
           "text": "每次此模型对 **凶兽(Monster)** 或 **载具(Vehicle)** 单位发动攻击时，你可重掷致伤掷骰。",
@@ -4705,7 +4705,7 @@
         },
         {
           "id": "unique-karnivore",
-          "name": "噬肉",
+          "name": "肉食者",
           "englishName": "Karnivore",
           "category": "unique",
           "text": "可重掷此单位进行的前进和冲锋掷骰。",
@@ -5042,7 +5042,7 @@
         },
         {
           "id": "unique-stalker",
-          "name": "潜行者",
+          "name": "追猎者",
           "englishName": "Stalker",
           "category": "unique",
           "text": "此模型每次对敌方单位发动攻击时，若你的对手军队中没有其他单位在该目标距 6\" 以内，则加 1 到致伤掷骰。",
@@ -5070,7 +5070,7 @@
     },
     {
       "id": "chaos-knights.ddc708df-18c0-42e7-a894-6e5e37a0683d",
-      "name": "天命型战犬",
+      "name": "战犬天命者",
       "englishName": "War Dog Moirax",
       "page": null,
       "source": {
@@ -5079,7 +5079,7 @@
         "extraction": "faction-full API; raw fields preserved"
       },
       "unit": {
-        "name": "天命型战犬",
+        "name": "战犬天命者",
         "movement": 12,
         "toughness": 9,
         "save": 3,
@@ -5456,7 +5456,7 @@
         },
         {
           "id": "unique-protection-protocols",
-          "name": "防护协议",
+          "name": "保护协议",
           "englishName": "Protection Protocols",
           "category": "unique",
           "text": "你可以用「英勇介入」计谋以此单位为目标，且无视本阶段该计谋的其他使用次数。若你如此做：\n■ 该次使用减少 1 指令点。\n■ 该次使用不会阻止本阶段该计谋用于其他单位。",
@@ -5539,6 +5539,11 @@
         "kind": "identity",
         "role": "identity-only"
       }
-    ]
+    ],
+    "adjudication": {
+      "source": "data/global/pdf-display-names.json",
+      "unitDisplayNamesApplied": 9,
+      "abilityDisplayNamesApplied": 28
+    }
   }
 }

@@ -10,13 +10,15 @@ const stages = [
   ["generate runtime faction registry", "tools/generate-faction-registry.mjs"],
   ["generate browser alias index", "tools/generate-alias-index.mjs"],
   ["generate normalized calculator catalogs", "tools/generate-calculator-catalog.mjs"],
+  ["generate PDF-adjudicated website rules", "tools/generate-website-rules.mjs"],
   ["derive model-profile weapon sets", "tools/apply-weaponnames.mjs"],
   ["regenerate Orks rules", "tools/generate-orks-rules.mjs"],
   ["apply adjudicated source overrides", "tools/apply-patches.mjs"],
+  ["generate content-addressed deploy version", "tools/generate-build-version.mjs"],
 ];
 if (process.argv.includes("--check")) {
   stages.push(
-    ["validate data packages", "--test", "tools/data-packages.test.mjs", "tools/alias-registry.test.mjs", "tools/apply-patches.test.mjs", "tools/audit-regressions.test.mjs"],
+    ["validate data packages", "--test", "tools/data-packages.test.mjs", "tools/alias-registry.test.mjs", "tools/apply-patches.test.mjs", "tools/audit-regressions.test.mjs", "tools/pdf-priority.test.mjs"],
     ["validate datasheets", "tools/validate-datasheets.mjs"],
     ["validate architecture", "tools/validate-architecture.mjs"],
   );

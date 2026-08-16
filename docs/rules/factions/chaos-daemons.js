@@ -5,62 +5,91 @@
     {
       "id": "chaos-daemons.army-rule",
       "name": "混沌之影",
+      "englishName": "The Shadow of Chaos",
       "text": "战场下列区域算在你军队的混沌之影内：\n\n■ 你的部署区永远是。\n■ 任一阶段开始时，若你控制禁地内至少一半的目标标记，禁地该阶段视为在阴影内。\n■ 任一阶段开始时，若你控制对手部署区至少一半的目标标记，该区域该阶段视为在阴影内。\n\n恶魔显现\n\n你的单位位于混沌之影内进行战斗震慑测试时 +1；若测试通过，该单位一个模型回复最多 D3 点伤害（战线单位则改为回到最多 D3 个被摧毁的模型）。\n\n恶魔恐惧\n\n敌方单位若位于你军队的混沌之影内、或位于你军队嗜血狂魔／伟大不洁者／命运织者凯罗斯／纵欲之主／变化之王／罗提古斯／沙拉希·赫尔班恩／斯卡布兰德的 6\" 内，其战斗震慑测试 -1；若测试失败，再承受 D3 致命伤。",
       "category": "faction",
       "status": "已结构化，当前仅供查阅",
-      "effects": []
+      "effects": [],
+      "source": {
+        "englishName": "The Shadow of Chaos",
+        "kind": "faction"
+      }
     }
   ],
   "unitRules": {
-    "纳垢野兽": [
+    "纳垢兽": [
       {
         "id": "core-deadly-demise-1",
-        "name": "致命破灭",
-        "text": "致命破灭1",
+        "name": "致命破灭1",
+        "text": "部分模型的能力中有「致命破灭 x」。当该模型被摧毁时，于将其移除出场前掷一次 D6（若该模型为 **运输工具(Transport)**，则于任何搭载模型下车前掷骰）。掷骰结果为 6 时，该模型 6\" 范围内的每支军队各承受「x」数量的致命伤（若数值为随机，则针对 6\" 范围内的每支军队分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise 1",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣告战斗阵形」步骤中，如果单位中的每个模型都有此能力，可以将其置于预备队中，而不是在战场上展开。如此做的话，在你的某个移动阶段的「增援」步骤中，可以在战场上任何距离所有敌方模型超过8\"的水平距离处展开此单位。\n\n如果具有深入打击能力的单位从战略预备队出现，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力中的任何一种来展开该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-scouts-6",
-        "name": "侦察6\"",
+        "name": "斥候6",
         "text": "某些单位的能力中列有「侦察 x\"」。若单位中的每个模型都具有此能力，则在第一战斗回合开始时，在第一轮开始前，它可进行一次距离最多 x\" 的常规移动，如同处于你的移动阶段一样——该单位搭乘的任何 **专用运输工具(Dedicated Transport)** 模型也可这样做（前提是搭乘在该 **专用运输工具(Dedicated Transport)** 模型内的仅为具有此能力的模型）。使用此能力移动的单位必须在距离所有敌军模型超过 9\" 的地点结束移动。若双方玩家都有可进行此操作的单位，率先进行第一轮的玩家首先移动他们的单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Scouts 6\"",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-grotesque-regeneration",
-        "name": "恶心再生",
+        "name": "骇人再生",
         "text": "在每个阶段结束时，若此单位中一个努格之兽模型已失去伤但未被摧毁，该模型恢复所有已失去的伤。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Grotesque Regeneration",
+          "kind": "unique"
+        }
       }
     ],
-    "比拉克尔": [
+    "比拉克": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "部分模型具有「致命破灭 x」能力。当此类模型被摧毁时，在将其从战场移除前掷一次 D6（若此模型为 **运输工具(Transport)**，则在任何已搭乘的模型下车前掷骰）。若结果为 6，则该模型 6\" 内的每个单位会受到「x」所标记数量的致命伤（若为随机数量，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣告战斗阵型」步骤中，若一个单位中的每个模型都有此能力，你可将其放入后备而非放在战场上。若你如此做，你可在你的移动阶段「增援」步骤中，将此单位放置在战场上任何距离所有敌方模型超过8\"的位置。\n\n若一个具有「深入打击」能力的单位从战略预备队抵达，控制该单位的玩家可选择该单位是使用战略预备队规则或使用「深入打击」能力进行设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-stealth",
-        "name": "潜行",
-        "text": "潜行",
+        "name": "隐秘",
+        "text": "若此单位的所有模型都具有此能力，则每次对其进行远程攻击时，从该攻击的命中掷骰中减少 1。",
         "status": "计算支持（被动效果自动计入）",
         "effects": [
           {
@@ -68,18 +97,26 @@
             "value": 1,
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Stealth",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-the-dark-master",
         "name": "黑暗主宰",
         "text": "此模型周围 6\" 内的战场区域在你的军队「混沌之影」范围内。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "The Dark Master",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-shadow-form-abilities",
-        "name": "暗影形态能力",
+        "name": "黑暗形态",
         "text": "在战斗回合开始时，选择一个暗影形态能力。直到战斗回合结束，此模型具有该能力。\n\n**暗影缠绕（光环、灵能）：** 当一个友方 **恶魔军团(Legiones Daemonica)** 单位或 **暗影军团(Shadow Legion)** 单位在此模型 6\" 内时，该单位仅在攻击模型位于 18\" 内时才能成为远程攻击的目标。\n\n**绝望阴霾（光环、灵能）：** 在你对手指挥阶段的「战斗震撼」步骤中，若一个低于其起始兵力的敌方单位在此模型 9\" 内，该单位必须进行一次战斗震撼测试。就此能力而言，若一个单位的起始兵力为 1，则当它失去一点或更多伤害时，即视为低于其起始兵力。此外，每当一个敌方单位在此模型 9\" 内未通过战斗震撼测试时，此模型恢复最多 D3 点已失去的伤害。\n\n**暗影之主（光环、灵能）：** 当一个友方 **恶魔军团(Legiones Daemonica)** 或 **暗影军团(Shadow Legion)** 单位在此模型 6\" 内时，该单位中每当一个模型进行一次攻击时，重掷掷出 1 的命中掷骰。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -95,94 +132,142 @@
             "mode": "failed",
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Shadow Form Abilities",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-supreme-commander",
-        "name": "最高统帅",
+        "name": "最高指挥官",
         "text": "若此模型在你的军队中,则它必须是你的统帅(Warlord)。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Supreme Commander",
+          "kind": "unique"
+        }
       }
     ],
-    "碾血骑兵": [
+    "碾血者": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣示战斗阵型」阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而不是设置在战场上。若你这样做，在你的某个「移动阶段」的「增援」步骤中，你可以在距离所有敌方模型水平距离超过 8\" 的任何地点设置此单位。\n\n若一个具有「深入打击」能力的单位从「战略预备队」抵达，控制者可选择该单位使用「战略预备队」规则或「深入打击」能力来设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-brass-stampede",
-        "name": "黄铜奔腾",
+        "name": "黄铜践踏",
         "text": "此单位每次结束一次冲锋移动时，选择一个在此单位交战范围内的敌方单位，并为此单位中的每个模型掷一次 D6：对于每次 4+，该敌方单位受到 D3 点致命伤。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Brass Stampede",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-daemonic-icon",
-        "name": "恶魔圣像",
+        "name": "恶魔徽记",
         "text": "持有者所在的单位中的模型其领导力(Ld)特性为 6+。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Daemonic Icon",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-instrument-of-chaos",
         "name": "混沌乐器",
         "text": "为持有者所在的单位进行的冲锋掷骰 +1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Instrument of Chaos",
+          "kind": "unique"
+        }
       }
     ],
-    "放血者": [
+    "放血鬼": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣告战斗阵型」步骤中，若一个单位中的每个模型都有此能力，你可将其放入后备而非放在战场上。若你如此做，你可在你的移动阶段「增援」步骤中，将此单位放置在战场上任何距离所有敌方模型超过8\"的位置。\n\n若一个具有「深入打击」能力的单位从战略预备队抵达，控制该单位的玩家可选择该单位是使用战略预备队规则或使用「深入打击」能力进行设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-bane-of-cowards",
-        "name": "懦夫克星",
+        "name": "懦夫梦魇",
         "text": "每当敌方单位（**凶兽(Monster)**和**载具(Vehicle)**除外）在你军队中具有此能力的一个或多个单位的交战距离内后退时，该敌方单位中的模型必须进行绝望逃亡检定。进行此检定时，如果该敌方单位也处于战斗震撼状态，则从每次这些绝望逃亡检定中减去 1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Bane of Cowards",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-daemonic-icon",
-        "name": "恶魔圣像",
+        "name": "恶魔徽记",
         "text": "持有者所在的单位中的模型其领导力(Ld)特性为 6+。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Daemonic Icon",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-instrument-of-chaos",
         "name": "混沌乐器",
         "text": "为持有者所在的单位进行的冲锋掷骰 +1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Instrument of Chaos",
+          "kind": "unique"
+        }
       }
     ],
-    "鲜血主宰": [
+    "鲜血之主": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣示战斗阵型」阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而不是设置在战场上。若你这样做，在你的某个「移动阶段」的「增援」步骤中，你可以在距离所有敌方模型水平距离超过 8\" 的任何地点设置此单位。\n\n若一个具有「深入打击」能力的单位从「战略预备队」抵达，控制者可选择该单位使用「战略预备队」规则或「深入打击」能力来设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "某些**角色(Character)**单位的资料卡上列有「领袖」。这类**角色(Character)**单位称为领袖，它们可以率领的单位（称为其护卫单位）列于其资料卡上。在宣布战斗阵容步骤中，对于你军队中的每位领袖，如果你的军队也包含该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖将在战斗期间附着到该护卫单位，并据说正在率领该单位。每个护卫单位最多只能有一个领袖附着于其上。\n\n当护卫单位包含领袖时，其称为附着单位，除了在单位被摧毁时触发的规则外，它在所有规则用途上均视为单一单位。每当攻击以附着单位为目标时，直至攻击单位完成其所有攻击，你必须使用该单位中护卫模型的韧性特征，即使该单位中的领袖具有不同的韧性特征。每当攻击成功对附着单位造成伤口时，该攻击无法分配给该单位中的**角色(Character)**模型，即使该**角色(Character)**模型已损失一个或多个伤口或本阶段已分配了攻击。当附着单位中的最后一个护卫模型被摧毁时，对该单位进行的任何尚未分配的攻击可以分配给该单位中的**角色(Character)**模型。\n\n每当护卫单位中的最后一个模型被摧毁时，作为该附着单位的一部分的每个**角色(Character)**单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始初始兵力。如果这是因为攻击而发生的，它们在攻击单位完成所有攻击后成为单独的单位。\n\n每当附着到护卫单位的**角色(Character)**单位中的最后一个模型被摧毁，并且没有其他附着的**角色(Character)**单位时，该附着单位的护卫单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始初始兵力。如果这是因为攻击而发生的，它们在攻击单位完成所有攻击后成为单独的单位。\n\n每当附着单位的一部分单位被摧毁时，除非该单位在其自身资料卡上具有那些关键字，否则它不具有构成该附着单位的任何其他单位的关键字，以应用于当该单位被摧毁时触发的任何规则。\n\n***例子：** 如果你仅摧毁作为附着单位一部分的护卫单位，你尚未摧毁**角色(Character)**单位。如果你仅摧毁作为附着单位一部分的**角色(Character)**单位，或如果你摧毁整个附着单位，你已摧毁一个**角色(Character)**单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-bloodmaster",
-        "name": "血主",
+        "name": "鲜血主宰",
         "text": "当此模型领导一个单位时，该单位中每个模型进行攻击时，致伤掷骰加 1。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -204,124 +289,188 @@
             "requiresJoined": true,
             "effectScope": "unit"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Bloodmaster",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-a-gory-path",
-        "name": "血腥之路",
+        "name": "荣耀之路",
         "text": "此模型所属单位每次巩固时，可以移动最多6\"而非最多3\"。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "A Gory Path",
+          "kind": "unique"
+        }
       }
     ],
     "嗜血狂魔": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "某些模型能力栏中会列有「致命毁灭 x」。当这样的模型被摧毁时，在将其从战场移除前掷一颗 D6（如果该模型为 **运输工具(Transport)**，则在任何搭乘单位下车前掷骰）。若掷出 6，该模型周围 6\" 内的每个单位各承受「x」所示数量的灵能伤害（若此为随机数字，则对周围 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣言战阵形步骤中，如果一个单位中的每个模型都具备此能力，你可以将其放入预备队而不是在战场上部署。如果你这样做，在你移动阶段的增援步骤中，你可以在战场上任何距离所有敌方模型超过 8\" 的地方部署此单位。\n\n如果具备深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来部署该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-daemon-lord-of-khorne",
-        "name": "恐虐的恶魔领主",
+        "name": "恐虐魔王（光环）",
         "text": "友方 **恐虐(Khorne)恶魔军团(Legiones Daemonica)** 单位位于此模型6\"范围内时，该单位中模型的每次近战攻击时，加1至命中掷骰。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Daemon Lord of Khorne",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-greater-daemon-of-khorne",
         "name": "恐虐至高恶魔",
         "text": "当友方 **恐虐(Khorne)恶魔军团(Legiones Daemonica)** 单位位于此模型 6\" 内时，该单位在你的军队的混沌阴影中。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Greater Daemon of Khorne",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-relentless-carnage",
-        "name": "无情屠戮",
+        "name": "不息屠戮",
         "text": "在战斗阶段结束时，你可选择一个与此模型在交战范围内的敌方单位并掷 8D6：对于每个 4+，该敌方单位承受 1 点灵能伤害。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Relentless Carnage",
+          "kind": "unique"
+        }
       }
     ],
-    "蓝色惧妖": [
+    "蓝惧妖": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣布战场阵型阶段，若此单位内的每个模型都具有此能力，你可以将其放入后备队（Reserve）而非放在战场上。若你这样做，在你的移动阶段其中一个增援步骤中，你可以将此单位放置在战场上的任何地点，该地点距离所有敌军模型都超过8\"水平距离。\n\n如果具有深入打击能力的单位来自战略后备队，则控制者可以选择将该单位按照战略后备队规则或使用深入打击能力来放置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-infiltrators",
-        "name": "渗透",
-        "text": "渗透",
+        "name": "渗透者",
+        "text": "部署期间，若此单位中的每个模型都具有此能力，则当你部署它时，它可以被部署在战场上距敌方部署区和所有敌方模型都超过 8\" 水平距离的任何位置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Infiltrators",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-split",
         "name": "分裂",
         "text": "此单位中 **蓝色恐怖** 模型每次被摧毁时，在攻击单位完成其攻击后，如此单位未被摧毁，为该模型掷 1D6。成功时，向此单位中添加 1 个 **硫磺恐怖** 模型。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Split",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-sullen-malevolence",
         "name": "阴郁恶意",
         "text": "当一个敌方单位在此单位 6\"内时，如果此单位包含一个或多个 **蓝色恐怖** 模型，该敌方单位中的模型的领导力特征恶化 1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Sullen Malevolence",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-exploding-horrors",
-        "name": "爆裂恐魔",
+        "name": "自爆妖灵",
         "text": "每次此单位被选择进行战斗时，可选择一个在其交战范围内的敌方单位，然后选择此单位中一个或多个 **硫磺恐怖** 模型。对于每个你选择的 **硫磺恐怖** 模型，掷一次 D6：结果为 4+，该模型被摧毁且该敌方单位承受 1 道道德伤害。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Exploding Horrors",
+          "kind": "unique"
+        }
       }
     ],
-    "烈焰战车": [
+    "燃烧战车": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣布战场阵型阶段，若此单位内的每个模型都具有此能力，你可以将其放入后备队（Reserve）而非放在战场上。若你这样做，在你的移动阶段其中一个增援步骤中，你可以将此单位放置在战场上的任何地点，该地点距离所有敌军模型都超过8\"水平距离。\n\n如果具有深入打击能力的单位来自战略后备队，则控制者可以选择将该单位按照战略后备队规则或使用深入打击能力来放置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-eldritch-flames",
         "name": "秘焰",
         "text": "在你的射击阶段中，此模型射击后，选择一个被这些攻击命中一次或多次的敌方单位。直到该阶段结束，该单位无法获得掩护的好处。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Eldritch Flames",
+          "kind": "unique"
+        }
       }
     ],
     "变化使": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣布战场阵型阶段，若此单位内的每个模型都具有此能力，你可以将其放入后备队（Reserve）而非放在战场上。若你这样做，在你的移动阶段其中一个增援步骤中，你可以将此单位放置在战场上的任何地点，该地点距离所有敌军模型都超过8\"水平距离。\n\n如果具有深入打击能力的单位来自战略后备队，则控制者可以选择将该单位按照战略后备队规则或使用深入打击能力来放置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "某些 **角色(Character)** 单位在其资料表上列有「领导者」。这类 **角色(Character)** 单位被称为领导者，它们可以领导的单位（称为护卫单位）列在其资料表上。在「宣布战阵编成」步骤期间，对于军队中的每个领导者，如果军队还包括该领导者的一个或多个护卫单位，你可以选择其中一个护卫单位。该领导者将在战斗期间依附于该护卫单位，并被称为领导该单位。每个护卫单位只能有一个领导者依附于它。\n\n当护卫单位包含领导者时，它被称为附着单位，除了在单位被摧毁时触发的规则外，就所有规则目的而言，它被视为一个单位。每次攻击针对附着单位时，直到攻击单位已解决其所有攻击为止，你必须使用该单位中护卫模型的韧性特征，即使该单位中的领导者具有不同的韧性特征。每次攻击成功对附着单位造成伤害时，该攻击无法分配给该单位中的 **角色(Character)** 模型，即使该 **角色(Character)** 模型已失去一个或多个伤口或在此阶段已有攻击分配给它。一旦附着单位中最后一个护卫模型被摧毁，针对该单位已尚未分配的任何攻击随后可分配给该单位中的 **角色(Character)** 模型。\n\n每次护卫单位中的最后一个模型被摧毁时，作为该附着单位一部分的每个 **角色(Character)** 单位不再是附着单位的一部分。它变成一个独立单位，具有其原始起始数量。如果这发生于攻击结果，则在攻击单位已解决其所有攻击后，它们将变成独立单位。\n\n每次依附于护卫单位的 **角色(Character)** 单位中的最后一个模型被摧毁，且没有另一个 **角色(Character)** 单位依附时，该附着单位的护卫单位不再是附着单位的一部分。它变成一个独立单位，具有其原始起始数量。如果这发生于攻击结果，则在攻击单位已解决其所有攻击后，它们将变成独立单位。\n\n每次附着单位的一部分单位被摧毁时，除非该单位在其自身资料表上具有这些关键词，否则它对构成该附着单位的任何其他单位没有该关键词，以用于任何在该单位被摧毁时触发的规则。\n\n***示例：** 如果你只摧毁作为附着单位一部分的护卫单位，你并未摧毁 **角色(Character)** 单位。如果你只摧毁作为附着单位一部分的 **角色(Character)** 单位，或如果你摧毁整个附着单位，你已摧毁一个 **角色(Character)** 单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-changecaster",
-        "name": "变革使者",
+        "name": "变化使",
         "text": "当此模型领导一个单位时，该单位中的模型装备的远程武器具有 **[连击 1]** 能力。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -344,37 +493,57 @@
             "requiresJoined": true,
             "effectScope": "unit"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Changecaster",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-storm-of-mutating-sorcery",
         "name": "变异灵能风暴",
         "text": "在你的射击阶段，此模型射击后，选择一个被这些攻击命中一次或多次的敌方 **步兵(Infantry)** 单位。该单位必须进行战斗震撼测试。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Storm of Mutating Sorcery",
+          "kind": "unique"
+        }
       }
     ],
-    "曲相魔镜": [
+    "扭曲魔镜": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "于宣告战阵步骤时，若此单位中的每个模型都具有此能力，你可以将其设置在后备中，而非设置在战场上。若你如此做，在你的某个移动阶段的增援步骤中，你可以将此单位设置在战场上任何距离所有敌方模型水平距离超过8\"的位置。\n\n若具有深入打击能力的单位从战略预备队增援到场，控制该单位的玩家可以选择使用战略预备队规则或深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "部分 **角色(Character)** 单位的数据表上列有「领袖」。这类 **角色(Character)** 单位被称为领袖，而它们能领导的单位（即其数据表上列出的护卫单位）被称为护卫单位。\n\n在「宣告战阵」步骤中，对于你军队中的每个领袖，如果你的军队也包含该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖随后将在战斗期间附着于该护卫单位，并称为领导该单位。每个护卫单位最多只能附着一个领袖。\n\n当护卫单位包含领袖时，该单位被称为「附着单位」，除了在单位被消灭时触发的规则外，该单位在所有规则用途上均被视为一个单位。每当一次攻击指向附着单位时，在进行攻击的单位完成其所有攻击之前，你必须使用该单位中护卫模型的韧性特征，即使该单位中的领袖具有不同的韧性特征也是如此。每当一次攻击成功对附着单位造成创伤时，该攻击不能分配给该单位中的 **角色(Character)** 模型，即使该 **角色(Character)** 模型已失去一个或多个生命或在此阶段已被分配过攻击。一旦附着单位中最后一个护卫模型被消灭，任何尚未分配的针对该单位的攻击随后可被分配给该单位中的 **角色(Character)** 模型。\n\n每当护卫单位中最后一个模型被消灭时，作为该附着单位一部分的每个 **角色(Character)** 单位不再是附着单位的一部分。它成为一个独立单位，具有其原始起始兵力。如果这发生在攻击过程中，它们在进行攻击的单位完成所有攻击后成为独立单位。\n\n每当附着于护卫单位的 **角色(Character)** 单位中最后一个模型被消灭，且没有其他 **角色(Character)** 单位附着时，该附着单位的护卫单位不再是附着单位的一部分。它成为一个独立单位，具有其原始起始兵力。如果这发生在攻击过程中，它们在进行攻击的单位完成所有攻击后成为独立单位。\n\n每当作为附着单位一部分的单位被消灭时，除非在其自身数据表上具有这些关键字，否则该单位在已被消灭时触发的规则用途上，不具有组成该附着单位之任何其他单位的关键字。\n\n***示例：如果你只消灭了附着单位中的护卫单位，你并未消灭 **角色** 单位。如果你只消灭了附着单位中的 **角色** 单位，或消灭了整个附着单位，你已消灭了一个 **角色** 单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "core-fights-first",
-        "name": "先制攻击",
+        "name": "先攻",
         "text": "具有该能力且符合战斗资格的单位在「先制战斗」阶段进行战斗，前提是该单位中的每个模型都具有该能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Fights First",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-swallow-energy",
@@ -400,85 +569,129 @@
             "requiresJoined": true,
             "effectScope": "unit"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Swallow Energy",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-horrible-fascination",
         "name": "恐怖迷恋",
         "text": "在你的对手射击阶段开始时，你的军队中具有此能力的一个 **灵能者(Psyker)** 模型可使用此能力。若此模型使用此能力，选择一个在该 **灵能者(Psyker)** 模型12\"内且可见的敌方单位，并掷一次D6：掷骰结果为1时，该 **灵能者(Psyker)** 模型造成D3点道德伤害；为2-5时，直到该阶段结束，该敌方单位中的每个模型每次进行攻击时，命中掷骰-1；为6时，该敌方单位在此阶段不合格进行射击。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Horrible Fascination",
+          "kind": "unique"
+        }
       }
     ],
     "魅魔": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣告战阵步骤中，若此单位内的每个模型都具有此能力，则可将其放入预备队而非在战场上部署。如果你这样做，在你其中一个移动阶段的增援步骤中，可以在距离所有敌方模型水平距离超过8\"的战场任何位置部署此单位。\n\n若具有深入打击能力的单位从战略预备队抵达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来部署该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-fights-first",
-        "name": "先制攻击",
+        "name": "先攻",
         "text": "具有该能力且符合战斗资格的单位在「先制战斗」阶段进行战斗，前提是该单位中的每个模型都具有该能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Fights First",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-horrifying-beauty",
-        "name": "骇人之美",
+        "name": "可怖美貌",
         "text": "在战斗阶段开始时，距离你的军队中一个或多个具有此能力的单位交战范围内的每个敌方单位必须进行战斗震撼测试，若该敌方单位低于半数，则结果减 1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Horrifying Beauty",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-daemonic-icon",
-        "name": "恶魔圣像",
+        "name": "恶魔徽记",
         "text": "持有者所在的单位中的模型其领导力(Ld)特性为 6+。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Daemonic Icon",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-instrument-of-chaos",
         "name": "混沌乐器",
         "text": "为持有者所在的单位进行的冲锋掷骰 +1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Instrument of Chaos",
+          "kind": "unique"
+        }
       }
     ],
-    "混沌恶魔亲王": [
+    "混沌恶魔王子": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "部分模型的能力中列有「毁灭性决心 x」。当此类模型被摧毁时，在将其移出游戏前掷一次 D6（若此模型为 **运输工具(Transport)单位**，则在任何乘坐单位下车前掷骰）。掷骰结果为 6 时，距该模型 6\" 内的每个单位各承受「x」所表示数量的致命伤（若此为随机数字，则对 6\" 内的每个单位各自分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣布战阵阶段，如果此单位中的每个模型都具有此能力，你可以将其设置在预备队中，而不是在战场上设置。如果你这样做，在你的移动阶段的其中一个增援步骤中，你可以将此单位设置在战场上任何地方，该地方距离所有敌方模型的水平距离超过8\"。\n\n如果具有深入打击能力的单位从战略预备队到达，控制方玩家可以选择该单位使用战略预备队规则或使用深入打击能力中的任何一个进行设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-daemonic-lord",
         "name": "恶魔领主",
         "text": "当此模型距离一个或以上友方**恶魔军团(Legiones Daemonica)步兵(Infantry)**单位3\"以内时，此模型具有独行特工能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Daemonic Lord",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-prince-of-darkness",
         "name": "黑暗王子",
         "text": "当友军 **恶魔军团(Legiones Daemonica)** 单位在此模型6\"内时，该单位中的模型具有隐蔽能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Prince of Darkness",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-unholy-vigour",
-        "name": "邪能勃发",
+        "name": "不洁体魄",
         "text": "每场战斗一次，在任何阶段开始时，此模型可使用此能力。若如此，直到阶段结束，此模型具有 3+ 无敌豁免。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -493,11 +706,15 @@
             "type": "invulnerable-save",
             "value": 3
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Unholy Vigour",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-daemonic-allegiance",
-        "name": "恶魔效忠",
+        "name": "忠于混沌",
         "text": "当你选择将此模型纳入军队时,你必须为它选择下列关键字之一以获得: ■ 恐虐(Khorne) ■ 奸奇(Tzeentch) ■ 纳垢(Nurgle) ■ 色孽(Slaanesh)。你所选的关键字也会影响此模型的部分属性。恐虐恶魔亲王:若此模型具有恐虐(Khorne)关键字,其地狱锻造武器的力量(S)属性 +2。奸奇恶魔亲王:若此模型具有奸奇(Tzeentch)关键字,其地狱火炮的攻击(A)属性 +3。纳垢恶魔亲王:若此模型具有纳垢(Nurgle)关键字,其耐受(T)属性 +1。色孽恶魔亲王:若此模型具有色孽(Slaanesh)关键字,其移动(M)属性 +2\"。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -512,27 +729,39 @@
             "type": "weapon-strength-modifier",
             "value": 2
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Daemonic Allegiance",
+          "kind": "unique"
+        }
       }
     ],
-    "有翼混沌恶魔亲王": [
+    "有翼混沌恶魔王子": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "某些模型的能力中列有「致命毁灭 x」。当该模型被摧毁时，在将其移出场地前掷一次 D6（若该模型为 **运输工具(Transport)**，则在任何登乘模型下车前掷骰）。若掷出 6，则该模型 6\" 范围内的每支敌军单位各受到「x」标示数量的致命伤（若此数值为随机，则须为 6\" 范围内的每支单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣告战阵步骤中，若此单位内的每个模型都具有此能力，则可将其放入预备队而非在战场上部署。如果你这样做，在你其中一个移动阶段的增援步骤中，可以在距离所有敌方模型水平距离超过8\"的战场任何位置部署此单位。\n\n若具有深入打击能力的单位从战略预备队抵达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来部署该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-malefic-destruction",
-        "name": "恶毒毁灭",
+        "name": "大肆破坏",
         "text": "每场战斗一次，在战斗阶段开始时，此模型可使用此能力。如果使用，直到本阶段结束，将此模型的地狱锻武器的攻击次数特性加 3。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -547,18 +776,26 @@
             "type": "attack-modifier",
             "value": 3
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Malefic Destruction",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-harbinger-of-death",
-        "name": "死亡先驱",
+        "name": "死亡使者",
         "text": "此模型每次被选中发动战斗时，选择下列其中一个能力。直到阶段结束，此模型的地狱锻造武器具有该能力：\n■ **[致命一击]**\n■ **[精准]**\n■ **[连击 1]**",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Harbinger of Death",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-daemonic-allegiance",
-        "name": "恶魔效忠",
+        "name": "忠于混沌",
         "text": "当你选择将此模型纳入军队时,你必须为它选择下列关键字之一以获得: ■ 恐虐(Khorne) ■ 奸奇(Tzeentch) ■ 纳垢(Nurgle) ■ 色孽(Slaanesh)。你所选的关键字也会影响此模型的部分属性。恐虐恶魔亲王:若此模型具有恐虐(Khorne)关键字,其地狱锻造武器的力量(S)属性 +2。奸奇恶魔亲王:若此模型具有奸奇(Tzeentch)关键字,其地狱火炮的攻击(A)属性 +3。纳垢恶魔亲王:若此模型具有纳垢(Nurgle)关键字,其耐受(T)属性 +1。色孽恶魔亲王:若此模型具有色孽(Slaanesh)关键字,其移动(M)属性 +2\"。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -573,27 +810,39 @@
             "type": "weapon-strength-modifier",
             "value": 2
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Daemonic Allegiance",
+          "kind": "unique"
+        }
       }
     ],
-    "传疫魔": [
+    "计患官艾皮德缪斯": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣告战斗阵形」步骤中，如果单位中的每个模型都有此能力，可以将其置于预备队中，而不是在战场上展开。如此做的话，在你的某个移动阶段的「增援」步骤中，可以在战场上任何距离所有敌方模型超过8\"的水平距离处展开此单位。\n\n如果具有深入打击能力的单位从战略预备队出现，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力中的任何一种来展开该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "某些 **角色(Character)** 单位的资料表上列有「领导」。这类 **角色(Character)** 单位被称为领导者，其资料表上会列出他们能领导的单位──称为其护卫单位。在宣布战斗编制阶段，对于你军队中的每个领导者，如果你的军队也包含该领导者的一个或多个护卫单位，你可以选择其中一个护卫单位。该领导者随后将附着在该护卫单位上，持续整场战斗，且据称正在领导该单位。每个护卫单位只能有一个领导者附着在其上。\n\n当护卫单位包含一个领导者时，它被称为附着单位，除了规则在单位被摧毁时触发的情况外，它在所有规则目的上都被视为一个单位。每次攻击针对附着单位时，直到攻击单位解决完所有攻击，你必须使用该单位中护卫模型的韧性特性，即使该单位中的领导者具有不同的韧性特性。每次攻击成功对附着单位造成伤害时，该攻击不能分配给该单位中的 **角色(Character)** 模型，即使该 **角色(Character)** 模型已损失一个或多个伤口，或在本阶段已经分配了攻击。一旦附着单位中最后一个护卫模型被摧毁，任何对该单位进行的尚未分配的攻击都可以分配给该单位中的 **角色(Character)** 模型。\n\n每次护卫单位中的最后一个模型被摧毁时，作为附着单位一部分的每个 **角色(Character)** 单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始起始强度。如果这是攻击的结果而发生，它们在攻击单位解决完所有攻击后成为单独的单位。\n\n每次附着到护卫单位的 **角色(Character)** 单位中的最后一个模型被摧毁，且没有另一个 **角色(Character)** 单位附着时，该附着单位的护卫单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始起始强度。如果这是攻击的结果而发生，它们在攻击单位解决完所有攻击后成为单独的单位。\n\n每次构成附着单位一部分的单位被摧毁时，它不具有构成该附着单位的任何其他单位的关键字（除非它在自己的资料表上具有这些关键字），用于任何在该单位被摧毁时会被触发的规则。\n\n***例示：** 如果你只摧毁了作为附着单位一部分的护卫单位，你并未摧毁一个 **角色(Character)** 单位。如果你只摧毁了作为附着单位一部分的 **角色(Character)** 单位，或者你摧毁了整个附着单位，你已摧毁了一个 **角色(Character)** 单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-blessed-by-the-plague-god",
-        "name": "瘟疫之神祝福",
+        "name": "瘟疫之神的祝福",
         "text": "当此模型领导单位时，该单位中的模型具有 4+ 无敌豁免。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -615,71 +864,107 @@
             "requiresJoined": true,
             "effectScope": "unit"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Blessed by the Plague God",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-tally-of-pestilence",
-        "name": "瘟疫计数",
+        "name": "疫病账册",
         "text": "记录在战斗中由你军队的 **纳垢(Nurgle)恶魔军团(Legiones Daemonica)** 模型摧毁的敌方模型数。在你的指挥阶段开始时，若计数达7或以上，你获得1CP，计数重置为0。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Tally of Pestilence",
+          "kind": "unique"
+        }
       }
     ],
-    "至尊火妖": [
+    "神尊火妖": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣告战斗阵型」步骤中，若一个单位中的每个模型都有此能力，你可将其放入后备而非放在战场上。若你如此做，你可在你的移动阶段「增援」步骤中，将此单位放置在战场上任何距离所有敌方模型超过8\"的位置。\n\n若一个具有「深入打击」能力的单位从战略预备队抵达，控制该单位的玩家可选择该单位是使用战略预备队规则或使用「深入打击」能力进行设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "某些**角色(Character)**单位的数据表上列有「领袖」。这样的**角色(Character)**单位称为领袖，它们可以带领的单位（称为其护卫单位）列在其数据表上。在「宣告战斗阵型」步骤中，对于你军队中的每个领袖，如果你的军队还包括该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖随后将附着于该护卫单位，并在整场战役中带领该单位。每个护卫单位只能附着一个领袖。\n\n当护卫单位包含领袖时，它被称为附着单位，除了在单位被摧毁时触发的规则外，在所有规则目的上均视为单一单位。每当攻击指向附着单位时，在攻击单位解决其所有攻击之前，你必须使用该单位中护卫模型的韧性特征，即使该单位中的领袖具有不同的韧性特征。每当攻击对附着单位造成成功致伤时，该攻击不能被分配给该单位中的**角色(Character)**模型，即使该**角色(Character)**模型已损失一个或多个伤口或本阶段已分配攻击。一旦附着单位中的最后一个护卫模型被摧毁，任何对该单位尚未分配的攻击随后可被分配给该单位中的**角色(Character)**模型。\n\n每当护卫单位中的最后一个模型被摧毁时，作为该附着单位一部分的每个**角色(Character)**单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始起始兵力。如果这是由于攻击造成的，则攻击单位在解决其所有攻击后，它们会成为单独的单位。\n\n每当附着于护卫单位的**角色(Character)**单位中的最后一个模型被摧毁，且没有其他**角色(Character)**单位附着时，该附着单位的护卫单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始起始兵力。如果这是由于攻击造成的，则攻击单位在解决其所有攻击后，它们会成为单独的单位。\n\n每当附着单位的一部分单位被摧毁时，除非该单位在其自身数据表上具有这些关键字，否则它不具有组成该附着单位的任何其他单位的关键字，以用于触发该单位被摧毁时的任何规则。\n\n***范例：**如果你只摧毁了附着单位中作为一部分的护卫单位，你尚未摧毁**角色(Character)**单位。如果你只摧毁了作为附着单位一部分的**角色(Character)**单位，或如果你摧毁了整个附着单位，你已摧毁了一个**角色(Character)**单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-blazing-warpfire",
         "name": "炽烈蛇火",
         "text": "当此模型领导一个单位时，该单位模型配备的远程武器获得 **[突击]** 能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Blazing Warpfire",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-flames-of-change",
         "name": "变化之焰",
         "text": "在你的射击阶段中，此模型射击后，选择被这些攻击命中的一个敌方单位（**凶兽(Monster)**和**载具(Vehicle)**除外），并掷一次 D6。成功值为 4+，直到你对手的下一回合结束时，该敌方单位着火。当单位着火时，从其移动特性中减去 2\"，并从为其进行的前进和冲锋掷骰中减去 2。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Flames of Change",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-manifestation-of-destruction",
         "name": "毁灭化身",
         "text": "此模型不能作为你的统帅(Warlord),也不能被赋予强化(Enhancement)。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Manifestation of Destruction",
+          "kind": "unique"
+        }
       }
     ],
     "窥命者": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣布战阵」阶段，如果一个单位中的每个模型都具有此能力，你可以将其设定在预备队中而不是在战场上设定。如果你这样做，在你的移动阶段之一的「增援」阶段中，你可以在战场上任何距离所有敌方模型横向超过8\"的地方设定此单位。\n\n如果具有「深入打击」能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用「深入打击」能力来设定该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "某些**角色(Character)**单位的资料卡上列有「领袖」。这类**角色(Character)**单位称为领袖，它们可以率领的单位（称为其护卫单位）列于其资料卡上。在宣布战斗阵容步骤中，对于你军队中的每位领袖，如果你的军队也包含该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖将在战斗期间附着到该护卫单位，并据说正在率领该单位。每个护卫单位最多只能有一个领袖附着于其上。\n\n当护卫单位包含领袖时，其称为附着单位，除了在单位被摧毁时触发的规则外，它在所有规则用途上均视为单一单位。每当攻击以附着单位为目标时，直至攻击单位完成其所有攻击，你必须使用该单位中护卫模型的韧性特征，即使该单位中的领袖具有不同的韧性特征。每当攻击成功对附着单位造成伤口时，该攻击无法分配给该单位中的**角色(Character)**模型，即使该**角色(Character)**模型已损失一个或多个伤口或本阶段已分配了攻击。当附着单位中的最后一个护卫模型被摧毁时，对该单位进行的任何尚未分配的攻击可以分配给该单位中的**角色(Character)**模型。\n\n每当护卫单位中的最后一个模型被摧毁时，作为该附着单位的一部分的每个**角色(Character)**单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始初始兵力。如果这是因为攻击而发生的，它们在攻击单位完成所有攻击后成为单独的单位。\n\n每当附着到护卫单位的**角色(Character)**单位中的最后一个模型被摧毁，并且没有其他附着的**角色(Character)**单位时，该附着单位的护卫单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始初始兵力。如果这是因为攻击而发生的，它们在攻击单位完成所有攻击后成为单独的单位。\n\n每当附着单位的一部分单位被摧毁时，除非该单位在其自身资料卡上具有那些关键字，否则它不具有构成该附着单位的任何其他单位的关键字，以应用于当该单位被摧毁时触发的任何规则。\n\n***例子：** 如果你仅摧毁作为附着单位一部分的护卫单位，你尚未摧毁**角色(Character)**单位。如果你仅摧毁作为附着单位一部分的**角色(Character)**单位，或如果你摧毁整个附着单位，你已摧毁一个**角色(Character)**单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-fateskimmer",
-        "name": "命运飞翔者",
+        "name": "窥命者",
         "text": "当此模型统领一个单位时，该单位中的模型所配备的近战武器具有 **[致命一击]** 能力。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -694,321 +979,489 @@
             "type": "lethal-hits",
             "phase": "melee"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Fateskimmer",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-rider-of-the-immaterial-winds",
-        "name": "非物质风之御者",
+        "name": "驾驭亚空间之风",
         "text": "每场战斗一次，在你的对手回合结束时，若此模型的单位未在交战范围内任何敌方单位，你可从战场移除该单位并将其放入战略预备队。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Rider of the Immaterial Winds",
+          "kind": "unique"
+        }
       }
     ],
     "肮脏瘤口树": [
       {
         "id": "core-infiltrators",
-        "name": "渗透",
-        "text": "渗透",
+        "name": "渗透者",
+        "text": "于部署时，若单位中的每个模型都具有此能力，则当你配置该单位时，可以将其配置在战场上的任何位置，该位置距敌军部署区域超过8\"，且距所有敌军模型超过8\"。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Infiltrators",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-shroud-of-flies",
         "name": "苍蝇之幕",
         "text": "友军 **纳垢(Nurgle)恶魔军团(Legiones Daemonica)** 单位位于此 **防御工事(Fortification)** 6\" 范围内时，该单位中的模型具有隐蔽能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Shroud of Flies",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-diseased-cover",
-        "name": "疫病掩护",
+        "name": "瘟疫掩体",
         "text": "每当远程攻击分配给一个模型时，如果该模型因为此**防御工事(Fortification)**而对攻击方单位中的每个模型都不完全可见，则该模型对该攻击具有掩护优势。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Diseased Cover",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-fortification",
         "name": "防御工事",
         "text": "当敌方单位仅在你的军队中一个或多个 **防御工事(Fortification)** 的交战范围内时：\n\n■ 该单位仍可被选为远程攻击的目标，但每次进行此类攻击时，除非该攻击是用手枪进行，否则从命中掷骰减 1。\n■ 该单位中的模型在战斗震撼时后撤时无需进行绝望逃脱测试，除非它们在此过程中会越过敌方模型。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Fortification",
+          "kind": "unique"
+        }
       }
     ],
     "欢愉魔": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣布战斗阵型步骤中，如果一个单位中的每个模型都具有此能力，你可以将其放入增援中，而非在战场上布置。如果你这样做，在你的一个移动阶段的增援步骤中，你可以在战场上的任何位置布置此单位，该位置距所有敌方模型在水平方向上超过 8\"。\n\n如果具有深入打击能力的单位来自战略预备队，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来布置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-soporific-musk",
         "name": "麻醉香雾",
         "text": "敌军单位（**凶兽(Monster)**和**载具(Vehicle)**除外）位于你的军队中有此能力的一个或多个单位的交战范围内时，该敌军单位每次后撤时，其中的模型必须进行绝望逃脱测试。进行此测试时，若该敌军单位同时处于战动摇状态，则从每次绝望逃脱测试中减少1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Soporific Musk",
+          "kind": "unique"
+        }
       }
     ],
     "火妖": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣布战斗阵型步骤中，如果一个单位中的每个模型都具有此能力，你可以将其放入增援中，而非在战场上布置。如果你这样做，在你的一个移动阶段的增援步骤中，你可以在战场上的任何位置布置此单位，该位置距所有敌方模型在水平方向上超过 8\"。\n\n如果具有深入打击能力的单位来自战略预备队，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来布置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-bounding-leaps",
-        "name": "跃动腾跳",
+        "name": "腾跃袭击",
         "text": "此单位在进行后撤的回合内仍可进行射击。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Bounding Leaps",
+          "kind": "unique"
+        }
       }
     ],
-    "血肉猎犬": [
+    "血猎犬": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣告战阵」阶段，若单位中的每个模型都具有此能力，你可以将其设置在预备队中，而不是在战场上设置。如果你这样做，你可以在你其中一个「移动阶段」的「增援」步骤中，将此单位设置在战场上距离所有敌军模型横向超过 8\" 的任何地方。\n\n若具有「深入打击」能力的单位从「战略预备队」抵达，控制该单位的玩家可以选择使用「战略预备队」规则或「深入打击」能力设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-hunters-from-the-warp",
-        "name": "亚空猎手",
+        "name": "次元猎手",
         "text": "在对手的回合结束时，若此单位未位于一个或多个敌方单位的交战范围内，你可将其从战场上移除，并放入战略预备队。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Hunters from the Warp",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-collar-of-khorne",
-        "name": "恐虐之颈环",
+        "name": "恐虐项圈",
         "text": "持有者拥有对抗灵能攻击的不觉疼痛 3+ 能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Collar of Khorne",
+          "kind": "unique"
+        }
       }
     ],
-    "瞬变之主": [
+    "幻变之主": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战阵形步骤中，若此单位中的每个模型都具有此能力，你可改为将其置于预备中，而非在战场上设置。若你如此做，在你的移动阶段的增援步骤中，你可在战场上任何距离所有敌方模型水平距离超过8\"的位置设置此单位。\n\n若具有深入打击能力的单位从战略预备中投入，控制此单位的玩家可选择该单位使用战略预备规则设置，或使用深入打击能力设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "某些 **角色(Character)** 单位的资料表上列有「领袖」。这样的 **角色(Character)** 单位称为领袖，其资料表上列出该领袖可以领导的单位——称为其护卫单位。在宣布战阵编组阶段，对于你军队中的每个领袖，如果你的军队也包括该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖将在战斗期间附着到该护卫单位上，并称为领导该单位。每个护卫单位最多只能有一个领袖附着到它上面。\n\n当护卫单位包含领袖时，称为附着单位，除了在单位被摧毁时触发的规则外，在所有规则目的上被视为一个单位。每当攻击以附着单位为目标时，在攻击单位解决完所有攻击前，你必须使用该单位中护卫模型的韧性特性，即使该单位中的领袖具有不同的韧性特性也是如此。每当攻击成功击中附着单位时，该攻击无法分配给该单位中的 **角色(Character)** 模型，即使该 **角色(Character)** 模型已损失一个或多个伤或本阶段已有攻击分配给它。一旦附着单位中的最后一个护卫模型被摧毁，针对该单位的任何尚未分配的攻击随后可分配给该单位中的 **角色(Character)** 模型。\n\n每当护卫单位中的最后一个模型被摧毁时，作为该附着单位一部分的每个 **角色(Character)** 单位不再是附着单位的一部分。它成为一个独立的单位，具有其原始起始兵力。如果这是作为攻击的结果发生的，它们在攻击单位解决完所有攻击后成为独立单位。\n\n每当附着到护卫单位的 **角色(Character)** 单位中的最后一个模型被摧毁，且没有另一个 **角色(Character)** 单位附着时，该附着单位的护卫单位不再是附着单位的一部分。它成为一个独立的单位，具有其原始起始兵力。如果这是作为攻击的结果发生的，它们在攻击单位解决完所有攻击后成为独立单位。\n\n每当作为附着单位一部分的单位被摧毁时，它不具有构成该附着单位的任何其他单位的关键字（除非它在自己的资料表上具有那些关键字），用于任何在单位被摧毁时触发的规则。\n\n***例子：**如果你只摧毁了作为附着单位一部分的护卫单位，你并未摧毁 **角色(Character)** 单位。如果你只摧毁了作为附着单位一部分的 **角色(Character)** 单位，或如果你摧毁了整个附着单位，你已摧毁了一个 **角色(Character)** 单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-fluxmaster",
-        "name": "流变使者",
+        "name": "幻变之主",
         "text": "当此模型领导一个单位时，每次对该单位进行攻击时，命中掷骰减 1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Fluxmaster",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-altered-reality",
         "name": "改变现实",
         "text": "每战斗回合一次，在对此模型进行命中掷骰、致伤掷骰或豁免掷骰后，你可以将该掷骰结果改为未修正的 6。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Altered Reality",
+          "kind": "unique"
+        }
       }
     ],
     "大不净者": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "某些模型的能力中列有「致命毁灭 x」。当此类模型被摧毁时，在将其移出场景前掷 1D6（若此模型为 **运输工具(Transport)**，在任何搭载模型下车前掷骰）。掷出 6 时，该模型 6\" 内每个单位承受「x」表示的灵能伤害数量（若此数字为随机数字，对每个 6\" 内的单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣告战阵」阶段，若单位中的每个模型都具有此能力，你可以将其设置在预备队中，而不是在战场上设置。如果你这样做，你可以在你其中一个「移动阶段」的「增援」步骤中，将此单位设置在战场上距离所有敌军模型横向超过 8\" 的任何地方。\n\n若具有「深入打击」能力的单位从「战略预备队」抵达，控制该单位的玩家可以选择使用「战略预备队」规则或「深入打击」能力设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-feel-no-pain-6",
         "name": "不觉疼痛6+",
-        "text": "不觉疼痛6+",
+        "text": "某些模型在其能力中列有「不觉疼痛 X+」。每次拥有此能力的模型遭受伤害且即将失去一个伤口时（包括因重创伤害而失去的伤口），掷一个 D6：如果结果大于或等于「X」所表示的数字，该伤口被无视，并不会失去。如果一个模型有超过一个不觉疼痛能力，你每次该模型遭受伤害且即将失去一个伤口时，只能使用其中一个能力。",
         "status": "计算支持（被动效果自动计入）",
         "effects": [
           {
             "type": "fnp",
             "threshold": 6
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Feel No Pain 6+",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-greater-daemon-of-nurgle",
         "name": "纳垢伟大恶魔",
         "text": "当有友军 **瘟疫军团(Plague Legions)恶魔(Daemon)** 单位在此模型 6\" 内时，该单位在你的军队的混沌之影范围内。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Greater Daemon of Nurgle",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-daemon-lord-of-nurgle",
         "name": "纳垢之恶魔领主",
         "text": "当友军**纳鲁格军团恶魔**单位在此模型 6\" 内时，在该单位中的模型的韧性特性上加 1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Daemon Lord of Nurgle",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-nurgle-s-rot",
         "name": "纳垢之腐",
         "text": "在你的移动阶段结束时，可选择距此模型 12\" 内的一个敌方单位。直到你下个移动阶段开始，将该单位中模型的韧性特性减 1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Nurgle’s Rot",
+          "kind": "unique"
+        }
       }
     ],
     "地狱剥皮机": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-cutting-down-the-foe",
         "name": "斩杀敌手",
         "text": "每次此单位中的模型发动近战攻击时，若此单位于本回合进行了冲锋移动，提升该攻击的力量和伤害特性各 1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Cutting Down the Foe",
+          "kind": "unique"
+        }
       }
     ],
     "园艺师史莱姆克斯": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战阵形步骤中，若此单位中的每个模型都具有此能力，你可改为将其置于预备中，而非在战场上设置。若你如此做，在你的移动阶段的增援步骤中，你可在战场上任何距离所有敌方模型水平距离超过8\"的位置设置此单位。\n\n若具有深入打击能力的单位从战略预备中投入，控制此单位的玩家可选择该单位使用战略预备规则设置，或使用深入打击能力设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "一些**角色(Character)**单位的资料卡上标有「领袖」。此类**角色(Character)**单位被称为领袖，他们可以指挥的单位（称为其护卫单位）列在其资料卡上。在宣言战阵步骤中，对于你军队中的每个领袖，如果你的军队也包括该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖随后将附着到该护卫单位，持续整场战斗，并被称为领导该单位。每个护卫单位只能附着一个领袖。\n\n当护卫单位包含领袖时，它被称为「附着单位」，除了由单位被摧毁触发的规则外，在所有规则目的上都被视为一个单位。每次攻击指向一个附着单位时，直到攻击单位完成所有攻击，你必须使用该单位中护卫模型的韧性特性，即使该单位中的领袖具有不同的韧性特性。每次攻击成功对附着单位造成伤害时，该攻击不能分配给该单位中的**角色(Character)**模型，即使该**角色(Character)**模型已失去一个或多个伤口或已在本阶段分配了攻击。一旦附着单位中的最后一个护卫模型被摧毁，针对该单位的任何尚未分配的攻击随后可以分配给该单位中的**角色(Character)**模型。\n\n每次护卫单位中的最后一个模型被摧毁时，作为该附着单位一部分的每个**角色(Character)**单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始的初始兵力。如果这是由于攻击而发生的，它们会在攻击单位完成所有攻击后成为单独的单位。\n\n每次附着到护卫单位的**角色(Character)**单位中的最后一个模型被摧毁，且没有附着另一个**角色(Character)**单位时，该附着单位的护卫单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始的初始兵力。如果这是由于攻击而发生的，它们会在攻击单位完成所有攻击后成为单独的单位。\n\n每次作为附着单位一部分的单位被摧毁时，除非该单位在其自身资料卡上具有这些关键字，否则它不具有构成该附着单位的任何其他单位的关键字，用于会在该单位被摧毁时触发的任何规则。\n\n***范例：如果你只摧毁作为附着单位一部分的护卫单位，你尚未摧毁**角色**单位。如果你只摧毁作为附着单位一部分的**角色**单位，或者你摧毁整个附着单位，你摧毁了一个**角色**单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-beast-handler",
-        "name": "兽群管理者",
+        "name": "驭兽者",
         "text": "当此模型领导一个单位时，你可重掷该单位进行的冲锋掷骰。此外，每场战斗一次，你可以用「英勇介入」计谋以该单位为目标，且无视本阶段该计谋的其他使用次数。若你如此做：\n■ 该次使用减少 1 指令点。\n■ 该次使用不会阻止本阶段该计谋用于其他单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Beast Handler",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-seed-the-garden-of-nurgle",
         "name": "播种纳垢花园",
         "text": "在你的移动阶段结束时，若此模型位于一个**区域地形**特征内，则直到战斗结束，该**区域地形**特征视为位于你的军队的混沌阴影内。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Seed the Garden of Nurgle",
+          "kind": "unique"
+        }
       }
     ],
     "炼狱琴魔": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣告战斗阵型」步骤中，若一个单位中的每个模型都有此能力，你可将其放入后备而非放在战场上。若你如此做，你可在你的移动阶段「增援」步骤中，将此单位放置在战场上任何距离所有敌方模型超过8\"的位置。\n\n若一个具有「深入打击」能力的单位从战略预备队抵达，控制该单位的玩家可选择该单位是使用战略预备队规则或使用「深入打击」能力进行设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "部分**角色(Character)**单位的战术卡上标有「领袖」。此类**角色(Character)**单位被称为领袖，他们能够领导的单位——被称为其护卫单位——列在其战术卡上。在宣布战斗阵型步骤中，对于你军队中的每位领袖，若你的军队也包括该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖将在整场战斗期间附着于该护卫单位，并据说领导该单位。每个护卫单位只能附着一位领袖。\n\n当护卫单位包含一位领袖时，该单位被称为附着单位，除了在单位被摧毁时触发的规则外，在所有规则目的上它被视为单一单位。每当一次攻击指向附着单位时，直到攻击单位解决完所有攻击为止，你必须使用该单位中护卫模型的韧性特性，即使该单位中的领袖有不同的韧性特性亦然。每当一次攻击成功对附着单位造成伤害时，即使该**角色(Character)**模型已失去一个或多个生命值，或在本阶段已分配攻击，该攻击也无法分配到该单位中的**角色(Character)**模型。一旦附着单位中的最后一个护卫模型被摧毁，针对该单位但尚未分配的任何攻击随后可分配到该单位中的**角色(Character)**模型。\n\n每当护卫单位中的最后一个模型被摧毁时，构成该附着单位的每个**角色(Character)**单位不再是该附着单位的一部分。它成为一个单独的单位，具有其原始起始兵力。如果这发生于一次攻击结果，则在攻击单位解决完所有攻击后，它们成为单独的单位。\n\n每当附着于护卫单位的**角色(Character)**单位中的最后一个模型被摧毁，且不存在另一个附着的**角色(Character)**单位时，该附着单位的护卫单位不再是该附着单位的一部分。它成为一个单独的单位，具有其原始起始兵力。如果这发生于一次攻击结果，则在攻击单位解决完所有攻击后，它们成为单独的单位。\n\n每当附着单位的一部分被摧毁时，除非该单位本身的战术卡上具有那些关键字，否则它不具有任何其他组成该附着单位的单位的关键字，以用于任何会在该单位被摧毁时触发的规则。\n\n***例子：** 如果你只摧毁作为附着单位一部分的护卫单位，你尚未摧毁任何**角色(Character)**单位。如果你只摧毁作为附着单位一部分的**角色(Character)**单位，或若你摧毁整个附着单位，你已摧毁一个**角色(Character)**单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "core-fights-first",
-        "name": "先制攻击",
+        "name": "先攻",
         "text": "具有该能力且符合战斗资格的单位在「先制战斗」阶段进行战斗，前提是该单位中的每个模型都具有该能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Fights First",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-harmonic-alignment",
-        "name": "和谐对准",
+        "name": "和音汇集",
         "text": "此模型领导单位时，在你的指挥阶段，可将 D3 个已摧毁的护卫模型返还给该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Harmonic Alignment",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-discordant-disruption",
         "name": "不和谐扰乱",
         "text": "当敌方 **灵能者(Psyker)** 单位在此模型 12\" 内时，该单位模型配备的灵能武器具有 **[危险]** 能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Discordant Disruption",
+          "kind": "unique"
+        }
       }
     ],
-    "凯洛斯·织命者": [
+    "凯洛斯织命者": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "某些模型的能力中列有「致命毁灭 x」。当此类模型被摧毁时，在将其移出场景前掷 1D6（若此模型为 **运输工具(Transport)**，在任何搭载模型下车前掷骰）。掷出 6 时，该模型 6\" 内每个单位承受「x」表示的灵能伤害数量（若此数字为随机数字，对每个 6\" 内的单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣告战斗阵型步骤中，如果一个单位中的每个模型都具有此能力，你可以将其设置在预备队中而非在战场上设置。若如此，在你的移动阶段之一的增援步骤中，你可以将此单位设置在战场上的任何位置，该位置距离所有敌方模型水平距离超过 8\"。\n\n如果具有深入打击能力的单位从战略预备队到达，控制玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-greater-daemon-of-tzeentch",
         "name": "更高级的特兹恩恶魔",
         "text": "当一个友方 **谋变军团恶魔** 单位在此模型 6\" 内时，该单位位于你的军队的混沌阴影中。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Greater Daemon of Tzeentch",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-one-head-looks-forward",
         "name": "一头向前看",
         "text": "在你的指挥阶段结束时，若此模型在战场上，为此模型进行领导力测试；若测试成功，你获得1点指令点。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "One Head Looks Forward",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-one-head-looks-back",
-        "name": "一人向后凝视",
+        "name": "一头看向过往",
         "text": "每当你的对手用策略来指定他们军队的单位时，如果该单位在此模型 12\" 内，将该策略使用的花费增加 1CP（这不会与任何其他会增加该策略 CP 花费的规则重叠）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "One Head Looks Back",
+          "kind": "unique"
+        }
       }
     ],
     "卡拉纳克": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣示战斗阵型」阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而不是设置在战场上。若你这样做，在你的某个「移动阶段」的「增援」步骤中，你可以在距离所有敌方模型水平距离超过 8\" 的任何地点设置此单位。\n\n若一个具有「深入打击」能力的单位从「战略预备队」抵达，控制者可选择该单位使用「战略预备队」规则或「深入打击」能力来设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "某些**角色(Character)**单位的资料卡上列有「领袖」。这类**角色(Character)**单位称为领袖，它们可以率领的单位（称为其护卫单位）列于其资料卡上。在宣布战斗阵容步骤中，对于你军队中的每位领袖，如果你的军队也包含该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖将在战斗期间附着到该护卫单位，并据说正在率领该单位。每个护卫单位最多只能有一个领袖附着于其上。\n\n当护卫单位包含领袖时，其称为附着单位，除了在单位被摧毁时触发的规则外，它在所有规则用途上均视为单一单位。每当攻击以附着单位为目标时，直至攻击单位完成其所有攻击，你必须使用该单位中护卫模型的韧性特征，即使该单位中的领袖具有不同的韧性特征。每当攻击成功对附着单位造成伤口时，该攻击无法分配给该单位中的**角色(Character)**模型，即使该**角色(Character)**模型已损失一个或多个伤口或本阶段已分配了攻击。当附着单位中的最后一个护卫模型被摧毁时，对该单位进行的任何尚未分配的攻击可以分配给该单位中的**角色(Character)**模型。\n\n每当护卫单位中的最后一个模型被摧毁时，作为该附着单位的一部分的每个**角色(Character)**单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始初始兵力。如果这是因为攻击而发生的，它们在攻击单位完成所有攻击后成为单独的单位。\n\n每当附着到护卫单位的**角色(Character)**单位中的最后一个模型被摧毁，并且没有其他附着的**角色(Character)**单位时，该附着单位的护卫单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始初始兵力。如果这是因为攻击而发生的，它们在攻击单位完成所有攻击后成为单独的单位。\n\n每当附着单位的一部分单位被摧毁时，除非该单位在其自身资料卡上具有那些关键字，否则它不具有构成该附着单位的任何其他单位的关键字，以应用于当该单位被摧毁时触发的任何规则。\n\n***例子：** 如果你仅摧毁作为附着单位一部分的护卫单位，你尚未摧毁**角色(Character)**单位。如果你仅摧毁作为附着单位一部分的**角色(Character)**单位，或如果你摧毁整个附着单位，你已摧毁一个**角色(Character)**单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-pack-leader",
         "name": "猎群首领",
         "text": "此模型领导单位时，可重掷为该单位进行的前进和冲锋掷骰。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Pack Leader",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-prey-of-the-blood-god",
@@ -1028,7 +1481,11 @@
             "mode": "failed",
             "phase": "melee"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Prey of the Blood God",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-brass-collar-of-bloody-vengeance",
@@ -1047,41 +1504,61 @@
             "type": "fnp",
             "threshold": 3
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Brass Collar of Bloody Vengeance",
+          "kind": "unique"
+        }
       }
     ],
     "守密者": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "某些模型的能力中列有「致命破灭 x」。当此类模型被摧毁时，在将其从游戏中移除前掷一个 D6（如果此模型是**运输工具(Transport)**，则在任何搭乘的模型下车前掷骰）。结果为 6 时，该模型 6\" 范围内的每个单位各承受数量为 'x' 的灵能伤害（如果这是随机数值，则为该 6\" 范围内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣布战阵」阶段，如果一个单位中的每个模型都具有此能力，你可以将其设定在预备队中而不是在战场上设定。如果你这样做，在你的移动阶段之一的「增援」阶段中，你可以在战场上任何距离所有敌方模型横向超过8\"的地方设定此单位。\n\n如果具有「深入打击」能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用「深入打击」能力来设定该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-greater-daemon-of-slaanesh",
         "name": "莎兰妮丝大恶魔",
         "text": "当一个友方 **色孽(Slaanesh)恶魔军团(Legiones Daemonica)** 单位在此模型周围6\"内时，该单位在你的军队的混沌之影中。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Greater Daemon of Slaanesh",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-daemon-lord-of-slaanesh",
         "name": "丝兰妮什恶魔领主",
         "text": "当有友军 **色孽(Slaanesh)恶魔军团(Legiones Daemonica)** 单位在此模型 6\" 内时，该单位中近战武器的护甲贯穿值提升 1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Daemon Lord of Slaanesh",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-mesmerising-form",
-        "name": "迷惑之姿",
+        "name": "曼妙身形",
         "text": "每次攻击以此模型为目标时，命中掷骰 -1。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1096,37 +1573,57 @@
             "type": "incoming-hit-minus",
             "value": 1
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Mesmerising Form",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-shining-aegis",
         "name": "闪耀神盾",
         "text": "持有者的防护(Sv)特性为 3+。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Shining Aegis",
+          "kind": "unique"
+        }
       }
     ],
-    "诡变领主": [
+    "变化魔君": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "某些模型能力栏中会列有「致命毁灭 x」。当这样的模型被摧毁时，在将其从战场移除前掷一颗 D6（如果该模型为 **运输工具(Transport)**，则在任何搭乘单位下车前掷骰）。若掷出 6，该模型周围 6\" 内的每个单位各承受「x」所示数量的灵能伤害（若此为随机数字，则对周围 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣告战阵步骤中，若此单位内的每个模型都具有此能力，则可将其放入预备队而非在战场上部署。如果你这样做，在你其中一个移动阶段的增援步骤中，可以在距离所有敌方模型水平距离超过8\"的战场任何位置部署此单位。\n\n若具有深入打击能力的单位从战略预备队抵达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来部署该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-greater-daemon-of-tzeentch",
         "name": "更高级的特兹恩恶魔",
         "text": "当一个友方 **谋变军团恶魔** 单位在此模型 6\" 内时，该单位位于你的军队的混沌阴影中。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Greater Daemon of Tzeentch",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-daemon-lord-of-tzeentch",
@@ -1146,117 +1643,177 @@
             "value": 1,
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Daemon Lord of Tzeentch",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-master-of-magicks",
-        "name": "魔法大师",
+        "name": "魔法之主",
         "text": "在你的射击阶段，选择以下能力之一：**[无视掩体]**；**[致命一击]**；**[连击 D3]**。直到该阶段结束，此模型的变化闪电具有该能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Master of Magicks",
+          "kind": "unique"
+        }
       }
     ],
     "纳垢灵": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣布战阵」阶段，如果一个单位中的每个模型都具有此能力，你可以将其设定在预备队中而不是在战场上设定。如果你这样做，在你的移动阶段之一的「增援」阶段中，你可以在战场上任何距离所有敌方模型横向超过8\"的地方设定此单位。\n\n如果具有「深入打击」能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用「深入打击」能力来设定该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-infiltrators",
-        "name": "渗透",
-        "text": "渗透",
+        "name": "渗透者",
+        "text": "于部署时，若单位中的每个模型都具有此能力，则当你配置该单位时，可以将其配置在战场上的任何位置，该位置距敌军部署区域超过8\"，且距所有敌军模型超过8\"。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Infiltrators",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-mischief-makers",
-        "name": "淘气鬼",
+        "name": "生性淘气",
         "text": "每当位于具此能力的一个或多个单位交战范围内的敌方单位（不含 **钜型** 单位）被选定进行战斗时，在阶段结束前，该敌方单位中每个模型发动的近战攻击命中掷骰-1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Mischief Makers",
+          "kind": "unique"
+        }
       }
     ],
-    "粉色惧妖": [
+    "粉惧妖": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣布战阵」阶段，如果一个单位中的每个模型都具有此能力，你可以将其设定在预备队中而不是在战场上设定。如果你这样做，在你的移动阶段之一的「增援」阶段中，你可以在战场上任何距离所有敌方模型横向超过8\"的地方设定此单位。\n\n如果具有「深入打击」能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用「深入打击」能力来设定该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-split",
         "name": "分裂",
         "text": "每次此单位中的 **PINK HORROR** 或 **BLUE HORROR** 模型被摧毁，在攻击单位完成其攻击后，若此单位未被摧毁，为该模型掷一个D6。在4+上，若其为 **PINK HORROR**，则在此单位中加入两个 **BLUE HORROR** 模型，若其为 **BLUE HORROR**，则加入一个 **BRIMSTONE HORROR** 模型。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Split",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-horrors-are-pink-horrors-are-blue-where-once-there-was-one-now-there-are-two",
-        "name": "惧妖有粉有蓝,一化为二",
+        "name": "惧妖是粉。惧妖是蓝。原本为一，如今成双",
         "text": "若在任何时刻此单位不含任何粉色惧妖(PINK HORROR)模型,则此单位改用蓝色惧妖(BLUE HORRORS)资料卡。(设计师备注:当此单位含一个或多个粉色惧妖(PINK HORROR)模型时,蓝色惧妖(BLUE HORRORS)资料卡上的「愠怒恶意(Sullen Malevolence)」与「爆裂惧妖(Exploding Horrors)」能力不适用于此单位。)",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "HORRORS ARE PINK. HORRORS ARE BLUE. WHERE ONCE THERE WAS ONE, NOW THERE ARE TWO.",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-daemonic-icon",
-        "name": "恶魔圣像",
+        "name": "恶魔徽记",
         "text": "持有者所在的单位中的模型其领导力(Ld)特性为 6+。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Daemonic Icon",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-instrument-of-chaos",
         "name": "混沌乐器",
         "text": "为持有者所在的单位进行的冲锋掷骰 +1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Instrument of Chaos",
+          "kind": "unique"
+        }
       }
     ],
-    "瘟疫使": [
+    "携疫者": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣告战阵步骤中，若此单位内的每个模型都具有此能力，则可将其放入预备队而非在战场上部署。如果你这样做，在你其中一个移动阶段的增援步骤中，可以在距离所有敌方模型水平距离超过8\"的战场任何位置部署此单位。\n\n若具有深入打击能力的单位从战略预备队抵达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来部署该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-infected-outbreak",
         "name": "感染爆发",
         "text": "在你的指挥阶段结束时，如果此单位在你控制的目标标记范围内，该目标标记保持在你的控制下，直到你对手在一个阶段结束时对该目标标记的控制等级大于你的等级。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Infected Outbreak",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-daemonic-icon",
-        "name": "恶魔圣像",
+        "name": "恶魔徽记",
         "text": "持有者所在的单位中的模型其领导力(Ld)特性为 6+。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Daemonic Icon",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-instrument-of-chaos",
         "name": "混沌乐器",
         "text": "为持有者所在的单位进行的冲锋掷骰 +1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Instrument of Chaos",
+          "kind": "unique"
+        }
       }
     ],
-    "瘟疫蜂兵": [
+    "瘟疫先蜂": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣布战斗队形」阶段，若此单位内的每个模型都拥有此能力，你可以将其放入预备队而非在战场上配置。若你如此做，在你其中一个「移动阶段」的「增援」步骤，你可以在距所有敌方模型水平距离超过8\"的战场任何位置配置此单位。\n\n若拥有「深入打击」能力的单位从「战略预备队」抵达，控制该单位的玩家可选择使用「战略预备队」规则或「深入打击」能力来配置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-death-s-heads",
-        "name": "死亡头颅",
+        "name": "亡者之颅",
         "text": "在你的射击阶段，该单位射击后，选择一个被该次攻击命中一次或多次的敌方单位。直到轮合结束，每次友方**纳垢(Nurgle)恶魔军团(Legiones Daemonica)**单位进行指向该单位的攻击时，你可以重掷致伤掷骰。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1272,79 +1829,119 @@
             "mode": "failed",
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Death’s Heads",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-daemonic-icon",
-        "name": "恶魔圣像",
+        "name": "恶魔徽记",
         "text": "持有者所在的单位中的模型其领导力(Ld)特性为 6+。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Daemonic Icon",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-instrument-of-chaos",
         "name": "混沌乐器",
         "text": "为持有者所在的单位进行的冲锋掷骰 +1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Instrument of Chaos",
+          "kind": "unique"
+        }
       }
     ],
-    "疱疹使者": [
+    "携疱者": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣告战阵步骤中，若此单位内的每个模型都具有此能力，则可将其放入预备队而非在战场上部署。如果你这样做，在你其中一个移动阶段的增援步骤中，可以在距离所有敌方模型水平距离超过8\"的战场任何位置部署此单位。\n\n若具有深入打击能力的单位从战略预备队抵达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来部署该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-feel-no-pain-5",
         "name": "不觉疼痛5+",
-        "text": "不觉疼痛5+",
+        "text": "部份模型能力中列有「不觉疼痛 x+」。此模型每次承受伤害并即将失去一个伤口时（包括因灵能伤害而失去的伤口），掷一个D6：若结果大于等于「x」所示的数字，该伤口则被忽略且不会失去。若一个模型具有多个不觉疼痛能力，你每次该模型承受伤害并即将失去一个伤口时，只能使用其中一个能力。",
         "status": "计算支持（被动效果自动计入）",
         "effects": [
           {
             "type": "fnp",
             "threshold": 5
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Feel No Pain 5+",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "某些**角色(Character)**单位在资料表上列有「领袖」。此类**角色(Character)**单位称为领袖，它们可以带领的单位——称为护卫单位——列在其资料表上。在「宣布战斗阵型」步骤期间，对于你的军队中的每个领袖，如果你的军队还包括该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖将在整场战斗期间附着到该护卫单位，并据称领导该单位。每个护卫单位最多只能附着一个领袖。\n\n当护卫单位包含领袖时，它被称为附着单位，除了在单位被摧毁时触发的规则外，对于所有规则目的，它都被视为一个单位。每当攻击针对附着单位时，直到攻击单位解决了其所有攻击为止，你必须使用该单位中护卫模型的韧性特征，即使该单位中的领袖具有不同的韧性特征。每当攻击成功对附着单位造成伤害时，该攻击无法分配给该单位中的**角色(Character)**模型，即使该**角色(Character)**模型已失去一个或多个伤口或已在本阶段分配了攻击。一旦附着单位中最后一个护卫模型被摧毁，针对该单位已进行但尚未分配的任何攻击随后可以分配给该单位中的**角色(Character)**模型。\n\n每当护卫单位中的最后一个模型被摧毁时，作为该附着单位一部分的每个**角色(Character)**单位不再是附着单位的一部分。它成为一个单独的单位，拥有其原始起始兵力。如果这是攻击的结果发生的，它们在攻击单位解决了其所有攻击后成为单独的单位。\n\n每当附着到护卫单位的**角色(Character)**单位中的最后一个模型被摧毁，并且没有另一个**角色(Character)**单位附着时，该附着单位的护卫单位不再是附着单位的一部分。它成为一个单独的单位，拥有其原始起始兵力。如果这是攻击的结果发生的，它们在攻击单位解决了其所有攻击后成为单独的单位。\n\n每当摧毁构成附着单位的一部分的单位时，除非该单位在其自身的资料表上具有这些关键字，否则它不具有组成该附着单位的任何其他单位的关键字，用于任何会在该单位被摧毁时触发的规则目的。\n\n***范例：**如果你只摧毁了构成附着单位的护卫单位，你就没有摧毁**角色(Character)**单位。如果你只摧毁了构成附着单位的**角色(Character)**单位，或者摧毁了整个附着单位，你就摧毁了一个**角色(Character)**单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-poxbringer",
-        "name": "瘟疫使者",
+        "name": "疱疹使者",
         "text": "此模型领导单位期间，该单位中每个模型发动攻击时，成功的未修正命中掷骰为 5+ 视为 Critical 命中。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Poxbringer",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-feculent-despair",
         "name": "脓疱绝望",
         "text": "当敌方单位位于此模型 6\" 范围内时，每当该单位进行战斗震撼测试时，从该测试中扣除 1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Feculent Despair",
+          "kind": "unique"
+        }
       }
     ],
-    "乘鲜血宝座的裂肉主宰": [
+    "乘鲜血王座的裂肉主宰": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣布战场阵型阶段，若此单位内的每个模型都具有此能力，你可以将其放入后备队（Reserve）而非放在战场上。若你这样做，在你的移动阶段其中一个增援步骤中，你可以将此单位放置在战场上的任何地点，该地点距离所有敌军模型都超过8\"水平距离。\n\n如果具有深入打击能力的单位来自战略后备队，则控制者可以选择将该单位按照战略后备队规则或使用深入打击能力来放置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-blood-throne",
-        "name": "血之王座",
+        "name": "鲜血宝座",
         "text": "在战斗阶段开始时，选择在此模型18\"内且可见的一个敌方单位。直到阶段结束，每次友方**恐虐(Khorne)恶魔军团(Legiones Daemonica)**单位进行针对该单位的攻击时，将该攻击的力量、护甲穿透和伤害特性提升1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Blood Throne",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-champion-slayer",
@@ -1364,42 +1961,62 @@
             "mode": "failed",
             "phase": "melee"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Champion Slayer",
+          "kind": "unique"
+        }
       }
     ],
     "烂格斯": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "部分模型具有「致命破灭 x」能力。当此类模型被摧毁时，在将其从战场移除前掷一次 D6（若此模型为 **运输工具(Transport)**，则在任何已搭乘的模型下车前掷骰）。若结果为 6，则该模型 6\" 内的每个单位会受到「x」所标记数量的致命伤（若为随机数量，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战阵形步骤中，若此单位中的每个模型都具有此能力，你可改为将其置于预备中，而非在战场上设置。若你如此做，在你的移动阶段的增援步骤中，你可在战场上任何距离所有敌方模型水平距离超过8\"的位置设置此单位。\n\n若具有深入打击能力的单位从战略预备中投入，控制此单位的玩家可选择该单位使用战略预备规则设置，或使用深入打击能力设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-feel-no-pain-6",
         "name": "不觉疼痛6+",
-        "text": "不觉疼痛6+",
+        "text": "某些模型具有「不觉疼痛 x+」能力。此模型每次承受伤害并即将失去一个创伤时（包括因灵能伤害失去的创伤），掷一次D6：如果结果大于等于「x」所标示的数字，该创伤被忽视且不会失去。若一个模型具有多个「不觉疼痛」能力，每次该模型承受伤害并即将失去创伤时，你只能使用其中一个能力。",
         "status": "计算支持（被动效果自动计入）",
         "effects": [
           {
             "type": "fnp",
             "threshold": 6
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Feel No Pain 6+",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-greater-daemon-of-nurgle",
         "name": "纳垢伟大恶魔",
         "text": "当有友军 **瘟疫军团(Plague Legions)恶魔(Daemon)** 单位在此模型 6\" 内时，该单位在你的军队的混沌之影范围内。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Greater Daemon of Nurgle",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-virulent-blessing",
@@ -1419,101 +2036,153 @@
             "value": 1,
             "phase": "melee"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Virulent Blessing",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-deluge-of-nurgle",
         "name": "纳垢之洪",
         "text": "当敌方单位位于此模型周围6\"内时，从该单位中的模型的移动特性减少2，并从该单位的目标控制特性减少1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deluge of Nurgle",
+          "kind": "unique"
+        }
       }
     ],
-    "尖啸魔": [
+    "尖啸飞鲨": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-slashing-dive",
-        "name": "破空俯冲",
+        "name": "俯冲割裂",
         "text": "在你的移动阶段中，此单位结束一次正常移动后，你可选择在该移动中被此单位越过的一个敌方单位，并为此单位中的每个模型掷一次D6：每掷出4+，该敌方单位承受1点灵能伤害。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Slashing Dive",
+          "kind": "unique"
+        }
       }
     ],
     "寻觅者": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣告战斗阵形」步骤中，如果单位中的每个模型都有此能力，可以将其置于预备队中，而不是在战场上展开。如此做的话，在你的某个移动阶段的「增援」步骤中，可以在战场上任何距离所有敌方模型超过8\"的水平距离处展开此单位。\n\n如果具有深入打击能力的单位从战略预备队出现，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力中的任何一种来展开该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-scouts-9",
-        "name": "侦察9\"",
+        "name": "斥候9",
         "text": "某些单位在其能力中列有「侦察x\"」。若单位中的每个模型都具备此能力，那麽在第一战斗回合开始时、第一轮开始前，该单位可进行一次高达x\"的正常移动，如同在你的移动阶段一样，该单位所乘载的任何**专用运输工具(Dedicated Transport)**模型亦可如此（前提是只有具备此能力的模型乘载于该**专用运输工具(Dedicated Transport)**模型内）。使用此能力移动的单位必须在终结位置距离所有敌方模型横向超过9\"。如果双方玩家都有可执行此操作的单位，先手玩家优先移动其单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Scouts 9\"",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-unholy-speed",
-        "name": "毒光走位",
+        "name": "不洁之速",
         "text": "你可重掷此单位进行的前进及冲锋掷骰。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Unholy Speed",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-daemonic-icon",
-        "name": "恶魔圣像",
+        "name": "恶魔徽记",
         "text": "持有者所在的单位中的模型其领导力(Ld)特性为 6+。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Daemonic Icon",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-instrument-of-chaos",
         "name": "混沌乐器",
         "text": "为持有者所在的单位进行的冲锋掷骰 +1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Instrument of Chaos",
+          "kind": "unique"
+        }
       }
     ],
-    "夏拉希·魔灾": [
+    "夏拉希魔灾": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "某些模型的能力中列有「致命毁灭 x」。当此类模型被摧毁时，在将其移出场景前掷 1D6（若此模型为 **运输工具(Transport)**，在任何搭载模型下车前掷骰）。掷出 6 时，该模型 6\" 内每个单位承受「x」表示的灵能伤害数量（若此数字为随机数字，对每个 6\" 内的单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣示战斗阵型」阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而不是设置在战场上。若你这样做，在你的某个「移动阶段」的「增援」步骤中，你可以在距离所有敌方模型水平距离超过 8\" 的任何地点设置此单位。\n\n若一个具有「深入打击」能力的单位从「战略预备队」抵达，控制者可选择该单位使用「战略预备队」规则或「深入打击」能力来设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-greater-daemon-of-slaanesh",
         "name": "莎兰妮丝大恶魔",
         "text": "当一个友方 **色孽(Slaanesh)恶魔军团(Legiones Daemonica)** 单位在此模型周围6\"内时，该单位在你的军队的混沌之影中。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Greater Daemon of Slaanesh",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-no-prey-can-evade",
-        "name": "无猎物能逃脱",
+        "name": "无处可逃",
         "text": "可重掷此模型进行的前进和冲锋掷骰。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "No Prey Can Evade",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-monarch-of-the-hunt",
-        "name": "狩猎君王",
+        "name": "狩猎之王",
         "text": "在首个战斗回合开始时，选择一个敌方单位作为此模型的猎物。此模型每次对其猎物发动近战攻击时，可重掷命中掷骰，并可重掷致伤掷骰。此模型的猎物被摧毁时，选择一个新的敌方单位作为此模型的猎物。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1534,34 +2203,50 @@
             "mode": "failed",
             "phase": "melee"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Monarch of the Hunt",
+          "kind": "unique"
+        }
       }
     ],
     "斯卡布兰德": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "某些模型的能力中列有「致命毁灭 x」。当此类模型被摧毁时，在将其移出场景前掷 1D6（若此模型为 **运输工具(Transport)**，在任何搭载模型下车前掷骰）。掷出 6 时，该模型 6\" 内每个单位承受「x」表示的灵能伤害数量（若此数字为随机数字，对每个 6\" 内的单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣告战斗阵形」步骤中，如果单位中的每个模型都有此能力，可以将其置于预备队中，而不是在战场上展开。如此做的话，在你的某个移动阶段的「增援」步骤中，可以在战场上任何距离所有敌方模型超过8\"的水平距离处展开此单位。\n\n如果具有深入打击能力的单位从战略预备队出现，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力中的任何一种来展开该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-greater-daemon-of-khorne",
         "name": "恐虐至高恶魔",
         "text": "当友方 **恐虐(Khorne)恶魔军团(Legiones Daemonica)** 单位位于此模型 6\" 内时，该单位在你的军队的混沌阴影中。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Greater Daemon of Khorne",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-rage-embodied",
-        "name": "怒火化身",
+        "name": "怒火化身（光环）",
         "text": "当友军 **恐虐(Khorne)恶魔军团(Legiones Daemonica)** 单位距离此模型 6\" 以内时，将此单位中模型配备的近战武器的攻击次数特性增加 1。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1577,117 +2262,177 @@
             "value": 1,
             "phase": "melee"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Rage Embodied",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-murderlust",
-        "name": "嗜杀",
+        "name": "杀戮渴望",
         "text": "此单位在进行过前进的回合中符合宣告冲锋的条件。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Murderlust",
+          "kind": "unique"
+        }
       }
     ],
     "颅骨祭坛": [
       {
         "id": "core-infiltrators",
-        "name": "渗透",
-        "text": "渗透",
+        "name": "渗透者",
+        "text": "在部署时，若此单位的每个模型都具有此能力，则当你设置它时，可以将其设置在战场上距离敌方部署区域和所有敌方模型超过 8\" 横向距离的任何地点。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Infiltrators",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-shadow-of-khorne",
         "name": "恐虐之影",
         "text": "此 **防御要塞** 6\" 范围内的战场区域视为位于你的军队的混沌阴影内。此外，当友方 **恐虐(Khorne)恶魔军团(Legiones Daemonica)** 单位位于此 **防御要塞** 6\" 范围内时，每次对该单位进行战斗震撼测试时，可重掷该测试。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Shadow of Khorne",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-cover",
-        "name": "掩护",
+        "name": "掩体",
         "text": "每次一次远程攻击分配给一个模型时，若该模型因此 **防御工事(Fortification)** 而不完全对所有进攻单位中的模型可见，该模型对该攻击具有掩护效益。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Cover",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-fortification",
         "name": "防御工事",
         "text": "当敌方单位仅在你的军队中一个或多个 **防御工事(Fortification)** 的交战范围内时：\n\n■ 该单位仍可被选为远程攻击的目标，但每次进行此类攻击时，除非该攻击是用手枪进行，否则从命中掷骰减 1。\n■ 该单位中的模型在战斗震撼时后撤时无需进行绝望逃脱测试，除非它们在此过程中会越过敌方模型。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Fortification",
+          "kind": "unique"
+        }
       }
     ],
-    "颅骨大炮": [
+    "颅骨炮": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣布战阵」阶段，如果一个单位中的每个模型都具有此能力，你可以将其设定在预备队中而不是在战场上设定。如果你这样做，在你的移动阶段之一的「增援」阶段中，你可以在战场上任何距离所有敌方模型横向超过8\"的地方设定此单位。\n\n如果具有「深入打击」能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用「深入打击」能力来设定该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-skulls-of-the-fallen",
-        "name": "亡者之颅",
+        "name": "亡者的颅骨",
         "text": "在你的射击阶段，此模型射击后，选择一个被该次攻击中的一个或多个命中的敌方单位。该单位必须进行战斗震撼测试。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Skulls of the Fallen",
+          "kind": "unique"
+        }
       }
     ],
-    "颅骨主宰": [
+    "颅骨之主": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣告战斗阵型」步骤中，若一个单位中的每个模型都有此能力，你可将其放入后备而非放在战场上。若你如此做，你可在你的移动阶段「增援」步骤中，将此单位放置在战场上任何距离所有敌方模型超过8\"的位置。\n\n若一个具有「深入打击」能力的单位从战略预备队抵达，控制该单位的玩家可选择该单位是使用战略预备队规则或使用「深入打击」能力进行设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "某些**角色(Character)**单位的数据表上标有「领袖」。这些**角色(Character)**单位被称为领袖，他们能够领导的单位——称为其护卫单位——列于其数据表上。在宣布战斗阵型步骤中，对于你军队中的每个领袖，如果你的军队也包括该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖将在整场战斗期间附着到该护卫单位上，并被称为领导该单位。每个护卫单位只能附着一个领袖。\n\n当护卫单位包含一个领袖时，它被称为附着单位，除了在单位被摧毁时触发的规则外，它在所有规则目的上都被视为单一单位。每次攻击以附着单位为目标时，直到攻击单位完成其所有攻击，你必须使用该单位中护卫模型的韧性特征，即使该单位中的领袖有不同的韧性特征。每次攻击成功伤害附着单位时，该攻击不能分配给该单位中的**角色(Character)**模型，即使该**角色(Character)**模型已损失一个或多个伤口或在此阶段已被分配攻击。一旦附着单位中最后一个护卫模型被摧毁，对该单位进行的任何未分配的攻击随后可分配给该单位中的**角色(Character)**模型。\n\n每次护卫单位中最后一个模型被摧毁时，作为该附着单位一部分的每个**角色(Character)**单位将不再是附着单位的一部分。它成为独立单位，具有其原始初始兵力。如果这是由于攻击而发生的，它们在攻击单位完成其所有攻击后成为独立单位。\n\n每次附着到护卫单位的**角色(Character)**单位中最后一个模型被摧毁，且没有其他**角色(Character)**单位附着时，该附着单位的护卫单位将不再是附着单位的一部分。它成为独立单位，具有其原始初始兵力。如果这是由于攻击而发生的，它们在攻击单位完成其所有攻击后成为独立单位。\n\n每次摧毁作为附着单位一部分的单位时，除非它在自己的数据表上有这些关键字，否则它不具有构成该附着单位的任何其他单位的关键字，以便于任何在该单位被摧毁时触发的规则。\n\n***例：如果你只摧毁作为附着单位一部分的护卫单位，你就没有摧毁**角色**单位。如果你只摧毁作为附着单位一部分的**角色**单位，或者你摧毁整个附着单位，你就摧毁了一个**角色**单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-skullmaster-s-fury",
-        "name": "骷髅主宰之怒",
+        "name": "主宰之怒",
         "text": "此模型领导某单位时，每当该单位结束冲锋移动，直到回合结束，该单位中模型装备的 Juggernaut 刀角有 **[毁灭性创伤]** 能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Skullmaster’s Fury",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-devastating-charge",
         "name": "毁灭冲锋",
         "text": "每次此模型的单位结束冲锋移动时，在交战范围内的各敌方单位必须进行战斗震撼检定。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Devastating Charge",
+          "kind": "unique"
+        }
       }
     ],
     "夺颅者": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战阵形步骤中，若此单位中的每个模型都具有此能力，你可改为将其置于预备中，而非在战场上设置。若你如此做，在你的移动阶段的增援步骤中，你可在战场上任何距离所有敌方模型水平距离超过8\"的位置设置此单位。\n\n若具有深入打击能力的单位从战略预备中投入，控制此单位的玩家可选择该单位使用战略预备规则设置，或使用深入打击能力设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "某些 **角色(Character)** 单位在牌表上列有「领袖」。这些 **角色(Character)** 单位称为领袖，它们能够领导的单位（称为护卫单位）列在其牌表上。在宣布战斗编队步骤中，对于军队中的每个领袖，如果军队还包含该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖将在整场战斗期间附着在该护卫单位上，被称为领导该单位。每个护卫单位只能附着一个领袖。\n\n当护卫单位包含一个领袖时，它被称为附着单位，除了单位被摧毁时触发的规则外，在所有规则目的上将其视为单一单位。每次攻击以附着单位为目标时，直到攻击单位解决了所有的攻击，即使该单位中的领袖具有不同的韧性特征，你也必须使用该单位中护卫模型的韧性特征。每次攻击成功对附着单位造成伤口时，该攻击不能分配给该单位中的 **角色(Character)** 模型，即使该 **角色(Character)** 模型已经失去一个或多个伤口或已经在本阶段分配过攻击。当附着单位中的最后一个护卫模型被摧毁时，对该单位已进行但尚未分配的任何攻击随后可以分配给该单位中的 **角色(Character)** 模型。\n\n每次护卫单位中的最后一个模型被摧毁时，作为附着单位一部分的每个 **角色(Character)** 单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始起始兵力。如果这是由于攻击而发生的，它们在攻击单位解决了所有的攻击后成为单独的单位。\n\n每次附着到护卫单位的 **角色(Character)** 单位中的最后一个模型被摧毁，且没有其他附着的 **角色(Character)** 单位时，附着单位的护卫单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始起始兵力。如果这是由于攻击而发生的，它们在攻击单位解决了所有的攻击后成为单独的单位。\n\n每次作为附着单位一部分的单位被摧毁时，除非该单位在其自身牌表上拥有这些关键字，否则它不具有组成该附着单位的任何其他单位的关键字，用于任何在单位被摧毁时触发的规则。\n\n***例子：** 如果你只摧毁了作为附着单位一部分的护卫单位，你还没有摧毁 **角色(Character)** 单位。如果你只摧毁了作为附着单位一部分的 **角色(Character)** 单位，或者你摧毁了整个附着单位，你已经摧毁了一个 **角色(Character)** 单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-lord-of-decapitations",
-        "name": "斩首之主",
+        "name": "枭首统领",
         "text": "当此模型领导一个单位时，该单位中模型配备的近战武器具有 **[毁灭性创伤]** 能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Lord of Decapitations",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-skulls-for-khorne",
-        "name": "献颅于恐虐",
+        "name": "颅归恐虐",
         "text": "此模型每次对 **角色(Character)** 单位发动攻击时，可重掷命中掷骰，可重掷致伤掷骰。此模型每次消灭一个敌方 **角色(Character)** 单位，获得 1 指令点。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1706,87 +2451,131 @@
             "type": "wound-reroll",
             "mode": "failed"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Skulls for Khorne",
+          "kind": "unique"
+        }
       }
     ],
-    "雀跃乐手": [
+    "烂芋笛手": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战阵形步骤中，若此单位中的每个模型都具有此能力，你可改为将其置于预备中，而非在战场上设置。若你如此做，在你的移动阶段的增援步骤中，你可在战场上任何距离所有敌方模型水平距离超过8\"的位置设置此单位。\n\n若具有深入打击能力的单位从战略预备中投入，控制此单位的玩家可选择该单位使用战略预备规则设置，或使用深入打击能力设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "某些 **角色(Character)** 单位在其资料卡上列有「领袖」。这样的 **角色(Character)** 单位被称为领袖，它们能领导的单位（称为其护卫单位）在其资料卡上列出。在宣示战斗编队步骤中，对于你军队中的每个领袖，如果你的军队也包括该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖将在整场战斗中附着于该护卫单位，并据称领导该单位。每个护卫单位只能有一个领袖附着于它。\n\n当护卫单位包含领袖时，它被称为附着单位，除了触发于单位被摧毁时的规则外，在所有规则目的上将其视为单一单位。每次攻击以附着单位为目标时，在攻击单位解决其所有攻击为止，你必须使用该单位中护卫模型的韧性特征，即使该单位中的领袖具有不同的韧性特征。每次攻击成功伤害附着单位时，该攻击不能分配给该单位中的 **角色(Character)** 模型，即使该 **角色(Character)** 模型已损失一个或多个生命值或已在此阶段分配了攻击。一旦附着单位中最后一个护卫模型被摧毁，对该单位进行但尚未分配的任何攻击随后可分配给该单位中的 **角色(Character)** 模型。\n\n每次护卫单位中的最后一个模型被摧毁时，作为该附着单位一部分的每个 **角色(Character)** 单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始起始兵力。如果这是攻击的结果，它们在攻击单位解决其所有攻击后成为单独的单位。\n\n每次附着于护卫单位的 **角色(Character)** 单位中的最后一个模型被摧毁且没有其他 **角色(Character)** 单位附着时，该附着单位的护卫单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始起始兵力。如果这是攻击的结果，它们在攻击单位解决其所有攻击后成为单独的单位。\n\n每次附着单位的一部分单位被摧毁时，除非该单位在其自身资料卡上具有这些关键字，否则它不具有组成该附着单位的任何其他单位的关键字，用于任何会在该单位被摧毁时触发的规则。\n\n***示例：** 如果你只摧毁作为附着单位一部分的护卫单位，你尚未摧毁 **角色(Character)** 单位。如果你只摧毁作为附着单位一部分的 **角色(Character)** 单位，或如果你摧毁整个附着单位，你已摧毁一个 **角色(Character)** 单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-jolly-gutpipes",
-        "name": "欢乐瘟笛",
+        "name": "欢快笛声",
         "text": "当此模型领导一个单位时，该单位中的模型的移动特性加 1，你可以为该单位进行的前进掷骰重掷。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Jolly Gutpipes",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-disease-of-mirth",
         "name": "欢笑之疾",
         "text": "在战斗阶段开始时，距此模型 6\" 内的每个敌方单位（排除 **凶兽(Monster)** 和 **载具(Vehicle)**）必须进行战斗震撼检定。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Disease of Mirth",
+          "kind": "unique"
+        }
       }
     ],
     "磨魂者": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位下车前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的灵能伤害（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣布战斗阵型步骤中，如果一个单位中的每个模型都具有此能力，你可以将其放入增援中，而非在战场上布置。如果你这样做，在你的一个移动阶段的增援步骤中，你可以在战场上的任何位置布置此单位，该位置距所有敌方模型在水平方向上超过 8\"。\n\n如果具有深入打击能力的单位来自战略预备队，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来布置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-scuttling-walker",
-        "name": "疾行者",
+        "name": "迅捷机械",
         "text": "此模型每次进行常规移动或推进移动时，可如同它们不存在般越过友方 **凶兽(Monster)** 和 **载具(Vehicle)** 模型及高度为 4 英寸或以下的地形特征。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Scuttling Walker",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-daemonic-allegiance",
-        "name": "恶魔效忠",
+        "name": "忠于混沌",
         "text": "当你选择将此模型纳入军队时,你必须选择下列关键字之一。至战斗结束,此模型拥有该关键字以及下列为该关键字所载的额外战备:恐虐(Khorne)—此模型额外配备:灼血洪流(torrent of burning blood);奸奇(Tzeentch)—此模型额外配备:亚空间凝视(warp gaze);纳垢(Nurgle)—此模型额外配备:浓痰轰击(phlegm bombardment);色孽(Slaanesh)—此模型额外配备:绝望尖啸(scream of despair)。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Daemonic Allegiance",
+          "kind": "unique"
+        }
       }
     ],
-    "坏疹书记员": [
+    "坏疹记账官": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣布战阵阶段，如果此单位中的每个模型都具有此能力，你可以将其设置在预备队中，而不是在战场上设置。如果你这样做，在你的移动阶段的其中一个增援步骤中，你可以将此单位设置在战场上任何地方，该地方距离所有敌方模型的水平距离超过8\"。\n\n如果具有深入打击能力的单位从战略预备队到达，控制方玩家可以选择该单位使用战略预备队规则或使用深入打击能力中的任何一个进行设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "某些 **角色(Character)** 单位的数据表上列有「领袖」(Leader)。这些 **角色(Character)** 单位被称为领袖，他们可以统御的单位──称为他们的卫队单位──列于他们的数据表上。\n\n在宣布战斗阵型步骤中，对于你军队中的每个领袖，如果你的军队也包含该领袖的一个或多个卫队单位，你可以选择其中一个卫队单位。该领袖将在战斗期间附着于该卫队单位，并被称为领导该单位。每个卫队单位最多只能附着一个领袖。\n\n当卫队单位包含领袖时，该单位被称为附着单位，除了当单位被摧毁时触发的规则外，在所有规则目的上都被视为单一单位。每当攻击针对附着单位时，直到攻击单位已解决其全部攻击，你必须使用该单位中卫队模型的韧性特性，即使该单位中的领袖有不同的韧性特性。每当攻击成功击伤附着单位时，该攻击不能分配给该单位中的 **角色(Character)** 模型，即使该 **角色(Character)** 模型已失去一个或多个伤口或已在此阶段分配了攻击。一旦附着单位中最后一个卫队模型被摧毁，任何尚未分配的针对该单位的攻击随后可分配给该单位中的 **角色(Character)** 模型。\n\n每当卫队单位中最后一个模型被摧毁时，属于该附着单位的每个 **角色(Character)** 单位将不再是附着单位的一部分。它成为单独的单位，具有其原始起始兵力。如果这是由于攻击而发生，它们在攻击单位已解决其全部攻击后才成为单独的单位。\n\n每当附着于卫队单位的 **角色(Character)** 单位中的最后一个模型被摧毁，且没有另一个 **角色(Character)** 单位附着时，该附着单位的卫队单位将不再是附着单位的一部分。它成为单独的单位，具有其原始起始兵力。如果这是由于攻击而发生，它们在攻击单位已解决其全部攻击后才成为单独的单位。\n\n每当属于附着单位的单位被摧毁时，除非它在自己的数据表上具有这些关键字，否则它不具有组成该附着单位之任何其他单位的关键字，以用于任何当该单位被摧毁时会触发的规则。\n\n***例子：** 如果你仅摧毁作为附着单位一部分的卫队单位，你并未摧毁 **角色(Character)** 单位。如果你仅摧毁作为附着单位一部分的 **角色(Character)** 单位，或者如果你摧毁整个附着单位，你摧毁了一个 **角色(Character)** 单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-keep-counting",
-        "name": "继续计数！",
+        "name": "接着数!",
         "text": "当此模型领导一个单位时，该单位中模型配备的近战武器具有 **[连击 1]** 能力。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1809,34 +2598,50 @@
             "requiresJoined": true,
             "effectScope": "unit"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Keep Counting!",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-meet-your-quota",
-        "name": "达到配额！",
+        "name": "完成定额!",
         "text": "当此模型领导一个单位时，在该单位中的模型的目标控制特性加 1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Meet Your Quota!",
+          "kind": "unique"
+        }
       }
     ],
     "希尔艾斯克": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣告战阵」阶段，若单位中的每个模型都具有此能力，你可以将其设置在预备队中，而不是在战场上设置。如果你这样做，你可以在你其中一个「移动阶段」的「增援」步骤中，将此单位设置在战场上距离所有敌军模型横向超过 8\" 的任何地方。\n\n若具有「深入打击」能力的单位从「战略预备队」抵达，控制该单位的玩家可以选择使用「战略预备队」规则或「深入打击」能力设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "部分 **角色(Character)** 单位的资料卡上标有「领袖」。这些 **角色(Character)** 单位称为「领袖」，它们可以领导的单位（称为它们的「护卫单位」）列在其资料卡上。在宣告战场编队步骤中，对于军队中的每位领袖，如果军队还包括该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖随后将在整场战斗期间附着到该护卫单位，并被称为「领导」该单位。每个护卫单位只能附着一位领袖。\n\n当护卫单位包含一位领袖时，该单位被称为「附着单位」，除了在单位被摧毁时触发的规则外，在所有规则目的上均视为单一单位。每当攻击指向附着单位时，在攻击单位解决其所有攻击之前，你必须使用该单位中护卫模型的韧性特征，即使该单位中的领袖具有不同的韧性特征。每当攻击成功对附着单位造成伤害时，该攻击不能分配给该单位中的 **角色(Character)** 模型，即使该 **角色(Character)** 模型已失去一个或多个伤害或在本阶段已分配攻击。一旦附着单位中最后一个护卫模型被摧毁，对该单位尚未分配的任何攻击随后可分配给该单位中的 **角色(Character)** 模型。\n\n每次护卫单位中的最后一个模型被摧毁时，作为附着单位一部分的每个 **角色(Character)** 单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始初始兵力。如果这由于攻击而发生，它们在攻击单位解决其所有攻击后成为单独的单位。\n\n每当附着到护卫单位的 **角色(Character)** 单位中的最后一个模型被摧毁，且没有另一个附着的 **角色(Character)** 单位时，该附着单位的护卫单位不再是附着单位的一部分。它成为一个单独的单位，具有其原始初始兵力。如果这由于攻击而发生，它们在攻击单位解决其所有攻击后成为单独的单位。\n\n每次附着单位的一部分单位被摧毁时，除非它自己的资料卡上有这些关键字，否则该单位不具有任何其他组成该附着单位的单位的关键字，用于任何在该单位被摧毁时触发的规则。\n\n***范例：** 如果你只摧毁了附着单位的护卫单位，你就没有摧毁 **角色(Character)** 单位。如果你只摧毁了附着单位的 **角色(Character)** 单位，或者如果你摧毁了整个附着单位，你就摧毁了一个 **角色(Character)** 单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-prince-of-slaanesh",
-        "name": "色孽之子",
+        "name": "色孽亲王",
         "text": "此模型领导一个单位时，该单位中每个模型每次发动近战攻击时，未修正的致伤掷骰掷出5+视为 Critical 致伤。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1859,65 +2664,97 @@
             "requiresJoined": true,
             "effectScope": "unit"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Prince of Slaanesh",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-delightful-agonies",
-        "name": "欢愉折磨",
+        "name": "宜人痛苦",
         "text": "此模型第一次被摧毁时，在该阶段末掷一次D6。掷骰结果为2+时，将此模型重新放置于战场上，尽可能靠近其被摧毁的位置，且不在任何敌方单位的交战范围内，并具有其全部伤。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Delightful Agonies",
+          "kind": "unique"
+        }
       }
     ],
-    "蓝书记": [
+    "蓝书吏": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战阵形步骤中，若此单位中的每个模型都具有此能力，你可改为将其置于预备中，而非在战场上设置。若你如此做，在你的移动阶段的增援步骤中，你可在战场上任何距离所有敌方模型水平距离超过8\"的位置设置此单位。\n\n若具有深入打击能力的单位从战略预备中投入，控制此单位的玩家可选择该单位使用战略预备规则设置，或使用深入打击能力设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-lone-operative",
         "name": "独行特工",
-        "text": "独行特工",
+        "text": "除非为隶属单位的一部分（见部署能力章节中的领袖），此单位只有在攻击模型距离在 12\" 内时，才能被选为远程攻击的目标。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Lone Operative",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-p-tarix-s-sorcerous-syphon",
         "name": "P'tarix 的诡秘虹吸",
         "text": "当敌方单位位于此模型 12\" 内时，该单位中的每个模型每次发动灵能攻击时，从致伤掷骰减 1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "P’tarix’s Sorcerous Syphon",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-xirat-p-s-sorcerous-barrages",
         "name": "西拉特普的黑魔炮火",
         "text": "在你的移动阶段结束时，针对距该模型 6\" 内的每个敌军单位掷一次 D6：掷出 2-3，该单位遭受 1 点凡人伤害；4-5，该单位遭受 D3 点凡人伤害；6，该单位遭受 D6 点凡人伤害。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Xirat’p’s Sorcerous Barrages",
+          "kind": "unique"
+        }
       }
     ],
-    "诡变灵": [
+    "变化灵": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣布战阵阶段，如果此单位中的每个模型都具有此能力，你可以将其设置在预备队中，而不是在战场上设置。如果你这样做，在你的移动阶段的其中一个增援步骤中，你可以将此单位设置在战场上任何地方，该地方距离所有敌方模型的水平距离超过8\"。\n\n如果具有深入打击能力的单位从战略预备队到达，控制方玩家可以选择该单位使用战略预备队规则或使用深入打击能力中的任何一个进行设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-lone-operative",
         "name": "独行特工",
-        "text": "独行特工",
+        "text": "除非为隶属单位的一部分（见部署能力章节中的领袖），此单位只有在攻击模型距离在 12\" 内时，才能被选为远程攻击的目标。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Lone Operative",
+          "kind": "core"
+        }
       },
       {
         "id": "core-stealth",
-        "name": "潜行",
-        "text": "潜行",
+        "name": "隐秘",
+        "text": "若此单位内每个模型都具有此能力，则每次对其进行远程攻击时，从该攻击的命中掷骰减 1。",
         "status": "计算支持（被动效果自动计入）",
         "effects": [
           {
@@ -1925,48 +2762,72 @@
             "value": 1,
             "phase": "ranged"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Stealth",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-formless-horror",
-        "name": "千变万化",
+        "name": "无形妖物",
         "text": "敌方单位每次希望选择此模型作为攻击目标时，必须首先进行战斗震撼测试。若测试失败，除了处于战斗震撼状态外，该敌方单位在此阶段无法针对此模型。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Formless Horror",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-mischief-and-confusion",
-        "name": "恶作剧与混乱",
+        "name": "诡计与蛊惑",
         "text": "在你对手的射击阶段开始时，选择距此模型 12\" 内且此模型可见的一个敌方单位，并掷 1D6：结果为 2-5 时，直到该阶段结束，该敌方单位中的模型每次发动攻击时，从命中掷骰中扣除 1；结果为 6 时，该敌方单位在此阶段不得射击。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Mischief and Confusion",
+          "kind": "unique"
+        }
       }
     ],
-    "假面舞者": [
+    "色孽假面": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在「宣告战阵」阶段，若单位中的每个模型都具有此能力，你可以将其设置在预备队中，而不是在战场上设置。如果你这样做，你可以在你其中一个「移动阶段」的「增援」步骤中，将此单位设置在战场上距离所有敌军模型横向超过 8\" 的任何地方。\n\n若具有「深入打击」能力的单位从「战略预备队」抵达，控制该单位的玩家可以选择使用「战略预备队」规则或「深入打击」能力设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-fights-first",
-        "name": "先制攻击",
+        "name": "先攻",
         "text": "拥有此能力的单位，若有资格战斗，且该单位中的所有模型都拥有此能力，则在先制攻击步骤中进行战斗。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Fights First",
+          "kind": "core"
+        }
       },
       {
         "id": "core-lone-operative",
         "name": "独行特工",
-        "text": "独行特工",
+        "text": "除非此单位为附属单位的一部分（参见部署能力章节的领袖），否则此单位只有在攻击模型于12\"内才能被选为远程攻击的目标。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Lone Operative",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-the-eternal-dance",
-        "name": "永恒之舞",
+        "name": "无尽舞蹈",
         "text": "在战斗阶段开始时，选择此模型6\"内的一个敌方单位。直到该阶段结束：\n■ 每次友方 **色孽(Slaanesh)恶魔军团(Legiones Daemonica)** 模型对该敌方单位发动近战攻击时，于致伤掷骰上加1。\n■ 每次该敌方单位中的模型发动近战攻击时，从致伤掷骰上减1。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -1982,30 +2843,46 @@
             "value": 1,
             "phase": "melee"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "The Eternal Dance",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-dazzling-acrobatics",
-        "name": "炫目特技",
+        "name": "炫目腾跃",
         "text": "此模型在其前进或后撤的回合中有资格宣布冲锋。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Dazzling Acrobatics",
+          "kind": "unique"
+        }
       }
     ],
     "苦痛使者": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "部分 **角色(Character)** 单位的资料表上列有「领袖」。这样的 **角色(Character)** 单位被称为领袖，它们能够领导的单位（称为护卫单位）会在其资料表上列出。在「宣布战斗阵容」步骤期间，对于你军队中的每个领袖，如果你的军队也包含一个或多个该领袖的护卫单位，你可以选择其中一个护卫单位。该领袖将在整场战斗期间附着于该护卫单位，并被称为领导该单位。每个护卫单位最多只能有一个领袖附着。\n\n当护卫单位包含领袖时，该单位被称为「附着单位」，除了触发单位被摧毁时的规则外，在所有规则用途上都被视为单一单位。每当攻击针对附着单位时，直到攻击单位结束其所有攻击为止，你必须使用该单位中护卫模型的韧性特性，即使该单位中的领袖具有不同的韧性特性也是如此。每当攻击对附着单位造成成功致伤时，该攻击不能配置给该单位中的 **角色(Character)** 模型，即使该 **角色(Character)** 模型已失去一个或多个伤口或在此阶段已分配攻击。一旦附着单位中最后的护卫模型被摧毁，针对该单位的任何尚未分配的攻击可随后分配给该单位中的 **角色(Character)** 模型。\n\n每当护卫单位中的最后一个模型被摧毁时，作为该附着单位一部分的每个 **角色(Character)** 单位不再是附着单位的一部分。它成为一个独立单位，具有其原始初始兵力。如果这发生在攻击期间，攻击单位结束所有攻击后它们才成为独立单位。\n\n每当附着于护卫单位的 **角色(Character)** 单位中的最后一个模型被摧毁，且没有其他 **角色(Character)** 单位附着时，该附着单位的护卫单位不再是附着单位的一部分。它成为一个独立单位，具有其原始初始兵力。如果这发生在攻击期间，攻击单位结束所有攻击后它们才成为独立单位。\n\n每当组成附着单位的单位被摧毁时，除非它自身资料表上具有这些关键字，否则它不会具有组成该附着单位的任何其他单位的关键字，用于任何在该单位被摧毁时触发的规则。\n\n***范例：** 如果你只摧毁附着单位的护卫单位，你没有摧毁 **角色(Character)** 单位。如果你只摧毁附着单位的 **角色(Character)** 单位，或摧毁整个附着单位，你已摧毁一个 **角色(Character)** 单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-tormentbringer",
@@ -2025,41 +2902,61 @@
             "value": 1,
             "phase": "melee"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Tormentbringer",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-hysterical-frenzy",
         "name": "癫狂亢奋",
         "text": "此单位中每个模型被摧毁时，若该模型在本阶段未进行过战斗，则勿将其移除出场。已摧毁的模型在攻击单位完成其攻击后进行战斗，之后被移除出场。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Hysterical Frenzy",
+          "kind": "unique"
+        }
       }
     ],
     "织幻者": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战阵形步骤中，若此单位中的每个模型都具有此能力，你可改为将其置于预备中，而非在战场上设置。若你如此做，在你的移动阶段的增援步骤中，你可在战场上任何距离所有敌方模型水平距离超过8\"的位置设置此单位。\n\n若具有深入打击能力的单位从战略预备中投入，控制此单位的玩家可选择该单位使用战略预备规则设置，或使用深入打击能力设置。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "某些 **角色(Character)** 单位的资料表上列有「领袖」。这样的 **角色(Character)** 单位称为领袖，其资料表上列出该领袖可以领导的单位——称为其护卫单位。在宣布战阵编组阶段，对于你军队中的每个领袖，如果你的军队也包括该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖将在战斗期间附着到该护卫单位上，并称为领导该单位。每个护卫单位最多只能有一个领袖附着到它上面。\n\n当护卫单位包含领袖时，称为附着单位，除了在单位被摧毁时触发的规则外，在所有规则目的上被视为一个单位。每当攻击以附着单位为目标时，在攻击单位解决完所有攻击前，你必须使用该单位中护卫模型的韧性特性，即使该单位中的领袖具有不同的韧性特性也是如此。每当攻击成功击中附着单位时，该攻击无法分配给该单位中的 **角色(Character)** 模型，即使该 **角色(Character)** 模型已损失一个或多个伤或本阶段已有攻击分配给它。一旦附着单位中的最后一个护卫模型被摧毁，针对该单位的任何尚未分配的攻击随后可分配给该单位中的 **角色(Character)** 模型。\n\n每当护卫单位中的最后一个模型被摧毁时，作为该附着单位一部分的每个 **角色(Character)** 单位不再是附着单位的一部分。它成为一个独立的单位，具有其原始起始兵力。如果这是作为攻击的结果发生的，它们在攻击单位解决完所有攻击后成为独立单位。\n\n每当附着到护卫单位的 **角色(Character)** 单位中的最后一个模型被摧毁，且没有另一个 **角色(Character)** 单位附着时，该附着单位的护卫单位不再是附着单位的一部分。它成为一个独立的单位，具有其原始起始兵力。如果这是作为攻击的结果发生的，它们在攻击单位解决完所有攻击后成为独立单位。\n\n每当作为附着单位一部分的单位被摧毁时，它不具有构成该附着单位的任何其他单位的关键字（除非它在自己的资料表上具有那些关键字），用于任何在单位被摧毁时触发的规则。\n\n***例子：**如果你只摧毁了作为附着单位一部分的护卫单位，你并未摧毁 **角色(Character)** 单位。如果你只摧毁了作为附着单位一部分的 **角色(Character)** 单位，或如果你摧毁了整个附着单位，你已摧毁了一个 **角色(Character)** 单位。*",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "core-fights-first",
-        "name": "先制攻击",
+        "name": "先攻",
         "text": "拥有此能力的单位，若有资格战斗，且该单位中的所有模型都拥有此能力，则在先制攻击步骤中进行战斗。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Fights First",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-tranceweaver",
-        "name": "迷幻织者",
+        "name": "织幻者",
         "text": "此单位中的模型每次发动攻击时，可重掷命中掷骰结果为 1。若该攻击的目标位于目标标记的范围内，则可改为重掷该命中掷骰。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -2074,7 +2971,11 @@
             "type": "hit-reroll",
             "mode": "ones"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Tranceweaver",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-symphony-of-pain",
@@ -2097,173 +2998,265 @@
             "type": "wound-reroll",
             "mode": "failed"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Symphony of Pain",
+          "kind": "unique"
+        }
       }
     ],
     "艾塔奥斯·劳·克瑞斯": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "部分模型具有「致命破灭 x」能力。当此类模型被摧毁时，在将其从战场移除前掷一次 D6（若此模型为 **运输工具(Transport)**，则在任何已搭乘的模型下车前掷骰）。若结果为 6，则该模型 6\" 内的每个单位会受到「x」所标记数量的致命伤（若为随机数量，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-psyker",
         "name": "灵能者",
         "text": "",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Psyker",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-emissary-of-the-great-mutator-aura",
         "name": "大变者使者（光环）",
         "text": "当友军齐恩奇军团恶魔单位在此模型 6\" 范围内时，可为该单位重掷战斗震撼测试。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Emissary of the Great Mutator (Aura)",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-master-of-magicks-psychic",
         "name": "巫术之主（灵能）",
         "text": "在你的射击阶段，选择以下其中一项能力：[无视掩体]、[致命一击]、[连击 D3]。直至阶段结束，此模型的远程武器具有该能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Master of Magicks (Psychic)",
+          "kind": "unique"
+        }
       }
     ],
     "瘟疫骑手": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-grandfather-s-blessing",
         "name": "祖父赐福",
         "text": "若你的军队中具有领袖能力的模型可附加到 纳垢之兽 单位，则可附加到此单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Grandfather's Blessing",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-bounding-assault",
         "name": "蹦跃突击",
         "text": "此单位每次结束冲锋移动时，直至回合结束，此单位中模型配备的脓疮骑手瘟疫剑具有 [LANCE] 能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Bounding Assault",
+          "kind": "unique"
+        }
       }
     ],
     "斯卡贝斯拉斯·肿胀者": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "部分模型具有「致命破灭 x」能力。当此类模型被摧毁时，在将其从战场移除前掷一次 D6（若此模型为 **运输工具(Transport)**，则在任何已搭乘的模型下车前掷骰）。若结果为 6，则该模型 6\" 内的每个单位会受到「x」所标记数量的致命伤（若为随机数量，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-feel-no-pain",
         "name": "痛苦无感",
         "text": "",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Feel No Pain",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-emissary-of-the-plague-god-aura",
         "name": "瘟神使者（光环）",
         "text": "当友军纳粹女神军团恶魔单位在此模型 6\" 内时，可重掷该单位的战斗震撼测试。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Emissary of the Plague God (Aura)",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-nurgle-s-rot-psychic",
         "name": "纳垢之腐（灵能）",
         "text": "在你的移动阶段结束时，可选择距离此模型 12\" 内的一个敌方单位。直至你的下一个移动阶段开始时，该单位中模型的韧性特性减少 1。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Nurgle's Rot (Psychic)",
+          "kind": "unique"
+        }
       }
     ],
     "尖刺混沌兽": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "部分模型具有「致命破灭 x」能力。当此类模型被摧毁时，在将其从战场移除前掷一次 D6（若此模型为 **运输工具(Transport)**，则在任何已搭乘的模型下车前掷骰）。若结果为 6，则该模型 6\" 内的每个单位会受到「x」所标记数量的致命伤（若为随机数量，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-warp-spines",
         "name": "亚空间尖刺",
         "text": "此模型每次结束冲锋移动时，选择一个在其交战范围内的敌方单位并掷一个 D6：在 2-3 时，该敌方单位遭受 D3 致命伤；在 4-5 时，该敌方单位遭受 3 致命伤；在 6 时，该敌方单位遭受 D3+3 致命伤。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Warp Spines",
+          "kind": "unique"
+        }
       }
     ],
     "猎行者战车": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-scythed-impact",
         "name": "镰刃冲击",
         "text": "此单位每次进行冲锋移动时，直到阶段结束，此单位中的模型装备的近战武器具有 [ANTI-INFANTRY 4+] 能力。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Scythed Impact",
+          "kind": "unique"
+        }
       }
     ],
     "色孽传令官骑骏马": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-leader",
         "name": "领袖",
-        "text": "领袖",
+        "text": "某些 **角色(Character)** 单位的资料表上列有「领袖」。这类 **角色(Character)** 单位被称为领袖，他们能够领导的单位（称为他们的护卫单位）列在他们的资料表上。在宣告战斗编队阶段中，对于你军队中的每个领袖，如果你的军队也包括该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖将在战役期间附着到该护卫单位，并称为领导该单位。每个护卫单位最多只能有一个领袖附着到它。\n\n当护卫单位包含领袖时，它被称为联合单位，除了在单位被摧毁时触发的规则外，在所有规则目的上都被视为单一单位。每次攻击以联合单位为目标时，直到攻击单位解决完所有攻击为止，你必须使用该单位中护卫模型的韧性特性，即使该单位中的领袖具有不同的韧性特性也是如此。每次攻击成功造成联合单位的伤口时，该攻击不能被分配给该单位中的 **角色(Character)** 模型，即使该 **角色(Character)** 模型已失去一个或多个伤口或在此阶段已分配了攻击。一旦联合单位中的最后一个护卫模型被摧毁，对该单位进行的任何尚未分配的攻击可以分配给该单位中的 **角色(Character)** 模型。\n\n每次护卫单位的最后一个模型被摧毁时，作为联合单位一部分的每个 **角色(Character)** 单位不再是联合单位的一部分。它成为一个单独的单位，具有其原始起始兵力。如果这发生在攻击结果中，他们在攻击单位解决完所有攻击后成为单独的单位。\n\n每次附着到护卫单位的 **角色(Character)** 单位的最后一个模型被摧毁，且没有另一个 **角色(Character)** 单位附着时，该联合单位的护卫单位不再是联合单位的一部分。它成为一个单独的单位，具有其原始起始兵力。如果这发生在攻击结果中，他们在攻击单位解决完所有攻击后成为单独的单位。\n\n每次摧毁作为联合单位一部分的单位时，它不会获得组成该联合单位的任何其他单位的关键字（除非它在自己的资料表上具有这些关键字），以适用于在摧毁该单位时触发的任何规则。\n\n**范例：** 如果你只摧毁了作为联合单位一部分的护卫单位，你就没有摧毁 **角色(Character)** 单位。如果你只摧毁了作为联合单位一部分的 **角色(Character)** 单位，或者如果你摧毁了整个联合单位，你就摧毁了一个 **角色(Character)** 单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Leader",
+          "kind": "core"
+        }
       },
       {
         "id": "core-psyker",
         "name": "灵能者",
         "text": "",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Psyker",
+          "kind": "core"
+        }
       },
       {
         "id": "core-scouts",
         "name": "斥候",
-        "text": "斥候",
+        "text": "某些单位的能力栏中列有「斥候x\"」。若单位中每个模型都具有此能力，则在第一战斗回合开始时，在第一回合开始前，它可以进行一次常规移动，距离最多x\"，如同此为你的移动阶段一样——**专用运输工具(Dedicated Transport)**模型亦可执行此动作，只要该单位在该**专用运输工具(Dedicated Transport)**模型内登载（条件是仅具有此能力的模型登载于该**专用运输工具(Dedicated Transport)**模型内）。使用此能力移动的单位必须结束该移动时，距离所有敌军模型水平距离超过9\"。若双方玩家都有可执行此动作的单位，则进行第一回合的玩家先移动其单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Scouts",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-lethal-caress",
@@ -2290,7 +3283,11 @@
             "requiresJoined": true,
             "effectScope": "unit"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Lethal Caress",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-symphony-of-pain-psychic",
@@ -2313,39 +3310,59 @@
             "type": "wound-reroll",
             "mode": "failed"
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Symphony of Pain (Psychic)",
+          "kind": "unique"
+        }
       }
     ],
     "瘟疫蟾蜍": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-grandfather-s-blessing",
         "name": "祖父赐福",
         "text": "如果你军队中具有领导者能力的模型可附着于纳垢之兽单位，它可以附着于此单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Grandfather's Blessing",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-pouncing-leap",
         "name": "扑击跳跃",
         "text": "可使用英勇干预战术以0CP指定此单位为目标，即使本阶段已在另一个单位上使用过该战术也可如此。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Pouncing Leap",
+          "kind": "unique"
+        }
       }
     ],
     "怒魔": [
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-prey-on-the-weak",
@@ -2364,71 +3381,107 @@
             "type": "wound-modifier",
             "value": 1
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Prey on the Weak",
+          "kind": "unique"
+        }
       }
     ],
     "巨型混沌孳生物": [
       {
         "id": "core-deadly-demise-d3",
-        "name": "致命破灭",
-        "text": "致命破灭D3",
+        "name": "致命破灭D3",
+        "text": "部分模型具有「致命破灭 x」能力。当此类模型被摧毁时，在将其从战场移除前掷一次 D6（若此模型为 **运输工具(Transport)**，则在任何已搭乘的模型下车前掷骰）。若结果为 6，则该模型 6\" 内的每个单位会受到「x」所标记数量的致命伤（若为随机数量，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D3",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-feel-no-pain",
         "name": "痛苦无感",
         "text": "",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Feel No Pain",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-regenerating-monstrosity",
         "name": "再生怪兽",
         "text": "在每个玩家的指挥阶段开始时，此模型恢复最多 D3 个失去的伤。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Regenerating Monstrosity",
+          "kind": "unique"
+        }
       }
     ],
     "扎拉金奈尔": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "部分模型具有「致命破灭 x」能力。当此类模型被摧毁时，在将其从战场移除前掷一次 D6（若此模型为 **运输工具(Transport)**，则在任何已搭乘的模型下车前掷骰）。若结果为 6，则该模型 6\" 内的每个单位会受到「x」所标记数量的致命伤（若为随机数量，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "core-fights-first",
-        "name": "先制攻击",
+        "name": "先攻",
         "text": "拥有此能力的单位，若有资格战斗，且该单位中的所有模型都拥有此能力，则在先制攻击步骤中进行战斗。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Fights First",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-emissary-of-the-prince-of-excess-aura",
         "name": "纵欲之主使者（光环）",
         "text": "当友军色孽恶魔军团单位在此模型 6\" 内时，你可重掷为该单位进行的战斗震撼测试。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Emissary of the Prince of Excess (Aura)",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-mesmerising-form",
-        "name": "迷惑之姿",
+        "name": "曼妙身形",
         "text": "每次攻击针对此模型时，从命中掷骰中减去 1。",
         "status": "计算支持（满足原文条件时勾选）",
         "controls": [
@@ -2443,37 +3496,57 @@
             "type": "incoming-hit-minus",
             "value": 1
           }
-        ]
+        ],
+        "source": {
+          "englishName": "Mesmerising Form",
+          "kind": "unique"
+        }
       }
     ],
     "安格拉斯·无束者": [
       {
         "id": "core-deadly-demise-d6",
-        "name": "致命破灭",
-        "text": "致命破灭D6",
+        "name": "致命破灭D6",
+        "text": "部分模型具有「致命破灭 x」能力。当此类模型被摧毁时，在将其从战场移除前掷一次 D6（若此模型为 **运输工具(Transport)**，则在任何已搭乘的模型下车前掷骰）。若结果为 6，则该模型 6\" 内的每个单位会受到「x」所标记数量的致命伤（若为随机数量，则对 6\" 内的每个单位分别掷骰）。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deadly Demise D6",
+          "kind": "core"
+        }
       },
       {
         "id": "core-deep-strike",
         "name": "深入打击",
-        "text": "深入打击",
+        "text": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Deep Strike",
+          "kind": "core"
+        }
       },
       {
         "id": "unique-emissary-of-the-blood-god-aura",
         "name": "血神使者（光环）",
         "text": "当友方 **恐虐(Khorne)恶魔军团(Legiones Daemonica)** 单位在此模型6\"范围内时，你可以重掷为该单位进行的战斗震撼测试。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Emissary of the Blood God (Aura)",
+          "kind": "unique"
+        }
       },
       {
         "id": "unique-relentless-carnage",
-        "name": "无情屠戮",
+        "name": "不息屠戮",
         "text": "在战斗阶段结束时，你可选择一个与此模型相接触的敌方单位并掷8个D6：每掷出一个4+，该敌方单位承受1点道德伤害。",
         "status": "已结构化，当前仅供查阅",
-        "effects": []
+        "effects": [],
+        "source": {
+          "englishName": "Relentless Carnage",
+          "kind": "unique"
+        }
       }
     ]
   }

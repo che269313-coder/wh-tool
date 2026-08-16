@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
 import { fileURLToPath } from "node:url";
+import { adjudicateCatalog, loadPdfDisplayLedger } from "./source-adjudication.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const packageRoot = path.join(root, "data", "factions");
@@ -10,6 +11,7 @@ const sourcePackages = new Map(fs.readdirSync(packageRoot)
   .filter((file) => fs.existsSync(file))
   .map((file) => JSON.parse(fs.readFileSync(file, "utf8")))
   .map((payload) => [payload.definition.id, payload]));
+const pdfDisplayLedger = loadPdfDisplayLedger(root);
 const manifestContext = vm.createContext({ console });
 manifestContext.globalThis = manifestContext;
 for (const relativePath of ["docs/rules/faction-registry.js", "docs/rules/factions.js"]) {
@@ -87,7 +89,7 @@ const catalogs = inputs.map(({ definition, file }) => {
     sourcePolicy: sourcePackage.sourcePolicy,
     sources: sourcePackage.sources,
   } : null;
-  const catalog = { ...data, ...(meta ? { _meta: meta } : {}), faction, cards: (data.cards || []).map((card) => {
+  const normalizedCatalog = { ...data, ...(meta ? { _meta: meta } : {}), faction, cards: (data.cards || []).map((card) => {
     const extracted = keywordRows(markdown, card.page);
     const extractedFactionKeywords = cleanKeywordList(extracted.factionKeywords);
     const extractedKeywords = cleanKeywordList(extracted.keywords);
@@ -99,6 +101,9 @@ const catalogs = inputs.map(({ definition, file }) => {
       keywords: cleanKeywordList(card.keywords).length ? cleanKeywordList(card.keywords) : extractedKeywords,
     };
   }) };
+  const catalog = sourcePackage
+    ? adjudicateCatalog({ catalog: normalizedCatalog, factionId: definition.id, packagePayload: sourcePackage, ledger: pdfDisplayLedger })
+    : normalizedCatalog;
   return { definition, catalog };
 });
 

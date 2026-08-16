@@ -123,7 +123,7 @@ test("示例中文军表的分遣队全部能匹配到分遣队包", () => {
 test("别名必须同时用于搜索候选（泰丰斯→泰弗斯）", () => {
   const aliasesFor = (canonical) => context.WarhammerAliasRegistry.aliasesForCanonical("units", canonical);
   assert.ok(aliasesFor("泰弗斯").includes("泰丰斯"), "泰丰斯必须作为泰弗斯的搜索别名");
-  assert.ok(aliasesFor("野兽头目").includes("兽霸头目"), "兽霸头目必须作为野兽头目的搜索别名");
+  assert.ok(aliasesFor("兽霸头目").includes("野兽头目"), "野兽头目必须作为兽霸头目的后端兼容别名");
   assert.ok(aliasesFor("灭魔教团百骑长").includes("百骑长"), "百骑长必须作为灭魔教团百骑长的搜索别名");
 });
 
@@ -237,10 +237,10 @@ test("防守方效果装配必须并入阵营规则的 defend 效果(瓦戈！5+
 
 test("队长与队员的默认装备必须分离(modelProfile.defaultEquipment)", () => {
   // 坦爆队 PDF: 老大队长=两把火箭手枪+砌刀；坦爆小子=火箭筒+格斗武器。
-  const card = cards.find((c) => c.name === "坦克破坏者" && c.factionId === "orks");
-  assert.ok(card, "欧克兽人坦克破坏者数据卡必须存在");
+  const card = cards.find((c) => c.name === "坦爆队" && c.factionId === "orks");
+  assert.ok(card, "欧克兽人坦爆队数据卡必须存在");
   const byId = Object.fromEntries((card.data.modelProfiles || []).map((profile) => [profile.id, profile]));
-  assert.ok(byId.champion && byId.trooper, "坦克破坏者必须拥有队长/普通成员两个档案");
+  assert.ok(byId.champion && byId.trooper, "坦爆队必须拥有队长/普通成员两个档案");
   assert.equal(byId.champion.defaultEquipment, "2x 火箭手枪；大砍刀", "队长档案必须只含老大队长的装备(2x 火箭手枪+大砍刀)");
   assert.equal(byId.trooper.defaultEquipment, "火箭炮；近战武器", "普通成员档案必须只含坦爆小子的装备(火箭炮+近战武器)");
   assert.ok(!byId.champion.defaultEquipment.includes("火箭炮"), "队长的装备不得混入队员的火箭炮");

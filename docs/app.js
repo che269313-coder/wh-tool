@@ -1067,8 +1067,11 @@ function calculatorRuleMarkup(draft, side, rules, heading) {
     return active ? "本次已启用并计入骰子" : "可选效果：默认未启用";
   };
   return `<section class="calculator-rule-section"><div class="calculator-section-heading"><strong>${heading}</strong></div>${rules.map((rule) => {
-    const displayName = window.WarhammerAliasRegistry?.displayNameFor?.(draft?.entry?.faction, rule.name) || rule.name;
-    return `<div class="calculator-ability"><strong>${escapeHtml(rule.unitName ? `${rule.unitName} · ${displayName}` : displayName)}</strong><p>${escapeHtml(rule.text)}</p><small>${escapeHtml(statusFor(rule))}</small>${calculatorRuleControlMarkup(draft, side, rule)}</div>`;
+    const faction = draft?.entry?.faction;
+    const displayUnitName = rule.unitName
+      ? (window.WarhammerAliasRegistry?.resolveUnit?.(faction, rule.unitName) || rule.unitName)
+      : "";
+    return `<div class="calculator-ability"><strong>${escapeHtml(displayUnitName ? `${displayUnitName} · ${rule.name}` : rule.name)}</strong><p>${escapeHtml(rule.text)}</p><small>${escapeHtml(statusFor(rule))}</small>${calculatorRuleControlMarkup(draft, side, rule)}</div>`;
   }).join("")}</section>`;
 }
 

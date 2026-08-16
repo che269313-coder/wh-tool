@@ -30,6 +30,9 @@ const allRules = Object.values(catalogs).flatMap((catalog) => [
   ...(catalog.factionRules || []),
   ...Object.values(catalog.unitRules || {}).flat(),
 ]);
+const findByEnglishName = (factionId, englishName) => Object.values(catalogs[factionId].unitRules || {})
+  .flat()
+  .find((rule) => rule.source?.englishName === englishName);
 
 test("numeric Feel No Pain abilities are calculator effects", () => {
   const rules = allRules.filter((rule) => /不(?:知|觉)疼痛\s*[3-6]\s*\+/.test(rule.name));
@@ -41,7 +44,7 @@ test("numeric Feel No Pain abilities are calculator effects", () => {
 });
 
 test("Stealth abilities reduce incoming ranged hit rolls", () => {
-  const rules = allRules.filter((rule) => rule.name === "潜行");
+  const rules = allRules.filter((rule) => rule.source?.englishName === "Stealth");
   assert.ok(rules.length >= 10, `expected broad Stealth coverage, found ${rules.length}`);
   for (const rule of rules) {
     assert.ok(rule.effects?.some((effect) => effect.type === "incoming-hit-minus" && effect.phase === "ranged"), rule.id);
@@ -49,13 +52,13 @@ test("Stealth abilities reduce incoming ranged hit rolls", () => {
 });
 
 test("representative joined-unit and critical-wound abilities are modeled", () => {
-  const infernalMaster = catalogs["thousand-sons"].unitRules["炼狱之主"]?.find((rule) => rule.name === "邪恶漩涡");
+  const infernalMaster = findByEnglishName("thousand-sons", "Malefic Maelstrom");
   assert.ok(infernalMaster?.effects?.some((effect) => effect.type === "sustained-hits" && effect.value === 1 && effect.phase === undefined && effect.requiresJoined));
 
-  const daemonPrince = catalogs["chaos-daemons"].unitRules["希尔艾斯克"]?.find((rule) => rule.name === "色孽之子");
+  const daemonPrince = findByEnglishName("chaos-daemons", "Prince of Slaanesh");
   assert.ok(daemonPrince?.effects?.some((effect) => effect.type === "wound-critical-threshold" && effect.value === 5 && effect.phase === "melee" && effect.requiresJoined));
 
-  const flawlessBlades = catalogs["emperors-children"].unitRules["无暇剑魔"]?.find((rule) => rule.name === "恶魔庇主");
+  const flawlessBlades = findByEnglishName("emperors-children", "Daemonic Patrons");
   assert.ok(flawlessBlades?.effects?.some((effect) => effect.type === "wound-critical-threshold" && effect.value === 3));
 });
 
@@ -108,11 +111,10 @@ test("high-impact army combat rules have safe opt-in controls", () => {
 });
 
 test("generic compilation refuses effects that the calculator cannot express faithfully", () => {
-  const findRule = (faction, unit, name) => catalogs[faction].unitRules[unit]?.find((rule) => rule.name === name);
-  assert.equal(findRule("aeldari", "剧团", "死亡之舞").effects.length, 0);
-  assert.equal(findRule("chaos-daemons", "诡变领主", "魔法大师").effects.length, 0);
-  assert.equal(findRule("tau-empire", "锤头鲨炮艇", "瞄准阵列").effects.length, 0);
-  const stalker = findRule("necrons", "冥工墓穴潜行者", "潜行者");
+  assert.equal(findByEnglishName("aeldari", "Dance of Death").effects.length, 0);
+  assert.equal(findByEnglishName("chaos-daemons", "Master of Magicks").effects.length, 0);
+  assert.equal(findByEnglishName("tau-empire", "Targeting Array").effects.length, 0);
+  const stalker = findByEnglishName("necrons", "Stalker");
   assert.equal(stalker.effects.length, 1);
   assert.equal(JSON.stringify(stalker.effects[0]), JSON.stringify({ type: "incoming-hit-minus", value: 1, phase: "ranged" }));
 });

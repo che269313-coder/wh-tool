@@ -1,9 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import { compileAbility } from "./faction-rule-compiler.mjs";
+import { adjudicateRuleCatalog, loadPdfDisplayLedger } from "./source-adjudication.mjs";
+import { writeFileSyncWithRetry } from "./fs-write.mjs";
 
 const sourcePath = path.resolve("docs/data/欧克兽人/欧克兽人-全部数据卡.json");
 const source = JSON.parse(fs.readFileSync(sourcePath, "utf8").replace(/^\uFEFF/, ""));
+const root = path.resolve(import.meta.dirname, "..");
+const packagePayload = JSON.parse(fs.readFileSync(path.join(root, "data/factions/orks/package.json"), "utf8"));
+const pdfDisplayLedger = loadPdfDisplayLedger(root);
 const supported = "计算支持（满足条件时自动计入）";
 const displayOnly = "已结构化，当前仅供查阅";
 const melee = "melee";
@@ -342,7 +347,14 @@ const factionRules = [{
   source: { url: "https://40k.aiinpocket.com/faction/orks/", file: "欧克兽人-网站原始数据.json" },
 }];
 
-const output = `/* Generated from docs/data/欧克兽人/欧克兽人-网站原始数据-简体.json. Regenerate with tools/generate-orks-rules.mjs. */\n(function (root) {\n  const factionRules = ${JSON.stringify(factionRules, null, 2)};\n  const unitRules = ${JSON.stringify(unitRules, null, 2)};\n  const catalog = { factionRules, unitRules };\n  root.WarhammerOrksRules = root.WarhammerOrksRuleIdentities?.apply(catalog) || catalog;\n})(typeof globalThis === "undefined" ? this : globalThis);\n`;
+const adjudicatedCatalog = adjudicateRuleCatalog({
+  ruleCatalog: { factionRules, unitRules },
+  factionId: "orks",
+  packagePayload,
+  ledger: pdfDisplayLedger,
+});
+
+const output = `/* Generated from docs/data/欧克兽人/欧克兽人-网站原始数据-简体.json. Regenerate with tools/generate-orks-rules.mjs. */\n(function (root) {\n  const factionRules = ${JSON.stringify(adjudicatedCatalog.factionRules, null, 2)};\n  const unitRules = ${JSON.stringify(adjudicatedCatalog.unitRules, null, 2)};\n  const catalog = { factionRules, unitRules };\n  root.WarhammerOrksRules = root.WarhammerOrksRuleIdentities?.apply(catalog) || catalog;\n})(typeof globalThis === "undefined" ? this : globalThis);\n`;
 const outputPath = path.resolve("docs/rules/orks.js");
-fs.writeFileSync(outputPath, output, "utf8");
-console.log(`generated ${Object.keys(unitRules).length} units and ${Object.values(unitRules).reduce((sum, rules) => sum + rules.length, 0)} rules -> ${outputPath}`);
+writeFileSyncWithRetry(outputPath, output);
+console.log(`generated ${Object.keys(adjudicatedCatalog.unitRules).length} units and ${Object.values(adjudicatedCatalog.unitRules).reduce((sum, rules) => sum + rules.length, 0)} rules -> ${outputPath}`);

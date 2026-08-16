@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import vm from "node:vm";
+import { computeBuildVersion } from "./generate-build-version.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), "utf8");
@@ -30,6 +31,23 @@ test("the startup document does not eagerly load faction payloads", () => {
   assert.match(html, /rules\/catalog-registry\.js/);
   assert.doesNotMatch(html, /rules\/(?:custodes|space-marines|death-guard|orks|website-factions)(?:-identities)?\.js/);
   assert.doesNotMatch(html, /rules\/detachments\/(?:adeptus-custodes|space-marines|death-guard|orks|website-factions)\.js/);
+});
+
+test("startup and lazy faction data share one cache-busting build version", () => {
+  const html = read("docs/index.html");
+  const manifestPath = path.join(root, "docs/build-version.json");
+  assert.ok(fs.existsSync(manifestPath), "the deploy cache version must be generated from build content");
+  const version = JSON.parse(fs.readFileSync(manifestPath, "utf8")).version;
+  assert.match(version, /^data-[a-f0-9]{12}$/);
+  assert.equal(computeBuildVersion(root).version, version, "manifest version must equal the current deploy payload hash");
+  const changed = computeBuildVersion(root, new Map([
+    ["docs/catalogs/orks.json", `${read("docs/catalogs/orks.json")}\nchanged`],
+  ])).version;
+  assert.notEqual(changed, version, "changing a generated faction payload must change the deploy version");
+  for (const source of ["aliases/index.js", "rules/factions.js", "rules/faction-runtime-loader.js", "calculator-catalog.js", "app.js"]) {
+    assert.match(html, new RegExp(`${source.replaceAll("/", "\\/").replaceAll(".", "\\.")}\\?v=${version}`));
+  }
+  assert.match(read("docs/rules/faction-runtime-loader.js"), new RegExp(`BUILD_VERSION = "${version}"`));
 });
 
 test("calculator-catalog.js is a lightweight search index", () => {
@@ -99,6 +117,7 @@ test("website rule and detachment packages register one faction at a time", () =
 });
 
 test("runtime loader requests only the selected faction and caches it", async () => {
+  const deployVersion = JSON.parse(read("docs/build-version.json")).version;
   const loaderPath = path.join(root, "docs/rules/faction-runtime-loader.js");
   assert.ok(fs.existsSync(loaderPath), "faction runtime loader should exist");
   const requested = [];
@@ -124,9 +143,9 @@ test("runtime loader requests only the selected faction and caches it", async ()
   await context.WarhammerFactionRuntimeLoader.load("grey-knights");
 
   assert.deepEqual([...requested], [
-    "rules/factions/grey-knights.js?v=multisource-20260816",
-    "rules/detachments/grey-knights.js?v=multisource-20260816",
-    "catalogs/grey-knights.js?v=multisource-20260816",
+    `rules/factions/grey-knights.js?v=${deployVersion}`,
+    `rules/detachments/grey-knights.js?v=${deployVersion}`,
+    `catalogs/grey-knights.js?v=${deployVersion}`,
   ]);
 });
 
@@ -172,6 +191,7 @@ test("runtime loader prefers fetch+JSON for catalogs", async () => {
 });
 
 test("runtime loader falls back to script catalog when fetch fails", async () => {
+  const deployVersion = JSON.parse(read("docs/build-version.json")).version;
   const requested = [];
   const context = vm.createContext({
     console,
@@ -189,7 +209,7 @@ test("runtime loader falls back to script catalog when fetch fails", async () =>
   vm.runInContext(fs.readFileSync(path.join(root, "docs/rules/faction-runtime-loader.js"), "utf8"), context);
 
   await context.WarhammerFactionRuntimeLoader.load("灰骑士");
-  assert.ok(requested.includes("catalogs/grey-knights.js?v=multisource-20260816"), "fetch 失败必须回退到同版本脚本包");
+  assert.ok(requested.includes(`catalogs/grey-knights.js?v=${deployVersion}`), "fetch 失败必须回退到同版本脚本包");
   assert.ok(!requested.some((source) => source.endsWith(".json")), "脚本注入不应请求 JSON 路径");
 });
 

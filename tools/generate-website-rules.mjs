@@ -19,14 +19,17 @@ const readJson = (file) => {
 };
 const rules = {};
 for (const [factionId, factionName] of factions) {
-  const data = readJson(path.join(root, "docs", "data", factionName, `${factionName}-结构化数据卡.json`));
+  const data = readJson(path.join(root, "docs", "catalogs", `${factionId}.json`));
+  const raw = readJson(path.join(root, "docs", "data", factionName, `${factionName}-网站原始数据-简体.json`));
+  const rawCards = new Map((raw.cards || []).map((card) => [card.id, card]));
   const unitRules = {};
   for (const card of data.cards || []) {
+    const rawAbilities = new Map((rawCards.get(card.id)?.abilities || []).map((ability) => [ability.id, ability]));
     const usedIds = new Map();
     unitRules[card.name] = (card.abilities || []).filter((ability) => ability.category !== "faction").map((ability) => {
       const count = (usedIds.get(ability.id) || 0) + 1;
       usedIds.set(ability.id, count);
-      const compiled = compileAbility(ability);
+      const compiled = compileAbility({ ...ability, name: rawAbilities.get(ability.id)?.name || ability.name });
       return {
         id: count === 1 ? ability.id : `${ability.id}-${count}`,
         name: ability.name,
@@ -34,14 +37,24 @@ for (const [factionId, factionName] of factions) {
         status: compiled.status,
         ...(compiled.controls.length ? { controls: compiled.controls } : {}),
         effects: compiled.effects,
+        source: { englishName: ability.englishName || "", kind: ability.category || "unique" },
       };
     });
   }
-  const raw = readJson(path.join(root, "docs", "data", factionName, `${factionName}-网站原始数据-简体.json`));
   const factionRule = raw.faction?.army_rule_name_zh && raw.faction?.army_rule_text_zh ? (() => {
-    const ability = { id: `${factionId}.army-rule`, name: raw.faction.army_rule_name_zh, text: raw.faction.army_rule_text_zh, category: "faction" };
-    const compiled = compileFactionAbility(ability);
-    return [{ ...ability, status: compiled.status, ...(compiled.controls.length ? { controls: compiled.controls } : {}), effects: compiled.effects }];
+    const factionAbilities = (data.cards || []).flatMap((card) => card.abilities || []).filter((ability) => ability.category === "faction");
+    const counts = new Map();
+    factionAbilities.forEach((ability) => counts.set(ability.name, (counts.get(ability.name) || 0) + 1));
+    const canonical = [...factionAbilities].sort((left, right) => (counts.get(right.name) || 0) - (counts.get(left.name) || 0))[0];
+    const ability = {
+      id: `${factionId}.army-rule`,
+      name: canonical?.name || raw.faction.army_rule_name_zh,
+      englishName: canonical?.englishName || "",
+      text: raw.faction.army_rule_text_zh,
+      category: "faction",
+    };
+    const compiled = compileFactionAbility({ ...ability, name: raw.faction.army_rule_name_zh });
+    return [{ ...ability, status: compiled.status, ...(compiled.controls.length ? { controls: compiled.controls } : {}), effects: compiled.effects, source: { englishName: ability.englishName, kind: "faction" } }];
   })() : [];
   rules[factionId] = { factionRules: factionRule, unitRules };
 }

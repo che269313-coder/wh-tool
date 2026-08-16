@@ -102,7 +102,7 @@ assert(lysanderCard?.unit?.abilities?.includes("本模型拥有4+特殊保护"),
 assert(lysanderCard?.unit?.abilities?.includes("金刚不破"), "莱山德连长技能原文必须保留金刚不破");
 const valerianCard = custodesProfiles.cards.find((card) => card.name === "瓦雷利安连长");
 assert(valerianCard?.keywords?.includes("盾卫连长"), "瓦雷利安连长必须保留盾卫连长关键词，以便按稳定语义标签匹配规则");
-const leadingPdfWatermark = /^[\s]*[\u8001\u6e7f\u8150\u9524\u6218\u7fa4](?=\s*[\u4e00-\u9fffA-Za-z0-9])/;
+const leadingPdfWatermark = /^\s*(?:老湿腐(?:战锤群)?|战锤群|湿腐战锤群)(?=\s*[\u4e00-\u9fffA-Za-z0-9])/;
 assert(!catalogCards.some((card) => leadingPdfWatermark.test(card.unit?.defaultEquipment || "")), "默认装备不应残留 PDF 水印片段");
 assert(!catalogCards.some((card) => /[\u6e7f](?=和)/.test(card.unit?.defaultEquipment || "")), "默认装备不应残留嵌入式 PDF 水印片段");
 assert(!catalogCards.some((card) => [...(card.factionKeywords || []), ...(card.keywords || [])].some((value) => leadingPdfWatermark.test(value))), "关键词不应残留 PDF 水印片段");

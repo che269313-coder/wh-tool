@@ -14,6 +14,7 @@ const effectKey = (effect) => JSON.stringify(effect);
 
 export function compileAbility(ability, { factionRule = false } = {}) {
   const name = compact(ability?.name);
+  const englishName = compact(ability?.englishName).toLowerCase();
   const text = compact(ability?.text);
   const category = String(ability?.category || "").toLowerCase();
   const source = `${name} ${text}`;
@@ -34,7 +35,7 @@ export function compileAbility(ability, { factionRule = false } = {}) {
   const fnp = name.match(/不(?:知|觉)疼痛\s*([3-6])\s*\+/)
     || source.match(/(?:拥有|具有|获得)\s*\*{0,2}不(?:知|觉)疼痛\s*([3-6])\s*\+/);
   if (fnp) add({ type: "fnp", threshold: Number(fnp[1]) }, { phased: false, shared: leader });
-  const grantsStealth = name === "潜行" || /(?:拥有|具有|获得)\s*\*{0,2}潜行(?:\*{0,2}|能力)/.test(source);
+  const grantsStealth = englishName === "stealth" || name === "潜行" || /(?:拥有|具有|获得)\s*\*{0,2}潜行(?:\*{0,2}|能力)/.test(source);
   if (grantsStealth) {
     add({ type: "incoming-hit-minus", value: 1, phase: "ranged" }, { phased: false, shared: leader });
   }

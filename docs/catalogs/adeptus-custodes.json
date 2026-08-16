@@ -63,7 +63,8 @@
       "factionKeywords": [
         "帝皇禁军"
       ],
-      "modelProfiles": []
+      "modelProfiles": [],
+      "abilities": []
     },
     {
       "id": "custodes.profile.02",
@@ -124,7 +125,8 @@
       "factionKeywords": [
         "帝皇禁军"
       ],
-      "modelProfiles": []
+      "modelProfiles": [],
+      "abilities": []
     },
     {
       "id": "custodes.profile.03",
@@ -250,7 +252,8 @@
       "factionKeywords": [
         "帝皇禁军"
       ],
-      "modelProfiles": []
+      "modelProfiles": [],
+      "abilities": []
     },
     {
       "id": "custodes.profile.04",
@@ -326,7 +329,8 @@
       "factionKeywords": [
         "帝皇禁军"
       ],
-      "modelProfiles": []
+      "modelProfiles": [],
+      "abilities": []
     },
     {
       "id": "custodes.profile.05",
@@ -420,7 +424,8 @@
       "factionKeywords": [
         "帝皇禁军"
       ],
-      "modelProfiles": []
+      "modelProfiles": [],
+      "abilities": []
     },
     {
       "id": "custodes.profile.06",
@@ -496,7 +501,8 @@
       "factionKeywords": [
         "帝皇禁军"
       ],
-      "modelProfiles": []
+      "modelProfiles": [],
+      "abilities": []
     },
     {
       "id": "custodes.profile.07",
@@ -588,7 +594,8 @@
       "factionKeywords": [
         "帝皇禁军"
       ],
-      "modelProfiles": []
+      "modelProfiles": [],
+      "abilities": []
     },
     {
       "id": "custodes.profile.08",
@@ -691,7 +698,8 @@
       "factionKeywords": [
         "帝皇禁军"
       ],
-      "modelProfiles": []
+      "modelProfiles": [],
+      "abilities": []
     },
     {
       "id": "custodes.profile.09",
@@ -771,7 +779,8 @@
       "factionKeywords": [
         "帝皇禁军"
       ],
-      "modelProfiles": []
+      "modelProfiles": [],
+      "abilities": []
     },
     {
       "id": "custodes.profile.10",
@@ -845,7 +854,8 @@
       "factionKeywords": [
         "帝皇禁军"
       ],
-      "modelProfiles": []
+      "modelProfiles": [],
+      "abilities": []
     },
     {
       "id": "custodes.profile.11",
@@ -928,7 +938,8 @@
       "factionKeywords": [
         "帝皇禁军"
       ],
-      "modelProfiles": []
+      "modelProfiles": [],
+      "abilities": []
     },
     {
       "id": "custodes.profile.12",
@@ -1023,7 +1034,8 @@
       "factionKeywords": [
         "帝皇禁军"
       ],
-      "modelProfiles": []
+      "modelProfiles": [],
+      "abilities": []
     },
     {
       "id": "custodes.profile.13",
@@ -1108,7 +1120,8 @@
       "factionKeywords": [
         "帝皇禁军"
       ],
-      "modelProfiles": []
+      "modelProfiles": [],
+      "abilities": []
     },
     {
       "id": "custodes.profile.14",
@@ -1160,7 +1173,8 @@
       "factionKeywords": [
         "帝皇禁军"
       ],
-      "modelProfiles": []
+      "modelProfiles": [],
+      "abilities": []
     },
     {
       "id": "custodes.profile.15",
@@ -1247,7 +1261,8 @@
       ],
       "factionKeywords": [
         "帝皇禁军"
-      ]
+      ],
+      "abilities": []
     },
     {
       "id": "custodes.profile.16",
@@ -1323,7 +1338,8 @@
       ],
       "factionKeywords": [
         "帝皇禁军"
-      ]
+      ],
+      "abilities": []
     },
     {
       "id": "custodes.profile.17",
@@ -1410,7 +1426,8 @@
       ],
       "factionKeywords": [
         "帝皇禁军"
-      ]
+      ],
+      "abilities": []
     },
     {
       "id": "custodes.profile.18",
@@ -1484,7 +1501,8 @@
       "factionKeywords": [
         "帝皇禁军"
       ],
-      "modelProfiles": []
+      "modelProfiles": [],
+      "abilities": []
     },
     {
       "id": "custodes.profile.19",
@@ -1550,7 +1568,8 @@
         "帝皇禁军"
       ],
       "modelProfiles": [],
-      "keywords": []
+      "keywords": [],
+      "abilities": []
     }
   ],
   "_meta": {
@@ -1597,6 +1616,11 @@
         "kind": "identity",
         "role": "identity-only"
       }
-    ]
+    ],
+    "adjudication": {
+      "source": "data/global/pdf-display-names.json",
+      "unitDisplayNamesApplied": 0,
+      "abilityDisplayNamesApplied": 0
+    }
   }
 }

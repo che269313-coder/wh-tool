@@ -1,46 +1,69 @@
 # 项目架构
 
-本项目的计算核心、界面/AI、阵营数据彼此隔离。计算行为只由稳定规则 ID、effect schema 和战斗 payload 驱动；界面与 AI 只能组装输入、展示结果，不能按中文技能名改写计算。阵营数据通过确定性构建进入部署目录，任何人工裁决都必须可追溯、可重放。
+本项目将数据来源、规则计算、UI 与 AI 适配严格分层。中文名称只用于展示和检索；计算核心只依赖稳定 ID、规则 effect schema 与战斗 payload，不得按某个中文译名分支。
 
-## 边界
+## 数据边界
 
 ```text
-本地来源证据/API 快照
-        ↓
-data/factions/<id>/package.json   ← 人工只在这里维护来源政策、别名和裁决
-        ↓ tools/build-data.mjs
-docs/rules/factions.js + docs/aliases/index.js + docs/catalogs/*
-        ↓
-UI / AI adapter → resolver + payload schema → engine.js
+授权 PDF / PDF 文本层 / API 快照（本地证据，不部署）
+             │
+             ├─ data/factions/<id>/package.json
+             │    阵营定义、来源策略、别名、人工 override/transform/conflict
+             │
+             ├─ data/global/pdf-display-names.json
+             │    PDF 卡面单位名与技能名裁决，绑定稳定 cardId / englishName / 证据页
+             │
+             └─ data/global/aliases.json
+                  跨阵营通用术语与全局别名
+                              │
+                    tools/build-data.mjs
+                              │
+     docs/rules/factions.js + docs/aliases/index.js + docs/catalogs/* + docs/rules/*
+                              │
+                    docs/build-version.json
+                              │
+                  UI / AI adapter / resolver
+                              │
+                    payload schema / engine.js
 ```
 
-- `docs/` 是浏览器部署目录。标记为 generated 的文件不得手改。
-- `data/factions/<id>/package.json` 是一个阵营唯一的维护入口；运行时注册、来源、别名、覆盖层不再散落在多个目录。
-- `data/global/aliases.json` 只保存跨阵营术语与全局武器别名。
-- `sources/pdfs/` 保存本地 PDF 与逐页原文证据，整体忽略 Git；它不是运行时数据源，也不能直接覆盖生成物。
-- `tools/extract/` 只做获取、OCR、格式转换；`tools/build-data.mjs` 是唯一受支持的数据构建入口。
+- `docs/` 是浏览器部署目录。标记为 generated 的数据包不得手改。
+- `data/factions/<id>/package.json` 是阵营级维护入口；同一阵营不得再维护第二份来源策略或别名表。
+- `data/global/pdf-display-names.json` 是跨阵营 PDF 显示名裁决账本。它不保存规则数值，只保存稳定身份、规范显示名、兼容旧名和证据位置。
+- `data/global/aliases.json` 只保存跨阵营术语或真正全局的别名，不能代替阵营作用域裁决。
+- `sources/pdfs/` 与 `docs/data/` 是授权本地输入，整体忽略 Git；干净克隆可直接使用已提交的生成物，但不能伪装成完成了源数据重建。
+- `tools/extract/` 只负责提取与候选生成；`tools/build-data.mjs` 是唯一受支持的完整构建入口。
+
+## 身份、显示名与数据值
+
+三个概念不可混用：
+
+1. 身份由稳定 `cardId` 或官方英文 `englishName` 锚定。英文源只参与身份匹配，不覆盖中文数值或正文。
+2. 中文显示名按来源策略裁决。旧译名、繁中名与英文名必须保留为阵营作用域别名。
+3. 属性、武器和规则正文按各阵营 `sourcePolicy` 独立裁决，不能因为名称相同就做全局字符串替换。
+
+默认优先级为：
+
+```text
+11 版简中 PDF > 10 版简中 PDF > 40k11e backend 繁中数据
+```
+
+单位卡面名通过 `cardId + englishName + PDF 页标题` 裁决；技能名通过 `factionId + englishName + 源技能名` 裁决。卡面单位名与模型成员名是两种身份，单位裁决不得传播到 `modelProfiles`；模型名只有在具备独立模型身份和 PDF 证据时才能改。相同中文词在不同英文身份、不同单位或不同阵营下可以有不同结果。找不到更高优先级证据时保留低优先级来源值，不猜译；同一身份出现多个可用高优先级候选时构建失败。
+
+`tools/extract/pdf-display-names.py` 从 PDF 文本层和术语比对表生成可审查候选。只有在恢复的 PDF 原文中实际命中（`rawExtractVerified=true`）的候选才能进入强裁决账本；报告备注或未命中的推测必须回退到后端原值，除非以后增加带页码证据的人工裁决。候选进入 `data/global/pdf-display-names.json` 后才是构建输入；再次提取只用于复核，不得绕过账本直接改部署文件。
 
 ## 阵营数据包
 
-每个 `package.json` 包含七类信息：
+每个 `package.json` 包含：
 
-1. `definition`：阵营稳定 ID、显示名、运行时包和源输入路径；不保存单位别名。
-2. `sourcePolicy`：字段冲突的统一裁决规则。
-3. `sources`：来源类型、版本、用途、输入或证据位置。英文来源只能锚定身份 ID。
-4. `aliases`：单位、武器、分遣队、数字版单位的阵营作用域别名。
-5. `overrides`：人工裁决。路径必须使用稳定选择器，例如 `cards[id=...].modelProfiles[id=...]`，禁止数组位置。
-6. `transforms`：受字段范围约束的规范术语转换；用于正文、控件等重复出现的同一来源裁决，禁止无范围全局替换。
-7. `conflicts`：多源冲突账本。每项记录候选值、字段政策、胜出来源和对应覆盖路径或转换 ID。
+- `definition`：稳定阵营 ID、部署资源和本地源输入路径；
+- `sourcePolicy` 与 `sources`：字段优先级、版本、用途和证据位置；
+- `aliases`：阵营作用域单位、武器、分遣队和数字版别名；
+- `overrides`：绑定稳定 ID/键的人工裁决，禁止数组位置选择器；
+- `transforms`：受字段与作用域约束的重复术语转换；
+- `conflicts`：已知多源冲突、胜出来源及实现它的 override/transform。
 
-显示名、规则文本和模型属性的来源优先级固定为：
-
-```text
-11 版简中 PDF > 10 版简中 PDF > 40k11e-backend 繁中数据
-```
-
-旧译名不得删除，必须转为别名。英文 40k.app 只提供稳定身份；找不到身份时使用暂译 ID 并进入复核，不得用英文源覆盖中文数值。`sourcePolicy` 不是说明性元数据：构建会检查每个冲突的胜出来源是否符合字段优先级、值是否由同一条 override 或 transform 实现、旧名是否保留为别名。所有 PDF override/transform 都必须进入冲突账本；缺少裁决或绕开账本都会让构建失败。
-
-PDF/OCR 文本只是证据。提取结果即使看似完整，也不能自动写入规范数据；应先对照 PDF 原文或已有可检索文本，再把结论写成带 `source`、`rationale`、`adjudicatedBy` 的 alias/override。这样重新提取 PDF 只会增加证据，不会破坏已裁决的数据。
+PDF 规范单位名会在生成别名索引时反转低优先级映射。例如源数据名、PDF 名和英文名都解析到 PDF 规范名；查询必须始终携带 `factionId`，避免“犀牛装甲车”等跨阵营同名串线。
 
 ## 构建与门禁
 
@@ -48,25 +71,35 @@ PDF/OCR 文本只是证据。提取结果即使看似完整，也不能自动写
 node tools/build-data.mjs --check
 ```
 
-固定顺序为：预检私有源输入 → 校验冲突账本 → 生成阵营注册表 → 生成别名索引 → 生成标准 catalog/规则包 → 推导模型武器集 → 应用人工覆盖与规范术语转换 → 校验。原始规则生成必须先于来源裁决，保证重建不会重新带回低优先级正文。调用单个中间脚本只用于开发诊断，不作为交付流程。
+固定顺序为：
 
-原始 API 快照和授权 PDF 证据不进入 Git。干净克隆可以直接使用已提交的 `docs/catalogs/*.json` 部署和运行；需要重建数据时，必须先把维护者的私有源快照恢复到各数据包 `sources[].inputPath` 指定的 `docs/data/` 路径，并把 PDF/原文证据恢复到 `sources/pdfs/`。预检会逐阵营列出缺失输入，不允许用旧生成物冒充成功重建。
+```text
+私有输入预检
+→ 冲突账本校验
+→ 阵营注册与别名索引
+→ catalog 规范化及 PDF 显示名裁决
+→ 从已裁决 catalog 生成规则包
+→ 模型武器集合
+→ 稳定 ID override/transform
+→ 根据部署内容生成统一 hash 版本
+→ 数据、回归与架构校验
+```
 
 门禁至少保证：
 
-- 23 个运行时阵营各有且只有一个数据包；
-- 所有覆盖路径使用稳定 ID/键，未命中数量必须为 0；
-- 每项已知多源冲突都有唯一裁决，且裁决符合 `displayName`、`rules` 或 `profiles` 的来源优先级；
-- catalog JSON、脚本回退包和轻量搜索索引同步；
-- 单阵营变更不能修改其他阵营的行为；
-- PDF 规范名仍能通过所有旧译名、英文名和军表名检索；
-- 单位与分遣队别名只由生成索引注册一次，查询始终携带阵营 ID；
-- `engine.js`、resolver 和 UI 不按具体阵营名或技能显示名分支。
+- 23 个运行时阵营各有且只有一个阵营数据包；
+- PDF 单位名裁决全部命中当前稳定 `cardId`，旧名与英文名仍能检索；
+- PDF 技能名按英文身份和阵营作用域应用，歧义不会借用其他单位的译名；
+- 规则包直接消费已裁决 catalog，UI 直接显示规则包名称，不再经过全局术语二次改名；
+- catalog JSON、脚本回退包、轻量搜索索引与 AI 结构化输出一致；
+- 所有 override/transform 可重复执行且命中数不为零；
+- 懒加载规则、分遣队、catalog 回退脚本以及全局别名/索引使用 `docs/build-version.json` 中由部署内容计算的同一 hash 版本；任一数据或规则变化都会换版本，避免部署缓存混用；
+- UI、AI、resolver 与计算引擎不按具体阵营中文名或技能显示名写专用计算逻辑。
 
 ## 修改规则
 
-- 名称、别名、来源冲突：修改对应阵营 `package.json`。
-- 原始 API/PDF 提取错误：先修 `tools/extract/` 或源输入，再通过覆盖层保留确有必要的人工裁决。
-- 生成器缺少通用能力：修改构建工具并先增加失败测试；不要直接编辑 catalog。
-- 新战斗语义：扩展公共 effect/payload schema，经 resolver 进入 engine；不能在阵营文件或 UI 写专用捷径。
-- 历史讨论、实施流水和已关闭 bug 不保存在当前树；Git 历史与回归测试承担追溯职责。
+- 新增或修正来源冲突：修改阵营包或全局 PDF 裁决账本，并提供稳定身份与证据。
+- PDF/API 提取错误：先修 `tools/extract/` 或本地源输入，再重建；不要手改 generated catalog。
+- 通用生成能力缺失：先增加失败测试，再修改生成器。
+- 新战斗语义：扩展公共 effect/payload schema，经 resolver 进入 engine。
+- 历史讨论、实施流水和已关闭 bug 不保存在当前树；由 Git 历史与回归测试承担追溯。
