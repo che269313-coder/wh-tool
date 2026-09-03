@@ -102,3 +102,47 @@ node tools/validate-datasheets.mjs                 # 数据卡通过
 
 - `tools/validate-rules.mjs`（主要改动，约 60 处锚点改写）
 - `repair-logs/2026-09-03-core-ability-text-and-orks-validation.md`（同日首个问题，欧克改名的直接成因）
+
+---
+
+## 追加（同日稍后）：显示名锚定的元门禁 + 残留锚点清零
+
+上节"可保留的显示名断言"之外的遗留锚点已全部清理，并落实为永久防线：
+
+### 残留锚点清零
+
+- `tools/validate-rules.mjs`：Martial Ka'tah 作用域断言的 `rulesForUnit("帝皇禁军", "禁军盾卫"/"警戒者")`
+  与 `unitName: "禁军盾卫"` 等改为复用 `custodianGuardAnchor` / `vigilatorsAnchor`（稳定 ID 反查）；
+- `tools/validate-architecture.mjs`：`find(rule.name === "暗影潜行")` 改为按
+  `space-marines.lieutenant-with-combi-weapon.shadow-skulk` 稳定 ID 定位；
+- 数据卡查找（`card.name === "中文"`）保留为显示名契约测试，统一加
+  `// display-name-anchor:` 行内标记说明。
+
+### 新增元门禁：tools/audit-assertion-anchors.mjs
+
+静态扫描 `tools/*.mjs`，拦截四类"显示名做查找输入"的模式：
+
+1. `对象["中文名"]`（按显示名索引规则目录）；
+2. `resolveUnit/rulesForUnit/resolveFaction/resolve(..., "中文名", ...)`（第 2 参数显示名）；
+3. `unitName: "中文名"`；
+4. `.find(... .name === "中文名")`（按技能显示名查找规则）。
+
+豁免机制：
+
+- 行内注释 `// display-name-anchor: 原因`——显示名是被测对象（别名/裁决测试）或测试内合成夹具；
+- `ALLOWED_FILES`——别名表与夹具测试文件（alias-registry / pdf-priority / apply-patches /
+  reroll-plan / army-list-aliases / tactical-agent / data-packages / source-contract /
+  validate-combat / validate-datasheets），这些文件中显示名即测试契约。
+
+实现注意：正则需区分"字符串索引"（`foo["中文名"]`）与"数组字面量"（`["速射3"]`），
+后者是词条词典的合法输入；裸 `resolve` 需负向后顾排除 `Dictionary.resolve`。
+
+### 门禁挂载
+
+`build-data.mjs --check` 新增 `audit assertion anchors` 阶段。
+当前防线：核心技能全文审计 + 断言锚点审计 + 架构契约校验，三类回归在构建期即失败。
+
+### 验证（全绿）
+
+validate-rules / validate-architecture / validate-datasheets / audit-core-ability-text /
+audit-assertion-anchors 全部通过；faction-rules-coverage + core-ability-normalizer 12/12。

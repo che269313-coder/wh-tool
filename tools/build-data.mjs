@@ -21,6 +21,7 @@ if (process.argv.includes("--check")) {
     ["validate data packages", "--test", "tools/data-packages.test.mjs", "tools/alias-registry.test.mjs", "tools/apply-patches.test.mjs", "tools/audit-regressions.test.mjs", "tools/pdf-priority.test.mjs", "tools/core-ability-normalizer.test.mjs"],
     ["validate datasheets", "tools/validate-datasheets.mjs"],
     ["audit core ability text", "tools/audit-core-ability-text.mjs"],
+    ["audit assertion anchors", "tools/audit-assertion-anchors.mjs"],
     ["validate architecture", "tools/validate-architecture.mjs"],
   );
 }

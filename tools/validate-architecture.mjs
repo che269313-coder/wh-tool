@@ -59,7 +59,7 @@ assert(context.WarhammerRuleIdentity.audit([official, translated]).length === 1,
 // 暗影潜行是连长的独有位移能力，不得再映射为 Lone Operative（独行特工）。
 vm.runInContext(fs.readFileSync(path.join(root, "docs", "rules/space-marines-identities.js"), "utf8"), context, { filename: "rules/space-marines-identities.js" });
 vm.runInContext(fs.readFileSync(path.join(root, "docs", "rules/space-marines.js"), "utf8"), context, { filename: "rules/space-marines.js" });
-const shadowSkulk = Object.values(context.WarhammerSpaceMarineRules?.unitRules || {}).flat().find((rule) => rule.name === "暗影潜行");
+const shadowSkulk = Object.values(context.WarhammerSpaceMarineRules?.unitRules || {}).flat().find((rule) => rule.id === "space-marines.lieutenant-with-combi-weapon.shadow-skulk");
 assert(shadowSkulk?.identity?.englishName === "Shadow Skulk", "暗影潜行的英文锚点必须为 Shadow Skulk 而非 Lone Operative");
 assert(shadowSkulk?.legacyIds?.includes("space-marines-p73-3"), "改名后必须保留来源旧 ID");
 
@@ -93,9 +93,9 @@ for (const file of ["rules/effects.js", "rules/resolver.js"]) {
   const filename = path.join(root, "docs", file);
   vm.runInContext(fs.readFileSync(filename, "utf8"), context, { filename });
 }
-const testFactionRules = context.WarhammerRuleResolver.rulesForUnit("Test Faction", "测试单位别名");
+const testFactionRules = context.WarhammerRuleResolver.rulesForUnit("Test Faction", "测试单位别名"); // display-name-anchor: 合成测试阵营，非部署数据
 assert(testFactionRules.faction.length === 1 && testFactionRules.unit.length === 1, "运行时注册第四阵营后 resolver 不得需要新增阵营分支");
-const testFactionResolved = context.WarhammerRuleResolver.resolveUnit("Test Faction", "测试单位别名", {}, { phase: "ranged" });
+const testFactionResolved = context.WarhammerRuleResolver.resolveUnit("Test Faction", "测试单位别名", {}, { phase: "ranged" }); // display-name-anchor: 合成测试阵营，非部署数据
 assert(testFactionResolved.attack.hitModifier === 1, "第四阵营的通用命中效果必须正常归约");
 assert(testFactionResolved.attack.contributions?.some((item) => item.sourceId === "test-faction.test-unit.test-rule" && item.field === "hitModifier" && item.value === 1), "归约结果必须保留稳定规则 ID 和效果贡献");
 

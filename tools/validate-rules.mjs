@@ -61,11 +61,13 @@ const martialKatahRule = context.WarhammerCustodesRules.factionRules.find((rule)
 assert(martialKatahRule?.appliesTo?.unitTag === "adeptus-custodes.martial-katah", "Martial Ka'tah must declare its scope through a stable unit tag");
 assert(martialKatahRule?.effects?.some((effect) => effect.type === "sustained-hits" && effect.selection?.controlId === "stance" && effect.selection?.equals === "sustained"), "Martial Ka'tah sustained hits must use a generic selected effect");
 assert(martialKatahRule?.effects?.some((effect) => effect.type === "lethal-hits" && effect.selection?.controlId === "stance" && effect.selection?.equals === "lethal"), "Martial Ka'tah lethal hits must use a generic selected effect");
-assert(context.WarhammerRuleResolver.rulesForUnit("帝皇禁军", "禁军盾卫").faction.some((rule) => rule.id === martialKatahRule.id), "Custodian units must receive Martial Ka'tah");
-assert(!context.WarhammerRuleResolver.rulesForUnit("帝皇禁军", "警戒者").faction.some((rule) => rule.id === martialKatahRule.id), "Anathema Psykana units must not receive Martial Ka'tah");
-const martialSustained = context.WarhammerRuleResolver.resolveFaction("帝皇禁军", { "custodes-martial-katah.stance": "sustained" }, { phase: "melee", unitName: "禁军盾卫" });
-const martialLethal = context.WarhammerRuleResolver.resolveFaction("帝皇禁军", { "adeptus-custodes.army.martial-katah.stance": "lethal" }, { phase: "melee", unitName: "禁军盾卫" });
-const sisterKatah = context.WarhammerRuleResolver.resolveFaction("帝皇禁军", { "adeptus-custodes.army.martial-katah.stance": "lethal" }, { phase: "melee", unitName: "警戒者" });
+const custodianGuardAnchor = unitEntryByRuleId(context.WarhammerCustodesRules, "adeptus-custodes.custodian-guard.sentinel-storm");
+const vigilatorsAnchor = unitEntryByRuleId(context.WarhammerCustodesRules, "adeptus-custodes.vigilators.deft-parry");
+assert(context.WarhammerRuleResolver.rulesForUnit("帝皇禁军", custodianGuardAnchor.unitName).faction.some((rule) => rule.id === martialKatahRule.id), "Custodian units must receive Martial Ka'tah");
+assert(!context.WarhammerRuleResolver.rulesForUnit("帝皇禁军", vigilatorsAnchor.unitName).faction.some((rule) => rule.id === martialKatahRule.id), "Anathema Psykana units must not receive Martial Ka'tah");
+const martialSustained = context.WarhammerRuleResolver.resolveFaction("帝皇禁军", { "custodes-martial-katah.stance": "sustained" }, { phase: "melee", unitName: custodianGuardAnchor.unitName });
+const martialLethal = context.WarhammerRuleResolver.resolveFaction("帝皇禁军", { "adeptus-custodes.army.martial-katah.stance": "lethal" }, { phase: "melee", unitName: custodianGuardAnchor.unitName });
+const sisterKatah = context.WarhammerRuleResolver.resolveFaction("帝皇禁军", { "adeptus-custodes.army.martial-katah.stance": "lethal" }, { phase: "melee", unitName: vigilatorsAnchor.unitName });
 const unscopedKatah = context.WarhammerRuleResolver.resolveFaction("帝皇禁军", { "adeptus-custodes.army.martial-katah.stance": "lethal" }, { phase: "melee" });
 assert(martialSustained.attack.sustainedHits === 1 && martialLethal.attack.lethalHits, "Both legacy and stable Martial Ka'tah selections must resolve");
 assert(!sisterKatah.attack.lethalHits && sisterKatah.attack.sustainedHits === 0, "Direct resolution must not leak Martial Ka'tah to Anathema Psykana");
@@ -166,7 +168,7 @@ const contagionGift = unitRuleById(contagionCasterEntry, "death-guard.malignant-
 assert(contagionGift?.effects?.some((effect) => effect.type === "sustained-hits" && effect.requiresTargetInfected && effect.requiresJoined), "恶瘟投放者必须声明传染馈赠的感染目标连击1效果");
 assert(contagionGift?.controls?.some((control) => control.id === "targetInfected"), "传染馈赠必须提供目标已感染选项");
 assert(deathGuardData.cards.some((card) => card.name === "有翼纳垢恶魔亲王") && deathGuardData.cards.some((card) => card.name === "恶瘟投放者"), "死亡守卫必须保留有翼纳垢恶魔亲王和恶瘟投放者数据卡");
-const defilerCard = deathGuardData.cards.find((card) => card.name === "污染者");
+const defilerCard = deathGuardData.cards.find((card) => card.name === "污染者"); // display-name-anchor: 数据卡/夹具名称即数据层键，非部署层显示名
 assert(defilerCard?.unit?.movement === 12 && defilerCard.unit.woundsPerModel === 18 && defilerCard.unit.invulnerableSave === 5, "污染者必须更新为 M12/T11/W18/5++");
 assert(["魂浆破坏炮", "重型导弹发射器 - 穿甲弹", "重型导弹发射器 - 碎片弹", "重型死神自动炮", "流火岩浆切割器", "电鞭", "剪切爪 - 猛击", "剪切爪 - 横扫"].every((name) => defilerCard.weapons.some((weapon) => weapon.name === name)), "污染者必须保留最新图片中的全部武器配置");
 const defilerEntry = unitEntryByRuleId(deathGuardRules, "death-guard.defiler.seriously-damaged");
@@ -241,7 +243,7 @@ const peakMoment = unitRuleById(genericCaptainEntry, "space-marines.captain.fine
 assert(peakMoment?.effects?.some((effect) => effect.type === "attack-modifier" && effect.value === 3), "通用人物数据卡必须声明巅峰时刻 A+3");
 assert(peakMoment?.effects?.some((effect) => effect.type === "devastating-wounds" && effect.phase === "melee"), "巅峰时刻必须在近战阶段提供毁灭伤害");
 
-const custodianGuardEntry = unitEntryByRuleId(context.WarhammerCustodesRules, "adeptus-custodes.custodian-guard.sentinel-storm");
+const custodianGuardEntry = custodianGuardAnchor;
 const custodianGuardName = custodianGuardEntry.unitName;
 
 const guardDefault = resolve("帝皇禁军", custodianGuardName, {}, { phase: "melee" });
@@ -275,7 +277,7 @@ assert(aleyaForcedLeader.attack.hitModifier === 1, "艾雷雅强制按已领导�
 
 const allarusEntry = unitEntryByRuleId(context.WarhammerCustodesRules, "adeptus-custodes.allarus-custodians.slayers-of-tyrants");
 const terminatorCaptainEntry = unitEntryByRuleId(context.WarhammerCustodesRules, "adeptus-custodes.shield-captain-in-allarus-terminator-armour.auramite-and-adamantine");
-const vigilatorsEntry = unitEntryByRuleId(context.WarhammerCustodesRules, "adeptus-custodes.vigilators.deft-parry");
+const vigilatorsEntry = vigilatorsAnchor;
 // 历史上“阿拉鲁斯/阿拉琉斯”为同一 allarus-custodians 卡的两种译名，统一锚定到稳定 ID。
 const allarus = resolve("帝皇禁军", allarusEntry.unitName, {}, { phase: "melee" });
 const terminatorCaptain = resolve("帝皇禁军", terminatorCaptainEntry.unitName, {}, { phase: "melee" });
@@ -383,10 +385,10 @@ const jumpCaptainEntry = unitEntryByRuleId(context.WarhammerSpaceMarineRules, "s
 const angelRage = unitRuleById(jumpCaptainEntry, "space-marines.captain-with-jump-pack.angels-wrath");
 const angelRageEnabled = resolve("星际战士", jumpCaptainEntry.unitName, { [`${angelRage?.id}.enabled`]: true, [`${angelRage?.id}.forceLeader`]: true }, { phase: "melee", isJoined: false });
 assert(angelRage?.effects?.some((effect) => effect.type === "weapon-strength-modifier" && effect.value === 1) && angelRageEnabled.attack.strengthModifier === 1, "天使之怒必须提供近战武器 S+1");
-const essoCard = structuredSpaceMarineCards.find((card) => card.unit.name === "艾索·沙恩");
-const subodenCard = structuredSpaceMarineCards.find((card) => card.unit.name === "速不台可汗");
-const heavyCaptainCard = structuredSpaceMarineCards.find((card) => card.unit.name === "重装连长");
-const genericCaptainCard = structuredSpaceMarineCards.find((card) => card.unit.name === "连长");
+const essoCard = structuredSpaceMarineCards.find((card) => card.unit.name === "艾索·沙恩"); // display-name-anchor: 数据卡/夹具名称即数据层键，非部署层显示名
+const subodenCard = structuredSpaceMarineCards.find((card) => card.unit.name === "速不台可汗"); // display-name-anchor: 数据卡/夹具名称即数据层键，非部署层显示名
+const heavyCaptainCard = structuredSpaceMarineCards.find((card) => card.unit.name === "重装连长"); // display-name-anchor: 数据卡/夹具名称即数据层键，非部署层显示名
+const genericCaptainCard = structuredSpaceMarineCards.find((card) => card.unit.name === "连长"); // display-name-anchor: 数据卡/夹具名称即数据层键，非部署层显示名
 assert(essoCard?.unit?.invulnerableSave === 4, "艾索·沙恩必须保留 4++");
 assert(subodenCard?.weapons?.some((weapon) => weapon.name === "动力长刀“风暴之牙”" && weapon.type === "melee") && subodenCard.weapons.some((weapon) => weapon.name === "动力剑" && weapon.type === "melee"), "速不台可汗必须保留近战武器");
 assert(heavyCaptainCard && heavyCaptainCard.weapons?.some((weapon) => weapon.type === "melee"), "重装连长数据卡必须可被找到并包含近战武器");
@@ -503,8 +505,8 @@ const silentBodyguardGroups = context.WarhammerCombatState.applyLeaderGrantedDef
   { name: "联合角色", isLeader: true, effects: { feelNoPainEnabled: false, feelNoPainMortalEnabled: false } },
   { name: "其他护卫模型档案", isLeader: false, effects: { feelNoPainEnabled: false, feelNoPainMortalEnabled: false } },
 ]);
-const silentGuardGroup = silentBodyguardGroups.find((group) => group.name === "死亡寿衣终结者");
-const silentLeaderGroup = silentBodyguardGroups.find((group) => group.name === "联合角色");
+const silentGuardGroup = silentBodyguardGroups.find((group) => group.name === "死亡寿衣终结者"); // display-name-anchor: 数据卡/夹具名称即数据层键，非部署层显示名
+const silentLeaderGroup = silentBodyguardGroups.find((group) => group.name === "联合角色"); // display-name-anchor: 数据卡/夹具名称即数据层键，非部署层显示名
 assert(!silentGuardGroup.effects.feelNoPainEnabled && !silentGuardGroup.effects.feelNoPainMortalEnabled, "无声护卫不得让死亡寿衣护卫自身获得不知疼痛4+");
 assert(silentLeaderGroup.effects.feelNoPainEnabled && silentLeaderGroup.effects.feelNoPainThreshold === 4
   && silentLeaderGroup.effects.feelNoPainMortalEnabled && silentLeaderGroup.effects.feelNoPainMortalThreshold === 4, "无声护卫必须只把不知疼痛4+授予联合单位中的领导角色");
@@ -555,7 +557,7 @@ assert(inflamedMelee.attack.hitCriticalThreshold === 4 && !inflamedMelee.defend.
 const aleyaPsychic = resolve("帝皇禁军", aleyaEntry.unitName, { "custodes-aleya-deep.psychic": true }, { phase: "melee", isJoined: false });
 const aleyaPlain = resolve("帝皇禁军", aleyaEntry.unitName, {}, { phase: "melee", isJoined: false });
 assert(aleyaPlain.defend.feelNoPain === 5 && aleyaPsychic.defend.feelNoPain === 3 && aleyaPsychic.defend.feelNoPainMortal === 3, "深渊之女对灵能攻击必须覆盖为基础不知疼痛3+");
-assert(context.WarhammerCustodesRules.unitRules["警戒者"]?.length && !context.WarhammerCustodesRules.unitRules["戒卫者"], "禁军警戒者/戒卫者重复卡必须合并为警戒者");
+assert(context.WarhammerCustodesRules.unitRules["警戒者"]?.length && !context.WarhammerCustodesRules.unitRules["戒卫者"], "禁军警戒者/戒卫者重复卡必须合并为警戒者"); // display-name-anchor: 被测对象就是显示名裁决结果
 const trajannCoreDefend = resolve("帝皇禁军", trajannEntry.unitName, {}, { phase: "melee" });
 assert(trajannCoreDefend.defend.feelNoPain === 5 && trajannCoreDefend.defend.feelNoPainMortal === 5, "通用不知疼痛必须同时防止普通伤害与致命伤害");
 const prosecutorEntry = unitEntryByRuleId(context.WarhammerCustodesRules, "adeptus-custodes.prosecutors.purity-of-execution");
@@ -627,9 +629,9 @@ const optionalPlasmaProfiles = context.WarhammerCombatState.initializeOptionalEx
   { name: "等离子手枪（过载）", selectionGroup: "等离子手枪", enabled: true },
   { name: "精工爆弹枪", enabled: true },
 ]);
-assert(optionalPlasmaProfiles.find((weapon) => weapon.name === "等离子手枪（标准）").enabled
-  && !optionalPlasmaProfiles.find((weapon) => weapon.name === "等离子手枪（过载）").enabled
-  && optionalPlasmaProfiles.find((weapon) => weapon.name === "精工爆弹枪").enabled, "单位携带互斥武器组时必须默认选中首个档案（如泰丰斯悲泣战镰重击/横扫），并保留其他武器选择");
+assert(optionalPlasmaProfiles.find((weapon) => weapon.name === "等离子手枪（标准）").enabled // display-name-anchor: 数据卡/夹具名称即数据层键，非部署层显示名
+  && !optionalPlasmaProfiles.find((weapon) => weapon.name === "等离子手枪（过载）").enabled // display-name-anchor: 数据卡/夹具名称即数据层键，非部署层显示名
+  && optionalPlasmaProfiles.find((weapon) => weapon.name === "精工爆弹枪").enabled, "单位携带互斥武器组时必须默认选中首个档案（如泰丰斯悲泣战镰重击/横扫），并保留其他武器选择"); // display-name-anchor: 数据卡/夹具名称即数据层键，非部署层显示名
 const notCarriedPlasmaProfiles = context.WarhammerCombatState.initializeOptionalExclusiveWeapons([
   { name: "等离子手枪（标准）", selectionGroup: "等离子手枪", enabled: false },
   { name: "等离子手枪（过载）", selectionGroup: "等离子手枪", enabled: false },
