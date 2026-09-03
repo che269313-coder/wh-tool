@@ -11,7 +11,7 @@
              │    阵营定义、来源策略、别名、人工 override/transform/conflict
              │
              ├─ data/global/pdf-display-names.json
-             │    PDF 卡面单位名与技能名裁决，绑定稳定 cardId / englishName / 证据页
+             │    PDF 卡面单位名、技能名与武器名裁决，绑定稳定 cardId / englishName / 证据页
              │
              └─ data/global/aliases.json
                   跨阵营通用术语与全局别名
@@ -49,8 +49,10 @@
 ```
 
 单位卡面名通过 `cardId + englishName + PDF 页标题` 裁决；技能名通过 `factionId + englishName + 源技能名` 裁决。卡面单位名与模型成员名是两种身份，单位裁决不得传播到 `modelProfiles`；模型名只有在具备独立模型身份和 PDF 证据时才能改。相同中文词在不同英文身份、不同单位或不同阵营下可以有不同结果。找不到更高优先级证据时保留低优先级来源值，不猜译；同一身份出现多个可用高优先级候选时构建失败。
+武器显示名属于 `sourcePolicy.profiles`：`ledger.weapons` 按 `cardId + englishName` 绑定，以 PDF 武器表行（射程 / A / WS|BS / S / AP / D）与后端武器数值的唯一匹配为证据；构建时 `adjudicateCatalog` 自动把结构化武器名、默认装备、模型武器集合与装备选项收敛到 PDF 名，并把卡内正文中 ≥3 字的后端武器术语随裁决替换（短词只收敛结构化字段，避免破坏复合词）。低优先级旧名自动进入 `aliases.weapons`，但当旧名仍是同阵营另一武器的现用名、或与其它裁决的显示名冲突时不得别名化；构建门禁确保每条已裁决武器在所属卡内不再残留后端名。
 
-`tools/extract/pdf-display-names.py` 从 PDF 文本层和术语比对表生成可审查候选。只有在恢复的 PDF 原文中实际命中（`rawExtractVerified=true`）的候选才能进入强裁决账本；报告备注或未命中的推测必须回退到后端原值，除非以后增加带页码证据的人工裁决。候选进入 `data/global/pdf-display-names.json` 后才是构建输入；再次提取只用于复核，不得绕过账本直接改部署文件。
+
+`tools/extract/pdf-display-names.py` 从 PDF 文本层和术语比对表生成可审查候选：单位名按卡面标题锚定，技能名按比对报告锚定，武器名按卡页区域内的武器表行（数值签名唯一匹配后端武器档案）锚定。只有在恢复的 PDF 原文中实际命中（`rawExtractVerified=true`）的候选才能进入强裁决账本；报告备注或未命中的推测必须回退到后端原值，除非以后增加带页码证据的人工裁决。候选进入 `data/global/pdf-display-names.json` 后才是构建输入；再次提取只用于复核，不得绕过账本直接改部署文件。
 
 ## 阵营数据包
 

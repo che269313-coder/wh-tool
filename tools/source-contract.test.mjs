@@ -79,6 +79,44 @@ test("rules terminology conflicts must resolve through an executable transform",
   assert.ok(validatePackageConflicts(payload).some((message) => message.includes("transform")));
 });
 
+test("profile conflicts preserve the losing weapon name as a weapon alias", () => {
+  const payload = {
+    definition: { id: "orks" },
+    sourcePolicy: { profiles: ["pdf-10e-zh", "40k11e-backend-zh-hant"], unresolvedConflict: "fail-build" },
+    sources: [{ id: "pdf-10e-zh" }, { id: "40k11e-backend-zh-hant" }],
+    aliases: { units: {}, weapons: { "华丽枪": { canonical: "魔改炫枪" } } },
+    overrides: [],
+    transforms: [{
+      id: "orks-catalog-snazzgun-profile-name",
+      target: "catalog",
+      kind: "canonical-term",
+      matchMode: "exact",
+      fields: ["name"],
+      aliases: ["华丽枪"],
+      value: "魔改炫枪",
+      source: "pdf-10e-zh",
+      rationale: "PDF weapon title wins",
+    }],
+    conflicts: [{
+      id: "snazzgun-name",
+      policy: "profiles",
+      candidates: [
+        { source: "pdf-10e-zh", value: "魔改炫枪" },
+        { source: "40k11e-backend-zh-hant", value: "华丽枪" },
+      ],
+      resolution: {
+        source: "pdf-10e-zh",
+        value: "魔改炫枪",
+        transformIds: ["orks-catalog-snazzgun-profile-name"],
+        preserveAliases: ["华丽枪"],
+      },
+    }],
+  };
+  assert.deepEqual(validatePackageConflicts(payload), []);
+  delete payload.aliases.weapons["华丽枪"];
+  assert.ok(validatePackageConflicts(payload).some((message) => message.includes("preserved as alias 华丽枪")));
+});
+
 test("the supported build regenerates Orks rules before applying adjudication", () => {
   const source = fs.readFileSync(path.join(path.resolve(import.meta.dirname, ".."), "tools", "build-data.mjs"), "utf8");
   const generator = source.indexOf("tools/generate-orks-rules.mjs");

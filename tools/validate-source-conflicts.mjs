@@ -62,7 +62,8 @@ export function validatePackageConflicts(payload) {
       resolvedTransformIds.add(transformId);
     });
     (resolution.preserveAliases || []).forEach((alias) => {
-      const canonical = aliasCanonical(payload.aliases?.units?.[alias]);
+      const aliasTable = policyName === "profiles" ? payload.aliases?.weapons : payload.aliases?.units;
+        const canonical = aliasCanonical(aliasTable?.[alias]);
       if (!sameValue(canonical, resolution.value)) errors.push(`${label}: losing name must be preserved as alias ${alias}`);
     });
   }

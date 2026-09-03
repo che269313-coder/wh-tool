@@ -1071,7 +1071,7 @@ function calculatorRuleMarkup(draft, side, rules, heading) {
     const displayUnitName = rule.unitName
       ? (window.WarhammerAliasRegistry?.resolveUnit?.(faction, rule.unitName) || rule.unitName)
       : "";
-    return `<div class="calculator-ability"><strong>${escapeHtml(displayUnitName ? `${displayUnitName} · ${rule.name}` : rule.name)}</strong><p>${escapeHtml(rule.text)}</p><small>${escapeHtml(statusFor(rule))}</small>${calculatorRuleControlMarkup(draft, side, rule)}</div>`;
+    return `<div class="calculator-ability"><strong>${escapeHtml(displayUnitName ? `${displayUnitName} · ${rule.name}` : rule.name)}</strong>${rule.text ? `<p>${escapeHtml(rule.text)}</p>` : ""}<small>${escapeHtml(statusFor(rule))}</small>${calculatorRuleControlMarkup(draft, side, rule)}</div>`;
   }).join("")}</section>`;
 }
 

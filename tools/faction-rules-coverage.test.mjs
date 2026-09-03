@@ -35,16 +35,22 @@ const findByEnglishName = (factionId, englishName) => Object.values(catalogs[fac
   .find((rule) => rule.source?.englishName === englishName);
 
 test("numeric Feel No Pain abilities are calculator effects", () => {
-  const rules = allRules.filter((rule) => /不(?:知|觉)疼痛\s*[3-6]\s*\+/.test(rule.name));
+  // 核心技能已按单位合并为"核心技能"束（text 为技能名清单），FNP 阈值在束的 effects 里保留。
+  const rules = allRules.filter(
+    (rule) => rule.source?.kind === "core" && /不(?:知|觉)疼痛\s*[3-6]\s*\+/.test(rule.text || ""),
+  );
   assert.ok(rules.length >= 20, `expected broad FNP coverage, found ${rules.length}`);
   for (const rule of rules) {
-    const threshold = Number(rule.name.match(/([3-6])\s*\+/)?.[1]);
-    assert.ok(rule.effects?.some((effect) => effect.type === "fnp" && effect.threshold === threshold), rule.id);
+    const thresholds = [...(rule.text || "").matchAll(/不(?:知|觉)疼痛\s*([3-6])\s*\+/g)].map((match) => Number(match[1]));
+    assert.ok(thresholds.length, rule.id);
+    for (const threshold of thresholds) {
+      assert.ok(rule.effects?.some((effect) => effect.type === "fnp" && effect.threshold === threshold), rule.id);
+    }
   }
 });
 
 test("Stealth abilities reduce incoming ranged hit rolls", () => {
-  const rules = allRules.filter((rule) => rule.source?.englishName === "Stealth");
+  const rules = allRules.filter((rule) => (rule.source?.englishName || "").split(", ").includes("Stealth"));
   assert.ok(rules.length >= 10, `expected broad Stealth coverage, found ${rules.length}`);
   for (const rule of rules) {
     assert.ok(rule.effects?.some((effect) => effect.type === "incoming-hit-minus" && effect.phase === "ranged"), rule.id);

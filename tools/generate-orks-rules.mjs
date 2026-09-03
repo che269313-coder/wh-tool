@@ -352,6 +352,7 @@ const adjudicatedCatalog = adjudicateRuleCatalog({
   factionId: "orks",
   packagePayload,
   ledger: pdfDisplayLedger,
+  sourceCards: source.cards || [],
 });
 
 const output = `/* Generated from docs/data/欧克兽人/欧克兽人-网站原始数据-简体.json. Regenerate with tools/generate-orks-rules.mjs. */\n(function (root) {\n  const factionRules = ${JSON.stringify(adjudicatedCatalog.factionRules, null, 2)};\n  const unitRules = ${JSON.stringify(adjudicatedCatalog.unitRules, null, 2)};\n  const catalog = { factionRules, unitRules };\n  root.WarhammerOrksRules = root.WarhammerOrksRuleIdentities?.apply(catalog) || catalog;\n})(typeof globalThis === "undefined" ? this : globalThis);\n`;

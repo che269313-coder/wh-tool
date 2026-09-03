@@ -19,7 +19,16 @@ const lines = [
   '  if (!registry) throw new Error("alias-registry.js must load before aliases/index.js");',
 ];
 for (const payload of factionPackages) {
-  const aliases = aliasesWithPdfCanonicalNames(payload, pdfDisplayLedger);
+  const sourceCatalogPath = payload.definition?.data?.catalog;
+  let sourceCards = [];
+  if (sourceCatalogPath) {
+    const sourceCatalogFile = path.join(root, "docs", sourceCatalogPath);
+    if (fs.existsSync(sourceCatalogFile)) {
+      const sourceCatalog = JSON.parse(fs.readFileSync(sourceCatalogFile, "utf8").replace(/^\uFEFF/, ""));
+      sourceCards = sourceCatalog.cards || [];
+    }
+  }
+  const aliases = aliasesWithPdfCanonicalNames(payload, pdfDisplayLedger, sourceCards);
   lines.push(`  registry.register(${JSON.stringify({ ...aliases, factionId: payload.definition.id })});`);
 }
 const globalPayload = JSON.parse(fs.readFileSync(path.join(root, "data", "global", "aliases.json"), "utf8"));

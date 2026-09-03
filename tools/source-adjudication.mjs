@@ -41,6 +41,16 @@ function abilityDecisionMap(ledger, factionId) {
   return result;
 }
 
+function weaponDecisionMap(ledger, factionId) {
+  const result = new Map();
+  for (const entry of ledger.weapons?.[factionId] || []) {
+    const key = `${entry.cardId}\u0000${entry.englishName}`;
+    if (!result.has(key)) result.set(key, []);
+    result.get(key).push(entry);
+  }
+  return result;
+}
+
 function validateDecisionSource(packagePayload, sourceId, policyLane, label) {
   const factionId = packagePayload.definition.id;
   const sources = packagePayload.sources || [];
@@ -93,9 +103,96 @@ function replaceAbilityLabel(summary, sourceName, display) {
   );
 }
 
+function weaponReplacements(decisions) {
+  const exactLookup = new Map();
+  const replacements = [];
+  for (const decision of decisions) {
+    const aliases = [...new Set([decision.sourceName, ...(decision.aliases || [])])].filter(Boolean);
+    for (const alias of aliases) {
+      const existing = exactLookup.get(alias);
+      if (existing && existing !== decision.display) {
+        throw new Error(`weapon term ${alias} maps to conflicting displays: ${existing} | ${decision.display}`);
+      }
+      exactLookup.set(alias, decision.display);
+    }
+    replacements.push({ aliases: aliases.sort((left, right) => right.length - left.length), display: decision.display });
+  }
+  return { exactLookup, replacements };
+}
+
+function replaceWeaponTermsInText(text, replacements, protectedTerms) {
+  if (!text || typeof text !== "string") return text;
+  // Longer names that merely contain an alias (火箭手枪 containing 手枪)
+  // are protected with placeholders so the short alias never corrupts them.
+  // Terms that are themselves aliases must NOT be protected: they need the
+  // longest-first alias replacement to reach them.
+  const aliasSet = new Set(replacements.flatMap(({ aliases }) => aliases));
+  const protectedList = [...new Set(protectedTerms || [])]
+    .filter((term) => term && !aliasSet.has(term) && replacements.some(({ aliases }) => aliases.some((alias) => alias !== term && term.includes(alias))))
+    .sort((left, right) => right.length - left.length);
+  const placeholders = [];
+  let working = String(text);
+  protectedList.forEach((term, index) => {
+    if (!working.includes(term)) return;
+    const placeholder = `\uE000${index}\uE001`;
+    placeholders.push([placeholder, term]);
+    working = working.split(term).join(placeholder);
+  });
+  // Global longest-first order: a longer alias from another decision must win
+  // over a shorter alias nested inside it (神官雷射爆裂枪 vs 雷射爆裂枪).
+  const orderedPairs = replacements
+    .flatMap(({ aliases, display }) => aliases.map((alias) => [alias, display]))
+    .sort((left, right) => right[0].length - left[0].length);
+  for (const [alias, display] of orderedPairs) {
+    if (working.includes(alias)) working = working.split(alias).join(display);
+  }
+  for (const [placeholder, term] of placeholders) working = working.split(placeholder).join(term);
+  return working;
+}
+
+function applyWeaponTerms(card, decisions) {
+  if (!decisions.length) return card;
+  const { exactLookup, replacements } = weaponReplacements(decisions);
+  // Two-character aliases (钩爪, 力爪, 圣洁) are too ambiguous for prose
+  // replacement; structured name fields and inventory strings still converge.
+  const proseReplacements = replacements
+    .map(({ aliases, display }) => ({ aliases: aliases.filter((alias) => alias.length >= 3), display }))
+    .filter(({ aliases }) => aliases.length);
+  const weaponNames = new Set();
+  for (const weapon of card.weapons || []) {
+    if (weapon?.name) weaponNames.add(weapon.name);
+  }
+  for (const decision of decisions) {
+    weaponNames.add(decision.sourceName);
+    weaponNames.add(decision.display);
+    for (const alias of decision.aliases || []) weaponNames.add(alias);
+  }
+  const walk = (node) => {
+    if (Array.isArray(node)) {
+      node.forEach((item) => { if (item && typeof item === "object") walk(item); });
+      return;
+    }
+    if (!node || typeof node !== "object") return;
+    for (const [key, value] of Object.entries(node)) {
+      if (typeof value === "string") {
+        if (key === "name" && exactLookup.has(value)) node[key] = exactLookup.get(value);
+        else if (key === "defaultEquipment") node[key] = replaceWeaponTermsInText(value, replacements, weaponNames);
+        else if (key === "text" || key === "abilities" || key === "activeAbilities" || key === "rawText") {
+          node[key] = replaceWeaponTermsInText(value, proseReplacements, weaponNames);
+        }
+      } else if (key === "weaponNames" && Array.isArray(value)) {
+        node[key] = value.map((item) => (typeof item === "string" && exactLookup.has(item) ? exactLookup.get(item) : item));
+      } else if (value && typeof value === "object") walk(value);
+    }
+  };
+  walk(card);
+  return card;
+}
+
 export function adjudicateCatalog({ catalog, factionId, packagePayload, ledger }) {
   const units = unitDecisionMap(ledger, factionId);
   const abilities = abilityDecisionMap(ledger, factionId);
+  const weapons = weaponDecisionMap(ledger, factionId);
   const packageAliases = aliasesByCanonical(packagePayload);
   const currentCards = new Map((catalog.cards || []).map((card) => [card.id, card]));
 
@@ -117,6 +214,28 @@ export function adjudicateCatalog({ catalog, factionId, packagePayload, ledger }
     }
     validateDecisionSource(packagePayload, entry.sourceId, "rules", entry.englishName);
   }
+  for (const entry of ledger.weapons?.[factionId] || []) {
+    const label = `${entry.cardId}/${entry.englishName}`;
+    if (!entry.evidence || !entry.sourceId) {
+      throw new Error(`${factionId}/${label}: incomplete PDF weapon-name provenance`);
+    }
+    if (entry.rawExtractVerified !== true) {
+      throw new Error(`${factionId}/${label}: report-only weapon name is not verified against restored PDF text`);
+    }
+    validateDecisionSource(packagePayload, entry.sourceId, "profiles", label);
+    const target = currentCards.get(entry.cardId);
+    if (!target) throw new Error(`${factionId}/${label}: PDF weapon decision targets a missing card`);
+    const entries = weapons.get(`${entry.cardId}\u0000${entry.englishName}`) || [];
+    if (entries.length > 1) {
+      throw new Error(`${factionId}/${label}: duplicate PDF weapon decisions for one identity`);
+    }
+    const weapon = (target.weapons || []).find((candidate) => String(candidate.englishName || "").trim() === entry.englishName);
+    if (!weapon) throw new Error(`${factionId}/${label}: PDF weapon decision targets a missing weapon`);
+    const acceptedNames = new Set([entry.sourceName, ...(entry.aliases || [])].filter(Boolean));
+    if (!acceptedNames.has(weapon.name)) {
+      throw new Error(`${factionId}/${label}: current weapon name ${weapon.name} is absent from the PDF weapon decision aliases`);
+    }
+  }
 
   const canonicalBySourceName = new Map();
   for (const card of catalog.cards || []) {
@@ -126,6 +245,7 @@ export function adjudicateCatalog({ catalog, factionId, packagePayload, ledger }
 
   let unitChanges = 0;
   let abilityChanges = 0;
+  const appliedWeaponDecisions = new Set();
   const cards = (catalog.cards || []).map((card) => {
     const unitDecision = units.get(card.id);
     const sourceUnitName = card.name;
@@ -157,7 +277,19 @@ export function adjudicateCatalog({ catalog, factionId, packagePayload, ledger }
       ...card.leader,
       eligibleUnits: (card.leader.eligibleUnits || []).map((name) => canonicalBySourceName.get(name) || name),
     } : card.leader;
-    return {
+
+    const cardWeaponDecisions = (card.weapons || []).map((weapon) => {
+      const entries = weapons.get(`${card.id}\u0000${String(weapon.englishName || "").trim()}`);
+      return entries?.[0];
+    }).filter(Boolean);
+    const canonicalWeapons = (card.weapons || []).map((weapon) => {
+      const decision = weapons.get(`${card.id}\u0000${String(weapon.englishName || "").trim()}`)?.[0];
+      if (!decision || decision.display === weapon.name) return weapon;
+      appliedWeaponDecisions.add(`${card.id}\u0000${String(weapon.englishName || "").trim()}`);
+      return { ...weapon, name: decision.display };
+    });
+
+    const adjudicated = applyWeaponTerms({
       ...card,
       name: displayUnitName,
       unit: card.unit ? {
@@ -169,8 +301,10 @@ export function adjudicateCatalog({ catalog, factionId, packagePayload, ledger }
       abilities: canonicalAbilities,
       modelProfiles: canonicalProfiles,
       leader: canonicalLeader,
+      weapons: canonicalWeapons,
       keywords: (card.keywords || []).map((keyword) => keyword === sourceUnitName ? displayUnitName : keyword),
-    };
+    }, cardWeaponDecisions);
+    return adjudicated;
   });
 
   return {
@@ -181,13 +315,14 @@ export function adjudicateCatalog({ catalog, factionId, packagePayload, ledger }
         source: "data/global/pdf-display-names.json",
         unitDisplayNamesApplied: unitChanges,
         abilityDisplayNamesApplied: abilityChanges,
+        weaponDisplayNamesApplied: appliedWeaponDecisions.size,
       },
     },
     cards,
   };
 }
 
-export function adjudicateRuleCatalog({ ruleCatalog, factionId, packagePayload, ledger }) {
+export function adjudicateRuleCatalog({ ruleCatalog, factionId, packagePayload, ledger, sourceCards = [] }) {
   const unitDecisions = ledger.units?.[factionId] || [];
   const abilities = abilityDecisionMap(ledger, factionId);
   const packageAliases = aliasesByCanonical(packagePayload);
@@ -217,10 +352,48 @@ export function adjudicateRuleCatalog({ ruleCatalog, factionId, packagePayload, 
       return { ...rule, name };
     });
   }
+
+  // Weapon decisions also converge the raw rule text of the owning unit.
+  const weaponDecisions = ledger.weapons?.[factionId] || [];
+  const cardsById = new Map((sourceCards || []).map((card) => [card.id, card]));
+  const decisionsByUnitKey = new Map();
+  for (const decision of weaponDecisions) {
+    const sourceCard = cardsById.get(decision.cardId);
+    if (!sourceCard) {
+      throw new Error(`${factionId}/${decision.cardId}/${decision.englishName}: weapon decision cannot be mapped to a source card`);
+    }
+    const unitKey = displayByUnitName.get(sourceCard.name) || sourceCard.name;
+    if (!unitRules[unitKey]) {
+      throw new Error(`${factionId}/${unitKey}: weapon decision targets a missing rule unit`);
+    }
+    if (!decisionsByUnitKey.has(unitKey)) decisionsByUnitKey.set(unitKey, []);
+    decisionsByUnitKey.get(unitKey).push(decision);
+  }
+  if (decisionsByUnitKey.size) {
+    const weaponNames = new Set();
+    for (const card of sourceCards || []) {
+      for (const weapon of card.weapons || []) {
+        if (weapon?.name) weaponNames.add(weapon.name);
+      }
+    }
+    for (const decision of weaponDecisions) {
+      weaponNames.add(decision.sourceName);
+      weaponNames.add(decision.display);
+      for (const alias of decision.aliases || []) weaponNames.add(alias);
+    }
+    for (const [unitKey, decisions] of decisionsByUnitKey) {
+      const { exactLookup, replacements } = weaponReplacements(decisions);
+      unitRules[unitKey] = unitRules[unitKey].map((rule) => {
+        const name = exactLookup.has(rule.name) ? exactLookup.get(rule.name) : rule.name;
+        const text = replaceWeaponTermsInText(rule.text, replacements, weaponNames);
+        return { ...rule, name, ...(text !== rule.text ? { text } : {}) };
+      });
+    }
+  }
   return { ...ruleCatalog, unitRules };
 }
 
-export function aliasesWithPdfCanonicalNames(packagePayload, ledger) {
+export function aliasesWithPdfCanonicalNames(packagePayload, ledger, sourceCards = []) {
   const factionId = packagePayload.definition.id;
   const units = { ...(packagePayload.aliases?.units || {}) };
   for (const decision of ledger.units?.[factionId] || []) {
@@ -246,7 +419,95 @@ export function aliasesWithPdfCanonicalNames(packagePayload, ledger) {
         : canonicalEntry;
     }
   }
-  return { ...(packagePayload.aliases || {}), units };
+
+  const weapons = { ...(packagePayload.aliases?.weapons || {}) };
+  // A losing backend name must never become a weapon alias when the same
+  // spelling is still the live name of a different weapon (orks 大砍刀:
+  // Choppa's old name versus Big choppa's current name).
+  const liveWeaponOwners = new Map();
+  for (const card of sourceCards || []) {
+    for (const weapon of card.weapons || []) {
+      if (!weapon?.name) continue;
+      const owners = liveWeaponOwners.get(weapon.name) || new Set();
+      owners.add(weapon.englishName || "");
+      liveWeaponOwners.set(weapon.name, owners);
+    }
+  }
+  const isSafeAlias = (alias, englishName) => {
+    const owners = liveWeaponOwners.get(alias);
+    if (!owners || !owners.size) return true;
+    return owners.size === 1 && owners.has(englishName);
+  };
+  // The English name only becomes an alias when every decision for it agrees
+  // on one display (cross-card homographs like "Executioner" stay unresolved).
+  const displaysByEnglishName = new Map();
+  for (const decision of ledger.weapons?.[factionId] || []) {
+    if (!decision.englishName) continue;
+    const displays = displaysByEnglishName.get(decision.englishName) || new Set();
+    displays.add(decision.display);
+    displaysByEnglishName.set(decision.englishName, displays);
+  }
+  const englishAliasSafe = (englishName) => {
+    const displays = displaysByEnglishName.get(englishName);
+    return displays && displays.size === 1;
+  };
+  // A backend alias must map to exactly one display across the faction.
+  const displaysByAlias = new Map();
+  for (const decision of ledger.weapons?.[factionId] || []) {
+    for (const alias of [decision.sourceName, ...(decision.aliases || [])].filter(Boolean)) {
+      const displays = displaysByAlias.get(alias) || new Set();
+      displays.add(decision.display);
+      displaysByAlias.set(alias, displays);
+    }
+  }
+  const aliasSafe = (alias) => {
+    const displays = displaysByAlias.get(alias);
+    return displays && displays.size === 1;
+  };
+  // A losing name that is itself another decision's display must not alias
+  // away that live canonical (chaos-space-marines 重型近战武器).
+  const displayOwners = new Map();
+  for (const decision of ledger.weapons?.[factionId] || []) {
+    if (!decision.display) continue;
+    const owners = displayOwners.get(decision.display) || new Set();
+    owners.add(decision.englishName || "");
+    displayOwners.set(decision.display, owners);
+  }
+  const legacyAliasSafe = (alias, englishName) => {
+    const owners = displayOwners.get(alias);
+    if (owners && [...owners].some((owner) => owner && owner !== englishName)) return false;
+    return aliasSafe(alias) && isSafeAlias(alias, englishName);
+  };
+  for (const decision of ledger.weapons?.[factionId] || []) {
+    const legacyNames = new Set([decision.sourceName, ...(decision.aliases || [])].filter(Boolean));
+    for (const [alias, entry] of Object.entries(weapons)) {
+      if (!legacyNames.has(canonicalOf(entry))) continue;
+      weapons[alias] = typeof entry === "string"
+        ? decision.display
+        : { ...entry, canonical: decision.display };
+    }
+    const canonicalEntry = {
+      canonical: decision.display,
+      source: decision.evidence,
+      scope: "faction",
+    };
+    const aliases = [decision.display];
+    if (englishAliasSafe(decision.englishName)) aliases.push(decision.englishName);
+    for (const alias of [decision.sourceName, ...(decision.aliases || [])]) {
+      if (legacyAliasSafe(alias, decision.englishName)) aliases.push(alias);
+    }
+    for (const alias of [...new Set(aliases)].filter(Boolean)) {
+      const existing = weapons[alias];
+      if (existing && canonicalOf(existing) !== decision.display && !legacyNames.has(canonicalOf(existing))) {
+        throw new Error(`${factionId}: weapon alias ${alias} conflicts with PDF canonical name ${decision.display}`);
+      }
+      weapons[alias] = existing && typeof existing !== "string"
+        ? { ...existing, canonical: decision.display }
+        : canonicalEntry;
+    }
+  }
+
+  return { ...(packagePayload.aliases || {}), units, weapons };
 }
 
 export { normalizeIdentity };

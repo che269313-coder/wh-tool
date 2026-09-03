@@ -1620,7 +1620,8 @@
     "adjudication": {
       "source": "data/global/pdf-display-names.json",
       "unitDisplayNamesApplied": 0,
-      "abilityDisplayNamesApplied": 0
+      "abilityDisplayNamesApplied": 0,
+      "weaponDisplayNamesApplied": 0
     }
   }
 }

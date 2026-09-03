@@ -40,6 +40,21 @@ test("PDF ability titles replace backend translations in structured and summary 
   assert.match(flashGitz.unit.abilities, /枪狂炫技/);
   assert.match(flashGitz.unit.abilities, /屁精助手/);
   assert.doesNotMatch(flashGitz.unit.abilities, /爱炫耀的枪手|弹药格雷特/);
+  assert.doesNotMatch(flashGitz.unit.abilities, /华丽枪|酱菜枪/);
+  const snazzgun = flashGitz.weapons.find((weapon) => weapon.englishName === "Snazzgun");
+  assert.equal(snazzgun?.name, "魔改炫枪", "Snazzgun must use the PDF weapon title");
+  const choppa = flashGitz.weapons.find((weapon) => weapon.englishName === "Choppa");
+  assert.equal(choppa?.name, "砍刀", "Choppa must use the PDF weapon title");
+  assert.ok(!flashGitz.weapons.some((weapon) => weapon.name === "华丽枪"));
+  assert.ok(!flashGitz.wargearOptions?.some((group) => group.options?.some((option) => option.name === "华丽枪")));
+  assert.equal(flashGitz.unit.defaultEquipment, "魔改炫枪；砍刀");
+  const trooper = flashGitz.modelProfiles.find((profile) => profile.id === "trooper");
+  assert.deepEqual(trooper?.weaponNames, ["魔改炫枪", "砍刀", "Ammo Runt"]);
+  assert.equal(trooper?.defaultEquipment, "魔改炫枪；砍刀");
+  const gunCrazy = flashGitz.abilities.find((ability) => ability.englishName === "Gun-crazy Show-offs");
+  assert.match(gunCrazy?.text || "", /魔改炫枪/);
+  assert.doesNotMatch(gunCrazy?.text || "", /酱菜枪|华丽枪/);
+  assert.doesNotMatch(JSON.stringify(flashGitz), /华丽枪|酱菜枪/, "the Snazzgun backend names must not leak anywhere in the card");
 
   const sisters = catalog("adepta-sororitas").cards.flatMap((candidate) => candidate.abilities || []);
   assert.ok(sisters.some((ability) => ability.englishName === "Acts of Faith" && ability.name === "信仰之举"));
@@ -75,6 +90,87 @@ test("no accepted unambiguous or unit-scoped PDF ability title remains at its ba
   }
 });
 
+test("every accepted PDF weapon decision is applied in generated catalogs", () => {
+  const ledger = JSON.parse(read("data/global/pdf-display-names.json"));
+  let acceptedWeapons = 0;
+  let appliedWeapons = 0;
+  for (const [factionId, entries] of Object.entries(ledger.weapons || {})) {
+    const generated = catalog(factionId);
+    appliedWeapons += generated._meta?.adjudication?.weaponDisplayNamesApplied || 0;
+    const cardsById = new Map(generated.cards.map((candidate) => [candidate.id, candidate]));
+    for (const entry of entries) {
+      acceptedWeapons += 1;
+      const found = cardsById.get(entry.cardId);
+      assert.ok(found, `${factionId}/${entry.cardId} weapon decision must target a current card`);
+      const weapon = (found.weapons || []).find((candidate) => String(candidate.englishName || "").trim() === entry.englishName);
+      assert.ok(weapon, `${factionId}/${entry.cardId}/${entry.englishName} weapon decision must target a current weapon`);
+      assert.equal(weapon.name, entry.display, `${factionId}/${entry.cardId}/${entry.englishName} must use the accepted PDF weapon title`);
+      assert.ok(entry.evidence, `${factionId}/${entry.cardId}/${entry.englishName} must retain page evidence`);
+      assert.match(entry.sourceId, /^pdf-/, `${factionId}/${entry.cardId}/${entry.englishName} must identify its PDF source`);
+    }
+  }
+  assert.equal(appliedWeapons, acceptedWeapons, "every accepted weapon decision must change the catalog");
+  assert.ok(acceptedWeapons >= 100, "the ledger must cover the audited cross-faction PDF weapon differences");
+});
+
+test("no accepted PDF weapon decision keeps its backend name in the owning card", () => {
+  const ledger = JSON.parse(read("data/global/pdf-display-names.json"));
+  const splitTokens = (value) => String(value || "").split(/[；;，,、]/).map((token) => token.trim()).filter(Boolean);
+  const uncoveredOccurrence = (text, alias, vocabulary) => {
+    const source = String(text || "");
+    if (!source.includes(alias)) return false;
+    let cursor = 0;
+    while (true) {
+      const index = source.indexOf(alias, cursor);
+      if (index < 0) return false;
+      const covered = vocabulary.some((term) => term.length > alias.length && term.includes(alias) && (() => {
+        const termIndex = source.lastIndexOf(term, index + alias.length - 1);
+        return termIndex >= 0 && termIndex <= index && index + alias.length <= termIndex + term.length;
+      })());
+      if (!covered) return true;
+      cursor = index + alias.length;
+    }
+  };
+  for (const [factionId, entries] of Object.entries(ledger.weapons || {})) {
+    const cardsById = new Map(catalog(factionId).cards.map((candidate) => [candidate.id, candidate]));
+    for (const entry of entries) {
+      const found = cardsById.get(entry.cardId);
+      const aliases = [entry.sourceName, ...(entry.aliases || [])].filter(Boolean);
+      const vocabulary = (found.weapons || []).map((weapon) => weapon.name).filter(Boolean);
+      for (const alias of aliases) {
+        assert.ok(!(found.weapons || []).some((weapon) => weapon.name === alias), `${factionId}/${entry.cardId}: weapon named ${alias} survived adjudication`);
+        for (const token of splitTokens(found.unit?.defaultEquipment)) {
+          assert.notEqual(token, alias, `${factionId}/${entry.cardId}: default equipment retains ${alias}`);
+        }
+        for (const profile of found.modelProfiles || []) {
+          assert.ok(!(profile.weaponNames || []).includes(alias), `${factionId}/${entry.cardId}/${profile.id}: weaponNames retain ${alias}`);
+          for (const token of splitTokens(profile.defaultEquipment)) {
+            assert.notEqual(token, alias, `${factionId}/${entry.cardId}/${profile.id}: profile equipment retains ${alias}`);
+          }
+        }
+        for (const group of found.wargearOptions || []) {
+          for (const option of group.options || []) {
+            if (typeof option.name === "string") assert.notEqual(option.name, alias, `${factionId}/${entry.cardId}: option retains ${alias}`);
+          }
+        }
+        const texts = [
+          found.unit?.abilities,
+          found.unit?.activeAbilities,
+          ...(found.abilities || []).map((ability) => ability.text || ""),
+          found.extraction?.rawText || "",
+        ];
+        if (alias.length < 3) continue; // short aliases are too ambiguous for prose adjudication
+        for (const text of texts) {
+          assert.ok(
+            !uncoveredOccurrence(text, alias, vocabulary),
+            `${factionId}/${entry.cardId}/${entry.englishName}: ${alias} remains in card text`,
+          );
+        }
+      }
+    }
+  }
+});
+
 test("only ability-title decisions verified against restored PDF text enter the strong ledger", () => {
   const ledger = JSON.parse(read("data/global/pdf-display-names.json"));
   const unsafe = Object.entries(ledger.abilities || {}).flatMap(([factionId, entries]) => entries
@@ -92,6 +188,17 @@ test("rule packages and rule UI use the same PDF titles as structured catalogs",
   const orkNames = Object.values(orks.unitRules || {}).flat().map((rule) => rule.name);
   assert.ok(orkNames.includes("开火口11"), "Orks rules must use the PDF Firing Deck 11 title");
   assert.ok(!orkNames.includes("射击甲板11"), "Orks rules must not retain the backend Firing Deck 11 title");
+  const flashGitzRules = orks.unitRules["脏枪混混"] || [];
+  assert.match(
+    flashGitzRules.map((rule) => rule.text || "").join("\n"),
+    /魔改炫枪/,
+    "Orks rules must use the PDF Snazzgun weapon title",
+  );
+  assert.doesNotMatch(
+    flashGitzRules.map((rule) => rule.text || "").join("\n"),
+    /华丽枪|酱菜枪/,
+    "Orks rules must not retain backend Snazzgun terms",
+  );
   const ruleMarkup = read("docs/app.js").match(/function calculatorRuleMarkup[\s\S]*?function calculatorContextMarkup/)?.[0] || "";
   assert.doesNotMatch(ruleMarkup, /displayNameFor/, "rule packages are canonical and must not be renamed by global terms in the UI");
 });
@@ -146,6 +253,11 @@ test("backend and English unit names remain aliases of the PDF canonical title",
   assert.equal(context.WarhammerAliasRegistry.resolveUnit("orks", "怪枪小子"), "脏枪混混");
   assert.equal(context.WarhammerAliasRegistry.resolveUnit("orks", "Flash Gitz"), "脏枪混混");
   assert.equal(context.WarhammerAliasRegistry.resolveUnit("orks", "脏枪混混"), "脏枪混混");
+  assert.equal(context.WarhammerAliasRegistry.resolveWeapon("orks", "华丽枪"), "魔改炫枪");
+  assert.equal(context.WarhammerAliasRegistry.resolveWeapon("orks", "魔改炫枪"), "魔改炫枪");
+  assert.equal(context.WarhammerAliasRegistry.resolveWeapon("orks", "Snazzgun"), "魔改炫枪");
+  assert.equal(context.WarhammerAliasRegistry.resolveWeapon("orks", "鼻涕虫枪"), "手铳");
+  assert.equal(context.WarhammerAliasRegistry.resolveWeapon("orks", "大砍刀"), "大砍刀", "a losing name that is still a live weapon name must not alias away");
   assert.match(
     read("docs/app.js"),
     /resolveUnit\?\.\(faction, rule\.unitName\)/,
@@ -186,6 +298,7 @@ test("the generated provenance accounts for the full cross-faction adjudication"
   let appliedAbilities = 0;
   let acceptedUnits = 0;
   let acceptedAbilities = 0;
+  let acceptedWeapons = 0;
   for (const [factionId, entries] of Object.entries(ledger.units || {})) {
     const generated = catalog(factionId);
     appliedUnits += generated._meta?.adjudication?.unitDisplayNamesApplied || 0;
@@ -208,10 +321,18 @@ test("the generated provenance accounts for the full cross-faction adjudication"
       assert.ok(entry.evidence?.length, `${factionId}/${entry.englishName} must retain comparison evidence`);
     }
   }
+  for (const entries of Object.values(ledger.weapons || {})) {
+    for (const entry of entries) {
+      acceptedWeapons += 1;
+      assert.match(entry.sourceId, /^pdf-/, `${entry.cardId}/${entry.englishName} must identify its PDF source`);
+      assert.ok(entry.evidence, `${entry.cardId}/${entry.englishName} must retain page evidence`);
+    }
+  }
   assert.equal(appliedUnits, acceptedUnits);
   assert.ok(acceptedUnits >= 340);
   assert.ok(appliedAbilities >= 2000, "the build must apply the restored PDF ability-title comparisons globally");
   assert.ok(acceptedAbilities >= 1000, "the ledger must cover the audited cross-faction PDF ability differences");
+  assert.ok(acceptedWeapons >= 100, "the ledger must cover the audited cross-faction PDF weapon differences");
 });
 
 test("PDF canonicalization never collapses two live cards into one display name", () => {

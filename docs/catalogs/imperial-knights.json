@@ -992,7 +992,7 @@
         "leadership": "6+",
         "objectiveControl": 10,
         "models": 1,
-        "defaultEquipment": "自由之手；雷射脉冲炮；奎斯托里斯多管雷射炮",
+        "defaultEquipment": "自由之手；雷射脉冲炮；破链者多管激光",
         "abilities": "致命破灭；骑士荣典；超重型步行机甲；传奇自由骑士；破链者；使用赫克图爵士",
         "activeAbilities": ""
       },
@@ -1005,7 +1005,7 @@
       "weapons": [
         {
           "id": "129977ba-5380-4a40-8d32-224a38c18913",
-          "name": "奎斯托里斯多管雷射炮",
+          "name": "破链者多管激光",
           "englishName": "Questoris multi-laser",
           "type": "ranged",
           "range": "36\"",
@@ -1762,7 +1762,7 @@
         "leadership": "6+",
         "objectiveControl": 10,
         "models": 1,
-        "defaultEquipment": "电浆毁灭者；2x 护盾破坏飞弹发射器；2x 双联热熔枪；双联裂空炮；火山长矛；泰坦践踏",
+        "defaultEquipment": "电浆毁灭者；2x 护盾破坏飞弹发射器；2x 双联热熔枪；双联裂空炮；火山光矛；泰坦践踏",
         "abilities": "致命破灭；骑士荣典；超重型步行机甲；离子盾；泰坦猎手",
         "activeAbilities": ""
       },
@@ -1883,7 +1883,7 @@
         },
         {
           "id": "9b9cb7d0-22d6-4f09-8c69-b7e87ba1e304",
-          "name": "火山长矛",
+          "name": "火山光矛",
           "englishName": "Volcano lance",
           "type": "ranged",
           "range": "72\"",
@@ -3674,7 +3674,7 @@
         },
         {
           "id": "a216e571-6bc8-4d49-8398-b599a46a60c5",
-          "name": "收割者电锯剑",
+          "name": "死神链锯剑",
           "englishName": "Reaper chainsword",
           "type": "melee",
           "attacks": "4",
@@ -3689,7 +3689,7 @@
         },
         {
           "id": "cbe69ee0-1def-494b-8de8-e5f1b4d90c30",
-          "name": "收割者电锯剑",
+          "name": "死神链锯剑",
           "englishName": "Reaper chainsword",
           "type": "melee",
           "attacks": "12",
@@ -3768,7 +3768,7 @@
         },
         {
           "id": "c176d9c6-378b-4d36-9d06-1ba77d7a0e9c",
-          "name": "重磁暴火箭荚舱",
+          "name": "风暴之矛火箭舱",
           "englishName": "Stormspear rocket pod",
           "type": "ranged",
           "range": "48\"",
@@ -3806,7 +3806,7 @@
         },
         {
           "id": "265558b3-3d6a-4887-b0bb-240b7b71dee5",
-          "name": "雷鸣击拳",
+          "name": "雷霆拳甲",
           "englishName": "Thunderstrike gauntlet",
           "type": "melee",
           "attacks": "4",
@@ -3821,7 +3821,7 @@
         },
         {
           "id": "5bb311d8-b5f6-4a55-9a0c-61afad7562d5",
-          "name": "雷鸣击拳",
+          "name": "雷霆拳甲",
           "englishName": "Thunderstrike gauntlet",
           "type": "melee",
           "attacks": "8",
@@ -4465,7 +4465,7 @@
         },
         {
           "id": "c176d9c6-378b-4d36-9d06-1ba77d7a0e9c",
-          "name": "重磁暴火箭荚舱",
+          "name": "风暴之矛火箭舱",
           "englishName": "Stormspear rocket pod",
           "type": "ranged",
           "range": "48\"",
@@ -4954,7 +4954,7 @@
         },
         {
           "id": "c176d9c6-378b-4d36-9d06-1ba77d7a0e9c",
-          "name": "重磁暴火箭荚舱",
+          "name": "风暴之矛火箭舱",
           "englishName": "Stormspear rocket pod",
           "type": "ranged",
           "range": "48\"",
@@ -5246,7 +5246,7 @@
         "leadership": "6+",
         "objectiveControl": 10,
         "models": 1,
-        "defaultEquipment": "雷射脉冲炮",
+        "defaultEquipment": "激光脉冲炮",
         "abilities": "致命破灭；骑士荣典；超重型步行机甲；导师之傲；准则典范",
         "activeAbilities": ""
       },
@@ -5259,7 +5259,7 @@
       "weapons": [
         {
           "id": "3fabffdc-1c64-494d-bbca-83f3aca9b001",
-          "name": "奎斯托里斯重磁暴炮",
+          "name": "封臣重机枪",
           "englishName": "Questoris heavy stubber",
           "type": "ranged",
           "range": "36\"",
@@ -5359,7 +5359,7 @@
         },
         {
           "id": "265558b3-3d6a-4887-b0bb-240b7b71dee5",
-          "name": "雷鸣击拳",
+          "name": "雷霆拳甲",
           "englishName": "Thunderstrike gauntlet",
           "type": "melee",
           "attacks": "4",
@@ -5374,7 +5374,7 @@
         },
         {
           "id": "5bb311d8-b5f6-4a55-9a0c-61afad7562d5",
-          "name": "雷鸣击拳",
+          "name": "雷霆拳甲",
           "englishName": "Thunderstrike gauntlet",
           "type": "melee",
           "attacks": "8",
@@ -5405,7 +5405,7 @@
         },
         {
           "id": "a216e571-6bc8-4d49-8398-b599a46a60c5",
-          "name": "收割者电锯剑",
+          "name": "死神链锯剑",
           "englishName": "Reaper chainsword",
           "type": "melee",
           "attacks": "4",
@@ -5420,7 +5420,7 @@
         },
         {
           "id": "cbe69ee0-1def-494b-8de8-e5f1b4d90c30",
-          "name": "收割者电锯剑",
+          "name": "死神链锯剑",
           "englishName": "Reaper chainsword",
           "type": "melee",
           "attacks": "12",
@@ -5435,7 +5435,7 @@
         },
         {
           "id": "c944e8c8-f276-457a-a590-8306a2ad2ae8",
-          "name": "雷射脉冲炮",
+          "name": "激光脉冲炮",
           "englishName": "Las-impulsor",
           "type": "ranged",
           "range": "24\"",
@@ -5455,7 +5455,7 @@
         },
         {
           "id": "a29a9e1f-04e2-48e7-8014-8f809f954278",
-          "name": "雷射脉冲炮",
+          "name": "激光脉冲炮",
           "englishName": "Las-impulsor",
           "type": "ranged",
           "range": "36\"",
@@ -5729,7 +5729,7 @@
         "leadership": "6+",
         "objectiveControl": 10,
         "models": 1,
-        "defaultEquipment": "双联裂空炮；2x 护盾破坏飞弹发射器；烈焰炮；泰坦践踏；2x 双联热熔枪；雷霆线圈鱼叉",
+        "defaultEquipment": "双联裂空炮；2x 护盾破坏飞弹发射器；烈焰炮；巨足；2x 双联热熔枪；雷霆线圈鱼叉",
         "abilities": "致命破灭；骑士荣典；超重型步行机甲；离子防御；雷霆震击",
         "activeAbilities": ""
       },
@@ -5808,7 +5808,7 @@
         },
         {
           "id": "41365926-ec57-4485-a65a-580bc7e3e489",
-          "name": "泰坦践踏",
+          "name": "巨足",
           "englishName": "Titanic feet",
           "type": "melee",
           "attacks": "4",
@@ -6039,7 +6039,7 @@
         "leadership": "6+",
         "objectiveControl": 10,
         "models": 1,
-        "defaultEquipment": "重型火焰喷射器；热熔枪；复仇者格林炮；收割者电锯剑",
+        "defaultEquipment": "重型火焰喷射器；热熔枪；复仇者加特林；收割者电锯剑",
         "abilities": "致命破灭；骑士荣典；超重型步行机甲；守卫职责；稀释队列",
         "activeAbilities": ""
       },
@@ -6124,7 +6124,7 @@
         },
         {
           "id": "7c39562c-14ff-4149-854c-3f8c9679f3a0",
-          "name": "复仇者格林炮",
+          "name": "复仇者加特林",
           "englishName": "Avenger gatling cannon",
           "type": "ranged",
           "range": "36\"",
@@ -6192,7 +6192,7 @@
         },
         {
           "id": "c176d9c6-378b-4d36-9d06-1ba77d7a0e9c",
-          "name": "重磁暴火箭荚舱",
+          "name": "风暴之矛火箭舱",
           "englishName": "Stormspear rocket pod",
           "type": "ranged",
           "range": "48\"",
@@ -7125,7 +7125,8 @@
     "adjudication": {
       "source": "data/global/pdf-display-names.json",
       "unitDisplayNamesApplied": 1,
-      "abilityDisplayNamesApplied": 80
+      "abilityDisplayNamesApplied": 80,
+      "weaponDisplayNamesApplied": 14
     }
   }
 }

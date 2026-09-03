@@ -8,6 +8,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { writeFileSyncWithRetry } from "./fs-write.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -123,10 +124,10 @@ for (const faction of factions) {
     if (close < 0) { console.log(`SERIALIZE FAIL ${faction}`); continue; }
     const newSource = source.slice(0, openBrace) + JSON.stringify(data) + source.slice(close + 1);
     if (!dryRun) {
-      fs.writeFileSync(file, newSource);
+      writeFileSyncWithRetry(file, newSource);
       // 同步写出 JSON 产物：fetch 优先路径与 file:// 脚本回退必须内容一致。
       const jsonFile = file.replace(/\.js$/, ".json");
-      if (fs.existsSync(jsonFile)) fs.writeFileSync(jsonFile, JSON.stringify(data, null, 2) + "\n");
+      if (fs.existsSync(jsonFile)) writeFileSyncWithRetry(jsonFile, JSON.stringify(data, null, 2) + "\n");
     } else {
       console.log(`  [dry-run] ${faction} would write`);
     }

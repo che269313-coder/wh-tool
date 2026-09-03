@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { compileAbility, compileFactionAbility } from "./faction-rule-compiler.mjs";
+import { normalizeCoreAbilityRules } from "./lib/core-ability-normalizer.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const factions = [
@@ -26,7 +27,8 @@ for (const [factionId, factionName] of factions) {
   for (const card of data.cards || []) {
     const rawAbilities = new Map((rawCards.get(card.id)?.abilities || []).map((ability) => [ability.id, ability]));
     const usedIds = new Map();
-    unitRules[card.name] = (card.abilities || []).filter((ability) => ability.category !== "faction").map((ability) => {
+    // 通用核心技能（深入打击、领袖等）只保留技能名清单，不把全文带进部署文件。
+    unitRules[card.name] = normalizeCoreAbilityRules((card.abilities || []).filter((ability) => ability.category !== "faction").map((ability) => {
       const count = (usedIds.get(ability.id) || 0) + 1;
       usedIds.set(ability.id, count);
       const compiled = compileAbility({ ...ability, name: rawAbilities.get(ability.id)?.name || ability.name });
@@ -39,7 +41,7 @@ for (const [factionId, factionName] of factions) {
         effects: compiled.effects,
         source: { englishName: ability.englishName || "", kind: ability.category || "unique" },
       };
-    });
+    }));
   }
   const factionRule = raw.faction?.army_rule_name_zh && raw.faction?.army_rule_text_zh ? (() => {
     const factionAbilities = (data.cards || []).flatMap((card) => card.abilities || []).filter((ability) => ability.category === "faction");

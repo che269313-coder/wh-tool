@@ -87,9 +87,9 @@
       "role": "values-and-text"
     },
     {
-      "id": "pdf-11e-zh",
+      "id": "pdf-10e-zh",
       "kind": "pdf-extract",
-      "edition": "11e",
+      "edition": "10e",
       "evidencePath": "sources/pdfs/grey-knights/原文",
       "role": "display-name-and-adjudication-evidence"
     },

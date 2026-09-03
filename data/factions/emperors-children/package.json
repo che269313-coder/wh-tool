@@ -262,10 +262,10 @@
       "path": "cards[id=emperors-children.0cffa359-e5a4-43cd-a1a0-f7b26065d1f7].modelProfiles[id=trooper].weaponNames",
       "value": [
         "成对诅咒武器",
-        "组合武器",
-        "动力拳套",
-        "链锯拳套",
-        "重型火焰喷射器",
+        "复合武器",
+        "动力拳",
+        "链锯拳",
+        "重型喷火器",
         "收割者自动炮"
       ],
       "source": "committed-manual-fix-2026-08",
@@ -279,7 +279,7 @@
       "path": "cards[id=emperors-children.0cffa359-e5a4-43cd-a1a0-f7b26065d1f7].modelProfiles[id=champion].weaponNames",
       "value": [
         "成对诅咒武器",
-        "组合爆弹枪"
+        "并联爆弹枪"
       ],
       "source": "committed-manual-fix-2026-08",
       "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",

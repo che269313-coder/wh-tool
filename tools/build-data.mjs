@@ -18,8 +18,9 @@ const stages = [
 ];
 if (process.argv.includes("--check")) {
   stages.push(
-    ["validate data packages", "--test", "tools/data-packages.test.mjs", "tools/alias-registry.test.mjs", "tools/apply-patches.test.mjs", "tools/audit-regressions.test.mjs", "tools/pdf-priority.test.mjs"],
+    ["validate data packages", "--test", "tools/data-packages.test.mjs", "tools/alias-registry.test.mjs", "tools/apply-patches.test.mjs", "tools/audit-regressions.test.mjs", "tools/pdf-priority.test.mjs", "tools/core-ability-normalizer.test.mjs"],
     ["validate datasheets", "tools/validate-datasheets.mjs"],
+    ["audit core ability text", "tools/audit-core-ability-text.mjs"],
     ["validate architecture", "tools/validate-architecture.mjs"],
   );
 }

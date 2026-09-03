@@ -60,6 +60,18 @@ test("Orks PDF adjudication is a stable, traceable package decision", () => {
   assert.ok(payload.sources.some((source) => source.id === "pdf-10e-zh" && /sources\/pdfs\/orks\/原文/.test(source.evidencePath)));
   assert.ok(payload.overrides.some((override) => override.path === "cards[id=orks.boyz.01474b35].name" && override.value === "小子"));
   assert.ok(payload.overrides.some((override) => override.path === "cards[id=orks.boyz.01474b35].modelProfiles[id=champion].unit" && override.value.woundsPerModel === 2));
+  assert.equal(payload.aliases.weapons["华丽枪"].canonical, "魔改炫枪");
+  assert.equal(payload.aliases.units["怪枪小子"].canonical, "脏枪混混");
+  assert.ok(payload.overrides.some((override) => override.path === "cards[id=orks.boyz.01474b35].modelProfiles[id=trooper].weaponNames" && override.value.includes("手铳")));
+  assert.ok(!payload.conflicts.some((conflict) => conflict.id === "flash-gitz-snazzgun-profile-name"), "weapon display names are adjudicated by the PDF ledger, not per-case package conflicts");
+  assert.ok(!(payload.transforms || []).some((transform) => transform.id.includes("snazzgun")), "weapon terms are adjudicated by the PDF ledger, not per-case package transforms");
+  const ledger = readJson("data/global/pdf-display-names.json");
+  const orksWeapons = ledger.weapons?.orks || [];
+  const snazzgun = orksWeapons.find((entry) => entry.cardId === "orks.flash-gitz.a8848006" && entry.englishName === "Snazzgun");
+  assert.equal(snazzgun?.display, "魔改炫枪");
+  assert.match(snazzgun?.evidence || "", /全文\.txt#page=41/);
+  const choppa = orksWeapons.find((entry) => entry.cardId === "orks.flash-gitz.a8848006" && entry.englishName === "Choppa");
+  assert.equal(choppa?.display, "砍刀");
 });
 
 test("maintainer architecture has one current document, not implementation diaries", () => {

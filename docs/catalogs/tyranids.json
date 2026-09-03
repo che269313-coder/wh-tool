@@ -29,7 +29,7 @@
         "leadership": "8+",
         "objectiveControl": 1,
         "models": 5,
-        "defaultEquipment": "甲壳爪牙；刺虫发射器",
+        "defaultEquipment": "尖牙利爪；活体生物炮",
         "abilities": "突触；扰乱轰击",
         "activeAbilities": ""
       },
@@ -42,7 +42,7 @@
       "weapons": [
         {
           "id": "7399fabc-36c6-463c-8f85-49aeda6af7f9",
-          "name": "甲壳爪牙",
+          "name": "尖牙利爪",
           "englishName": "Chitinous claws and teeth",
           "type": "melee",
           "attacks": "1",
@@ -57,7 +57,7 @@
         },
         {
           "id": "d7f08534-0214-4ed3-98a8-8aaef9f93f26",
-          "name": "刺虫发射器",
+          "name": "活体生物炮",
           "englishName": "Barblauncher",
           "type": "ranged",
           "range": "24\"",
@@ -154,7 +154,7 @@
         "leadership": "8+",
         "objectiveControl": 1,
         "models": 1,
-        "defaultEquipment": "甲壳倒刺肢；孢子地雷发射器",
+        "defaultEquipment": "甲壳肢体；孢子雷喷射炮",
         "abilities": "致命破灭 1；突触；孢子地雷播种",
         "activeAbilities": ""
       },
@@ -167,7 +167,7 @@
       "weapons": [
         {
           "id": "e94d164c-5abf-47ea-a51b-3378fb687290",
-          "name": "甲壳倒刺肢",
+          "name": "甲壳肢体",
           "englishName": "Chitin-barbed limbs",
           "type": "melee",
           "attacks": "2",
@@ -182,7 +182,7 @@
         },
         {
           "id": "c0ec3d18-7f4e-4363-872d-f774f466ce40",
-          "name": "孢子地雷发射器",
+          "name": "孢子雷喷射炮",
           "englishName": "Spore Mine launcher",
           "type": "ranged",
           "range": "48\"",
@@ -291,7 +291,7 @@
         "leadership": "7+",
         "objectiveControl": 1,
         "models": 1,
-        "defaultEquipment": "育母之爪",
+        "defaultEquipment": "族群领主利爪",
         "abilities": "领袖；斥候8\"；亚空间阴影；突触；恶毒洞察；催眠凝视",
         "activeAbilities": ""
       },
@@ -304,7 +304,7 @@
       "weapons": [
         {
           "id": "cda67019-be7c-4704-80b0-30b93e391ed4",
-          "name": "育母之爪",
+          "name": "族群领主利爪",
           "englishName": "Broodlord claws and talons",
           "type": "melee",
           "attacks": "5",
@@ -437,7 +437,7 @@
         "leadership": "8+",
         "objectiveControl": 3,
         "models": 1,
-        "defaultEquipment": "甲壳爪牙；屠夫獠牙─额外镰刀爪；食肉巨兽镰爪",
+        "defaultEquipment": "尖牙利爪；额外镰刀爪；刽子手镰刀爪",
         "abilities": "致命破灭 1；突触；烈焰突击",
         "activeAbilities": ""
       },
@@ -450,7 +450,7 @@
       "weapons": [
         {
           "id": "a7043e88-b555-443c-ae7d-ce405b6b678f",
-          "name": "生化电浆突击爆裂",
+          "name": "生物电浆",
           "englishName": "Bio-plasma",
           "type": "ranged",
           "range": "12\"",
@@ -472,7 +472,7 @@
         },
         {
           "id": "2a0561eb-c569-44ba-8de7-c5770a64364b",
-          "name": "脊刺排",
+          "name": "脊刺背囊",
           "englishName": "Spine banks",
           "type": "ranged",
           "range": "6\"",
@@ -492,7 +492,7 @@
         },
         {
           "id": "a517b023-53ad-44f5-a75c-bea8393780db",
-          "name": "脑蛭双吞噬者",
+          "name": "噬脑吞噬枪",
           "englishName": "Devourers with brainleech worms",
           "type": "ranged",
           "range": "18\"",
@@ -508,7 +508,7 @@
         },
         {
           "id": "d99a7331-a13a-495b-82cc-29e0b835bc1b",
-          "name": "重型毒液加农炮",
+          "name": "重型毒液炮",
           "englishName": "Heavy venom cannon",
           "type": "ranged",
           "range": "36\"",
@@ -528,7 +528,7 @@
         },
         {
           "id": "b42f76b2-7575-4498-ac6e-b87c30be479c",
-          "name": "吞噬者（巨型）",
+          "name": "黏蛆死亡喷吐",
           "englishName": "Deathspitters with slimer maggots",
           "type": "ranged",
           "range": "24\"",
@@ -544,7 +544,7 @@
         },
         {
           "id": "1559ce0c-6393-44e2-8c3e-fcea9e7f42c3",
-          "name": "肉食兽碎骨爪",
+          "name": "刽子手粉碎钳",
           "englishName": "Carnifex crushing claws",
           "type": "melee",
           "attacks": "4",
@@ -559,7 +559,7 @@
         },
         {
           "id": "41e75168-34bc-4980-bfae-86132c05b1dd",
-          "name": "刺蛇炮",
+          "name": "重型绞藤炮",
           "englishName": "Stranglethorn cannon",
           "type": "ranged",
           "range": "36\"",
@@ -579,7 +579,7 @@
         },
         {
           "id": "026f1645-99e1-4fe6-8b89-b81585185900",
-          "name": "甲壳爪牙",
+          "name": "尖牙利爪",
           "englishName": "Chitinous claws and teeth",
           "type": "melee",
           "attacks": "4",
@@ -594,7 +594,7 @@
         },
         {
           "id": "ae1dafd5-7618-4338-a8c3-0118f8f78ac1",
-          "name": "屠夫獠牙─额外镰刀爪",
+          "name": "额外镰刀爪",
           "englishName": "Carnifex extra scything talons",
           "type": "melee",
           "attacks": "2",
@@ -613,7 +613,7 @@
         },
         {
           "id": "19c7359a-9c75-49ad-b191-bd2c129303e9",
-          "name": "食肉巨兽镰爪",
+          "name": "刽子手镰刀爪",
           "englishName": "Carnifex scything talons",
           "type": "melee",
           "attacks": "6",
@@ -744,7 +744,7 @@
           }
         },
         {
-          "text": "任意数量的模型各可将其食肉巨兽镰爪替换为下列其中之一：",
+          "text": "任意数量的模型各可将其刽子手镰刀爪替换为下列其中之一：",
           "options": [
             {
               "default": false,
@@ -806,7 +806,7 @@
           }
         },
         {
-          "text": "任意数量的模型各可配备 1 个生化电浆突击爆裂。",
+          "text": "任意数量的模型各可配备 1 个生物电浆。",
           "options": [
             {
               "default": false,
@@ -840,7 +840,7 @@
           }
         },
         {
-          "text": "任意数量的模型可各自配备 1 个脊刺排。",
+          "text": "任意数量的模型可各自配备 1 个脊刺背囊。",
           "options": [
             {
               "default": false,
@@ -910,7 +910,7 @@
         "泰伦虫族"
       ],
       "extraction": {
-        "rawText": "有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位脱离前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的致命伤（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。\n若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n每当敌方单位被选择进行射击后，若此单位中有任何模型因该些攻击而丧失1个或以上的伤时，此单位可进行「刺激冲击」移动。若进行该移动，掷1个D6，并将结果加2：此单位中的每个模型可移动之距离（英寸）最多为该结果，但此单位必须完成该移动并尽可能靠近最近的敌方单位。进行移动时，这些模型可在敌方单位的交战范围内移动。每个单位每个阶段最多只能进行一次「刺激冲击」移动。\n预设武装\n任意数量的模型可各自将其食肉巨兽额外镰爪替换为下列其中之一：\n任意数量的模型各可将其食肉巨兽镰爪替换为下列其中之一：\n任意数量的模型各可配备 1 个生化电浆突击爆裂。\n任意数量的模型可各自配备 1 个脊刺排。",
+        "rawText": "有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位脱离前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的致命伤（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。\n若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n每当敌方单位被选择进行射击后，若此单位中有任何模型因该些攻击而丧失1个或以上的伤时，此单位可进行「刺激冲击」移动。若进行该移动，掷1个D6，并将结果加2：此单位中的每个模型可移动之距离（英寸）最多为该结果，但此单位必须完成该移动并尽可能靠近最近的敌方单位。进行移动时，这些模型可在敌方单位的交战范围内移动。每个单位每个阶段最多只能进行一次「刺激冲击」移动。\n预设武装\n任意数量的模型可各自将其食肉巨兽额外镰爪替换为下列其中之一：\n任意数量的模型各可将其刽子手镰刀爪替换为下列其中之一：\n任意数量的模型各可配备 1 个生物电浆。\n任意数量的模型可各自配备 1 个脊刺背囊。",
         "confidence": "high",
         "needsReview": false
       },
@@ -937,7 +937,7 @@
         "leadership": "7+",
         "objectiveControl": 1,
         "models": 1,
-        "defaultEquipment": "潜伏兽之爪",
+        "defaultEquipment": "镰刀利爪",
         "abilities": "先制攻击；渗透；独行特工；潜行；突触；贪食触须；对无形之物的恐惧；猎杀生物体",
         "activeAbilities": ""
       },
@@ -950,7 +950,7 @@
       "weapons": [
         {
           "id": "d4216d42-3d5d-4b55-b816-9691376d6a43",
-          "name": "潜伏兽之爪",
+          "name": "镰刀利爪",
           "englishName": "Lictor claws and talons",
           "type": "melee",
           "attacks": "6",
@@ -1089,7 +1089,7 @@
         "leadership": "8+",
         "objectiveControl": 4,
         "models": 1,
-        "defaultEquipment": "生化电浆炮；强力肢体",
+        "defaultEquipment": "生化电浆炮；强壮肢体",
         "abilities": "致命破灭 D3；突触；共生标定",
         "activeAbilities": ""
       },
@@ -1124,7 +1124,7 @@
         },
         {
           "id": "92dfdc53-5bf6-4300-98ad-13bb53edcf5e",
-          "name": "强力肢体",
+          "name": "强壮肢体",
           "englishName": "Powerful limbs",
           "type": "melee",
           "attacks": "3",
@@ -1222,7 +1222,7 @@
         "leadership": "8+",
         "objectiveControl": 2,
         "models": 10,
-        "defaultEquipment": "肉蛀虫射手；致盲毒液",
+        "defaultEquipment": "食肉枪；致盲毒素",
         "abilities": "深入打击；突触；翼群",
         "activeAbilities": ""
       },
@@ -1235,7 +1235,7 @@
       "weapons": [
         {
           "id": "6ce512ac-4e70-43b5-85e5-79e377ee1d2c",
-          "name": "肉蛀虫射手",
+          "name": "食肉枪",
           "englishName": "Fleshborer",
           "type": "ranged",
           "range": "18\"",
@@ -1255,7 +1255,7 @@
         },
         {
           "id": "e601575a-f0cd-413d-98b8-a8c6032f335a",
-          "name": "致盲毒液",
+          "name": "致盲毒素",
           "englishName": "Blinding venom",
           "type": "melee",
           "attacks": "1",
@@ -1357,7 +1357,7 @@
         "leadership": "7+",
         "objectiveControl": 1,
         "models": 5,
-        "defaultEquipment": "窃基因者爪",
+        "defaultEquipment": "窃取者利爪",
         "abilities": "斥候8\"；突触；伏击猎手",
         "activeAbilities": ""
       },
@@ -1370,7 +1370,7 @@
       "weapons": [
         {
           "id": "90710c16-e8b9-4f1e-9e61-ccbdd3a20a9d",
-          "name": "窃基因者爪",
+          "name": "窃取者利爪",
           "englishName": "Genestealers claws and talons",
           "type": "melee",
           "attacks": "4",
@@ -1463,7 +1463,7 @@
         "leadership": "8+",
         "objectiveControl": "-",
         "models": 1,
-        "defaultEquipment": "双联刺蛇炮；镰刃之翼；毒刺齐射",
+        "defaultEquipment": "双联刺蛇炮；镰刀飞翼；毒针弹幕",
         "abilities": "致命破灭 D3；突触；孢子地雷囊",
         "activeAbilities": ""
       },
@@ -1498,7 +1498,7 @@
         },
         {
           "id": "025c6dd3-e092-4fac-a65b-3783f0bd133e",
-          "name": "镰刃之翼",
+          "name": "镰刀飞翼",
           "englishName": "Scything wings",
           "type": "melee",
           "attacks": "4",
@@ -1513,7 +1513,7 @@
         },
         {
           "id": "44aa1406-6394-40ac-b6dc-e0bf8d4a84de",
-          "name": "毒刺齐射",
+          "name": "毒针弹幕",
           "englishName": "Stinger salvoes",
           "type": "ranged",
           "range": "24\"",
@@ -1529,7 +1529,7 @@
         },
         {
           "id": "b3e99314-37c1-46cb-95a7-545c2419191d",
-          "name": "双联重型毒液加农炮",
+          "name": "双联重型毒液炮",
           "englishName": "Twin heavy venom cannon",
           "type": "ranged",
           "range": "36\"",
@@ -1577,7 +1577,7 @@
           "caps": null
         },
         {
-          "text": "此模型的双联刺蛇炮可替换为1个双联重型毒液加农炮。",
+          "text": "此模型的双联刺蛇炮可替换为1个双联重型毒液炮。",
           "options": [
             {
               "default": false,
@@ -1650,7 +1650,7 @@
         "泰伦虫族"
       ],
       "extraction": {
-        "rawText": "此模型拥有1-4点伤口时，此模型每次发动攻击时，从命中掷骰中减-1。\n有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位脱离前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的致命伤（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。\n若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n在你对手的近战阶段结束时，你可以进行以下其中一项：\n■ 选择此单位 24\" 内一个可见的敌方单位（**独行特工** 单位除外），并为该单位掷 6 枚 D6：每掷出 3+，该单位受到 1 点致命伤。\n■ 为你的军队新增一个 **孢子地雷(Spore Mines)** 单位（含 D3 个模型），并将其设置于此模型 6\" 内、且距所有敌方单位横向超过 8\" 的战场任一处。每回合最多只能为一个模型选择此选项。\n预设配备\n此模型的双联刺蛇炮可替换为1个双联重型毒液加农炮。",
+        "rawText": "此模型拥有1-4点伤口时，此模型每次发动攻击时，从命中掷骰中减-1。\n有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位脱离前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的致命伤（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。\n若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n在你对手的近战阶段结束时，你可以进行以下其中一项：\n■ 选择此单位 24\" 内一个可见的敌方单位（**独行特工** 单位除外），并为该单位掷 6 枚 D6：每掷出 3+，该单位受到 1 点致命伤。\n■ 为你的军队新增一个 **孢子地雷(Spore Mines)** 单位（含 D3 个模型），并将其设置于此模型 6\" 内、且距所有敌方单位横向超过 8\" 的战场任一处。每回合最多只能为一个模型选择此选项。\n预设配备\n此模型的双联刺蛇炮可替换为1个双联重型毒液炮。",
         "confidence": "high",
         "needsReview": false
       },
@@ -1677,7 +1677,7 @@
         "leadership": "8+",
         "objectiveControl": 4,
         "models": 1,
-        "defaultEquipment": "捕舌；利爪巨钳；贪婪巨口",
+        "defaultEquipment": "抓钩长舌；钳形巨爪；吞噬大嘴",
         "abilities": "致命破灭 D3；突触；恐怖景象",
         "activeAbilities": ""
       },
@@ -1690,7 +1690,7 @@
       "weapons": [
         {
           "id": "4db0cd24-be35-4169-b2d5-cd68854b4d51",
-          "name": "捕舌",
+          "name": "抓钩长舌",
           "englishName": "Grasping tongue",
           "type": "ranged",
           "range": "12\"",
@@ -1710,7 +1710,7 @@
         },
         {
           "id": "f04faedf-8eed-46f7-99ba-2113f260d11e",
-          "name": "利爪巨钳",
+          "name": "钳形巨爪",
           "englishName": "Shovelling claws",
           "type": "melee",
           "attacks": "4",
@@ -1729,7 +1729,7 @@
         },
         {
           "id": "676227d8-2cb0-4407-bc2a-8c1e139b1832",
-          "name": "贪婪巨口",
+          "name": "吞噬大嘴",
           "englishName": "Ravenous maw",
           "type": "melee",
           "attacks": "14",
@@ -1985,7 +1985,7 @@
         "leadership": "8+",
         "objectiveControl": "-",
         "models": 1,
-        "defaultEquipment": "镰刃之翼；触手飞弹；口涎洪流炮；胸针刺；毒刺齐射",
+        "defaultEquipment": "镰刀飞翼；放电飞虫；口涎洪流炮；尾镰骨刺；毒针弹幕",
         "abilities": "致命破灭 D3；突触；空中猎手",
         "activeAbilities": ""
       },
@@ -1998,7 +1998,7 @@
       "weapons": [
         {
           "id": "025c6dd3-e092-4fac-a65b-3783f0bd133e",
-          "name": "镰刃之翼",
+          "name": "镰刀飞翼",
           "englishName": "Scything wings",
           "type": "melee",
           "attacks": "4",
@@ -2013,7 +2013,7 @@
         },
         {
           "id": "4fb3410a-0adf-4941-a33d-42d9c9cc3322",
-          "name": "触手飞弹",
+          "name": "放电飞虫",
           "englishName": "Tentaclids",
           "type": "ranged",
           "range": "36\"",
@@ -2055,7 +2055,7 @@
         },
         {
           "id": "b5501807-b470-4fcb-a5d7-7cd8705e8750",
-          "name": "胸针刺",
+          "name": "尾镰骨刺",
           "englishName": "Thorax spur",
           "type": "melee",
           "attacks": "1",
@@ -2076,7 +2076,7 @@
         },
         {
           "id": "44aa1406-6394-40ac-b6dc-e0bf8d4a84de",
-          "name": "毒刺齐射",
+          "name": "毒针弹幕",
           "englishName": "Stinger salvoes",
           "type": "ranged",
           "range": "24\"",
@@ -2196,7 +2196,7 @@
         "leadership": "8+",
         "objectiveControl": 1,
         "models": 3,
-        "defaultEquipment": "震波炮；甲壳爪牙",
+        "defaultEquipment": "电击炮；尖牙利爪",
         "abilities": "突触；防御站位",
         "activeAbilities": ""
       },
@@ -2209,7 +2209,7 @@
       "weapons": [
         {
           "id": "0eff571f-f046-426c-9c50-4e13ec1b858f",
-          "name": "震波炮",
+          "name": "电击炮",
           "englishName": "Shockcannon",
           "type": "ranged",
           "range": "24\"",
@@ -2229,7 +2229,7 @@
         },
         {
           "id": "48210bc8-76d3-451a-b6df-735f88dd63d6",
-          "name": "甲壳爪牙",
+          "name": "尖牙利爪",
           "englishName": "Chitinous claws and teeth ",
           "type": "melee",
           "attacks": "3",
@@ -2244,7 +2244,7 @@
         },
         {
           "id": "d37ce677-53b3-4502-a419-cbf093332822",
-          "name": "冲击炮",
+          "name": "穿刺炮",
           "englishName": "Impaler cannon",
           "type": "ranged",
           "range": "36\"",
@@ -2286,7 +2286,7 @@
           "caps": null
         },
         {
-          "text": "任意数量的模型各自可将震波炮替换为 1 门冲击炮。",
+          "text": "任意数量的模型各自可将电击炮替换为 1 门穿刺炮。",
           "options": [
             {
               "default": false,
@@ -2348,7 +2348,7 @@
         "泰伦虫族"
       ],
       "extraction": {
-        "rawText": "若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n每次你以《警戒射击》计谋指定此单位为目标时，在该计谋的结决中，以未修正的命中掷骰为 5+ 时视为命中；若此单位在你控制的目标标记范围内，则以未修正的命中掷骰为 4+ 时视为命中。\n预设战争装备\n任意数量的模型各自可将震波炮替换为 1 门冲击炮。",
+        "rawText": "若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n每次你以《警戒射击》计谋指定此单位为目标时，在该计谋的结决中，以未修正的命中掷骰为 5+ 时视为命中；若此单位在你控制的目标标记范围内，则以未修正的命中掷骰为 4+ 时视为命中。\n预设战争装备\n任意数量的模型各自可将电击炮替换为 1 门穿刺炮。",
         "confidence": "high",
         "needsReview": false
       },
@@ -2375,7 +2375,7 @@
         "leadership": "7+",
         "objectiveControl": 3,
         "models": 1,
-        "defaultEquipment": "巨型镰爪；怪兽骨剑与鞭刺",
+        "defaultEquipment": "巨型镰刀爪；巨型骨剑和触手长鞭",
         "abilities": "致命破灭 D3；领袖；亚空间阴影；突触；蜂巢心智意志；猛攻",
         "activeAbilities": ""
       },
@@ -2388,7 +2388,7 @@
       "weapons": [
         {
           "id": "eba89681-423f-4693-8cd6-291cdc91da9b",
-          "name": "巨型镰爪",
+          "name": "巨型镰刀爪",
           "englishName": "Monstrous scything talons",
           "type": "melee",
           "attacks": "4",
@@ -2407,7 +2407,7 @@
         },
         {
           "id": "d6a817e2-1de3-4082-b940-f4aaa566c059",
-          "name": "重型毒液加农炮",
+          "name": "重型毒液炮",
           "englishName": "Heavy venom cannon",
           "type": "ranged",
           "range": "36\"",
@@ -2427,7 +2427,7 @@
         },
         {
           "id": "2a72d62a-61ad-4abd-9b8d-afe84cd97b9c",
-          "name": "刺蛇炮",
+          "name": "重型绞藤炮",
           "englishName": "Stranglethorn cannon",
           "type": "ranged",
           "range": "36\"",
@@ -2447,7 +2447,7 @@
         },
         {
           "id": "f0cc84d0-315a-45ff-85ec-1a9d1eb0a5d0",
-          "name": "怪兽骨剑与鞭刺",
+          "name": "巨型骨剑和触手长鞭",
           "englishName": "Monstrous bonesword and lash whip",
           "type": "melee",
           "attacks": "6",
@@ -2486,7 +2486,7 @@
           "caps": null
         },
         {
-          "text": "此模型的怪兽骨剑与鞭刺可替换为下列任一项：",
+          "text": "此模型的巨型骨剑和触手长鞭可替换为下列任一项：",
           "options": [
             {
               "default": false,
@@ -2548,7 +2548,7 @@
           }
         },
         {
-          "text": "此模型的巨型镰爪可被替换为下列其中之一：\n\n* 此模型不能同时配备刺蛇炮和重型毒液加农炮。此模型最多只能配备 1 门重型毒液加农炮，且最多只能配备 1 门刺蛇炮。",
+          "text": "此模型的巨型镰刀爪可被替换为下列其中之一：\n\n* 此模型不能同时配备重型绞藤炮和重型毒液炮。此模型最多只能配备 1 门重型毒液炮，且最多只能配备 1 门重型绞藤炮。",
           "options": [
             {
               "default": false,
@@ -2666,7 +2666,7 @@
         "eligibleUnits": []
       },
       "extraction": {
-        "rawText": "有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位脱离前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的致命伤（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。\n某些 **角色(Character)** 单位的资料表上列有「领袖」。这类 **角色(Character)** 单位被称为领袖，他们能够领导的单位（称为他们的护卫单位）列在他们的资料表上。在宣告战斗编队阶段中，对于你军队中的每个领袖，如果你的军队也包括该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖将在战役期间附着到该护卫单位，并称为领导该单位。每个护卫单位最多只能有一个领袖附着到它。\n\n当护卫单位包含领袖时，它被称为联合单位，除了在单位被摧毁时触发的规则外，在所有规则目的上都被视为单一单位。每次攻击以联合单位为目标时，直到攻击单位解决完所有攻击为止，你必须使用该单位中护卫模型的韧性特性，即使该单位中的领袖具有不同的韧性特性也是如此。每次攻击成功造成联合单位的伤口时，该攻击不能被分配给该单位中的 **角色(Character)** 模型，即使该 **角色(Character)** 模型已失去一个或多个伤口或在此阶段已分配了攻击。一旦联合单位中的最后一个护卫模型被摧毁，对该单位进行的任何尚未分配的攻击可以分配给该单位中的 **角色(Character)** 模型。\n\n每次护卫单位的最后一个模型被摧毁时，作为联合单位一部分的每个 **角色(Character)** 单位不再是联合单位的一部分。它成为一个单独的单位，具有其原始起始兵力。如果这发生在攻击结果中，他们在攻击单位解决完所有攻击后成为单独的单位。\n\n每次附着到护卫单位的 **角色(Character)** 单位的最后一个模型被摧毁，且没有另一个 **角色(Character)** 单位附着时，该联合单位的护卫单位不再是联合单位的一部分。它成为一个单独的单位，具有其原始起始兵力。如果这发生在攻击结果中，他们在攻击单位解决完所有攻击后成为单独的单位。\n\n每次摧毁作为联合单位一部分的单位时，它不会获得组成该联合单位的任何其他单位的关键字（除非它在自己的资料表上具有这些关键字），以适用于在摧毁该单位时触发的任何规则。\n\n**范例：** 如果你只摧毁了作为联合单位一部分的护卫单位，你就没有摧毁 **角色(Character)** 单位。如果你只摧毁了作为联合单位一部分的 **角色(Character)** 单位，或者如果你摧毁了整个联合单位，你就摧毁了一个 **角色(Character)** 单位。\n若你的军队阵营是 **泰伦虫族(Tyranids)**，一场战斗一次，在任一玩家的指挥阶段，若你的军队中有一个或多个具有此能力的单位在战场上，你可释放「亚空间阴影」。当你这样做时，战场上的每个敌军单位必须进行战斗震慑测试。每当敌军单位进行该测试时，若它在你军队中一个或多个 **突触(Synapse)** 单位的 6\" 内，从该测试减 1。\n若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n每战斗回合一次，你的军队中具有此能力的一个模型可在己方 **泰伦虫族(Tyranids)** 单位在距该模型 12\" 内被计谋目标时使用此能力。若其如此做，将该次计谋的 CP 消耗减少 1CP。\n友军**泰伦虫族(Tyranids)**单位在此模型6\"内时，该单位中模型配备的远程武器具有**[突击]**与**[致命一击]**能力。\n预设战装\n此模型的怪兽骨剑与鞭刺可替换为下列任一项：\n此模型的巨型镰爪可被替换为下列其中之一：\n\n* 此模型不能同时配备刺蛇炮和重型毒液加农炮。此模型最多只能配备 1 门重型毒液加农炮，且最多只能配备 1 门刺蛇炮。",
+        "rawText": "有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位脱离前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的致命伤（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。\n某些 **角色(Character)** 单位的资料表上列有「领袖」。这类 **角色(Character)** 单位被称为领袖，他们能够领导的单位（称为他们的护卫单位）列在他们的资料表上。在宣告战斗编队阶段中，对于你军队中的每个领袖，如果你的军队也包括该领袖的一个或多个护卫单位，你可以选择其中一个护卫单位。该领袖将在战役期间附着到该护卫单位，并称为领导该单位。每个护卫单位最多只能有一个领袖附着到它。\n\n当护卫单位包含领袖时，它被称为联合单位，除了在单位被摧毁时触发的规则外，在所有规则目的上都被视为单一单位。每次攻击以联合单位为目标时，直到攻击单位解决完所有攻击为止，你必须使用该单位中护卫模型的韧性特性，即使该单位中的领袖具有不同的韧性特性也是如此。每次攻击成功造成联合单位的伤口时，该攻击不能被分配给该单位中的 **角色(Character)** 模型，即使该 **角色(Character)** 模型已失去一个或多个伤口或在此阶段已分配了攻击。一旦联合单位中的最后一个护卫模型被摧毁，对该单位进行的任何尚未分配的攻击可以分配给该单位中的 **角色(Character)** 模型。\n\n每次护卫单位的最后一个模型被摧毁时，作为联合单位一部分的每个 **角色(Character)** 单位不再是联合单位的一部分。它成为一个单独的单位，具有其原始起始兵力。如果这发生在攻击结果中，他们在攻击单位解决完所有攻击后成为单独的单位。\n\n每次附着到护卫单位的 **角色(Character)** 单位的最后一个模型被摧毁，且没有另一个 **角色(Character)** 单位附着时，该联合单位的护卫单位不再是联合单位的一部分。它成为一个单独的单位，具有其原始起始兵力。如果这发生在攻击结果中，他们在攻击单位解决完所有攻击后成为单独的单位。\n\n每次摧毁作为联合单位一部分的单位时，它不会获得组成该联合单位的任何其他单位的关键字（除非它在自己的资料表上具有这些关键字），以适用于在摧毁该单位时触发的任何规则。\n\n**范例：** 如果你只摧毁了作为联合单位一部分的护卫单位，你就没有摧毁 **角色(Character)** 单位。如果你只摧毁了作为联合单位一部分的 **角色(Character)** 单位，或者如果你摧毁了整个联合单位，你就摧毁了一个 **角色(Character)** 单位。\n若你的军队阵营是 **泰伦虫族(Tyranids)**，一场战斗一次，在任一玩家的指挥阶段，若你的军队中有一个或多个具有此能力的单位在战场上，你可释放「亚空间阴影」。当你这样做时，战场上的每个敌军单位必须进行战斗震慑测试。每当敌军单位进行该测试时，若它在你军队中一个或多个 **突触(Synapse)** 单位的 6\" 内，从该测试减 1。\n若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n每战斗回合一次，你的军队中具有此能力的一个模型可在己方 **泰伦虫族(Tyranids)** 单位在距该模型 12\" 内被计谋目标时使用此能力。若其如此做，将该次计谋的 CP 消耗减少 1CP。\n友军**泰伦虫族(Tyranids)**单位在此模型6\"内时，该单位中模型配备的远程武器具有**[突击]**与**[致命一击]**能力。\n预设战装\n此模型的巨型骨剑和触手长鞭可替换为下列任一项：\n此模型的巨型镰刀爪可被替换为下列其中之一：\n\n* 此模型不能同时配备重型绞藤炮和重型毒液炮。此模型最多只能配备 1 门重型毒液炮，且最多只能配备 1 门重型绞藤炮。",
         "confidence": "high",
         "needsReview": false
       },
@@ -2896,7 +2896,7 @@
         "leadership": "8+",
         "objectiveControl": 2,
         "models": 10,
-        "defaultEquipment": "角虫之爪",
+        "defaultEquipment": "刀虫利爪",
         "abilities": "突触；猎杀冲锋",
         "activeAbilities": ""
       },
@@ -2909,7 +2909,7 @@
       "weapons": [
         {
           "id": "a6ea97da-ca8e-489c-ba94-35ba61df8f05",
-          "name": "角虫之爪",
+          "name": "刀虫利爪",
           "englishName": "Hormagaunt talons",
           "type": "melee",
           "attacks": "3",
@@ -3242,7 +3242,7 @@
         "leadership": "7+",
         "objectiveControl": 1,
         "models": 1,
-        "defaultEquipment": "潜伏兽之爪",
+        "defaultEquipment": "镰刀利爪",
         "abilities": "先制攻击；渗透；独行特工；潜行；突触；贪食触须；费洛蒙追踪",
         "activeAbilities": ""
       },
@@ -3255,7 +3255,7 @@
       "weapons": [
         {
           "id": "d4216d42-3d5d-4b55-b816-9691376d6a43",
-          "name": "潜伏兽之爪",
+          "name": "镰刀利爪",
           "englishName": "Lictor claws and talons",
           "type": "melee",
           "attacks": "6",
@@ -3542,7 +3542,7 @@
         "leadership": "8+",
         "objectiveControl": 4,
         "models": 1,
-        "defaultEquipment": "伸缩巨口；巨口镰爪",
+        "defaultEquipment": "恐怖大嘴；沙蟒镰刀爪",
         "abilities": "深入打击；突触；深渊恐惧",
         "activeAbilities": ""
       },
@@ -3555,7 +3555,7 @@
       "weapons": [
         {
           "id": "2df9a537-6e50-421f-a436-e10d7a6af39f",
-          "name": "伸缩巨口",
+          "name": "恐怖大嘴",
           "englishName": "Distensible jaw",
           "type": "melee",
           "attacks": "1",
@@ -3578,7 +3578,7 @@
         },
         {
           "id": "de7a7669-ef1c-4bfb-8842-f8547e1f1201",
-          "name": "巨口镰爪",
+          "name": "沙蟒镰刀爪",
           "englishName": "Mawloc scything talons",
           "type": "melee",
           "attacks": "16",
@@ -3761,7 +3761,7 @@
         "leadership": "8+",
         "objectiveControl": 1,
         "models": 11,
-        "defaultEquipment": "甲壳爪牙",
+        "defaultEquipment": "尖牙利爪",
         "abilities": "突触；神经细胞",
         "activeAbilities": ""
       },
@@ -3780,10 +3780,10 @@
           "remaining": true,
           "min": 10,
           "max": 10,
-          "defaultEquipment": "甲壳爪牙",
+          "defaultEquipment": "尖牙利爪",
           "profileKey": "trooper#1",
           "weaponNames": [
-            "甲壳爪牙"
+            "尖牙利爪"
           ]
         },
         {
@@ -3794,17 +3794,17 @@
           "count": 1,
           "min": 1,
           "max": 1,
-          "defaultEquipment": "甲壳爪牙",
+          "defaultEquipment": "尖牙利爪",
           "profileKey": "champion#1",
           "weaponNames": [
-            "甲壳爪牙"
+            "尖牙利爪"
           ]
         }
       ],
       "weapons": [
         {
           "id": "8d0c9ec8-32da-425d-9482-e201dd16dc1c",
-          "name": "甲壳爪牙",
+          "name": "尖牙利爪",
           "englishName": "Chitinous claws and teeth",
           "type": "melee",
           "attacks": "1",
@@ -4052,7 +4052,7 @@
         "leadership": "7+",
         "objectiveControl": 3,
         "models": 1,
-        "defaultEquipment": "神经暴君之爪；灵能尖啸",
+        "defaultEquipment": "利爪与触须；灵能尖啸",
         "abilities": "领袖；突触；亚空间阴影；节点鞭；灵能恐惧；神经卵",
         "activeAbilities": ""
       },
@@ -4065,7 +4065,7 @@
       "weapons": [
         {
           "id": "9373b9fe-880c-4292-a032-e0cfb24e39a0",
-          "name": "神经暴君之爪",
+          "name": "利爪与触须",
           "englishName": "Neurotyrant claws and lashes",
           "type": "melee",
           "attacks": "6",
@@ -4224,7 +4224,7 @@
         "leadership": "7+",
         "objectiveControl": 5,
         "models": 1,
-        "defaultEquipment": "毒素鱼叉；巨型镰爪",
+        "defaultEquipment": "毒素鱼叉；巨型镰刀爪",
         "abilities": "致命破灭 D6；亚空间阴影；突触；单一目的；鱼叉倒钩",
         "activeAbilities": ""
       },
@@ -4276,7 +4276,7 @@
         },
         {
           "id": "5765820d-5345-43bd-86a8-e3675ba1ecb0",
-          "name": "巨型镰爪",
+          "name": "巨型镰刀爪",
           "englishName": "Monstrous scything talons",
           "type": "melee",
           "attacks": "6",
@@ -4392,7 +4392,7 @@
         "leadership": "7+",
         "objectiveControl": 5,
         "models": 1,
-        "defaultEquipment": "巨型撕裂爪；巨型镰爪；灵能触须",
+        "defaultEquipment": "巨型撕裂爪；巨型镰刀爪；灵能触须",
         "abilities": "致命破灭 D6；亚空间阴影；突触；单一目的；超然韧性",
         "activeAbilities": ""
       },
@@ -4424,7 +4424,7 @@
         },
         {
           "id": "5765820d-5345-43bd-86a8-e3675ba1ecb0",
-          "name": "巨型镰爪",
+          "name": "巨型镰刀爪",
           "englishName": "Monstrous scything talons",
           "type": "melee",
           "attacks": "6",
@@ -4757,7 +4757,7 @@
         "leadership": "8+",
         "objectiveControl": 1,
         "models": 1,
-        "defaultEquipment": "利爪肢体；倒钩产卵器",
+        "defaultEquipment": "利爪肢体；产卵针刺",
         "abilities": "深入打击；独行特工；潜行；亚空间阴影；突触；寄生感染；奇痒难耐",
         "activeAbilities": ""
       },
@@ -4785,7 +4785,7 @@
         },
         {
           "id": "589e7772-e445-4241-8398-2d7602c99124",
-          "name": "倒钩产卵器",
+          "name": "产卵针刺",
           "englishName": "Barbed ovipositor",
           "type": "melee",
           "attacks": "1",
@@ -4930,7 +4930,7 @@
         "leadership": "8+",
         "objectiveControl": 3,
         "models": 1,
-        "defaultEquipment": "利爪与触手巨口；灵能碎裂洪流",
+        "defaultEquipment": "利爪与触手巨口；噬灵洪流",
         "abilities": "致命破灭 1；不觉疼痛5+；突触；生物刺激；喂食狂潮",
         "activeAbilities": ""
       },
@@ -4964,7 +4964,7 @@
         },
         {
           "id": "10143e91-9bca-4d09-a7d2-1f48e26a36e9",
-          "name": "灵能碎裂洪流",
+          "name": "噬灵洪流",
           "englishName": "Psychoclastic torrent",
           "type": "ranged",
           "range": "12\"",
@@ -5087,7 +5087,7 @@
         "leadership": "8+",
         "objectiveControl": 1,
         "models": 1,
-        "defaultEquipment": "甲壳倒刺肢；焰酸喷射器",
+        "defaultEquipment": "甲壳肢体；喷焰炮",
         "abilities": "致命破灭 1；突触；灼焰喷射",
         "activeAbilities": ""
       },
@@ -5100,7 +5100,7 @@
       "weapons": [
         {
           "id": "e94d164c-5abf-47ea-a51b-3378fb687290",
-          "name": "甲壳倒刺肢",
+          "name": "甲壳肢体",
           "englishName": "Chitin-barbed limbs",
           "type": "melee",
           "attacks": "2",
@@ -5115,7 +5115,7 @@
         },
         {
           "id": "040d9afc-0d26-40f2-b069-bde106b178db",
-          "name": "焰酸喷射器",
+          "name": "喷焰炮",
           "englishName": "Flamespurt",
           "type": "ranged",
           "range": "12\"",
@@ -5334,7 +5334,7 @@
         "leadership": "8+",
         "objectiveControl": 0,
         "models": 1,
-        "defaultEquipment": "甲壳爪牙",
+        "defaultEquipment": "尖牙利齿",
         "abilities": "深入打击；突触；甲壳恐惧（光环）",
         "activeAbilities": ""
       },
@@ -5347,7 +5347,7 @@
       "weapons": [
         {
           "id": "d910f02f-3b48-4d1d-a5d0-e251f840220e",
-          "name": "甲壳爪牙",
+          "name": "尖牙利齿",
           "englishName": "Chitinous claws and teeth",
           "type": "melee",
           "attacks": "6",
@@ -5366,7 +5366,7 @@
         },
         {
           "id": "c15880bd-76f9-4a2d-9875-44aaf5f10df3",
-          "name": "脊刺巨口",
+          "name": "尖刺喷射",
           "englishName": "Spinemaws",
           "type": "ranged",
           "range": "6\"",
@@ -5400,7 +5400,7 @@
           "caps": null
         },
         {
-          "text": "此单位中的所有模型各自可配备1根脊刺巨口。",
+          "text": "此单位中的所有模型各自可配备1根尖刺喷射。",
           "options": [
             {
               "default": false,
@@ -5471,7 +5471,7 @@
         "泰伦虫族"
       ],
       "extraction": {
-        "rawText": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。\n若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n当敌方单位在此单位的交战范围内时，将该敌方单位中的模型的目标控制特性减半。\n预设装备\n此单位中的所有模型各自可配备1根脊刺巨口。",
+        "rawText": "在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。\n若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n当敌方单位在此单位的交战范围内时，将该敌方单位中的模型的目标控制特性减半。\n预设装备\n此单位中的所有模型各自可配备1根尖刺喷射。",
         "confidence": "high",
         "needsReview": false
       },
@@ -5715,7 +5715,7 @@
         "leadership": "8+",
         "objectiveControl": 0,
         "models": 1,
-        "defaultEquipment": "孢囊生物武器；剥皮鞭",
+        "defaultEquipment": "要塞喷吐；挥舞触手",
         "abilities": "致命破灭 D3；突触；播种黏液孢子；虫巢防御",
         "activeAbilities": ""
       },
@@ -5728,7 +5728,7 @@
       "weapons": [
         {
           "id": "d6a247fa-d3bb-4a09-a134-3d9a7545538d",
-          "name": "孢囊生物武器",
+          "name": "要塞喷吐",
           "englishName": "Sporocyst bio-weapons",
           "type": "ranged",
           "range": "24\"",
@@ -5744,7 +5744,7 @@
         },
         {
           "id": "dde89867-f347-47a6-8ad6-0e01691b60e1",
-          "name": "剥皮鞭",
+          "name": "挥舞触手",
           "englishName": "Flensing whips",
           "type": "melee",
           "attacks": "6",
@@ -5850,7 +5850,7 @@
         "leadership": "8+",
         "objectiveControl": 2,
         "models": 10,
-        "defaultEquipment": "肉蛀虫射手；甲壳爪牙",
+        "defaultEquipment": "食肉枪；枪虫利爪",
         "abilities": "突触；潜伏恐惧",
         "activeAbilities": ""
       },
@@ -5863,7 +5863,7 @@
       "weapons": [
         {
           "id": "e2ba3b44-c5e7-476a-8b77-ec42bdd05c3b",
-          "name": "刺虫步枪",
+          "name": "脊刺步枪",
           "englishName": "Spike rifle",
           "type": "ranged",
           "range": "24\"",
@@ -5883,7 +5883,7 @@
         },
         {
           "id": "6ce512ac-4e70-43b5-85e5-79e377ee1d2c",
-          "name": "肉蛀虫射手",
+          "name": "食肉枪",
           "englishName": "Fleshborer",
           "type": "ranged",
           "range": "18\"",
@@ -5903,7 +5903,7 @@
         },
         {
           "id": "8d0c9ec8-32da-425d-9482-e201dd16dc1c",
-          "name": "甲壳爪牙",
+          "name": "枪虫利爪",
           "englishName": "Chitinous claws and teeth",
           "type": "melee",
           "attacks": "1",
@@ -5918,7 +5918,7 @@
         },
         {
           "id": "b970ea3d-d4b6-4052-806d-0eaf3c9b6878",
-          "name": "缠丝网",
+          "name": "绞杀网",
           "englishName": "Strangleweb",
           "type": "ranged",
           "range": "18\"",
@@ -5942,7 +5942,7 @@
         },
         {
           "id": "8175a941-e4fa-4a04-99cf-0e4d535842df",
-          "name": "碎片弹射器",
+          "name": "爆裂枪",
           "englishName": "Shardlauncher",
           "type": "ranged",
           "range": "18\"",
@@ -5964,7 +5964,7 @@
         },
         {
           "id": "4918adca-4aa8-41c3-acb1-d8872e278a70",
-          "name": "吞噬者",
+          "name": "枪虫吞噬枪",
           "englishName": "Termagant devourer",
           "type": "ranged",
           "range": "18\"",
@@ -5980,7 +5980,7 @@
         },
         {
           "id": "d2929505-2f75-4de1-95bb-943f05491008",
-          "name": "刺虫侍虫脊刺枪",
+          "name": "枪虫射针拳",
           "englishName": "Termagant spinefists",
           "type": "ranged",
           "range": "12\"",
@@ -6024,7 +6024,7 @@
           "caps": null
         },
         {
-          "text": "此单位中的所有模型可各自将其肉钻虫射手替换为 1 吞噬者。",
+          "text": "此单位中的所有模型可各自将其肉钻虫射手替换为 1 枪虫吞噬枪。",
           "options": [
             {
               "default": false,
@@ -6092,7 +6092,7 @@
           }
         },
         {
-          "text": "此单位每 10 个模型中，可将 1 个模型的远程武器替换为 1 碎片弹射器。",
+          "text": "此单位每 10 个模型中，可将 1 个模型的远程武器替换为 1 爆裂枪。",
           "options": [
             {
               "default": false,
@@ -6126,7 +6126,7 @@
           }
         },
         {
-          "text": "此单位每满10个模型，1个模型的远程武器可替换为1支刺虫步枪。",
+          "text": "此单位每满10个模型，1个模型的远程武器可替换为1支脊刺步枪。",
           "options": [
             {
               "default": false,
@@ -6160,7 +6160,7 @@
           }
         },
         {
-          "text": "此单位每 10 个模型可有 1 个模型将其远程武器替换为 1 个缠丝网。",
+          "text": "此单位每 10 个模型可有 1 个模型将其远程武器替换为 1 个绞杀网。",
           "options": [
             {
               "default": false,
@@ -6224,7 +6224,7 @@
         "泰伦虫族"
       ],
       "extraction": {
-        "rawText": "若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n每回合一次，当敌方单位在此单位9\"内结束正常、冲锋或后撤移动时，若此单位不在一个或多个敌方单位的交战范围内，此单位可进行D6\"的正常移动。\n预设武器装备\n此单位中的所有模型可各自将其肉钻虫射手替换为 1 吞噬者。\n此单位中的所有模型可各自将其肉钻虫射手替换为 1 刺虫枪。\n此单位每 10 个模型中，可将 1 个模型的远程武器替换为 1 碎片弹射器。\n此单位每满10个模型，1个模型的远程武器可替换为1支刺虫步枪。\n此单位每 10 个模型可有 1 个模型将其远程武器替换为 1 个缠丝网。",
+        "rawText": "若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n每回合一次，当敌方单位在此单位9\"内结束正常、冲锋或后撤移动时，若此单位不在一个或多个敌方单位的交战范围内，此单位可进行D6\"的正常移动。\n预设武器装备\n此单位中的所有模型可各自将其肉钻虫射手替换为 1 枪虫吞噬枪。\n此单位中的所有模型可各自将其肉钻虫射手替换为 1 刺虫枪。\n此单位每 10 个模型中，可将 1 个模型的远程武器替换为 1 爆裂枪。\n此单位每满10个模型，1个模型的远程武器可替换为1支脊刺步枪。\n此单位每 10 个模型可有 1 个模型将其远程武器替换为 1 个绞杀网。",
         "confidence": "high",
         "needsReview": false
       },
@@ -6251,7 +6251,7 @@
         "leadership": "7+",
         "objectiveControl": 5,
         "models": 1,
-        "defaultEquipment": "巨大镰齿爪；巨大镰齿爪；毒刺齐射",
+        "defaultEquipment": "巨大镰齿爪；巨大镰齿爪；毒针弹幕",
         "abilities": "致命破灭 D6；亚空间阴影；突触；孵化虫群；虫群先祖",
         "activeAbilities": ""
       },
@@ -6264,7 +6264,7 @@
       "weapons": [
         {
           "id": "8eecbb9f-88e2-4dfe-8793-3cdcf8e7acd7",
-          "name": "巨型粉碎爪",
+          "name": "大型粉碎钳",
           "englishName": "Massive crushing claws",
           "type": "melee",
           "attacks": "4",
@@ -6309,7 +6309,7 @@
         },
         {
           "id": "44aa1406-6394-40ac-b6dc-e0bf8d4a84de",
-          "name": "毒刺齐射",
+          "name": "毒针弹幕",
           "englishName": "Stinger salvoes",
           "type": "ranged",
           "range": "24\"",
@@ -6345,7 +6345,7 @@
           "caps": null
         },
         {
-          "text": "此模型的巨型镰爪可替换为1把巨型粉碎爪。",
+          "text": "此模型的巨型镰爪可替换为1把大型粉碎钳。",
           "options": [
             {
               "default": false,
@@ -6434,7 +6434,7 @@
         "泰伦虫族"
       ],
       "extraction": {
-        "rawText": "此模型剩余 1-5 点伤害时，每次此模型发动攻击时，从命中掷骰中减去 1。\n有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位脱离前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的致命伤（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。\n若你的军队阵营是 **泰伦虫族(Tyranids)**，一场战斗一次，在任一玩家的指挥阶段，若你的军队中有一个或多个具有此能力的单位在战场上，你可释放「亚空间阴影」。当你这样做时，战场上的每个敌军单位必须进行战斗震慑测试。每当敌军单位进行该测试时，若它在你军队中一个或多个 **突触(Synapse)** 单位的 6\" 内，从该测试减 1。\n若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n在你的指挥阶段，你可选择一个距此模型 6\" 内的己方 **虫卵虫** 单位，并将最多 D3+3 个已摧毁的模型复原至该单位。一个 **虫卵虫** 单位每个阶段不能被此能力选择超过一次。\n当友军 **虫群兽** 单位在此模型 6\" 范围内时，该单位中的模型配备的远程武器具有 **[致命一击]** 能力。\n预设装备\n此模型的巨型镰爪可替换为1把巨型粉碎爪。",
+        "rawText": "此模型剩余 1-5 点伤害时，每次此模型发动攻击时，从命中掷骰中减去 1。\n有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位脱离前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的致命伤（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。\n若你的军队阵营是 **泰伦虫族(Tyranids)**，一场战斗一次，在任一玩家的指挥阶段，若你的军队中有一个或多个具有此能力的单位在战场上，你可释放「亚空间阴影」。当你这样做时，战场上的每个敌军单位必须进行战斗震慑测试。每当敌军单位进行该测试时，若它在你军队中一个或多个 **突触(Synapse)** 单位的 6\" 内，从该测试减 1。\n若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n在你的指挥阶段，你可选择一个距此模型 6\" 内的己方 **虫卵虫** 单位，并将最多 D3+3 个已摧毁的模型复原至该单位。一个 **虫卵虫** 单位每个阶段不能被此能力选择超过一次。\n当友军 **虫群兽** 单位在此模型 6\" 范围内时，该单位中的模型配备的远程武器具有 **[致命一击]** 能力。\n预设装备\n此模型的巨型镰爪可替换为1把大型粉碎钳。",
         "confidence": "high",
         "needsReview": false
       },
@@ -6615,7 +6615,7 @@
         "leadership": "7+",
         "objectiveControl": 3,
         "models": 1,
-        "defaultEquipment": "突触脉冲；骨剑",
+        "defaultEquipment": "突触脉冲；赤骨巨刃",
         "abilities": "致命破灭 D3；领袖；亚空间阴影；突触；蜂巢指挥官；恶毒临在；虫群心灵统御",
         "activeAbilities": ""
       },
@@ -6650,7 +6650,7 @@
         },
         {
           "id": "5edce616-2cfe-47ad-98e3-961f0bb56bd6",
-          "name": "骨剑",
+          "name": "赤骨巨刃",
           "englishName": "Bone sabres",
           "type": "melee",
           "attacks": "8",
@@ -6796,7 +6796,7 @@
         "leadership": "8+",
         "objectiveControl": 4,
         "models": 1,
-        "defaultEquipment": "巨型毒液鞭；巨型毒液鞭",
+        "defaultEquipment": "剧毒触须；剧毒触须",
         "abilities": "致命破灭 D3；突触；扼取触手；剧毒瘴气",
         "activeAbilities": ""
       },
@@ -6809,7 +6809,7 @@
       "weapons": [
         {
           "id": "1d6bf4e4-e195-4d9c-8f78-f5bfb0bbfc34",
-          "name": "巨型毒液鞭",
+          "name": "剧毒触须",
           "englishName": "Massive toxic lashes",
           "type": "ranged",
           "range": "9\"",
@@ -6829,7 +6829,7 @@
         },
         {
           "id": "2946b8a4-3faa-48fa-a365-e6917e5bf8c0",
-          "name": "巨型毒液鞭",
+          "name": "剧毒触须",
           "englishName": "Massive toxic lashes",
           "type": "melee",
           "attacks": "12",
@@ -6933,7 +6933,7 @@
         "leadership": "8+",
         "objectiveControl": 4,
         "models": 1,
-        "defaultEquipment": "生化电磁脉冲；猎蛇镰爪",
+        "defaultEquipment": "生物电脉冲；巨蟒镰刀爪",
         "abilities": "深入打击；突触；地底隧道",
         "activeAbilities": ""
       },
@@ -6946,7 +6946,7 @@
       "weapons": [
         {
           "id": "a7944354-e1a9-4c07-9497-6b8f798da616",
-          "name": "生化电磁脉冲",
+          "name": "生物电脉冲",
           "englishName": "Bio-electric pulse",
           "type": "ranged",
           "range": "12\"",
@@ -6966,7 +6966,7 @@
         },
         {
           "id": "b94f8d96-0873-4794-9547-fd5bb2980d36",
-          "name": "猎蛇镰爪",
+          "name": "巨蟒镰刀爪",
           "englishName": "Trygon scything talons",
           "type": "melee",
           "attacks": "12",
@@ -7244,7 +7244,7 @@
         "leadership": "7+",
         "objectiveControl": 2,
         "models": 3,
-        "defaultEquipment": "泰伦战士利爪",
+        "defaultEquipment": "骨刃利爪",
         "abilities": "亚空间阴影；突触；适应性本能",
         "activeAbilities": ""
       },
@@ -7263,10 +7263,10 @@
           "remaining": true,
           "min": 2,
           "max": 2,
-          "defaultEquipment": "泰伦战士利爪",
+          "defaultEquipment": "骨刃利爪",
           "profileKey": "trooper#1",
           "weaponNames": [
-            "泰伦战士利爪"
+            "骨刃利爪"
           ]
         },
         {
@@ -7277,17 +7277,17 @@
           "count": 1,
           "min": 1,
           "max": 1,
-          "defaultEquipment": "泰伦战士利爪",
+          "defaultEquipment": "骨刃利爪",
           "profileKey": "champion#1",
           "weaponNames": [
-            "泰伦战士利爪"
+            "骨刃利爪"
           ]
         }
       ],
       "weapons": [
         {
           "id": "6f4d823d-07bd-481e-a590-6a495b8c0d9b",
-          "name": "泰伦战士利爪",
+          "name": "骨刃利爪",
           "englishName": "Tyranid Warrior claws and talons",
           "type": "melee",
           "attacks": "6",
@@ -7396,7 +7396,7 @@
         "leadership": "7+",
         "objectiveControl": 2,
         "models": 3,
-        "defaultEquipment": "吞噬者；泰伦战士利爪",
+        "defaultEquipment": "吞噬枪；武士利爪",
         "abilities": "亚空间阴影；突触；适应性掠食者",
         "activeAbilities": ""
       },
@@ -7415,15 +7415,15 @@
           "remaining": true,
           "min": 2,
           "max": 2,
-          "defaultEquipment": "吞噬者；泰伦战士利爪",
+          "defaultEquipment": "吞噬枪；武士利爪",
           "profileKey": "trooper#1",
           "weaponNames": [
-            "吞噬者",
-            "泰伦战士利爪",
-            "死亡吐息",
-            "刺虫枪",
+            "吞噬枪",
+            "武士利爪",
+            "死亡喷吐",
+            "射针拳",
             "刺须绞杀炮",
-            "毒液加农炮"
+            "毒液炮"
           ]
         },
         {
@@ -7434,11 +7434,11 @@
           "count": 1,
           "min": 1,
           "max": 1,
-          "defaultEquipment": "吞噬者；泰伦战士利爪",
+          "defaultEquipment": "吞噬枪；武士利爪",
           "profileKey": "champion#1",
           "weaponNames": [
-            "吞噬者",
-            "泰伦战士利爪"
+            "吞噬枪",
+            "武士利爪"
           ]
         }
       ],
@@ -7465,7 +7465,7 @@
         },
         {
           "id": "02bed43c-17c8-4e05-b5c6-40535ea6440f",
-          "name": "毒液加农炮",
+          "name": "毒液炮",
           "englishName": "Venom cannon",
           "type": "ranged",
           "range": "36\"",
@@ -7485,7 +7485,7 @@
         },
         {
           "id": "0a737a94-bf0a-4386-bdb5-cf1c06e0f20c",
-          "name": "刺虫枪",
+          "name": "射针拳",
           "englishName": "Spinefists",
           "type": "ranged",
           "range": "12\"",
@@ -7509,7 +7509,7 @@
         },
         {
           "id": "ba322aba-de2b-4c51-ba80-4550638ceb94",
-          "name": "死亡吐息",
+          "name": "死亡喷吐",
           "englishName": "Deathspitter",
           "type": "ranged",
           "range": "24\"",
@@ -7525,7 +7525,7 @@
         },
         {
           "id": "df6e0dc4-6d14-40a8-b29a-e32cc16a6411",
-          "name": "吞噬者",
+          "name": "吞噬枪",
           "englishName": "Devourer",
           "type": "ranged",
           "range": "18\"",
@@ -7541,7 +7541,7 @@
         },
         {
           "id": "d0b338a3-8f10-49ad-9984-fbdb9d9ca7f7",
-          "name": "泰伦战士利爪",
+          "name": "武士利爪",
           "englishName": "Tyranid Warrior claws and talons",
           "type": "melee",
           "attacks": "5",
@@ -7576,7 +7576,7 @@
           "caps": null
         },
         {
-          "text": "任意数量的模型各自可将其吞噬者替换为以下其中之一：",
+          "text": "任意数量的模型各自可将其吞噬枪替换为以下其中之一：",
           "options": [
             {
               "default": false,
@@ -7624,7 +7624,7 @@
           }
         },
         {
-          "text": "此单位每 3 个模型，1 个模型的吞噬者可替换为 1 具刺虫绞杀炮。",
+          "text": "此单位每 3 个模型，1 个模型的吞噬枪可替换为 1 具刺虫绞杀炮。",
           "options": [
             {
               "default": false,
@@ -7658,7 +7658,7 @@
           }
         },
         {
-          "text": "此单位每 3 个模型，1 个模型的吞噬者可替换为 1 个毒液加农炮。",
+          "text": "此单位每 3 个模型，1 个模型的吞噬枪可替换为 1 个毒液炮。",
           "options": [
             {
               "default": false,
@@ -7711,7 +7711,7 @@
           "caps": null
         },
         {
-          "text": "任意数量的模型各可将其吞噬者替换为以下其中之一：",
+          "text": "任意数量的模型各可将其吞噬枪替换为以下其中之一：",
           "options": [
             {
               "default": false,
@@ -7759,7 +7759,7 @@
           }
         },
         {
-          "text": "此单位每 3 个模型中，1 个模型的吞噬者可替换为 1 个刺须绞杀炮。",
+          "text": "此单位每 3 个模型中，1 个模型的吞噬枪可替换为 1 个刺须绞杀炮。",
           "options": [
             {
               "default": false,
@@ -7793,7 +7793,7 @@
           }
         },
         {
-          "text": "每 3 个模型，1 个模型的吞噬者可替换为 1 门毒液加农炮。",
+          "text": "每 3 个模型，1 个模型的吞噬枪可替换为 1 门毒液炮。",
           "options": [
             {
               "default": false,
@@ -7864,7 +7864,7 @@
         "泰伦虫族"
       ],
       "extraction": {
-        "rawText": "若你的军队阵营是 **泰伦虫族(Tyranids)**，一场战斗一次，在任一玩家的指挥阶段，若你的军队中有一个或多个具有此能力的单位在战场上，你可释放「亚空间阴影」。当你这样做时，战场上的每个敌军单位必须进行战斗震慑测试。每当敌军单位进行该测试时，若它在你军队中一个或多个 **突触(Synapse)** 单位的 6\" 内，从该测试减 1。\n若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n此单位在后撤的战斗回合中可进行射击并宣告冲锋。\n预设配备\n任意数量的模型各自可将其吞噬者替换为以下其中之一：\n此单位每 3 个模型，1 个模型的吞噬者可替换为 1 具刺虫绞杀炮。\n此单位每 3 个模型，1 个模型的吞噬者可替换为 1 个毒液加农炮。\n预设武装\n任意数量的模型各可将其吞噬者替换为以下其中之一：\n此单位每 3 个模型中，1 个模型的吞噬者可替换为 1 个刺须绞杀炮。\n每 3 个模型，1 个模型的吞噬者可替换为 1 门毒液加农炮。",
+        "rawText": "若你的军队阵营是 **泰伦虫族(Tyranids)**，一场战斗一次，在任一玩家的指挥阶段，若你的军队中有一个或多个具有此能力的单位在战场上，你可释放「亚空间阴影」。当你这样做时，战场上的每个敌军单位必须进行战斗震慑测试。每当敌军单位进行该测试时，若它在你军队中一个或多个 **突触(Synapse)** 单位的 6\" 内，从该测试减 1。\n若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n此单位在后撤的战斗回合中可进行射击并宣告冲锋。\n预设配备\n任意数量的模型各自可将其吞噬枪替换为以下其中之一：\n此单位每 3 个模型，1 个模型的吞噬枪可替换为 1 具刺虫绞杀炮。\n此单位每 3 个模型，1 个模型的吞噬枪可替换为 1 个毒液炮。\n预设武装\n任意数量的模型各可将其吞噬枪替换为以下其中之一：\n此单位每 3 个模型中，1 个模型的吞噬枪可替换为 1 个刺须绞杀炮。\n每 3 个模型，1 个模型的吞噬枪可替换为 1 门毒液炮。",
         "confidence": "high",
         "needsReview": false
       },
@@ -7890,7 +7890,7 @@
         "leadership": "8+",
         "objectiveControl": 2,
         "models": 1,
-        "defaultEquipment": "剥皮鞭；暴虫荚生物武器",
+        "defaultEquipment": "挥舞触手；孢子仓喷吐",
         "abilities": "致命破灭 D3；深入打击；突触；空降播种；运载",
         "activeAbilities": ""
       },
@@ -7903,7 +7903,7 @@
       "weapons": [
         {
           "id": "dde89867-f347-47a6-8ad6-0e01691b60e1",
-          "name": "剥皮鞭",
+          "name": "挥舞触手",
           "englishName": "Flensing whips",
           "type": "melee",
           "attacks": "6",
@@ -7918,7 +7918,7 @@
         },
         {
           "id": "b5f8bbc8-0360-44a0-9ccd-b41937f7de68",
-          "name": "暴虫荚生物武器",
+          "name": "孢子仓喷吐",
           "englishName": "Tyrannocyte bio-weapons",
           "type": "ranged",
           "range": "24\"",
@@ -8037,7 +8037,7 @@
         "leadership": "8+",
         "objectiveControl": 5,
         "models": 1,
-        "defaultEquipment": "毒刺齐射；肉钻巢；强力肢体",
+        "defaultEquipment": "毒针弹幕；食肉蜂巢；强壮肢体",
         "abilities": "致命破灭 D6；突触；坚韧生物",
         "activeAbilities": ""
       },
@@ -8050,7 +8050,7 @@
       "weapons": [
         {
           "id": "44aa1406-6394-40ac-b6dc-e0bf8d4a84de",
-          "name": "毒刺齐射",
+          "name": "毒针弹幕",
           "englishName": "Stinger salvoes",
           "type": "ranged",
           "range": "24\"",
@@ -8066,7 +8066,7 @@
         },
         {
           "id": "3588fbb3-aaa6-450b-8703-e1747ef26ed4",
-          "name": "肉钻巢",
+          "name": "食肉蜂巢",
           "englishName": "Fleshborer hive",
           "type": "ranged",
           "range": "24\"",
@@ -8090,7 +8090,7 @@
         },
         {
           "id": "ba564157-2f7a-4aaf-be48-17c14e1dd9ee",
-          "name": "强力肢体",
+          "name": "强壮肢体",
           "englishName": "Powerful limbs",
           "type": "melee",
           "attacks": "4",
@@ -8105,7 +8105,7 @@
         },
         {
           "id": "508b2576-9ec5-44dc-8dd1-6602dc986ab2",
-          "name": "毁灭加农炮",
+          "name": "碎裂炮",
           "englishName": "Rupture cannon",
           "type": "ranged",
           "range": "48\"",
@@ -8284,7 +8284,7 @@
         "leadership": "8+",
         "objectiveControl": 1,
         "models": 3,
-        "defaultEquipment": "割草爪与撕裂爪",
+        "defaultEquipment": "镰刀爪与撕裂爪",
         "abilities": "突触；守护生物",
         "activeAbilities": ""
       },
@@ -8312,7 +8312,7 @@
         },
         {
           "id": "56c721c2-cd4a-44ed-86d0-f7437e40e2f4",
-          "name": "粉碎爪与撕裂爪",
+          "name": "粉碎钳与撕裂爪",
           "englishName": "Crushing claws and rending claws",
           "type": "melee",
           "attacks": "2",
@@ -8331,7 +8331,7 @@
         },
         {
           "id": "9d9bf0cd-1a4d-4578-bd71-083bc0dde62c",
-          "name": "割草爪与撕裂爪",
+          "name": "镰刀爪与撕裂爪",
           "englishName": "Scything talons and rending claws",
           "type": "melee",
           "attacks": "5",
@@ -8463,7 +8463,7 @@
         "leadership": "8+",
         "objectiveControl": 1,
         "models": 3,
-        "defaultEquipment": "毒触手",
+        "defaultEquipment": "剧毒触手",
         "abilities": "潜行；突触；恶臭孢子",
         "activeAbilities": ""
       },
@@ -8476,7 +8476,7 @@
       "weapons": [
         {
           "id": "b23388cc-8bee-4537-a151-9277fe6169cc",
-          "name": "毒触手",
+          "name": "剧毒触手",
           "englishName": "Toxic lashes",
           "type": "melee",
           "attacks": "5",
@@ -8573,7 +8573,7 @@
         "leadership": "8+",
         "objectiveControl": 1,
         "models": 3,
-        "defaultEquipment": "跳虫利爪",
+        "defaultEquipment": "跳跃者利爪",
         "abilities": "先制攻击；渗透；潜行；突触；扑击跳跃",
         "activeAbilities": ""
       },
@@ -8586,7 +8586,7 @@
       "weapons": [
         {
           "id": "1228b236-1393-4a63-a2b8-74b3deef7f3d",
-          "name": "跳虫利爪",
+          "name": "跳跃者利爪",
           "englishName": "Leaper’s talons",
           "type": "melee",
           "attacks": "6",
@@ -8695,7 +8695,7 @@
         "leadership": "7+",
         "objectiveControl": 3,
         "models": 1,
-        "defaultEquipment": "怪兽骨剑与鞭刺；暴君利爪",
+        "defaultEquipment": "巨型骨剑和触手长鞭；暴君利爪",
         "abilities": "致命破灭 D3；深入打击；亚空间阴影；突触；蜂巢心智意志；痉挛发作",
         "activeAbilities": ""
       },
@@ -8708,7 +8708,7 @@
       "weapons": [
         {
           "id": "eba89681-423f-4693-8cd6-291cdc91da9b",
-          "name": "巨型镰爪",
+          "name": "巨型镰刀爪",
           "englishName": "Monstrous scything talons",
           "type": "melee",
           "attacks": "4",
@@ -8727,7 +8727,7 @@
         },
         {
           "id": "2a72d62a-61ad-4abd-9b8d-afe84cd97b9c",
-          "name": "刺蛇炮",
+          "name": "重型绞藤炮",
           "englishName": "Stranglethorn cannon",
           "type": "ranged",
           "range": "36\"",
@@ -8747,7 +8747,7 @@
         },
         {
           "id": "d6a817e2-1de3-4082-b940-f4aaa566c059",
-          "name": "重型毒液加农炮",
+          "name": "重型毒液炮",
           "englishName": "Heavy venom cannon",
           "type": "ranged",
           "range": "36\"",
@@ -8767,7 +8767,7 @@
         },
         {
           "id": "f0cc84d0-315a-45ff-85ec-1a9d1eb0a5d0",
-          "name": "怪兽骨剑与鞭刺",
+          "name": "巨型骨剑和触手长鞭",
           "englishName": "Monstrous bonesword and lash whip",
           "type": "melee",
           "attacks": "6",
@@ -8821,7 +8821,7 @@
           "caps": null
         },
         {
-          "text": "此模型的怪兽骨剑与鞭刺可替换为下列其中之一：",
+          "text": "此模型的巨型骨剑和触手长鞭可替换为下列其中之一：",
           "options": [
             {
               "default": false,
@@ -8949,7 +8949,7 @@
         "泰伦虫族"
       ],
       "extraction": {
-        "rawText": "有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位脱离前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的致命伤（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。\n在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。\n若你的军队阵营是 **泰伦虫族(Tyranids)**，一场战斗一次，在任一玩家的指挥阶段，若你的军队中有一个或多个具有此能力的单位在战场上，你可释放「亚空间阴影」。当你这样做时，战场上的每个敌军单位必须进行战斗震慑测试。每当敌军单位进行该测试时，若它在你军队中一个或多个 **突触(Synapse)** 单位的 6\" 内，从该测试减 1。\n若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n每战斗回合一次，你的军队中具有此能力的一个模型可在己方 **泰伦虫族(Tyranids)** 单位在距该模型 12\" 内被计谋目标时使用此能力。若其如此做，将该次计谋的 CP 消耗减少 1CP。\n在近战阶段开始时，你可以选择一个在此模型 12\" 内且可见的敌方单位，并掷一次 D6：结果为 1 时，此 **灵能者(Psyker)** 受到 D3 点致命伤；结果为 2+ 时，直到阶段结束，从该单位中模型配备的武器的攻击次数特性减 1。\n预设装备\n此模型的怪兽骨剑与鞭刺可替换为下列其中之一：",
+        "rawText": "有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位脱离前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的致命伤（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。\n在宣示战斗编队阶段，若一个单位中的每个模型都具有此能力，你可以将其设置在预备队中，而非设置在战场上。若你如此做，在你移动阶段的增援步骤中，你可以在战场上任意地点设置此单位，该地点距离所有敌军模型的水平距离须超过8\"。\n\n若一个具有深入打击能力的单位从战略预备队到达，控制该单位的玩家可以选择使用战略预备队规则或使用深入打击能力来设置该单位。\n若你的军队阵营是 **泰伦虫族(Tyranids)**，一场战斗一次，在任一玩家的指挥阶段，若你的军队中有一个或多个具有此能力的单位在战场上，你可释放「亚空间阴影」。当你这样做时，战场上的每个敌军单位必须进行战斗震慑测试。每当敌军单位进行该测试时，若它在你军队中一个或多个 **突触(Synapse)** 单位的 6\" 内，从该测试减 1。\n若你的军队阵营为 **泰伦虫族(Tyranids)**，当你军队中的 **泰伦虫族(Tyranids)** 单位距离一个或多个友军 **突触(Synapse)** 模型 6\" 内时，该 **泰伦虫族(Tyranids)** 单位被视为处于该模型的突触范围内，且处于你军队的突触范围内。当你军队中的 **泰伦虫族(Tyranids)** 单位处于你军队的突触范围内时：\n\n■ 每当该单位进行战斗震慑测试时，应使用 3D6 取代 2D6 进行该测试。\n■ 每当该单位中的模型进行近战攻击时，将该攻击的力量特性加 1。\n每战斗回合一次，你的军队中具有此能力的一个模型可在己方 **泰伦虫族(Tyranids)** 单位在距该模型 12\" 内被计谋目标时使用此能力。若其如此做，将该次计谋的 CP 消耗减少 1CP。\n在近战阶段开始时，你可以选择一个在此模型 12\" 内且可见的敌方单位，并掷一次 D6：结果为 1 时，此 **灵能者(Psyker)** 受到 D3 点致命伤；结果为 2+ 时，直到阶段结束，从该单位中模型配备的武器的攻击次数特性减 1。\n预设装备\n此模型的巨型骨剑和触手长鞭可替换为下列其中之一：",
         "confidence": "high",
         "needsReview": false
       },
@@ -8976,7 +8976,7 @@
         "leadership": "7+",
         "objectiveControl": 1,
         "models": 1,
-        "defaultEquipment": "首领骨剑",
+        "defaultEquipment": "王虫利爪",
         "abilities": "深入打击；领袖；亚空间阴影；突触；首领战士；致命一击",
         "activeAbilities": ""
       },
@@ -8989,7 +8989,7 @@
       "weapons": [
         {
           "id": "1ee5bbc6-83b2-4da1-880c-3df002393fb2",
-          "name": "首领骨剑",
+          "name": "王虫利爪",
           "englishName": "Prime talons",
           "type": "melee",
           "attacks": "6",
@@ -9118,7 +9118,7 @@
         "leadership": "7+",
         "objectiveControl": 1,
         "models": 3,
-        "defaultEquipment": "甲壳爪牙；亚空间爆炸",
+        "defaultEquipment": "尖牙利爪；亚空间爆炸",
         "abilities": "亚空间阴影；突触；灵能吸取；亚空间力场",
         "activeAbilities": ""
       },
@@ -9137,10 +9137,10 @@
           "remaining": true,
           "min": 2,
           "max": 2,
-          "defaultEquipment": "甲壳爪牙；亚空间爆炸；亚空间爆炸",
+          "defaultEquipment": "尖牙利爪；亚空间爆炸；亚空间爆炸",
           "profileKey": "trooper#1",
           "weaponNames": [
-            "甲壳爪牙",
+            "尖牙利爪",
             "亚空间爆炸"
           ]
         },
@@ -9152,10 +9152,10 @@
           "count": 1,
           "min": 1,
           "max": 1,
-          "defaultEquipment": "甲壳爪牙；亚空间爆炸；亚空间爆炸",
+          "defaultEquipment": "尖牙利爪；亚空间爆炸；亚空间爆炸",
           "profileKey": "champion#1",
           "weaponNames": [
-            "甲壳爪牙",
+            "尖牙利爪",
             "亚空间爆炸"
           ]
         }
@@ -9163,7 +9163,7 @@
       "weapons": [
         {
           "id": "728635f7-0d56-44ff-85be-1c77fe2f03fb",
-          "name": "甲壳爪牙",
+          "name": "尖牙利爪",
           "englishName": "Chitinous claws and teeth",
           "type": "melee",
           "attacks": "2",
@@ -10626,7 +10626,8 @@
     "adjudication": {
       "source": "data/global/pdf-display-names.json",
       "unitDisplayNamesApplied": 7,
-      "abilityDisplayNamesApplied": 139
+      "abilityDisplayNamesApplied": 139,
+      "weaponDisplayNamesApplied": 88
     }
   }
 }

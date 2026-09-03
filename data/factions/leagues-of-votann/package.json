@@ -291,15 +291,15 @@
     {
       "path": "cards[id=leagues-of-votann.9dbf85b8-d1e2-4f2f-8e6c-165c91a50c4b].modelProfiles[id=trooper].weaponNames",
       "value": [
-        "自动模式手枪",
+        "基岩爆弹手枪",
         "近战武器",
-        "离子射线步枪",
-        "HYLas自动步枪",
-        "HYLas旋转炮",
+        "离子爆烈枪",
+        "高能激光自动枪",
+        "高能激光转轮炮",
         "L7飞弹发射器",
-        "EtaCarn电浆射手",
+        "海山型等离子光束枪",
         "磁轨步枪",
-        "电浆刀"
+        "等离子利刃"
       ],
       "source": "committed-manual-fix-2026-08",
       "rationale": "保持 2026-08 人工修正值；生成器与武器名重算不会重现该值",
