@@ -5,3 +5,4 @@
 
 # Faction source data is user-provided; generated runtime bundles are tracked.
 /docs/data/*/
+__pycache__/
