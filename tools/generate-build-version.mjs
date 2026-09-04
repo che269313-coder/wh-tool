@@ -25,7 +25,7 @@ function normalizedVersionContent(relativePath, content) {
   if (relativePath === "docs/index.html") {
     return content.replace(/(\?v=)[^"']+/g, `$1${VERSION_PLACEHOLDER}`);
   }
-  if (relativePath === "docs/rules/faction-runtime-loader.js") {
+  if (relativePath === "docs/rules/faction-runtime-loader.js" || relativePath === "docs/sw.js") {
     return content.replace(/const BUILD_VERSION = "[^"]+"/, `const BUILD_VERSION = "${VERSION_PLACEHOLDER}"`);
   }
   return content;
@@ -36,6 +36,7 @@ export function buildInputPaths(root) {
   const paths = [
     path.join(docs, "index.html"),
     path.join(docs, "app.js"),
+    path.join(docs, "sw.js"),
     path.join(docs, "aliases", "index.js"),
     path.join(docs, "calculator-catalog.js"),
     ...walk(path.join(docs, "catalogs")).filter((filename) => /\.(?:js|json)$/.test(filename)),
@@ -73,6 +74,13 @@ export function syncBuildVersion(root) {
   const loader = fs.readFileSync(loaderPath, "utf8")
     .replace(/const BUILD_VERSION = "[^"]+"/, `const BUILD_VERSION = "${version}"`);
   writeFileSyncWithRetry(loaderPath, loader);
+
+  const swPath = path.join(root, "docs", "sw.js");
+  if (fs.existsSync(swPath)) {
+    const sw = fs.readFileSync(swPath, "utf8")
+      .replace(/const BUILD_VERSION = "[^"]+"/, `const BUILD_VERSION = "${version}"`);
+    writeFileSyncWithRetry(swPath, sw);
+  }
 
   const manifest = {
     schemaVersion: 1,

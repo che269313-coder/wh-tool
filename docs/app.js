@@ -3550,3 +3550,32 @@ loadSettingsForm();
 renderRosters();
 importBuiltinLibraryFiles();
 loadCalculatorCards();
+
+// 空闲时段把全部阵营运行时（规则/分遣队/数据卡包）经 Service Worker 预缓存到
+// 浏览器端：打开网页后后台下载约 2MB（gzip），此后选择任何单位数据卡即时就绪，
+// 且整站可离线使用。注册失败或非 https 环境静默降级为原有按需加载路径。
+function initRuntimePrecache() {
+  if (!("serviceWorker" in navigator) || !window.isSecureContext) return;
+  const sendPaths = (worker) => {
+    const paths = [];
+    for (const definition of window.WarhammerFactionRegistry?.list?.() || []) {
+      paths.push(...(definition.runtime?.rules || []), definition.runtime?.detachment, definition.runtime?.catalog);
+    }
+    const payload = [...new Set(paths.filter(Boolean))];
+    if (payload.length) worker.postMessage({ type: "precache-factions", paths: payload });
+  };
+  navigator.serviceWorker.register("sw.js").then((registration) => {
+    if (navigator.serviceWorker.controller) {
+      sendPaths(navigator.serviceWorker.controller);
+      return;
+    }
+    // 首次安装：SW 激活并 claim 后才能接收消息。
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (navigator.serviceWorker.controller) sendPaths(navigator.serviceWorker.controller);
+    }, { once: true });
+  }).catch(() => {});
+}
+window.addEventListener("load", () => {
+  const scheduleIdle = window.requestIdleCallback || ((callback) => window.setTimeout(callback, 2500));
+  scheduleIdle(() => initRuntimePrecache());
+});
