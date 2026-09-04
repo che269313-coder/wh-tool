@@ -335,6 +335,9 @@ function calculatorSelectionKeys(side) {
 }
 
 let calculatorPickerOptionsCache = null;
+// 卡片集合版本号：阵营水合/目录重建时递增。选项缓存与增量过滤缓存据此在
+// 下一次读取时自动失效，使后台补载阵营数据不需要打断用户做整体 DOM 重建。
+let calculatorCardsVersion = 0;
 
 // 搜索语料在选项缓存构建时一次性预计算；按键过滤只做 haystack.includes，
 // 不再为每个候选临时拼字符串 + toLocaleLowerCase。
@@ -343,7 +346,7 @@ const pickerMenuSlots = new WeakMap();
 const pickerFilterCache = { attacker: {}, defender: {} };
 
 function calculatorPickerOptions(side) {
-  if (!calculatorPickerOptionsCache) {
+  if (!calculatorPickerOptionsCache || calculatorPickerOptionsCache.version !== calculatorCardsVersion) {
     const rosterOptions = ["attacker", "defender"].flatMap(calculatorRosterOptions)
       .map((option) => ({ ...option, haystack: pickerOptionHaystack(option) }));
     const cardOptions = calculatorCardNames().map((card) => ({
@@ -355,24 +358,24 @@ function calculatorPickerOptions(side) {
       search: [card.name, card.faction, ...(window.WarhammerAliasRegistry?.aliasesForCanonical?.("units", card.name) || [])].join(" "),
       card,
     })).map((option) => ({ ...option, haystack: pickerOptionHaystack(option) }));
-    calculatorPickerOptionsCache = { allOptions: [...rosterOptions, ...cardOptions] };
+    calculatorPickerOptionsCache = { version: calculatorCardsVersion, allOptions: [...rosterOptions, ...cardOptions] };
   }
   return calculatorPickerOptionsCache;
 }
 
 // 过滤结果与增量状态：新 query 以旧 query 开头时只在上一轮结果里筛，
-// 输入逐字变长时不再全量扫描。
+// 输入逐字变长时不再全量扫描；卡片集合版本变化后旧结果整体作废。
 function calculatorPickerMatches(side, index, options) {
   const keys = calculatorSelectionKeys(side);
   const key = keys[index] || "";
   const search = state.calculatorPickerSearch[side]?.[index] || "";
   const query = String(search).trim().toLocaleLowerCase();
   const cached = pickerFilterCache[side][index];
-  const base = query && cached?.query && query.startsWith(cached.query)
+  const base = query && cached?.query && query.startsWith(cached.query) && cached.version === calculatorCardsVersion
     ? cached.matches
     : options.allOptions;
   const filtered = !query ? base : base.filter((option) => option.haystack?.includes(query) || option.key === key);
-  pickerFilterCache[side][index] = { query, matches: filtered };
+  pickerFilterCache[side][index] = { query, matches: filtered, version: calculatorCardsVersion };
   const pinned = key ? filtered.find((option) => option.key === key) : null;
   const rest = pinned ? filtered.filter((option) => option.key !== key) : filtered;
   return { query, visible: [...(pinned ? [pinned] : []), ...rest].slice(0, 60), total: filtered.length };
@@ -447,15 +450,15 @@ function handleCalculatorPickerInput(event) {
   refreshCalculatorPickerMenu.timer = window.setTimeout(() => refreshCalculatorPickerMenu(side, index), 120);
 }
 
-// 移动端没有 hover 预取：主动预取候选所属阵营的运行时（限前 3 个不同阵营），
-// 让用户扫视列表/点击时数据大概率已在后台就绪。
-function prefetchPickerFactions(options) {
+// 主动预取候选所属阵营的运行时。只在结果集已经收窄时调用：打字过程中
+// 对大结果集连环预取会引发多次阵营下载与水合，反而拖慢输入。
+function prefetchPickerFactions(options, cap = 2) {
   const seen = new Set();
   for (const option of options) {
     const factionId = option?.factionId || option?.faction;
     if (!factionId || seen.has(factionId)) continue;
     seen.add(factionId);
-    if (seen.size >= 3) break;
+    if (seen.size >= cap) break;
     ensureFactionRuntimeLoaded(factionId).catch(() => {});
   }
 }
@@ -465,8 +468,9 @@ function refreshCalculatorPickerMenu(side, index) {
   const menu = row?.querySelector("[data-calculator-picker-menu]");
   if (!menu) return;
   const { query, visible, total } = calculatorPickerMatches(side, index, calculatorPickerOptions(side));
-  // 用户已开始输入过滤时，说明马上要点击候选，预取命中价值最高。
-  if (query) prefetchPickerFactions(visible);
+  // 结果已收窄（≤15 个）说明用户即将点击，此时预取命中率最高、开销可控；
+  // 大结果集不预取，交给 pointerdown 按下预取兜底。
+  if (query && total <= 15) prefetchPickerFactions(visible, 2);
   if (!visible.length) {
     menu.innerHTML = '<span class="calculator-picker-empty">没有匹配单位</span>';
     pickerMenuSlots.set(menu, []);
@@ -526,6 +530,15 @@ function handleCalculatorPickerClick(event) {
   scheduleBattleSessionSave();
 }
 
+// 只重建受影响的单个选择行。两侧整体 innerHTML 重建（每行菜单含 60 个
+// 候选按钮 × 全部行）是点击路径上最大的同步开销，手机端尤其明显。
+function rerenderCalculatorPickerRow(side, index) {
+  const selector = '[data-calculator-picker-row][data-side="' + side + '"][data-index="' + index + '"]';
+  const row = document.querySelector(selector);
+  if (!row) return;
+  row.outerHTML = calculatorPickerMarkup(side, index, calculatorPickerOptions(side));
+}
+
 async function handleCalculatorPickerOption(event) {
   const option = event.target.closest("[data-calculator-picker-option]");
   if (!option) return;
@@ -533,8 +546,7 @@ async function handleCalculatorPickerOption(event) {
   const index = Number(option.dataset.index || 0);
   const key = option.dataset.key || "";
   const selectedOption = calculatorPickerOptions(side).allOptions.find((candidate) => candidate.key === key);
-  // 乐观选中：先落 key、收起菜单并完成渲染，阵营运行时在后台补载。
-  // 手机端点击后无需再等几秒网络往返才能"选上"。
+  // 乐观选中：立即落 key、收起菜单并只重建这一行，阵营运行时在后台补载。
   const keys = calculatorSelectionKeys(side);
   keys[index] = key;
   state.calculatorPickerSearch[side] ||= [];
@@ -543,19 +555,19 @@ async function handleCalculatorPickerOption(event) {
   state.calculatorPickerOpen[side][index] = false;
   state.calculatorSelection[side] = keys[0] || "";
   state.calculatorDrafts[side][index] = null;
-  renderCalculatorSelectors();
+  rerenderCalculatorPickerRow(side, index);
+  renderCalculatorDetails();
   scheduleBattleSessionSave();
   $("#calcNote").textContent = "已选择单位；请确认双方后开始计算。";
   const factionId = selectedOption?.factionId || selectedOption?.faction;
   if (!factionId) return;
   try {
     await ensureFactionRuntimeLoaded(factionId);
-    // 水合后选项集合与卡片数据已更新；清掉该槽位按旧数据建的草稿再重渲染，
-    // 详情区立即显示完整数据卡。若用户正在其他输入框打字则跳过重建，避免打断输入。
+    // 水合后清掉按空数据建的草稿并刷新详情区即可；卡片集合版本号已在
+    // hydrateCalculatorCatalog 里递增，选项/过滤缓存在下次读取时自动重建，
+    // 这里不做整体 DOM 重建，避免打断用户下一步操作。
     state.calculatorDrafts[side][index] = null;
-    const typing = document.activeElement?.closest?.("[data-calculator-picker-input]");
-    if (!typing) renderCalculatorSelectors();
-    else renderCalculatorDetails();
+    renderCalculatorDetails();
   } catch (error) {
     console.error(error);
     showToast("阵营数据加载失败，请检查资源是否完整");
@@ -563,7 +575,8 @@ async function handleCalculatorPickerOption(event) {
     if (calculatorSelectionKeys(side)[index] === key) {
       calculatorSelectionKeys(side)[index] = "";
       state.calculatorDrafts[side][index] = null;
-      renderCalculatorSelectors();
+      rerenderCalculatorPickerRow(side, index);
+      renderCalculatorDetails();
     }
   }
 }
@@ -2577,6 +2590,7 @@ function hydrateCalculatorCatalog(faction) {
   hydratedCalculatorFactions.add(definition.id);
   appendDigitalUnitAliases();
   // 分遣队别名随运行时一并进入统一别名注册表（规范名/英文名/全部别名）。
+  calculatorCardsVersion += 1;
   return definition;
 }
 
@@ -2595,6 +2609,7 @@ async function loadCalculatorCards() {
   state.calculatorCards = (Array.isArray(window.WARHAMMER_CALCULATOR_INDEX) ? window.WARHAMMER_CALCULATOR_INDEX : [])
     .map((card) => ({ ...card, structured: false, indexed: true, data: null }));
   appendDigitalUnitAliases();
+  calculatorCardsVersion += 1;
   renderCalculatorSelectors();
   const rosterFactions = [...new Set([state.rosters.attacker.faction, state.rosters.defender.faction].filter(Boolean))];
   for (const faction of rosterFactions) {
