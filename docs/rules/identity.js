@@ -37,8 +37,12 @@
 
   function applyCatalog(catalog, options) {
     const definitions = options?.definitions || {};
+    // passthrough：无需稳定身份的合成条目（如 normalizeCoreAbilityRules 生成的"核心技能"束）
+    // 跳过身份注册，保持原样。此类条目不来自数据源，且每个单位重复出现，注册会互相冲突。
+    const passthrough = options?.passthrough || (() => false);
     const seen = new Set();
     const identify = (rule) => {
+      if (passthrough(rule)) return rule;
       const legacyId = rule.id;
       const definition = definitions[legacyId];
       if (!definition) throw new Error(`Missing ${options?.factionId || "faction"} rule identity: ${legacyId}`);

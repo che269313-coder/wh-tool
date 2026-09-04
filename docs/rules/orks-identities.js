@@ -24,6 +24,9 @@
       factionId: "orks",
       definitions: { ...definitions, ...unitDefinitions },
       sourceBaseUrl: "https://40k.aiinpocket.com/faction/orks",
+      // "核心技能"束由 normalizeCoreAbilityRules 合成（同其他阵营包的 core-bundle 惯例），
+      // 不来自数据源，跳过身份注册。
+      passthrough: (rule) => rule?.id === "core-bundle",
     });
   };
   root.WarhammerOrksRuleIdentities = { definitions, apply };

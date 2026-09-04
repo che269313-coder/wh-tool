@@ -73,3 +73,51 @@ test("audit flags long core text but accepts name lists", () => {
   assert.equal(offenders.length, 1);
   assert.match(offenders[0], /深入打击/);
 });
+
+test("generic core text is bundled even when mislabeled as unique", () => {
+  // 回归：钛帝国/欧克兽人的致命破灭条目缺 core 标签，全文曾绕过规范化直接进入部署层。
+  const rules = normalizeCoreAbilityRules([
+    {
+      id: "orks.battlewagon.ability-1",
+      name: "致命破灭D6",
+      text: "有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6。",
+      effects: [],
+      source: { englishName: "Deadly Demise D6", kind: "unique" },
+    },
+  ]);
+  assert.equal(rules.length, 1);
+  assert.equal(rules[0].id, "core-bundle");
+  assert.equal(rules[0].text, "致命破灭D6");
+  assert.equal(rules[0].source.kind, "core");
+});
+
+test("audit catches mislabeled generic core text regardless of kind", () => {
+  const offenders = auditCoreAbilityText({
+    单位: [
+      {
+        id: "tau.broadside.ability-2",
+        name: "致命破灭D3",
+        text: `有些模型具有「致命破灭 x」的能力。${"详".repeat(80)}`,
+        source: { englishName: "Deadly Demise D3", kind: "unique" },
+      },
+    ],
+  });
+  assert.equal(offenders.length, 1);
+  assert.match(offenders[0], /致命破灭D3/);
+});
+
+test("faction abilities mentioning core skills keep their text", () => {
+  // 阵营专属能力只在正文中提到致命破灭（如替换掷骰结果的强化），
+  // 不是以《核心规则》原文开头，必须原样保留。
+  const modified = {
+    id: "chaos-daemons.enhancement",
+    name: "残酷轻蔑",
+    text: "持有者的致命破灭将在 D6 掷骰结果为 2+ 时造成致命伤，而非 6。",
+    effects: [],
+    source: { englishName: "Cruel Contempt", kind: "faction" },
+  };
+  const rules = normalizeCoreAbilityRules([modified]);
+  assert.equal(rules.length, 1);
+  assert.equal(rules[0], modified);
+  assert.deepEqual(auditCoreAbilityText({ 单位: [modified] }), []);
+});

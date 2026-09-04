@@ -2544,23 +2544,12 @@
       {
         "id": "core-bundle",
         "name": "核心技能",
-        "text": "斥候9”",
+        "text": "斥候9”，致命破灭1",
         "status": "通用核心技能，规则全文见《核心规则》",
         "effects": [],
         "source": {
-          "englishName": "Scouts",
+          "englishName": "Scouts, Deadly Demise D3",
           "kind": "core"
-        }
-      },
-      {
-        "id": "unique-deadly-demise-d3",
-        "name": "致命破灭1",
-        "text": "有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位脱离前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的致命伤（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。",
-        "status": "已结构化，当前仅供查阅",
-        "effects": [],
-        "source": {
-          "englishName": "Deadly Demise D3",
-          "kind": "unique"
         }
       }
     ],
@@ -2740,23 +2729,12 @@
       {
         "id": "core-bundle",
         "name": "核心技能",
-        "text": "深入打击，为了上上善道",
+        "text": "深入打击，为了上上善道，致命破灭D6",
         "status": "通用核心技能，规则全文见《核心规则》",
         "effects": [],
         "source": {
-          "englishName": "Deep Strike, For the Greater Good",
+          "englishName": "Deep Strike, For the Greater Good, Deadly Demise D3",
           "kind": "core"
-        }
-      },
-      {
-        "id": "unique-deadly-demise-d3",
-        "name": "致命破灭D6",
-        "text": "有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位脱离前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的致命伤（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。",
-        "status": "已结构化，当前仅供查阅",
-        "effects": [],
-        "source": {
-          "englishName": "Deadly Demise D3",
-          "kind": "unique"
         }
       },
       {
@@ -2773,14 +2751,14 @@
     ],
     "虎鲸突击艇": [
       {
-        "id": "unique-deadly-demise-d6",
-        "name": "致命破灭D6+2",
-        "text": "有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位脱离前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的致命伤（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。",
-        "status": "已结构化，当前仅供查阅",
+        "id": "core-bundle",
+        "name": "核心技能",
+        "text": "致命破灭D6+2",
+        "status": "通用核心技能，规则全文见《核心规则》",
         "effects": [],
         "source": {
           "englishName": "Deadly Demise D6",
-          "kind": "unique"
+          "kind": "core"
         }
       },
       {
@@ -2799,36 +2777,25 @@
       {
         "id": "core-bundle",
         "name": "核心技能",
-        "text": "深入打击，为了上上善道，斥候",
+        "text": "深入打击，为了上上善道，斥候，致命破灭D6",
         "status": "通用核心技能，规则全文见《核心规则》",
         "effects": [],
         "source": {
-          "englishName": "Deep Strike, For the Greater Good, Scouts",
+          "englishName": "Deep Strike, For the Greater Good, Scouts, Deadly Demise D3",
           "kind": "core"
-        }
-      },
-      {
-        "id": "unique-deadly-demise-d3",
-        "name": "致命破灭D6",
-        "text": "有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位脱离前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的致命伤（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。",
-        "status": "已结构化，当前仅供查阅",
-        "effects": [],
-        "source": {
-          "englishName": "Deadly Demise D3",
-          "kind": "unique"
         }
       }
     ],
     "梭子鱼战机": [
       {
-        "id": "unique-deadly-demise-d3",
-        "name": "致命破灭D3",
-        "text": "有些模型具有「致命破灭 x」的能力。当该模型被摧毁时，在将其移出战场前掷一次 D6（若该模型是**运输工具(Transport)**，则在任何乘载单位脱离前掷骰）。结果为 6 时，该模型 6\" 内的每个单位各承受数量为「x」的致命伤（若此数字是随机的，则对 6\" 内的每个单位分别掷骰）。",
-        "status": "已结构化，当前仅供查阅",
+        "id": "core-bundle",
+        "name": "核心技能",
+        "text": "致命破灭D3",
+        "status": "通用核心技能，规则全文见《核心规则》",
         "effects": [],
         "source": {
           "englishName": "Deadly Demise D3",
-          "kind": "unique"
+          "kind": "core"
         }
       },
       {

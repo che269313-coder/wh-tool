@@ -66,9 +66,12 @@ test("numeric Ork core FNP and Stealth rules are implemented", () => {
   const fnp = all.filter((rule) => rule.effects?.some((effect) => effect.type === "fnp"));
   assert.ok(fnp.length >= 10);
   fnp.forEach((rule) => assert.ok(rule.effects?.some((effect) => effect.type === "fnp"), rule.id));
-  const stealth = all.filter((rule) => rule.source?.englishName === "Stealth");
-  assert.ok(stealth.length >= 2);
-  stealth.forEach((rule) => assert.ok(rule.effects?.some((effect) => effect.type === "incoming-hit-minus" && effect.phase === "ranged"), rule.id));
+  // 通用核心技能（含潜行）已合并为"核心技能"束；潜行的远程命中 -1 效果必须保留在束的 effects 里。
+  const stealthBundles = all.filter(
+    (rule) => rule.source?.kind === "core" && String(rule.source?.englishName || "").split(", ").includes("Stealth"),
+  );
+  assert.ok(stealthBundles.length >= 2);
+  stealthBundles.forEach((rule) => assert.ok(rule.effects?.some((effect) => effect.type === "incoming-hit-minus" && effect.phase === "ranged"), rule.id));
 });
 
 test("Dakkablitz adds six attacks only to the Blitzkannon against non-Monster/Vehicle targets", () => {

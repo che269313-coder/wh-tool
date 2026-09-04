@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { compileAbility } from "./faction-rule-compiler.mjs";
+import { normalizeCoreAbilityRules } from "./lib/core-ability-normalizer.mjs";
 import { adjudicateRuleCatalog, loadPdfDisplayLedger } from "./source-adjudication.mjs";
 import { writeFileSyncWithRetry } from "./fs-write.mjs";
 
@@ -310,7 +311,9 @@ function ruleFor(card, ability, index, duplicateCounts) {
       file: "欧克兽人-网站原始数据.json",
       record: card.source?.record || card.id,
       englishName,
-      kind: ability.kind || "unique",
+      // 欧克兽人-全部数据卡.json 用 category 字段标注技能类别（core/faction/unique），
+      // 误读 kind 字段曾导致 149 条 core 条目全部被标成 unique 而绕过核心技能规范化。
+      kind: ability.category || ability.kind || "unique",
     },
   };
 }
@@ -330,6 +333,7 @@ for (const card of source.cards || []) {
     };
     rules.push(ruleFor(card, fallbackAbility, 0, duplicateCounts));
   }
+  // 核心技能束化在 adjudicateRuleCatalog 之后统一进行（见下方 normalizedUnitRules）。
   unitRules[card.name || card.unit?.name] = rules;
 }
 
@@ -355,7 +359,14 @@ const adjudicatedCatalog = adjudicateRuleCatalog({
   sourceCards: source.cards || [],
 });
 
-const output = `/* Generated from docs/data/欧克兽人/欧克兽人-网站原始数据-简体.json. Regenerate with tools/generate-orks-rules.mjs. */\n(function (root) {\n  const factionRules = ${JSON.stringify(adjudicatedCatalog.factionRules, null, 2)};\n  const unitRules = ${JSON.stringify(adjudicatedCatalog.unitRules, null, 2)};\n  const catalog = { factionRules, unitRules };\n  root.WarhammerOrksRules = root.WarhammerOrksRuleIdentities?.apply(catalog) || catalog;\n})(typeof globalThis === "undefined" ? this : globalThis);\n`;
+// 核心技能束化必须放在 PDF 术语重命名之后：束文本收录技能名清单，
+// 若先束化会把后端旧名（如 射击甲板11）固化进束文本，绕过 PDF 显示名裁决。
+const normalizedUnitRules = Object.fromEntries(
+  Object.entries(adjudicatedCatalog.unitRules).map(([unitName, rules]) => [unitName, normalizeCoreAbilityRules(rules)]),
+);
+const generatedUnitRules = normalizedUnitRules;
+
+const output = `/* Generated from docs/data/欧克兽人/欧克兽人-网站原始数据-简体.json. Regenerate with tools/generate-orks-rules.mjs. */\n(function (root) {\n  const factionRules = ${JSON.stringify(adjudicatedCatalog.factionRules, null, 2)};\n  const unitRules = ${JSON.stringify(generatedUnitRules, null, 2)};\n  const catalog = { factionRules, unitRules };\n  root.WarhammerOrksRules = root.WarhammerOrksRuleIdentities?.apply(catalog) || catalog;\n})(typeof globalThis === "undefined" ? this : globalThis);\n`;
 const outputPath = path.resolve("docs/rules/orks.js");
 writeFileSyncWithRetry(outputPath, output);
-console.log(`generated ${Object.keys(adjudicatedCatalog.unitRules).length} units and ${Object.values(adjudicatedCatalog.unitRules).reduce((sum, rules) => sum + rules.length, 0)} rules -> ${outputPath}`);
+console.log(`generated ${Object.keys(generatedUnitRules).length} units and ${Object.values(generatedUnitRules).reduce((sum, rules) => sum + rules.length, 0)} rules -> ${outputPath}`);

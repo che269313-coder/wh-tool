@@ -185,9 +185,10 @@ test("rule packages and rule UI use the same PDF titles as structured catalogs",
   const orks = rulePackage("docs/rules/orks.js", "WarhammerOrksRules");
   assert.equal(sisters.unitRules["宫廷官"]?.find((rule) => rule.id === "unique-rapturous-blows")?.name, "狂热打击");
   assert.equal(mechanicus.unitRules["智控数据技师"]?.find((rule) => rule.id === "unique-battle-protocols")?.name, "战斗程序");
-  const orkNames = Object.values(orks.unitRules || {}).flat().map((rule) => rule.name);
-  assert.ok(orkNames.includes("开火口11"), "Orks rules must use the PDF Firing Deck 11 title");
-  assert.ok(!orkNames.includes("射击甲板11"), "Orks rules must not retain the backend Firing Deck 11 title");
+  // 核心技能（含射击甲板/开火口）已合并为"核心技能"束，PDF 标题检查覆盖名字与束文本。
+  const orkStrings = Object.values(orks.unitRules || {}).flat().flatMap((rule) => [rule.name, rule.text || ""]);
+  assert.ok(orkStrings.some((value) => value.includes("开火口11")), "Orks rules must use the PDF Firing Deck 11 title");
+  assert.ok(!orkStrings.some((value) => value.includes("射击甲板11")), "Orks rules must not retain the backend Firing Deck 11 title");
   const flashGitzRules = orks.unitRules["脏枪混混"] || [];
   assert.match(
     flashGitzRules.map((rule) => rule.text || "").join("\n"),
@@ -218,10 +219,20 @@ test("every generated rule occurrence agrees with its faction catalog identity",
     for (const [unitName, unitRules] of Object.entries(rules.unitRules || {})) {
       const abilities = cardsByName.get(unitName)?.abilities || [];
       for (const rule of unitRules || []) {
-        const candidates = abilities.filter((ability) => ability.englishName === rule.source?.englishName);
+        // 核心技能束（normalizeCoreAbilityRules 产物）的 englishName 是逗号清单，逐项比对。
+        const englishNames = String(rule.source?.englishName || "").split(", ").filter(Boolean);
+        const isCoreBundle = rule.id === "core-bundle" || rule.name === "核心技能";
+        const candidates = abilities.filter((ability) => englishNames.includes(ability.englishName));
         if (!candidates.length) continue;
         compared += 1;
-        if (!candidates.some((ability) => ability.name === rule.name)) {
+        if (isCoreBundle) {
+          const bundleNames = String(rule.text || "").split("，");
+          for (const ability of candidates) {
+            if (!bundleNames.includes(ability.name)) {
+              mismatches.push(`${factionId}/${unitName}/${ability.englishName}: 核心技能束缺少目录名 ${ability.name}`);
+            }
+          }
+        } else if (!candidates.some((ability) => ability.name === rule.name)) {
           mismatches.push(`${factionId}/${unitName}/${rule.source.englishName}: ${rule.name} != ${candidates.map((ability) => ability.name).join("|")}`);
         }
       }
