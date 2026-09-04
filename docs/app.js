@@ -1450,7 +1450,17 @@ function calculatorDetachmentMarkup(draft, side) {
 }
 
 function calculatorWeaponMarkup(draft, side) {
-  if (!draft.weapons?.length) return `<p class="calculator-missing">这张数据卡还没有结构化武器字段，暂时无法计算。请补充数据卡 JSON 后再试。</p>`;
+  if (!draft.weapons?.length) {
+    // 区分两种情况：阵营数据仍在后台加载（会自动刷新，属过渡态）与
+    // 数据卡确实缺少结构化武器字段（需要补充数据）。
+    const entry = draft.entry || {};
+    const factionId = entry.factionId || entry.faction || (entry.rosterSide ? state.rosters[entry.rosterSide]?.faction : "");
+    const definition = factionId ? window.WarhammerFactionRegistry?.resolve(factionId) : null;
+    if (definition && !hydratedCalculatorFactions.has(definition.id)) {
+      return `<p class="calculator-missing">「${escapeHtml(definition.name)}」数据卡正在后台加载，完成后此处自动刷新，无需重新选择。</p>`;
+    }
+    return `<p class="calculator-missing">这张数据卡还没有结构化武器字段，暂时无法计算。请补充数据卡 JSON 后再试。</p>`;
+  }
   return `<div class="calculator-weapons"><div class="calculator-section-heading"><strong>武器与攻击参数</strong><small>当前模式：${state.attackMode === "ranged" ? "远程射击" : "近战"}；可勾选参与计算的武器；数量用于按模型分配近距离/手枪与其他远程武器</small></div>${draft.weapons.map((weapon, index) => calculatorWeaponControlMarkup(weapon, side, index, null, draft, draft.entry.name, "unit")).join("")}</div>`;
 }
 
@@ -2591,6 +2601,19 @@ function hydrateCalculatorCatalog(faction) {
   appendDigitalUnitAliases();
   // 分遣队别名随运行时一并进入统一别名注册表（规范名/英文名/全部别名）。
   calculatorCardsVersion += 1;
+  // 兜底刷新：乐观选中/会话恢复在水合前按空数据构建的草稿，此刻可以重建了。
+  // 统一在每次水合完成后清空这类草稿并刷新详情区，确保"数据卡加载完成后
+  // 占位提示自动消失"，用户无需手动重新选择。
+  let hasStaleDrafts = false;
+  ["attacker", "defender"].forEach((side) => {
+    (state.calculatorDrafts[side] || []).forEach((draft, index) => {
+      if (draft && !draft.data && !draft.weapons?.length) {
+        state.calculatorDrafts[side][index] = null;
+        hasStaleDrafts = true;
+      }
+    });
+  });
+  if (hasStaleDrafts) renderCalculatorDetails();
   return definition;
 }
 
@@ -3551,31 +3574,57 @@ renderRosters();
 importBuiltinLibraryFiles();
 loadCalculatorCards();
 
-// 空闲时段把全部阵营运行时（规则/分遣队/数据卡包）经 Service Worker 预缓存到
-// 浏览器端：打开网页后后台下载约 2MB（gzip），此后选择任何单位数据卡即时就绪，
-// 且整站可离线使用。注册失败或非 https 环境静默降级为原有按需加载路径。
-function initRuntimePrecache() {
-  if (!("serviceWorker" in navigator) || !window.isSecureContext) return;
-  const sendPaths = (worker) => {
-    const paths = [];
-    for (const definition of window.WarhammerFactionRegistry?.list?.() || []) {
-      paths.push(...(definition.runtime?.rules || []), definition.runtime?.detachment, definition.runtime?.catalog);
-    }
-    const payload = [...new Set(paths.filter(Boolean))];
-    if (payload.length) worker.postMessage({ type: "precache-factions", paths: payload });
-  };
-  navigator.serviceWorker.register("sw.js").then((registration) => {
-    if (navigator.serviceWorker.controller) {
-      sendPaths(navigator.serviceWorker.controller);
-      return;
-    }
-    // 首次安装：SW 激活并 claim 后才能接收消息。
-    navigator.serviceWorker.addEventListener("controllerchange", () => {
-      if (navigator.serviceWorker.controller) sendPaths(navigator.serviceWorker.controller);
-    }, { once: true });
-  }).catch(() => {});
+// 空闲时段把全部阵营运行时（规则/分遣队/数据卡包）下载并水合到端侧：
+// 打开网页后后台执行（约 2MB gzip），完成后任意单位即点即算、整站可离线。
+// 进度通过页面底部徽标实时展示，避免"不知道数据准备好了没有"的困惑；
+// 注册失败或非 https 环境静默降级为原有按需加载路径。
+function nextIdleBreak() {
+  return new Promise((resolve) => {
+    if (window.requestIdleCallback) window.requestIdleCallback(() => resolve(), { timeout: 800 });
+    else window.setTimeout(resolve, 60);
+  });
 }
-window.addEventListener("load", () => {
-  const scheduleIdle = window.requestIdleCallback || ((callback) => window.setTimeout(callback, 2500));
-  scheduleIdle(() => initRuntimePrecache());
-});
+
+function updateRuntimeStatus(text, done = false) {
+  let badge = document.getElementById("runtimeStatus");
+  if (!badge) {
+    badge = document.createElement("div");
+    badge.id = "runtimeStatus";
+    badge.className = "runtime-status";
+    document.body.appendChild(badge);
+  }
+  badge.textContent = text;
+  badge.classList.toggle("is-done", done);
+  badge.hidden = false;
+  if (done) window.setTimeout(() => { badge.hidden = true; }, 4000);
+}
+
+async function prepareAllFactionRuntimes() {
+  const definitions = window.WarhammerFactionRegistry?.list?.() || [];
+  const pending = definitions.filter((definition) => !hydratedCalculatorFactions.has(definition.id));
+  if (!pending.length) return;
+  let done = 0;
+  for (const definition of pending) {
+    // 逐阵营在空闲间隙执行：网络与解析尽量避开用户正在操作的瞬间。
+    await nextIdleBreak();
+    try {
+      await ensureFactionRuntimeLoaded(definition.id);
+    } catch {
+      // 单个阵营后台预载失败不影响使用，按需加载路径仍会重试。
+    }
+    done += 1;
+    updateRuntimeStatus(`后台准备阵营数据 ${done}/${pending.length}，期间可正常使用`);
+  }
+  updateRuntimeStatus("全部阵营数据已就绪，支持离线使用", true);
+}
+
+function initRuntimePrecache() {
+  if ("serviceWorker" in navigator && window.isSecureContext) {
+    navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});
+  }
+  window.addEventListener("load", () => {
+    const scheduleIdle = window.requestIdleCallback || ((callback) => window.setTimeout(callback, 2500));
+    scheduleIdle(() => prepareAllFactionRuntimes());
+  });
+}
+initRuntimePrecache();

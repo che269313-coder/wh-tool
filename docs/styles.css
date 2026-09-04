@@ -362,3 +362,6 @@ code { color: var(--gold-bright); }
 .distribution-panel small { display: block; margin-top: 6px; font-size: 11px; }
 .external-distributions { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 10px; border-top: 1px solid rgba(99,188,147,.15); }
 @media (max-width: 520px) { .distribution-panel { grid-template-columns: 1fr; } .external-distributions { grid-template-columns: 1fr; } }
+
+.runtime-status { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(104px + env(safe-area-inset-bottom)); z-index: 60; max-width: 86vw; padding: 8px 14px; border-radius: 999px; background: var(--panel-2); border: 1px solid var(--line); color: var(--muted); font-size: 12px; text-align: center; box-shadow: var(--shadow); }
+.runtime-status.is-done { color: var(--green); border-color: var(--green); }

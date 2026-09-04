@@ -1,5 +1,5 @@
 /* Service worker: precaches the app shell and every faction runtime at idle. */
-const BUILD_VERSION = "data-51a859c7825a";
+const BUILD_VERSION = "data-c9a19b61978e";
 const CACHE_NAME = `wh-tool-${BUILD_VERSION}`;
 const VERSION_PARAM = `v=${encodeURIComponent(BUILD_VERSION)}`;
 
@@ -47,12 +47,8 @@ self.addEventListener("activate", (event) => {
   })());
 });
 
-// 页面在空闲时段发来阵营运行时路径清单，SW 补上自己的构建版本号后逐个预缓存。
-self.addEventListener("message", (event) => {
-  const data = event.data || {};
-  if (data.type !== "precache-factions" || !Array.isArray(data.paths)) return;
-  event.waitUntil(precacheUrls(data.paths.map(versionedPath).filter(Boolean)));
-});
+// 阵营运行时由页面在空闲时段通过常规 fetch/loadScript 请求加载（并水合），
+// SW 的 fetch 拦截会把这些请求透明写入缓存，无需独立的预缓存消息通道。
 
 self.addEventListener("fetch", (event) => {
   const request = event.request;
