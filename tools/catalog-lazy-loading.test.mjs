@@ -186,8 +186,9 @@ test("runtime loader prefers fetch+JSON for catalogs", async () => {
   vm.runInContext(fs.readFileSync(path.join(root, "docs/rules/faction-runtime-loader.js"), "utf8"), context);
 
   await context.WarhammerFactionRuntimeLoader.load("灰骑士");
-  assert.equal(context.WarhammerCalculatorCatalogRegistry.get("grey-knights").faction, "catalogs/grey-knights.json");
-  assert.equal(fetches[0].options.cache, "no-cache", "部署后必须重新验证 catalog，不能继续复用旧多源裁决结果");
+  assert.match(context.WarhammerCalculatorCatalogRegistry.get("grey-knights").faction, /^catalogs\/grey-knights\.json/, "注册的 catalog 来源应指向同阵营 JSON 包");
+  assert.match(fetches[0].url, /catalogs\/grey-knights\.json\?v=/, "catalog 请求必须带构建版本号，内容变化通过版本号失效缓存");
+  assert.notEqual(fetches[0].options?.cache, "no-cache", "版本号已保证新鲜度，不再强制 no-cache 复验以省一次移动端往返");
 });
 
 test("runtime loader falls back to script catalog when fetch fails", async () => {

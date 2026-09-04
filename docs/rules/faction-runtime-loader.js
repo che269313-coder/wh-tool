@@ -1,6 +1,6 @@
 /* Loads one faction's rule, detachment and datasheet scripts on demand. */
 (function (root) {
-  const BUILD_VERSION = "data-d7385600361d";
+  const BUILD_VERSION = "data-6f3c983f79bf";
   const scriptLoads = new Map();
   const factionLoads = new Map();
 
@@ -37,7 +37,10 @@
     // HTTP(S) 下优先 fetch + JSON.parse：解析开销远小于等价脚本执行，且不占用
     // 主线程脚本编译；file:// 本地预览或 fetch 失败时回退到 .js 脚本包。
     if (typeof root.fetch !== "function") return loadScript(fallbackPath);
-    return root.fetch(catalogPath, { cache: "no-cache" })
+    // catalog 与脚本包共用同一构建版本号：内容变化必然改变版本号与 URL，
+    // 因此走默认 HTTP 缓存（长缓存 + 版本失效）即可保证新鲜度，不再每次
+    // no-cache 强制复验——手机端复访可省一次网络往返。
+    return root.fetch(versionedPath(catalogPath))
       .then((response) => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return response.json();
@@ -57,7 +60,9 @@
       ...(definition.runtime?.rules || []),
       definition.runtime?.detachment,
     ].filter(Boolean);
-    const pending = scripts.reduce((chain, source) => chain.then(() => loadScript(source)), Promise.resolve())
+    // 脚本并行请求（async=false 注入仍保持执行顺序），移动端点击选择单位时
+    // 不再为串行链多付 2 个 RTT；待全部就绪后再拉取数据卡包。
+    const pending = Promise.all(scripts.map((source) => loadScript(source)))
       .then(() => loadCatalog(definition))
       .then(() => definition)
       .catch((error) => {

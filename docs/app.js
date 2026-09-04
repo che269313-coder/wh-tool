@@ -447,11 +447,26 @@ function handleCalculatorPickerInput(event) {
   refreshCalculatorPickerMenu.timer = window.setTimeout(() => refreshCalculatorPickerMenu(side, index), 120);
 }
 
+// 移动端没有 hover 预取：主动预取候选所属阵营的运行时（限前 3 个不同阵营），
+// 让用户扫视列表/点击时数据大概率已在后台就绪。
+function prefetchPickerFactions(options) {
+  const seen = new Set();
+  for (const option of options) {
+    const factionId = option?.factionId || option?.faction;
+    if (!factionId || seen.has(factionId)) continue;
+    seen.add(factionId);
+    if (seen.size >= 3) break;
+    ensureFactionRuntimeLoaded(factionId).catch(() => {});
+  }
+}
+
 function refreshCalculatorPickerMenu(side, index) {
   const row = document.querySelector('[data-calculator-picker-row][data-side="' + side + '"][data-index="' + index + '"]');
   const menu = row?.querySelector("[data-calculator-picker-menu]");
   if (!menu) return;
-  const { visible, total } = calculatorPickerMatches(side, index, calculatorPickerOptions(side));
+  const { query, visible, total } = calculatorPickerMatches(side, index, calculatorPickerOptions(side));
+  // 用户已开始输入过滤时，说明马上要点击候选，预取命中价值最高。
+  if (query) prefetchPickerFactions(visible);
   if (!visible.length) {
     menu.innerHTML = '<span class="calculator-picker-empty">没有匹配单位</span>';
     pickerMenuSlots.set(menu, []);
@@ -516,19 +531,12 @@ async function handleCalculatorPickerOption(event) {
   if (!option) return;
   const side = option.dataset.side;
   const index = Number(option.dataset.index || 0);
-  const selectedOption = calculatorPickerOptions(side).allOptions.find((candidate) => candidate.key === option.dataset.key);
-  if (selectedOption?.factionId || selectedOption?.faction) {
-    $("#calcNote").textContent = `正在加载${selectedOption.faction || "对应阵营"}数据…`;
-    try {
-      await ensureFactionRuntimeLoaded(selectedOption.factionId || selectedOption.faction);
-    } catch (error) {
-      console.error(error);
-      showToast("阵营数据加载失败，请检查资源是否完整");
-      return;
-    }
-  }
+  const key = option.dataset.key || "";
+  const selectedOption = calculatorPickerOptions(side).allOptions.find((candidate) => candidate.key === key);
+  // 乐观选中：先落 key、收起菜单并完成渲染，阵营运行时在后台补载。
+  // 手机端点击后无需再等几秒网络往返才能"选上"。
   const keys = calculatorSelectionKeys(side);
-  keys[index] = option.dataset.key || "";
+  keys[index] = key;
   state.calculatorPickerSearch[side] ||= [];
   state.calculatorPickerSearch[side][index] = "";
   state.calculatorPickerOpen[side] ||= [];
@@ -536,8 +544,28 @@ async function handleCalculatorPickerOption(event) {
   state.calculatorSelection[side] = keys[0] || "";
   state.calculatorDrafts[side][index] = null;
   renderCalculatorSelectors();
-  $("#calcNote").textContent = "已选择单位；请确认双方后开始计算。";
   scheduleBattleSessionSave();
+  $("#calcNote").textContent = "已选择单位；请确认双方后开始计算。";
+  const factionId = selectedOption?.factionId || selectedOption?.faction;
+  if (!factionId) return;
+  try {
+    await ensureFactionRuntimeLoaded(factionId);
+    // 水合后选项集合与卡片数据已更新；清掉该槽位按旧数据建的草稿再重渲染，
+    // 详情区立即显示完整数据卡。若用户正在其他输入框打字则跳过重建，避免打断输入。
+    state.calculatorDrafts[side][index] = null;
+    const typing = document.activeElement?.closest?.("[data-calculator-picker-input]");
+    if (!typing) renderCalculatorSelectors();
+    else renderCalculatorDetails();
+  } catch (error) {
+    console.error(error);
+    showToast("阵营数据加载失败，请检查资源是否完整");
+    // 仅当用户尚未改动该槽位时回滚，避免覆盖用户新的选择。
+    if (calculatorSelectionKeys(side)[index] === key) {
+      calculatorSelectionKeys(side)[index] = "";
+      state.calculatorDrafts[side][index] = null;
+      renderCalculatorSelectors();
+    }
+  }
 }
 
 ["attacker", "defender"].forEach((side) => {
@@ -549,6 +577,16 @@ async function handleCalculatorPickerOption(event) {
   // 悬停预取：鼠标停在候选单位上时后台加载对应阵营运行时，
   // 点击选择时大概率已完成加载，减少换阵营的等待感。
   container?.addEventListener("pointerover", (event) => {
+    const option = event.target?.closest?.("[data-calculator-picker-option]");
+    const key = option?.dataset?.key;
+    if (!key) return;
+    const selected = calculatorPickerOptions(side).allOptions.find((candidate) => candidate.key === key);
+    const factionId = selected?.factionId || selected?.faction;
+    if (!factionId) return;
+    ensureFactionRuntimeLoaded(factionId).catch(() => {});
+  });
+  // 按下即预取：触屏没有 hover，pointerdown 在 click 前触发，同样为点击争取加载提前量。
+  container?.addEventListener("pointerdown", (event) => {
     const option = event.target?.closest?.("[data-calculator-picker-option]");
     const key = option?.dataset?.key;
     if (!key) return;
@@ -3058,8 +3096,32 @@ function renderCalculation(result) {
   scheduleBattleSessionSave();
 }
 
-$("#runCalc").addEventListener("click", () => {
+$("#runCalc").addEventListener("click", async () => {
   const button = $("#runCalc");
+  try {
+    // 乐观选中后阵营运行时可能仍在后台补载：开算前统一等待就绪
+    // （已加载的阵营瞬时返回），并重建缺数据的草稿。
+    await Promise.all(["attacker", "defender"].flatMap((side) =>
+      calculatorSelectionKeys(side).map((key) => {
+        const option = calculatorPickerOptions(side).allOptions.find((candidate) => candidate.key === key);
+        const factionId = option?.factionId || option?.faction;
+        return factionId ? ensureFactionRuntimeLoaded(factionId) : null;
+      }).filter(Boolean)
+    ));
+    ["attacker", "defender"].forEach((side) => {
+      calculatorSelectionKeys(side).forEach((_, index) => {
+        const draft = state.calculatorDrafts[side]?.[index];
+        // 缺 data 的草稿说明是在阵营水合完成前按空数据构建的，重建即可；
+        // 数据完整的草稿保留，避免丢掉用户手动调整过的设置。
+        if (draft && !draft.data) state.calculatorDrafts[side][index] = null;
+      });
+    });
+    renderCalculatorDetails();
+  } catch (error) {
+    console.error(error);
+    showToast("阵营数据加载失败，请检查资源是否完整");
+    return;
+  }
   try { buildExternalRoundPayload(); } catch (error) { showToast(error.message); return; }
   button.disabled = true;
   button.textContent = "模拟中…";
